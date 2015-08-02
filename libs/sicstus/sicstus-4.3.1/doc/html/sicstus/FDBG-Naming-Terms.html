@@ -1,0 +1,76 @@
+<html lang="en">
+<head>
+<title>FDBG Naming Terms - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="FDBG-Basics.html#FDBG-Basics" title="FDBG Basics">
+<link rel="prev" href="FDBG-Options.html#FDBG-Options" title="FDBG Options">
+<link rel="next" href="FDBG-Built_002dIn-Visualizers.html#FDBG-Built_002dIn-Visualizers" title="FDBG Built-In Visualizers">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="FDBG-Naming-Terms"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="FDBG-Built_002dIn-Visualizers.html#FDBG-Built_002dIn-Visualizers">FDBG Built-In Visualizers</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="FDBG-Options.html#FDBG-Options">FDBG Options</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="FDBG-Basics.html#FDBG-Basics">FDBG Basics</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.14.3.2 Naming Terms</h5>
+
+<p><a name="index-names-of-terms-3279"></a><a name="index-term-names-3280"></a>
+Naming is a procedure of associating names with terms and
+variables; see <a href="FDBG-Names-of-Terms.html#FDBG-Names-of-Terms">FDBG Names of Terms</a>.  Three predicates
+are provided to assign and retrieve names, these are the following:
+
+     
+<a name="index-fdbg_005fassign_005fname_002f2-_0028fdbg_0029-3281"></a>
+<a name="index-fdbg_005fassign_005fname_002f2-_0028fdbg_0029-3282"></a>
+<dl>
+<dt><code>fdbg_assign_name(</code><var>+Term</var><code>, </code><var>?Name</var><code>)</code><dd>Assigns the atom <var>Name</var> to <var>Term</var>, and a derived name to
+each variable appearing in <var>Term</var>.  If <var>Name</var> is a
+variable, use a default (generated) name, and return it in
+<var>Name</var>.  See <a href="FDBG-Name-Auto_002dGeneration.html#FDBG-Name-Auto_002dGeneration">FDBG Name Auto-Generation</a>.
+
+     <p><a name="index-fdbg_005fcurrent_005fname_002f2-_0028fdbg_0029-3283"></a><a name="index-fdbg_005fcurrent_005fname_002f2-_0028fdbg_0029-3284"></a>
+<br><dt><code>fdbg_current_name(</code><var>?Term</var><code>, </code><var>?Name</var><code>)</code><dd>Retrieves <var>Term</var> associated with <var>Name</var>, or enumerates all
+term-name pairs.
+
+     <p><a name="index-fdbg_005fget_005fname_002f2-_0028fdbg_0029-3285"></a><a name="index-fdbg_005fget_005fname_002f2-_0028fdbg_0029-3286"></a>
+<br><dt><code>fdbg_get_name(</code><var>+Term</var><code>, </code><var>-Name</var><code>)</code><dd>Returns the name associated to <var>Term</var> in <var>Name</var>, if it exists. 
+Otherwise, silently fails. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Naming-Terms.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Naming-Terms.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

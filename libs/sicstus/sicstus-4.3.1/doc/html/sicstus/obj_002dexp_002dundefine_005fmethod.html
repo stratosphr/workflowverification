@@ -1,0 +1,110 @@
+<html lang="en">
+<head>
+<title>obj-exp-undefine_method - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="obj_002dexp.html#obj_002dexp" title="obj-exp">
+<link rel="prev" href="obj_002dexp_002dstore_005fslot.html#obj_002dexp_002dstore_005fslot" title="obj-exp-store_slot">
+<link rel="next" href="obj_002dexp_002duninherit.html#obj_002dexp_002duninherit" title="obj-exp-uninherit">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="obj-exp-undefine_method"></a>
+<a name="obj_002dexp_002dundefine_005fmethod"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="obj_002dexp_002duninherit.html#obj_002dexp_002duninherit">obj-exp-uninherit</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="obj_002dexp_002dstore_005fslot.html#obj_002dexp_002dstore_005fslot">obj-exp-store_slot</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="obj_002dexp.html#obj_002dexp">obj-exp</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.22.6.24 <code>undefine_method/3</code></h5>
+
+<!-- label undefine_method#3-predpage -->
+<p><a name="index-undefine_005fmethod_002f3-_0028objects_0029-3637"></a><a name="index-undefine_005fmethod_002f3-_0028objects_0029-3638"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<!-- manheading Synopsis -->
+<p><code>undefine_method(</code><var>+Obj</var><code>, </code><var>+Name</var><code>, </code><var>+Arity</var><code>)</code>
+
+<h4 class="subheading">Arguments</h4>
+
+<!-- manheading Arguments -->
+     <dl>
+<dt><var>Obj</var><dd><dfn>object</dfn>
+
+     <br><dt><var>Name</var><dd><dfn>atom</dfn>
+
+     <br><dt><var>Arity</var><dd><dfn>integer</dfn>
+
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<!-- manheading Description -->
+<p>Removes <var>Obj</var>'s current instance method for the
+<var>Name</var>/<var>Arity</var> message. After executing this goal, sending this message to
+<var>Obj</var> executes the class's default method for the message.
+
+   <p><var>Name</var>/<var>Arity</var> must have been declared to be an instance method
+for the class of <var>Obj</var>.
+
+   <p>If <var>Obj</var> has no current instance method
+for the <var>Name</var>/<var>Arity</var> message, the predicate has no effect.
+
+<h4 class="subheading">Exceptions</h4>
+
+<!-- manheading Exceptions -->
+     <dl>
+<dt><code>instantiation_error</code><dd>
+any argument is unbound.
+
+     <br><dt><code>type_error</code><dd>
+
+     <p><var>Obj</var> is not a compound term, <var>Name</var> is not an atom, or <var>Arity</var>
+is not an integer.
+
+     <br><dt><code>domain_error</code><dd>
+
+     <p><var>Message</var> does not specify an instance method for the class of
+<var>Obj</var>. 
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<!-- manheading See Also -->
+<p><code>define_method/3</code>, <code>instance_method/1</code>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dexp_002dundefine_005fmethod.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dexp_002dundefine_005fmethod.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

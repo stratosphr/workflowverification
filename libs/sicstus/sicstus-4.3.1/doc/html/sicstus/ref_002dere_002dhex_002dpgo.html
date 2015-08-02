@@ -1,0 +1,108 @@
+<html lang="en">
+<head>
+<title>ref-ere-hex-pgo - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dere_002dhex.html#ref_002dere_002dhex" title="ref-ere-hex">
+<link rel="next" href="ref_002dere_002dhex_002dhup.html#ref_002dere_002dhex_002dhup" title="ref-ere-hex-hup">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-ere-hex-pgo"></a>
+<a name="ref_002dere_002dhex_002dpgo"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dere_002dhex_002dhup.html#ref_002dere_002dhex_002dhup">ref-ere-hex-hup</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dere_002dhex.html#ref_002dere_002dhex">ref-ere-hex</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.15.3.1 Protecting a Particular Goal</h5>
+
+<p><a name="index-catch_002f3-_0028built_002din_0029-1681"></a><a name="index-catch_002f3-_0028built_002din_0029-1682"></a>
+
+   <p>The built-in predicate <code>catch/3</code> enables you to handle
+exceptions to a specific goal:
+
+     <dl>
+<dt><code>catch(</code><var>:ProtectedGoal</var><code>, </code><var>?ExceptionTerm</var><code>, </code><var>:Handler</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd></dl>
+
+   <p><var>ProtectedGoal</var> is executed.  If all goes well, it will behave just
+as if you had written <code>call(</code><var>ProtectedGoal</var><code>)</code> instead.  If an
+exception is thrown while <var>ProtectedGoal</var> is running, Prolog will
+abandon <var>ProtectedGoal</var> entirely.  Any bindings made by
+<var>ProtectedGoal</var> will be undone, just as if it had failed.  If the
+exception occurred in the scope of a
+<code>call_cleanup(</code><var>Goal</var><code>,</code><var>Cleanup</var><code>)</code>, <var>Cleanup</var> will be
+called. 
+<!-- If @code{undo/1} has issued goals to be run on backtracking, -->
+<!-- those goals will be run. -->
+Side-effects, such as asserts and retracts,
+are not undone, just as they are not undone when a goal fails.  After
+undoing the bindings, Prolog tries to unify the exception term thrown
+with the <var>ExceptionTerm</var> argument.  If this unification succeeds,
+<var>Handler</var> will be executed as if you had written
+
+<pre class="display">     <var>ExceptionTerm</var>=&lt;the actual exception term&gt;,
+     <var>Handler</var>
+</pre>
+   <p>If this unification fails, Prolog will keep searching up the ancestor
+list looking for another exception handler.  If during this search it
+reaches a recursive call to Prolog from C, the recursive calls returns
+with an uncaught exception.  If it reaches the top-level (or a break
+level), an appropriate error message is printed (using
+<code>print_message/2</code>).
+
+   <p><var>ProtectedGoal</var> need not be determinate.  That is, backtracking into
+<var>ProtectedGoal</var> is possible, and the exception handler becomes reactivated
+in this case.  However, if <var>ProtectedGoal</var> is determinate, the call
+to <code>catch/3</code> is also determinate.
+
+   <p>The <var>ProtectedGoal</var> is logically <em>inside</em> the <code>catch/3</code>
+goal, but the <var>Handler</var> is <em>not</em>.  If an exception is thrown inside
+the <var>Handler</var>, this <code>catch/3</code> goal will <em>not</em> be
+reactivated.  If you want an exception handler that protects itself,
+you have to program it, perhaps like this:
+<pre class="example">     recursive_catch_handler(Err, Goal, Handler) :-
+         catch(Goal, Err,
+             recursive_catch_handler(Err, Handler, Handler)).
+</pre>
+   <p>See <a href="mpg_002dref_002dcatch.html#mpg_002dref_002dcatch">mpg-ref-catch</a>.
+
+   <p>Certain built-in and library predicates rely on the exception mechanism,
+so it is usually a bad idea to let <var>Pattern</var> be a variable,
+matching any exception.  If it must be a variable, the <var>Handler</var>
+should examine the exception and pass it on if it is not relevant
+to the current invocation.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002dhex_002dpgo.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002dhex_002dpgo.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

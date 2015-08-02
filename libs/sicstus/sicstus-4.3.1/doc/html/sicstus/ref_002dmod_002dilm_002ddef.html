@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+<title>ref-mod-ilm-def - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmod_002dilm.html#ref_002dmod_002dilm" title="ref-mod-ilm">
+<link rel="next" href="ref_002dmod_002dilm_002dvis.html#ref_002dmod_002dilm_002dvis" title="ref-mod-ilm-vis">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-mod-ilm-def"></a>
+<a name="ref_002dmod_002dilm_002ddef"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dmod_002dilm_002dvis.html#ref_002dmod_002dilm_002dvis">ref-mod-ilm-vis</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmod_002dilm.html#ref_002dmod_002dilm">ref-mod-ilm</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.11.13.1 Predicates Defined in a Module</h5>
+
+<p><a name="index-modules_002c-predicates-defined-in-1544"></a><a name="index-predicates-defined-in-modules-1545"></a>
+
+   <p>The built-in predicate <code>current_predicate/2</code> can be used to find
+the predicates that are defined in a particular module.
+
+   <p>To backtrack through all of the predicates defined in module <code>m</code>, use
+<a name="index-current_005fpredicate_002f2-_0028built_002din_0029-1546"></a><a name="index-current_005fpredicate_002f2-_0028built_002din_0029-1547"></a>
+
+<pre class="example">     | ?- <kbd>current_predicate(_, m:Goal).</kbd>
+</pre>
+   <p><a name="index-modules_002c-predicates-exported-from-1548"></a><a name="index-predicates-exported-from-modules-1549"></a>
+To backtrack through <em>all</em> predicates defined in <em>any</em> module, use
+<pre class="example">     | ?- <kbd>current_predicate(_, M:Goal).</kbd>
+</pre>
+   <p>This succeeds once for every predicate in your program. 
+See <a href="mpg_002dref_002dcurrent_005fpredicate.html#mpg_002dref_002dcurrent_005fpredicate">mpg-ref-current_predicate</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dilm_002ddef.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dilm_002ddef.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

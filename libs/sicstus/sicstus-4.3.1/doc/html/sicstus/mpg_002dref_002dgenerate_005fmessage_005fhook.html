@@ -1,0 +1,129 @@
+<html lang="en">
+<head>
+<title>mpg-ref-generate_message_hook - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dgenerate_005fmessage.html#mpg_002dref_002dgenerate_005fmessage" title="mpg-ref-generate_message">
+<link rel="next" href="mpg_002dref_002dget_005fbyte.html#mpg_002dref_002dget_005fbyte" title="mpg-ref-get_byte">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-generate_message_hook"></a>
+<a name="mpg_002dref_002dgenerate_005fmessage_005fhook"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dget_005fbyte.html#mpg_002dref_002dget_005fbyte">mpg-ref-get_byte</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dgenerate_005fmessage.html#mpg_002dref_002dgenerate_005fmessage">mpg-ref-generate_message</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.92 <code>generate_message_hook/3</code> &nbsp;<!-- /@w --> <dfn>[hook]</dfn></h4>
+
+<p><a name="index-generate_005fmessage_005fhook_002f3-_0028hook_002c-ref-page_0029-4627"></a><a name="index-generate_005fmessage_005fhook_002f3-_0028hook_002c-ref-page_0029-4628"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- multifile user:generate_message_hook/3.</code>
+
+   <p><code>user:generate_message_hook(</code><var>+MessageTerm</var><code>, </code><var>-S0</var><code>, </code><var>-S</var><code>)</code>
+
+   <p>A way for the user to override the call to <code>'SU_messages':generate_message/3</code>
+in <code>print_message/2</code>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>MessageTerm</var><dd><dfn>term</dfn>
+
+     <p>May be any term.
+
+     <br><dt><var>S0</var><dd><dfn>list of pair</dfn>
+
+     <p>The resulting list of <var>Control-Args</var> pairs.
+
+     <br><dt><var>S</var><dd><dfn>list of pair</dfn>
+
+     <p>The remaining list. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>For a given <var>MessageTerm</var>, generates the list of
+<var>Control-Args</var> pairs required for <code>print_message_lines/3</code> to
+format the message for display.
+
+   <p>This is the same as <code>'SU_messages':generate_message/3</code> except
+that it is a hook.  It is intended to be used when you want to
+override particular messages from the Prolog system, or when you want
+to add some messages.  If you are using your own exception classes
+(see <code>raise_exception/1</code>) it may be useful to provide
+generate_message_hook clauses for those exceptions so that the
+<code>print_message/2</code> (and thus the default exception handler that
+calls <code>print_message/2</code>) can print them out nicely.
+
+   <p>The Prolog system uses the built-in predicate <code>print_message/2</code>
+to print all its messages.  When <code>print_message/2</code> is called, it
+calls <code>user:generate_message_hook(Message,L,[])</code> to generate the
+message.  If that fails,
+<code>'SU_messages':generate_message(Message,L,[])</code> is called instead. 
+If that succeeds, <var>L</var> is assumed to have been bound to a list whose
+elements are either <var>Control-Args</var> pairs or the atom <code>nl</code>.  Each <var>Control-Arg</var>
+pair should be such that the call
+
+<pre class="example">     format(user_error, <var>Control</var>, <var>Args</var>)
+</pre>
+   <p class="noindent">is valid.  The atom <code>nl</code> is used for breaking the message into
+lines.  Using the format specification &lsquo;<samp><span class="samp">~n</span></samp>&rsquo; (new-line) is
+discouraged, since the routine that actually prints the message (see
+<code>user:message_hook/3</code> and <code>print_message_lines/3</code>) may need
+to have control over newlines.
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     :- multifile user:generate_message_hook/3.
+     user:generate_message_hook(hello_world) --&gt;
+             ['hello world'-[],nl].
+</pre>
+   <p>Note that the terminating <code>nl</code> is required.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>All error handling is done by the predicates extended by this hook.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmsg.html#ref_002dmsg">ref-msg</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dgenerate_005fmessage_005fhook.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dgenerate_005fmessage_005fhook.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

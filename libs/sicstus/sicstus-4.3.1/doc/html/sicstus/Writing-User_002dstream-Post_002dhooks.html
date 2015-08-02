@@ -1,0 +1,67 @@
+<html lang="en">
+<head>
+<title>Writing User-stream Post-hooks - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Hookable-Standard-Streams.html#Hookable-Standard-Streams" title="Hookable Standard Streams">
+<link rel="prev" href="Writing-User_002dstream-Hooks.html#Writing-User_002dstream-Hooks" title="Writing User-stream Hooks">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Writing-User-stream-Post-hooks"></a>
+<a name="Writing-User_002dstream-Post_002dhooks"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Writing-User_002dstream-Hooks.html#Writing-User_002dstream-Hooks">Writing User-stream Hooks</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Hookable-Standard-Streams.html#Hookable-Standard-Streams">Hookable Standard Streams</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">6.6.3.2 Writing User-stream Post-hooks</h5>
+
+<p>If defined, the user-stream post-hook is called after all the
+streams have been defined, once for each of the standard
+streams. It has a slightly different prototype:
+
+<pre class="example">     void user_stream_post_hook(void *user_data, int which, SP_stream *str)
+</pre>
+   <p class="noindent">where <code>str</code> is a pointer to the corresponding <code>SP_stream</code>
+structure. There are no requirements as to what this hook must do;
+the default behavior is to do nothing at all.
+
+   <p>The post-hook is intended to be used to do things that may require
+that all streams have been created.
+
+   <p>See <a href="cpg_002dref_002dSP_005fset_005fuser_005fstream_005fpost_005fhook.html#cpg_002dref_002dSP_005fset_005fuser_005fstream_005fpost_005fhook">cpg-ref-SP_set_user_stream_post_hook</a> for details.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Writing-User_002dstream-Post_002dhooks.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Writing-User_002dstream-Post_002dhooks.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+<title>ref-ere-rex - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dere.html#ref_002dere" title="ref-ere">
+<link rel="prev" href="ref_002dere_002dove.html#ref_002dere_002dove" title="ref-ere-ove">
+<link rel="next" href="ref_002dere_002dhex.html#ref_002dere_002dhex" title="ref-ere-hex">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-ere-rex"></a>
+<a name="ref_002dere_002drex"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dere_002dhex.html#ref_002dere_002dhex">ref-ere-hex</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dere_002dove.html#ref_002dere_002dove">ref-ere-ove</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dere.html#ref_002dere">ref-ere</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.15.2 Throwing Exceptions</h4>
+
+<p><a name="index-exception-term-1671"></a><a name="index-term_002c-exception-1672"></a><a name="index-error-term-1673"></a><a name="index-term_002c-error-1674"></a>
+<a name="index-throw_002f1-_0028built_002din_0029-1675"></a><a name="index-throw_002f1-_0028built_002din_0029-1676"></a>
+
+   <p>You can throw exceptions from your own code using:
+
+     <dl>
+<dt><code>throw(</code><var>+ExceptionTerm</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd></dl>
+
+   <p>The argument to this predicate is the <dfn>exception term</dfn>, an arbitrary
+non-variable term. 
+See <a href="mpg_002dref_002dthrow.html#mpg_002dref_002dthrow">mpg-ref-throw</a>.
+
+   <p><strong>Please note</strong>:
+If the exception term contains attributed variables
+(see <a href="lib_002datts.html#lib_002datts">lib-atts</a>) or suspended goals (see <a href="ref_002dsem_002dsec.html#ref_002dsem_002dsec">ref-sem-sec</a>),
+those attributes don't become part of the exception.  To retain the
+attributes, you can use <code>copy_term/3</code> (see <a href="ref_002dlte_002dcpt.html#ref_002dlte_002dcpt">ref-lte-cpt</a>).
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002drex.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002drex.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

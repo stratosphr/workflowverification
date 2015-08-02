@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+<title>Locating the License Information - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems" title="Debugging Runtime Systems">
+<link rel="next" href="Customizing-the-Debugged-Runtime-System.html#Customizing-the-Debugged-Runtime-System" title="Customizing the Debugged Runtime System">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Locating-the-License-Information"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Customizing-the-Debugged-Runtime-System.html#Customizing-the-Debugged-Runtime-System">Customizing the Debugged Runtime System</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems">Debugging Runtime Systems</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.9.1 Locating the License Information</h4>
+
+<p>The license information for debugged runtime systems can be provided in
+several ways. Most of them can also be used as alternative ways for
+providing the license information to extended runtime systems
+(see <a href="../relnotes/REX.html#REX">Managing Extended Runtime License Information</a>).
+
+   <p>On Windows only, if you have installed the SICStus Prolog development
+system on the machine where the runtime system is to be debugged, then
+the license information will be found in the Windows registry and no
+extra steps need to be performed. This method cannot be used for
+providing an extended runtime system license since the license
+information for the full development system is not the same as for an
+extended runtime system.
+
+   <p>If you have the license in a file <samp><span class="file">license.pl</span></samp>, i.e. you
+are using a UNIX platform or have manually created a <samp><span class="file">license.pl</span></samp>
+file on Windows, then you can make this file available to the debugged
+runtime system in one of two ways:
+
+   <p><a name="index-SP_005fLICENSE_005fFILE-_0028system-property_0029-2392"></a><a name="index-SP_005fLICENSE_005fSITE-_0028system-property_0029-2393"></a><a name="index-SP_005fLICENSE_005fCODE-_0028system-property_0029-2394"></a><a name="index-SP_005fLICENSE_005fEXPIRATION-_0028system-property_0029-2395"></a>
+     <ul>
+<li>Set the system property or environment variable
+<code>SP_LICENSE_FILE</code> to the absolute path of the <samp><span class="file">license.pl</span></samp>
+file of a SICStus Prolog installation, or
+<li>Copy the <samp><span class="file">license.pl</span></samp> file into the appropriate location
+relative to the runtime system executable, i.e. to
+<samp><span class="file">sp-4.3.1/sicstus-4.3.1/library/license.pl</span></samp> on UNIX or
+<samp><span class="file">sp-4.3.1\library\license.pl</span></samp> on Windows. 
+</ul>
+
+   <p><strong>Please note</strong>: you can't redistribute <samp><span class="file">license.pl</span></samp>.
+
+   <p>The final alternative, available on all platforms, is to set the
+following system properties or environment variables
+
+     <dl>
+<dt><code>SP_LICENSE_SITE</code><dd><a name="index-SP_005fLICENSE_005fSITE-_0028system-property_0029-2396"></a>Set to the site name part of your license. 
+<br><dt><code>SP_LICENSE_CODE</code><dd><a name="index-SP_005fLICENSE_005fCODE-_0028system-property_0029-2397"></a>Set to the code part of your license, e.g. something like
+<code>a111-b222-c333-d444-e444</code>. 
+<br><dt><code>SP_LICENSE_EXPIRATION</code><dd><a name="index-SP_005fLICENSE_005fEXPIRATION-_0028system-property_0029-2398"></a>Set to the expiration part of your license, e.g. <code>permanent</code> if you
+have a permanent (non-evaluation) license. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Locating-the-License-Information.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Locating-the-License-Information.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

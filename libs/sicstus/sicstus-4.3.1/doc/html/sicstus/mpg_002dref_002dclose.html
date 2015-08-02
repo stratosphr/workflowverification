@@ -1,0 +1,144 @@
+<html lang="en">
+<head>
+<title>mpg-ref-close - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dclause.html#mpg_002dref_002dclause" title="mpg-ref-clause">
+<link rel="next" href="mpg_002dref_002dcompare.html#mpg_002dref_002dcompare" title="mpg-ref-compare">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-close"></a>
+<a name="mpg_002dref_002dclose"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dcompare.html#mpg_002dref_002dcompare">mpg-ref-compare</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dclause.html#mpg_002dref_002dclause">mpg-ref-clause</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.39 <code>close/[1,2]</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-close_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4504"></a><a name="index-close_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4505"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>close(</code><var>+Stream</var><code>)</code>
+
+   <p><code>close(</code><var>+Stream</var><code>, </code><var>+Options</var><code>)</code>
+
+   <p>closes the stream corresponding to <var>Stream</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Stream</var><dd><dfn>stream_object</dfn>, must be ground
+
+     <p>Stream or file specification.
+
+     <br><dt><var>Options</var><dd><dfn>list of term</dfn>, must be ground
+
+     <p>A list of zero or more of the following:
+
+          <dl>
+<dt><code>force(</code><var>Boolean</var><code>)</code><dd><a name="index-force_002f1-_0028close_002f2-option_0029-4506"></a>Specifies whether SICStus Prolog is to close the stream
+forcefully, even in the presence of errors (<code>true</code>), or not
+(<code>false</code>). The latter is the default. Currently this option has no
+effect.
+
+          <br><dt><code>direction(</code><var>+Direction</var><code>)</code><dd><a name="index-direction_002f1-_0028close_002f2-option_0029-4507"></a><var>Direction</var> is an atom specifying the direction or directions to
+close.
+
+          <p>One of:
+               <dl>
+<dt><code>input</code><dd>Close only the input direction, if open. 
+<br><dt><code>output</code><dd>Close only the output direction, if open. 
+<br><dt><code>all</code><dd>Close all directions. This is the default. 
+</dl>
+          if stream is not open in the specified direction then the call to <code>open/4</code> does nothing.
+
+          <p>Closing a single direction is mainly useful when dealing with
+bidirectional streams, such as sockets.
+
+     </dl>
+     </dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>If <var>Stream</var> is a stream object, then if the corresponding stream is
+open, it will be closed in the specified directions; otherwise, an error exception is raised.
+
+   <p>If <var>Stream</var> is a file specification, the corresponding
+stream will be closed in the specified directions,
+provided that the file was opened by
+<code>see/1</code> or <code>tell/1</code>.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Stream errors (see <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>), plus:
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>Options</var> is not instantiated enough.
+
+     <br><dt><code>type_error</code><dd><var>Options</var> is not a proper list.
+
+     <br><dt><code>domain_error</code><dd><var>Options</var> contains an invalid option.
+
+     <br><dt><code>permission_error</code><dd>File not opened by <code>see/1</code> or <code>tell/1</code>.
+
+     <br><dt><code>domain_error</code><dd><var>Stream</var> is neither a filename nor a stream. 
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<p>In this example, <samp><span class="file">foo</span></samp> will be closed:
+<pre class="example">     see(foo),
+     ...
+     close(foo)
+</pre>
+   <p>However, in this example, a permission error will be raised and <samp><span class="file">foo</span></samp>
+will not be closed:
+<pre class="example">     open(foo, read, S),
+     ...
+     close(foo)
+</pre>
+   <p>Here, <code>close(S)</code> should have been used.
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>see/1</code>, <code>tell/1</code>, <code>open/[3,4]</code>,
+<a href="ref_002diou_002dsfh.html#ref_002diou_002dsfh">ref-iou-sfh</a>,  <a href="lib_002dsockets.html#lib_002dsockets">lib-sockets</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dclose.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dclose.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

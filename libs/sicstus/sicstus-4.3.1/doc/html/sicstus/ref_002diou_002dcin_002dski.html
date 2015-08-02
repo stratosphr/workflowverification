@@ -1,0 +1,79 @@
+<html lang="en">
+<head>
+<title>ref-iou-cin-ski - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002diou_002dcin.html#ref_002diou_002dcin" title="ref-iou-cin">
+<link rel="prev" href="ref_002diou_002dcin_002dpee.html#ref_002diou_002dcin_002dpee" title="ref-iou-cin-pee">
+<link rel="next" href="ref_002diou_002dcin_002delf.html#ref_002diou_002dcin_002delf" title="ref-iou-cin-elf">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-iou-cin-ski"></a>
+<a name="ref_002diou_002dcin_002dski"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002diou_002dcin_002delf.html#ref_002diou_002dcin_002delf">ref-iou-cin-elf</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002diou_002dcin_002dpee.html#ref_002diou_002dcin_002dpee">ref-iou-cin-pee</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002diou_002dcin.html#ref_002diou_002dcin">ref-iou-cin</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.6.5.4 Skipping</h5>
+
+<p>There are two ways of skipping over characters in the current or given input stream:
+skip to a given character, or skip to the end of a line.
+
+     
+<a name="index-skip_005fbyte_002f_005b1_002c2_005d-_0028built_002din_0029-902"></a>
+<a name="index-skip_005fbyte_002f_005b1_002c2_005d-_0028built_002din_0029-903"></a>
+<ul>
+<li><code>skip_byte([</code><var>Stream</var><code>,] </code><var>N</var><code>)</code> skips over bytes through the first
+occurrence of <var>N</var> from the current or given input stream, which must be binary.
+
+     <p><a name="index-skip_005fcode_002f_005b1_002c2_005d-_0028built_002din_0029-904"></a><a name="index-skip_005fcode_002f_005b1_002c2_005d-_0028built_002din_0029-905"></a>
+<li><code>skip_code([</code><var>Stream</var><code>,] </code><var>N</var><code>)</code> skips over character codes through the first
+occurrence of <var>N</var> from the current or given input stream, which must be text.
+
+     <p><a name="index-skip_005fchar_002f_005b1_002c2_005d-_0028built_002din_0029-906"></a><a name="index-skip_005fchar_002f_005b1_002c2_005d-_0028built_002din_0029-907"></a>
+<li><code>skip_char([</code><var>Stream</var><code>,] </code><var>A</var><code>)</code> skips over character atoms through the first
+occurrence of <var>A</var> from the current or given input stream, which must be text.
+
+     <p><a name="index-skip_005fline_002f_005b0_002c1_005d-_0028built_002din_0029-908"></a><a name="index-skip_005fline_002f_005b0_002c1_005d-_0028built_002din_0029-909"></a>
+<li><code>skip_line</code> or <code>skip_line(</code><var>Stream</var><code>)</code> skips to the end of line of the current or given input stream. 
+Use of this predicate helps portability of code
+since it avoids dependence on any particular character code(s) being
+returned at the end of a line. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dcin_002dski.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dcin_002dski.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

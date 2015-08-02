@@ -1,0 +1,67 @@
+<html lang="en">
+<head>
+<title>Memory Leaks - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Predicates.html#Predicates" title="Predicates">
+<link rel="prev" href="The-Environment.html#The-Environment" title="The Environment">
+<link rel="next" href="The-Predicates.html#The-Predicates" title="The Predicates">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Memory-Leaks"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="The-Predicates.html#The-Predicates">The Predicates</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="The-Environment.html#The-Environment">The Environment</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Predicates.html#Predicates">Predicates</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.6.5.3 Memory Leaks</h5>
+
+<p>In order to avoid memory leaks, environments, databases and
+iterators should always be closed explicitly.  Consider using
+<code>call_cleanup/2</code> to automate the closing/deallocation of these
+objects.  You can always use <code>db_current_env/1</code>,
+<code>db_current/5</code> and <code>db_current_iterator/3</code> to enumerate the
+currently living objects.
+
+   <blockquote>
+<strong>Please note</strong>: a database must not be closed while there are outstanding
+choices for some <code>db_fetch/3</code> goal that refers to that
+database.  Outstanding choices can be removed with a cut
+(<code>!</code>). 
+</blockquote>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Memory-Leaks.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Memory-Leaks.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

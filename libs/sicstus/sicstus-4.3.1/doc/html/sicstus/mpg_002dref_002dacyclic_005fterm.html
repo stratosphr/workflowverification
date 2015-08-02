@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+<title>mpg-ref-acyclic_term - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dabsolute_005ffile_005fname.html#mpg_002dref_002dabsolute_005ffile_005fname" title="mpg-ref-absolute_file_name">
+<link rel="next" href="mpg_002dref_002dadd_005fbreakpoint.html#mpg_002dref_002dadd_005fbreakpoint" title="mpg-ref-add_breakpoint">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-acyclic_term"></a>
+<a name="mpg_002dref_002dacyclic_005fterm"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dadd_005fbreakpoint.html#mpg_002dref_002dadd_005fbreakpoint">mpg-ref-add_breakpoint</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dabsolute_005ffile_005fname.html#mpg_002dref_002dabsolute_005ffile_005fname">mpg-ref-absolute_file_name</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.4 <code>acyclic_term/1</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-acyclic_005fterm_002f1-_0028built_002din_002c-ref-page_0029-4428"></a><a name="index-acyclic_005fterm_002f1-_0028built_002din_002c-ref-page_0029-4429"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>acyclic_term(</code><var>+Term</var><code>)</code> &nbsp;<!-- /@w --> <strong>since release 4.3</strong>
+
+   <p><var>Term</var> is currently instantiated to a finite (acyclic) term.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Term</var><dd><dfn>term</dfn>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>True if <var>X</var> is finite (acyclic).  Runs in linear time.
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     | ?- <kbd>X = g(Y), acyclic_term(f(X,X)).</kbd>
+     X = g(Y) ?
+     yes
+     | ?- <kbd>X = g(X), acyclic_term(X).</kbd>
+     
+     no
+     | ?- <kbd>X = g(X), acyclic_term(f(X)).</kbd>
+     
+     no
+</pre>
+<h4 class="subheading">Exceptions</h4>
+
+<p>None.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlte_002dact.html#ref_002dlte_002dact">ref-lte-act</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dacyclic_005fterm.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dacyclic_005fterm.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

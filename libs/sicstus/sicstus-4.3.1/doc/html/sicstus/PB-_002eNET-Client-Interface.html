@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+<title>PB .NET Client Interface - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dprologbeans.html#lib_002dprologbeans" title="lib-prologbeans">
+<link rel="prev" href="PB-Java-Examples.html#PB-Java-Examples" title="PB Java Examples">
+<link rel="next" href="PB-_002eNET-Examples.html#PB-_002eNET-Examples" title="PB .NET Examples">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="PB-.NET-Client-Interface"></a>
+<a name="PB-_002eNET-Client-Interface"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="PB-_002eNET-Examples.html#PB-_002eNET-Examples">PB .NET Examples</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="PB-Java-Examples.html#PB-Java-Examples">PB Java Examples</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dprologbeans.html#lib_002dprologbeans">lib-prologbeans</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.28.7 .NET Client Interface</h4>
+
+<p>The class <code>PrologSession</code> in the .NET interface represents a
+connection to a Prolog server. <code>PrologSession</code> contains methods
+for establishing a connection and querying the Prolog server. Other
+important classes are: <code>QueryAnswer</code>, which contains the answer
+for a query sent to the Prolog server; <code>PBTerm</code>, which represents a
+Prolog term; and <code>Bindings</code>, which supports stuffing of variable
+values used in queries.
+
+   <p>The <code>PrologSession</code> object is the connection to the Prolog
+server. The constructor <code>PrologSession()</code>
+creates a <code>PrologSession</code> with the default settings
+(<code>host = localhost, port = 8066</code>.
+
+   <p>Detailed documentation on the .NET APIs of PrologBeans is available in
+the PrologBeans.NET documentation files on the page
+<a href="http://sicstus.sics.se/documentation.html">http://sicstus.sics.se/documentation.html</a> or locally at
+<samp><span class="file">%SP_PATH%/doc/html/prologbeans.NET</span></samp> (where <samp><span class="env">SP_PATH</span></samp> is the
+path to your SICStus Prolog installation directory).
+
+   <p><strong>Please note</strong>: The current version of the PB .NET Client
+interface is implemented using J#, a .NET language closely resembling
+Java. This allows us to use the same source code for the .NET code as
+for Java. J# is now obsolete and does not work well with the latest
+version of the .NET framework (.NET 4). We plan to include a new
+version of the PB .NET Client, written in C#, in a future version of
+SICStus Prolog.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/PB-_002eNET-Client-Interface.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/PB-_002eNET-Client-Interface.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

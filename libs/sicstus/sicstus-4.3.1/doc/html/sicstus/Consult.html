@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+<title>Consult - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Debug-Intro.html#Debug-Intro" title="Debug Intro">
+<link rel="prev" href="Breakpoint-Conditions.html#Breakpoint-Conditions" title="Breakpoint Conditions">
+<link rel="next" href="Exceptions-Debug.html#Exceptions-Debug" title="Exceptions Debug">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Consult"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Exceptions-Debug.html#Exceptions-Debug">Exceptions Debug</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Breakpoint-Conditions.html#Breakpoint-Conditions">Breakpoint Conditions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Debug-Intro.html#Debug-Intro">Debug Intro</a>
+<hr>
+</div>
+
+<h3 class="section">5.10 Consulting during Debugging</h3>
+
+<p><a name="index-reconsult-2172"></a>
+It is possible, and sometimes useful, to consult a file whilst in
+the middle of program execution.  Predicates that have been
+successfully executed and are subsequently redefined by a consult
+and are later reactivated by backtracking, will not notice the
+change of their definitions.  In other words, it is as if every
+predicate, when called, creates a copy of its definition for
+backtracking purposes.
+
+<!-- [SzP]: as I understand, the following para does not hold any more -->
+<!-- If SICStus Prolog is run via the Emacs interface, the commands for -->
+<!-- loading code (such as @kbd{C-c C-p}, consulting the current predicate) -->
+<!-- are not directly available when the system prompts you after printing -->
+<!-- out a debugging message.  Press @kbd{b} followed by @key{RET} to get a -->
+<!-- recursive top-level, ready to accept the Emacs commands.  Type @kbd{^D} -->
+<!-- to return to the debugging port. -->
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Consult.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Consult.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

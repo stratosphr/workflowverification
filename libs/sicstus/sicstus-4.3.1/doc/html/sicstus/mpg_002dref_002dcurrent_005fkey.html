@@ -1,0 +1,97 @@
+<html lang="en">
+<head>
+<title>mpg-ref-current_key - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dcurrent_005finput.html#mpg_002dref_002dcurrent_005finput" title="mpg-ref-current_input">
+<link rel="next" href="mpg_002dref_002dcurrent_005fmodule.html#mpg_002dref_002dcurrent_005fmodule" title="mpg-ref-current_module">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-current_key"></a>
+<a name="mpg_002dref_002dcurrent_005fkey"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dcurrent_005fmodule.html#mpg_002dref_002dcurrent_005fmodule">mpg-ref-current_module</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dcurrent_005finput.html#mpg_002dref_002dcurrent_005finput">mpg-ref-current_input</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.51 <code>current_key/2</code></h4>
+
+<p><a name="index-current_005fkey_002f2-_0028built_002din_002c-ref-page_0029-4531"></a><a name="index-current_005fkey_002f2-_0028built_002din_002c-ref-page_0029-4532"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>current_key(</code><var>?KeyName</var><code>, </code><var>?KeyTerm</var><code>)</code>
+
+   <p>Succeeds when <var>KeyName</var> is the name of <var>KeyTerm</var>, and
+<var>KeyTerm</var> is a recorded key.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>KeyName</var><dd><dfn>atomic</dfn>
+
+     <p>One of:
+          <ul>
+<li><var>KeyTerm</var>, if <var>KeyTerm</var> is atomic; or
+<li>the principal functor of <var>KeyTerm</var>, if <var>KeyTerm</var> is a compound term. 
+</ul>
+
+     <br><dt><var>KeyTerm</var><dd><dfn>term</dfn>
+
+     <p>The most general form of the key for a currently recorded term.
+
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>This predicate can be used to enumerate in undefined order all keys
+for currently recorded terms through backtracking.
+
+<h4 class="subheading">Backtracking</h4>
+
+<p>Enumerates all keys through backtracking.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>None.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmdb_002didb.html#ref_002dmdb_002didb">ref-mdb-idb</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dcurrent_005fkey.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dcurrent_005fkey.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

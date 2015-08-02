@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+<title>Other Tests - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Breakpoint-Conditions.html#Breakpoint-Conditions" title="Breakpoint Conditions">
+<link rel="prev" href="Break-Tests.html#Break-Tests" title="Break Tests">
+<link rel="next" href="Action-Conditions.html#Action-Conditions" title="Action Conditions">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Other-Tests"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Action-Conditions.html#Action-Conditions">Action Conditions</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Break-Tests.html#Break-Tests">Break Tests</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Breakpoint-Conditions.html#Breakpoint-Conditions">Breakpoint Conditions</a>
+<hr>
+</div>
+
+<h4 class="subsection">5.9.5 Other Conditions</h4>
+
+<p>The following conditions are for prescribing or checking the
+breakpoint type.  They cause an exception if used outside the
+debugger or in <code>execution_state/2</code>.
+
+     <dl>
+<dt><code>advice</code><dd><a name="index-advice_002f0-_0028debugger-condition_0029-2126"></a>The breakpoint in question is of advice type. 
+<br><dt><code>debugger</code><dd><a name="index-debugger_002f0-_0028debugger-condition_0029-2127"></a>The breakpoint in question is of debugger type. 
+</dl>
+
+   <p>The following construct converts an arbitrary Prolog goal into a
+condition.
+
+     <dl>
+<dt><code>true(</code><var>Cond</var><code>)</code><dd><a name="index-true_002f1-_0028debugger-condition_0029-2128"></a>The Prolog goal <var>Cond</var> is true, i.e. <code>once(</code><var>Cond</var><code>)</code>
+is executed and the condition is satisfied if and only if this completes
+successfully.  If an exception is raised during execution, an error
+message is printed and the condition fails.
+
+     <p>The substitutions done on executing <var>Cond</var> are carried out. 
+<var>Cond</var> is subject to module name expansion. If used in the
+test part of spypoint conditions, the goal should not have
+any side-effects, as the test part may be evaluated several times. 
+</dl>
+
+   <p>The following conditions represent the Boolean constants.
+
+     <dl>
+<dt><code>true</code><br><dt><code>[]</code><dd><a name="index-true_002f0-_0028debugger-condition_0029-2129"></a><a name="index-g_t_005b_005d_002f0-_0028debugger-condition_0029-2130"></a>A condition that is always true. Useful e.g. in conditionals. 
+<br><dt><code>false</code><dd><a name="index-false_002f0-_0028debugger-condition_0029-2131"></a>A condition that is always false. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Other-Tests.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Other-Tests.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

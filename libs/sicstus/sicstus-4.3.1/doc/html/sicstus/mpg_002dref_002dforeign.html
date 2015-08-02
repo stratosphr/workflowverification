@@ -1,0 +1,119 @@
+<html lang="en">
+<head>
+<title>mpg-ref-foreign - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dflush_005foutput.html#mpg_002dref_002dflush_005foutput" title="mpg-ref-flush_output">
+<link rel="next" href="mpg_002dref_002dforeign_005fresource.html#mpg_002dref_002dforeign_005fresource" title="mpg-ref-foreign_resource">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-foreign"></a>
+<a name="mpg_002dref_002dforeign"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dforeign_005fresource.html#mpg_002dref_002dforeign_005fresource">mpg-ref-foreign_resource</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dflush_005foutput.html#mpg_002dref_002dflush_005foutput">mpg-ref-flush_output</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.83 <code>foreign/[2,3]</code> &nbsp;<!-- /@w --> <dfn>[hook]</dfn></h4>
+
+<p><a name="index-foreign_002f_005b2_002c3_005d-_0028hook_002c-ref-page_0029-4609"></a><a name="index-foreign_002f_005b2_002c3_005d-_0028hook_002c-ref-page_0029-4610"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- discontiguous foreign/2, foreign/3.</code>
+
+   <p><code>foreign(</code><var>+Routine</var><code>, </code><var>+ForeignSpec</var><code>)</code>
+
+   <p><code>foreign(</code><var>+Routine</var><code>, </code><var>+Language</var><code>, </code><var>+ForeignSpec</var><code>)</code>
+
+   <p>Describes the interface between Prolog and the foreign <var>Routine</var>. 
+Used by <code>load_foreign_resource/1</code>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Routine</var><dd><dfn>atom</dfn>, must be nonvar
+
+     <p>An atom that names a foreign code <var>Routine</var>.
+
+     <br><dt><var>Language</var><dd><dfn>atom</dfn>, must be nonvar
+
+     <p>An atom that names the <var>Language</var>
+in which <var>Routine</var> is written. Can only be <code>c</code>.
+
+     <br><dt><var>ForeignSpec</var><dd><dfn>foreign_spec</dfn>, must be ground
+
+     <p>A ground term of the form <var>PredName</var>(<var>Argspec</var>, <small class="dots">...</small>,
+<var>Argspec</var>) as described in <a href="Conversions-between-Prolog-Arguments-and-C-Types.html#Conversions-between-Prolog-Arguments-and-C-Types">Conversions between Prolog Arguments and C Types</a>.  Each <var>Argspec</var> should be a <dfn>foreign_arg</dfn>.
+
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>The user has to define a <code>foreign/[2,3]</code> fact for every foreign function that
+is to be called from Prolog. Note that <var>Routine</var> does not have to be
+the same as <var>PredicateName</var>. Arguments are passed to the foreign function
+as specified in <var>ForeignSpec</var>.
+
+     <dl>
+<dt><var>+type</var><dd>specifies that an argument is to be passed to the foreign function.
+
+     <br><dt><var>-type</var><dd>specifies that an argument is to be
+received from the foreign function.
+
+     <br><dt><var>[-type]</var><dd>argument is used to obtain the return representation of a foreign function call.
+At most one &ldquo;return representation&rdquo; argument can be specified.
+</dl>
+
+   <p>The <code>foreign/[2,3]</code> facts are used only in the context of a
+<code>load_foreign_resource/1</code> command
+and can be removed once the foreign files are loaded.
+
+   <p>Contrary to most hook predicates which reside in the <code>user</code> module,
+<code>foreign/[2,3]</code> facts will only be looked up
+in the source module of the loading command.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Error handling is performed by <code>load_foreign_resource/1</code>.
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>load_foreign_resource/1</code>, <a href="Calling-C-from-Prolog.html#Calling-C-from-Prolog">Calling C from Prolog</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dforeign.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dforeign.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+<title>ref-iou-sfh-sob - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" title="ref-iou-sfh">
+<link rel="next" href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest" title="ref-iou-sfh-est">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-iou-sfh-sob"></a>
+<a name="ref_002diou_002dsfh_002dsob"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002diou_002dsfh.html#ref_002diou_002dsfh">ref-iou-sfh</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.6.7.1 Stream Objects</h5>
+
+<p><a name="index-stream-object-927"></a><a name="index-object_002c-stream-928"></a>
+Each input and output stream is represented by a unique Prolog term, a
+<dfn>stream object</dfn>.  In general, this term is of the form
+
+     <dl>
+<dt><code>user</code><dd>Stands for the standard input or output stream, depending on context.
+
+     <br><dt><code>'$stream'(</code><var>X</var><code>)</code><dd>A stream connected to some file.  <var>X</var> is an integer.
+
+     <br><dt><var>Atom</var><dd><a name="index-alias_002f1-_0028open_002f4-option_0029-929"></a>A stream alias. Aliases can be associated with
+streams using the <code>alias(</code><var>Atom</var><code>)</code> option of
+<code>open/4</code>. There are also three predefined aliases:
+          <dl>
+<dt><code>user_input</code><dd><a name="index-user_005finput-_0028stream-alias_0029-930"></a><a name="index-user_005finput-_0028prolog-flag_0029-931"></a>An alias initially referring to the UNIX <code>stdin</code>
+stream.  The alias can be changed with <code>prolog_flag/3</code>
+and accessed by the C variable <code>SP_stdin</code>.
+
+          <br><dt><code>user_output</code><dd><a name="index-user_005foutput-_0028stream-alias_0029-932"></a><a name="index-user_005foutput-_0028prolog-flag_0029-933"></a>An alias initially referring to the UNIX <code>stdout</code>
+stream.  The alias can be changed with <code>prolog_flag/3</code>
+and accessed by the C variable <code>SP_stdout</code>.
+
+          <br><dt><code>user_error</code><dd><a name="index-user_005ferror-_0028stream-alias_0029-934"></a><a name="index-user_005ferror-_0028prolog-flag_0029-935"></a>An alias initially referring to the UNIX <code>stderr</code>
+stream.  The alias can be changed with <code>prolog_flag/3</code>
+and accessed by the C variable <code>SP_stderr</code>. 
+This stream is used by the Prolog top-level and debugger, and
+for all unsolicited messages by built-in predicates. 
+</dl>
+     <a name="index-alias_002c-of-a-stream-936"></a><a name="index-stream-alias-937"></a></dl>
+
+   <p><a name="index-current-input-stream-938"></a><a name="index-current-output-stream-939"></a><a name="index-input-stream_002c-current-940"></a><a name="index-output-stream_002c-current-941"></a><a name="index-stream_005fcode_002f2-_0028built_002din_0029-942"></a><a name="index-stream_005fcode_002f2-_0028built_002din_0029-943"></a>
+<a name="index-open_002f_005b3_002c4_005d-_0028built_002din_0029-944"></a><a name="index-open_002f_005b3_002c4_005d-_0028built_002din_0029-945"></a>
+
+   <p>Stream objects are created by the predicate <code>open/[3,4]</code>
+<a href="ref_002diou_002dsfh_002dopn.html#ref_002diou_002dsfh_002dopn">ref-iou-sfh-opn</a> and passed as arguments to
+those predicates that need them. 
+Representation for stream objects to be used in C code is different. 
+Use <code>stream_code/2</code> to convert from one to the other when
+appropriate. 
+See <a href="mpg_002dref_002dstream_005fcode.html#mpg_002dref_002dstream_005fcode">mpg-ref-stream_code</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dsfh_002dsob.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dsfh_002dsob.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,113 @@
+<html lang="en">
+<head>
+<title>mpg-ref-debugging - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002ddebugger_005fcommand_005fhook.html#mpg_002dref_002ddebugger_005fcommand_005fhook" title="mpg-ref-debugger_command_hook">
+<link rel="next" href="mpg_002dref_002ddif.html#mpg_002dref_002ddif" title="mpg-ref-dif">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-debugging"></a>
+<a name="mpg_002dref_002ddebugging"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002ddif.html#mpg_002dref_002ddif">mpg-ref-dif</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002ddebugger_005fcommand_005fhook.html#mpg_002dref_002ddebugger_005fcommand_005fhook">mpg-ref-debugger_command_hook</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.62 <code>debugging/0</code> &nbsp;<!-- /@w --> <dfn>[development]</dfn></h4>
+
+<p><a name="index-debugging_002f0-_0028built_002din_002c-ref-page_0029-4553"></a><a name="index-debugging_002f0-_0028built_002din_002c-ref-page_0029-4554"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>debugging</code>
+
+   <p>Prints out current debugging state
+
+<h4 class="subheading">Description</h4>
+
+<p><code>debugging/0</code> displays information on the
+terminal about the current debugging state.  It shows
+     <ul>
+<li>The top-level state of the debugger, which is one of
+
+          
+<a name="index-debug-_0028debugging-flag-value_0029-4555"></a>
+<dl><dt><code>debug</code><dd>The debugger is on but will not show anything or stop for user
+interaction until a spypoint is reached.
+
+          <p><a name="index-trace-_0028debugging-flag-value_0029-4556"></a><br><dt><code>trace</code><dd>The debugger is on and will show everything.  As soon as you type
+a goal, you will start seeing a debugging trace.  After printing each trace
+message, the debugger may or may not stop for user interaction:  this
+depends on the type of leashing in force (see below).
+
+          <p><a name="index-zip-_0028debugging-flag-value_0029-4557"></a><br><dt><code>zip</code><dd>The debugger is on but will not show anything or stop for user
+interaction until a spypoint is reached. The debugger does not even keep any
+information of the execution of the goal till the spypoint is reached and
+hence you will not be able to see the ancestors of the goal when you
+reach the spypoint.
+
+          <p><a name="index-off-_0028debugging-flag-value_0029-4558"></a><br><dt><code>off</code><dd>The debugger is off. 
+</dl>
+
+     <p>The top-level state can be controlled by the predicates
+<code>debug/0</code>, <code>nodebug/0</code>, <code>trace/0</code>, <code>notrace/0</code>
+<code>zip/0</code>, <code>nozip/0</code>, and <code>prolog_flag/3</code>.
+
+     <li>The type of leashing in force.  When the debugger prints a message
+saying that it is passing through a particular port (one of Call,
+Exit, Redo, Fail, or Exception) of a particular procedure, it stops for user
+interaction only if that port is leashed.  The predicate <code>leash/1</code>
+can be used to select which of the seven ports you want to be leashed. 
+<li>All the current spypoints.  Spypoints are controlled by the predicates
+<code>spy/[1,2]</code>, <code>nospy/1</code>, <code>nospyall/0</code>,
+<code>add_breakpoint/2</code>,
+<code>disable_breakpoints/1</code>,
+<code>enable_breakpoints/1</code>, and
+<code>remove_breakpoints/1</code>. 
+</ul>
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>None.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Basic-Debug.html#Basic-Debug">Basic Debug</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002ddebugging.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002ddebugging.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

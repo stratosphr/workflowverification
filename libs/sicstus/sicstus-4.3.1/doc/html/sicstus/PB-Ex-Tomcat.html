@@ -1,0 +1,164 @@
+<html lang="en">
+<head>
+<title>PB Ex Tomcat - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="PB-Java-Examples.html#PB-Java-Examples" title="PB Java Examples">
+<link rel="prev" href="PB-Ex-Servers.html#PB-Ex-Servers" title="PB Ex Servers">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="PB-Ex-Tomcat"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="PB-Ex-Servers.html#PB-Ex-Servers">PB Ex Servers</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="PB-Java-Examples.html#PB-Java-Examples">PB Java Examples</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.28.6.3 Configuring Tomcat for PrologBeans</h5>
+
+<p>This section will briefly describe how to set up a Tomcat server
+so that is it possible to test the example JSPs. Some knowledge
+about how to run Tomcat and how to set up your own web application
+is required. Detailed information about Tomcat is
+available at <a href="http://jakarta.apache.org/tomcat/">http://jakarta.apache.org/tomcat/</a>.
+
+<!-- [PD] 4.0.0beta1 Not yet tested at all with SP4 -->
+<!-- The example described below has been tested with Tomcat 5.5.4. -->
+   <p>Assuming that the environment variable CATALINA_HOME is set to the
+installation directory of Tomcat, do the following:
+
+     <ol type=1 start=1>
+<li>Create the directory <samp><span class="file">$CATALINA_HOME/webapps/PB_example</span></samp>
+
+     <li>Copy the file <samp><span class="file">pbexamples('sessionsum/sessionsum.jsp')</span></samp> to <samp><span class="file">$CATALINA_HOME/webapps/PB_example/sessionsum.jsp</span></samp>
+<li>Create the directory <samp><span class="file">$CATALINA_HOME/webapps/PB_example/WEB-INF/lib</span></samp>
+
+     <li>Copy the file <samp><span class="file">$SP_PATH/bin/prologbeans.jar</span></samp> to <samp><span class="file">$CATALINA_HOME/webapps/PB_example/WEB-INF/lib/prologbeans.jar</span></samp>
+
+     <li>Create the directory <samp><span class="file">$CATALINA_HOME/webapps/PB_example/META-INF</span></samp>
+
+     <li>Create the file <samp><span class="file">$CATALINA_HOME/webapps/PB_example/META-INF/context.xml</span></samp>
+with the following content:
+     <pre class="example">          &lt;Context docBase="PB_example"&gt;
+             &lt;Resource name="prolog/PrologSession" auth="Container"
+                       type="se.sics.prologbeans.PrologSession"
+          	     factory="org.apache.naming.factory.BeanFactory" /&gt;
+          
+          &lt;/Context&gt;
+</pre>
+     <li>Create the file <samp><span class="file">$CATALINA_HOME/webapps/PB_example/WEB-INF/web.xml</span></samp> with the following content:
+     <pre class="example">          &lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;
+          &lt;!DOCTYPE web-app
+               PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+              "http://java.sun.com/dtd/web-app_2_3.dtd"&gt;
+          &lt;web-app&gt;
+          
+              &lt;resource-env-ref&gt;
+                &lt;description&gt;
+                  Object factory for PrologSession instances.
+                &lt;/description&gt;
+                &lt;resource-env-ref-name&gt;
+                  prolog/PrologSession
+                &lt;/resource-env-ref-name&gt;
+                &lt;resource-env-ref-type&gt;
+                  se.sics.prologbeans.PrologSession
+                &lt;/resource-env-ref-type&gt;
+              &lt;/resource-env-ref&gt;
+          
+          &lt;/web-app&gt;
+</pre>
+     <li>Start SICStus, load <samp><span class="file">sessionsum.pl</span></samp> and run main.
+
+     <li>Start the Tomcat server.
+
+     <li>In a web browser, enter <a href="http://localhost:8080/PB_example/sessionsum.jsp">http://localhost:8080/PB_example/sessionsum.jsp</a>
+
+     <!-- [PD] 3.12.1 Does not work well with new Tomcat. Remove. -->
+     <!-- @item Add the @file{prologbeans.jar} to the @file{common/lib/} directory. -->
+     <!-- Note that this will give all Tomcat applications access to the PrologBeans -->
+     <!-- system. There are other options for importing @file{prologbeans.jar} that -->
+     <!-- might be better for your type of application. -->
+     <!-- @item In the @file{conf/server.xml} file add the following -->
+     <!-- (after the Tomcat Root Context tags - shown as the first lines below): -->
+     <!-- @example -->
+     <!-- @group -->
+     <!-- [...] -->
+     <!-- <!- Tomcat Root Context -> -->
+     <!-- <!- -->
+     <!-- <Context path="" docBase="ROOT" debug="0"/> -->
+     <!-- > -->
+     <!-- <DefaultContext> -->
+     <!-- <Resource name="prolog/PrologSession" auth="Container" -->
+     <!-- type="se.sics.prologbeans.PrologSession"/> -->
+     <!-- <ResourceParams name="prolog/PrologSession"> -->
+     <!-- <parameter> -->
+     <!-- <name>factory</name> -->
+     <!-- <value>org.apache.naming.factory.BeanFactory</value> -->
+     <!-- </parameter> -->
+     <!-- <parameter> -->
+     <!-- <name>port</name> -->
+     <!-- <value>8066</value> -->
+     <!-- </parameter> -->
+     <!-- </ResourceParams> -->
+     <!-- </DefaultContext> -->
+     <!-- [...] -->
+     <!-- @end group -->
+     <!-- @end example -->
+     <!-- This will register a @code{PrologSession} instance under the name -->
+     <!-- @code{prolog/PrologSession} so that it is possible to do a JNDI -->
+     <!-- lookup. -->
+     <!-- @item -->
+     <!-- In your application's @file{web.xml} file, found in Tomcat's -->
+     <!-- @file{webapps/your_application/WEB-INF} directory, you need the -->
+     <!-- following resource reference: -->
+     <!-- @example -->
+     <!-- @group -->
+     <!-- <resource-ref> -->
+     <!-- <res-ref-name>prolog/PrologSession</res-ref-name> -->
+     <!-- <res-type>se.sics.prologbeans.PrologSession</res-type> -->
+     <!-- <res-auth>Container</res-auth> -->
+     <!-- </resource-ref> -->
+     <!-- @end group -->
+     <!-- @end example -->
+     <!-- @item -->
+     <!-- Copy the example JSP files that you want to use (@file{sessionsum.jsp} -->
+     <!-- and @file{evaluate.jsp}) into the Tomcat web application directory -->
+     <!-- (@file{webapps/your_application}). -->
+     <!-- @item Start the Tomcat server -->
+     <!-- @item Start the example that you want to test (@ref{PB First Example} -->
+     <!-- shows how to start one of the examples). -->
+        </ol>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/PB-Ex-Tomcat.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/PB-Ex-Tomcat.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

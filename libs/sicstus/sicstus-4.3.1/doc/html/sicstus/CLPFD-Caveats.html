@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+<title>CLPFD Caveats - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dclpfd.html#lib_002dclpfd" title="lib-clpfd">
+<link rel="prev" href="CLPFD-Intro.html#CLPFD-Intro" title="CLPFD Intro">
+<link rel="next" href="CLPFD-Interface.html#CLPFD-Interface" title="CLPFD Interface">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CLPFD-Caveats"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CLPFD-Interface.html#CLPFD-Interface">CLPFD Interface</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="CLPFD-Intro.html#CLPFD-Intro">CLPFD Intro</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dclpfd.html#lib_002dclpfd">lib-clpfd</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.10.2 Caveats and Limitations</h4>
+
+<p>Following are some general statements about the constraints and
+libraries of this library module.
+
+     <dl>
+<dt><b>Domain Variables</b><dd>Only small integers (see <a href="Glossary.html#Glossary">Glossary</a>) and domain variables are allowed
+in finite domain constraints.  Whenever a domain variable is required in
+the argument of a constraint, a small integer can be given instead.  The
+conversion from unbound variable to domain variable is automatic.
+
+     <br><dt><b>Aliasing</b><dd>In case of variable aliasing, i.e. if a variable occurs more than once
+in a global constraint that is being posted, or due to a subsequent
+variable-variable unification, any guarantee to maintain a particular
+level of consistency no longer holds, and idempotency is almost always
+lost.
+
+     <br><dt><b>Termination</b><dd>Of course, all constraints and predicates terminate.  However, due to
+the combinatorial nature of constraint solving, and to the fact that
+constraint solving is based on filtering domains, which can be huge,
+pathological cases where termination takes extremely long time are
+easily constructed.  After about 15,000 years on a 64-bit machine, the
+following query terminates with a representation error, when the lower
+bound of X exceeds the small integer range:
+
+     <pre class="example">          | ?- <kbd>X #&gt; abs(X).</kbd>
+          [... ... ...]
+          ! Representation error in user:'t=&lt;u+c'/3
+          ! CLPFD integer overflow
+          ! goal:  't=&lt;u+c'(_245,_247,-1)
+</pre>
+     <p>Anyway, if you find non-pathological cases that take longer than
+reasonable time to terminate, please write to
+<a href="mailto:sicstus-support@sics.se">sicstus-support@sics.se</a>.
+
+     <br><dt><b>Error Checking</b><dd>Contrary to most library modules, CLPFD constraints and predicates check
+their arguments to almost the same extent as built-in predicates. 
+If you find a case where reasonable error checking is missing,
+please write to <a href="mailto:sicstus-support@sics.se">sicstus-support@sics.se</a>. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPFD-Caveats.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPFD-Caveats.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

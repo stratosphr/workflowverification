@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+<title>CLPQR Interface - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dclpqr.html#lib_002dclpqr" title="lib-clpqr">
+<link rel="prev" href="CLPQR-Introduction.html#CLPQR-Introduction" title="CLPQR Introduction">
+<link rel="next" href="CLPQR-Linearity.html#CLPQR-Linearity" title="CLPQR Linearity">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CLPQR-Interface"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CLPQR-Linearity.html#CLPQR-Linearity">CLPQR Linearity</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="CLPQR-Introduction.html#CLPQR-Introduction">CLPQR Introduction</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dclpqr.html#lib_002dclpqr">lib-clpqr</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.11.2 Solver Interface</h4>
+
+<p>Until rational numbers become first class citizens in SICStus Prolog,
+rational arithmetics has to be emulated. Because of the emulation
+it is too expensive to support arithmetics with automatic coercion between
+all sorts of numbers, like you find it in CommonLisp,
+for example.
+
+   <p>You must choose whether you want to operate in the field of
+Q (Rationals) or R (Reals):
+
+<pre class="example">     | ?- <kbd>use_module(library(clpq)).</kbd>
+     
+     <span class="roman">or</span>
+     
+     | ?- <kbd>use_module(library(clpr)).</kbd>
+</pre>
+   <p>You can also load both modules, but the exported
+predicates listed below will name clash
+(see <a href="ref_002dmod_002dncl.html#ref_002dmod_002dncl">ref-mod-ncl</a>).  You can avoid the interactive resolution dialog
+if the importation is skipped, e.g. via:
+<code>use_module(library(clpq),[]),use_module(library(clpr),[])</code>.
+
+<ul class="menu">
+<li><a accesskey="1" href="CLPQR-Notational-Conventions.html#CLPQR-Notational-Conventions">CLPQR Notational Conventions</a>:  Notational Conventions
+<li><a accesskey="2" href="CLPQR-Solver-Predicates.html#CLPQR-Solver-Predicates">CLPQR Solver Predicates</a>:  Solver Predicates
+<li><a accesskey="3" href="CLPQR-Unification.html#CLPQR-Unification">CLPQR Unification</a>:  Unification
+<li><a accesskey="4" href="CLPQR-Feedback.html#CLPQR-Feedback">CLPQR Feedback</a>:  Feedback and Bindings
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-Interface.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-Interface.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

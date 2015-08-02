@@ -1,0 +1,66 @@
+<html lang="en">
+<head>
+<title>Generic Limitations - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="prev" href="Revision-History.html#Revision-History" title="Revision History">
+<link rel="next" href="Contact-Information.html#Contact-Information" title="Contact Information">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Generic-Limitations"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Contact-Information.html#Contact-Information">Contact Information</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Revision-History.html#Revision-History">Revision History</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+<hr>
+</div>
+
+<h2 class="chapter">14 Generic Limitations</h2>
+
+<p>The number of arguments of a compound term may not exceed 255.
+
+   <p>The number of atoms created may not exceed 1048575 (33554431)
+on 32-bit (64-bit) architectures.
+
+   <p>Saved-states and &lsquo;<samp><span class="samp">.po</span></samp>&rsquo; files are not portable between 32-bit and
+64-bit architectures.
+
+   <p>Indexing on large integers or floats is coarse, i.e. there is
+essentially no indexing between different large integers or floats. This
+can have a <strong>huge</strong> negative impact on performance, e.g. when
+representing a hash-table as facts using integers as keys.  The hash
+predicates in <code>library(terms)</code> can be used to avoid this problem.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Generic-Limitations.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Generic-Limitations.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

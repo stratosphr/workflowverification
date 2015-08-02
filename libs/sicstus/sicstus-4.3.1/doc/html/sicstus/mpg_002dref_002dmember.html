@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+<title>mpg-ref-member - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dload_005fforeign_005fresource.html#mpg_002dref_002dload_005fforeign_005fresource" title="mpg-ref-load_foreign_resource">
+<link rel="next" href="mpg_002dref_002dmemberchk.html#mpg_002dref_002dmemberchk" title="mpg-ref-memberchk">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-member"></a>
+<a name="mpg_002dref_002dmember"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dmemberchk.html#mpg_002dref_002dmemberchk">mpg-ref-memberchk</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dload_005fforeign_005fresource.html#mpg_002dref_002dload_005fforeign_005fresource">mpg-ref-load_foreign_resource</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.119 <code>member/2</code></h4>
+
+<p><a name="index-member_002f2-_0028built_002din_002c-ref-page_0029-4690"></a><a name="index-member_002f2-_0028built_002din_002c-ref-page_0029-4691"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>member(</code><var>?Element</var><code>, </code><var>?List</var><code>)</code>
+
+   <p>is true if <var>Element</var> occurs in the <var>List</var>.  It may be used
+to test for an element or to enumerate all the elements by backtracking. 
+Indeed, it may be used to generate the <var>List</var>!
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Element</var><dd><dfn>term</dfn>
+
+     <br><dt><var>List</var><dd><dfn>list of term</dfn>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>In the context of this predicate, a term occurs in a list if it can be
+unified with an element of the list.
+
+<h4 class="subheading">Backtracking</h4>
+
+<p>On backtracking, an attempt is made to unify <var>Element</var> with successive
+elements of <var>List</var>. 
+If <var>List</var> is not a proper list, then on backtracking it is unified with
+lists of ever increasing length.
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     
+     | ?- <kbd>member(foo(X), [foo(1), bar(2), foo(3)]).</kbd>
+     X = 1 ? <kbd>;</kbd>
+     X = 3 ? <kbd>;</kbd>
+     no
+</pre>
+<h4 class="subheading">Exceptions</h4>
+
+<p>None.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlte_002dacl.html#ref_002dlte_002dacl">ref-lte-acl</a>,
+<code>library(lists)</code>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dmember.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dmember.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

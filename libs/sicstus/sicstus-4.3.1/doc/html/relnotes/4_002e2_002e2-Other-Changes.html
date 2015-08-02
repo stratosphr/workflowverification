@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+<title>4.2.2 Other Changes - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e2_002e2-Changes.html#g_t4_002e2_002e2-Changes" title="4.2.2 Changes">
+<link rel="prev" href="4_002e2_002e2-Bugs-Fixed.html#g_t4_002e2_002e2-Bugs-Fixed" title="4.2.2 Bugs Fixed">
+<link rel="next" href="4_002e2_002e2-Known-Issues.html#g_t4_002e2_002e2-Known-Issues" title="4.2.2 Known Issues">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.2.2-Other-Changes"></a>
+<a name="g_t4_002e2_002e2-Other-Changes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e2_002e2-Known-Issues.html#g_t4_002e2_002e2-Known-Issues">4.2.2 Known Issues</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="4_002e2_002e2-Bugs-Fixed.html#g_t4_002e2_002e2-Bugs-Fixed">4.2.2 Bugs Fixed</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e2_002e2-Changes.html#g_t4_002e2_002e2-Changes">4.2.2 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.18.3 Other Changes</h4>
+
+     <ul>
+<li>SICStus Prolog is now available for 64-bit (x86_64) Windows. 
+<li>The C API, including the foreign language interface, now uses the type
+<code>SP_integer</code> in all places where it used to use the type <code>long
+int</code>. This is a compatible change. On all platforms available in SICStus
+Prolog 4.2.1 the two types are identical. The types only differ on
+64-bit Windows.
+
+     <p>As part of this change, several <code>printf</code> conversion specifiers are
+defined as C macros to allow platform independent printing of the types
+<code>SP_integer</code>, <code>SP_uinteger</code> and <code>size_t</code>. See
+<code>SPRIdINTEGER</code> et al. in the <samp><span class="file">sicstus.h</span></samp> header.
+
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e2_002e2-Other-Changes.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e2_002e2-Other-Changes.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

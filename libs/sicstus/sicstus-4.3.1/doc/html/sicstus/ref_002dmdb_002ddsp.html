@@ -1,0 +1,143 @@
+<html lang="en">
+<head>
+<title>ref-mdb-dsp - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmdb.html#ref_002dmdb" title="ref-mdb">
+<link rel="prev" href="ref_002dmdb_002dbas.html#ref_002dmdb_002dbas" title="ref-mdb-bas">
+<link rel="next" href="ref_002dmdb_002ddre.html#ref_002dmdb_002ddre" title="ref-mdb-dre">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-mdb-dsp"></a>
+<a name="ref_002dmdb_002ddsp"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dmdb_002ddre.html#ref_002dmdb_002ddre">ref-mdb-dre</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dmdb_002dbas.html#ref_002dmdb_002dbas">ref-mdb-bas</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmdb.html#ref_002dmdb">ref-mdb</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.12.2 Dynamic and Static Procedures</h4>
+
+<p><a name="index-dynamic_002c-procedures-and-declarations-1584"></a>
+<a name="index-static-procedures-1585"></a>
+<a name="index-procedures_002c-dynamic-and-static-1586"></a>
+
+   <p>All Prolog procedures are classified as being either <dfn>static</dfn> or
+<dfn>dynamic procedures</dfn>. 
+Static procedures can be changed only by
+completely redefining them using the Load Predicates
+(see <a href="ref_002dlod.html#ref_002dlod">ref-lod</a>). 
+Dynamic procedures can be modified by adding or deleting
+individual clauses using the assert and retract procedures.
+
+   <p>If a procedure is defined by loading source code, it is static by default. 
+If you need to be able to add, delete, or inspect the individual clauses
+of such a procedure, you must make the procedure dynamic.
+
+   <p>There are two ways to make a procedure dynamic:
+     <ul>
+<li>If the procedure is defined by loading source code, it must be declared to
+be dynamic before it is defined. 
+<li>If the procedure is to be created by assertions only, the first
+<code>assert</code> operation on the procedure automatically makes it dynamic. 
+</ul>
+
+   <p>A procedure is declared dynamic by preceding its definition with a
+declaration of the form:
+<pre class="example">     :- dynamic <var>:Pred</var>
+</pre>
+   <p class="noindent">where <var>Pred</var> must be a
+procedure specification of the form <var>Name</var>/<var>Arity</var>, or a
+sequence of such specifications, separated by commas.  For example,
+<pre class="example">     :- dynamic exchange_rate/3, spouse_of/2,
+                gravitational_constant/1.
+</pre>
+   <p class="noindent">where &lsquo;<samp><span class="samp">dynamic</span></samp>&rsquo; is a built-in prefix operator. 
+If <var>Pred</var> is not of the specified form an exception is raised, and
+the declaration is ignored.
+
+   <p>Note that the symbol &lsquo;<samp><span class="samp">:- </span></samp>&rsquo;
+preceding the word &lsquo;<samp><span class="samp">dynamic</span></samp>&rsquo; is essential. 
+If this symbol is omitted, a permission error is raised
+because it appears that you are trying to
+define a
+clause for the built-in predicate <code>dynamic/1</code>.  Although <code>dynamic/1</code> is a
+built-in predicate, it may only be used in declarations.
+
+   <p>When a dynamic declaration is encountered in a file being
+loaded, it is considered to be a part of the redefinition of the procedures
+specified in its argument.  Thus, if you load a file containing only
+<pre class="example">     :- dynamic hello/0
+</pre>
+   <p class="noindent">the effect will be to remove any previous definition of <code>hello/0</code> from
+the database, and to make the procedure dynamic.  You cannot make a
+procedure dynamic retroactively. 
+If you wish to make an already-existing procedure dynamic it must
+be redefined.
+
+   <p>It is often useful to have a dynamic declaration for a procedure even if it
+is to be created only by assertions.  This helps another person to
+understand your program, since it emphasizes the fact that there are no
+pre-existing clauses for this procedure, and it also avoids the possibility
+of Prolog stopping to tell you there are no clauses for this procedure if
+you should happen to call it before any clauses have been asserted.  This
+is because unknown procedure catching (see <a href="Undefined-Predicates.html#Undefined-Predicates">Undefined Predicates</a>) does
+not apply to dynamic procedures; it is presumed that a call to a dynamic
+procedure should simply fail if there are no clauses for it. 
+<a name="index-unknown-procedures_002c-catching-1587"></a><a name="index-catching-unknown-procedures-1588"></a>
+
+   <p>If a program needs to make an undefined procedure dynamic, this can be achieved
+by calling <code>clause/2</code> on that procedure.  The call will fail because the
+procedure has no clauses, but as a side-effect it will make the procedure
+dynamic and thus prevent unknown procedure catching on that procedure.  See
+the Reference page for details of <code>clause/2</code>.
+
+   <p>Although you can simultaneously declare several procedures to be dynamic,
+as shown above, it is recommended that you use a separate dynamic
+declaration for each procedure placed immediately before the clauses for that
+procedure.  In this way when you reload the procedure using
+the editor interface, you will be reminded to include its dynamic
+declaration.
+
+   <p>Dynamic procedures are implemented by interpretation, even if they are
+included in a file that is compiled.  This means that they are
+executed more slowly than if they were static, and also that they can be
+printed using <code>listing/0</code>.  Dynamic procedures, as well as
+static procedures, are indexed on their first argument; see
+<a href="Indexing.html#Indexing">Indexing</a>. 
+<a name="index-indexing-of-dynamic-code-1589"></a><a name="index-dynamic-code_002c-indexing-of-1590"></a>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmdb_002ddsp.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmdb_002ddsp.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

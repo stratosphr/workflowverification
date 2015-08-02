@@ -1,0 +1,90 @@
+<html lang="en">
+<head>
+<title>mpg-ref-abort - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dabolish.html#mpg_002dref_002dabolish" title="mpg-ref-abolish">
+<link rel="next" href="mpg_002dref_002dabsolute_005ffile_005fname.html#mpg_002dref_002dabsolute_005ffile_005fname" title="mpg-ref-absolute_file_name">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-abort"></a>
+<a name="mpg_002dref_002dabort"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dabsolute_005ffile_005fname.html#mpg_002dref_002dabsolute_005ffile_005fname">mpg-ref-absolute_file_name</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dabolish.html#mpg_002dref_002dabolish">mpg-ref-abolish</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.2 <code>abort/0</code></h4>
+
+<p><a name="index-abort_002f0-_0028built_002din_002c-ref-page_0029-4392"></a><a name="index-abort_002f0-_0028built_002din_002c-ref-page_0029-4393"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>abort</code>
+
+   <p>Abandons the current execution and returns to the beginning of the
+current break level or terminates the enclosing query, whichever is closest.
+
+<h4 class="subheading">Description</h4>
+
+<p>Fairly drastic
+predicate that is normally only used when some error condition has
+occurred and there is no way of carrying on, or when debugging.
+
+   <p>Often used via the debugging option <kbd>a</kbd> or the <kbd>^C</kbd> interrupt
+option <kbd>a</kbd>.
+
+   <p><code>abort/0</code> is implemented by raising a reserved exception, which has handler
+at the top level; see <a href="ref_002dere_002dint.html#ref_002dere_002dint">ref-ere-int</a>.
+
+<h4 class="subheading">Tips</h4>
+
+<p>Does not close any files that you may have opened. 
+When using <code>see/1</code> and <code>tell/1</code>, (rather than <code>open/3</code>,
+<code>set_input/1</code>, and <code>set_output/1</code>), close files yourself to
+avoid strange behavior after your program is aborted and restarted.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Does not throw errors, but is implemented by throwing a reserved exception.
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>halt/[0,1]</code>, <code>break/0</code>, <code>runtime_entry/1</code>, <a href="ref_002dere_002dint.html#ref_002dere_002dint">ref-ere-int</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dabort.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dabort.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

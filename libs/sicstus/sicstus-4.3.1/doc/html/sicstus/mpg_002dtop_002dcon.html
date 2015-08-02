@@ -1,0 +1,109 @@
+<html lang="en">
+<head>
+<title>mpg-top-con - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dtop.html#mpg_002dtop" title="mpg-top">
+<link rel="prev" href="mpg_002dtop_002dcio.html#mpg_002dtop_002dcio" title="mpg-top-cio">
+<link rel="next" href="mpg_002dtop_002ddat.html#mpg_002dtop_002ddat" title="mpg-top-dat">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-top-con"></a>
+<a name="mpg_002dtop_002dcon"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dtop_002ddat.html#mpg_002dtop_002ddat">mpg-top-dat</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dtop_002dcio.html#mpg_002dtop_002dcio">mpg-top-cio</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dtop.html#mpg_002dtop">mpg-top</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.2.4 Control</h4>
+
+<p><a name="index-control_002c-predicates-for-4344"></a><a name="index-predicates-for-control-4345"></a>
+     <dl>
+<dt><var>:P</var><code>,</code><var>:Q</var><code>         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>prove <var>P</var> and <var>Q</var>
+
+     <br><dt><var>:P</var><code>;</code><var>:Q</var><code>         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>prove <var>P</var> or <var>Q</var>
+
+     <br><dt><var>+M</var><code>:</code><var>:P</var><code>         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>call <var>P</var> in module <var>M</var>
+
+     <br><dt><var>:P</var><code>-&gt;</code><var>:Q</var><code>;</code><var>:R</var><code>         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>if <var>P</var> succeeds, prove <var>Q</var>; if not, prove <var>R</var>
+
+     <br><dt><var>:P</var><code>-&gt;</code><var>:Q</var><code>         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>if <var>P</var> succeeds, prove <var>Q</var>; if not, fail
+
+     <br><dt><code>!         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>cut any choices taken in the current procedure
+
+     <br><dt><code>\+ </code><var>:P</var><code>         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>goal <var>P</var> is not provable
+
+     <br><dt><var>?X</var><code> ^ </code><var>:P</var><dd>there exists an <var>X</var> such that <var>P</var> is provable (used in <code>setof/3</code> and <code>bagof/3</code>)
+
+     <br><dt><code>block </code><var>:P</var><code> &nbsp;<!-- /@w --> </code><strong>declaration</strong><dd>declaration that predicates specified by <var>P</var> should
+block until sufficiently instantiated
+
+     <br><dt><code>call(</code><var>:P</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>call(</code><var>:P</var><code>,...)</code><dd>execute <var>P</var> or <var>P</var><code>(...)</code>
+
+     <br><dt><code>call_cleanup(</code><var>:Goal</var><code>,</code><var>:Cleanup</var><code>)</code><dd>Executes the procedure call <var>Goal</var>.  When <var>Goal</var> succeeds
+determinately, is cut, fails, or raises an exception,
+<var>Cleanup</var> is executed.
+
+     <br><dt><code>call_residue_vars(</code><var>:Goal</var><code>,</code><var>?Vars</var><code>)</code><dd>Executes the procedure call <var>Goal</var>.  <var>Vars</var> is unified
+with the list of new variables created during the call that remain
+unbound and have blocked goals or attributes attached to them.
+
+     <br><dt><var>+Iterators</var><code> do </code><var>:Body</var><dd>executes <var>Body</var> iteratively according to <var>Iterators</var>
+
+     <br><dt><code>fail         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>fail (start backtracking)
+
+     <br><dt><code>false</code><dd>same as <code>fail</code>
+
+     <br><dt><code>freeze(</code><var>+Var</var><code>,</code><var>:Goal</var><code>)</code><dd>Blocks <var>Goal</var> until <code>nonvar(</code><var>Var</var><code>)</code> holds.
+
+     <br><dt><code>if(</code><var>:P</var><code>,</code><var>:Q</var><code>,</code><var>:R</var><code>)</code><dd>for each solution of <var>P</var> that succeeds, prove <var>Q</var>; if none, prove <var>R</var>
+
+     <br><dt><code>once(</code><var>:P</var><code>)         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>Find the first solution, if any, of goal <var>P</var>.
+
+     <br><dt><code>otherwise</code><dd>same as true
+
+     <br><dt><code>repeat         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>succeed repeatedly on backtracking
+
+     <br><dt><code>true         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>succeed
+
+     <!-- @item undo(@var{:P}) -->
+     <!-- execute @var{P} on backtracking -->
+     <br><dt><code>when(</code><var>+Cond</var><code>,</code><var>:Goal</var><code>)</code><dd>block <var>Goal</var> until <var>Cond</var> holds
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dtop_002dcon.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dtop_002dcon.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

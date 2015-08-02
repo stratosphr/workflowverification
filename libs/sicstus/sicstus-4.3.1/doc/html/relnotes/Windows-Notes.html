@@ -1,0 +1,108 @@
+<html lang="en">
+<head>
+<title>Windows Notes - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Release-Notes-and-Installation-Guide-for-Windows.html#Release-Notes-and-Installation-Guide-for-Windows" title="Release Notes and Installation Guide for Windows">
+<link rel="prev" href="Windows-Installation.html#Windows-Installation" title="Windows Installation">
+<link rel="next" href="Command-Line-Editing.html#Command-Line-Editing" title="Command Line Editing">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Windows-Notes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Command-Line-Editing.html#Command-Line-Editing">Command Line Editing</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Windows-Installation.html#Windows-Installation">Windows Installation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Release-Notes-and-Installation-Guide-for-Windows.html#Release-Notes-and-Installation-Guide-for-Windows">Release Notes and Installation Guide for Windows</a>
+<hr>
+</div>
+
+<h3 class="section">4.3 Windows Notes</h3>
+
+     <ul>
+<li>The file name arguments to <samp><span class="command">splfr</span></samp> and <samp><span class="command">spld</span></samp> should not have
+embedded spaces. For file names with spaces, you can use the corresponding
+short file name.
+
+     <!-- @item -->
+     <!-- [PM] 3.9b5 there is now a dialog if running spwin.exe -->
+     <!-- If SICStus cannot find the license information (see below) or if it was -->
+     <!-- entered incorrectly, SICStus will just exit. There will be no dialog or -->
+     <!-- other feedback informing you of the problem. -->
+     <!-- [PM] this info should go into the email sent to the user: -->
+     <!-- Note that the license consists of three parts, the Site name (or user -->
+     <!-- name for personal licenses), the License code, and the Expiration -->
+     <!-- date. All parts are case sensitive, and spaces are significant. A common -->
+     <!-- mistake is to enter the License code correctly but the Site/User name -->
+     <!-- incorrectly. -->
+     <!-- In addition the SICStus installer (@code{InstallSICStus.exe}) asks for a -->
+     <!-- password at startup before it even starts running. -->
+     <!-- If you have trouble with the license code use @command{splm}, as -->
+     <!-- explained in the message containing your license code. -->
+     <li>Selecting the &lsquo;<samp><span class="samp">Manual</span></samp>&rsquo; or &lsquo;<samp><span class="samp">Release Notes</span></samp>&rsquo; item in the
+&lsquo;<samp><span class="samp">Help</span></samp>&rsquo; menu may give an error message similar to
+&lsquo;<samp><span class="samp">... \!Help\100#!Manual.lnk could not be found</span></samp>&rsquo;. This happens when
+Adobe Acrobat Reader is not installed or if it has not been installed
+for the current user. 
+Open <samp><span class="file">C:\Program Files\SICStus Prolog 4.3.1\doc\pdf\</span></samp> in the
+explorer and try opening
+<samp><span class="file">relnotes.pdf</span></samp>. If this brings up a configuration dialog for
+Adobe Acrobat, configure Acrobat and try the &lsquo;<samp><span class="samp">Help</span></samp>&rsquo; menu
+again. Alternatively, you may have to obtain Adobe Acrobat. It is
+available for free from <a href="http://www.adobe.com/">http://www.adobe.com/</a>.
+
+     <li>We recommend that SICStus be installed by a user with administrative
+privileges and that the installation is made &lsquo;<samp><span class="samp">For All Users</span></samp>&rsquo;. 
+<!-- See also the next item. -->
+
+     <p>If SICStus is installed for a single user, SICStus will not find the
+license information when started by another user. 
+In this case, the windowed version of SICStus (<samp><span class="command">spwin</span></samp>) will
+put up a dialog where a license can be entered.
+
+     <!-- In this case, you can -->
+     <!-- use the command line tool @command{splm} as described in the message -->
+     <!-- containing your license code. currently @command{splm} must be run as a -->
+     <!-- user with administrative rights. -->
+     <!-- [PM] 4.0 all supported versions of windows have Windows Installer -->
+     <!-- @item -->
+     <!-- The first time the installer is run, it will install necessary system -->
+     <!-- files for supporting the new @samp{Windows Installer} technology from -->
+     <!-- Microsoft. This will fail unless the user has administrative rights. A -->
+     <!-- typical symptom is an error message asking for @samp{msiexec}. The -->
+     <!-- Windows Installer technology is already part of Windows 2000 Service -->
+     <!-- Pack 3 and later. -->
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Windows-Notes.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Windows-Notes.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

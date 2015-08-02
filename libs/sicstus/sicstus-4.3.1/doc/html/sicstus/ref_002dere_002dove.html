@@ -1,0 +1,96 @@
+<html lang="en">
+<head>
+<title>ref-ere-ove - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dere.html#ref_002dere" title="ref-ere">
+<link rel="next" href="ref_002dere_002drex.html#ref_002dere_002drex" title="ref-ere-rex">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-ere-ove"></a>
+<a name="ref_002dere_002dove"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dere_002drex.html#ref_002dere_002drex">ref-ere-rex</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dere.html#ref_002dere">ref-ere</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.15.1 Overview</h4>
+
+<p>Whenever the Prolog system encounters a situation where it cannot continue
+execution, it throws an exception.  For example, if a built-in predicate
+detects an argument of the wrong type, it throws a <code>type_error</code>
+exception.  The manual page description of each built-in predicate lists the
+kinds of exceptions that can be thrown by that built-in predicate.
+
+   <p>The default effect of throwing an exception is to terminate the current
+computation and then print an error message.  After the error message,
+you are back at Prolog's top-level.  For example, if the goal
+<pre class="example">     X is a/2
+</pre>
+   <p class="noindent">is executed somewhere in a program you get
+<pre class="example">     ! Type error in argument 2 of (is)/2
+     ! expected evaluable, but found a/0
+     ! goal:  _255 is a/2
+     | ?-
+</pre>
+   <p>Particular things to notice in this message are:
+
+     <dl>
+<dt>&lsquo;<samp><span class="samp">!</span></samp>&rsquo;<dd>This character indicates that this is an error
+message rather than a warning<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a> or informational message.
+
+     <br><dt>&lsquo;<samp><span class="samp">Type Error</span></samp>&rsquo;<dd>This is the <dfn>error class</dfn>.  Exceptions thrown by the Prolog
+system are called <dfn>errors</dfn>.  Every error is categorized into one of
+a small number of classes.  The classes are listed in <a href="ref_002dere_002derr.html#ref_002dere_002derr">ref-ere-err</a>.
+
+     <br><dt>&lsquo;<samp><span class="samp">goal:</span></samp>&rsquo;<dd>The goal that caused the exception to be thrown. 
+</dl>
+
+   <p>Built-in predicates check their arguments, but predicates exported by
+library modules generally don't, although some do check their arguments
+to a lesser or greater extent.
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> The difference between an error
+(including exceptions) and a warning: A <dfn>warning</dfn> is issued if
+Prolog detects a situation that is likely to cause problems, though it is
+possible that you intended it.  An <dfn>error</dfn>, however, indicates that
+Prolog recognizes a situation where it cannot continue.</p>
+
+   <hr></div>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002dove.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002dove.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

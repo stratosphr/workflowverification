@@ -1,0 +1,67 @@
+<html lang="en">
+<head>
+<title>ref-all-cba-cal - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dall_002dcba.html#ref_002dall_002dcba" title="ref-all-cba">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-all-cba-cal"></a>
+<a name="ref_002dall_002dcba_002dcal"></a>
+<p>
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dall_002dcba.html#ref_002dall_002dcba">ref-all-cba</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.13.3.1 Collecting All Instances</h5>
+
+<p><a name="index-findall_002f_005b3_002c4_005d-_0028built_002din_0029-1648"></a><a name="index-findall_002f_005b3_002c4_005d-_0028built_002din_0029-1649"></a>
+
+   <p><a name="index-enumerating-solutions-to-a-goal-1650"></a>
+<a name="index-goals_002c-enumerating-solutions-1651"></a>
+
+   <p><code>findall/3</code> is a special case of <code>bagof/3</code>, where all free
+variables in the generator are taken to be existentially quantified. 
+Thus the use of the operator <code>^</code> is avoided.  Because
+<code>findall/3</code> avoids the relatively expensive variable analysis done
+by <code>bagof/3</code>, using <code>findall/3</code> where appropriate rather than
+<code>bagof/3</code> can be considerably more efficient.
+
+   <p><code>findall/4</code> is a variant of <code>findall/3</code> with an extra argument
+to which the list of solutions is appended. This can reduce the amount
+of append operations in the program. 
+See <a href="mpg_002dref_002dfindall.html#mpg_002dref_002dfindall">mpg-ref-findall</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dall_002dcba_002dcal.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dall_002dcba_002dcal.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

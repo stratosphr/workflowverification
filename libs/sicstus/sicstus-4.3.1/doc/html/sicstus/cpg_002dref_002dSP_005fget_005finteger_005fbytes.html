@@ -1,0 +1,156 @@
+<html lang="en">
+<head>
+<title>cpg-ref-SP_get_integer_bytes - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSP_005fget_005finteger.html#cpg_002dref_002dSP_005fget_005finteger" title="cpg-ref-SP_get_integer">
+<link rel="next" href="cpg_002dref_002dSP_005fget_005flist.html#cpg_002dref_002dSP_005fget_005flist" title="cpg-ref-SP_get_list">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-SP_get_integer_bytes"></a>
+<a name="cpg_002dref_002dSP_005fget_005finteger_005fbytes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002dSP_005fget_005flist.html#cpg_002dref_002dSP_005fget_005flist">cpg-ref-SP_get_list</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSP_005fget_005finteger.html#cpg_002dref_002dSP_005fget_005finteger">cpg-ref-SP_get_integer</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.34 <code>SP_get_integer_bytes()</code></h4>
+
+<p><a name="index-SP_005fget_005finteger_005fbytes_0028_0029-_0028C-function_0029-5140"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     
+     int
+     SP_get_integer_bytes(SP_term_ref term,
+                          void *buf,
+                          size_t *pbuf_size,
+                          int native);
+</pre>
+   <p>Extracts from <code>term</code> an an arbitrarily sized integer.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>term</var><dd>The SP_term_ref holding the integer
+
+     <br><dt><var>buf</var><dd>The buffer receiving the integer
+
+     <br><dt><var>pbuf_size</var><dd>Should point at the size of <code>buf</code>
+
+     <br><dt><var>native</var><dd>See the description below
+</dl>
+
+<h4 class="subheading">Return Value</h4>
+
+<p>Zero if the conversion fails (as far as failure can be detected), and
+a nonzero representation otherwise.
+
+<h4 class="subheading">Description</h4>
+
+<p>In the following, assume that the integer referred to by <code>term</code> requires
+a minimum of <var>size</var> bytes to store (in twos-complement
+representation).
+
+     <ol type=1 start=1>
+<li>If <code>term</code> does not refer to a Prolog integer, zero is returned and
+the other arguments are ignored. 
+<li>If <code>*pbuf_size</code> is less than <var>size</var>, then <code>*pbuf_size</code> is
+updated to <var>size</var> and zero is returned. The fact that
+<code>*pbuf_size</code> has changed can be used to distinguish insufficient
+buffer size from other possible errors. By calling
+<code>SP_get_integer_bytes()</code> with <code>*pbuf_size</code> set to zero, you can
+determine the buffer size needed; in this case, <code>buf</code> is ignored. 
+<li><code>*pbuf_size</code> is set to <var>size</var>. 
+<li>If <code>native</code> is zero, <code>buf</code> is filled with the twos complement
+representation of the integer, with the least significant bytes stored
+at lower indices in <code>buf</code>. Note that all of <code>buf</code> is filled, even
+though only <var>size</var> bytes was needed. 
+<li>If <code>native</code> is non-zero, <code>buf</code> is assumed to point at a native
+<code>*pbuf_size</code> byte integral type. On most platforms, native integer
+sizes of two (16-bit), four (32 bit) and eight (64 bytes) bytes are
+supported. Note that <code>*pbuf_size == 1</code>, which would correspond to
+<code>signed char</code>, is <em>not</em> supported with <code>native</code>. 
+<li>If an unsupported size is used with <code>native</code>, zero is returned.
+        </ol>
+
+<h4 class="subheading">Examples</h4>
+
+<p>The following example gets a Prolog integer into a (presumably 64 bit)
+<code>long long</code> C integer.
+<pre class="example">     {
+       long long x; // C99, GCC supports this
+       size_t sz = sizeof x;
+       if (!SP_get_integer_bytes(tr, &amp;x, &amp;sz, 1)) // 1 for native
+         .. error handling ..
+       .. use x .. // sz may have decreased
+     }
+</pre>
+   <!-- [PM] 4.0 FIXME: rewrite the following example contains at least one error per line (I am not kidding) -->
+<!-- The following example does the same using a dynamically allocated byte buffer -->
+<!-- @example -->
+<!-- @group -->
+<!-- @{ -->
+<!-- unsigned int *buf; -->
+<!-- size_t buf_size = 0; -->
+<!-- long long x; // C99, GCC supports this -->
+<!-- (void) SP_get_integer_bytes(tr, NULL, &buf_size, 0); // 0 for non-native -->
+<!-- if (buf_size == 0) @dots{} error handling @dots{} -->
+<!-- buf = SP_malloc(buf_size); -->
+<!-- if (!SP_get_integer_bytes(tr, buf, &buf_size, 0); // 0 for non-native -->
+<!-- @emph{.. error handling ..} -->
+<!-- if (buf[buf_size-1] & 0x80)  // negative -->
+<!-- x = -1; // all one bits -->
+<!-- else -->
+<!-- x = 1;  // all zero bits -->
+<!-- // note that buf_size may be less than sizeof x -->
+<!-- for (i = 0; i < buf_size; i++) @{ -->
+<!-- x = x<<8; -->
+<!-- x = x + buf[i]; -->
+<!-- @} -->
+<!-- SP_free(buf); -->
+<!-- .. use x .. -->
+<!-- @} -->
+<!-- @end group -->
+<!-- @end example -->
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Accessing-Prolog-Terms.html#Accessing-Prolog-Terms">Accessing Prolog Terms</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fget_005finteger_005fbytes.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fget_005finteger_005fbytes.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

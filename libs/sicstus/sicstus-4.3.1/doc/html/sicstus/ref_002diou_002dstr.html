@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+<title>ref-iou-str - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002diou.html#ref_002diou" title="ref-iou">
+<link rel="prev" href="ref_002diou_002dbas.html#ref_002diou_002dbas" title="ref-iou-bas">
+<link rel="next" href="ref_002diou_002dtin.html#ref_002diou_002dtin" title="ref-iou-tin">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-iou-str"></a>
+<a name="ref_002diou_002dstr"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002diou_002dtin.html#ref_002diou_002dtin">ref-iou-tin</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002diou_002dbas.html#ref_002diou_002dbas">ref-iou-bas</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002diou.html#ref_002diou">ref-iou</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.6.2 About Streams</h4>
+
+<ul class="menu">
+<li><a accesskey="1" href="ref_002diou_002dstr_002dnot.html#ref_002diou_002dstr_002dnot">ref-iou-str-not</a>:                      Programming Note
+<li><a accesskey="2" href="ref_002diou_002dstr_002dsca.html#ref_002diou_002dstr_002dsca">ref-iou-str-sca</a>:                      Stream Categories
+</ul>
+
+<p>A Prolog stream can refer to a file or to the user's
+terminal<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>.  Each stream is used
+either for input or for output, but typically not for both.  A stream is either
+<dfn>text</dfn>, for character and term I/O, or <dfn>binary</dfn>, for byte I/O. 
+At any one time there is a <dfn>current input</dfn> stream and a
+<dfn>current output</dfn> stream. 
+<a name="index-current-input-828"></a><a name="index-input_002c-current-829"></a><a name="index-current-output-830"></a><a name="index-output_002c-current-831"></a>
+Input and output predicates fall into two categories:
+     <ol type=1 start=1>
+
+     <li>those that use the current input or output stream;
+<li>those that take an explicit stream argument;
+        </ol>
+
+   <p><a name="index-standard-streams-832"></a><a name="index-streams_002c-standard-833"></a>
+<a name="index-streams_002c-specifying-834"></a><a name="index-specifying-streams-835"></a>
+
+   <p>Initially, the current input and output streams both refer to the
+user's terminal.  Each input and output built-in predicate refers
+implicitly or explicitly to a stream.  The predicates that perform
+byte, character and term I/O operations come in pairs such that (A) refers
+to the current stream, and (B) specifies a stream.
+
+<pre class="example">          <var>predicate_name</var>/<var>n</var>&nbsp;<!-- /@w --> (A)
+          <var>predicate_name</var>/<var>n+1</var>&nbsp;<!-- /@w --> (B)
+</pre>
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> At the C level, you can define more general streams,
+e.g. referring to pipes or to encrypted files.</p>
+
+   <hr></div>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dstr.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dstr.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

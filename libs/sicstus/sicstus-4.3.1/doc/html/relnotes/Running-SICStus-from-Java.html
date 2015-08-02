@@ -1,0 +1,119 @@
+<html lang="en">
+<head>
+<title>Running SICStus from Java - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Getting-Started.html#Getting-Started" title="Getting Started">
+<link rel="prev" href="Running-Java-from-SICStus.html#Running-Java-from-SICStus" title="Running Java from SICStus">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Running-SICStus-from-Java"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Running-Java-from-SICStus.html#Running-Java-from-SICStus">Running Java from SICStus</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Getting-Started.html#Getting-Started">Getting Started</a>
+<hr>
+</div>
+
+<h4 class="subsection">8.2.4 Running SICStus from Java</h4>
+
+<p>If Java is used as parent application, things are a little more
+complicated. There are a couple of things that need to be taken care
+of. The first is to specify the correct class path so that Java can find
+the Jasper classes (<code>SICStus</code>, <code>SPTerm</code>, and so on). This is
+done by specifying the pathname of the file <samp><span class="file">jasper.jar</span></samp>:
+
+<pre class="example">     % <kbd>java -classpath $SP_PATH/bin/jasper.jar ...</kbd>
+</pre>
+   <p><samp><span class="env">SP_PATH</span></samp> does not need to be set; it is only used here as a
+placeholder (see <a href="../sicstus/CPL-Notes.html#CPL-Notes">CPL Notes</a>). See the documentation of the Java implementation for
+more info on how to set classpaths.
+
+   <p>The second is to specify where Java should find the Jasper native
+library (<samp><span class="file">libspnative.so</span></samp> or <samp><span class="file">spnative.dll</span></samp>), which the
+<code>SICStus</code> class loads into the JVM by invoking the method
+<code>System.loadLibrary("spnative")</code>. Under UNIX, Jasper can usually
+figure this out by itself, but in the event that Jasper is used in a
+non-standard installation, this will most likely fail. A typical
+example of such a failure looks like:
+
+<pre class="example">     % <kbd>java -classpath [...]/jasper.jar se.sics.jasper.SICStus</kbd>
+     Trying to load SICStus.
+     Exception in thread "main" java.lang.UnsatisfiedLinkError: no spnative
+     in java.library.path
+     	at java.lang.ClassLoader.loadLibrary(ClassLoader.java:1133)
+     	at java.lang.Runtime.loadLibrary0(Runtime.java:470)
+     	at java.lang.System.loadLibrary(System.java:745)
+     	at se.sics.jasper.SICStus.loadNativeCode(SICStus.java:37)
+     	at se.sics.jasper.SICStus.initSICStus(SICStus.java:80)
+     	at se.sics.jasper.SICStus.&lt;init&gt;(SICStus.java:111)
+     	at se.sics.jasper.SICStus.main(SICStus.java:25)
+</pre>
+   <p>Under UNIX, this can be fixed by explicitly setting the Java property
+<code>java.library.path</code> to the location of <samp><span class="file">libspnative.so</span></samp>, like this:
+
+<pre class="example">     % <kbd>java -Djava.library.path=/usr/local/sicstus4.3.1/lib [...]</kbd>
+</pre>
+   <p>Under Windows, Java must be able to find <samp><span class="file">spnative.dll</span></samp> through the
+<samp><span class="env">PATH</span></samp> environment variable (see <a href="Windows.html#Windows">Windows</a>). Setting
+<samp><span class="option">-Djava.library.path</span></samp> under Windows
+can lead to problems if multiple versions of SICStus have been installed.
+
+   <p>If this works properly, SICStus should have been loaded into the JVM
+address space.
+
+   <p>If everything is set up correctly, you should be able to call <code>main</code>
+(which contains a short piece of test-code) in the SICStus root class,
+something like this:
+
+<pre class="example">     % <kbd>java -Djava.library.path="/usr/local/sicstus4.3.1/lib" \</kbd>
+            <kbd>-classpath "/usr/local/sicstus4.3.1/lib/sicstus-4.3.1/bin/jasper.jar" \</kbd>
+             <kbd>se.sics.jasper.SICStus</kbd>
+     Trying to load SICStus.
+     If you see this message, you have successfully
+     initialized the SICStus Prolog engine.
+</pre>
+   <p>Under Windows, it would look something like this, depending on the shell used:
+
+<pre class="example">     % <kbd>java -classpath "C:/Program Files/SICStus Prolog 4.3.1/bin/jasper.jar" se.sics.jasper.SICStus</kbd>
+     Trying to load SICStus.
+     If you see this message, you have successfully
+     initialized the SICStus Prolog engine.
+</pre>
+   <p>If more than one <code>se.sics.jasper.SICStus</code> instance will be created,
+the SICStus runtimes named e.g. 
+<samp><span class="file">sprt4-3-1_instance_01_.dll</span></samp> need to be available as
+well. See <a href="../sicstus/Runtime-Systems-on-Target-Machines.html#Runtime-Systems-on-Target-Machines">Runtime Systems on Target Machines</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Running-SICStus-from-Java.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Running-SICStus-from-Java.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

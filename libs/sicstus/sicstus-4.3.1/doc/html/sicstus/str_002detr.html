@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+<title>str-etr - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dstructs.html#lib_002dstructs" title="lib-structs">
+<link rel="prev" href="str_002difc.html#str_002difc" title="str-ifc">
+<link rel="next" href="str_002dtip.html#str_002dtip" title="str-tip">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="str-etr"></a>
+<a name="str_002detr"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="str_002dtip.html#str_002dtip">str-tip</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="str_002difc.html#str_002difc">str-ifc</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dstructs.html#lib_002dstructs">lib-structs</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.35.8 Examining Type Definitions at Runtime</h4>
+
+<p>The above described procedures should be sufficient for most needs. 
+This module does, however, provide a few procedures to allow
+programmers to access type definitions.  These may be a convenience
+for debugging, or in writing tools to manipulate type definitions.
+
+   <p><a name="index-type_005fdefinition_002f_005b2_002c3_005d-_0028structs_0029-3915"></a><a name="index-type_005fdefinition_002f_005b2_002c3_005d-_0028structs_0029-3916"></a>
+
+   <p>The following procedures allow programmers to find the definition
+of a given type:
+<pre class="example">     type_definition(<var>?Type</var>, <var>?Definition</var>)
+     type_definition(<var>?Type</var>, <var>?Definition</var>, <var>?Size</var>)
+</pre>
+   <p class="noindent">where <var>Type</var> is an atom naming a type, <var>Definition</var> is the definition of that
+type, and <var>Size</var> is the number of bytes occupied by a foreign term of
+this type.  <var>Size</var> will be the atom <code>unknown</code> if the size of an object of
+that type is not known.  Such types may not be used as fields in
+structs or unions, or in arrays.  However, pointers to them may be
+created.  If <var>Type</var> is not bound at call time, these procedures will
+backtrack through all current type definitions.
+
+   <p>A definition looks much like the definition given when the type was
+defined with <code>type/1</code>, except that it has been simplified.  Firstly,
+intermediate type names have been elided.  For example, if <code>foo</code> is
+defined as <code>foo=integer</code>, and <code>bar</code> as <code>bar=foo</code>,
+<code>type_definition(bar, integer)</code> would hold.  Also, in the definition
+of a compound type, types of parts are always defined by type names,
+rather than complex specifications.  So if the type of a field in a
+struct was defined as <code>pointer(fred)</code>, it will show up in the
+definition as <code>'$fred'</code>.  Of course, <code>type_definition('$fred', pointer(fred))</code> would hold, also.
+
+   <p><a name="index-atomic_005ftype_002f_005b1_002c2_002c3_005d-_0028structs_0029-3917"></a><a name="index-atomic_005ftype_002f_005b1_002c2_002c3_005d-_0028structs_0029-3918"></a>
+
+   <p>The following predicates allow the programmer to determine whether
+or not a given type is atomic:
+<pre class="example">     atomic_type(<var>?Type</var>)
+     
+     atomic_type(<var>?Type</var>, <var>?Primitive_type</var>)
+     
+     atomic_type(<var>?Type</var>, <var>?Primitive_type</var>, <var>?Size</var>)
+</pre>
+   <p class="noindent">where <var>Type</var> is an atomic type.  See <a href="str_002dfty.html#str_002dfty">str-fty</a> for the definition
+of an atomic type.  <var>Primitive_type</var> is the primitive type that
+<var>Type</var> is defined in terms of.  <var>Size</var> is the number of bytes
+occupied by an object of type <var>Type</var>, or the atom <code>unknown</code>, as
+above.  If <var>Type</var> is unbound at call time, these predicates will
+backtrack through all the currently defined atomic types.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/str_002detr.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/str_002detr.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

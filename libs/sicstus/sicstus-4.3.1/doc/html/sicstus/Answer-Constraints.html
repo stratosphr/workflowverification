@@ -1,0 +1,76 @@
+<html lang="en">
+<head>
+<title>Answer Constraints - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dclpfd.html#lib_002dclpfd" title="lib-clpfd">
+<link rel="prev" href="Statistics-Predicates.html#Statistics-Predicates" title="Statistics Predicates">
+<link rel="next" href="CLPFD-Debugging.html#CLPFD-Debugging" title="CLPFD Debugging">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Answer-Constraints"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CLPFD-Debugging.html#CLPFD-Debugging">CLPFD Debugging</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Statistics-Predicates.html#Statistics-Predicates">Statistics Predicates</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dclpfd.html#lib_002dclpfd">lib-clpfd</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.10.7 Answer Constraints</h4>
+
+<p>By default, the answer constraint only shows the projection of the store
+onto the variables that occur in the query, but not any constraints that
+may be attached to these variables, nor any domains or constraints
+attached to other variables.  This is a conscious decision, as no
+efficient algorithm for projecting answer constraints onto the query
+variables is known for this constraint system.
+
+   <p>It is possible, however, to get a complete answer constraint including
+all variables that took part in the computation and their domains and
+attached constraints.  This is done by asserting a clause for the
+following predicate:
+
+     <dl>
+<dt><code>clpfd:full_answer &nbsp;<!-- /@w --> </code><strong>hook,volatile</strong><dd><a name="index-full_005fanswer_002f0-_0028clpfd_0029-3051"></a><a name="index-full_005fanswer_002f0-_0028clpfd_0029-3052"></a>
+<a name="index-clpfd_003afull_005fanswer_002f0-3053"></a><a name="index-clpfd_003afull_005fanswer_002f0-3054"></a>
+If false (the default), the answer constraint, as well as constraints
+projected by <code>copy_term/3</code>, <code>clpfd:project_attributes/2</code>,
+<code>clpfd:attribute_goal/2</code> and their callers, only contain the
+domains of the query variables.  If true, those constraints contain the
+domains and any attached constraints of all variables. Initially defined
+as a dynamic, volatile predicate with no clauses. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Answer-Constraints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Answer-Constraints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

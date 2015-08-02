@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+<title>ref-ere-err-uns - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dere_002derr.html#ref_002dere_002derr" title="ref-ere-err">
+<link rel="prev" href="ref_002dere_002derr_002dins.html#ref_002dere_002derr_002dins" title="ref-ere-err-ins">
+<link rel="next" href="ref_002dere_002derr_002dtyp.html#ref_002dere_002derr_002dtyp" title="ref-ere-err-typ">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-ere-err-uns"></a>
+<a name="ref_002dere_002derr_002duns"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dere_002derr_002dtyp.html#ref_002dere_002derr_002dtyp">ref-ere-err-typ</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dere_002derr_002dins.html#ref_002dere_002derr_002dins">ref-ere-err-ins</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dere_002derr.html#ref_002dere_002derr">ref-ere-err</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.15.4.2 Uninstantiation Errors</h5>
+
+<p><a name="index-uninstantiation-errors-1715"></a><a name="index-errors_002c-uninstantiation-1716"></a>
+
+   <p>An uninstantiation error occurs when a predicate or command is called with
+one of its input arguments instantiated when an unbound variable was expected.
+
+   <p>The <var>SICStus_Error</var> term associated with an instantiation error is
+<pre class="example">     uninstantiation_error(<var>Goal</var>,<var>ArgNo</var>,<var>Culprit</var>)
+</pre>
+   <p>For example, the goal
+
+<pre class="example">     open(f, write, bar)
+</pre>
+   <p class="noindent">throws the exception
+<pre class="example">     error(uninstantiation_error(bar),
+           uninstantiation_error(open(f,write,bar),3,bar))
+</pre>
+   <p class="noindent">because the third argument was not a variable.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002derr_002duns.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002derr_002duns.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

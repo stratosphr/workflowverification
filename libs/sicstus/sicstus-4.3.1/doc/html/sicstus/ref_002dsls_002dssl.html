@@ -1,0 +1,120 @@
+<html lang="en">
+<head>
+<title>ref-sls-ssl - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsls.html#ref_002dsls" title="ref-sls">
+<link rel="prev" href="ref_002dsls_002dsst.html#ref_002dsls_002dsst" title="ref-sls-sst">
+<link rel="next" href="ref_002dsls_002dlis.html#ref_002dsls_002dlis" title="ref-sls-lis">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-sls-ssl"></a>
+<a name="ref_002dsls_002dssl"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dsls_002dlis.html#ref_002dsls_002dlis">ref-sls-lis</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dsls_002dsst.html#ref_002dsls_002dsst">ref-sls-sst</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsls.html#ref_002dsls">ref-sls</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.4.3 Selective Saving and Loading of PO Files</h4>
+
+<p><a name="index-saving-PO-files-777"></a><a name="index-PO-files_002c-saving-778"></a><a name="index-loading-PO-files-779"></a><a name="index-PO-files_002c-loading-780"></a>
+<a name="index-save_005ffiles_002f2-_0028built_002din_0029-781"></a><a name="index-save_005ffiles_002f2-_0028built_002din_0029-782"></a>
+
+   <p><a name="index-save_005fmodules_002f2-_0028built_002din_0029-783"></a><a name="index-save_005fmodules_002f2-_0028built_002din_0029-784"></a>
+
+   <p><a name="index-save_005fpredicates_002f2-_0028built_002din_0029-785"></a><a name="index-save_005fpredicates_002f2-_0028built_002din_0029-786"></a>
+
+   <p><a name="index-load_005ffiles_002f_005b1_002c2_005d-_0028built_002din_0029-787"></a><a name="index-load_005ffiles_002f_005b1_002c2_005d-_0028built_002din_0029-788"></a>
+
+   <p>The <code>save_program/[1,2]</code> and <code>restore/1</code> predicates discussed in
+the previous section are used for saving and restoring the entire Prolog
+database. To save selected parts of a Prolog database, the predicates
+<code>save_files/2</code>, <code>save_modules/2</code>, and <code>save_predicates/2</code> are used.
+
+   <p>To save everything that was loaded from the files <samp><span class="file">src1.pl</span></samp> and
+<samp><span class="file">src2.pl</span></samp> into <samp><span class="file">file1.po</span></samp> (extensions optional),
+as well as from any file included by them,
+you would use:
+
+<pre class="example">     | ?- <kbd>save_files([src1,src2],file1).</kbd>
+</pre>
+   <p>Any module declarations, predicates, multifile clauses, or directives
+encountered in those files will be saved.  Source file information as
+provided by <code>source_file/[1,2]</code> for the relevant predicates and
+modules is also saved.
+
+   <p>To save the modules <code>user</code> and <code>special</code>
+into <samp><span class="file">file2.po</span></samp> you would use:
+
+<pre class="example">     | ?- <kbd>save_modules([user,special],file2).</kbd>
+</pre>
+   <p>The module declarations, predicates and
+initializations belonging to those modules will be saved.  Source file
+information and embedded directives (except initializations) are
+<em>not</em> saved.
+
+   <p>To just save certain predicates
+into <samp><span class="file">file3.po</span></samp> you would use:
+
+<pre class="example">     | ?- <kbd>save_predicates([person/2,dept/4],file3).</kbd>
+</pre>
+   <p>This will only save the predicates specified.  When the PO file is loaded
+the predicates will be loaded into the same module they were in originally.
+
+   <p>Any PO file, however generated, can be loaded into Prolog with
+<code>load_files/[1,2]</code>:
+
+<pre class="example">     | ?- <kbd>load_files(file1).</kbd>
+</pre>
+   <p class="noindent">or, equivalently:
+<pre class="example">     | ?- <kbd>[file1].</kbd>
+</pre>
+   <p>The information from each PO file loaded is incrementally added to the
+database.   This means that definitions from later loads may replace
+definitions from previous loads.
+
+   <p>The predicates <code>load_files/[1,2]</code> are used for compiling and
+loading source files as well as PO files.  If <samp><span class="file">file1.po</span></samp> and
+<samp><span class="file">file1.pl</span></samp> both exist (and <samp><span class="file">file1</span></samp> does not),
+<code>load_files(file1)</code> will load the source (&lsquo;<samp><span class="samp">.pl</span></samp>&rsquo;) or the PO,
+whichever is the most recent.
+
+   <p>Refer to <a href="ref_002dlod.html#ref_002dlod">ref-lod</a> for more
+information on loading programs, and also to the reference page for
+<code>load_files/[1,2]</code>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsls_002dssl.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsls_002dssl.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

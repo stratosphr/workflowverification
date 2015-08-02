@@ -1,0 +1,105 @@
+<html lang="en">
+<head>
+<title>obj-exp-store_slot - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="obj_002dexp.html#obj_002dexp" title="obj-exp">
+<link rel="prev" href="obj_002dexp_002dpointer_005fobject.html#obj_002dexp_002dpointer_005fobject" title="obj-exp-pointer_object">
+<link rel="next" href="obj_002dexp_002dundefine_005fmethod.html#obj_002dexp_002dundefine_005fmethod" title="obj-exp-undefine_method">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="obj-exp-store_slot"></a>
+<a name="obj_002dexp_002dstore_005fslot"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="obj_002dexp_002dundefine_005fmethod.html#obj_002dexp_002dundefine_005fmethod">obj-exp-undefine_method</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="obj_002dexp_002dpointer_005fobject.html#obj_002dexp_002dpointer_005fobject">obj-exp-pointer_object</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="obj_002dexp.html#obj_002dexp">obj-exp</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.22.6.23 <code>store_slot/2</code></h5>
+
+<!-- label store_slot#2-predpage -->
+<p><a name="index-store_005fslot_002f2-_0028objects_0029-3635"></a><a name="index-store_005fslot_002f2-_0028objects_0029-3636"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<!-- manheading Synopsis -->
+<p><code>store_slot(</code><var>+SlotName</var><code>, </code><var>+NewValue</var><code>)</code>
+
+<h4 class="subheading">Arguments</h4>
+
+<!-- manheading Arguments -->
+     <dl>
+<dt><var>SlotName</var><dd><dfn>atom</dfn>
+
+     <br><dt><var>NewValue</var><dd><dfn>term</dfn>
+
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<!-- manheading Description -->
+<p>Stores <var>NewValue</var> in the slot specified by <var>SlotName</var>.
+
+   <p>This predicate may only appear in the body of a method clause, and it
+always operates on the object to which that message is sent. It cannot
+be used to directly modify the slots of another object.
+
+<h4 class="subheading">Exceptions</h4>
+
+<!-- manheading Exceptions -->
+     <dl>
+<dt><code>instantiation_error</code><dd>
+either argument is unbound.
+
+     <br><dt><code>type_error</code><dd>
+
+     <p><var>NewValue</var> is not of the appropriate type for <var>Slotname</var>.
+
+     <br><dt><code>domain_error</code><dd>
+
+     <p><var>Slotname</var> is not the name of a slot of the current class.
+
+     <br><dt><code>permission_error</code><dd>
+<var>Slotname</var> is a private slot of a superclass. 
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<!-- manheading See Also -->
+<p><code>&lt;&lt;/2</code>, <code>fetch_slot/2</code>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dexp_002dstore_005fslot.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dexp_002dstore_005fslot.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

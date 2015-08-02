@@ -1,0 +1,139 @@
+<html lang="en">
+<head>
+<title>mpg-ref-name - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dmutable.html#mpg_002dref_002dmutable" title="mpg-ref-mutable">
+<link rel="next" href="mpg_002dref_002dnl.html#mpg_002dref_002dnl" title="mpg-ref-nl">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-name"></a>
+<a name="mpg_002dref_002dname"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dnl.html#mpg_002dref_002dnl">mpg-ref-nl</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dmutable.html#mpg_002dref_002dmutable">mpg-ref-mutable</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.127 <code>name/2</code></h4>
+
+<p><a name="index-name_002f2-_0028built_002din_002c-ref-page_0029-4707"></a><a name="index-name_002f2-_0028built_002din_002c-ref-page_0029-4708"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>name(</code><var>+Constant</var><code>, </code><var>-Codes</var><code>)</code>
+
+   <p><code>name(</code><var>-Constant</var><code>, </code><var>+Codes</var><code>)</code>
+
+   <p><var>Codes</var> is the list consisting of the <dfn>codes</dfn> comprising
+the printed representation of <var>Constant</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Constant</var><dd><dfn>atomic</dfn>
+
+     <br><dt><var>Codes</var><dd><dfn>codes</dfn>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>Initially, either <var>Constant</var> must be instantiated to a number or
+an atom, or <var>Codes</var> must be instantiated to a proper
+<dfn>codes</dfn>.
+
+   <p>If <var>Codes</var> is instantiated to a proper <dfn>codes</dfn> that corresponds to
+the correct syntax of a number, <var>Constant</var> will be unified with that
+number.
+
+   <p>Else if <var>Codes</var> is instantiated to a proper <dfn>codes</dfn>,
+<var>Constant</var> will be unified with the atom containing exactly those
+characters.
+
+   <p>Else, <var>Constant</var> should be instantiated to a number or atom, and <var>Codes</var>
+will be unified with the <dfn>codes</dfn> that make up its printed
+representation.
+
+   <p>There are atoms for which <code>name(</code><var>Constant</var><code>,</code><var>Codes</var><code>)</code> is
+true, but which will not be constructed if <code>name/2</code> is called
+with <var>Constant</var> uninstantiated.  One such atom is the atom
+<code>'1976'</code>.  It is recommended that new programs use
+<code>atom_codes/2</code> or <code>number_codes/2</code>, as these predicates do
+not have this ambiguity.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>Constant</var> is uninstantiated and <var>Codes</var> is not instantiated enough
+
+     <br><dt><code>type_error</code><dd>If <var>Constant</var> is a compound term
+
+     <br><dt><code>representation_error</code><dd>An element of <var>Codes</var> is an invalid character code, or
+<var>Codes</var> is a list corresponding to a number or atom that can't be represented
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     | ?- <kbd>name(foo, L).</kbd>
+     
+     L = [102,111,111]
+</pre>
+<pre class="example">     | ?- <kbd>name('Foo', L).</kbd>
+     
+     L = [70,111,111]
+</pre>
+   <pre class="example">     | ?- <kbd>name(431, L).</kbd>
+     
+     L = [52,51,49]
+</pre>
+   <pre class="example">     | ?- <kbd>name(X, [102,111,111]).</kbd>
+     
+     X = foo
+</pre>
+   <pre class="example">     | ?- <kbd>name(X, [52,51,49]).</kbd>
+     
+     X = 431
+</pre>
+   <pre class="example">     | ?- <kbd>name(X, "15.0e+12").</kbd>
+     
+     X = 1.5E+13
+</pre>
+   <h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlte_002dc2t.html#ref_002dlte_002dc2t">ref-lte-c2t</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dname.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dname.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

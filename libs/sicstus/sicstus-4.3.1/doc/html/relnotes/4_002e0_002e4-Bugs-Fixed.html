@@ -1,0 +1,104 @@
+<html lang="en">
+<head>
+<title>4.0.4 Bugs Fixed - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e0_002e4-Changes.html#g_t4_002e0_002e4-Changes" title="4.0.4 Changes">
+<link rel="prev" href="4_002e0_002e4-New-Features.html#g_t4_002e0_002e4-New-Features" title="4.0.4 New Features">
+<link rel="next" href="4_002e0_002e4-Other-Changes.html#g_t4_002e0_002e4-Other-Changes" title="4.0.4 Other Changes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.0.4-Bugs-Fixed"></a>
+<a name="g_t4_002e0_002e4-Bugs-Fixed"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e0_002e4-Other-Changes.html#g_t4_002e0_002e4-Other-Changes">4.0.4 Other Changes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="4_002e0_002e4-New-Features.html#g_t4_002e0_002e4-New-Features">4.0.4 New Features</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e0_002e4-Changes.html#g_t4_002e0_002e4-Changes">4.0.4 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.7.2 Bugs Fixed</h4>
+
+     <ul>
+<li><!-- SPRM 10791 -->
+On Windows the result of <code>absolute_file_name/[2,3]</code> would contain
+backslash instead of forward slash if the absolute file name contained
+certain non-ASCII characters. This bug also broke all directory listing
+functions in <code>library(file_systems)</code>, e.g. 
+<code>file_systems:file_member_of_directory/[2,3,4]</code>.
+
+     <li><!-- SPRM 10682 -->
+A change in 4.0.3 caused <code>system3:popen/3</code>,
+<code>system3:shell/[1,2]</code> and <code>system3:system/[1,2]</code> to no
+longer work when the command string contains redirection and other
+special constructs. These predicates now always invoke the system
+shell.
+
+     <li><!-- SPRM 10872 -->
+A change in 4.0.3 caused <code>library(sockets)</code> to not accept a lone
+port number as an address. A port number <var>Port</var> is now
+treated the same as <code>inet('', </code><var>Port</var><code>)</code>, as in earlier
+releases. This also broke <code>prologbeans:start/[0,1]</code> when no port
+was specified.
+
+     <li><!-- SPRM 10870 -->
+A few operators had non-ISO mode operator declarations. This has been
+corrected to match the documentation, the ISO Prolog standard and the
+ISO language mode in SICStus Prolog 3. See <a href="../sicstus/ref_002dsyn_002dops_002dbop.html#ref_002dsyn_002dops_002dbop">Built-in Operators</a>.
+
+     <p><strong>Please note</strong>: This is an incompatible change that may cause a
+Prolog program or data to be parsed differently (or not at
+all). However, in practice we expect this to affect little or no
+code. Data written using <code>write_canonical/[1,2]</code> or similar will
+not be affected and will be read back correctly regardless of operator
+declarations.
+
+     <p>To preserve the old, incorrect, operator declarations, insert the
+following at the top of your Prolog files:
+
+     <pre class="example">          :- op( 500,  fx,[+,-]).
+          :- op( 300, xfx,[mod,rem]).
+</pre>
+     <p>To ensure that the new, correct, operator declarations are in effect also
+in releases predating 4.0.4, insert the following at the top
+of your Prolog files (<strong>please note</strong>: this documentation was
+updated after 4.0.4 to correct the associativity of <code>+</code>, <code>-</code>):
+
+     <pre class="example">          :- op( 200,  fy,[+,-]).
+          :- op( 400, yfx,[mod,rem]).
+</pre>
+     </ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e0_002e4-Bugs-Fixed.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e0_002e4-Bugs-Fixed.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

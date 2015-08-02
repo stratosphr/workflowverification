@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+<title>ref-mod-idp - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmod.html#ref_002dmod" title="ref-mod">
+<link rel="prev" href="ref_002dmod_002dilm.html#ref_002dmod_002dilm" title="ref-mod-ilm">
+<link rel="next" href="ref_002dmod_002dmne.html#ref_002dmod_002dmne" title="ref-mod-mne">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-mod-idp"></a>
+<a name="ref_002dmod_002didp"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dmod_002dmne.html#ref_002dmod_002dmne">ref-mod-mne</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dmod_002dilm.html#ref_002dmod_002dilm">ref-mod-ilm</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmod.html#ref_002dmod">ref-mod</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.11.14 Importing Dynamic Predicates</h4>
+
+<p><a name="index-predicates_002c-importing-dynamic-1558"></a><a name="index-dynamic-predicates_002c-importing-1559"></a><a name="index-importing-dynamic-predicates-1560"></a>
+Imported dynamic predicates may be asserted and retracted.  For
+example, suppose the following file is loaded via <code>use_module/1</code>:
+
+<pre class="example">     :- module(m1, [f/1]).
+     :- dynamic f/1.
+     f(0).
+</pre>
+   <p>Then <code>f/1</code> can be manipulated as if it were defined in the current module. 
+For example,
+<pre class="example">     | ?- <kbd>clause(f(X), true).</kbd>
+     
+     X = 0
+</pre>
+   <p>The built-in predicate <code>listing/[0,1]</code> distinguishes predicates that are
+imported into the current source module by prefixing each clause with the
+module name.  Thus,
+<a name="index-listing_002f_005b0_002c1_005d-_0028built_002din_0029-1561"></a><a name="index-listing_002f_005b0_002c1_005d-_0028built_002din_0029-1562"></a>
+
+<pre class="example">     | ?- <kbd>listing(f).</kbd>
+     
+     m1:f(0).
+</pre>
+   <p>However, <code>listing/[0,1]</code> does not prefix clauses with their module if they are
+defined in the source module itself.  Note that
+<pre class="example">     | ?- <kbd>listing.</kbd>
+</pre>
+   <p class="noindent">can be used to see all the dynamic predicates defined in or
+imported into the current type-in module.  And
+<pre class="example">     | ?- <kbd>listing(m1:_).</kbd>
+</pre>
+   <p class="noindent">can be used to see all such predicates that are defined in or imported
+into module <code>m1</code>. 
+See <a href="mpg_002dref_002dlisting.html#mpg_002dref_002dlisting">mpg-ref-listing</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002didp.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002didp.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

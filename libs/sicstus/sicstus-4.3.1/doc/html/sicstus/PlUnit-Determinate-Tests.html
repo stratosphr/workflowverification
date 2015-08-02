@@ -1,0 +1,83 @@
+<html lang="en">
+<head>
+<title>PlUnit Determinate Tests - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="PlUnit-A-Unit-Test-Box.html#PlUnit-A-Unit-Test-Box" title="PlUnit A Unit Test Box">
+<link rel="next" href="PlUnit-Nondeterminate-Tests.html#PlUnit-Nondeterminate-Tests" title="PlUnit Nondeterminate Tests">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="PlUnit-Determinate-Tests"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="PlUnit-Nondeterminate-Tests.html#PlUnit-Nondeterminate-Tests">PlUnit Nondeterminate Tests</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="PlUnit-A-Unit-Test-Box.html#PlUnit-A-Unit-Test-Box">PlUnit A Unit Test Box</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.26.3.1 Determinate Tests</h5>
+
+<p>Determinate tests are tests that must succeed exactly once,
+leaving no choicepoints behind. The test-body supplies proper values for
+the input arguments and verifies the output arguments. Verification can
+use test-options or be explicit in the test-body.  The tests in the example
+below are equivalent.
+
+<pre class="example">     test(add1) :-
+             A is 1 + 2,
+             A =:= 3.
+     
+     test(add2, [true(A =:= 3)]) :-
+             A is 1 + 2.
+</pre>
+   <p>The test engine verifies that the test-body does not leave a
+choicepoint.  We illustrate this using the test below:
+
+<pre class="example">     test(member1) :-
+             member(b, [a,b,c]).
+</pre>
+   <p>Although this test succeeds, <code>member/2</code> leaves a choicepoint
+behind, which is reported by the test harness.  To make the test
+silent, use one of the alternatives below.
+
+<pre class="example">     test(member2) :-
+             memberchk(b, [a,b,c]).
+     
+     test(member3) :-
+             member(b, [a,b,c]), !.
+     
+     test(member4, [nondet]) :-
+             member(b, [a,b,c]).
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/PlUnit-Determinate-Tests.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/PlUnit-Determinate-Tests.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

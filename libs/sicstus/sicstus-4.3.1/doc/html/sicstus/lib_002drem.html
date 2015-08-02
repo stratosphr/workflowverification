@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+<title>lib-rem - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Prolog-Library.html#The-Prolog-Library" title="The Prolog Library">
+<link rel="prev" href="lib_002drandom.html#lib_002drandom" title="lib-random">
+<link rel="next" href="lib_002dsamsort.html#lib_002dsamsort" title="lib-samsort">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="lib-rem"></a>
+<a name="lib_002drem"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="lib_002dsamsort.html#lib_002dsamsort">lib-samsort</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="lib_002drandom.html#lib_002drandom">lib-random</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Prolog-Library.html#The-Prolog-Library">The Prolog Library</a>
+<hr>
+</div>
+
+<h3 class="section">10.31 Rem's Algorithm&mdash;<code>library(rem)</code></h3>
+
+<p>This library module maintains equivalence classes using Rem's algorithm. 
+Exported predicates:
+
+     <dl>
+<dt><code>rem_create(</code><var>+Size</var><code>, </code><var>-REM</var><code>)</code><dd><a name="index-rem_005fcreate_002f2-_0028rem_0029-3827"></a><a name="index-rem_005fcreate_002f2-_0028rem_0029-3828"></a>
+creates an equivalence representation function <var>REM</var>
+which maps each of the nodes <var>1..Size</var> to itself. 
+<br><dt><code>rem_head(</code><var>?Node</var><code>, </code><var>+REM</var><code>, </code><var>-Head</var><code>)</code><dd><a name="index-rem_005fhead_002f3-_0028random_0029-3829"></a><a name="index-rem_005fhead_002f3-_0028random_0029-3830"></a>
+is true when <var>Head</var> is the representative of the equivalence class
+that <var>Node</var> belongs to in the given <var>REM</var>. 
+<br><dt><code>rem_equivalent(</code><var>?Node1</var><code>, </code><var>?Node2</var><code>, </code><var>+REM</var><code>)</code><dd><a name="index-rem_005fequivalent_002f3-_0028rem_0029-3831"></a><a name="index-rem_005fequivalent_002f3-_0028rem_0029-3832"></a>
+is true when <var>Node1</var> and <var>Node2</var> belong to the same equivalence
+class in the given <var>REM</var>. 
+<br><dt><code>rem_add_link(</code><var>?Node1</var><code>, </code><var>?Node2</var><code>, </code><var>+OldREM</var><code>, </code><var>-NewREM</var><code>)</code><dd><a name="index-rem_005fadd_005flink_002f4-_0028rem_0029-3833"></a><a name="index-rem_005fadd_005flink_002f4-_0028rem_0029-3834"></a>
+is true when adding the equivalence <var>Node1===Node2</var> to the partition
+represented by <var>OldREM</var> yields a partition which is represented by
+<var>NewREM</var>.  If <var>Node1</var> or <var>Node2</var> is uninstantiated, it will backtrack
+over all the nodes.  It's not clear how useful this is. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002drem.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002drem.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,98 @@
+<html lang="en">
+<head>
+<title>mpg-ref-when - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dvolatile.html#mpg_002dref_002dvolatile" title="mpg-ref-volatile">
+<link rel="next" href="mpg_002dref_002dwrite.html#mpg_002dref_002dwrite" title="mpg-ref-write">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-when"></a>
+<a name="mpg_002dref_002dwhen"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dwrite.html#mpg_002dref_002dwrite">mpg-ref-write</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dvolatile.html#mpg_002dref_002dvolatile">mpg-ref-volatile</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.250 <code>when/2</code></h4>
+
+<p><a name="index-when_002f2-_0028built_002din_002c-ref-page_0029-5036"></a><a name="index-when_002f2-_0028built_002din_002c-ref-page_0029-5037"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>when(</code><var>+Condition</var><code>,</code><var>+Goal</var><code>)</code>
+
+   <p>Blocks <var>Goal</var> until the <var>Condition</var> is true.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Condition</var><dd><dfn>callable</dfn>, must be nonvar and one of:
+          
+<a name="index-nonvar_002f1-_0028when_002f2-condition_0029-5038"></a>
+<dl><dt><code>nonvar(</code><var>X</var><code>)</code><dd>False until <var>X</var> is nonvar.
+
+          <p><a name="index-ground_002f1-_0028when_002f2-condition_0029-5039"></a><br><dt><code>ground(</code><var>X</var><code>)</code><dd>False until <var>X</var> is ground.
+
+          <p><a name="index-g_t_003f_003d_002f2-_0028when_002f2-condition_0029-5040"></a><br><dt><code>?=(</code><var>X</var><code>,</code><var>Y</var><code>)</code><dd>False while <code>dif(</code><var>X</var><code>,</code><var>Y</var><code>)</code> would block.
+
+          <p><a name="index-g_t_002c_002f2-_0028when_002f2-condition_0029-5041"></a><br><dt><var>Condition</var><code>,</code><var>Condition</var><dd>True if both conditions are true.
+
+          <p><a name="index-g_t_003b_002f2-_0028when_002f2-condition_0029-5042"></a><br><dt><var>Condition</var><code>;</code><var>Condition</var><dd>True if at least one condition is true. 
+</dl>
+
+     <br><dt><var>:Goal</var><dd><dfn>callable</dfn>, must be nonvar
+</dl>
+
+<h4 class="subheading">Backtracking</h4>
+
+<p>Depends on <var>Goal</var>.
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     | ?- <kbd>when(((nonvar(X);?=(X,Y)),ground(T)), process(X,Y,T)).</kbd>
+</pre>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Call errors (see <a href="ref_002dsem_002dexc.html#ref_002dsem_002dexc">ref-sem-exc</a>).
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dsem_002dsec.html#ref_002dsem_002dsec">ref-sem-sec</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dwhen.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dwhen.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

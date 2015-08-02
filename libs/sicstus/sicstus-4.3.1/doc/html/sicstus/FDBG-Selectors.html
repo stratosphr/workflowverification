@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+<title>FDBG Selectors - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="FDBG-Concepts.html#FDBG-Concepts" title="FDBG Concepts">
+<link rel="prev" href="FDBG-Names-of-Terms.html#FDBG-Names-of-Terms" title="FDBG Names of Terms">
+<link rel="next" href="FDBG-Name-Auto_002dGeneration.html#FDBG-Name-Auto_002dGeneration" title="FDBG Name Auto-Generation">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="FDBG-Selectors"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="FDBG-Name-Auto_002dGeneration.html#FDBG-Name-Auto_002dGeneration">FDBG Name Auto-Generation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="FDBG-Names-of-Terms.html#FDBG-Names-of-Terms">FDBG Names of Terms</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="FDBG-Concepts.html#FDBG-Concepts">FDBG Concepts</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.14.2.5 Selectors</h5>
+
+<p><a name="index-selector-3267"></a>A <dfn>selector</dfn> is a Prolog term denoting a (path to a)
+subterm of a given term <var>T</var>.  Let <var>subterm(T,S)</var>
+denote the subterm of <var>T</var> wrt. a selector <var>S</var>, and let
+<var>N</var> denote an integer.  A selector then takes one of the following
+forms:
+
+   <p><table summary=""><tr align="left"><td valign="top"><var>S</var> </td><td valign="top"><var>subterm(T,S)</var>
+<br></td></tr><tr align="left"><td valign="top"><code>[]</code>      </td><td valign="top"><var>T</var>
+<br></td></tr><tr align="left"><td valign="top"><code>[...,</code><var>N</var><code>]</code> </td><td valign="top"><var>N</var>th argument of the compound term <var>subterm(T,</var><code>[...]</code><var>)</var>
+<br></td></tr><tr align="left"><td valign="top"><code>[...,#</code><var>N</var><code>]</code> </td><td valign="top"><var>N</var>th element of the list <var>subterm(T,</var><code>[...]</code><var>)</var>
+   <br></td></tr></table>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Selectors.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Selectors.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

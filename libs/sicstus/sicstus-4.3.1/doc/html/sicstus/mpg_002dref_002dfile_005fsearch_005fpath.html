@@ -1,0 +1,157 @@
+<html lang="en">
+<head>
+<title>mpg-ref-file_search_path - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dfalse.html#mpg_002dref_002dfalse" title="mpg-ref-false">
+<link rel="next" href="mpg_002dref_002dfindall.html#mpg_002dref_002dfindall" title="mpg-ref-findall">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-file_search_path"></a>
+<a name="mpg_002dref_002dfile_005fsearch_005fpath"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dfindall.html#mpg_002dref_002dfindall">mpg-ref-findall</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dfalse.html#mpg_002dref_002dfalse">mpg-ref-false</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.79 <code>file_search_path/2</code> &nbsp;<!-- /@w --> <dfn>[hook]</dfn></h4>
+
+<p><a name="index-file_005fsearch_005fpath_002f2-_0028hook_002c-ref-page_0029-4600"></a><a name="index-file_005fsearch_005fpath_002f2-_0028hook_002c-ref-page_0029-4601"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- multifile user:file_search_path/2.</code>
+
+   <p><code>user:file_search_path(</code><var>+PathAlias</var><code>, </code><var>+DirSpec</var><code>)</code>
+
+   <p>Defines a symbolic name for a directory or a path.  Used by
+predicates taking <dfn>file_spec</dfn> as input argument.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>PathAlias</var><dd><dfn>atom</dfn>
+
+     <p>An atom that represents the path given by <var>DirSpec</var>.
+
+     <br><dt><var>DirSpec</var><dd><dfn>file_spec</dfn>
+
+     <p>Either an atom giving the path to
+a file or directory, or <var>PathAlias(DirSpec)</var>, where <var>PathAlias</var> is
+defined by another <code>file_search_path/2</code> rule. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>The <code>file_search_path</code> mechanism provides an extensible way of
+specifying a sequence of directories to search to locate a file.  For
+instance, if a filename is given as a structure term,
+<code>library(between)</code>.  The principle functor of the term, <code>library</code>,
+is taken to be another <code>file_search_path/2</code> definition of the form
+<pre class="example">     file_search_path(library, LibPath)
+</pre>
+   <p>and file <code>between</code> is assumed to be relative to the path given by
+<var>LibPath</var>. 
+<var>LibPath</var> may also be another structure term, in which case another
+<code>file_search_path/2</code> fact gives its definition.  The search continues
+until the path is resolved to an atom.
+
+   <p>There may also be several definitions for the same <var>PathAlias</var>.  Certain
+predicates, such as <code>load_files/[1,2]</code> and <code>absolute_file_name/[2,3]</code>,
+search all these definitions until the path resolves to an existing file.
+
+   <p>There are several predefined search paths, such as
+<code>application</code>, <code>runtime</code>, <code>library</code>, <code>system</code>. 
+These are tried before the user-defined ones.
+
+   <p>The predicate is undefined at startup, but behaves as if it were a
+multifile predicate with the following
+clauses.  The system properties <samp><span class="env">SP_APP_DIR</span></samp> and
+<samp><span class="env">SP_RT_DIR</span></samp> expand respectively to the absolute path of the
+directory that contains the executable and the directory that contains
+the SICStus runtime (see <a href="System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a>), <samp><span class="env">SP_TEMP_DIR</span></samp> expand to a directory suitable for
+storing temporary files.
+
+   <p><a name="index-host_005ftype-_0028prolog-flag_002c-volatile_0029-4602"></a>
+<pre class="example">     file_search_path(library, Path) :-
+             library_directory(Path).
+     file_search_path(system, Platform) :-
+             prolog_flag(host_type, Platform).
+     file_search_path(application, '$SP_APP_DIR').
+     file_search_path(runtime, '$SP_RT_DIR').
+     file_search_path(temp, '$SP_TEMP_DIR').
+     file_search_path(path, Dir) :-
+             ... backtracks through the $PATH environment variable ...
+</pre>
+   <h4 class="subheading">Examples</h4>
+
+<pre class="example">     | ?- <kbd>[user].</kbd>
+     % compiling user...
+     | <kbd>:- multifile user:file_search_path/2.</kbd>
+     | <kbd>user:file_search_path(home, '/usr/joe_bob').</kbd>
+     | <kbd>user:file_search_path(review, home('movie/review')).</kbd>
+     | <kbd>end_of_file.</kbd>
+     % compiled user in module user, 0 msec 768 bytes
+     yes
+     | ?- <kbd>compile(review(blob)).</kbd>
+     % compiling /usr/joe_bob/movie/review/blob.pl
+</pre>
+<!-- [PM] 4.0.1 Should not assert multifile predicates! -->
+<!-- @example -->
+<!-- @group -->
+<!-- | ?- @kbd{assert(user:file_search_path(home, '/usr/joe_bob')).} -->
+<!-- yes -->
+<!-- | ?- @kbd{assert(user:file_search_path(review, home('movie/review'))).} -->
+<!-- yes -->
+<!-- | ?- @kbd{compile(review(blob)).} -->
+<!-- % compiling /usr/joe_bob/movie/review/blob.pl -->
+<!-- @end group -->
+<!-- @end example -->
+<h4 class="subheading">Exceptions</h4>
+
+<p>All error handling is done by the predicates extended by this hook.
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>absolute_file_name/[2,3]</code>,
+<code>library_directory/1</code>,
+<code>load_files/[1,2]</code>,
+<a href="ref_002dfdi.html#ref_002dfdi">ref-fdi</a>, <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>,
+<a href="System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dfile_005fsearch_005fpath.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dfile_005fsearch_005fpath.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

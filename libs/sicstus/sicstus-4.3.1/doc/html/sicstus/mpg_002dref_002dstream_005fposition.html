@@ -1,0 +1,104 @@
+<html lang="en">
+<head>
+<title>mpg-ref-stream_position - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dstream_005fcode.html#mpg_002dref_002dstream_005fcode" title="mpg-ref-stream_code">
+<link rel="next" href="mpg_002dref_002dstream_005fposition_005fdata.html#mpg_002dref_002dstream_005fposition_005fdata" title="mpg-ref-stream_position_data">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-stream_position"></a>
+<a name="mpg_002dref_002dstream_005fposition"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dstream_005fposition_005fdata.html#mpg_002dref_002dstream_005fposition_005fdata">mpg-ref-stream_position_data</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dstream_005fcode.html#mpg_002dref_002dstream_005fcode">mpg-ref-stream_code</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.219 <code>stream_position/2</code></h4>
+
+<p><a name="index-stream_005fposition_002f2-_0028built_002din_002c-ref-page_0029-4948"></a><a name="index-stream_005fposition_002f2-_0028built_002din_002c-ref-page_0029-4949"></a>
+<!-- FIXED: SPIO -->
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>stream_position(</code><var>+Stream</var><code>, </code><var>-Position</var><code>)</code>
+
+   <p>True when <var>Position</var> represents the current position of
+<var>Stream</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Stream</var><dd><dfn>stream_object</dfn>, must be ground
+
+     <p>An open stream.
+
+     <br><dt><var>Position</var><dd><dfn>term</dfn>
+
+     <p>Stream position object representing the current position of <var>Stream</var>. 
+</dl>
+
+   <p><a name="index-stream_002c-position-objects-4950"></a>
+
+<h4 class="subheading">Description</h4>
+
+<p>Byte, character, and line counts and line position determine the
+position of the pointer in the stream.  Such information is found by
+using <code>byte_count/2</code>, <code>character_count/2</code>,
+<code>line_count/2</code> and <code>line_position/2</code>.  A stream position
+object packages this information as a single Prolog terms.  You can
+retrieve this information from a stream position object using
+<code>stream_position_data/3</code>.  Do not rely on the form of this object
+in any other way.
+
+   <p>Standard term comparison of two stream position objects for the same
+stream will work as one expects.  When <var>SP1</var> and <var>SP2</var> refer
+to positions in the same stream, <var>SP1</var><code> @&lt; </code><var>SP2</var> if and only if
+<var>SP1</var> is before <var>SP2</var> in the stream.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Stream errors (see <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>).
+
+<h4 class="subheading">Examples</h4>
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002diou_002dsfh.html#ref_002diou_002dsfh">ref-iou-sfh</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dstream_005fposition.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dstream_005fposition.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

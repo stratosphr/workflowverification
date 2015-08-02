@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+<title>PB Java Client Interface - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dprologbeans.html#lib_002dprologbeans" title="lib-prologbeans">
+<link rel="prev" href="PB-Prolog-Server-Interface.html#PB-Prolog-Server-Interface" title="PB Prolog Server Interface">
+<link rel="next" href="PB-Java-Examples.html#PB-Java-Examples" title="PB Java Examples">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="PB-Java-Client-Interface"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="PB-Java-Examples.html#PB-Java-Examples">PB Java Examples</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="PB-Prolog-Server-Interface.html#PB-Prolog-Server-Interface">PB Prolog Server Interface</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dprologbeans.html#lib_002dprologbeans">lib-prologbeans</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.28.5 Java Client Interface</h4>
+
+<p>The Java interface is centered around the class <code>PrologSession</code>,
+which represents a connection (or session) to a Prolog
+server. <code>PrologSession</code> contains static methods for looking up
+named <code>PrologSession</code> instances using JNDI (Java Naming and
+Directory Interface) as well as methods for querying the Prolog server. 
+Other important classes are: <code>QueryAnswer</code>, which contains the
+answer for a query sent to the Prolog server; <code>PBTerm</code>, which
+represents a Prolog term; and <code>Bindings</code>, which supports stuffing
+of variable values used in queries.
+
+   <p>General information about Java, Servlets and JNDI is available at the
+Java Technology site: <a href="http://java.sun.com/">http://java.sun.com/</a>
+
+   <p>A brief description of the provided Java classes are
+presented below. More information about the Java APIs is available in
+the JavaDoc files on the page <a href="http://sicstus.sics.se/documentation.html">http://sicstus.sics.se/documentation.html</a>.
+
+     <dl>
+<dt><code>PrologSession</code><dd>The <code>PrologSession</code> object is the connection to the Prolog
+server. The constructor <code>PrologSession()</code>
+creates a <code>PrologSession</code> with the default settings
+(<code>host = localhost, port = 8066</code>.
+
+     <br><dt><code>QueryAnswer</code><dd>The <code>QueryAnswer</code> contains the answer (new bindings) for a query
+(or the error that occurred during the query process).
+
+     <br><dt><code>PBTerm</code><dd>The <code>PBTerm</code> object is for representing parsed Prolog terms.
+
+     <br><dt><code>Bindings</code><dd><code>Bindings</code> is used for binding variables to values
+in a query sent to the Prolog. The values will be automatically
+stuffed before they are sent to the Prolog server.
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/PB-Java-Client-Interface.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/PB-Java-Client-Interface.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

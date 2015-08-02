@@ -1,0 +1,108 @@
+<html lang="en">
+<head>
+<title>ref-lte-mut - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlte.html#ref_002dlte" title="ref-lte">
+<link rel="prev" href="ref_002dlte_002dcte.html#ref_002dlte_002dcte" title="ref-lte-cte">
+<link rel="next" href="ref_002dlte_002dsum.html#ref_002dlte_002dsum" title="ref-lte-sum">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-lte-mut"></a>
+<a name="ref_002dlte_002dmut"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dlte_002dsum.html#ref_002dlte_002dsum">ref-lte-sum</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dlte_002dcte.html#ref_002dlte_002dcte">ref-lte-cte</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlte.html#ref_002dlte">ref-lte</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.8.9 Mutable Terms</h4>
+
+<p><a name="index-destructive-assignment-1256"></a><a name="index-assignment_002c-destructive-1257"></a>One of the tenets of logic programming is that terms are immutable
+objects of the Herbrand universe, and the only sense in which they can
+be modified is by means of instantiating non-ground parts. 
+There are, however, algorithms where destructive assignment is essential
+for performance.  Although alien to the ideals of logic programming,
+this feature can be defended on practical grounds.
+
+   <p>SICStus Prolog provides an abstract datatype and four operations for
+efficient <em>backtrackable</em> destructive assignment.  In other
+words, any destructive assignments are transparently undone on
+backtracking.  Modifications that are intended to survive
+backtracking must be done by asserting or retracting dynamic
+program clauses instead.  Unlike previous releases of
+SICStus Prolog, destructive assignment of arbitrary terms is not
+allowed.
+
+   <p><a name="index-mutable-term-1258"></a><a name="index-term_002c-mutable-1259"></a>A <dfn>mutable term</dfn> is represented as a compound term with a
+reserved functor: <code>'$mutable'(</code><var>Value</var><code>,</code><var>Timestamp</var><code>)</code>
+where <var>Value</var> is the current representation and <var>Timestamp</var> is reserved
+for bookkeeping purposes [Aggoun &amp; Beldiceanu 90]. 
+<!-- ISO TODO -->
+<!-- The effect of executing a goal whose execution causes -->
+<!-- a variable to be instantiated to a reserved atom or to a -->
+<!-- compound term whose functor name is a reserved atom is -->
+<!-- implementation defined. -->
+
+   <p>Any copy of a mutable term created by <code>copy_term/[2,3]</code>,
+<code>assert</code>, <code>retract</code>, a database predicate, or an
+all solutions predicate, is an independent copy of the original
+mutable term.  Any destructive assignment done to one of the
+copies will not affect the other copy.
+
+   <p>The following operations are provided:
+
+     <dl>
+<dt><code>create_mutable(</code><var>+Datum</var><code>,</code><var>-Mutable</var><code>)</code><dd><a name="index-create_005fmutable_002f2-_0028built_002din_0029-1260"></a><a name="index-create_005fmutable_002f2-_0028built_002din_0029-1261"></a>
+<var>Datum</var>.
+
+     <br><dt><code>get_mutable(</code><var>-Datum</var><code>,</code><var>+Mutable</var><code>)</code><dd><a name="index-get_005fmutable_002f2-_0028built_002din_0029-1262"></a><a name="index-get_005fmutable_002f2-_0028built_002din_0029-1263"></a>
+The current representation of the mutable term <var>Mutable</var> is
+<var>Datum</var>.
+
+     <br><dt><code>update_mutable(</code><var>+Datum</var><code>,</code><var>+Mutable</var><code>)</code><dd><a name="index-update_005fmutable_002f2-_0028built_002din_0029-1264"></a><a name="index-update_005fmutable_002f2-_0028built_002din_0029-1265"></a>
+Updates the current representation of the mutable term <var>Mutable</var> to
+become <var>Datum</var>.
+
+     <br><dt><code>mutable(</code><var>+Mutable</var><code>)</code><dd><a name="index-mutable_002f1-_0028built_002din_0029-1266"></a><a name="index-mutable_002f1-_0028built_002din_0029-1267"></a>
+<var>X</var> is currently instantiated to a mutable term. 
+</dl>
+
+   <blockquote>
+<strong>Please note</strong>: the effect of unifying two mutables is undefined. 
+</blockquote>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlte_002dmut.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlte_002dmut.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

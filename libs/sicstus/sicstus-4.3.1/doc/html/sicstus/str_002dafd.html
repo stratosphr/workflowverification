@@ -1,0 +1,99 @@
+<html lang="en">
+<head>
+<title>str-afd - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dstructs.html#lib_002dstructs" title="lib-structs">
+<link rel="prev" href="str_002dcdf.html#str_002dcdf" title="str-cdf">
+<link rel="next" href="str_002dcas.html#str_002dcas" title="str-cas">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="str-afd"></a>
+<a name="str_002dafd"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="str_002dcas.html#str_002dcas">str-cas</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="str_002dcdf.html#str_002dcdf">str-cdf</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dstructs.html#lib_002dstructs">lib-structs</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.35.4 Accessing and Modifying Foreign Term Contents</h4>
+
+<p><a name="index-get_005fcontents_002f3-_0028structs_0029-3904"></a><a name="index-get_005fcontents_002f3-_0028structs_0029-3905"></a>
+
+   <p><a name="index-put_005fcontents_002f3-_0028structs_0029-3906"></a><a name="index-put_005fcontents_002f3-_0028structs_0029-3907"></a>
+
+   <p>Prolog can get or modify the contents of a foreign term with the
+procedures
+<pre class="example">     get_contents(<var>+Datum</var>, <var>?Part</var>, <var>?Value</var>)
+     put_contents(<var>+Datum</var>, <var>+Part</var>, <var>+Value</var>).
+</pre>
+   <p><a name="index-get_005faddress_002f3-_0028structs_0029-3908"></a><a name="index-get_005faddress_002f3-_0028structs_0029-3909"></a>
+
+   <p>It can also get a pointer to a field or element of a foreign term
+with the procedure
+<pre class="example">     get_address(<var>+Datum</var>, <var>?Part</var>, <var>?Value</var>).
+</pre>
+   <p>For all three of these, <var>Datum</var> must be a foreign term, and
+<var>Part</var> specifies what part of <var>Datum</var> <var>Value</var> is.  If
+<var>Datum</var> is an array, <var>Part</var> should be an integer index into
+the array, where 0 is the first element.  For a pointer, <var>Part</var>
+should be the atom <code>contents</code> and <var>Value</var> will be what the pointer
+points to.  For a struct, <var>Part</var> should be a field name, and
+<var>Value</var> will be the contents of that field.  In the case of
+<code>get_contents/3</code> and <code>get_address/3</code>, if <var>Part</var> is unbound,
+<code>get_contents/3</code> will backtrack through all the valid parts of
+<var>Datum</var>, binding both <var>Part</var> and <var>Value</var>.  A C programmer
+might think of the following pairs as corresponding to each other:
+<pre class="example">     Prolog: get_contents(Foo, Bar, Baz)
+          C: Baz = Foo-&gt;Bar
+     
+     Prolog: put_contents(Foo, Bar, Baz)
+          C: Foo-&gt;Bar = Baz
+     
+     Prolog: get_address(Foo, Bar, Baz)
+          C: Baz = &amp;Foo-&gt;Bar.
+</pre>
+   <p>The hitch is that only atomic and pointer types can be got and put
+by <code>get_contents/3</code> and <code>put_contents/3</code>.  This is because Prolog can
+only hold pointers to C structures, not the structures themselves. 
+This isn't quite as bad as it might seem, though, since usually
+structures contain pointers to other structures, anyway.  When a
+structure directly contains another structure, Prolog can get a
+pointer to it with <code>get_address/3</code>.
+
+<!-- Access to most fields is accomplished by peeking into memory (see -->
+<!-- @ref{ref-ari-aex-pee}), so it is very efficient. -->
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/str_002dafd.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/str_002dafd.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

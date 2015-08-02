@@ -1,0 +1,91 @@
+<html lang="en">
+<head>
+<title>4.3.1 Known Issues - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e3_002e1-Changes.html#g_t4_002e3_002e1-Changes" title="4.3.1 Changes">
+<link rel="prev" href="4_002e3_002e1-Bugs-Fixed.html#g_t4_002e3_002e1-Bugs-Fixed" title="4.3.1 Bugs Fixed">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.3.1-Known-Issues"></a>
+<a name="g_t4_002e3_002e1-Known-Issues"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="4_002e3_002e1-Bugs-Fixed.html#g_t4_002e3_002e1-Bugs-Fixed">4.3.1 Bugs Fixed</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e3_002e1-Changes.html#g_t4_002e3_002e1-Changes">4.3.1 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.21.3 Known Issues</h4>
+
+<p>The following are known issues with this release of
+SICStus. See <a href="Limitations-in-the-Current-Release.html#Limitations-in-the-Current-Release">Limitations in the Current Release</a> for more
+information about missing or incomplete features in this release.
+
+     <ul>
+<li>The .NET interface to <code>library(prologbeans)</code> uses &lsquo;<samp><span class="samp">J#</span></samp>&rsquo;. The
+use of J# has several disadvantages, since J# is no longer actively
+developed by Microsoft.
+
+          <ul>
+<li>Microsoft &lsquo;<samp><span class="samp">mainstream support</span></samp>&rsquo; for J# has ended (but
+&lsquo;<samp><span class="samp">extended support</span></samp>&rsquo; will be available from Microsoft until October
+2017).
+
+          <li>J# requires a separate runtime.
+
+          <li>The .NET on-line documentation for the .NET PrologBeans module
+has various issues, including broken links, and Java-specific wording. 
+</ul>
+
+     <!-- Also see the required 64-bit hotfix mentioned in KB917882 -->
+     <!-- (http://support.microsoft.com/kb/917882) The hotfix download link -->
+     <!-- in KB917882 is broken, but the HotFix can be downloaded via -->
+     <!-- (http://connect.microsoft.com/VisualStudio/Downloads) from -->
+     <!-- (http://connect.microsoft.com/VisualStudio/Downloads/DownloadDetails.aspx?DownloadID=6127) -->
+     <p>Our plan is to re-implement the .NET support in C#. For more
+information about J#, see <a href="http://msdn.microsoft.com/en-US/vstudio/bb188593">http://msdn.microsoft.com/en-US/vstudio/bb188593</a>.
+
+     <li>SICStus Prolog does not verify that Prolog text is in Unicode NFC format.
+
+     <p>When reading terms, SICStus Prolog currently does not verify that the
+input text contains valid Unicode&nbsp;5.0<!-- /@w --> characters in Normal Form
+C. See <a href="../sicstus/ref_002dsyn_002dsyn_002dtok.html#ref_002dsyn_002dsyn_002dtok">Syntax of Tokens as Character Strings</a>.
+
+     <p>This is not a problem as long as the input is in the
+proper format but it will accept some input that may be rejected or
+interpreted differently in a future version of SICStus Prolog. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e3_002e1-Known-Issues.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e3_002e1-Known-Issues.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

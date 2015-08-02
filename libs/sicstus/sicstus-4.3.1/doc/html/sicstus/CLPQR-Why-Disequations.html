@@ -1,0 +1,119 @@
+<html lang="en">
+<head>
+<title>CLPQR Why Disequations - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dclpqr.html#lib_002dclpqr" title="lib-clpqr">
+<link rel="prev" href="CLPQR-Projection.html#CLPQR-Projection" title="CLPQR Projection">
+<link rel="next" href="CLPQR-Monash-Examples.html#CLPQR-Monash-Examples" title="CLPQR Monash Examples">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CLPQR-Why-Disequations"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CLPQR-Monash-Examples.html#CLPQR-Monash-Examples">CLPQR Monash Examples</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="CLPQR-Projection.html#CLPQR-Projection">CLPQR Projection</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dclpqr.html#lib_002dclpqr">lib-clpqr</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.11.6 Why Disequations</h4>
+
+<p>A beautiful example of disequations at work is due to [Colmerauer
+90]. It addresses the task of tiling a rectangle with squares of
+all-different, a priori unknown sizes. Here is a translation of the
+original <code>Prolog-III</code> program to clp(Q,R):
+<pre class="example">
+        <div align="right"><em>% library('clpqr/examples/squares')</em>
+     </div>
+     filled_rectangle(A, C) :-
+       { A &gt;= 1 },
+       distinct_squares(C),
+       filled_zone([-1,A,1], _, C, []).
+     
+     distinct_squares([]).
+     distinct_squares([B|C]) :-
+       { B &gt; 0 },
+       outof(C, B),
+       distinct_squares(C).
+     
+     outof([],     _).
+     outof([B1|C], B) :-
+       { B =\= B1 },       % *** note disequation ***
+       outof(C, B).
+     
+     filled_zone([V|L], [W|L], C0, C0) :-
+       { V=W,V &gt;= 0 }.
+     filled_zone([V|L], L3, [B|C], C2) :-
+       { V &lt; 0 },
+       placed_square(B, L, L1),
+       filled_zone(L1, L2, C, C1),
+       { Vb=V+B },
+       filled_zone([Vb,B|L2], L3, C1, C2).
+     
+     placed_square(B, [H,H0,H1|L], L1) :-
+       { B &gt; H, H0=0, H2=H+H1 },
+       placed_square(B, [H2|L], L1).
+     placed_square(B, [B,V|L], [X|L]) :-
+       { X=V-B }.
+     placed_square(B, [H|L], [X,Y|L]) :-
+       { B &lt; H, X= -B, Y=H-B }.
+</pre>
+   <p>There are no tilings with less than nine squares except the trivial one
+where the rectangle equals the only square. There are eight solutions
+for nine squares. Six further solutions are rotations of the first two.
+<pre class="example">     clp(q) ?- <kbd>[library('clpqr/examples/squares')].</kbd>
+     clp(q) ?- <kbd>filled_rectangle(A, Squares).</kbd>
+     
+     A = 1,
+     Squares = [1] ? <kbd>;</kbd>
+     
+     A = 33/32,
+     Squares = [15/32,9/16,1/4,7/32,1/8,7/16,1/32,5/16,9/32] ? <kbd>;</kbd>
+     
+     A = 69/61,
+     Squares = [33/61,36/61,28/61,5/61,2/61,9/61,25/61,7/61,16/61] ? &lt;RET&gt;
+</pre>
+   <p class="noindent">Depending on your hardware, the above query may take a few
+minutes.  Supplying the knowledge about the minimal number of squares
+beforehand cuts the computation time by a factor of roughly four:
+<pre class="example">     clp(q) ?- <kbd>length(Squares, 9), filled_rectangle(A, Squares).</kbd>
+     
+     A = 33/32,
+     Squares = [15/32,9/16,1/4,7/32,1/8,7/16,1/32,5/16,9/32] ? <kbd>;</kbd>
+     
+     A = 69/61,
+     Squares = [33/61,36/61,28/61,5/61,2/61,9/61,25/61,7/61,16/61] ? &lt;RET&gt;
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-Why-Disequations.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-Why-Disequations.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

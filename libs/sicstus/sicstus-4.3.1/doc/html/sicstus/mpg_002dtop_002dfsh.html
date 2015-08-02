@@ -1,0 +1,112 @@
+<html lang="en">
+<head>
+<title>mpg-top-fsh - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dtop.html#mpg_002dtop" title="mpg-top">
+<link rel="prev" href="mpg_002dtop_002dfnm.html#mpg_002dtop_002dfnm" title="mpg-top-fnm">
+<link rel="next" href="mpg_002dtop_002dfin.html#mpg_002dtop_002dfin" title="mpg-top-fin">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-top-fsh"></a>
+<a name="mpg_002dtop_002dfsh"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dtop_002dfin.html#mpg_002dtop_002dfin">mpg-top-fin</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dtop_002dfnm.html#mpg_002dtop_002dfnm">mpg-top-fnm</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dtop.html#mpg_002dtop">mpg-top</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.2.9 File and Stream Handling</h4>
+
+<p><a name="index-file-and-stream-handling_002c-predicates-for-4354"></a><a name="index-predicates-for-file-and-stream-handling-4355"></a>
+     <dl>
+<dt><code>byte_count(</code><var>+S</var><code>,</code><var>-N</var><code>)</code><dd><var>N</var> is the number of bytes read/written on
+binary stream <var>S</var>
+
+     <br><dt><code>character_count(</code><var>+S</var><code>,</code><var>-N</var><code>)</code><dd><var>N</var> is the number of characters read/written on
+text stream <var>S</var>
+
+     <br><dt><code>close(</code><var>+F</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>close(</code><var>+F</var><code>,</code><var>+O</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>close file or stream <var>F</var> with options <var>O</var>
+
+     <br><dt><code>current_input(</code><var>-S</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>S</var> is the current input stream
+
+     <br><dt><code>current_output(</code><var>-S</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>S</var> is the current output stream
+
+     <br><dt><code>current_stream(</code><var>?F</var><code>,</code><var>?M</var><code>,</code><var>?S</var><code>)</code><dd><var>S</var> is a stream open on file <var>F</var> in mode <var>M</var>
+
+     <br><dt><code>line_count(</code><var>+S</var><code>,</code><var>-N</var><code>)</code><dd><var>N</var> is the number of lines read/written on text stream <var>S</var>
+
+     <br><dt><code>line_position(</code><var>+S</var><code>,</code><var>-N</var><code>)</code><dd><var>N</var> is the number of characters read/written on the
+current line of text stream <var>S</var>
+
+     <br><dt><code>open(</code><var>+F</var><code>,</code><var>+M</var><code>,</code><var>-S</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>open(</code><var>+F</var><code>,</code><var>+M</var><code>,</code><var>-S</var><code>,</code><var>+O</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>file <var>F</var> is opened in mode <var>M</var>, options <var>O</var>, returning stream <var>S</var>
+
+     <br><dt><code>open_null_stream(</code><var>+S</var><code>)</code><dd>new output to text stream <var>S</var> goes nowhere
+
+     <br><dt><code>prompt(</code><var>-O</var><code>,</code><var>+N</var><code>)</code><dd>queries or changes the prompt string of the current input stream
+
+     <br><dt><code>see(</code><var>+F</var><code>)</code><dd>make file <var>F</var> the current input stream
+
+     <br><dt><code>seeing(</code><var>-N</var><code>)</code><dd>the current input stream is named <var>N</var>
+
+     <br><dt><code>seek(</code><var>+S</var><code>,</code><var>+O</var><code>,</code><var>+M</var><code>,</code><var>+N</var><code>)</code><dd>seek to an arbitrary byte position on the
+stream <var>S</var>
+
+     <br><dt><code>seen</code><dd>close the current input stream
+
+     <br><dt><code>set_input(</code><var>+S</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>select <var>S</var> as the current input stream
+
+     <br><dt><code>set_output(</code><var>+S</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>select <var>S</var> as the current output stream
+
+     <br><dt><code>set_stream_position(</code><var>+S</var><code>,</code><var>+P</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>P</var> is the new position of stream <var>S</var>
+
+     <br><dt><code>stream_code(</code><var>?S</var><code>,</code><var>?C</var><code>)</code><dd>Converts between Prolog and C representations of a stream
+
+     <br><dt><code>stream_position(</code><var>+S</var><code>,</code><var>-P</var><code>)</code><dd><var>P</var> is the current position of stream <var>S</var>
+
+     <br><dt><code>stream_position_data(</code><var>?Field</var><code>,</code><var>?Position</var><code>,</code><var>?Data</var><code>)</code><dd>The <var>Field</var> field of the stream position term <var>Position</var> is <var>Data</var>.
+
+     <br><dt><code>stream_property(</code><var>?Stream</var><code>, </code><var>?Property</var><code>)) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>Stream <var>Stream</var> has property <var>Property</var>.
+
+     <br><dt><code>tell(</code><var>+F</var><code>)</code><dd>make file <var>F</var> the current output stream
+
+     <br><dt><code>telling(</code><var>-N</var><code>)</code><dd>to file <var>N</var>
+
+     <br><dt><code>told</code><dd>close the current output stream
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dtop_002dfsh.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dtop_002dfsh.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

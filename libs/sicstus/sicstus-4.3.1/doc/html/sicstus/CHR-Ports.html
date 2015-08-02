@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+<title>CHR Ports - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="CHR-Debugging.html#CHR-Debugging" title="CHR Debugging">
+<link rel="next" href="CHR-Tracing.html#CHR-Tracing" title="CHR Tracing">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CHR-Ports"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CHR-Tracing.html#CHR-Tracing">CHR Tracing</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="CHR-Debugging.html#CHR-Debugging">CHR Debugging</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.8.4.1 Ports</h5>
+
+<p>For CHR constraints the four standard ports are defined:
+
+     <dl>
+<dt><code>call</code><dd><a name="index-call-_0028CHR-port_0029-2730"></a>A new constraint is called and becomes active.
+
+     <br><dt><code>exit</code><dd><a name="index-exit-_0028CHR-port_0029-2731"></a>An active constraint exits: it has either been inserted in the store after
+trying all rules or has been removed from the constraint store.
+
+     <br><dt><code>fail</code><dd><a name="index-fail-_0028CHR-port_0029-2732"></a>An active constraint fails.
+
+     <br><dt><code>redo</code><dd><a name="index-redo-_0028CHR-port_0029-2733"></a>An active constraint starts looking for an alternative solution. 
+</dl>
+
+   <p>In addition to the above ports, CHR constraints have five additional
+ports:
+
+     <dl>
+<dt><code>wake</code><dd><a name="index-wake-_0028CHR-port_0029-2734"></a>A suspended constraint is woken and becomes active.
+
+     <br><dt><code>insert</code><dd><a name="index-insert-_0028CHR-port_0029-2735"></a>An active constraint has tried all rules and is suspended in
+the constraint store.
+
+     <br><dt><code>remove</code><dd><a name="index-remove-_0028CHR-port_0029-2736"></a>An active or passive constraint is removed from the constraint
+store.
+
+     <br><dt><code>try</code><dd><a name="index-try-_0028CHR-port_0029-2737"></a>An active constraints tries a rule with possibly some passive
+constraints. The try port is entered just before committing to the
+rule.
+
+     <br><dt><code>apply</code><dd><a name="index-apply-_0028CHR-port_0029-2738"></a>An active constraints commits to a rule with possibly some passive
+constraints. The apply port is entered just after committing to the
+rule. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CHR-Ports.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CHR-Ports.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

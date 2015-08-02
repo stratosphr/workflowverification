@@ -1,0 +1,138 @@
+<html lang="en">
+<head>
+<title>mpg-ref-current_predicate - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dcurrent_005foutput.html#mpg_002dref_002dcurrent_005foutput" title="mpg-ref-current_output">
+<link rel="next" href="mpg_002dref_002dcurrent_005fprolog_005fflag.html#mpg_002dref_002dcurrent_005fprolog_005fflag" title="mpg-ref-current_prolog_flag">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-current_predicate"></a>
+<a name="mpg_002dref_002dcurrent_005fpredicate"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dcurrent_005fprolog_005fflag.html#mpg_002dref_002dcurrent_005fprolog_005fflag">mpg-ref-current_prolog_flag</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dcurrent_005foutput.html#mpg_002dref_002dcurrent_005foutput">mpg-ref-current_output</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.55 <code>current_predicate/[1,2]</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-current_005fpredicate_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4539"></a><a name="index-current_005fpredicate_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4540"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>current_predicate(</code><var>?PredSpec</var><code>)</code>
+
+   <p>Unifies <var>PredSpec</var> with
+a predicate specifications of the form <var>Name/Arity</var>.
+
+   <p><code>current_predicate(</code><var>?Name</var><code>, </code><var>?Term</var><code>)</code>
+
+   <p>Unifies <var>Name</var> with the name of a user-defined predicate, and <var>Term</var>
+with the most general term corresponding to that predicate.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:PredSpec</var><dd><dfn>pred_spec</dfn>
+
+     <br><dt><var>Name</var><dd><dfn>atom</dfn>
+
+     <br><dt><var>:Term</var><dd><dfn>callable</dfn>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>If you have loaded the predicates <code>foo/1</code> and <code>foo/3</code> into Prolog,
+<code>current_predicate/2</code> would return the following:
+<pre class="example">      | ?- <kbd>current_predicate(foo, T).</kbd>
+     
+     T = foo(_A) <kbd>;</kbd>
+     
+     T = foo(_A,_B,_C) <kbd>;</kbd>
+     
+     no
+</pre>
+   <h4 class="subheading">Examples</h4>
+
+     <ul>
+<li>The following goals can be used to backtrack
+through every predicate in your program.
+
+     <pre class="example">          | ?- <kbd>current_predicate(Name, Module:Term).</kbd>
+          
+          | ?- <kbd>current_predicate(Module:PredSpec).</kbd>
+</pre>
+     <li>If a module is specified,
+<code>current_predicate/[1,2]</code> only succeeds for those predicates that are
+<em>defined</em> in the module.  It fails for those predicates that are imported
+into a module.
+
+     <pre class="example">          | ?- <kbd>current_predicate(m:P).</kbd>
+</pre>
+     <p class="noindent">will backtrack through all predicates <code>P</code> that are defined in module <code>m</code>. 
+To backtrack through all predicates imported by a module use
+<code>predicate_property/2</code> (see <a href="ref_002dlps_002dove.html#ref_002dlps_002dove">ref-lps-ove</a>). 
+</ul>
+
+   <p>To find out whether a predicate is built-in, use
+<code>predicate_property/2</code>.
+
+<pre class="example">     % <span class="roman">Is there a callable predicate named </span><code>gc</code><span class="roman">?</span>
+     
+     | ?- <kbd>current_predicate(gc, Term).</kbd>
+     
+     no
+     | ?- <kbd>predicate_property(gc, Prop)</kbd>
+     
+     Prop = built_in
+</pre>
+   <h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dt><code>type_error</code><dd>in <var>PredSpec</var>
+</dl>
+
+<h4 class="subheading">Comments</h4>
+
+<p><code>current_predicate/1</code> is part of the ISO Prolog standard; <code>current_predicate/2</code> is not.
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>predicate_property/2</code>, <a href="ref_002dlps_002dove.html#ref_002dlps_002dove">ref-lps-ove</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dcurrent_005fpredicate.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dcurrent_005fpredicate.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

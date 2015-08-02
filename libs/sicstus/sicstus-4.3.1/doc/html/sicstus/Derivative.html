@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+<title>Derivative - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Programming-Examples.html#Programming-Examples" title="Programming Examples">
+<link rel="prev" href="Association-Lists.html#Association-Lists" title="Association Lists">
+<link rel="next" href="Use-Of-Meta.html#Use-Of-Meta" title="Use Of Meta">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Derivative"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Use-Of-Meta.html#Use-Of-Meta">Use Of Meta</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Association-Lists.html#Association-Lists">Association Lists</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Programming-Examples.html#Programming-Examples">Programming Examples</a>
+<hr>
+</div>
+
+<h4 class="subsection">9.11.4 Differentiation</h4>
+
+<p>The goal <code>d(</code><var>E1</var><code>, </code><var>X</var><code>, </code><var>E2</var><code>)</code> is true if
+expression <var>E2</var> is a possible form for the derivative of expression
+<var>E1</var> with respect to <var>X</var>.
+
+<pre class="example">     d(X, X, D) :- atomic(X), !, D = 1.
+     d(C, X, D) :- atomic(C), !, D = 0.
+     d(U+V, X, DU+DV) :- d(U, X, DU), d(V, X, DV).
+     d(U-V, X, DU-DV) :- d(U, X, DU), d(V, X, DV).
+     d(U*V, X, DU*V+U*DV) :- d(U, X, DU), d(V, X, DV).
+     d(U**N, X, N*U**N1*DU) :- integer(N), N1 is N-1, d(U, X, DU).
+     d(-U, X, -DU) :- d(U, X, DU).
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Derivative.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Derivative.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

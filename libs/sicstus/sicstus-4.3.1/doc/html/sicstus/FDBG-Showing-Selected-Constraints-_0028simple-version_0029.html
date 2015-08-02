@@ -1,0 +1,113 @@
+<html lang="en">
+<head>
+<title>FDBG Showing Selected Constraints (simple version) - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="FDBG-Advanced-Usage.html#FDBG-Advanced-Usage" title="FDBG Advanced Usage">
+<link rel="prev" href="FDBG-Writing-Legend-Printers.html#FDBG-Writing-Legend-Printers" title="FDBG Writing Legend Printers">
+<link rel="next" href="FDBG-Showing-Selected-Constraints-_0028advanced-version_0029.html#FDBG-Showing-Selected-Constraints-_0028advanced-version_0029" title="FDBG Showing Selected Constraints (advanced version)">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="FDBG-Showing-Selected-Constraints-(simple-version)"></a>
+<a name="FDBG-Showing-Selected-Constraints-_0028simple-version_0029"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="FDBG-Showing-Selected-Constraints-_0028advanced-version_0029.html#FDBG-Showing-Selected-Constraints-_0028advanced-version_0029">FDBG Showing Selected Constraints (advanced version)</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="FDBG-Writing-Legend-Printers.html#FDBG-Writing-Legend-Printers">FDBG Writing Legend Printers</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="FDBG-Advanced-Usage.html#FDBG-Advanced-Usage">FDBG Advanced Usage</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.14.4.4 Showing Selected Constraints (simple version)</h5>
+
+<p>Sometimes the programmer is not interested in every constraint,
+only some selected ones.  Such a filter can be easily implemented with a
+user-defined visualizer.  Suppose that you are interested in the constraints
+<code>all_different/[1,2]</code> and <code>all_distinct/[1,2]</code> only:
+
+<pre class="example">     %% spec_filter(+Constraint, +Actions):  Call fdbg_show for all constraints
+     %%   for which interesting_event(Constraint) succeeds.
+     %%
+     %%   Use this filter by giving the constraint_hook(spec_filter) option to
+     %%   fdbg_on.
+     spec_filter(Constraint, Actions) :-
+             interesting_event(Constraint),
+             fdbg_show(Constraint, Actions).
+     
+     interesting_event(all_different(_)).
+     interesting_event(all_different(_,_)).
+     interesting_event(all_distinct(_)).
+     interesting_event(all_distinct(_,_)).
+</pre>
+   <p>Here is a session using the visualizer.  Note that the initialization
+part (<code>domain/3</code> events), are filtered out, leaving only the
+<code>all_distinct/[1,2]</code> constraints:
+
+<pre class="example">     | ?- <kbd>[library('clpfd/examples/suudoku')].</kbd>
+     [...]
+     | ?- <kbd>fdbg_on([constraint_hook(spec_filter)]).</kbd>
+     % The clp(fd) debugger is switched on
+     % advice
+     | ?- <kbd>suudoku([], 1, domain).</kbd>
+     all_distinct([1,&lt;fdvar_1&gt;,&lt;fdvar_2&gt;,8,&lt;fdvar_3&gt;,
+                    4,&lt;fdvar_4&gt;,&lt;fdvar_5&gt;,&lt;fdvar_6&gt;],[consistency(domain)])
+         fdvar_1 = 1..9 -&gt; (2..3)\/(5..7)\/{9}
+         fdvar_2 = 1..9 -&gt; (2..3)\/(5..7)\/{9}
+         fdvar_3 = 1..9 -&gt; (2..3)\/(5..7)\/{9}
+         fdvar_4 = 1..9 -&gt; (2..3)\/(5..7)\/{9}
+         fdvar_5 = 1..9 -&gt; (2..3)\/(5..7)\/{9}
+         fdvar_6 = 1..9 -&gt; (2..3)\/(5..7)\/{9}
+     
+     [...]
+     
+     all_distinct([7,6,2,5,8,4,1,3,9],[consistency(domain)])
+         Constraint exited.
+     1 5 6 8 9 4 3 2 7
+     9 2 8 7 3 1 4 5 6
+     4 7 3 2 6 5 9 1 8
+     3 6 2 4 1 7 8 9 5
+     7 8 9 3 5 2 6 4 1
+     5 1 4 9 8 6 2 7 3
+     8 3 1 5 4 9 7 6 2
+     6 9 7 1 2 3 5 8 4
+     2 4 5 6 7 8 1 3 9
+     yes
+     % advice
+     | ?- <kbd>fdbg_off.</kbd>
+     % The clp(fd) debugger is switched off
+</pre>
+   <p>Note that failure of <code>spec_filter/2</code> doesn't cause any unwanted
+output.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Showing-Selected-Constraints-_0028simple-version_0029.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Showing-Selected-Constraints-_0028simple-version_0029.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

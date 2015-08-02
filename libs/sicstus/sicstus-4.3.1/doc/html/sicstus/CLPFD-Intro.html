@@ -1,0 +1,98 @@
+<html lang="en">
+<head>
+<title>CLPFD Intro - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dclpfd.html#lib_002dclpfd" title="lib-clpfd">
+<link rel="next" href="CLPFD-Caveats.html#CLPFD-Caveats" title="CLPFD Caveats">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CLPFD-Intro"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CLPFD-Caveats.html#CLPFD-Caveats">CLPFD Caveats</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dclpfd.html#lib_002dclpfd">lib-clpfd</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.10.1 Introduction</h4>
+
+<p>The clp(FD) solver described in this chapter is an instance of the
+general Constraint Logic Programming scheme introduced in [Jaffar &amp;
+Michaylov 87].  This constraint domain is particularly useful for
+modeling discrete optimization and verification problems such as
+scheduling, planning, packing, timetabling etc.  The treatise [Van
+Hentenryck 89] is an excellent exposition of the theoretical and
+practical framework behind constraint solving in finite domains, and
+summarizes the work up to 1989.
+
+   <p>This solver has the following highlights:
+
+     <ul>
+<li>A rich set of global constraints with state-of-the-art propagators. 
+<li>Two classes of propagators are handled internally: indexicals
+and global propagators. 
+<li>Propagators of both classes can be user-defined, by means of programming
+interfaces. 
+<li>The constraints described in this chapter are automatically translated
+to sets of propagators. 
+<li>The truth representation of a primitive constraint can be reflected into a
+0/1-variable, i.e. a variable with domain <code>0..1</code> (reification). 
+</ul>
+
+   <p>This library fully supports multiple SICStus runtimes in a process.
+
+<ul class="menu">
+<li><a accesskey="1" href="Referencing-CLPFD.html#Referencing-CLPFD">Referencing CLPFD</a>:  Referencing this Software
+<li><a accesskey="2" href="Acknowledgments-CLPFD.html#Acknowledgments-CLPFD">Acknowledgments CLPFD</a>:  Acknowledgments
+</ul>
+
+   <p>The rest of this chapter is organized as follows: How to load the solver
+and how to write simple programs is explained in <a href="CLPFD-Interface.html#CLPFD-Interface">CLPFD Interface</a>. 
+A description of all constraints that the solver provides is contained
+in <a href="Available-Constraints.html#Available-Constraints">Available Constraints</a>.  The predicates for searching for
+solution are documented in <a href="Enumeration-Predicates.html#Enumeration-Predicates">Enumeration Predicates</a>.  The predicates
+for getting execution statistics are documented in <a href="Statistics-Predicates.html#Statistics-Predicates">Statistics Predicates</a>.  A few notes on debugging are given in <a href="CLPFD-Debugging.html#CLPFD-Debugging">CLPFD Debugging</a>. 
+A few example programs are given in <a href="CLPFD-Example-Programs.html#CLPFD-Example-Programs">CLPFD Example Programs</a>.  Finally, <a href="Syntax-Summary.html#Syntax-Summary">Syntax Summary</a> contains syntax rules for all
+expressions.
+
+   <p>The following sections discuss advanced features and are probably only
+relevant to experienced users: How to control the amount of information
+presented in answers to queries is explained in <a href="Answer-Constraints.html#Answer-Constraints">Answer Constraints</a>.  How to add new global constraints via a programming
+interface is described in <a href="Defining-Global-Constraints.html#Defining-Global-Constraints">Defining Global Constraints</a>.  How to
+define new primitive constraints with indexicals is described in
+<a href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints">Defining Primitive Constraints</a>.  The fine points of coexisting
+with attributes and blocked goals are described in <a href="CLPFD-Coexisting.html#CLPFD-Coexisting">CLPFD Coexisting</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPFD-Intro.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPFD-Intro.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

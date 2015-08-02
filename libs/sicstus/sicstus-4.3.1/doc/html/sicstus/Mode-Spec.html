@@ -1,0 +1,75 @@
+<html lang="en">
+<head>
+<title>Mode Spec - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Notation.html#Notation" title="Notation">
+<link rel="prev" href="Keyboard-Characters.html#Keyboard-Characters" title="Keyboard Characters">
+<link rel="next" href="Development-and-Runtime-Systems.html#Development-and-Runtime-Systems" title="Development and Runtime Systems">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Mode-Spec"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Development-and-Runtime-Systems.html#Development-and-Runtime-Systems">Development and Runtime Systems</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Keyboard-Characters.html#Keyboard-Characters">Keyboard Characters</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Notation.html#Notation">Notation</a>
+<hr>
+</div>
+
+<h3 class="section">1.2 Mode Spec</h3>
+
+<p><a name="index-mode-spec-10"></a><a name="index-spec_002c-mode-11"></a>When describing a predicate, we present its usage with a <dfn>mode
+spec</dfn>, which has the form <var>name(arg, <small class="dots">...</small>, arg)</var>, where each
+<var>arg</var> denotes how that argument is used by the predicate, and has
+one of the following forms:
+
+     <dl>
+<dt><var>:ArgName</var><dd><a name="index-module-name-expansion-12"></a><a name="index-expansion_002c-module-name-13"></a>The argument is used as a term denoting a goal or a clause or a predicate
+name, or that otherwise needs special handling of module prefixes.  It
+is is subject to <dfn>module name expansion</dfn> (see <a href="ref_002dmod_002dmne.html#ref_002dmod_002dmne">ref-mod-mne</a>).
+
+     <br><dt><var>+ArgName</var><dd>The argument is an input argument.  Usually, but not always, this
+implies that the argument should be instantiated.
+
+     <br><dt><var>-ArgName</var><dd>The argument is an output argument.  Usually, but not always, this
+implies that the argument should be uninstantiated.
+
+     <br><dt><var>?ArgName</var><dd>The argument may be used for both input and output. 
+</dl>
+
+   <p><strong>Please note:</strong> The reference pages for built-in predicate use
+slightly different mode specs.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Mode-Spec.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Mode-Spec.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

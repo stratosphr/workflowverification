@@ -1,0 +1,120 @@
+<html lang="en">
+<head>
+<title>Mixing C and Prolog - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="prev" href="Debug-Intro.html#Debug-Intro" title="Debug Intro">
+<link rel="next" href="Interfacing-_002eNET-and-Java.html#Interfacing-_002eNET-and-Java" title="Interfacing .NET and Java">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Mixing-C-and-Prolog"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Interfacing-_002eNET-and-Java.html#Interfacing-_002eNET-and-Java">Interfacing .NET and Java</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Debug-Intro.html#Debug-Intro">Debug Intro</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+<hr>
+</div>
+
+<h2 class="chapter">6 Mixing C/C++ and Prolog</h2>
+
+<p><a name="index-mixing-C_002fC_002b_002b-and-Prolog-2183"></a><a name="index-interoperability-2184"></a><a name="index-foreign-language-interface-2185"></a><a name="index-interface_002c-foreign-language-2186"></a><a name="index-API-2187"></a>
+SICStus Prolog provides a bi-directional, procedural interface for
+program parts written in C and Prolog.  The C side of the interface
+defines a number of functions and macros for various operations.  On
+the Prolog side, you have to supply declarations specifying the names
+and argument/representation types of C functions being called as predicates.
+These declarations are used by the predicate
+<code>load_foreign_resource/1</code>, which performs the actual binding of
+functions to predicates.  They are also needed when the functions are
+unloaded, for example when SICStus is halted.
+
+   <p><a name="index-term-reference-2188"></a><a name="index-reference_002c-term-2189"></a><a name="index-SP_005fterm_005fref-_0028C-type_0029-2190"></a><a name="index-SP_005fterm_005fref-2191"></a>In most cases, the argument/representation type declarations suffice for
+making the necessary conversions of data automatically as they are
+passed between C and Prolog.  However, it is possible to declare the
+type of an argument to be a Prolog term, in which case the
+receiving function will see it as a &ldquo;handle&rdquo; object, called an
+<dfn>SP_term_ref</dfn>, for which access functions are provided.
+
+   <p>The C support routines are available in a development system as
+well as in runtime systems.  The support routines include:
+
+     <ul>
+<li>Static and dynamic linking of C code into the Prolog environment.
+
+     <li>Automatic conversion between Prolog terms and C data with
+<code>foreign/[2,3]</code> declarations.
+
+     <li>Functions for accessing and creating Prolog terms, and for
+creating and manipulating SP_term_refs.
+
+     <li>The Prolog system may call C predicates, which may call Prolog
+back without limits on recursion. Predicates that call C may
+be defined dynamically from C.
+
+     <li>Support for creating stand-alone executables.
+
+     <li>Support for creating user defined Prolog streams.
+
+     <li>Functions to read and write on Prolog streams from C.
+
+     <li>Functions to install interrupt handlers that can safely call Prolog.
+
+     <li>Functions for manipulating mutual exclusion locks.
+
+     <li>User hooks that can be used to perform user defined actions e.g. 
+for customizing the memory management bottom layer.
+
+   </ul>
+
+   <p>In addition to the interface described in this chapter,
+<code>library(structs)</code> and <code>library(objects)</code> (see
+<a href="lib_002dstructs.html#lib_002dstructs">lib-structs</a> and <a href="lib_002dobjects.html#lib_002dobjects">lib-objects</a>) allow Prolog to hold pointers
+to C data structures and arrays and access and store into fields in
+those data structures in a very efficient way, allowing the programmer
+to stay completely inside Prolog.
+
+<ul class="menu">
+<li><a accesskey="1" href="CPL-Notes.html#CPL-Notes">CPL Notes</a>:  Notes
+<li><a accesskey="2" href="Calling-C-from-Prolog.html#Calling-C-from-Prolog">Calling C from Prolog</a>:  Calling C from Prolog
+<li><a accesskey="3" href="Calling-C_002b_002b-from-Prolog.html#Calling-C_002b_002b-from-Prolog">Calling C++ from Prolog</a>:  Calling C++ from Prolog
+<li><a accesskey="4" href="Support-Functions.html#Support-Functions">Support Functions</a>:  Support Functions
+<li><a accesskey="5" href="Calling-Prolog-from-C.html#Calling-Prolog-from-C">Calling Prolog from C</a>:  Calling Prolog from C
+<li><a accesskey="6" href="SICStus-Streams.html#SICStus-Streams">SICStus Streams</a>:  SICStus Streams
+<li><a accesskey="7" href="Stand_002dAlone-Executables.html#Stand_002dAlone-Executables">Stand-Alone Executables</a>:  Stand-Alone Executables
+<li><a accesskey="8" href="Mixing-C-and-Prolog-Examples.html#Mixing-C-and-Prolog-Examples">Mixing C and Prolog Examples</a>:  Mixing C and Prolog Examples
+<li><a accesskey="9" href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems">Debugging Runtime Systems</a>:  Debugging Runtime Systems
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Mixing-C-and-Prolog.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Mixing-C-and-Prolog.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,67 @@
+<html lang="en">
+<head>
+<title>Default Query Classes - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Query-Processing.html#Query-Processing" title="Query Processing">
+<link rel="prev" href="Default-Map-Methods.html#Default-Map-Methods" title="Default Map Methods">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Default-Query-Classes"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Default-Map-Methods.html#Default-Map-Methods">Default Map Methods</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Query-Processing.html#Query-Processing">Query Processing</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.16.3.6 Default Query Classes</h5>
+
+<p>Most of the default query classes are designed to support some specific
+interaction with the user within the Prolog development environment.  The
+full list of query classes can be inspected in the file
+<samp><span class="file">library('SU_messages')</span></samp>.  Here, we only describe the two classes
+defined by <code>'SU_messages':query_class/5</code> that may be of general
+use:
+
+   <p><table summary=""><tr align="left"><td valign="top"><var>QueryClass</var>  </td><td valign="top"><code>yes_or_no</code>     </td><td valign="top"><code>yes_no_proceed</code>
+<br></td></tr><tr align="left"><td valign="top"><var>Prompt</var>      </td><td valign="top"><code>' (y or n) '</code>  </td><td valign="top"><code>' (y, n, p, s, a, or ?) '</code>
+<br></td></tr><tr align="left"><td valign="top"><var>InputMethod</var> </td><td valign="top"><code>line</code>          </td><td valign="top"><code>line</code>
+<br></td></tr><tr align="left"><td valign="top"><var>MapMethod</var>
+</td><td valign="top"><code>char([yes-"yY", no-"nN"])</code>
+</td><td valign="top"><code>char([yes-"yY", no-"nN", proceed-"pP", suppress-"sS", abort-"aA"])</code>
+<br></td></tr><tr align="left"><td valign="top"><var>FailureMode</var> </td><td valign="top"><code>help_query</code>    </td><td valign="top"><code>help_query</code>
+   <br></td></tr></table>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Default-Query-Classes.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Default-Query-Classes.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

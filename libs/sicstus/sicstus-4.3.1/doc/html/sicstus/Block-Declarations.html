@@ -1,0 +1,104 @@
+<html lang="en">
+<head>
+<title>Block Declarations - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl" title="ref-lod-dcl">
+<link rel="prev" href="Discontiguous-Declarations.html#Discontiguous-Declarations" title="Discontiguous Declarations">
+<link rel="next" href="Meta_002dPredicate-Declarations.html#Meta_002dPredicate-Declarations" title="Meta-Predicate Declarations">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Block-Declarations"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Meta_002dPredicate-Declarations.html#Meta_002dPredicate-Declarations">Meta-Predicate Declarations</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Discontiguous-Declarations.html#Discontiguous-Declarations">Discontiguous Declarations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl">ref-lod-dcl</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.3.4.5 Block Declarations</h5>
+
+<p><a name="index-block-declaration-715"></a><a name="index-declaration_002c-block-716"></a><a name="index-block_002f1-_0028declaration_0029-717"></a><a name="index-block_002f1-_0028declaration_0029-718"></a>
+
+   <p>The declaration
+
+<pre class="example">     :- block <var>:BlockSpec</var>, ..., <var>:BlockSpec</var>.
+</pre>
+   <p class="noindent">where each <var>BlockSpec</var> is a skeletal goal, specifies conditions
+for blocking goals of the predicate referred to by the
+skeletal goal (<code>f/3</code> say). 
+The arguments of the skeletal goal can be:
+
+     <dl>
+<dt>&lsquo;<samp><span class="samp">-</span></samp>&rsquo;<dd>see below
+
+     <br><dt>&lsquo;<samp><span class="samp">?</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">anything else</span></samp>&rsquo;<dd>ignored
+</dl>
+
+   <p>When a goal for <code>f/3</code> is
+to be executed, the mode specs are interpreted as conditions for
+blocking the goal, and if at least one condition evaluates
+to <code>true</code>, the goal is blocked.
+
+   <p>A block condition evaluates to <code>true</code> if and only if all arguments
+specified as &lsquo;<samp><span class="samp">-</span></samp>&rsquo; are uninstantiated, in which case the
+goal is blocked until at least one of those variables
+is instantiated.  If several conditions evaluate to <code>true</code>,
+the implementation picks one of them and blocks the goal
+accordingly.
+
+   <p>The recommended style is to write the block declarations in
+front of the source code of the predicate they refer to. 
+Indeed, they are part of the source code of the predicate,
+and must precede the first clause.  For example, with the
+definition:
+
+<pre class="example">     :- block merge(-,?,-), merge(?,-,-).
+     
+     merge([], Y, Y).
+     merge(X, [], X).
+     merge([H|X], [E|Y], [H|Z]) :- H @&lt; E,  merge(X, [E|Y], Z).
+     merge([H|X], [E|Y], [E|Z]) :- H @&gt;= E, merge([H|X], Y, Z).
+</pre>
+   <p class="noindent">calls to <code>merge/3</code> having uninstantiated arguments in
+the first <em>and</em> third position <em>or</em> in the second <em>and</em>
+third position will suspend.
+
+   <p>The behavior of blocking goals for a given predicate
+on uninstantiated arguments cannot be switched off, except
+by abolishing or redefining the predicate. 
+See <a href="mpg_002dref_002dblock.html#mpg_002dref_002dblock">mpg-ref-block</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Block-Declarations.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Block-Declarations.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

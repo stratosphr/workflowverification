@@ -1,0 +1,8 @@
+array[1 .. 2] of var 0 .. 0: x :: output_array([1..4]);
+array[1 .. 2] of var 0 .. 1: y :: output_array([1..4]);
+array[1 .. 2] of var 1 .. 1: dx :: output_array([1..4]);
+array[1 .. 2] of var 1 .. 1: dy :: output_array([1..4]);
+
+constraint diffn_sicstus(x, y, dx, dy);
+
+solve satisfy;

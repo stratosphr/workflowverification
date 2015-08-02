@@ -1,0 +1,105 @@
+<html lang="en">
+<head>
+<title>ODBC Exceptions - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dodbc.html#lib_002dodbc" title="lib-odbc">
+<link rel="prev" href="ODBC-Datatypes.html#ODBC-Datatypes" title="ODBC Datatypes">
+<link rel="next" href="ODBC-Predicates.html#ODBC-Predicates" title="ODBC Predicates">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ODBC-Exceptions"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ODBC-Predicates.html#ODBC-Predicates">ODBC Predicates</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ODBC-Datatypes.html#ODBC-Datatypes">ODBC Datatypes</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dodbc.html#lib_002dodbc">lib-odbc</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.23.4 Exceptions</h4>
+
+<!-- [PM] 4.2 FIXME: all odbc_error terms ough to have the same arity -->
+<!-- (2). As it now stands it is impossible to selectively catch only -->
+<!-- odbc errors with a single catch/3. Also, the error/2 wrapping -->
+<!-- does not make much sense. -->
+<p>When an error in the ODBC layer occurs, predicates in
+<code>library(odbc)</code> throw <code>error/2</code> exceptions. Both arguments of the
+<code>error/2</code> exception are the same and has the following form
+<code>odbc_error(</code><var>Detail</var><code>, </code><var>Goal</var><code>)</code>, where <code>Goal</code> is
+some goal where the error occurred, and <var>Detail</var> gives more
+information about the error. The <var>Detail</var> term can have the
+following form:
+
+     <dl>
+<dt><code>data_conversion</code><dd>Thrown in case of a error when converting to or from a SICStus data
+type from or to an ODBC data type.
+
+     <br><dt><code>unsupported_datatype</code><dd>Thrown when an SQL data type is unsupported when converting to or
+from a SICStus data type from or to an ODBC data type.
+
+     <br><dt><code>unknown_datatype</code><dd>Thrown when an unknown SQL data type is found when converting to or
+from a SICStus data type from or to an ODBC data type.
+
+     <br><dt><code>type_error</code><dd>Thrown when the Prolog data is of a type incompatible with the SQL data type
+when converting from a SICStus data type to an ODBC data type.
+
+     <br><dt><code>native_code</code><dd>Thrown in case of a error in the native code of <code>library(odbc)</code>.
+
+     <!-- [PM] 4.2 FIXME: The format of the invalid_handle error terms does not make sense. -->
+     <!-- [PM] 4.2 FIXME: change to odbc_error/2 -->
+     <br><dt><code>invalid_handle(handle_type, </code><var>InvalidHandle</var><code>, </code><var>ReturnCode</var><code>)</code><dd>Thrown when an invalid handle type is specified.
+
+     <br><dt><code>invalid_handle('HandleType'-</code><var>HandleType</var><code>, 'Handle'-</code><var>Handle</var><code>)</code><dd>Thrown when an invalid handle is specified.
+
+     <br><dt><code>invalid_handle(result_set, </code><var>ResultSet</var><code>)</code><dd>
+Thrown when a Result Set handle is invalid.
+
+     <!-- [PM] 4.2 FIXME: change to odbc_error/2 -->
+     <br><dt><code>unknown_connection_option(</code><var>Options</var><code>)</code><dd>
+Thrown when an unknown option was given when calling <code>odbc_db_open/[3,4,5]</code>.
+
+     <br><dt><code>internal_error</code><dd>Thrown when an internal error occurs in <code>library(odbc)</code>. Please
+report this to SICStus Support.
+
+     <!-- [PM] 4.2 FIXME: change to odbc_error/2 -->
+     <br><dt><code>diag(</code><var>ReturnCode</var><code>, </code><var>Recs</var><code>)</code><dd>Thrown when an error occurs in the ODBC layer, e.g. a SQL syntax error. 
+<var>Recs</var> is bound to the diagnostic records reported from ODBC.
+
+     <br><dt><code>out_of_memory</code><dd>Thrown when some operation runs out of memory. 
+</dl>
+   there may be other <var>Details</var> and new <var>Details</var>
+may be added in the future.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ODBC-Exceptions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ODBC-Exceptions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

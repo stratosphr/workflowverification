@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+<title>FDBG Annotation - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="FDBG-Basics.html#FDBG-Basics" title="FDBG Basics">
+<link rel="prev" href="FDBG-Debugger-Commands.html#FDBG-Debugger-Commands" title="FDBG Debugger Commands">
+<link rel="next" href="FDBG-An-Example-Session.html#FDBG-An-Example-Session" title="FDBG An Example Session">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="FDBG-Annotation"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="FDBG-An-Example-Session.html#FDBG-An-Example-Session">FDBG An Example Session</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="FDBG-Debugger-Commands.html#FDBG-Debugger-Commands">FDBG Debugger Commands</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="FDBG-Basics.html#FDBG-Basics">FDBG Basics</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.14.3.5 Annotating Programs</h5>
+
+<p>In order to use FDBG efficiently, you have to make some changes to your
+CLP(FD) program.  Fortunately the calls you have to add are not
+numerous, and when FDBG is turned off they don't decrease efficiency
+significantly or modify the behavior of your program.  On the
+other hand, they are necessary to make FDBG output easier to understand.
+
+   <p>Assign names to the more important and more frequently occurring
+variables by inserting <code>fdbg_assign_name/2</code> calls at the
+beginning of your program.  It is advisable to assign names to
+variables in larger batches (i.e. as lists or
+compound terms) with a single call.
+
+   <p><a name="index-labeling-3297"></a>Use predefined labeling predicates if possible.  If you define
+your own labeling predicates and you want to use them even in the
+debugging session, you should follow these guidelines:
+
+     <ol type=1 start=1>
+<a name="index-fdbg_005fstart_005flabeling_002f1-_0028fdbg_0029-3298"></a><a name="index-fdbg_005fstart_005flabeling_002f1-_0028fdbg_0029-3299"></a>
+<li>Add a call to <code>clpfd:fdbg_start_labeling(</code><var>+Var</var><code>)</code> at the
+beginning of the predicate doing a labeling attempt, and pass the
+currently labeled variable as an argument to the call. 
+<a name="index-fdbg_005flabeling_005fstep_002f2-_0028fdbg_0029-3300"></a><a name="index-fdbg_005flabeling_005fstep_002f2-_0028fdbg_0029-3301"></a>
+<li>Call <code>clpfd:fdbg_labeling_step(</code><var>+Var</var><code>, </code><var>+Step</var><code>)</code>
+before each labeling step.  <var>Step</var> should be a compound term
+describing the labeling step, this will be
+
+          <ol type=a start=1>
+<li>printed &ldquo;as is&rdquo; by the built-in visualizer as the mode of the
+labeling step (see <a href="FDBG-Built_002dIn-Visualizers.html#FDBG-Built_002dIn-Visualizers">FDBG Built-In Visualizers</a>)&mdash;you can use
+<code>portray/1</code> to determine how it should be printed;
+<li>passed as <code>step(</code><var>Step</var><code>)</code> to the user defined labeling
+visualizers in their <var>Event</var> argument; see <a href="FDBG-Writing-Visualizers.html#FDBG-Writing-Visualizers">FDBG Writing Visualizers</a>.
+          </ol>
+        </ol>
+
+   <p>This way FDBG can inform you about the labeling events created by your
+labeling predicates exactly like it would do in the case of
+internal labeling.  If you ignore these rules FDBG won't be able to
+distinguish labeling events from other FDBG events any more.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Annotation.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Annotation.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

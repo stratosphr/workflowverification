@@ -1,0 +1,75 @@
+<html lang="en">
+<head>
+<title>ref-iou-sfh-bos - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" title="ref-iou-sfh">
+<link rel="prev" href="ref_002diou_002dsfh_002dcos.html#ref_002diou_002dsfh_002dcos" title="ref-iou-sfh-cos">
+<link rel="next" href="ref_002diou_002dsfh_002dcst.html#ref_002diou_002dsfh_002dcst" title="ref-iou-sfh-cst">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-iou-sfh-bos"></a>
+<a name="ref_002diou_002dsfh_002dbos"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002diou_002dsfh_002dcst.html#ref_002diou_002dsfh_002dcst">ref-iou-sfh-cst</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002diou_002dsfh_002dcos.html#ref_002diou_002dsfh_002dcos">ref-iou-sfh-cos</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002diou_002dsfh.html#ref_002diou_002dsfh">ref-iou-sfh</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.6.7.8 Finding Out About Open Streams</h5>
+
+<p><a name="index-current_005fstream_002f3-_0028built_002din_0029-1007"></a><a name="index-current_005fstream_002f3-_0028built_002din_0029-1008"></a>
+<a name="index-current-stream-1009"></a><a name="index-stream_002c-current-1010"></a><code>current_stream(</code><var>File</var><code>, </code><var>Mode</var><code>, </code><var>Stream</var><code>)</code> succeeds if
+<var>Stream</var> is a stream that is currently open on file <var>File</var> in mode
+<var>Mode</var>, where <var>Mode</var> is either <code>read</code>, <code>write</code>, or
+<code>append</code>.  None of the arguments need be initially instantiated. 
+This predicate is nondeterminate and can be used to backtrack through all
+open streams. 
+<!-- @code{current_stream/3} ignores the three special streams for the standard -->
+<!-- input, output, and error channels. -->
+<code>current_stream/3</code> ignores certain predefined streams, including
+the initial values of the special streams for the standard input,
+output, and error channels. 
+See <a href="mpg_002dref_002dcurrent_005fstream.html#mpg_002dref_002dcurrent_005fstream">mpg-ref-current_stream</a>.
+
+   <p><a name="index-stream_005fproperty_002f2-_0028built_002din_0029-1011"></a><a name="index-stream_005fproperty_002f2-_0028built_002din_0029-1012"></a>
+<code>stream_property(</code><var>Stream</var><code>, </code><var>Property</var><code>)</code> succeeds if
+<var>Stream</var> is a currently open stream with property <var>Property</var>. 
+<!-- The three standard channels are @emph{not} ignored. -->
+Predefined streams, like the three standard channels, are <em>not</em> ignored. 
+See <a href="mpg_002dref_002dstream_005fproperty.html#mpg_002dref_002dstream_005fproperty">mpg-ref-stream_property</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dsfh_002dbos.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dsfh_002dbos.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

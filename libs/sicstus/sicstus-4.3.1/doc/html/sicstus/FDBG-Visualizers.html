@@ -1,0 +1,80 @@
+<html lang="en">
+<head>
+<title>FDBG Visualizers - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="FDBG-Concepts.html#FDBG-Concepts" title="FDBG Concepts">
+<link rel="prev" href="FDBG-Labeling-Levels.html#FDBG-Labeling-Levels" title="FDBG Labeling Levels">
+<link rel="next" href="FDBG-Names-of-Terms.html#FDBG-Names-of-Terms" title="FDBG Names of Terms">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="FDBG-Visualizers"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="FDBG-Names-of-Terms.html#FDBG-Names-of-Terms">FDBG Names of Terms</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="FDBG-Labeling-Levels.html#FDBG-Labeling-Levels">FDBG Labeling Levels</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="FDBG-Concepts.html#FDBG-Concepts">FDBG Concepts</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.14.2.3 Visualizers</h5>
+
+<p><a name="index-visualizer-3263"></a>
+A visualizer is a Prolog predicate reacting to FDBG events
+(see <a href="FDBG-Events.html#FDBG-Events">FDBG Events</a>).  It is called directly by the FDBG core when any
+FDBG event occurs.  It is called <dfn>visualizer</dfn>, because usually it
+should present the events to the user, but in general it can do any kind
+of processing, like checking invariants, etc.
+
+   <p>For all major event classes, a different visualizer type is used.  The
+set of visualizers you would like to use for a session is specified in
+the option list of <code>fdbg_on/1</code> (see <a href="FDBG-Options.html#FDBG-Options">FDBG Options</a>), when
+FDBG is switched on.
+
+   <p>A specific visualizer can have several arguments, some are
+supplied by the FDBG core, the rest (if any) should be specified when
+FDBG is switched on.  Note that the obligatory arguments will be
+appended to the <em>end</em> of the user defined argument
+list.
+
+   <p>The set of built-in visualizers installed by default (see <a href="FDBG-Options.html#FDBG-Options">FDBG Options</a>) is the following:
+
+     <ul>
+<li>for constraint awakenings: <code>fdbg_show</code>
+<li>for labeling events: <code>fdbg_label_show</code>
+</ul>
+
+   <p>For details on built-in visualizers, see <a href="FDBG-Built_002dIn-Visualizers.html#FDBG-Built_002dIn-Visualizers">FDBG Built-In Visualizers</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Visualizers.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Visualizers.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

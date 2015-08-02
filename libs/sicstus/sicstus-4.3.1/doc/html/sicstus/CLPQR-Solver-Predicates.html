@@ -1,0 +1,269 @@
+<html lang="en">
+<head>
+<title>CLPQR Solver Predicates - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="CLPQR-Interface.html#CLPQR-Interface" title="CLPQR Interface">
+<link rel="prev" href="CLPQR-Notational-Conventions.html#CLPQR-Notational-Conventions" title="CLPQR Notational Conventions">
+<link rel="next" href="CLPQR-Unification.html#CLPQR-Unification" title="CLPQR Unification">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CLPQR-Solver-Predicates"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CLPQR-Unification.html#CLPQR-Unification">CLPQR Unification</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="CLPQR-Notational-Conventions.html#CLPQR-Notational-Conventions">CLPQR Notational Conventions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="CLPQR-Interface.html#CLPQR-Interface">CLPQR Interface</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.11.2.2 Solver Predicates</h5>
+
+<p>The solver interface for both Q and R consists of the following
+predicates, which are exported from <code>module(linear)</code>.
+
+     <dl>
+<dt><code>{</code><var>+Constraint</var><code>}</code><dd><a name="index-g_t_0040_007b_0040_007d_002f1-_0028clpqr_0029-3163"></a><a name="index-g_t_0040_007b_0040_007d_002f1-_0028clpqr_0029-3164"></a>
+<var>Constraint</var> is a term accepted by the grammar below.  The
+corresponding constraint is added to the current constraint store and
+checked for satisfiability.  Use the module prefix to distinguish
+the solvers if both clp(Q) and clp(R) were loaded
+     <pre class="example">          | ?- <kbd>clpr:{Ar+Br=10}, Ar=Br, clpq:{Aq+Bq=10}, Aq=Bq.</kbd>
+          
+          Aq = 5,
+          Ar = 5.0,
+          Bq = 5,
+          Br = 5.0
+</pre>
+     <p>Although clp(Q) and clp(R) are independent modules, you are asking
+for trouble if you (accidently) share variables between them:
+     <pre class="example">          | ?- <kbd>clpr:{A+B=10}, clpq:{A=B}.</kbd>
+          ! Type error in argument 2 of clpq:=/2
+          ! a rational number expected, but 5.0 found
+          ! goal:  _118=5.0
+</pre>
+     <p>This is because both solvers eventually compute values for the
+variables and Reals are incompatible with Rationals.
+
+     <p>Here is the constraint grammar:
+     <p><table summary=""><tr align="left"><td valign="top" width="10%"><var>Constraint</var> </td><td valign="top" width="30%">::= <var>C</var>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <var>C</var> <code>,</code> <var>C</var> </td><td valign="top" width="40%"><span class="roman">{ conjunction }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"><br></td></tr><tr align="left"><td valign="top" width="10%"><var>C</var> </td><td valign="top" width="30%">::= <var>Expr</var> <code>=:=</code> <var>Expr</var> </td><td valign="top" width="40%"><span class="roman">{ equation }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <var>Expr</var>  <code>=</code>  <var>Expr</var> </td><td valign="top" width="40%"><span class="roman">{ equation }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <var>Expr</var>  <code>&lt;</code>  <var>Expr</var> </td><td valign="top" width="40%"><span class="roman">{ strict inequation }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <var>Expr</var>  <code>&gt;</code>  <var>Expr</var> </td><td valign="top" width="40%"><span class="roman">{ strict inequation }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <var>Expr</var> <code>=&lt;</code>  <var>Expr</var> </td><td valign="top" width="40%"><span class="roman">{ nonstrict inequation }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <var>Expr</var> <code>&gt;=</code>  <var>Expr</var> </td><td valign="top" width="40%"><span class="roman">{ nonstrict inequation }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <var>Expr</var> <code>=\=</code> <var>Expr</var> </td><td valign="top" width="40%"><span class="roman">{ disequation }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"><br></td></tr><tr align="left"><td valign="top" width="10%"><var>Expr</var> </td><td valign="top" width="30%">::= <dfn>variable</dfn> </td><td valign="top" width="40%"><span class="roman">{ Prolog variable }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <dfn>number</dfn> </td><td valign="top" width="40%"><span class="roman">{ floating point or integer }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <code>+</code> <var>Expr</var> </td><td valign="top" width="40%"><span class="roman">{ unary plus }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <code>-</code> <var>Expr</var> </td><td valign="top" width="40%"><span class="roman">{ unary minus }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <var>Expr</var> <code>+</code> <var>Expr</var> </td><td valign="top" width="40%"><span class="roman">{ addition }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <var>Expr</var> <code>-</code> <var>Expr</var> </td><td valign="top" width="40%"><span class="roman">{ subtraction }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <var>Expr</var> <code>*</code> <var>Expr</var> </td><td valign="top" width="40%"><span class="roman">{ multiplication }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <var>Expr</var> <code>/</code> <var>Expr</var> </td><td valign="top" width="40%"><span class="roman">{ division }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <code>abs(</code><var>Expr</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ absolute representation }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <code>sin(</code><var>Expr</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ trigonometric sine }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <code>cos(</code><var>Expr</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ trigonometric cosine }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <code>tan(</code><var>Expr</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ trigonometric tangent }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <code>pow(</code><var>Expr</var><code>,</code><var>Expr</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ raise to the power }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <code>exp(</code><var>Expr</var><code>,</code><var>Expr</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ raise to the power }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <code>min(</code><var>Expr</var><code>,</code><var>Expr</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ minimum of the two arguments }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <code>max(</code><var>Expr</var><code>,</code><var>Expr</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ maximum of the two arguments }</span>
+<br></td></tr><tr align="left"><td valign="top" width="10%"></td><td valign="top" width="30%">| <code>#(</code><var>Const</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ symbolic numerical constants }</span>
+     <br></td></tr></table>
+
+     <p>Conjunctive constraints <code>{</code><var>C</var><code>,</code><var>C</var><code>}</code> have been made part of the syntax
+to control the granularity of constraint submission, which will be exploited by
+future versions of this software. 
+Symbolic numerical constants are provided for compatibility only;
+see <a href="CLPQR-Monash-Examples.html#CLPQR-Monash-Examples">CLPQR Monash Examples</a>.
+
+     <br><dt><code>entailed(</code><var>+Constraint</var><code>)</code><dd><a name="index-entailed_002f1-_0028clpqr_0029-3165"></a><a name="index-entailed_002f1-_0028clpqr_0029-3166"></a>
+Succeeds iff the linear <var>Constraint</var> is entailed by the current
+constraint store. This predicate does not change the state of the
+constraint store.
+     <pre class="example">          clp(q) ?- <kbd>{A =&lt; 4}, entailed(A=\=5).</kbd>
+          
+          {A=&lt;4}
+          
+          clp(q) ?- <kbd>{A =&lt; 4}, entailed(A=\=3).</kbd>
+          
+          no
+</pre>
+     <br><dt><code>inf(</code><var>+Expr</var><code>, </code><var>-Inf</var><code>)</code><dt><code>inf(</code><var>+Expr</var><code>, </code><var>-Inf</var><code>, </code><var>+Vector</var><code>, </code><var>-Vertex</var><code>)</code><dd><a name="index-inf_002f_005b2_002c4_005d-_0028clpqr_0029-3167"></a><a name="index-inf_002f_005b2_002c4_005d-_0028clpqr_0029-3168"></a>
+Computes the infimum of the linear expression <var>Expr</var> and
+unifies it with <var>Inf</var>. If given, <var>Vector</var> should be a
+list of variables relevant to <var>Expr</var>, and <var>Vertex</var>
+will be unified a list of the same length as <var>Vector</var>
+containing the values for <var>Vector</var>, such that the infimum is
+produced when assigned.  Failure indicates unboundedness.
+
+     <br><dt><code>sup(</code><var>+Expr</var><code>, </code><var>-Sup</var><code>)</code><dt><code>sup(</code><var>+Expr</var><code>, </code><var>-Sup</var><code>, </code><var>+Vector</var><code>, </code><var>-Vertex</var><code>)</code><dd><a name="index-sup_002f_005b2_002c4_005d-_0028clpqr_0029-3169"></a><a name="index-sup_002f_005b2_002c4_005d-_0028clpqr_0029-3170"></a>
+Computes the supremum of the linear expression <var>Expr</var> and
+unifies it with <var>Sup</var>. If given, <var>Vector</var> should be a
+list of variables relevant to <var>Expr</var>, and <var>Vertex</var>
+will be unified a list of the same length as <var>Vector</var>
+containing the values for <var>Vector</var>, such that the supremum is
+produced when assigned.  Failure indicates unboundedness.
+
+     <pre class="example">          clp(q) ?- <kbd>{ 2*X+Y =&lt; 16, X+2*Y =&lt; 11,</kbd>
+                      <kbd>X+3*Y =&lt; 15, Z = 30*X+50*Y</kbd>
+                    <kbd>}, sup(Z, Sup, [X,Y], Vertex).</kbd>
+          
+          Sup = 310,
+          Vertex = [7,2],
+          {Z=30*X+50*Y},
+          {X+1/2*Y=&lt;8},
+          {X+3*Y=&lt;15},
+          {X+2*Y=&lt;11}
+</pre>
+     <br><dt><code>minimize(</code><var>+Expr</var><code>)</code><dd><a name="index-minimize_002f1-_0028clpqr_0029-3171"></a><a name="index-minimize_002f1-_0028clpqr_0029-3172"></a>
+Computes the infimum of the linear expression <var>Expr</var> and equates it
+with the expression, i.e. as if defined as:
+     <pre class="example">          minimize(Expr) :- inf(Expr, Expr).
+</pre>
+     <br><dt><code>maximize(</code><var>+Expr</var><code>)</code><dd><a name="index-maximize_002f1-_0028clpqr_0029-3173"></a><a name="index-maximize_002f1-_0028clpqr_0029-3174"></a>
+Computes the supremum of the linear expression <var>Expr</var> and equates it
+with the expression.
+     <pre class="example">          clp(q) ?- <kbd>{ 2*X+Y =&lt; 16, X+2*Y =&lt; 11,</kbd>
+                      <kbd>X+3*Y =&lt; 15, Z = 30*X+50*Y</kbd>
+                    <kbd>}, maximize(Z).</kbd>
+          
+          X = 7,
+          Y = 2,
+          Z = 310
+</pre>
+     <br><dt><code>bb_inf(</code><var>+Ints</var><code>, </code><var>+Expr</var><code>, </code><var>-Inf</var><code>)</code><dd><a name="index-bb_005finf_002f_005b3_002c5_005d-_0028clpqr_0029-3175"></a><a name="index-bb_005finf_002f_005b3_002c5_005d-_0028clpqr_0029-3176"></a>
+Computes the infimum of the linear expression <var>Expr</var> under the
+additional constraint that all of variables in the list
+<var>Ints</var> assume integral values at the infimum. This allows for the
+solution of mixed integer linear optimization problems; see <a href="CLPQR-MIP.html#CLPQR-MIP">CLPQR MIP</a>.
+     <pre class="example">          clp(q) ?- <kbd>{X &gt;= Y+Z, Y &gt; 1, Z &gt; 1}, bb_inf([Y,Z],X,Inf).</kbd>
+          
+          Inf = 4,
+          {Y&gt;1},
+          {Z&gt;1},
+          {X-Y-Z&gt;=0}
+</pre>
+     <br><dt><code>bb_inf(</code><var>+Ints</var><code>, </code><var>+Expr</var><code>, </code><var>-Inf</var><code>, </code><var>-Vertex</var><code>, </code><var>+Eps</var><code>)</code><dd><a name="index-bb_005finf_002f_005b3_002c5_005d-_0028clpqr_0029-3177"></a><a name="index-bb_005finf_002f_005b3_002c5_005d-_0028clpqr_0029-3178"></a>
+Computes the infimum of the linear expression <var>Expr</var> under the
+additional constraint that all of variables in the list
+<var>Ints</var> assume integral values at the infimum. <var>Eps</var> is a
+positive number between 0 and 0.5 that specifies how close a number
+<var>X</var> must be to the next integer to be considered integral:
+<code>abs(round(</code><var>X</var><code>)-</code><var>X</var><code>) &lt; </code><var>Eps</var>.  The predicate
+<code>bb_inf/3</code> uses <var>Eps</var><code> = 0.001</code>.  With clp(Q),
+<var>Eps</var><code> = 0</code> makes sense.  <var>Vertex</var> is a list of the
+same length as <var>Ints</var> and contains the (integral) values for
+<var>Ints</var>, such that the infimum is produced when assigned. Note that
+this will only generate one particular solution, which is different from
+the situation with <code>minimize/1</code>, where the general solution is
+exhibited.
+
+     <p><code>bb_inf/5</code> works properly for non-strict inequalities only! 
+Disequations (<code>=\=</code>) and higher dimensional strict inequalities
+(<code>&gt;</code>,<code>&lt;</code>) are beyond its scope. Strict bounds on the decision
+variables are honored however:
+
+     <pre class="example">          clp(q) ?- <kbd>{X &gt;= Y+Z, Y &gt; 1, Z &gt; 1}, bb_inf([Y,Z],X,Inf,Vertex,0).</kbd>
+          
+          Inf = 4,
+          Vertex = [2,2],
+          {Y&gt;1},
+          {Z&gt;1},
+          {X-Y-Z&gt;=0}
+</pre>
+     <p>The limitation(s) can be addressed by:
+
+          <ul>
+<li>transforming the original problem statement so that only non-strict
+inequalities remain; for example, <code>{X + Y &gt; 0}</code> becomes <code>{X
++ Y &gt;= 1}</code> for integral <code>X</code> and <code>Y</code>;
+
+          <li>contemplating the use of clp(FD). 
+</ul>
+
+     <br><dt><code>ordering(</code><var>+Spec</var><code>)</code><dd><a name="index-ordering_002f1-_0028clpqr_0029-3179"></a><a name="index-ordering_002f1-_0028clpqr_0029-3180"></a>
+Provides a means to control one aspect of the presentation of the
+answer constraints; see <a href="CLPQR-Variable-Ordering.html#CLPQR-Variable-Ordering">CLPQR Variable Ordering</a>.
+
+     <br><dt><code>dump(</code><var>+Target</var><code>, </code><var>-NewVars</var><code>, </code><var>-CodedAnswer</var><code>)</code><dd><a name="index-dump_002f3-_0028clpqr_0029-3181"></a><a name="index-dump_002f3-_0028clpqr_0029-3182"></a>
+Reflects the constraints on the target variables into a
+term, where <var>Target</var> and <var>NewVars</var> are lists of
+variables of equal length and <var>CodedAnswer</var> is the term
+representation of the projection of constraints onto the target
+variables where the target variables are replaced by the
+corresponding variables from <var>NewVars</var> (see <a href="CLPQR-Turning-Answers-into-Terms.html#CLPQR-Turning-Answers-into-Terms">CLPQR Turning Answers into Terms</a>).
+     <pre class="example">          clp(q) ?- <kbd>{A+B =&lt; 10, A&gt;=4}, </kbd>
+                    <kbd>dump([A,B],Vs,Cs), </kbd>
+                    <kbd>dump([B],Bp,Cb).</kbd>
+          
+          Cb = [_A=&lt;6],
+          Bp = [_A],
+          Cs = [_B&gt;=4,_C+_B=&lt;10],
+          Vs = [_C,_B],
+          {A&gt;=4},
+          {A+B=&lt;10}
+</pre>
+     <p>The current version of <code>dump/3</code> is incomplete with respect to
+nonlinear constraints. It only reports nonlinear constraints that are
+connected to the target variables. The following example has no
+solution. From the top-level's report we have a chance to deduce this
+fact, but <code>dump/3</code> currently has no means to collect global
+constraints <small class="dots">...</small>
+     <pre class="example">          q(X) :-
+                  {X&gt;=10},
+                  {sin(Z)&gt;3}.
+          
+          clp(r) ?- <kbd>q(X), dump([X],V,C).</kbd>
+          
+          C = [_A&gt;=10.0],
+          V = [_A],
+          clpr:{3.0-sin(_B)&lt;0.0},
+          {X&gt;=10.0}
+</pre>
+     <br><dt><code>projecting_assert/1(</code><var>:Clause</var><code>)</code><dd><a name="index-projecting_005fassert_002f1-_0028clpqr_0029-3183"></a><a name="index-projecting_005fassert_002f1-_0028clpqr_0029-3184"></a>
+If you use the database, the clauses you assert might have
+constraints associated with their variables.  Use this
+predicate instead of <code>assert/1</code> in order to ensure that only
+the relevant and projected constraints get stored in the database. 
+It will transform the clause into one with plain variables
+and extra body goals that set up the relevant constraint
+when called.
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-Solver-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-Solver-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

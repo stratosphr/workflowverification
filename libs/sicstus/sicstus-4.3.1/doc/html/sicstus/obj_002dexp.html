@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+<title>obj-exp - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dobjects.html#lib_002dobjects" title="lib-objects">
+<link rel="next" href="obj_002dglo.html#obj_002dglo" title="obj-glo">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="obj-exp"></a>
+<a name="obj_002dexp"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="obj_002dglo.html#obj_002dglo">obj-glo</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dobjects.html#lib_002dobjects">lib-objects</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.22.6 Exported Predicates</h4>
+
+<ul class="menu">
+<li><a accesskey="1" href="obj_002dexp_002dsend.html#obj_002dexp_002dsend">obj-exp-send</a>:                         &lt;-/2
+<li><a accesskey="2" href="obj_002dexp_002dput.html#obj_002dexp_002dput">obj-exp-put</a>:                          &lt;&lt;/2
+<li><a accesskey="3" href="obj_002dexp_002dget.html#obj_002dexp_002dget">obj-exp-get</a>:                          &gt;&gt;/2
+<li><a accesskey="4" href="obj_002dexp_002dclass.html#obj_002dexp_002dclass">obj-exp-class</a>:                        class/1
+<li><a accesskey="5" href="obj_002dexp_002dclass_005fancestor.html#obj_002dexp_002dclass_005fancestor">obj-exp-class_ancestor</a>:               class_ancestor/2
+<li><a accesskey="6" href="obj_002dexp_002dclass_005fmethod.html#obj_002dexp_002dclass_005fmethod">obj-exp-class_method</a>:                 class_method/1
+<li><a accesskey="7" href="obj_002dexp_002dclass_005fsuperclass.html#obj_002dexp_002dclass_005fsuperclass">obj-exp-class_superclass</a>:             class_superclass/2
+<li><a accesskey="8" href="obj_002dexp_002dclass_005fof.html#obj_002dexp_002dclass_005fof">obj-exp-class_of</a>:                     class_of/2
+<li><a accesskey="9" href="obj_002dexp_002dcreate.html#obj_002dexp_002dcreate">obj-exp-create</a>:                       create/2
+<li><a href="obj_002dexp_002dcurrent_005fclass.html#obj_002dexp_002dcurrent_005fclass">obj-exp-current_class</a>:                current_class/1
+<li><a href="obj_002dexp_002ddebug_005fmessage.html#obj_002dexp_002ddebug_005fmessage">obj-exp-debug_message</a>:                debug_message/0
+<li><a href="obj_002dexp_002ddefine_005fmethod.html#obj_002dexp_002ddefine_005fmethod">obj-exp-define_method</a>:                define_method/3
+<li><a href="obj_002dexp_002ddescendant_005fof.html#obj_002dexp_002ddescendant_005fof">obj-exp-descendant_of</a>:                descendant_of/2
+<li><a href="obj_002dexp_002ddestroy.html#obj_002dexp_002ddestroy">obj-exp-destroy</a>:                      destroy/1
+<li><a href="obj_002dexp_002ddirect_005fmessage.html#obj_002dexp_002ddirect_005fmessage">obj-exp-direct_message</a>:               direct_message/4
+<li><a href="obj_002dexp_002dend_005fclass.html#obj_002dexp_002dend_005fclass">obj-exp-end_class</a>:                    end_class/[0,1]
+<li><a href="obj_002dexp_002dfetch_005fslot.html#obj_002dexp_002dfetch_005fslot">obj-exp-fetch_slot</a>:                   fetch_slot/2
+<li><a href="obj_002dexp_002dinherit.html#obj_002dexp_002dinherit">obj-exp-inherit</a>:                      inherit/1
+<li><a href="obj_002dexp_002dinstance_005fmethod.html#obj_002dexp_002dinstance_005fmethod">obj-exp-instance_method</a>:              instance_method/1
+<li><a href="obj_002dexp_002dmessage.html#obj_002dexp_002dmessage">obj-exp-message</a>:                      message/4
+<li><a href="obj_002dexp_002dnodebug_005fmessage.html#obj_002dexp_002dnodebug_005fmessage">obj-exp-nodebug_message</a>:              nodebug_message/0
+<li><a href="obj_002dexp_002dpointer_005fobject.html#obj_002dexp_002dpointer_005fobject">obj-exp-pointer_object</a>:               pointer_object/2
+<li><a href="obj_002dexp_002dstore_005fslot.html#obj_002dexp_002dstore_005fslot">obj-exp-store_slot</a>:                   store_slot/2
+<li><a href="obj_002dexp_002dundefine_005fmethod.html#obj_002dexp_002dundefine_005fmethod">obj-exp-undefine_method</a>:              undefine_method/3
+<li><a href="obj_002dexp_002duninherit.html#obj_002dexp_002duninherit">obj-exp-uninherit</a>:                    uninherit/1
+</ul>
+
+<p>The following reference pages, alphabetically arranged, describe the
+exported SICStus Objects predicates.  They can be imported by an embedded
+command:
+
+<pre class="example">     :- use_module(library(objects)).
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dexp.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dexp.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

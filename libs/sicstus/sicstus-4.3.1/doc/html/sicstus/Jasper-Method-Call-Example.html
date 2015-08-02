@@ -1,0 +1,139 @@
+<html lang="en">
+<head>
+<title>Jasper Method Call Example - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Jasper-Library.html#The-Jasper-Library" title="The Jasper Library">
+<link rel="next" href="Jasper-Library-Predicates.html#Jasper-Library-Predicates" title="Jasper Library Predicates">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Jasper-Method-Call-Example"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Jasper-Library-Predicates.html#Jasper-Library-Predicates">Jasper Library Predicates</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Jasper-Library.html#The-Jasper-Library">The Jasper Library</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.18.8.1 Jasper Method Call Example</h5>
+
+<p>We begin with a small example.
+
+<pre class="example">
+                             <div align="right"><em>// Simple.java</em>
+     </div>
+     import se.sics.jasper.*;
+     
+     public class Simple {
+       private String instanceDatum = "this is instance data";
+     
+       static int simpleMethod(int representation) {
+         return representation*42;
+       }
+     
+       public String getInstanceData(String arg) {
+         return instanceDatum + arg;
+       }
+     }
+</pre>
+   <p>Compile <samp><span class="file">Simple.java</span></samp> (UNIX):
+<pre class="example">     % <kbd>javac -deprecation \</kbd>
+       <kbd>-classpath &lt;installdir&gt;/lib/sicstus-4.3.1/bin/jasper.jar Simple.java</kbd>
+</pre>
+   <p>Under Windows this may look like (the command should go on a single line):
+<pre class="example">     C:\&gt; <kbd>c:\jdk1.2.2\bin\javac -deprecation</kbd>
+      <kbd>-classpath "D:\Program Files\SICStus Prolog 4.3.1\bin\jasper.jar" Simple.java</kbd>
+</pre>
+   <p>The option &lsquo;<samp><span class="samp">-deprecation</span></samp>&rsquo; is always a good idea, it makes <samp><span class="command">javac</span></samp> warn if your
+code use deprecated methods.
+
+<pre class="example">
+                                <div align="right"><em>% simple.pl</em>
+     </div>
+     :- use_module(library(jasper)).
+     main :-
+        %% Replace '/my/java/dir' below with the path containing
+        %% 'Simple.class', e.g. to look in the current directory use
+        %% classpath(['.']).
+        %% You can also use the CLASSPATH environment variable and call
+        %% jasper_initialize(JVM)
+        %% Under Windows it may look like classpath(['C:/MyTest'])
+        jasper_initialize([classpath(['/my/java/dir'])],JVM),
+     
+        format('Calling a static method...~n',[]),
+        jasper_call(JVM,
+                    method('Simple','simpleMethod',[static]), % Which method
+                    simple_method(+integer,[-integer]), % Types of arguments
+                    simple_method(42,X)), % The arguments.
+        format('simpleMethod(~w) = ~w~n',[42,X]),
+     
+        format('Creating an object...~n',[]),
+        jasper_new_object(JVM, 'Simple', init, init, Object),
+     
+        format('Calling an instance method on ~w...~n',[Object]),
+        jasper_call(JVM,
+                    method('Simple','getInstanceData',[instance]),
+                    %% first arg is the instance to call
+                    get_instance_data(+object('Simple'), +string,[-string]),
+                    get_instance_data(Object, 'foobar', X1)),
+        format('getInstanceData(~w) = ~w~n',['foobar',X1]).
+</pre>
+   <!-- Then, run SICStus (if necessary with the @option{-m} option): -->
+   <p>Then, run SICStus:
+
+<pre class="example">     % <kbd>echo "[simple],main." | sicstus</kbd>
+     SICStus 4.3.1 ...
+     Licensed to SICS
+     % consulting /home1/jojo/simple.pl...
+     [...]
+     % consulted /home1/jojo/simple.pl in module user, 100 msec 26644 bytes
+     Calling a static method...
+     simpleMethod(42) = 1764
+     Creating an object...
+     Calling and instance method on $java_object(135057576)...
+     getInstanceData(foobar) = this is instance datafoobar
+</pre>
+   <p>This example performed three things.
+
+     <ul>
+<li>The static method <code>simpleMethod</code> was called with argument
+'42', and returned the square of '42', '1764'. 
+<li>An object of class <code>Simple</code> was created. 
+<li>The method <code>getInstanceData</code> was executed on the object just
+created. The method took an atom as an argument and appended the atom to
+a string stored as a field in the object, yielding "this is instance
+datafoobar". 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Jasper-Method-Call-Example.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Jasper-Method-Call-Example.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

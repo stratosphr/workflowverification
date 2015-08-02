@@ -1,0 +1,124 @@
+<html lang="en">
+<head>
+<title>mpg-top-deb - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dtop.html#mpg_002dtop" title="mpg-top">
+<link rel="prev" href="mpg_002dtop_002ddat.html#mpg_002dtop_002ddat" title="mpg-top-dat">
+<link rel="next" href="mpg_002dtop_002dest.html#mpg_002dtop_002dest" title="mpg-top-est">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-top-deb"></a>
+<a name="mpg_002dtop_002ddeb"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dtop_002dest.html#mpg_002dtop_002dest">mpg-top-est</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dtop_002ddat.html#mpg_002dtop_002ddat">mpg-top-dat</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dtop.html#mpg_002dtop">mpg-top</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.2.6 Debugging</h4>
+
+<p><a name="index-debugging_002c-predicates-for-4348"></a><a name="index-predicates-for-debugging-4349"></a>
+     <dl>
+
+     <dt><code>add_breakpoint(</code><var>+Conditions</var><code>, </code><var>-BID</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dd>Creates a breakpoint with <var>Conditions</var> and with identifier
+<var>BID</var>.
+
+     <br><dt><code>user:breakpoint_expansion(</code><var>+Macro</var><code>, </code><var>-Body</var><code>) &nbsp;<!-- /@w --> </code><strong>hook,development</strong><dd>defines debugger condition macros
+
+     <br><dt><code>coverage_data(</code><var>?Data</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.2,development</strong><dd><var>Data</var> is the coverage data accumulated so far
+
+     <br><dt><code>current_breakpoint(</code><var>?Conditions</var><code>, </code><var>?BID</var><code>, </code><var>?Status</var><code>, </code><var>?Kind</var><code>, </code><var>?Type</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dd>There is a breakpoint with conditions <var>Conditions</var>, identifier
+<var>BID</var>, enabledness <var>Status</var>, kind <var>Kind</var>, and type
+<var>Type</var>.
+
+     <br><dt><code>debug &nbsp;<!-- /@w --> </code><strong>development</strong><dd>switch on debugging
+
+     <br><dt><code>user:debugger_command_hook(</code><var>+DCommand</var><code>,</code><var>-Actions</var><code>) &nbsp;<!-- /@w --> </code><strong>hook,development</strong><dd>Allows the interactive debugger to be extended with user-defined
+commands.
+
+     <br><dt><code>debugging &nbsp;<!-- /@w --> </code><strong>development</strong><dd>display debugging status information
+
+     <br><dt><code>disable_breakpoints(</code><var>+BIDs</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dd>Disables the breakpoints specified by <var>BIDs</var>.
+
+     <br><dt><code>enable_breakpoints(</code><var>+BIDs</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dd>Enables the breakpoints specified by <var>BIDs</var>.
+
+     <br><dt><code>user:error_exception(</code><var>+Exception</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd><var>Exception</var> is an exception that traps to the debugger if it is
+switched on.
+
+     <br><dt><code>execution_state(</code><var>+Tests</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dd><var>Tests</var> are satisfied in the current state of the execution.
+
+     <br><dt><code>execution_state(</code><var>+FocusConditions</var><code>, </code><var>+Tests</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dd><var>Tests</var> are satisfied in the state of the execution pointed to by
+<var>FocusConditions</var>.
+
+     <br><dt><code>leash(</code><var>+M</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dd>set the debugger's leashing mode to <var>M</var>
+
+     <br><dt><code>nodebug &nbsp;<!-- /@w --> </code><strong>development</strong><dd>switch off debugging
+
+     <br><dt><code>nospy(</code><var>:P</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dd>remove spypoints from the procedure(s) specified by <var>P</var>
+
+     <br><dt><code>nospyall &nbsp;<!-- /@w --> </code><strong>development</strong><dd>remove all spypoints
+
+     <br><dt><code>notrace &nbsp;<!-- /@w --> </code><strong>development</strong><dd>switch off debugging (same as <code>nodebug/0</code>)
+
+     <br><dt><code>nozip &nbsp;<!-- /@w --> </code><strong>development</strong><dd>switch off debugging (same as <code>nodebug/0</code>)
+
+     <br><dt><code>print_coverage &nbsp;<!-- /@w --> </code><strong>since release 4.2,development</strong><dt><code>print_coverage(</code><var>?Data</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.2,development</strong><dd>The coverage data <var>Data</var> is displayed in a hierarchical
+format.  <var>Data</var> defaults to the coverage data accumulated so far.
+
+     <br><dt><code>print_profile &nbsp;<!-- /@w --> </code><strong>since release 4.2,development</strong><dt><code>print_profile(</code><var>?Data</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.2,development</strong><dd>The profiling data <var>Data</var> is displayed in a format similar to
+<samp><span class="command">gprof(1)</span></samp>.  <var>Data</var> defaults to the profiling data accumulated so far.
+
+     <br><dt><code>profile_data(</code><var>?Data</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.2,development</strong><dd><var>Data</var> is the profiling data accumulated so far
+
+     <br><dt><code>profile_reset &nbsp;<!-- /@w --> </code><strong>since release 4.2,development</strong><dd>All profiling data is reset.
+
+     <br><dt><code>remove_breakpoints(</code><var>+BIDs</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dd>Removes the breakpoints specified by <var>BIDs</var>.
+
+     <br><dt><code>spy(</code><var>:P</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dt><code>spy(</code><var>:P</var><code>,</code><var>:C</var><code>)</code><dd>set spypoints on the procedure(s) specified by <var>P</var>
+with conditions <var>C</var>
+
+     <br><dt><code>trace &nbsp;<!-- /@w --> </code><strong>development</strong><dd>switch on debugging and start tracing immediately
+
+     <br><dt><code>unknown(</code><var>-O</var><code>,</code><var>+N</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dd>Changes action on undefined predicates from <var>O</var> to <var>N</var>.
+
+     <br><dt><code>user:unknown_predicate_handler(</code><var>+G</var><code>,</code><var>+M</var><code>,</code><var>-N</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>handle for unknown predicates.
+
+     <br><dt><code>zip &nbsp;<!-- /@w --> </code><strong>development</strong><dd>switch on debugging in zip mode
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dtop_002ddeb.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dtop_002ddeb.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

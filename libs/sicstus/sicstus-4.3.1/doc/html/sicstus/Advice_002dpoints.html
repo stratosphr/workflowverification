@@ -1,0 +1,202 @@
+<html lang="en">
+<head>
+<title>Advice-points - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Advanced-Debugging.html#Advanced-Debugging" title="Advanced Debugging">
+<link rel="prev" href="Breakpoint-Actions.html#Breakpoint-Actions" title="Breakpoint Actions">
+<link rel="next" href="Built_002din-Predicates-for-Breakpoint-Handling.html#Built_002din-Predicates-for-Breakpoint-Handling" title="Built-in Predicates for Breakpoint Handling">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Advice-points"></a>
+<a name="Advice_002dpoints"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Built_002din-Predicates-for-Breakpoint-Handling.html#Built_002din-Predicates-for-Breakpoint-Handling">Built-in Predicates for Breakpoint Handling</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Breakpoint-Actions.html#Breakpoint-Actions">Breakpoint Actions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Advanced-Debugging.html#Advanced-Debugging">Advanced Debugging</a>
+<hr>
+</div>
+
+<h4 class="subsection">5.6.6 Advice-points</h4>
+
+<p><a name="index-advice-breakpoint-2034"></a><a name="index-breakpoint_002c-advice-2035"></a>As mentioned earlier, there are two kinds of breakpoints:
+spypoints and advice-points.  The main purpose of
+spypoints is to support interactive debugging. In contrast with
+this, advice-points can help you to perform non-interactive
+debugging activities. For example, the following advice-point will
+check a program invariant: whether the condition <code>Y-X&lt;3</code>
+always holds at exit from <code>foo(X,Y)</code>.
+
+<pre class="example">     | ?- <kbd>add_breakpoint([pred(foo/2),advice] </kbd>
+                         <kbd>-[exit,goal(foo(X,Y)),\+true(Y-X&lt;3),trace], _).</kbd>
+     % Conditional advice point for user:foo/2 added, BID=1
+     % advice
+     | ?- <kbd>foo(4, Y).</kbd>
+     Y = 3
+     % advice
+     | ?- <kbd>foo(9, Y).</kbd>
+             3      3 Exit: foo(7,13) ? <kbd>n</kbd>
+             2      2 Exit: foo(8,21) ?
+</pre>
+   <p><a name="index-advice_002f0-_0028debugger-condition_0029-2036"></a><a name="index-debugger_002f0-_0028debugger-condition_0029-2037"></a>The test part of the above breakpoint contains a <code>pred</code> test,
+and the <code>advice</code> condition, making it an advice-point.  (You
+can also include the <code>debugger</code> condition in spypoint specs,
+although this is the default interpretation.)
+
+   <p>The action part starts with the <code>exit</code> port
+condition. Because of this the rest of the action part is evaluated only
+at Exit ports. By placing the port condition in the action
+part, we ensure the creation of a procedure box at the Call
+port, as explained earlier.
+
+   <p>Next, we get hold of the goal arguments using the
+<code>goal</code> condition, and use the <code>\+true(Y-X&lt;3)</code> test to check if
+the invariant is violated. If this happens, the last condition sets the
+<code>mode</code> action variable to <code>trace</code>, switching on the
+interactive debugger.
+
+   <p>Following the <code>add_breakpoint/2</code> call the above example shows two
+top-level calls to <code>foo/2</code>. The invariant holds within the first
+goal, but is violated within the second. Notice that the advice
+mechanism works with the interactive debugger switched off.
+
+   <p>You can ask the question, why do we need advice-points? The same
+task could be implemented using a spypoint. For example:
+
+<pre class="example">     | ?- <kbd>add_breakpoint(pred(foo/2)</kbd>
+                         <kbd>-[exit,goal(foo(X,Y)),\+true(Y-X&lt;3),leash], _).</kbd>
+     % The debugger will first zip -- showing spypoints (zip)
+     % Conditional spypoint for user:foo/2 added, BID=1
+     % zip
+     | ?- <kbd>foo(4, X).</kbd>
+     X = 3
+     % zip
+     | ?- <kbd>foo(9, X).</kbd>
+      *      3      3 Exit: foo(7,13) ? <kbd>z</kbd>
+      *      2      2 Exit: foo(8,21) ?
+</pre>
+   <p>The main reason to have a separate advice mechanism is to be able to
+perform checks independently of the interactive debugging. With the
+second solution, if you happen to start some interactive debugging, you
+cannot be sure that the invariant is always checked. For example, no
+spypoints will be activated during a skip. In contrast with this,
+the advice mechanism is watching the program execution all the
+time, independently of the debugging mode.
+
+   <p>Advice-points are handled in very much the same way as
+spypoints are.  When arriving at a port, advice-point
+selection takes place first, followed by spypoint selection. This
+can be viewed as the debugger making two passes over the current
+breakpoints, considering advice-points only in the first
+pass, and spypoints only in the second.
+
+   <p>In both passes the debugger tries to find a breakpoint that can be
+activated, checking the test and action parts, as described earlier. 
+However, there are some differences between the two passes:
+
+     <ul>
+<li>Advice processing is performed if there are any (non-disabled)
+advice-points. Spypoint processing is only done if the
+debugger is switched on, and is not doing a skip. 
+<li>For advice-points, the action variables are initialized as follows:
+<code>mode</code> is set to current debugging mode, <code>command = proceed</code>,
+<code>show = silent</code>. Note that this is done independently of the
+debugging mode (in contrast with the spypoint search initialization). 
+<li>The default action part for advice-points is <code>[]</code>. This means that
+if no action part is given, the only effect of the advice-point
+will be to build a procedure box (because of the <code>command = proceed</code>
+initialization). 
+<li>If no advice-point was found applicable, <code>command</code> is set to
+<code>flit</code>. 
+</ul>
+
+   <p>Having performed advice processing, the debugger inspects the
+<code>command</code> variable. The command values different from
+<code>proceed</code> and <code>flit</code> are called <dfn>divertive</dfn>, as they alter
+the normal flow of control (e.g. <code>proceed(...,...)</code>), or
+involve user interaction (<code>ask</code>). If the <code>command</code> representation is
+divertive, the prescribed action is performed immediately, without
+executing the spypoint selection process. Otherwise, if
+<code>command = proceed</code>, it is noted that the advice part requests the
+building of a procedure box.  Next, the second, spypoint
+processing pass is carried out, and possible user interaction takes
+place, as described earlier. A procedure box is built if either
+the advice-point or the spypoint search requests this.
+
+   <p>Let us conclude this section by another example, a generic
+advice-point for collecting branch coverage information:
+
+<pre class="example">     | ?- <kbd>add_breakpoint(</kbd>
+           <kbd>(advice,call) -</kbd>
+               <kbd>(   line(F,L) -&gt; true(assert(line_reached(F,L))), flit</kbd>
+               <kbd>;   flit</kbd>
+               <kbd>), _).</kbd>
+     % Generic advice point added, BID=1
+     % advice,source_info
+     | ?- <kbd>foo(4,X).</kbd>
+     X = 3 ? <kbd>;</kbd>
+     no
+     % advice,source_info
+     | ?- <kbd>setof(X, line_reached(F,X), S).</kbd>
+     F = '/home/bob/myprog.pl',
+     S = [31,33,34,35,36]
+</pre>
+   <p>This advice-point will be applicable at every Call port. It
+will then assert a fact with the file name and the line number if
+source information is available. Finally, it will set the <code>command</code>
+variable to <code>flit</code> on both branches of execution. This is to
+communicate the fact that the advice-point does not request the
+building of a procedure box.
+
+   <p>It is important to note that this recording of the line numbers reached
+is performed independently of the interactive debugging.
+
+   <p>In this example we used the <code>','/2</code> operator, rather than
+list notation, for describing the conjunction of conditions, as
+this seems to better fit the if-then-else expression used in the action
+part. We could have still used lists in the tests part, and in the
+&ldquo;then&rdquo; part of the actions. Note that if we omit the &ldquo;else&rdquo; branch,
+the action part will fail if no source information is available for the
+given call.  This will cause a procedure box to be built, which is
+an unnecessary overhead. An alternative solution, using the
+<code>line/2</code> test twice, is the following:
+
+<pre class="example">     | ?- <kbd>add_breakpoint([advice,call,line(_,_)]-</kbd>
+                         <kbd>[line(F,L),true(assert(line_reached(F,L))),flit], _).</kbd>
+</pre>
+   <p>Further examples of advice-points are available in
+<code>library(debugger_examples)</code>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Advice_002dpoints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Advice_002dpoints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

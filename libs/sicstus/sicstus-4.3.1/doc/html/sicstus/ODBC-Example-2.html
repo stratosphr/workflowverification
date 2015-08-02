@@ -1,0 +1,95 @@
+<html lang="en">
+<head>
+<title>ODBC Example 2 - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ODBC-Examples.html#ODBC-Examples" title="ODBC Examples">
+<link rel="prev" href="ODBC-Example-1.html#ODBC-Example-1" title="ODBC Example 1">
+<link rel="next" href="ODBC-Example-3.html#ODBC-Example-3" title="ODBC Example 3">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ODBC-Example-2"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ODBC-Example-3.html#ODBC-Example-3">ODBC Example 3</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ODBC-Example-1.html#ODBC-Example-1">ODBC Example 1</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ODBC-Examples.html#ODBC-Examples">ODBC Examples</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.23.2.2 Example 2</h5>
+
+<p>This example is a simple SQL query using a fixed SQL string.
+
+<pre class="example">     :- use_module(library(odbc)).
+     
+     example_select :-
+         odbc_env_open(EnvHandle),
+         odbc_db_open('MyDatabase', EnvHandle, ConnectionHandle),
+         odbc_query_open(ConnectionHandle, StatementHandle),
+         odbc_query_execute_sql(StatementHandle,
+                            'SELECT cookie,soft FROM bakery order by soft',
+                            ResultSet),
+         show_result(ResultSet),
+         odbc_query_close(ResultSet),
+         odbc_db_close(ConnectionHandle),
+         odbc_env_close(EnvHandle).
+     
+     show_result(ResultSet) :-
+         odbc_sql_fetch(ResultSet, Row),
+         show_result1(Row, ResultSet).
+     
+     show_result1([], _ResultSet) :- !.
+     show_result1(Row, ResultSet) :-
+         format('~w~n', [Row]),
+         flush_output,
+         odbc_sql_fetch(ResultSet, Row1),
+         show_result1(Row1, ResultSet).
+</pre>
+   <p>As always, you begin by opening an environment. 
+You then connect to the database with <code>odbc_db_open/3</code>. 
+The first argument is the identifier for the database in the DBMS. 
+In this scenario, connecting to the database does not require a
+username and a password. 
+The output from <code>odbc_db_open/3</code> is an opaque handle on the
+database.
+
+   <p>First, <code>odbc_query_open/2</code> is used to create an SQL query, which is
+straightforward. 
+Then, <code>odbc_query_execute_sql/3</code> is used to execute the SQL
+query. By executing an SQL query a <em>result set</em> is created. 
+Each consecutive call of <code>odbc_sql_fetch/2</code> will retrieve one
+row from the result set.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ODBC-Example-2.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ODBC-Example-2.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

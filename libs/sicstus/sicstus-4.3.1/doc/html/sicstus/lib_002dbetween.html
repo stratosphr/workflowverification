@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+<title>lib-between - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Prolog-Library.html#The-Prolog-Library" title="The Prolog Library">
+<link rel="prev" href="lib_002dbdb.html#lib_002dbdb" title="lib-bdb">
+<link rel="next" href="lib_002dchr.html#lib_002dchr" title="lib-chr">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="lib-between"></a>
+<a name="lib_002dbetween"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="lib_002dchr.html#lib_002dchr">lib-chr</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="lib_002dbdb.html#lib_002dbdb">lib-bdb</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Prolog-Library.html#The-Prolog-Library">The Prolog Library</a>
+<hr>
+</div>
+
+<h3 class="section">10.7 Generating Integers&mdash;<code>library(between)</code></h3>
+
+<p>This library module provides some means of generating integers. 
+Exported predicates:
+
+     <dl>
+<dt><code>between(</code><var>+Lower</var><code>, </code><var>+Upper</var><code>, </code><var>-Number</var><code>)</code><dd><a name="index-between_002f3-_0028between_0029-2703"></a><a name="index-between_002f3-_0028between_0029-2704"></a>
+is true when <var>Lower</var>, <var>Upper</var>, and <var>Number</var> are integers,
+and <var>Lower =&lt; Number =&lt; Upper</var>.  If <var>Lower</var> and <var>Upper</var> are given,
+<var>Number</var> can be tested or enumerated.  If either <var>Lower</var> or <var>Upper</var>
+is absent, there is not enough information to find it, and an
+error will be reported. 
+<br><dt><code>gen_nat(</code><var>?N</var><code>)</code><dd><a name="index-gen_005fnat_002f1-_0028between_0029-2705"></a><a name="index-gen_005fnat_002f1-_0028between_0029-2706"></a>
+is true when <var>N</var> is a natural number.  If <var>N</var> is a variable, it will
+enumerate the natural numbers 0,1,2,... and of course not terminate. 
+It is not meant to be applied to anything but integers and variables. 
+<br><dt><code>gen_int(</code><var>?I</var><code>)</code><dd><a name="index-gen_005fint_002f1-_0028between_0029-2707"></a><a name="index-gen_005fint_002f1-_0028between_0029-2708"></a>
+is true when I is an integer.  If I is a variable, it will
+enumerate the integers in the order 0, 1, -1, 2, -2, 3, -3, &amp;c. 
+Of course this sequence has no end. 
+It is not meant to be applied to anything but integers and variables. 
+<br><dt><code>repeat(</code><var>+N</var><code>)</code><dd><a name="index-repeat_002f1-_0028between_0029-2709"></a><a name="index-repeat_002f1-_0028between_0029-2710"></a>
+(where <var>N</var> is a non-negative integer) succeeds exactly <var>N</var> times. 
+You can only understand it procedurally, and really it is only
+included for compatibility with some other Prologs. 
+<br><dt><code>numlist(</code><var>?Upper</var><code>, </code><var>?List</var><code>)</code><dd><a name="index-numlist_002f_005b2_002c3_002c5_005d-_0028between_0029-2711"></a><a name="index-numlist_002f_005b2_002c3_002c5_005d-_0028between_0029-2712"></a>
+is true when <var>List</var> is the list of integers <var>[1, ..., Upper]</var>. 
+For example, <code>numlist(3,L)</code> binds <code>L = [1,2,3]</code>. 
+<br><dt><code>numlist(</code><var>?Lower</var><code>, </code><var>?Upper</var><code>, </code><var>?List</var><code>)</code><dd>is true when <var>List</var> is <var>[Lower, ..., Upper]</var>, <var>Lower</var> and <var>Upper</var> integers. 
+For example, <code>numlist(1, 3, L)</code> binds <code>L = [1,2,3]</code>. 
+<br><dt><code>numlist(</code><var>?Lower</var><code>, </code><var>?Step</var><code>, </code><var>?Upper</var><code>, </code><var>?Length</var><code>, </code><var>?List</var><code>)</code><dd>is true when <var>List</var> is the list of integers <var>[Lower, Lower+Step, ..., Upper]</var> and
+of length <var>Length</var>. 
+For example, <code>numlist(L,2,U,S,[1,X,Y,Z])</code> binds <code>L=1, S=4, U=7, X=3, U=5, Z=7</code>. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dbetween.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dbetween.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

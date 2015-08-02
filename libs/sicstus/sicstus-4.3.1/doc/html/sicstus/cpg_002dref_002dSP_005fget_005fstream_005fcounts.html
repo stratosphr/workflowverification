@@ -1,0 +1,156 @@
+<html lang="en">
+<head>
+<title>cpg-ref-SP_get_stream_counts - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSP_005fget_005fnumber_005fcodes.html#cpg_002dref_002dSP_005fget_005fnumber_005fcodes" title="cpg-ref-SP_get_number_codes">
+<link rel="next" href="cpg_002dref_002dSP_005fget_005fstream_005fuser_005fdata.html#cpg_002dref_002dSP_005fget_005fstream_005fuser_005fdata" title="cpg-ref-SP_get_stream_user_data">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-SP_get_stream_counts"></a>
+<a name="cpg_002dref_002dSP_005fget_005fstream_005fcounts"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002dSP_005fget_005fstream_005fuser_005fdata.html#cpg_002dref_002dSP_005fget_005fstream_005fuser_005fdata">cpg-ref-SP_get_stream_user_data</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSP_005fget_005fnumber_005fcodes.html#cpg_002dref_002dSP_005fget_005fnumber_005fcodes">cpg-ref-SP_get_number_codes</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.40 <code>SP_get_stream_counts()</code></h4>
+
+<p><a name="index-SP_005fget_005fstream_005fcounts_0028_0029-_0028C-function_0029-5146"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     
+     spio_t_error_code
+     SP_get_stream_counts(
+        SP_stream *stream,
+        spio_t_offset *pitem_count,
+        spio_t_offset *pnewline_count,
+        spio_t_offset *pline_length,
+        spio_t_bits options);
+</pre>
+   <p>Obtain the stream counters.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>stream</var><dd>The stream.
+
+     <br><dt><var>item_count</var><dd>If <code>pitem_count</code> is <code>NULL</code> it is not used, otherwise it is used as follows.
+
+     <p>On success, <code>*pitem_count</code> is assigned to the number of
+items read from an input-only or bidirectional stream or with
+the number of items written to a output-only stream.
+
+     <p>For binary streams, an <dfn>item</dfn> is a byte, for text streams it is a
+character.
+
+     <br><dt><var>pnewline_count</var><dd>If <code>pnewline_count</code> is <code>NULL</code> it is not used, otherwise it is used as follows.
+
+     <p>On success <code>*pnewline_count</code> is assigned to the number of
+newlines read from an input-only or bidirectional text stream or with
+the number of newlines written to a output-only text stream.
+
+     <p>For binary streams, <code>*pnewline_count</code> is set to zero.
+
+     <br><dt><var>pline_length</var><dd>If <code>pline_length</code> is <code>NULL</code> it is not used, otherwise it is used as follows.
+
+     <p>On success, <code>*pline_length</code> is assigned to the number of
+characters read on the current line from an input-only or
+bidirectional text stream or with the characters written on the
+current line to a output-only text stream.
+
+     <p>For binary streams, <code>*pline_length</code> is set to zero.
+
+     <br><dt><var>options</var><dd>The following bits can be set:
+
+          <dl>
+<dt><code>SP_GET_STREAM_COUNTS_OPTION_READ</code><dd>Return the real input counts of a read-only or bidirectional stream.
+
+          <br><dt><code>SP_GET_STREAM_COUNTS_OPTION_WRITE</code><dd>Return the real output counts of a write-only stream.
+
+          <p>Currently, the call will fail with <code>SPIO_E_NOT_SUPPORTED</code> if the
+stream is bidirectional and <code>SP_GET_STREAM_COUNTS_OPTION_WRITE</code>
+is specified. This is because there is only one set of counters for
+each stream and these are used to count in the input direction of
+bidirectional streams. This may be changed in a future release. 
+</dl>
+
+     <p>At most one of <code>SP_GET_STREAM_COUNTS_OPTION_READ</code> and
+<code>SP_GET_STREAM_COUNTS_OPTION_WRITE</code> can be specified. 
+If neither is specified then default behavior is as follows
+          <ul>
+<li>If <code>stream</code> is interactive, a common set of counts shared by all interactive streams is returned.
+
+          <li>If <code>stream</code> is write-only, the output counts are returned.
+
+          <li>Otherwise, the <code>stream</code> is read-only or bidirectional and the input counts are returned. 
+</ul>
+     </dl>
+
+<h4 class="subheading">Return Value</h4>
+
+<p>On success, <code>SPIO_S_NOERR</code> or some other success code is returned.
+
+   <p>On failure, returns a SPIO error code. Error codes with special meaning
+for <code>SP_get_stream_counts()</code>:
+
+     <dl>
+<dt><code>SPIO_E_NOT_READ</code><dd><code>SP_GET_STREAM_COUNTS_OPTION_READ</code> was specified but <code>stream</code> is not an input stream.
+
+     <br><dt><code>SPIO_E_NOT_WRITE</code><dd><code>SP_GET_STREAM_COUNTS_OPTION_WRITE</code> was specified but <code>stream</code> is not an output stream.
+
+     <br><dt><code>SPIO_E_NOT_SUPPORTED</code><dd><code>SP_GET_STREAM_COUNTS_OPTION_WRITE</code> was specified but <code>stream</code> is a bidirectional stream. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>There is only one set of counters for each stream. For a bidirectional
+stream, these counters only count in the input direction and the output
+direction does not affect the counts.
+
+   <p>There is a common set of stream counters for all interactive
+streams. By default, these will be returned if <code>stream</code> is
+interactive instead of the real counts. This behavior can be changed with the <code>options</code> argument, see above.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Prolog-Streams.html#Prolog-Streams">Prolog Streams</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fget_005fstream_005fcounts.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fget_005fstream_005fcounts.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

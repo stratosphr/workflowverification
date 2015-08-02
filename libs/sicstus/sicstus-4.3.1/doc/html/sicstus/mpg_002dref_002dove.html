@@ -1,0 +1,97 @@
+<html lang="en">
+<head>
+<title>mpg-ref-ove - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dref.html#mpg_002dref" title="mpg-ref">
+<link rel="next" href="mpg_002dref_002dmod.html#mpg_002dref_002dmod" title="mpg-ref-mod">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-ove"></a>
+<a name="mpg_002dref_002dove"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dmod.html#mpg_002dref_002dmod">mpg-ref-mod</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dref.html#mpg_002dref">mpg-ref</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.1.1 Overview</h4>
+
+<p><a name="index-reference-page-conventions-4294"></a>
+The reference pages for SICStus Prolog built-in predicates conform to certain
+conventions concerning
+     <ul>
+<li>mode annotations
+<li>predicate annotations
+<li>argument types
+</ul>
+
+   <p><a name="index-synopsis_002c-reference-page-field-4295"></a>
+<a name="index-arguments_002c-reference-page-field-4296"></a>
+
+   <p>These are particularly important in utilizing the Synopsis and
+Arguments fields of each reference page.  The <b>Synopsis</b> field
+consists of the goal template(s) with mode annotations and a brief
+description of the purpose of the predicate.  For example, consider
+this excerpt from the reference page for <code>assert/[1,2]</code>:
+
+<h4 class="subheading">Synopsis</h4>
+
+<p>These predicates add a dynamic clause,
+<var>Clause</var>, to the Prolog database.  They optionally return a database
+reference in <var>Ref</var>:
+
+   <p><code>assert(</code><var>+Clause</var><code>)</code>
+
+   <p><code>assert(</code><var>+Clause, -Ref</var><code>)</code>
+
+   <p>It is undefined whether <var>Clause</var> will precede or follow the
+clauses already in the database.
+
+   <p>The <b>Arguments</b> field lists, for each meta-variable name in the
+template, its argument type, (e.g. <dfn>callable</dfn>), a brief
+description (sometimes omitted), and an indication (&lsquo;<samp><span class="samp">:</span></samp>&rsquo;) if it
+does module name expansion.  For example,
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:Clause</var><dd><dfn>callable</dfn>
+A valid dynamic Prolog clause. 
+<br><dt><var>Ref</var><dd><dfn>db_reference</dfn>
+a database reference, which uniquely identifies the newly asserted <var>Clause</var>. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dove.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dove.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

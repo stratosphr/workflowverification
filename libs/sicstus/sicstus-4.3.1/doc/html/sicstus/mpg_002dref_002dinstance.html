@@ -1,0 +1,112 @@
+<html lang="en">
+<head>
+<title>mpg-ref-instance - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dinitialization.html#mpg_002dref_002dinitialization" title="mpg-ref-initialization">
+<link rel="next" href="mpg_002dref_002dinteger.html#mpg_002dref_002dinteger" title="mpg-ref-integer">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-instance"></a>
+<a name="mpg_002dref_002dinstance"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dinteger.html#mpg_002dref_002dinteger">mpg-ref-integer</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dinitialization.html#mpg_002dref_002dinitialization">mpg-ref-initialization</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.106 <code>instance/2</code></h4>
+
+<p><a name="index-instance_002f2-_0028built_002din_002c-ref-page_0029-4659"></a><a name="index-instance_002f2-_0028built_002din_002c-ref-page_0029-4660"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>instance(</code><var>+Ref</var><code>, </code><var>-Term</var><code>)</code>
+
+   <p>Unifies <var>Term</var> with the
+most general instance of the dynamic clause or recorded term indicated by
+the database reference <var>Ref</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Ref</var><dd><dfn>db_reference</dfn>, must be nonvar
+
+     <br><dt><var>Term</var><dd><dfn>term</dfn>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p><var>Ref</var> must be instantiated to a database
+reference to an existing clause or recorded term.  <code>instance/2</code> is
+not sensitive to the source module and can be used to access any
+clause, regardless of its module.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd>if <var>Ref</var> is not instantiated
+
+     <br><dt><code>type_error</code><dd>if <var>Ref</var> is not a syntactically valid database reference
+
+     <br><dt><code>existence_error</code><dd>if <var>Ref</var> is a syntactically valid database reference
+but does not refer to an existing clause or recorded term. 
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     | ?- <kbd>assert(foo:bar,R).</kbd>
+     
+     R = '$ref'(771292,1)
+     
+     | ?- <kbd>instance('$ref'(771292,1),T).</kbd>
+     
+     T = (bar:-true)
+     
+     | ?- <kbd>clause(H,B,'$ref'(771292,1)).</kbd>
+     
+     no
+     | ?- <kbd>clause(foo:H,B,'$ref'(771292,1)).</kbd>
+     
+     H = bar,
+     B = true
+</pre>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmdb_002dacl.html#ref_002dmdb_002dacl">ref-mdb-acl</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dinstance.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dinstance.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

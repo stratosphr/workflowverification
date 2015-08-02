@@ -1,0 +1,91 @@
+<html lang="en">
+<head>
+<title>cpg-ref-SP_open_query - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSP_005fnext_005fstream.html#cpg_002dref_002dSP_005fnext_005fstream" title="cpg-ref-SP_next_stream">
+<link rel="next" href="cpg_002dref_002dSP_005fpred.html#cpg_002dref_002dSP_005fpred" title="cpg-ref-SP_pred">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-SP_open_query"></a>
+<a name="cpg_002dref_002dSP_005fopen_005fquery"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002dSP_005fpred.html#cpg_002dref_002dSP_005fpred">cpg-ref-SP_pred</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSP_005fnext_005fstream.html#cpg_002dref_002dSP_005fnext_005fstream">cpg-ref-SP_next_stream</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.61 <code>SP_open_query()</code></h4>
+
+<p><a name="index-SP_005fopen_005fquery_0028_0029-_0028C-function_0029-5168"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     
+     SP_qid
+     SP_open_query(SP_pred_ref predicate,
+                   SP_term_ref arg1,
+                   ...);
+</pre>
+   <p>Sets up a query for use by <code>SP_next_solution()</code>, <code>SP_close_query()</code>, <code>SP_cut_query()</code>.
+
+   <p><a name="index-SP_005fqid-_0028C-type_0029-5169"></a>
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>predicate</var><dd>The predicate to call.
+
+     <br><dt><var>arg1...</var><dd>The arguments to pass. 
+</dl>
+
+<h4 class="subheading">Return Value</h4>
+
+<p>The query identifier if successful, otherwise 0,
+
+<h4 class="subheading">Description</h4>
+
+<p>Note that if a new query is opened while another is already open, the
+new query must be terminated before exploring the solutions of the old
+one.  That is, queries must be strictly nested.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Finding-Multiple-Solutions-of-a-Call.html#Finding-Multiple-Solutions-of-a-Call">Finding Multiple Solutions of a Call</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fopen_005fquery.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fopen_005fquery.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

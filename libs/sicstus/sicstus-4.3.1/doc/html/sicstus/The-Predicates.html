@@ -1,0 +1,237 @@
+<html lang="en">
+<head>
+<title>The Predicates - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Predicates.html#Predicates" title="Predicates">
+<link rel="prev" href="Memory-Leaks.html#Memory-Leaks" title="Memory Leaks">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="The-Predicates"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Memory-Leaks.html#Memory-Leaks">Memory Leaks</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Predicates.html#Predicates">Predicates</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.6.5.4 The Predicates</h5>
+
+     <dl>
+<dt><code>db_open_env(</code><var>+EnvName</var><code>, </code><var>-EnvRef</var><code>)</code><dt><code>db_open_env(</code><var>+EnvName</var><code>, </code><var>+CacheSize</var><code>, </code><var>-EnvRef</var><code>)</code><dd><a name="index-db_005fopen_005fenv_002f_005b2_002c3_005d-_0028bdb_0029-2663"></a><a name="index-db_005fopen_005fenv_002f_005b2_002c3_005d-_0028bdb_0029-2664"></a>
+Opens an environment with the name <var>EnvName</var>.  A directory with this
+name is created for the environment if necessary. 
+<!-- [PD] 4.0.5 Now it is subject to @code{absolute_file_name/3} conversion. -->
+<!-- @var{EnvName} is not -->
+<!-- subject to @code{absolute_file_name/3} conversion. -->
+
+     <p>By using <code>db_open_env/3</code> one can specify the size of the cache:
+<var>CacheSize</var> is the (integer) size of the cache in kilobytes.  The
+size of the cache cannot be less than 20 kilobytes. 
+<code>db_open_env/2</code> will create a cache of the system's default size.
+
+     <p>The size of the cache is determined when the environment is created and
+cannot be changed by future openings.
+
+     <p>A process cannot open the same environment more than once. 
+<br><dt><code>db_close_env(</code><var>+EnvRef</var><code>)</code><dd><a name="index-db_005fclose_005fenv_002f1-_0028bdb_0029-2665"></a><a name="index-db_005fclose_005fenv_002f1-_0028bdb_0029-2666"></a>
+Closes an environment.  All databases opened in the environment
+will be closed as well. 
+<br><dt><code>db_current_env(</code><var>?EnvName</var><code>, </code><var>?EnvRef</var><code>)</code><dd><a name="index-db_005fcurrent_005fenv_002f2-_0028bdb_0029-2667"></a><a name="index-db_005fcurrent_005fenv_002f2-_0028bdb_0029-2668"></a>
+Unifies the arguments with the open environments.  This
+predicate can be used for enumerating all currently open
+environments through backtracking. 
+<br><dt><code>db_open(</code><var>+DBName</var><code>, </code><var>+Mode</var><code>, </code><var>?SpecList</var><code>, </code><var>-DBRef</var><code>)</code><dt><code>db_open(</code><var>+DBName</var><code>, </code><var>+Mode</var><code>, </code><var>?SpecList</var><code>, </code><var>+Options</var><code>, </code><var>-DBRef</var><code>)</code><dd><a name="index-db_005fopen_002f_005b4_002c5_005d-_0028bdb_0029-2669"></a><a name="index-db_005fopen_002f_005b4_002c5_005d-_0028bdb_0029-2670"></a>
+Opens a database with the name <var>DBName</var>.  The database
+physically consists of a directory with the same name, containing the
+files that make up the database.  If the directory does not exist,
+it is created.  In that case <var>Mode</var> must be <code>update</code> and the
+db-spec <var>SpecList</var> must be ground.  If an existing
+database is opened and <var>Mode</var> is <code>read</code> or <code>update</code>,
+<var>SpecList</var> is unified with the db-spec given when the
+database was created.  If the unification fails an error is
+raised.  <var>DBRef</var> is unified with a reference to the opened
+database.
+
+     <p>If <var>Mode</var> is <code>enumerate</code> then the indexing specification is not
+read, and <var>SpecList</var> is left unbound.
+
+     <p><var>Options</var> provides a way to specify an environment in which to open
+the database, or a cache size.  <var>Options</var> should be a
+list of terms of the following form:
+
+          <dl>
+<dt><code>environment(</code><var>EnvRef</var><code>)</code><dd><a name="index-environment_002f1-_0028db_005fopen_002f5-option_0029-2671"></a>The database will be opened in this environment.
+
+          <br><dt><code>cache_size(</code><var>CacheSize</var><code>)</code><dd><a name="index-cache_005fsize_002f1-_0028db_005fopen_002f5-option_0029-2672"></a>This is the (integer) size of the cache in kilobytes.  The size of the
+cache cannot be less than 20 kilobytes.  If <var>CacheSize</var> is given as
+the atom <code>default</code>, a default cache size will be used.  If
+<var>CacheSize</var> is given as the atom <code>off</code> or the atom
+<code>none</code>, all modified records will be flushed to disk after each
+operation. 
+</dl>
+
+     <p>To avoid inconsistency, if multiple processes open the same
+database, then all of them should do that with <var>Mode</var> set to
+<code>read</code> or <code>enumerate</code>.  (This is not enforced by the system.) 
+<br><dt><code>db_close(</code><var>+DBRef</var><code>)</code><dd><a name="index-db_005fclose_002f1-_0028bdb_0029-2673"></a><a name="index-db_005fclose_002f1-_0028bdb_0029-2674"></a>
+Closes the database referenced by <var>DBRef</var>.  Any iterators
+opened in the database will be deallocated. 
+<br><dt><code>db_current(</code><var>?DBName</var><code>, </code><var>?Mode</var><code>, </code><var>?SpecList</var><code>, </code><var>?EnvRef</var><code>, </code><var>?DBRef</var><code>)</code><dd><a name="index-db_005fcurrent_002f5-_0028bdb_0029-2675"></a><a name="index-db_005fcurrent_002f5-_0028bdb_0029-2676"></a>
+Unifies the arguments with the open databases.  This
+predicate can be used to enumerate all currently open
+databases through backtracking.  If the database was
+opened without an environment, then <var>EnvRef</var> will be unified
+with the atom <code>none</code>. 
+<br><dt><code>db_store(</code><var>+DBRef</var><code>, </code><var>+Term</var><code>, </code><var>-TermRef</var><code>)</code><dd><a name="index-db_005fstore_002f3-_0028bdb_0029-2677"></a><a name="index-db_005fstore_002f3-_0028bdb_0029-2678"></a>
+Stores <var>Term</var> in the database <var>DBRef</var>.  <var>TermRef</var> is
+unified with a corresponding term reference.  The
+functor of <var>Term</var> must match the functor of a spec in
+the db-spec associated with <var>DBRef</var>. 
+<br><dt><code>db_fetch(</code><var>+DBRef</var><code>, </code><var>?Term</var><code>, </code><var>?TermRef</var><code>)</code><dd><a name="index-db_005ffetch_002f3-_0028bdb_0029-2679"></a><a name="index-db_005ffetch_002f3-_0028bdb_0029-2680"></a>
+Unifies <var>Term</var> with a term from the database
+<var>DBRef</var>.  At the same time, <var>TermRef</var> is unified with a
+corresponding term reference.  Backtracking over the
+predicate unifies with all terms matching <var>Term</var>.
+
+     <p>If <var>TermRef</var> is not instantiated then both the functor
+and the instantiatedness of <var>Term</var> must match a spec in the
+db-spec associated with <var>DBRef</var>.
+
+     <p>If <var>TermRef</var> is instantiated, the referenced term is
+read and unified with <var>Term</var>.
+
+     <p>If you simply want to find all matching terms, it is more
+efficient to use <code>db_findall/5</code> or <code>db_enumerate/3</code>. 
+<br><dt><code>db_erase(</code><var>+DBRef</var><code>, </code><var>+TermRef</var><code>)</code><dt><code>db_erase(</code><var>+DBRef</var><code>, </code><var>+TermRef</var><code>, </code><var>+Term</var><code>)</code><dd><a name="index-db_005ferase_002f_005b2_002c3_005d-_0028bdb_0029-2681"></a><a name="index-db_005ferase_002f_005b2_002c3_005d-_0028bdb_0029-2682"></a>
+Deletes the term from the database <var>DBRef</var> that is
+referenced by <var>TermRef</var>.
+
+     <p>In the case of <code>db_erase/2</code> the term associated with
+<var>TermRef</var> has to be looked up.  <code>db_erase/3</code> assumes that the
+term <var>Term</var> is identical with the term associated with
+<var>TermRef</var> (modulo variable renaming).  If this is not the
+case, the behavior is undefined. 
+<br><dt><code>db_enumerate(</code><var>+DBRef</var><code>, </code><var>?Term</var><code>, </code><var>?TermRef</var><code>)</code><dd><a name="index-db_005fenumerate_002f3-_0028bdb_0029-2683"></a><a name="index-db_005fenumerate_002f3-_0028bdb_0029-2684"></a>
+
+     <p>Unifies <var>Term</var> with a term from the database
+<var>DBRef</var>.  At the same time, <var>TermRef</var> is unified with a
+corresponding term reference.  Backtracking over the
+predicate unifies with all terms matching <var>Term</var>.
+
+     <p>Implemented by linear search&mdash;the db-spec associated with <var>DBRef</var>
+is ignored.  It is not useful to call this predicate with
+<var>TermRef</var> instantiated. 
+<br><dt><code>db_findall(</code><var>+DBRef</var><code>, </code><var>+Template</var><code>, </code><var>+Term</var><code>, </code><var>:Goal</var><code>, </code><var>-Bag</var><code>)</code><dd><a name="index-db_005ffindall_002f3-_0028bdb_0029-2685"></a><a name="index-db_005ffindall_002f3-_0028bdb_0029-2686"></a>
+Unifies <var>Bag</var> with the list of instances of
+<var>Template</var> in all proofs of <var>Goal</var> found when <var>Term</var> is
+unified with a matching term from the database
+<var>DBRef</var>.  Both the functor and the instantiatedness of
+<var>Term</var> must match a spec in the db-spec associated with <var>DBRef</var>. 
+Conceptually, this predicate is equivalent to
+<code>findall(</code><var>Template</var><code>, (db_fetch(</code><var>DBRef</var><code>, </code><var>Term</var><code>, _),
+</code><var>Goal</var><code>), </code><var>Bag</var><code>)</code>. 
+<br><dt><code>db_compress(</code><var>+DBRef</var><code>, </code><var>+DBName</var><code>)</code><dt><code>db_compress(</code><var>+DBRef</var><code>, </code><var>+DBName</var><code>, </code><var>+SpecList</var><code>)</code><dd><a name="index-db_005fcompress_002f_005b2_002c3_005d-_0028bdb_0029-2687"></a><a name="index-db_005fcompress_002f_005b2_002c3_005d-_0028bdb_0029-2688"></a>
+Copies the database given by <var>DBRef</var> to a new database
+named by <var>DBName</var>.  The new database will be a compressed
+version of the first one in the sense that it will not have &ldquo;holes&rdquo;
+resulting from deletion of terms.  Deleted term references
+will also be reused, which implies that references that refer to
+terms in the old database will be invalid in the new one.
+
+     <p><code>db_compress/2</code> looks for a database with the db-spec of the
+original one.  <code>db_compress/3</code> stores the terms found in the
+original database with the indexing specification <var>SpecList</var>. 
+<code>db_compress/2</code> cannot be used if the database <var>DBRef</var>
+was opened in mode <code>enumerate</code>.
+
+     <p>If the database <var>DBName</var> already exists then the terms
+of <var>DBRef</var> will be appended to it.  Of course <var>DBName</var> must have
+an indexing specification, which enables the terms in <var>DBRef</var>
+to be inserted into it.
+
+     <p>In the case of <code>db_compress/3</code> if the database <var>DBName</var>
+does not exist, then <var>SpecList</var> must be a valid indexing
+specification. 
+<br><dt><code>db_sync(</code><var>+DBRef</var><code>)</code><dd><a name="index-db_005fsync_002f1-_0028bdb_0029-2689"></a><a name="index-db_005fsync_002f1-_0028bdb_0029-2690"></a>
+Flushes any cached information from the database referenced by
+<var>DBRef</var> to stable storage. 
+<br><dt><code>db_make_iterator(</code><var>+DBRef</var><code>, </code><var>-Iterator</var><code>)</code><dt><code>db_make_iterator(</code><var>+DBRef</var><code>, </code><var>+Term</var><code>, </code><var>-Iterator</var><code>)</code><dd><a name="index-db_005fmake_005fiterator_002f_005b2_002c3_005d-_0028bdb_0029-2691"></a><a name="index-db_005fmake_005fiterator_002f_005b2_002c3_005d-_0028bdb_0029-2692"></a>
+Creates a new iterator and unifies it with <var>Iterator</var>. 
+Iterators created with <code>db_make_iterator/2</code> iterate through the
+whole database.  Iterators created with <code>db_make_iterator/3</code>
+iterate through the terms that would be found by
+<code>db_fetch(</code><var>DBRef</var><code>, </code><var>Term</var><code>, _)</code>.
+
+     <p>Every iterator created by <code>db_make_iterator/[2,3]</code> must be
+destroyed with <code>db_iterator_done/1</code>. 
+<br><dt><code>db_iterator_next(</code><var>+Iterator</var><code>, </code><var>-Term</var><code>, </code><var>-TermRef</var><code>)</code><dd><a name="index-db_005fiterator_005fnext_002f3-_0028bdb_0029-2693"></a><a name="index-db_005fiterator_005fnext_002f3-_0028bdb_0029-2694"></a>
+<var>Iterator</var> advances to the next term, <var>Term</var> and
+<var>TermRef</var> is unified with the term and its reference
+pointed to by <var>Iterator</var>.  If there is no next term, the
+predicate fails. 
+<br><dt><code>db_iterator_done(</code><var>+Iterator</var><code>)</code><dd><a name="index-db_005fiterator_005fdone_002f1-_0028bdb_0029-2695"></a><a name="index-db_005fiterator_005fdone_002f1-_0028bdb_0029-2696"></a>
+Deallocates <var>Iterator</var>, which must not be in use anymore. 
+<br><dt><code>db_current_iterator(</code><var>?DBRef</var><code>, </code><var>?Term</var><code>, </code><var>?Iterator</var><code>)</code><dd><a name="index-db_005fcurrent_005fiterator_002f3-_0028bdb_0029-2697"></a><a name="index-db_005fcurrent_005fiterator_002f3-_0028bdb_0029-2698"></a>
+Unifies the variables with the respective properties of
+the living iterators.  This predicate can be used to enumerate all
+currently alive iterators through backtracking.  If <var>Iterator</var>
+was made with <code>db_make_iterator/2</code> then <var>Term</var> will be left
+unbound. 
+<br><dt><code>db_export(</code><var>+DBName</var><code>, </code><var>+ExportFile</var><code>)</code><dt><code>db_export(</code><var>+DBName</var><code>, </code><var>+Options</var><code>, </code><var>+ExportFile</var><code>)</code><dd><a name="index-db_005fexport_002f_005b2_002c3_005d-_0028bdb_0029-2699"></a><a name="index-db_005fexport_002f_005b2_002c3_005d-_0028bdb_0029-2700"></a>
+Exports the database with the name <var>DBName</var> to the text file
+<var>ExportFile</var>. <var>ExportFile</var> can be imported by
+<code>db_import/[2,3]</code>.
+
+     <p><var>Options</var> should be an options list of the form acceptable by
+<code>db_open/[4,5]</code>.
+
+     <p>In SICStus 3.12.0 <code>bdb:export/[2,3]</code> is available instead of
+<code>db_export/[2,3]</code>. 
+<br><dt><code>db_import(</code><var>+DBName</var><code>, </code><var>+ImportFile</var><code>)</code><dt><code>db_import(</code><var>+DBName</var><code>, </code><var>+Options</var><code>, </code><var>+ImportFile</var><code>)</code><dd><a name="index-db_005fimport_002f_005b2_002c3_005d-_0028bdb_0029-2701"></a><a name="index-db_005fimport_002f_005b2_002c3_005d-_0028bdb_0029-2702"></a>
+Imports the text file <var>ImportFile</var> into the database with
+the name <var>DBName</var>.
+
+     <p>If <var>ImportFile</var> is imported into an existing database, the
+<var>SpecList</var> found in the <var>ImportFile</var> will be unified with the
+<var>SpecList</var> in the database.
+
+     <p><var>Options</var> should be an options list of the form acceptable by
+<code>db_open/[4,5]</code>.
+
+     <p>In SICStus 3.12.0 <code>bdb:import/[2,3]</code> is available instead of
+<code>db_import/[2,3]</code>. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/The-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/The-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

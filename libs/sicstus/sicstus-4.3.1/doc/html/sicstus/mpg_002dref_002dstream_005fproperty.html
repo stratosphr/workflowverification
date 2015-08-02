@@ -1,0 +1,178 @@
+<html lang="en">
+<head>
+<title>mpg-ref-stream_property - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dstream_005fposition_005fdata.html#mpg_002dref_002dstream_005fposition_005fdata" title="mpg-ref-stream_position_data">
+<link rel="next" href="mpg_002dref_002dsub_005fatom.html#mpg_002dref_002dsub_005fatom" title="mpg-ref-sub_atom">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-stream_property"></a>
+<a name="mpg_002dref_002dstream_005fproperty"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dsub_005fatom.html#mpg_002dref_002dsub_005fatom">mpg-ref-sub_atom</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dstream_005fposition_005fdata.html#mpg_002dref_002dstream_005fposition_005fdata">mpg-ref-stream_position_data</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.221 <code>stream_property/2</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-stream_005fproperty_002f2-_0028built_002din_002c-ref-page_0029-4953"></a><a name="index-stream_005fproperty_002f2-_0028built_002din_002c-ref-page_0029-4954"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p>stream_property(<var>?Stream</var>, <var>?Property</var>))
+
+   <p>Stream <var>Stream</var> has stream property <var>Property</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Stream</var><dd><dfn>stream_object</dfn>
+
+     <br><dt><var>Property</var><dd><dfn>term</dfn>
+
+     <p>A stream property, one of the following:
+
+     <p><a name="index-stream-property-4955"></a><a name="index-property_002c-stream-4956"></a>
+          <dl>
+<dt><code>file_name(</code><var>F</var><code>)</code><dd><a name="index-file_005fname_002f1-_0028stream-property_0029-4957"></a><var>F</var> is the file name associated with the <var>Stream</var>.
+
+          <br><dt><code>mode(</code><var>M</var><code>)</code><dd><a name="index-mode_002f1-_0028stream-property_0029-4958"></a><var>Stream</var> has been opened in mode <var>M</var>.
+
+          <br><dt><code>id(</code><var>ID</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.2</strong><dd><a name="index-id_002f1-_0028stream-property_0029-4959"></a>
+<var>Stream</var> has the unique identity <var>ID</var>. The identity of a
+stream is a positive integer that is never re-used during the
+life-time of the SICStus process. This is unlike the compound term
+<var>Stream</var> which is likely to be re-used for some new stream after
+the original stream denoted by <var>Stream</var> has been closed.
+
+          <br><dt><code>input</code><dd><a name="index-input_002f0-_0028stream-property_0029-4960"></a><var>Stream</var> is an input stream. Note that both <code>input</code> and
+<code>output</code> stream properties are set for bidirectional streams.
+
+          <br><dt><code>output</code><dd><a name="index-output_002f0-_0028stream-property_0029-4961"></a><var>Stream</var> is an output stream. Note that both <code>input</code> and
+<code>output</code> stream properties are set for bidirectional streams.
+
+          <br><dt><code>alias(</code><var>A</var><code>)</code><dd><a name="index-alias_002f1-_0028stream-property_0029-4962"></a><var>Stream</var> has an alias <var>A</var>.
+
+          <br><dt><code>position(</code><var>P</var><code>)</code><dd><a name="index-position_002f1-_0028stream-property_0029-4963"></a><var>P</var> is a term representing the current stream position
+of <var>Stream</var>. 
+Only guaranteed to be available if the stream has been opened with the
+<code>open/4</code> option <code>reposition(true)</code>.
+
+          <p>Same as <code>stream_position(Stream, P)</code> except that the latter can be
+called on any stream, regardless of the representation of the <code>reposition/1</code>
+<code>open/4</code> option.
+
+          <br><dt><code>end_of_stream(</code><var>E</var><code>)</code><dd><a name="index-end_005fof_005fstream_002f1-_0028stream-property_0029-4964"></a><var>E</var> describes the position of the input stream <var>Stream</var>,
+with respect to the end of stream. If not all characters have been
+read, or if peeking ahead to determine this fact would block,
+then <var>E</var> is unified with <code>not</code>; otherwise, (all
+characters read) but no end of stream indicator (-1 or
+<code>end_of_file</code>) was reported yet, then <var>E</var> is unified with
+<code>at</code>; otherwise, <var>E</var> is unified with <code>past</code>.
+
+          <br><dt><code>eof_action(</code><var>A</var><code>)</code><dd><a name="index-eof_005faction_002f1-_0028stream-property_0029-4965"></a><var>A</var> is the end-of-file action applicable to <var>Stream</var>, cf. the
+<code>eof_action</code> option of <code>open/4</code>.
+
+          <br><dt><code>type(</code><var>T</var><code>)</code><dd><a name="index-type_002f1-_0028stream-property_0029-4966"></a><var>Stream</var> is of type <var>T</var>, one of <code>text</code>, <code>binary</code>, cf. the
+<code>type</code> option of <code>open/4</code>.
+
+          <br><dt><code>input_encoding(</code><var>CS</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.3</strong><dt><code>output_encoding(</code><var>CS</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.3</strong><dd><a name="index-input_005fencoding_002f1-_0028stream-property_0029-4967"></a><a name="index-output_005fencoding_002f1-_0028stream-property_0029-4968"></a><var>Stream</var> is a text stream with encoding <var>CS</var> in the input direction, cf. the
+<code>encoding</code> option of <code>open/4</code>. Note that the encoding used
+may be different from the <code>encoding</code> option passed to
+<code>open/4</code> if a byte order mark or other information was used to
+determine the real encoding of the file, cf. the <code>encoding_signature</code> option
+of <code>open/4</code>.
+
+          <br><dt><code>encoding(</code><var>CS</var><code>)</code><dd><a name="index-encoding_002f1-_0028stream-property_0029-4969"></a>
+<var>Stream</var> is a text stream open in direction input, with input encoding <var>CS</var>
+or <var>Stream</var> is a text stream open in direction output but not in direction input,
+with output encoding <var>CS</var>.
+
+          <p>Note that, for bi-directional streams, the <code>encoding/1</code> property reflects the <code>input_encoding/1</code>.
+
+          <br><dt><code>eol(</code><var>EOL</var><code>)</code><dd><a name="index-eol_002f1-_0028stream-property_0029-4970"></a><var>Stream</var> is a text stream with end of line convention <var>EOL</var>, cf. the
+<code>eol</code> option of <code>open/4</code>.
+
+          <br><dt><code>encoding_signature(</code><var>ES</var><code>)</code><dd><a name="index-encoding_005fsignature_002f1-_0028stream-property_0029-4971"></a>
+If <var>Stream</var> is a text stream then <var>ES</var> is determined as follows:
+
+          <p>If the file contents was used to determine the character encoding then
+<var>ES</var> will be true.  Typically this is the result of opening, in
+mode <code>read</code>, a text file that contains a byte order mark or some
+other information that lets <code>open/[3,4]</code> determine a suitable
+encoding, cf. the <code>encoding_signature</code> option of <code>open/4</code>.
+
+          <p>Otherwise if the stream is open in direction output then <var>ES</var>
+will be as specified when the file was opened.
+
+          <br><dt><code>reposition(</code><var>REPOSITION</var><code>)</code><dd><a name="index-reposition_002f1-_0028stream-property_0029-4972"></a>
+<var>REPOSITION</var> is true if it is possible to set the position of the
+stream with <code>set_stream_position/2</code>, cf. the <code>reposition</code>
+option of <code>open/4</code>.
+
+          <br><dt><code>interactive &nbsp;<!-- /@w --> </code><strong>since release 4.1</strong><dd><a name="index-interactive_002f0-_0028stream-property_0029-4973"></a><var>Stream</var> is an interactive stream.
+
+     </dl>
+
+     <p>Most streams have only a subset of these properties set.
+
+     <p>More properties may be added in the future.
+
+</dl>
+
+<h4 class="subheading">Backtracking</h4>
+
+<p>Can be used to backtrack over all currently open streams, including
+the standard input/output/error streams, and all their properties. 
+See <a href="ref_002diou_002dsfh_002dbos.html#ref_002diou_002dsfh_002dbos">ref-iou-sfh-bos</a>.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Stream errors (see <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>), plus:
+
+     <dl>
+<dt><code>domain_error</code><dd><var>Stream</var> is not a valid stream object, or
+<var>Property</var> is not a valid stream property. 
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002diou_002dsfh.html#ref_002diou_002dsfh">ref-iou-sfh</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dstream_005fproperty.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dstream_005fproperty.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

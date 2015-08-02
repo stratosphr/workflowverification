@@ -1,0 +1,150 @@
+<html lang="en">
+<head>
+<title>MT Foreign Multiple Full - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="MT-Foreign-Multiple.html#MT-Foreign-Multiple" title="MT Foreign Multiple">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="MT-Foreign-Multiple-Full"></a>
+<p>
+Up:&nbsp;<a rel="up" accesskey="u" href="MT-Foreign-Multiple.html#MT-Foreign-Multiple">MT Foreign Multiple</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">8.3.2.1 Full Support for Multiple SICStus Runtimes</h5>
+
+<p>To fully support multiple SICStus runtimes, a foreign resource
+should be built with <code>splfr --multi-sp-aware</code>.
+
+   <p>C code compiled by <code>splfr --multi-sp-aware</code> will have the C
+preprocessor macro <code>MULTI_SP_AWARE</code> defined to a non-zero representation.
+
+   <p>Full support for multiple SICStus runtimes means that more than one
+SICStus runtime can execute code in the foreign resource at the
+same time. This rules out the option to use any global variables for
+information that should be specific to each SICStus runtime.  In
+particular, the SICStus dispatch vector cannot be stored in a global
+variable. Instead, the SICStus dispatch vector is passed as an extra
+first argument to each foreign function.
+
+   <p>To ensure some degree of link time type checking, the name of each foreign
+function will be changed (using <code>#define</code> in the generated
+header file).
+
+   <p>The extra argument is used in the same way as when using multiple
+SICStus runtimes from an embedding application. It must be passed on to
+any function that needs access to the SICStus API.
+
+   <p>To simplify the handling of this extra argument, several macros
+are defined so that the same foreign resource code can be compiled
+both with and without support for multiple SICStus runtimes:
+     <ul>
+<li><code>SPAPI_ARG0</code>
+<li><code>SPAPI_ARG</code>
+<li><code>SPAPI_ARG_PROTO_DECL0</code>
+<li><code>SPAPI_ARG_PROTO_DECL</code>
+</ul>
+
+   <p>Their use is easiest to explain with an example. Suppose the original
+foreign code looked like:
+<pre class="example">     static int f1(void)
+     {
+             <var>some SICStus API calls</var>
+     }
+     
+     static int f2(SP_term_ref t, int x)
+     {
+             <var>some SICStus API calls</var>
+     }
+     
+     /* :- foreign(foreign_fun, c, foreign_pred(+integer)). */
+     void foreign_fun(SP_integer x)
+     {
+       <var><small class="dots">...</small> some SICStus API calls <small class="dots">...</small></var>
+       f1();
+       ...
+       f2(SP_new_term_ref(), 42);
+       ...
+     }
+</pre>
+   <p>Assuming no global variables are used, the following change will ensure
+that the SICStus API dispatch vector is passed around to all functions:
+
+<pre class="example">     static int f1(SPAPI_ARG_PROTO_DECL0) // _DECL&lt;ZERO&gt; for no-arg functions
+     {
+             <var>some SICStus API calls</var>
+     }
+     
+     static int f2(SPAPI_ARG_PROTO_DECL SP_term_ref t, int x) // Note: no comma
+     {
+             <var>some SICStus API calls</var>
+     }
+     
+     /* :- foreign(foreign_fun, c, foreign_pred([-integer])). */
+     void foreign_fun(SPAPI_ARG_PROTO_DECL SP_integer x) // Note: no comma
+     {
+       <var><small class="dots">...</small> some SICStus API calls <small class="dots">...</small></var>
+       f1(SPAPI_ARG0);               // ARG&lt;ZERO&gt; for no-arg functions
+       ...
+       f2(SPAPI_ARG SP_new_term_ref(), 42);       // Note: no comma
+       ...
+     }
+</pre>
+   <p>If <code>MULTI_SP_AWARE</code> is not defined, i.e. <samp><span class="option">--multi-sp-aware</span></samp> is
+not specified to <samp><span class="command">splfr</span></samp>, all these macros expand to nothing,
+except <code>SPAPI_ARG_PROTO_DECL0</code>, which will expand to <code>void</code>.
+
+   <p>You can use <code>SP_foreign_stash()</code> to get access to a location,
+initially set to NULL, where the foreign resource can store a
+<code>void*</code>. Typically this would be a pointer to a C struct that holds
+all information that need to be stored in global variables. This struct
+can be allocated and initialized by the foreign resource init
+function.  It should be deallocated by the foreign resource
+deinit function. See <a href="OS-Threads.html#OS-Threads">OS Threads</a> for
+details.
+
+<!-- FIXME more here -->
+<!-- [PM] 3.10.1 promises, promises :-) we never wrote any examples -->
+<!-- Simple stand-alone examples will be provided in the final version of -->
+<!-- 3.9. Until then, for an example of code that fully supports multiple -->
+<!-- SICStus runtimes, see @file{library/jasper/jasper.c}. -->
+   <p>Most foreign resources that come with SICStus fully support
+multiple SICStus runtimes. For a particularly simple example, see the
+code for <code>library(random)</code>.  For an example that hides the passing
+of the extra argument by using the C preprocessor, see the files
+in <samp><span class="file">library/clpfd/</span></samp>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/MT-Foreign-Multiple-Full.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/MT-Foreign-Multiple-Full.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

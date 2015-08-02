@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+<title>Command Format Summary - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Quick-Reference.html#Quick-Reference" title="Quick Reference">
+<link rel="next" href="Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters.html#Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters" title="Predicates for Prolog to Interact with Tcl Interpreters">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Command-Format-Summary"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters.html#Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters">Predicates for Prolog to Interact with Tcl Interpreters</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Quick-Reference.html#Quick-Reference">Quick Reference</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.37.6.1 Command Format Summary</h5>
+
+<p><table summary=""><tr align="left"><td valign="top" width="20%"><var>Command</var> </td><td valign="top" width="40%">::= <var>Name</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>codes(</code><dfn>code-list</dfn><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>write(</code><dfn>term</dfn><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>writeq(</code><dfn>term</dfn><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>write_canonical(</code><dfn>term</dfn><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>format(</code><var>Fmt</var><code>,</code><var>Args</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>dq(</code><var>Command</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>br(</code><var>Command</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>sqb(</code><var>Command</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>min(</code><var>Command</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>dot(</code><var>ListOfNames</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>list(</code><var>ListOfCommands</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <var>ListOfCommands</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>Fmt</var> </td><td valign="top" width="40%">::= <dfn>atom</dfn>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>Name</var> </td><td valign="top" width="40%">::= <dfn>atom</dfn> </td><td valign="top" width="40%"><span class="roman">{ other than </span><code>[]</code><span class="roman"> }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <dfn>number</dfn>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>ListOfCommands</var> </td><td valign="top" width="40%">::= <code>[]</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>[ </code><var>Command</var><code> | </code><var>ListOfCommands</var><code> ]</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>ListOfNames</var> </td><td valign="top" width="40%">::= <code>[]</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>[ </code><var>Name</var><code> | </code><var>ListOfNames</var><code> ]</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>Args</var> </td><td valign="top" width="40%">::= <code>[]</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>[ </code><dfn>term</dfn><code> | </code><var>Args</var><code> ]</code>
+<br></td></tr></table>
+
+<p class="noindent">where
+
+     <dl>
+<dt><var>Atom</var><dt><var>Number</var><dd>denote their printed representations
+<br><dt><code>codes(</code><var>PrologString</var><code>)</code><dd>denotes the string represented by <var>PrologString</var> (a code-list)
+<br><dt><code>write(</code><var>Term</var><code>)</code><dt><code>writeq(</code><var>Term</var><code>)</code><dt><code>write_canonical(</code><var>Term</var><code>)</code><dd>denotes the string that is printed by the corresponding built-in predicate
+<br><dt><code>format(</code><var>Fmt</var><code>, </code><var>Args</var><code>)</code><dd>denotes the string that is printed by the corresponding built-in predicate
+<br><dt><code>dq(</code><var>Command</var><code>)</code><dd>denotes the string specified by <var>Command</var>, enclosed in double quotes
+<br><dt><code>br(</code><var>Command</var><code>)</code><dd>denotes the string specified by <var>Command</var>, enclosed in curly brackets
+<br><dt><code>sqb(</code><var>Command</var><code>)</code><dd>denotes the string specified by <var>Command</var>, enclosed in square brackets
+<br><dt><code>min(</code><var>Command</var><code>)</code><dd>denotes the string specified by <var>Command</var>, immediately preceded by a hyphen
+<br><dt><code>dot(</code><var>ListOfName</var><code>)</code><dd>denotes the widget path specified by <var>ListOfName</var>, preceded by and separated by dots
+<br><dt><code>list(</code><var>ListOfCommands</var><code>)</code><dd>denotes the TCL list with one element for each element in
+<var>ListOfCommands</var>. 
+<br><dt><var>ListOfCommands</var><dd>denotes the string denoted by each element, separated by spaces
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Command-Format-Summary.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Command-Format-Summary.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+<title>Low Level I/O Functions - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Defining-a-New-Stream.html#Defining-a-New-Stream" title="Defining a New Stream">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Low-Level-I%2fO-Functions"></a>
+<a name="Low-Level-I_002fO-Functions"></a>
+<p>
+Up:&nbsp;<a rel="up" accesskey="u" href="Defining-a-New-Stream.html#Defining-a-New-Stream">Defining a New Stream</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">6.6.2.1 Low Level I/O Functions</h5>
+
+<p>For each new stream the appropriate low level I/O functions have
+to be defined.  Error handling, prompt handling and character counting
+is handled in a layer above these functions.  They all operate on a user
+defined private data structure specified when the stream is created.
+
+<!-- [PM] 4.0 FIXME: Do we really want to promote this? Leave it -->
+<!-- undocumented for now. -->
+<!-- User defined low level I/O functions may invoke Prolog code and use most -->
+<!-- of the support functions described in the other sections of this -->
+<!-- chapter. They must @emph{not} use @code{SP_fail()} or -->
+<!-- @code{SP_raise_exception()}, doing so will not have the intended effect -->
+<!-- and may cause problems. -->
+     <dl>
+<dt><var>user_read()</var><dd>Should fill a buffer with data available from the stream. See <a href="cpg_002dref_002duser_005fread.html#cpg_002dref_002duser_005fread">cpg-ref-user_read</a>.
+
+     <br><dt><var>user_write()</var><dd>Should write data from a buffer to the stream. See <a href="cpg_002dref_002duser_005fwrite.html#cpg_002dref_002duser_005fwrite">cpg-ref-user_write</a>.
+
+     <br><dt><var>user_flush_output()</var><dd>Should flush the (output) stream.
+
+     <br><dt><var>user_close()</var><dd>Should close the stream in the specified directions. Note that
+bi-directional streams can be closed one direction at a time. 
+</dl>
+
+   <p><strong>Please note:</strong> A foreign resource that defines user defined
+streams must ensure that all its streams are closed when the foreign
+resource is unloaded. Failure to do this will lead to crashes when
+SICStus tries to close the stream using a <code>user_close</code> method that
+is no longer present.
+
+   <p>The easiest way to ensure that all user defined streams of a particular
+class is closed is to use <code>SP_fclose</code> with the
+<code>SP_FCLOSE_OPTION_USER_STREAMS</code>. Another way is to use
+<code>SP_next_stream</code> and <code>SP_get_stream_user_data</code> to find all
+your streams and close them one by one. See <a href="cpg_002dref_002dSP_005ffclose.html#cpg_002dref_002dSP_005ffclose">cpg-ref-SP_fclose</a>,
+<a href="cpg_002dref_002dSP_005fnext_005fstream.html#cpg_002dref_002dSP_005fnext_005fstream">cpg-ref-SP_next_stream</a> and <a href="cpg_002dref_002dSP_005fget_005fstream_005fuser_005fdata.html#cpg_002dref_002dSP_005fget_005fstream_005fuser_005fdata">cpg-ref-SP_get_stream_user_data</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Low-Level-I_002fO-Functions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Low-Level-I_002fO-Functions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

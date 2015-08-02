@@ -1,0 +1,100 @@
+<html lang="en">
+<head>
+<title>ref-lte-c2t - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlte.html#ref_002dlte" title="ref-lte">
+<link rel="prev" href="ref_002dlte_002dacl.html#ref_002dlte_002dacl" title="ref-lte-acl">
+<link rel="next" href="ref_002dlte_002datm.html#ref_002dlte_002datm" title="ref-lte-atm">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-lte-c2t"></a>
+<a name="ref_002dlte_002dc2t"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dlte_002datm.html#ref_002dlte_002datm">ref-lte-atm</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dlte_002dacl.html#ref_002dlte_002dacl">ref-lte-acl</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlte.html#ref_002dlte">ref-lte</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.8.4 Converting between Constants and Text</h4>
+
+<p><a name="index-atom_005fcodes_002f2-_0028built_002din_0029-1201"></a><a name="index-atom_005fcodes_002f2-_0028built_002din_0029-1202"></a>
+<a name="index-atom_005fchars_002f2-_0028built_002din_0029-1203"></a><a name="index-atom_005fchars_002f2-_0028built_002din_0029-1204"></a>
+<a name="index-number_005fcodes_002f2-_0028built_002din_0029-1205"></a><a name="index-number_005fcodes_002f2-_0028built_002din_0029-1206"></a>
+<a name="index-number_005fchars_002f2-_0028built_002din_0029-1207"></a><a name="index-number_005fchars_002f2-_0028built_002din_0029-1208"></a>
+<a name="index-name_002f2-_0028built_002din_0029-1209"></a><a name="index-name_002f2-_0028built_002din_0029-1210"></a>
+<a name="index-char_005fcode_002f2-_0028built_002din_0029-1211"></a><a name="index-char_005fcode_002f2-_0028built_002din_0029-1212"></a>
+Three predicates convert between constants and lists of
+character codes:  <code>atom_codes/2</code>, <code>number_codes/2</code>, and <code>name/2</code>. 
+Two predicates convert between constants and lists of
+character atoms:  <code>atom_chars/2</code>, <code>number_chars/2</code>.
+
+   <p><a name="index-atom_005fcodes_002f2-_0028built_002din_0029-1213"></a><a name="index-atom_005fcodes_002f2-_0028built_002din_0029-1214"></a>
+<code>atom_codes(</code><var>Atom</var><code>, </code><var>Codes</var><code>)</code> is
+a relation between an atom <var>Atom</var> and a list <var>Codes</var>
+consisting of the character codes comprising the printed
+representation of <var>Atom</var>.  Initially, either <var>Atom</var> must be
+instantiated to an atom, or <var>Codes</var> must be instantiated to
+a proper code-list.
+
+   <p><a name="index-number_005fcodes_002f2-_0028built_002din_0029-1215"></a><a name="index-number_005fcodes_002f2-_0028built_002din_0029-1216"></a>
+<code>number_codes(</code><var>Number</var><code>, </code><var>Codes</var><code>)</code> is a relation between a
+number <var>Number</var> and a list <var>Codes</var> consisting of the
+character codes comprising the printed representation of
+<var>Number</var>.  Initially, either <var>Number</var> must be instantiated to
+a number, or <var>Codes</var> must be instantiated to a proper code-list.
+
+   <p><a name="index-atom_005fchars_002f2-_0028built_002din_0029-1217"></a><a name="index-atom_005fchars_002f2-_0028built_002din_0029-1218"></a>
+<a name="index-number_005fchars_002f2-_0028built_002din_0029-1219"></a><a name="index-number_005fchars_002f2-_0028built_002din_0029-1220"></a>
+Similarly,
+<code>atom_chars(</code><var>Atom</var><code>, </code><var>Chars</var><code>)</code> and <code>number_chars(</code><var>Atom</var><code>, </code><var>Chars</var><code>)</code> are
+relations between a constant and a list
+consisting of the character atoms comprising the printed
+representation of the constant.
+
+   <p><a name="index-name_002f2-_0028built_002din_0029-1221"></a><a name="index-name_002f2-_0028built_002din_0029-1222"></a>
+<code>name/2</code> converts between a constant and a code-list.  Given a
+code-list, <code>name/2</code> will convert it to a number if
+it can, otherwise to an atom.  This means that there are atoms that
+can be constructed by <code>atom_codes/2</code> but not by <code>name/2</code>. 
+<code>name/2</code> is retained for backwards compatibility with other
+Prologs.  New programs should use <code>atom_codes/2</code> or
+<code>number_codes/2</code> as appropriate.
+
+   <p><a name="index-char_005fcode_002f2-_0028built_002din_0029-1223"></a><a name="index-char_005fcode_002f2-_0028built_002din_0029-1224"></a>
+<code>char_code/2</code> converts between a character atom and a character code.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlte_002dc2t.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlte_002dc2t.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

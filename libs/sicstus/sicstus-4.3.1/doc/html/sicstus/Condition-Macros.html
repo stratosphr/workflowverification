@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+<title>Condition Macros - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Breakpoint-Conditions.html#Breakpoint-Conditions" title="Breakpoint Conditions">
+<link rel="prev" href="Past-States.html#Past-States" title="Past States">
+<link rel="next" href="Action-Variables.html#Action-Variables" title="Action Variables">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Condition-Macros"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Action-Variables.html#Action-Variables">Action Variables</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Past-States.html#Past-States">Past States</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Breakpoint-Conditions.html#Breakpoint-Conditions">Breakpoint Conditions</a>
+<hr>
+</div>
+
+<h4 class="subsection">5.9.8 Condition Macros</h4>
+
+<p>There are a few condition macros expanding to a list of other
+conditions:
+
+     <dl>
+<dt><code>unleash</code><dd><a name="index-unleash_002f0-_0028debugger-condition_0029-2139"></a>Expands to <code>[show(print),command(proceed)]</code>
+<br><dt><code>hide</code><dd><a name="index-hide_002f0-_0028debugger-condition_0029-2140"></a>Expands to <code>[show(silent),command(proceed)]</code>
+<br><dt><code>leash</code><dd><a name="index-leash_002f0-_0028debugger-condition_0029-2141"></a>Expands to <code>[show(print),command(ask)]</code>
+</dl>
+
+   <p>The user can also define condition macros using the hook predicate
+below.
+
+     <dl>
+<dt><code>breakpoint_expansion(</code><var>+Macro</var><code>, </code><var>-Body</var><code>) &nbsp;<!-- /@w --> </code><strong>hook,development</strong><dt><code>user:breakpoint_expansion(</code><var>+Macro</var><code>, </code><var>-Body</var><code>)</code><dd><a name="index-breakpoint_005fexpansion_002f2-_0028user_002c-hook_0029-2142"></a><a name="index-breakpoint_005fexpansion_002f2-_0028user_002c-hook_0029-2143"></a>
+<a name="index-user_003abreakpoint_005fexpansion_002f2-_0028hook_0029-2144"></a><a name="index-user_003abreakpoint_005fexpansion_002f2-_0028hook_0029-2145"></a>
+This predicate is called with each (non-composite)
+breakpoint test or action, as its first argument. If it
+succeeds, the term returned in the second argument
+(<code>Body</code>) is substituted for the original condition. The expansion
+is done at the time the breakpoint is added.
+
+     <p>Note that <var>Body</var> can be composite, but it cannot be of form
+<var>Tests</var><code>-</code><var>Actions</var>. This means that the whole <var>Body</var>
+will be interpreted as being in either the test or the action part,
+depending on the context.
+
+     <p>The built-in breakpoint conditions cannot be redefined using this
+predicate. 
+See <a href="mpg_002dref_002dbreakpoint_005fexpansion.html#mpg_002dref_002dbreakpoint_005fexpansion">mpg-ref-breakpoint_expansion</a>. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Condition-Macros.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Condition-Macros.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

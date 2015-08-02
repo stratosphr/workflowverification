@@ -1,0 +1,256 @@
+<html lang="en">
+<head>
+<title>ref-syn-syn-tok - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsyn_002dsyn.html#ref_002dsyn_002dsyn" title="ref-syn-syn">
+<link rel="prev" href="ref_002dsyn_002dsyn_002dtrm.html#ref_002dsyn_002dsyn_002dtrm" title="ref-syn-syn-trm">
+<link rel="next" href="ref_002dsyn_002dsyn_002desc.html#ref_002dsyn_002dsyn_002desc" title="ref-syn-syn-esc">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-syn-syn-tok"></a>
+<a name="ref_002dsyn_002dsyn_002dtok"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dsyn_002dsyn_002desc.html#ref_002dsyn_002dsyn_002desc">ref-syn-syn-esc</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dsyn_002dsyn_002dtrm.html#ref_002dsyn_002dsyn_002dtrm">ref-syn-syn-trm</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsyn_002dsyn.html#ref_002dsyn_002dsyn">ref-syn-syn</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.1.7.5 Syntax of Tokens as Character Strings</h5>
+
+<p><a name="index-syntax_002c-of-tokens-as-character-strings-547"></a>
+
+   <p><a name="index-character-set-548"></a><a name="index-set_002c-character-549"></a><!-- FIXME: mention character sets for I/O? -->
+
+   <p>SICStus Prolog supports wide characters (up to 31 bits wide),
+interpreted as a superset of Unicode.
+
+<!-- It is -->
+<!-- assumed that the character code set is an extension of (7 bit) -->
+<!-- ASCII, i.e.@: that it includes the codes 0..127 and these codes are -->
+<!-- interpreted as ASCII characters. -->
+   <p>Each character in the code set has to be classified as belonging to one
+of the character categories, such as <var>small-letter</var>, <var>digit</var>,
+etc. This classification is called the character-type mapping, and
+it is used for defining the syntax of tokens.
+
+<!-- The user can select one of the three predefined wide character modes -->
+<!-- through the environment variable @env{SP_CTYPE}. These modes are -->
+<!-- @code{iso_8859_1}, @code{utf8}, and @code{euc}.  The user can also -->
+<!-- define other wide character modes by plugging in appropriate hook -->
+<!-- functions. -->
+<!-- @c @pxref{Handling Wide Characters}. -->
+<!-- In this case the user has -->
+<!-- to supply a character-type mapping for the codes greater than 127. -->
+<!-- [PM] 4.0 FIXED: NUL -->
+   <p><a name="index-legacy_005fchar_005fclassification-_0028prolog-flag_0029-550"></a>Only character codes 0..255, i.e. the ISO-8859-1<!-- /@w --> (Latin 1)
+subset of Unicode, can be part of unquoted tokens<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>, unless the Prolog
+flag <code>legacy_char_classification</code> is set; see <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>.  This
+restriction may be lifted in the future.
+
+   <p>For quoted tokens, i.e. quoted atoms and strings, almost any sequence
+of code points assigned to non-private abstract characters in Unicode
+5.0 is allowed. The disallowed characters are those in the whitespace-char
+category except that space (character code 32) is allowed despite it
+being a whitespace-char.
+
+   <p>An additional restriction is that the sequence of characters that makes
+up a quoted token must be in Normal Form C (NFC)
+<a href="http://www.unicode.org/reports/tr15/">http://www.unicode.org/reports/tr15/</a>. This is currently not
+enforced. A future release may enforce this restriction or perform this
+normalization automatically.
+
+<!-- For quoted tokens, i.e.@: quoted atoms and strings, almost any sequence of -->
+<!-- characters from Unicode 5.0 is allowed provided the sequence is in -->
+<!-- Normal Form C (NFC) @uref{http://www.unicode.org/reports/tr15/}. -->
+   <p>NFC is the normalization form used on the web
+(<a href="http://www.w3.org/TR/charmod/">http://www.w3.org/TR/charmod/</a>) and what most software can be
+expected to produce by default. Any sequence consisting of only
+characters from Latin 1 is already in NFC.
+
+   <p>When the Prolog flag <code>legacy_char_classification</code> is set,
+characters in the whitespace-char category are still treated as whitespace
+but other character codes outside the range 0..255, assigned to
+non-private abstract characters in Unicode 5.0, are treated as lower
+case. Such characters can therefore appear as themselves, without using
+escape sequences, both in quoted and unquoted tokens.
+
+<!-- xref from write_term -->
+   <p>Note: Any output produced by <code>write_term/2</code> with the option
+<code>quoted(true)</code> will be in NFC. This includes output from
+<code>writeq/[1,2]</code> and <code>write_canonical/[1,2]</code>.
+
+     <dl>
+<dt><var>whitespace-char</var><dd>These are character codes 0..32, 127..160, 8206..8207, and 8232..8233. 
+This includes ASCII characters such as &lt;TAB&gt;, &lt;LFD&gt;, and
+&lt;SPC&gt;, as well as all characters with Unicode property
+&ldquo;Pattern_Whitespace&rdquo; including the Unicode-specific &lt;LINE
+SEPARATOR&gt; (8232).
+
+     <br><dt><var>small-letter</var><dd>These are character codes 97..122, i.e. the letters &lsquo;<samp><span class="samp">a</span></samp>&rsquo;
+through &lsquo;<samp><span class="samp">z</span></samp>&rsquo;, as well as the non-ASCII character codes 170, 186, 223..246, and 248..255.
+
+     <p>If the Prolog flag <code>legacy_char_classification</code>
+(see <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>) is set then the <var>small-letter</var> set will also
+include almost every code point above 255 assigned to non-private
+abstract characters in Unicode 5.0.
+
+     <br><dt><var>capital-letter</var><dd>These are character codes 65..90, i.e. the letters &lsquo;<samp><span class="samp">A</span></samp>&rsquo;
+through &lsquo;<samp><span class="samp">Z</span></samp>&rsquo;, as well as the non-ASCII character codes 192..214, and 216..222.
+
+     <br><dt><var>digit</var><dd>These are character codes 48..57, i.e. the digits &lsquo;<samp><span class="samp">0</span></samp>&rsquo;
+through &lsquo;<samp><span class="samp">9</span></samp>&rsquo;.
+
+     <br><dt><var>symbol-char</var><dd>These are character codes 35, 36, 38, 42, 43, 45..47, 58, 60..64,
+92, 94, and 126, i.e. the characters:
+     <pre class="example">          + - * / \ ^ &lt; &gt; = ~ : . ? @ # $ &amp;
+</pre>
+     <!-- In @code{sicstus} execution mode, character code 96 (@samp{`}) is also a -->
+     <!-- @var{symbol-char}. -->
+     <p>In addition, the non-ASCII character codes 161..169, 171..185, 187..191,
+215, and 247 belong to this character type<a rel="footnote" href="#fn-2" name="fnd-2"><sup>2</sup></a>.
+
+     <br><dt><var>solo-char</var><dd>These are character codes 33 and 59 i.e. the characters &lsquo;<samp><span class="samp">!</span></samp>&rsquo;
+and &lsquo;<samp><span class="samp">;</span></samp>&rsquo;.
+
+     <br><dt><var>punctuation-char</var><dd>These are character codes 37, 40, 41, 44, 91, 93, and 123..125,
+i.e. the characters:
+     <pre class="example">          % ( ) , [ ] { | }
+</pre>
+     <br><dt><var>quote-char</var><dd>These are character codes 34 and 39 i.e. the characters &lsquo;<samp><span class="samp">"</span></samp>&rsquo; and &lsquo;<samp><span class="samp">'</span></samp>&rsquo;. 
+<!-- In @code{iso} execution mode character code 96 -->
+<!-- (@samp{`}) is also a @var{quote-char}. -->
+
+     <br><dt><var>underline</var><dd>This is character code 95 i.e. the character &lsquo;<samp><span class="samp">_</span></samp>&rsquo;. 
+</dl>
+
+   <p>Other characters are unclassified and may only appear in comments and to
+some extent, as discussed above, in quoted atoms and strings.
+
+   <p><table summary=""><tr align="left"><td valign="top" width="20%"><var>token</var> </td><td valign="top" width="40%">::= <var>name</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>natural-number</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>unsigned-float</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>variable</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>string</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>punctuation-char</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>whitespace-text</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>full-stop</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>name</var> </td><td valign="top" width="40%">::= <var>quoted-name</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>word</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>symbol</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>solo-char</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>[</code> <var>?whitespace-text</var> <code>]</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>{</code> <var>?whitespace-text</var> <code>}</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>word</var> </td><td valign="top" width="40%">::= <var>small-letter</var> <var>?alpha<small class="dots">...</small></var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>symbol</var> </td><td valign="top" width="40%">::= <var>symbol-char<small class="dots">...</small></var> </td><td valign="top" width="40%"><span class="roman">{ except in the case of a </span><var>full-stop</var><span class="roman"> or where the first 2 chars are &lsquo;</span><samp><span class="samp">/*</span></samp><span class="roman">&rsquo; }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>natural-number</var> </td><td valign="top" width="40%">::= <var>digit<small class="dots">...</small></var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>base-prefix</var> <var>alpha<small class="dots">...</small></var> </td><td valign="top" width="40%"><span class="roman">{ where each </span><var>alpha</var><span class="roman"> must be digits of the base indicated by </span><var>base-prefix</var><span class="roman">, treating a,b,<small class="dots">...</small> and A,B,<small class="dots">...</small> as 10,11,<small class="dots">...</small> }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>0</code> <code>'</code> <var>char-item</var> </td><td valign="top" width="40%"><span class="roman">{ yielding the character code for </span><var>char</var><span class="roman"> }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>unsigned-float</var> </td><td valign="top" width="40%">::= <var>simple-float</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>simple-float</var> <var>exp</var> <var>exponent</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>simple-float</var> </td><td valign="top" width="40%">::= <var>digit<small class="dots">...</small></var> <code>.</code> <var>digit<small class="dots">...</small></var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>exp</var> </td><td valign="top" width="40%">::= <code>e</code> |  <code>E</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>exponent</var> </td><td valign="top" width="40%">::= <var>digit<small class="dots">...</small></var> | <var>sign</var> <var>digit<small class="dots">...</small></var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>sign</var> </td><td valign="top" width="40%">::= <code>-</code> | <code>+</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>variable</var> </td><td valign="top" width="40%">::= <var>underline</var> <var>?alpha<small class="dots">...</small></var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>capital-letter</var> <var>?alpha<small class="dots">...</small></var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>string</var> </td><td valign="top" width="40%">::= <code>"</code> <var>?string-item<small class="dots">...</small></var> <code>"</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>string-item</var> </td><td valign="top" width="40%">::= <var>quoted-char</var> </td><td valign="top" width="40%"><span class="roman">{ other than &lsquo;</span><samp><span class="samp">"</span></samp><span class="roman">&rsquo; or &lsquo;</span><samp><span class="samp">\</span></samp><span class="roman">&rsquo; }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>""</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>\</code> <var>escape-sequence</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>quoted-atom</var> </td><td valign="top" width="40%">::= <code>'</code> <var>?quoted-item<small class="dots">...</small></var> <code>'</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>quoted-item</var> </td><td valign="top" width="40%">::= <var>quoted-char</var> </td><td valign="top" width="40%"><span class="roman">{ other than &lsquo;</span><samp><span class="samp">'</span></samp><span class="roman">&rsquo; or &lsquo;</span><samp><span class="samp">\</span></samp><span class="roman">&rsquo; }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>''</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>\</code> <var>escape-sequence</var>
+<!-- @item -->
+<!-- @item @var{backquoted-atom} @tab ::= @code{`} @var{?backquoted-item@dots{}} @code{`} -->
+<!-- @item -->
+<!-- @item @var{backquoted-item} @tab ::= @var{quoted-char} @tab @r{@{ other than @samp{`} or @samp{\} @}} -->
+<!-- @item @tab |  @code{``} -->
+<!-- @item @tab |  @code{\} @var{escape-sequence} -->
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>whitespace-text</var> </td><td valign="top" width="40%">::= <var>whitespace-text-item<small class="dots">...</small></var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>whitespace-text-item</var> </td><td valign="top" width="40%">::= <var>whitespace-char</var> | <var>comment</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>comment</var> </td><td valign="top" width="40%">::= <code>/*</code> <var>?char<small class="dots">...</small></var> <code>*/</code> </td><td valign="top" width="40%"><span class="roman">{ where </span><var>?char<small class="dots">...</small></var><span class="roman"> must not contain &lsquo;</span><samp><span class="samp">*/</span></samp><span class="roman">&rsquo; }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>%</code> <var>?char<small class="dots">...</small></var> &lt;LFD&gt; </td><td valign="top" width="40%"><span class="roman">{ where </span><var>?char<small class="dots">...</small></var><span class="roman"> must not contain &lt;LFD&gt; }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>full-stop</var> </td><td valign="top" width="40%">::= <code>.</code> </td><td valign="top" width="40%"><span class="roman">{ the following token, if any, must be </span><var>whitespace-text</var><span class="roman">}</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>char</var> </td><td valign="top" width="40%">::= <var>whitespace-char</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>printing-char</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>printing-char</var> </td><td valign="top" width="40%">::= <var>alpha</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>symbol-char</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>solo-char</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>punctuation-char</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>quote-char</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>alpha</var> </td><td valign="top" width="40%">::= <var>capital-letter</var> | <var>small-letter</var> | <var>digit</var> | <var>underline</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>escape-sequence</var> </td><td valign="top" width="40%">::= <code>b</code> </td><td valign="top" width="40%"><span class="roman">{ backspace, character code 8 }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>t</code> </td><td valign="top" width="40%"><span class="roman">{ horizontal tab, character code 9 }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>n</code> </td><td valign="top" width="40%"><span class="roman">{ newline, character code 10 }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>v</code> </td><td valign="top" width="40%"><span class="roman">{ vertical tab, character code 11 }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>f</code> </td><td valign="top" width="40%"><span class="roman">{ form feed, character code 12 }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>r</code> </td><td valign="top" width="40%"><span class="roman">{ carriage return, character code 13 }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>e</code> </td><td valign="top" width="40%"><span class="roman">{ escape, character code 27 }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>d</code> </td><td valign="top" width="40%"><span class="roman">{ delete, character code 127 }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>a</code> </td><td valign="top" width="40%"><span class="roman">{ alarm, character code 7 }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>other-escape-sequence</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>quoted-name</var> </td><td valign="top" width="40%">::= <var>quoted-atom</var>
+<!-- @item @tab |  @var{backquoted-atom} -->
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>base-prefix</var> </td><td valign="top" width="40%">::=   <code>0b</code> </td><td valign="top" width="40%"><span class="roman">{ indicates base  2 }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>0o</code> </td><td valign="top" width="40%"><span class="roman">{ indicates base  8 }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>0x</code> </td><td valign="top" width="40%"><span class="roman">{ indicates base 16 }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>char-item</var> </td><td valign="top" width="40%">::= <var>quoted-item</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>other-escape-sequence</var> </td><td valign="top" width="40%">::= <code>x</code> <var>alpha<small class="dots">...</small></var> <code>\</code> </td><td valign="top" width="40%"><span class="roman">{treating a,b,<small class="dots">...</small> and A,B,<small class="dots">...</small> as 10,11,<small class="dots">...</small> } in the range [0..15], hex character code }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>digit<small class="dots">...</small></var> <code>\</code> </td><td valign="top" width="40%"><span class="roman">{ in the range [0..7], octal character code }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  &lt;LFD&gt; </td><td valign="top" width="40%"><span class="roman">{ ignored }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>\</code> </td><td valign="top" width="40%"><span class="roman">{ stands for itself }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>'</code> </td><td valign="top" width="40%"><span class="roman">{ stands for itself }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>"</code> </td><td valign="top" width="40%"><span class="roman">{ stands for itself }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>`</code> </td><td valign="top" width="40%"><span class="roman">{ stands for itself }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>quoted-char</var> </td><td valign="top" width="40%">::= &lt;SPC&gt;
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>printing-char</var>
+   <br></td></tr></table>
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> Characters
+outside this range can still be included in quoted atoms and strings
+by using escape sequences (see <a href="ref_002dsyn_002dsyn_002desc.html#ref_002dsyn_002dsyn_002desc">ref-syn-syn-esc</a>).</p>
+
+   <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> In release 3 and
+4.0.0 the lower case characters 170 and 186 were incorrectly classified
+as symbol-char. This was corrected in release 4.0.1.</p>
+
+   <hr></div>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dsyn_002dtok.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dsyn_002dtok.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

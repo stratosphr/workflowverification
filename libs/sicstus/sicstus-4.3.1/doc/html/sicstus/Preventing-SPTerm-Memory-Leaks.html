@@ -1,0 +1,99 @@
+<html lang="en">
+<head>
+<title>Preventing SPTerm Memory Leaks - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="SPTerm-and-Memory.html#SPTerm-and-Memory" title="SPTerm and Memory">
+<link rel="prev" href="Lifetime-of-SPTerms-and-Prolog-Memory.html#Lifetime-of-SPTerms-and-Prolog-Memory" title="Lifetime of SPTerms and Prolog Memory">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Preventing-SPTerm-Memory-Leaks"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Lifetime-of-SPTerms-and-Prolog-Memory.html#Lifetime-of-SPTerms-and-Prolog-Memory">Lifetime of SPTerms and Prolog Memory</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="SPTerm-and-Memory.html#SPTerm-and-Memory">SPTerm and Memory</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.18.6.2 Preventing SPTerm Memory Leaks</h5>
+
+<p>Some uses of <code>SPTerm</code> will leak memory on the Prolog side. This
+happens if a new <code>SPTerm</code> object is allocate, but Java neither
+returns to Prolog nor backtracks (using the method <code>close</code>,
+<code>cut</code> or <code>nextSolution</code>) into a query opened before the
+allocation of the <code>SPTerm</code> object.
+
+<!-- By default there is no way to explicitly free an @code{SPTerm} object -->
+<!-- and its @use{SP_term_ref}. For this reason it is better to re-use a @code{SPTerm} -->
+<!-- object each iteration of a loop than to create a new SPTerm object each -->
+<!-- iteration. @xref{Jasper Package Options, , Jasper Package Options, -->
+<!-- relnotes, SICStus Prolog Release Notes} for a way to re-use the Prolog -->
+<!-- side resources associated with a @code{SPTerm} using the method -->
+<!-- @code{SPTerm.delete()}. -->
+   <p>As of release 3.8.5, it is possible to explicitly delete a <code>SPTerm</code>
+object using the <code>SPTerm.delete()</code> method. The <code>delete()</code>
+method invalidates the SPTerm object and makes the associated
+SP_term_ref available for re-use.
+
+   <p>Another way to ensure that all SP_term_refs are deallocated
+is to open a dummy query only for this purpose. The following code
+demonstrates this:
+
+<!-- BETA thread server issues with synchronization -->
+<pre class="example">     // Always synchronize over creation and closing of SPQuery objects
+     synchronized (sp) {
+         // Create a dummy query that invokes true/0
+         SPQuery context = sp.openQuery("user","true",new SPTerm[]{});
+         // All SP_term_refs created after this point will be reclaimed by
+         // Prolog when doing context.close() (or context.cut())
+     
+         try {           // ensure context is always closed
+             SPTerm tmp = new SPTerm(sp); // created <em>after</em> context
+             int i = 0;
+     
+             while (i++ &lt; 5) {
+                 // re-used instead of doing tmp = new SPTerm(sp,"...");
+                 tmp.putString("Iteration #" + i + "\n");
+                 // e.g. user:write('Iteration #1\n')
+                 sp.queryCutFail("user", "write", new SPTerm[]{tmp});
+             }
+         }
+         finally {
+             // This will invalidate tmp and make Prolog
+             // reclaim the corresponding SP_term_ref
+             context.close(); // or context.cut() to retain variable bindings.
+         }
+     }
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Preventing-SPTerm-Memory-Leaks.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Preventing-SPTerm-Memory-Leaks.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

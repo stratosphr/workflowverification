@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+<title>PB Ex Embedding - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="PB-Java-Examples.html#PB-Java-Examples" title="PB Java Examples">
+<link rel="next" href="PB-Ex-Servers.html#PB-Ex-Servers" title="PB Ex Servers">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="PB-Ex-Embedding"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="PB-Ex-Servers.html#PB-Ex-Servers">PB Ex Servers</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="PB-Java-Examples.html#PB-Java-Examples">PB Java Examples</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.28.6.1 Embedding Prolog in Java Applications</h5>
+
+<p>If you have an advanced Prolog application that needs a GUI you can
+write a stand-alone Java application that handles the GUI and set up
+the Prolog server to call the right predicates in the Prolog application.
+
+   <p>An example of how to do this can be found under the
+<samp><span class="file">pbexamples(evaluate)</span></samp> directory (see the example code in <a href="PB-First-Example.html#PB-First-Example">PB First Example</a>).
+
+   <p>Another example of this is <samp><span class="file">pbexamples(pbtest)</span></samp>, which illustrates
+several advanced features like:
+     <ul>
+<li>registering several queries
+<li>listening to server events (<code>server_started</code>)
+<li>shutting down the Prolog server from Java
+<li>starting up the Prolog server from Java
+<li>using dynamic (OS assigned) ports for the Java/Prolog communication
+</ul>
+
+   <p>The example is run by executing the Java program <code>PBTest</code>:
+<pre class="example">     &gt; <kbd>java -classpath "%SP_PATH%\bin\prologbeans.jar;." PBTest</kbd> <span class="roman">(Windows), or</span>
+     % <kbd>java -classpath "$SP_PATH/bin/prologbeans.jar:." PBTest</kbd> <span class="roman">(UNIX)</span>
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/PB-Ex-Embedding.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/PB-Ex-Embedding.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

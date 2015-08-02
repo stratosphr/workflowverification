@@ -1,0 +1,1180 @@
+<html lang="en">
+<head>
+<title>SICStus Prolog Frequently Asked Questions</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Frequently Asked Questions">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="#Top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+This FAQ has been removed. A new FAQ will appear on the SICStus
+webpage, <a href="http://sicstus.sics.se">http://sicstus.sics.se</a> soon.
+
+<!-- @ifinfo -->
+<!-- @c [PM] Tell install-info what to do. We don't use this yet when -->
+<!-- @c      installing, but we should. -->
+<!-- @dircategory SICStus Prolog -->
+<!-- @direntry -->
+<!-- * SICStus Prolog Frequently Asked Questions: (faq).     SICStus Prolog FAQ. -->
+<!-- @end direntry -->
+<!-- @c [PM] This is hidden from view but makes it possible to obtain version -->
+<!-- @c      information from within Emacs. -->
+<!-- @ifnothtml -->
+<!-- Generated @today{}. -->
+<!-- @end ifnothtml -->
+<!-- @end ifinfo -->
+<!-- @titlepage -->
+<!-- @title SICStus Prolog Frequently Asked Questions -->
+<!-- @subtitle by the Intelligent Systems Laboratory -->
+<!-- @subtitle -->
+<!-- @subtitle Swedish Institute of Computer Science -->
+<!-- @subtitle PO Box 1263 -->
+<!-- @subtitle SE-164 29  Kista, Sweden -->
+<!-- @subtitle -->
+<!-- @subtitle Release @MajMinRevBeta{} -->
+<!-- @subtitle @MonthYearOfRelease{} -->
+<!-- @author Swedish Institute of Computer Science -->
+<!-- @author @email{sicstus-request@@sics.se} @value{sphfill} @uref{http://sicstus.sics.se/} -->
+<!-- @comment   Include the Distribution inside the titlepage so -->
+<!-- @c that headings are turned off. -->
+<!-- @end titlepage -->
+<!-- @contents -->
+<!-- @page -->
+<!-- @ifinfo -->
+<!-- @node Top, About This Document, (dir), (dir) -->
+<!-- @top SICStus Prolog Frequently Asked Questions -->
+<!-- This is a compilation of frequently asked question related to SICStus -->
+<!-- Prolog. -->
+<!-- @end ifinfo -->
+<!-- @menu -->
+<!-- * About This Document:: About This Document -->
+<!-- * Introduction:: Introduction -->
+<!-- * Installation Problems:: Installation Problems -->
+<!-- * Runtime Problems:: Runtime Problems -->
+<!-- * Generic Prolog Programming:: Generic Prolog Programming -->
+<!-- * Interfacing with Other Languages:: Interfacing with Other Languages -->
+<!-- * Standard Prolog Compliance:: Standard Prolog Compliance -->
+<!-- * Miscellaneous:: Miscellaneous -->
+<!-- @end menu -->
+<!-- @node About This Document -->
+<!-- @chapter About This Document -->
+<!-- This is a compilation of frequently asked question related to SICStus -->
+<!-- Prolog. -->
+<!-- It is maintained by the SICStus Prolog support team. Any questions about this -->
+<!-- FAQ should be sent to @email{sicstus-support@@sics.se}. Questions about -->
+<!-- SICStus Prolog should be addressed as follows: -->
+<!-- @itemize @bullet -->
+<!-- @item -->
+<!-- Bug reports and technical support questions to -->
+<!-- Report bugs through the web interface -->
+<!-- @display -->
+<!-- @uref{http://sicstus.sics.se/bugreport/bugreport.html}. -->
+<!-- @end display -->
+<!-- @noindent -->
+<!-- or to -->
+<!-- @display -->
+<!-- @email{sicstus-support@@sics.se} -->
+<!-- @end display -->
+<!-- @item -->
+<!-- Questions regarding licensing, contracts, etc.@: to -->
+<!-- @email{sicstus-request@@sics.se}. -->
+<!-- @end itemize -->
+<!-- This FAQ is @emph{not} intended for questions about the Prolog language in -->
+<!-- general. There is a specific Prolog FAQ for that, available at -->
+<!-- @c [PM] address verified for 3.10.1 -->
+<!-- @display -->
+<!-- @uref{http://www.cs.kuleuven.ac.be/~remko/prolog/faq/} -->
+<!-- @end display -->
+<!-- @node Introduction -->
+<!-- @chapter Introduction -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- What is SICStus Prolog? -->
+<!-- @end table -->
+<!-- Prolog is a simple but powerful programming language developed at the -->
+<!-- University of Marseille, as a practical tool for programming in logic. -->
+<!-- From a user's point of view the major attraction of the language is -->
+<!-- ease of programming.  Clear, readable, concise programs can be -->
+<!-- written quickly with few errors. -->
+<!-- SICStus Prolog is owned and maintained by the Swedish Institute of -->
+<!-- Computer Science.  Parts of the system were developed by the project -->
+<!-- ``Industrialization of SICStus Prolog'' in collaboration with Ericsson -->
+<!-- Telecom AB, NobelTech Systems AB, Infologics AB and Televerket. -->
+<!-- @comment [PM] 3.8.5 This paragraph is also used in sicstus.tex, keep -->
+<!-- in synch SICStus Prolog follows the mainstream Prolog tradition in -->
+<!-- terms of syntax and built-in predicates.  As of release -->
+<!-- 3.8, SICStus Prolog provides two execution modes: the @code{iso} mode, -->
+<!-- which is fully compliant with the International Standard ISO/IEC -->
+<!-- 13211-1 (PROLOG: Part 1-General Core) -->
+<!-- (@uref{http://webstore.ansi.org/ansidocstore/product.asp?sku=INCITS%2FISO%2FIEC+13211%2D1%2D1995}); -->
+<!-- and the @code{sicstus} mode, -->
+<!-- which is largely compatible with, e.g.@:, C-Prolog and Quintus Prolog, -->
+<!-- supports code written in earlier versions of SICStus Prolog. -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- Where can I get more information about SICStus Prolog? -->
+<!-- @end table -->
+<!-- The main source of information about SICStus Prolog is the WWW-site -->
+<!-- at -->
+<!-- @display -->
+<!-- @uref{http://sicstus.sics.se/}. -->
+<!-- @end display -->
+<!-- @noindent -->
+<!-- and in particular the User's Manual, Release Notes, and this FAQ list, at -->
+<!-- @display -->
+<!-- @uref{http://www.sics.se/isl/sicstuswww/site/documentation.html} -->
+<!-- @end display -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- Does SICStus run on platform XYZ? -->
+<!-- @end table -->
+<!-- SICStus runs under most UNIX dialects and under Windows -->
+<!-- @c [PM] 3.10.1 removed 95 -->
+<!-- 98/NT/2000. For a current list of supported platforms, see the -->
+<!-- release notes. -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- What do I need to run SICStus? -->
+<!-- @end table -->
+<!-- @itemize @bullet -->
+<!-- @item -->
+<!-- @c [PM] 3.8.7 No need to be overly specific. -->
+<!-- @c For 3.8.7 InstallSICStus folder SPARC64 need 64MB, native SPARC32 -->
+<!-- @c install needs 36MB. -->
+<!-- @c -->
+<!-- Disk space: 100 MB should be enough for packing up the binary installer -->
+<!-- and performing the installation. The actual installation will use less -->
+<!-- than half of that. 100 MB should also be enough to compile SICStus from -->
+<!-- the sources. -->
+<!-- @item -->
+<!-- Memory usage: At least 8-16 Mb RAM, but more memory is recommended. -->
+<!-- @item -->
+<!-- In order to use @code{library(tcltk)} you need a Tcl/Tk installation on -->
+<!-- your machine, see the release notes for information about what Tcl/Tk -->
+<!-- version you need and where you can get it. -->
+<!-- @c available from -->
+<!-- @c @display -->
+<!-- @c @uref{http://dev.scriptics.com} -->
+<!-- @c @end display -->
+<!-- @c @item -->
+<!-- @c In order to use @code{library(jasper)} you need a JNI compatible Java -->
+<!-- @c installation. See the release notes for supported versions and where you -->
+<!-- @c can get it. -->
+<!-- @item -->
+<!-- In order to use @code{library(bdb)} you need a Berkeley DB. See the -->
+<!-- release notes for supported versions and where you gan get it. -->
+<!-- @end itemize -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- How can I get SICStus? -->
+<!-- @end table -->
+<!-- SICStus is a commercial product and licensing information can be found -->
+<!-- on the WWW-site (@uref{http://sicstus.sics.se/}). Free evaluation -->
+<!-- licenses are available. -->
+<!-- Upon completed license agreement, you will receive a mail containing -->
+<!-- download instructions including confidential passwords and encryption -->
+<!-- keys.  Be sure to read the Release Notes before installation. -->
+<!-- If you are a university student, your department may have acquired the -->
+<!-- right to sub-license SICStus to its students.  If that is the case, -->
+<!-- your department should provide to you download instructions and -->
+<!-- license codes for the relevant distributions.  Your professor should know. -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- How do I report a bug or some other problem? -->
+<!-- @end table -->
+<!-- If you think you've discovered a bug or if you have another problem, -->
+<!-- first read this FAQ list, the release notes and the list of known bugs, -->
+<!-- at the @uref{http://www.sics.se/isl/sicstuswww/site/dontpanic.html, -->
+<!-- Don't Panic page} page at @uref{http://sicstus.sics.se/}. If these do -->
+<!-- not address your problem, submit a bug report by filling in the form: -->
+<!-- @display -->
+<!-- @uref{http://sicstus.sics.se/bugreport/bugreport.html}. -->
+<!-- @end display -->
+<!-- If you are using an academic license, for example if you are a student, -->
+<!-- you should primarily consult with the maintenance -->
+<!-- contact at your site. -->
+<!-- @node Installation Problems -->
+<!-- @chapter Installation Problems -->
+<!-- Some of the problems in this sections are UNIX (Windows) specific. -->
+<!-- These are marked @emph{[UNIX]} (@emph{[Windows]}). -->
+<!-- @menu -->
+<!-- * Windows Installer Problems:: Windows Installer Problems -->
+<!-- * Corrupted Binary Files:: Corrupted Binary Files -->
+<!-- * Linux C Libraries:: Linux C Libraries -->
+<!-- * Configure Options:: Encryption tools.tools -->
+<!-- * Password Problems:: Password Problems -->
+<!-- * Problems Getting Started:: Problems Getting Started -->
+<!-- @end menu -->
+<!-- @node Windows Installer Problems -->
+<!-- @section Windows Installer Problems -->
+<!-- @table @var -->
+<!-- @item Question: @value{sphfill} @emph{[Windows NT 4]} -->
+<!-- The installer complains that @samp{MSIEXEC} cannot be found. -->
+<!-- @end table -->
+<!-- This happens if the installing user does not have @samp{Administrator} -->
+<!-- rights. Either install as the user @samp{Administrator} or ensure that -->
+<!-- the installing user have these rights during installation. If this is -->
+<!-- unclear, please contact your system administrator. -->
+<!-- This problem should not happen on other versions of Windows. -->
+<!-- @node Corrupted Binary Files -->
+<!-- @section Corrupted Binary Files -->
+<!-- @table @var -->
+<!-- @item Question: @value{sphfill} @emph{[UNIX]} -->
+<!-- @command{gzip} says ``stdin not in gzip format''. -->
+<!-- @end table -->
+<!-- This means that the input piped to @command{gzip} has been corrupted in -->
+<!-- some way. The most likely cause is that the original file -->
+<!-- @code{@var{file}.tar.gz} was downloaded incorrectly, typically in ASCII -->
+<!-- mode instead of binary mode. -->
+<!-- @c [PM] 3.10.1 we no longer use crypt -->
+<!-- @c This means that the input piped to @command{gzip} has been corrupted in some -->
+<!-- @c way. Consider the command line: -->
+<!-- @c @example -->
+<!-- @c % cat @var{file}.tar.gz.crypt | crypt @var{password} | gzip -cd > @var{file}.tar -->
+<!-- @c @end example -->
+<!-- @c There are two common reasons this occurs. Either the @var{password} -->
+<!-- @c is incorrect, whereby @command{gzip} gets a corrupt .gz file as input. Or, the -->
+<!-- @c original file @code{@var{file}.tar.gz.crypt} was downloaded incorrectly, -->
+<!-- @c typically in ASCII mode instead of binary mode. -->
+<!-- @node Linux C Libraries -->
+<!-- @section Linux C Libraries -->
+<!-- @table @var -->
+<!-- @item Question: @value{sphfill} @emph{[UNIX]} -->
+<!-- I get the message ``@dots{}/sp.exe: no such file or -->
+<!-- directory'' when running SICStus, even though @code{sp.exe} is there. -->
+<!-- @end table -->
+<!-- This error message appears when SICStus has been compiled using a -->
+<!-- different version of @code{libc.so} than your machine has -->
+<!-- installed. The message ``no such file or directory'' does not refer to -->
+<!-- @code{sp.exe} but to the particular @code{libc.so} version that SICStus -->
+<!-- expects. -->
+<!-- SICStus is currently available as binary distributions for -->
+<!-- @code{libc.so.6}, a.k.a.@: @code{glibc}, versions 2.0, 2.1 and 2.2. -->
+<!-- Make sure to download the correct version. -->
+<!-- @c [PM] 3.10.1 we no longer use crypt -->
+<!-- @c @node Encryption tools.tools -->
+<!-- @c @section Encryption tools.tools -->
+<!-- @c @table @var @item Question: @value{sphfill} @emph{[UNIX]} There is no -->
+<!-- @c ``crypt'' program on my Linux machine. How do I unpack the -->
+<!-- @c SICStus distributions?  @end table -->
+<!-- @c The @code{crypt} program is not included in -->
+<!-- @c Linux-distributions since the code in it is not free. A replacement -->
+<!-- @c can be downloaded from @display -->
+<!-- @c @uref{ftp://ftp.sics.se/archive/sicstus3/aux/crypt.tar.gz} @end -->
+<!-- @c display -->
+<!-- @c Download it, unpack it and follow the instructions in @code{README}. -->
+<!-- @node Configure Options -->
+<!-- @section Configure Options -->
+<!-- These issues are mainly of concern when building SICStus from a source -->
+<!-- distribution. -->
+<!-- @table @var -->
+<!-- @item Question: @value{sphfill} @emph{[UNIX]} -->
+<!-- I've changed the -->
+<!-- arguments to @code{configure}, but nothing happens. -->
+<!-- @end table -->
+<!-- The @code{configure} script maintains a cache-file called -->
+<!-- @code{config.cache}. This file has to be removed between -->
+<!-- configure-runs if you've changed the arguments. Alternatively, -->
+<!-- you can specify @option{-cache-file=/dev/null}, causing configure to -->
+<!-- avoid creating a cache-file entirely. -->
+<!-- @table @var -->
+<!-- @item Question: @value{sphfill} @emph{[UNIX]} -->
+<!-- The configure script seems to ignore some of my options. -->
+<!-- @end table -->
+<!-- Make sure that there is no site-wide configuration file -->
+<!-- (@code{config.site}). If configure finds one, it will print a message -->
+<!-- similar to: -->
+<!-- @example -->
+<!-- @group -->
+<!-- loading site script /usr/local/etc/config.site -->
+<!-- creating cache ./config.cache -->
+<!-- checking SICStus version@dots{} 3.8.5 -->
+<!-- [@dots{}] -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- In this case, configure has found a @code{config.site} in -->
+<!-- @code{/usr/local/etc}. -->
+<!-- The solution is to either remove the file or to set the environment -->
+<!-- variable @env{CONFIG_SITE} to an empty file of your choice. For -->
+<!-- example, assuming @command{csh}: -->
+<!-- @example -->
+<!-- @group -->
+<!-- % @kbd{setenv CONFIG_SITE ./config.site} -->
+<!-- % @kbd{echo "# empty config.site" > ./config.site} -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- @node Password Problems -->
+<!-- @section Password Problems -->
+<!-- @table @var -->
+<!-- @item Question: @value{sphfill} @emph{[Windows]} -->
+<!-- When asked for the installation password, I typed it but -->
+<!-- it doesn't work. -->
+<!-- @end table -->
+<!-- There are three pieces of information that you must not mix up. -->
+<!-- @itemize @bullet -->
+<!-- @item The password to the FTP/HTTP site containing -->
+<!-- the SICStus distributions. -->
+<!-- @item The password required by the -->
+<!-- installation program. -->
+<!-- @item Your license code, which comes with -->
+<!-- a site name and an expiration date. -->
+<!-- @end itemize -->
+<!-- @node Problems Getting Started -->
+<!-- @section Problems Getting Started -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- I get the message ``Failed to locate bootfile''. -->
+<!-- @end table -->
+<!-- The message ``Failed to locate bootfile'' means that SICStus cannot -->
+<!-- find either @code{spds.sav} or @code{sprt.sav}, depending on whether -->
+<!-- you are executing a development system or a runtime -->
+<!-- system.  If you are running a runtime system, you may want to -->
+<!-- read the chapter ``Runtime Systems'' in the User's Manual.  If you -->
+<!-- want to execute runtime systems on machines that don't have -->
+<!-- SICStus installed (a.k.a.@: target machines), read the sections -->
+<!-- ``Runtime Systems on Target Machines''. -->
+<!-- @c and the documentation of the @env{SP_PATH} variable. -->
+<!-- If you get this message running a Development System, your -->
+<!-- installation is probably inconsistent. Reinstall SICStus and try again. -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- @kbd{^D} doesn't seem to bring me back a level down after @code{break}. -->
+<!-- @end table -->
+<!-- The manual assumes that @kbd{^D} is the EOF character.  Under Windows, -->
+<!-- however, it's @kbd{^Z} (except when running under Emacs).  In most -->
+<!-- contexts, the term @code{end_of_file} terminated by a full stop -->
+<!-- (@kbd{.}) can be typed instead of the EOF character. -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- @command{spld} fails with the message: -->
+<!-- @example -->
+<!-- @group -->
+<!-- 'rc' is not recognized as an internal or external command, -->
+<!-- operable program or batch file. -->
+<!-- ! Could not generate .res file for data resources. at spld.pl line 745. -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- @item Question: -->
+<!-- @command{splfr} fails with the message: -->
+<!-- @example -->
+<!-- @group -->
+<!-- 'cl' is not recognized as an internal or external command, -->
+<!-- operable program or batch file. -->
+<!-- ! Could not compile spa011160.c: No such file or directory -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- @end table -->
+<!-- You need to include Microsoft Visual Studio (or at least its C compiler -->
+<!-- and linker) in your @env{PATH} environment variable.  The easiest way is -->
+<!-- to run @code{vcvars32.bat} from the Visual Studio distribution.  To do -->
+<!-- it manually (Windows NT/2000/XP): -->
+<!-- @example -->
+<!-- @group -->
+<!-- C:\> @kbd{set PATH=@var{location of Microsoft Visual Studio};%PATH%} -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- @node Runtime Problems -->
+<!-- @chapter Runtime Problems -->
+<!-- @menu -->
+<!-- * Memory Allocation Problems:: Memory Allocation Problems -->
+<!-- @end menu -->
+<!-- @node Memory Allocation Problems -->
+<!-- @section Memory Allocation Problems -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- I get the message ``Memory allocation failed'' -->
+<!-- @end table -->
+<!-- A generic limitation of SICStus Prolog is that it cannot use more than -->
+<!-- 256 Mb of virtual memory on 32-bit architectures. This is an artifact of -->
+<!-- the tagged pointer scheme that we use. We have plans for replacing the -->
+<!-- tagging scheme, but it's a long term project. See the section ``Generic -->
+<!-- limitations'' in the Release Notes for additional details. -->
+<!-- @node Generic Prolog Programming -->
+<!-- @chapter Generic Prolog Programming -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- How can I split a module into several source code files? -->
+<!-- @end table -->
+<!-- You need a main file for the module, e.g.@: @code{main.pl} and -->
+<!-- several subfiles, e.g.@: @code{sub1.pl}, @code{sub2.pl}, @dots{} Lay -->
+<!-- out the main file as follows: -->
+<!-- @example -->
+<!-- @group -->
+<!-- :- module(@var{ModuleName}, @var{ExportList}). -->
+<!-- @dots{} @var{clauses/directives} @dots{} -->
+<!-- :- ensure_loaded(sub1). -->
+<!-- .. @var{clauses/directives} @dots{} -->
+<!-- :- ensure_loaded(sub2). -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- The subfiles can contain any clauses and directives, -->
+<!-- including @code{ensure_loaded/1} directives, but not -->
+<!-- @code{module/2} directives. -->
+<!-- An alternative is to use an @code{include} declaration. -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- How can I make the compiler abort -->
+<!-- the compilation if it encounters a syntax error? -->
+<!-- @end table -->
+<!-- This can be done by defining @code{user:message_hook/3} appropriately: -->
+<!-- @example -->
+<!-- @group -->
+<!-- | ?- @kbd{[user:user].} -->
+<!-- % consulting user@dots{} -->
+<!-- | @kbd{message_hook(error,_,Lines) :- } -->
+<!-- @kbd{print_message_lines(user_error,error,Lines), abort.} -->
+<!-- | @kbd{^D} -->
+<!-- % consulted user in module user, 0 msec 424 bytes -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- This will intercept any error message, print the message, and abort: -->
+<!-- @example -->
+<!-- @group -->
+<!-- | ?- @kbd{[user].} -->
+<!-- % consulting user@dots{} -->
+<!-- | @kbd{p p.} -->
+<!-- ! Syntax error -->
+<!-- ! operator expected after expression -->
+<!-- ! in line 39 -->
+<!-- ! p -->
+<!-- ! <<here>> -->
+<!-- ! p . -->
+<!-- % consulted user in module user, 0 msec -16 bytes -->
+<!-- % Execution aborted -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- How can I write access predicates -->
+<!-- for terms without paying a performance penalty? -->
+<!-- @end table -->
+<!-- There is support for unfolding predicates at compile time: -->
+<!-- @code{user:goal_expansion/3}.  For example, assume that -->
+<!-- @code{is_ornode(@var{X})} (@code{is_andnode(@var{X})}) is true if the -->
+<!-- shape (principal functor) of @var{X} is @code{or/2} -->
+<!-- (@code{and/2}).  If you consult the following: -->
+<!-- @example -->
+<!-- @group -->
+<!-- :- multifile -->
+<!-- user:goal_expansion/3. -->
+<!-- :- dynamic -->
+<!-- user:goal_expansion/3. -->
+<!-- user:goal_expansion(is_ornode(Term), _, Term=or(_,_)). -->
+<!-- user:goal_expansion(is_andnode(Term), _, Term=and(_,_)). -->
+<!-- plan_tree( [N|_Rest], _GuidanceNodes, _Indent ) :- -->
+<!-- is_andnode(N). -->
+<!-- plan_tree( [N|_Rest], _GuidanceNodes, _Indent ) :- -->
+<!-- is_ornode(N). -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- @noindent -->
+<!-- @code{plan_tree/3} becomes transformed to: -->
+<!-- @example -->
+<!-- @group -->
+<!-- plan_tree([A|_], _, _) :- A=and(_,_). -->
+<!-- plan_tree([A|_], _, _) :- A=or(_,_). -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- @c If you are using @code{fcompile/1}, make sure that the definition of -->
+<!-- @c @code{user:goal_expansion/3}, and anything else that the -->
+<!-- @c compiler needs to know, has been loaded at fcompile time. -->
+<!-- @c A common idiom is: -->
+<!-- @c @example -->
+<!-- @c @group -->
+<!-- @c | ?- @kbd{ensure_loaded(SetOfFiles), fcompile(SetOfFiles).} -->
+<!-- @c @end group -->
+<!-- @c @end example -->
+<!-- @c Note that @code{fcompile/1} is obsolescent with the introduction of -->
+<!-- @c partial saved-states (@samp{.po} files). -->
+<!-- Note that @code{plan_tree/3} will not be able to -->
+<!-- determinately select a matching clause based on @code{A}, -->
+<!-- as predicates are indexed on the shape of the first -->
+<!-- argument only, which is a list in both clauses.  Achieving -->
+<!-- indexing on @code{A} is the subject of the next question. -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- Is SICStus capable of folding -->
+<!-- unifications across @samp{:-} to determinately select a -->
+<!-- matching clause? -->
+<!-- @end table -->
+<!-- Consider the following clauses, with the above goal -->
+<!-- expansion: -->
+<!-- @example -->
+<!-- @group -->
+<!-- plan_tree( [N|_Rest], _GuidanceNodes, _Indent ) :- -->
+<!-- is_andnode(N). -->
+<!-- plan_tree( [N|_Rest], _GuidanceNodes, _Indent ) :- -->
+<!-- is_ornode(N). -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- In SICStus, as in most WAMs, indexing is done on the shape of -->
+<!-- the first argument.  If all arguments are distinct -->
+<!-- variables @var{A}, @var{B}, @var{C}, @dots{}, and the first -->
+<!-- goal is @code{@var{A} = Term}, indexing will be done on -->
+<!-- the shape of @code{Term}. -->
+<!-- So to enable indexing on the shape of @code{N}, you must -->
+<!-- transform the clause e.g.@: to: -->
+<!-- @example -->
+<!-- @group -->
+<!-- plan_tree( [N|_Rest], _GuidanceNodes, _Indent ) :- -->
+<!-- plan_tree_flat( N, _Rest, _GuidanceNodes, _Indent ). -->
+<!-- plan_tree_flat(N, _Rest, _GuidanceNodes, _Indent ) :- -->
+<!-- is_andnode(N). -->
+<!-- plan_tree_flat(N, _Rest, _GuidanceNodes, _Indent ) :- -->
+<!-- is_ornode(N). -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- With the above goal expansion, this code will indeed index -->
+<!-- on @code{N}. -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- Why doesn't this Fibonacci program work? -->
+<!-- @end table -->
+<!-- Here's some code that purports to print all the Fibonacci numbers. -->
+<!-- The author of the code expected @code{retract/1} to backtrack -->
+<!-- forever, finding ever new @code{fibs/2} facts. -->
+<!-- @example -->
+<!-- @group -->
+<!-- print_fibs :- -->
+<!-- retractall(fib(_)), -->
+<!-- assert(fibs(1,1)), -->
+<!-- retract(fibs(F1,F2)), -->
+<!-- write(F1), nl, -->
+<!-- F3 is F1+F2, -->
+<!-- assert(fibs(F2,F3)), -->
+<!-- fail. -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- If you run it: -->
+<!-- @example -->
+<!-- @group -->
+<!-- | ?- @kbd{print_fibs.} -->
+<!-- 1 -->
+<!-- no -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- It doesn't work because of the semantics for calls to -->
+<!-- dynamic predicates in the presence of asserts and -->
+<!-- retracts.  SICStus Prolog complies with the ISO Prolog standard in -->
+<!-- this respect.  Clause 7.5.4 of the standard reads: -->
+<!-- @quotation -->
+<!-- Any change in the database that occurs as the result of -->
+<!-- executing a goal (for example, when the activator of a subgoal -->
+<!-- is a call of @code{assertz/1} or @code{retract/1}) shall affect only -->
+<!-- an activation whose execution begins afterwards.  The change shall not -->
+<!-- affect any activation that is currently being executed. -->
+<!-- @end quotation -->
+<!-- In the above example, the @code{retract/1} goal is unaffected by -->
+<!-- the subsequent @code{assert}, and only succeeds once. -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- The query @code{X=[97|X], name(A,X).} loops.  Is it a bug? -->
+<!-- @end table -->
+<!-- It is possible, and sometimes useful, to write programs that -->
+<!-- unify a variable to a term in which that -->
+<!-- variable occurs, thus creating a cyclic term.  The usual -->
+<!-- LP theory forbids the creation of cyclic terms, dictating that -->
+<!-- an occurs-check should be done each time a variable is -->
+<!-- unified with a term.  Unfortunately, an occurs-check -->
+<!-- would be so expensive as to render Prolog impractical as a programming -->
+<!-- language. Thus cyclic terms may be created and may cause loops -->
+<!-- trying to print them. -->
+<!-- SICStus Prolog mitigates the problem by its ability to unify, -->
+<!-- compare assert, and copy cyclic terms without looping.  The -->
+<!-- @code{write_term/[2,3]} built-in predicate can optionally handle -->
+<!-- cyclic terms.  Unification with occurs-check is -->
+<!-- available as a built-in predicate. Predicates testing -->
+<!-- (a)cyclicity are available in a library package.  Other -->
+<!-- predicates usually don't handle cyclic terms well. -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- How can I have a predicate definition included when -->
+<!-- I load my code into Sicstus 3.10.x or earlier, but @emph{not} when I -->
+<!-- load my code into Sicstus 3.11.0 or later? -->
+<!-- @end table -->
+<!-- You can use: -->
+<!-- @example -->
+<!-- @group -->
+<!-- | ?- @kbd{prolog_flag(version,Version).} -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- @noindent -->
+<!-- plus a bit of trivial parsing to determine the version number. -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- In this query, why is X not 29.51? -->
+<!-- @end table -->
+<!-- @example -->
+<!-- @group -->
+<!-- | ?- @kbd{X is 20.66 + 8.85.} -->
+<!-- X = 29.509999999999998 @kbd{?} -->
+<!-- yes -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- Floats like 20.66 and 8.85 are represented in the host computer's native -->
+<!-- floating-point format (almost universally, in IEEE 754 format).  They -->
+<!-- are not represented as the precise rational numbers (2066/100) and -->
+<!-- (885/100).  Rounding errors are bound to pop up whenever you do -->
+<!-- floating-point arithmetic, as your query illustrates.  The exact same -->
+<!-- thing happens in C.  The following C program illustrates -->
+<!-- the point: the floating-point sum (20.66+8.85) differs from 29.51 in the -->
+<!-- least significant bit. -->
+<!-- @example -->
+<!-- @group -->
+<!-- #include <stdio.h> -->
+<!-- unsigned int intone = 1; -->
+<!-- double d1 = 20.66; -->
+<!-- double d2 = 8.85; -->
+<!-- double d3 = 29.51; -->
+<!-- main() -->
+<!-- @{ -->
+<!-- double d4 = d1+d2; -->
+<!-- int mshalf = ((unsigned short *)&intone)[0]; -->
+<!-- int lshalf = 1-mshalf; -->
+<!-- printf("20.66 + 8.85 with 15 decimals, and in hex:\n"); -->
+<!-- printf("%.15f %0x%0x\n", d4, ((long *)&d4)[mshalf], ((long *)&d4)[lshalf]); -->
+<!-- printf("29.51 with 15 decimals, and in hex:\n"); -->
+<!-- printf("%.15f %0x%0x\n", d3, ((long *)&d3)[mshalf], ((long *)&d3)[lshalf]); -->
+<!-- exit(0); -->
+<!-- @} -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- @node Interfacing with Other Languages -->
+<!-- @chapter Interfacing with Other Languages -->
+<!-- @menu -->
+<!-- * Interfacing with UNIX:: Interfacing with UNIX -->
+<!-- * Interfacing with C++:: Interfacing with C++ -->
+<!-- * Interfacing with Visual Basic:: Interfacing with Visual Basic -->
+<!-- * Interfacing with Tcl/Tk:: Interfacing with Tcl/Tk -->
+<!-- @c * Interfacing with Java:: Interfacing with Java -->
+<!-- @end menu -->
+<!-- @node Interfacing with UNIX -->
+<!-- @section Interfacing with UNIX -->
+<!-- @table @var -->
+<!-- @item Question: @value{sphfill} @emph{[UNIX]} -->
+<!-- How can I turn a Prolog source file into a UNIX script, to be invoked -->
+<!-- from the command line or from a Web application, for example? -->
+<!-- @end table -->
+<!-- Wrap the file into an executable Shell script that simply invokes -->
+<!-- SICStus.  Informational messages can be filtered out by redirecting -->
+<!-- @code{stderr} to @code{/dev/null}.  For example: -->
+<!-- @example -->
+<!-- @group -->
+<!-- #!/bin/sh -->
+<!-- exec sicstus 2> /dev/null -f -a "$@@" <<EOF -->
+<!-- % Tell SICStus to consult the sources. -->
+<!-- % The embedded command invokes main(Args) -->
+<!-- % where Args is the script's arguments passed as a list of atoms. -->
+<!-- [user]. -->
+<!-- main(Args) :- -->
+<!-- format('Hello world!\n\c -->
+<!-- Invoked with args = ~q\n', [Args]). -->
+<!-- :- -->
+<!-- prolog_flag(argv, Args), main(Args). -->
+<!-- EOF -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- The above script can be invoked as follows: -->
+<!-- @example -->
+<!-- @group -->
+<!-- % @kbd{./hw.sh a 236U ka=ka} -->
+<!-- Hello world! -->
+<!-- Invoked with args = [a,'236U','ka=ka'] -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- @node Interfacing with C++ -->
+<!-- @section Interfacing with C++ -->
+<!-- @c [PD] 3.10.1beta1 -->
+<!-- @c TODO: write. -->
+<!-- See the -->
+<!-- @uref{http://www.sics.se/isl/sicstuswww/site/dontpanic.html#MSVC, -->
+<!-- Don't Panic page} for some examples of how to interface SICStus with -->
+<!-- C++. The examples use Microsoft Visual C++, but the same technique can -->
+<!-- be adapted to other compilers (e.g.@: @command{gcc} under UNIX). -->
+<!-- @node Interfacing with Visual Basic -->
+<!-- @section Interfacing with Visual Basic -->
+<!-- See the manual and the release notes. -->
+<!-- @node Interfacing with Tcl/Tk -->
+<!-- @section Interfacing with Tcl/Tk -->
+<!-- @menu -->
+<!-- * Installing the Tcl/Tk Library Module under UNIX:: Installing the Tcl/Tk Library Module under UNIX -->
+<!-- * Configuring the Tcl/Tk Library Module under Windows:: Configuring the Tcl/Tk Library Module under Windows -->
+<!-- * Compiling SICStus with Tcl/Tk Support:: Compiling SICStus with Tcl/Tk Support -->
+<!-- * Generic Tcl/Tk Problems:: Generic Tcl/Tk Problems -->
+<!-- @end menu -->
+<!-- @node Installing the Tcl/Tk Library Module under UNIX -->
+<!-- @subsection Installing the Tcl/Tk Library Module under UNIX -->
+<!-- @quotation -->
+<!-- @strong{Please note}: This section applies to UNIX binary distributions only. -->
+<!-- @end quotation -->
+<!-- As of 3.8, the Tcl/Tk library module is automatically configured -->
+<!-- by the installation script (@code{InstallSICStus}), after asking a few -->
+<!-- simple questions. -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- When @code{InstallSICStus} asks for the ``Tcl/Tk installation path'', -->
+<!-- which path should I specify? -->
+<!-- @end table -->
+<!-- The installation path should be specified such that -->
+<!-- @var{installation-path}/lib contains the Tcl/Tk libraries -->
+<!-- (@code{libtcl<version>.so}). This is the same as the value of the -->
+<!-- @option{-prefix} options specified to Tcl/Tk's @code{configure}-script. -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- My Tcl and Tk installation are not in the same directory. What should I -->
+<!-- do? -->
+<!-- @end table -->
+<!-- Unfortunately, there is no solution to this yet. You need to install -->
+<!-- Tcl/Tk in the same directory in order for @code{InstallSICStus} to find -->
+<!-- them. -->
+<!-- @node Configuring the Tcl/Tk Library Module under Windows -->
+<!-- @subsection Configuring the Tcl/Tk Library Module under Windows -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- I need to use a different Tcl/Tk version from the one SICStus is -->
+<!-- compiled against. How do I do? -->
+<!-- @end table -->
+<!-- The symptom of this is that Windows complains about not finding -->
+<!-- @code{tcl<ver>.dll}. -->
+<!-- See the release notes for what version of Tcl/Tk was used to build SICStus. -->
+<!-- @c SICStus 3.8.6 is compiled against Tcl/Tk version 8.2. -->
+<!-- If you want to use another Tcl/Tk version, you need to recompile @code{library(tcltk)}. You -->
+<!-- can do this by following these steps: -->
+<!-- (Please don't embark on this unless you are fairly familiar with -->
+<!-- command-prompts and compilation procedures). -->
+<!-- @enumerate -->
+<!-- @item -->
+<!-- You need MSVC version 6.0 or later. 5.x or 4.x might work but have not -->
+<!-- been tested. -->
+<!-- @c [PD] 3.10.1beta1 this stuff is very much outdated -->
+<!-- @c @item -->
+<!-- @c Compile the Tcl/Tk object code: -->
+<!-- @c @example -->
+<!-- @c % cd library/tcltk -->
+<!-- @c % cl -Ic:/progra~1/Tcl/include -Ic:/progra~1/sicstu~1/include -c *.c -->
+<!-- @c @end example -->
+<!-- @c If you don't have a shell that expands ``*.c'', you need to replace -->
+<!-- @c ``*.c'' with the name of all C source files in @code{library/tcltk}. -->
+<!-- @c @item -->
+<!-- @c Build the foreign resource (assuming Bash/Cygwin): -->
+<!-- @c @example -->
+<!-- @c % cd library -->
+<!-- @c % ../bin/splfr tcltk.pl tcltk/*.obj \ -->
+<!-- @c   c:/progra~1/Tcl/lib/tcl82.lib c:/progra~1/Tcl/lib/tk82.lib -->
+<!-- @c @end example -->
+<!-- @c Again, you might need to spell out ``*.obj''. Also, don't forget to -->
+<!-- @c adjust the actual paths to your needs. -->
+<!-- @c [PD] 3.10.1beta1 this is how it is done now -->
+<!-- @item Build a new -->
+<!-- Tcl/Tk foreign resource (assuming Bash/Cygwin): -->
+<!-- @example -->
+<!-- @group -->
+<!-- $ @kbd{cd library/x86-win32-nt-4} -->
+<!-- $ @kbd{mkdir tcltk_new} -->
+<!-- $ @kbd{cd tcltk_new} -->
+<!-- $ @kbd{splfr -cflag=-Ic:/path/to/Tcl/include -->
+<!-- ../../tcltk/*.c ../../tcltk.pl c:/path/to/Tcl/lib/tcl84.lib -->
+<!-- c:/path/to/Tcl/lib/tk84.lib} -->
+<!-- $ @kbd{cp tcltk.dll ../tcltk.dll} -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- If you don't have a shell that expands ``*.c'', you need to replace -->
+<!-- ``../../tcltk/*.c'' with the name of all C source files in -->
+<!-- @file{../../tcltk}.  Also, don't forget to adjust the actual paths to -->
+<!-- your Tcl/Tk installation directory. -->
+<!-- The following sample session shows how it may look: -->
+<!-- @c [PD] 3.10.1beta1 outdated example -->
+<!-- @c @example -->
+<!-- @c % cl -Ic:/progra~1/Tcl/include -Ic:/progra~1/sicstu~1/include -c *.c -->
+<!-- @c Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 11.00.7022 for 80x86 -->
+<!-- @c Copyright (C) Microsoft Corp 1984-1997. All rights reserved. -->
+<!-- @c tcl.c -->
+<!-- @c tk.c -->
+<!-- @c tkappini.c -->
+<!-- @c tkterm.c -->
+<!-- @c tkterm.c(231) : warning C4113: 'void (__cdecl *)(void)' differs in parameter lists from 'v -->
+<!-- @c oid (__cdecl *)(void )' -->
+<!-- @c util.c -->
+<!-- @c Generating Code@dots{} -->
+<!-- @c % ../bin/splfr tcltk.pl tcltk/*.obj \ -->
+<!-- @c   c:/progra~1/Tcl/lib/tcl82.lib c:/progra~1/Tcl/lib/tk82.lib -->
+<!-- @c SICStus 3.8.5 (Windows_NT-4-586): Fri Jan 08 09:44:23 1999 -->
+<!-- @c Licensed to SICS -->
+<!-- @c yes -->
+<!-- @c @{C:\TEMP\tcltkglu.c generated, 40 msec@} -->
+<!-- @c yes -->
+<!-- @c tcltkglu.c -->
+<!-- @c    Creating library C:\TEMP\junk.lib and object C:\TEMP\junk.exp -->
+<!-- @c @end example -->
+<!-- @c [PD] 3.10.1beta1 new relevant example -->
+<!-- @example -->
+<!-- @group -->
+<!-- $ @kbd{splfr -cflag=-Ih:/MS_Windows_2000/Tcl/include ../../tcltk/*.c ../../tcltk.pl h:/MS_Windows_2000/Tcl/lib/tcl84.lib h:/MS_Windows_2000/Tcl/lib/tk84.lib} -->
+<!-- @SICStusBootGreetingStart{} -->
+<!-- % tcltk_glue_1084_1044046414.c generated, 20 msec -->
+<!-- % tcltk_glue.h generated, 20 msec -->
+<!-- tcl.c -->
+<!-- ../../tcltk/tcl.c(223) : warning C4090: 'function' : different 'const' qualifiers -->
+<!-- ../../tcltk/tcl.c(223) : warning C4024: 'sptcl_save_error' : different types for formal and actual parameter 2 -->
+<!-- ../../tcltk/tcl.c(323) : warning C4090: 'function' : different 'const' qualifiers -->
+<!-- ../../tcltk/tcl.c(323) : warning C4024: 'sptcl_save_error' : different types for formal and actual parameter 2 -->
+<!-- ../../tcltk/tcl.c(374) : warning C4090: 'function' : different 'const' qualifiers -->
+<!-- ../../tcltk/tcl.c(374) : warning C4024: 'sptcl_save_error' : different types for formal and actual parameter 2 -->
+<!-- tk.c -->
+<!-- ../../tcltk/tk.c(134) : warning C4090: 'function' : different 'const' qualifiers -->
+<!-- ../../tcltk/tk.c(134) : warning C4024: 'sptcl_save_error' : different types for formal and actual parameter 2 -->
+<!-- ../../tcltk/tk.c(162) : warning C4090: 'function' : different 'const' qualifiers -->
+<!-- ../../tcltk/tk.c(162) : warning C4024: 'sptcl_save_error' : different types for formal and actual parameter 2 -->
+<!-- tkappini.c -->
+<!-- tkterm.c -->
+<!-- util.c -->
+<!-- tcltk_glue_1084_1044046414.c -->
+<!-- Creating library dummy.lib and object dummy.exp -->
+<!-- $ @kbd{cp tcltk.dll ../tcltk.dll} -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- @item -->
+<!-- Test your new resource: -->
+<!-- @c [PD] 3.10.1beta1 new relevant example -->
+<!-- @example -->
+<!-- @group -->
+<!-- $ @kbd{sicstus -i} -->
+<!-- @SICStusBootGreetingStart{} -->
+<!-- | ?- @kbd{use_module(library(tcltk)).} -->
+<!-- % loading c:/program files/sicstus prolog 3.10.0/library/tcltk.po@dots{} -->
+<!-- % module tcltk imported into user -->
+<!-- %  loading foreign resource c:/program files/sicstus prolog 3.10.0/library/x86-win32-nt-4/tcltk.dll in module tcltk -->
+<!-- % loaded c:/program files/sicstus prolog 3.10.0/library/tcltk.po in module tcltk, 10 msec 14744 bytes -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- @end enumerate -->
+<!-- @node Compiling SICStus with Tcl/Tk Support -->
+<!-- @subsection Compiling SICStus with Tcl/Tk Support -->
+<!-- @quotation -->
+<!-- @strong{Please note}: This section is only relevant when compiling source -->
+<!-- distributions with support for Tcl/Tk. -->
+<!-- @end quotation -->
+<!-- Most UNIX machines today have Tcl/Tk preinstalled. This reduces the -->
+<!-- risk of installation difficulties since the linker and the runtime -->
+<!-- linker usually finds Tcl/Tk in its default paths. Most other -->
+<!-- installation and/or configuration problems related to Tcl/Tk are -->
+<!-- caused by improper installation or installation in a path where the -->
+<!-- linker and runtime linker cannot find Tcl/Tk. -->
+<!-- Tcl/Tk is configured for installation similar to SICStus; by the use -->
+<!-- of a @code{configure} script generated by GNU Autoconf. The -->
+<!-- installation directory is specified by the @option{-prefix} option. The -->
+<!-- value of this option is referred to as the @var{installation-dir} -->
+<!-- below. -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- The configure-script complains that it cannot find @code{Tcl_Init} -->
+<!-- and/or @code{Tk_Init}. What should I do? -->
+<!-- @end table -->
+<!-- The following message from @code{configure} indicates that it could -->
+<!-- not link a test program with the Tcl/Tk libraries. -->
+<!-- @example -->
+<!-- @dots{} -->
+<!-- checking for Tcl_Init in -ltcl8.3@dots{} no -->
+<!-- checking for Tk_Init in -ltk8.3@dots{} no -->
+<!-- @dots{} -->
+<!-- @end example -->
+<!-- The common cause of this is that the compiler cannot find -->
+<!-- @option{-ltcl8.3} and/or @option{-ltk8.3} (or whichever version it tries -->
+<!-- to find), usually because Tcl/Tk has been installed in a non-standard -->
+<!-- directory (i.e.@: different from @code{/usr/lib}, @code{/usr/local/lib}, etc.). -->
+<!-- If you've installed Tcl/Tk in @var{installation-dir}, specify the -->
+<!-- following to @code{configure}: -->
+<!-- @example -->
+<!-- @group -->
+<!-- % @kbd{./configure -with-tcltk=@var{installation-dir} @var{more options}} -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- The problem can occur even if the Tcl/Tk shared libraries can be -->
+<!-- found, but the link-phase failed due to other reasons. If this occurs, -->
+<!-- it is often useful to look in @code{config.log}, where output from -->
+<!-- compilation stages etc.@: is logged. -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- I've installed Tcl and Tk in different directories. What do I do? -->
+<!-- @end table -->
+<!-- You can use: -->
+<!-- @example -->
+<!-- @group -->
+<!-- % @kbd{./configure -with-tcl=@var{tclinstallpath} -with-tk=@var{tkinstallpath}} -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- There are no shared Tcl/Tk libraries. What has happened? -->
+<!-- @end table -->
+<!-- You need to specify @option{-enable-shared} when configuring -->
+<!-- Tcl/Tk. This is @emph{not} enabled by default. -->
+<!-- @c @table @var -->
+<!-- @c @item Question: -->
+<!-- @c The Tcl/Tk shared libraries cannot be found at runtime. What should I do? -->
+<!-- @c @end table -->
+<!-- @c When @code{library(tcltk)} is loaded using @code{use_module/[1,2,3]}, -->
+<!-- @c the operating system's dynamic linker (usually called @code{ld.so}) is -->
+<!-- @c invoked to find @option{-ltclXX} and @option{-ltkXX}. Sometimes the runtime -->
+<!-- @c linker fails to do this. -->
+<!-- @c Now, in order for the runtime linker to find the Tcl/Tk libraries, -->
+<!-- @c they need to be installed in: -->
+<!-- @c @itemize @bullet -->
+<!-- @c @item -->
+<!-- @c A directory in which the runtime linker is configured to look by -->
+<!-- @c default. This is platform dependent, but usually the runtime linker -->
+<!-- @c looks in @code{/lib} and @code{/usr/lib}. Sometimes it also looks in -->
+<!-- @c @code{/usr/local/lib}. -->
+<!-- @c @item -->
+<!-- @c In a directory pointed to by the runtime linker search path -->
+<!-- @c variable. This variable is called: -->
+<!-- @c @table @asis -->
+<!-- @c @item SunOS, Linux, etc. -->
+<!-- @c @env{LD_LIBRARY_PATH} -->
+<!-- @c @item HP/UX -->
+<!-- @c @env{SHLIB_PATH} -->
+<!-- @c @item IRIX -->
+<!-- @c @env{LD_LIBRARY_PATH}, @code{LD_LIBRARYN32_PATH} -->
+<!-- @c @end table -->
+<!-- @c These variables are colon-separated lists of paths, which the runtime -->
+<!-- @c linker should look for shared objects during runtime. So, under bash@code{csh}, -->
+<!-- @c type: -->
+<!-- @c @example -->
+<!-- @c % setenv LD_LIBRARY_PATH @var{installation-dir}/lib -->
+<!-- @c @end example -->
+<!-- @c @end itemize -->
+<!-- @c @strong{Please note}: Binaries created by @command{spld}, including the usual -->
+<!-- @c development system, set these automatically for you. -->
+<!-- @node Generic Tcl/Tk Problems -->
+<!-- @subsection Generic Tcl/Tk Problems -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- I get the message ``tcl_new/1 - Can't find a usable -->
+<!-- init.tcl in the following directories@dots{}'' -->
+<!-- @end table -->
+<!-- This means that Tcl/Tk can't find its libraries of tcl-code needed for -->
+<!-- operation. This occurs when Tcl/Tk has been built but not properly -->
+<!-- installed. You have the option of stating the location of the -->
+<!-- libraries by means of the environment variables @env{TCL_LIBRARY} and -->
+<!-- @env{TK_LIBRARY}. See also the Tcl/Tk documentation. -->
+<!-- Another reason for this could be if you are not using SICStus 3.8.1 or -->
+<!-- later. The original SICStus 3.8 did not initialize Tcl/Tk correctly. -->
+<!-- @c @table @var -->
+<!-- @c @item Question: -->
+<!-- @c I'm using Tcl/Tk version 7.4/4.0 or older and -->
+<!-- @c @code{library(tcltk)} doesn't work. What should I do? -->
+<!-- @c @end table -->
+<!-- @c You will need to replace the file @code{tcltk.pl} with -->
+<!-- @c @code{tcltk.old} (renamed to @code{tcltk.pl}). The file can be found -->
+<!-- @c at the FTP-site. -->
+<!-- @table @var -->
+<!-- @item Question: -->
+<!-- I get the message ``tcl_eval/3 - can't read `var(Tree)': no such variable'' -->
+<!-- @end table -->
+<!-- This message can appear in Tcl code trying to access Prolog -->
+<!-- variables. Example: -->
+<!-- @example -->
+<!-- @group -->
+<!-- tk_test :- -->
+<!-- tk_new([],Interp), -->
+<!-- tcl_eval(Interp, -->
+<!-- ' -->
+<!-- global var -->
+<!-- set Tree [] -->
+<!-- set Children [] -->
+<!-- set GrandChildren [] -->
+<!-- prolog @{get_tree(Tree), -->
+<!-- make_children(Tree, Children), -->
+<!-- make_grandChildren(Tree, Children, GrandChildren)@} -->
+<!-- puts "$var(Tree) $var(Children) $var(GrandChildren) " -->
+<!-- ', _), -->
+<!-- tk_main_loop, -->
+<!-- tcl_delete(Interp). -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- The problem is that the argument to the @code{prolog} function -->
+<!-- is just a string that is interpreted by Prolog as a goal. There -->
+<!-- is no connection between the Prolog variables @code{Tree}, -->
+<!-- @code{Children} and @code{GrandChildren} and the Tcl-variables with -->
+<!-- the same name. After returning from @code{prolog}, the values that the -->
+<!-- Prolog variables have been bound to are assigned to the -->
+<!-- array variable @code{prolog_variables}. -->
+<!-- So replacing @code{$var} in your example with @code{$prolog_variables}, makes it work. -->
+<!-- @c @node Interfacing with Java -->
+<!-- @c @section Interfacing with Java -->
+<!-- @c @table @var -->
+<!-- @c @item Question: -->
+<!-- @c I'm having basic trouble in getting Java to work. -->
+<!-- @c @end table -->
+<!-- @c First try to get a simple "Hello world" program to work that -->
+<!-- @c does @emph{not} use Jasper. A large portion of the support questions -->
+<!-- @c we get are unrelated to the SICStus Java interface. Once you can -->
+<!-- @c compile and run your own Java classes it should be relatively easy to -->
+<!-- @c get Jasper to work. -->
+<!-- @c Read the Release Notes and the User's Manual and the section in them -->
+<!-- @c related to Jasper. -->
+<!-- @c [PM] 3.10.1 Java foreign resources no longer supported -->
+<!-- @c @table @var -->
+<!-- @c @item Question: @value{sphfill} @emph{[Windows]} -->
+<!-- @c @command{splfr} insists on looking for JDK in @file{C:/jdk1.2.2} -->
+<!-- @c @end table -->
+<!-- @c -->
+<!-- @c Use the @option{-with-jdk} option like this: -->
+<!-- @c @example -->
+<!-- @c splfr -with-jdk=D:/jdk1.3 @dots{} -->
+<!-- @c @end example -->
+<!-- @c [PM] 3.10.1 JDK 1.3.1 is now the default, there is enough info in the -->
+<!-- @c             release notes. -->
+<!-- @c @table @var -->
+<!-- @c @item Question: @value{sphfill} @emph{[UNIX]} -->
+<!-- @c I want to use JDK 1.3. -->
+<!-- @c @end table -->
+<!-- @c -->
+<!-- @c As of SICStus 3.8.6 this should work. Read the release notes for -->
+<!-- @c @emph{important} information about JDK 1.3 and JDK 1.3.1. -->
+<!-- @c @table @var -->
+<!-- @c @item Question: -->
+<!-- @c I want to use Jasper from an applet, but my browser won't let me. -->
+<!-- @c @end table -->
+<!-- @c Jasper is built as a layer on top of SICStus' C-Prolog interface and -->
+<!-- @c hence Jasper needs to be able to call methods declared as -->
+<!-- @c @var{native} (i.e.@:, C functions). For security reasons, this is -->
+<!-- @c prohibited in applets. -->
+<!-- @c This is a serious restriction, and future versions of Jasper will most -->
+<!-- @c likely allow connecting to the Prolog engine via sockets. -->
+<!-- @c In the interim, there are some examples on this at the -->
+<!-- @c @uref{http://www.sics.se/isl/sicstuswww/site/dontpanic.html, Don't Panic -->
+<!-- @c page} at @uref{http://sicstus.sics.se/}. -->
+<!-- @c @table @var -->
+<!-- @c @item Question: -->
+<!-- @c Why does Java sometimes crash when called from within Prolog? -->
+<!-- @c @end table -->
+<!-- @c A common problem when Java, especially Sun's JDK for Solaris, is -->
+<!-- @c loaded into the SICStus development system, is that I/O routines (such -->
+<!-- @c as @code{System.out.println()}) tend to crash the JVM.  The cause of -->
+<!-- @c this problem is not yet known, but it seems to be restricted on system -->
+<!-- @c calls operating on file-descriptors. -->
+<!-- @c @table @var -->
+<!-- @c @item Question: -->
+<!-- @c I get the message ``Failed to locate bootfile'' when -->
+<!-- @c running @code{java @var{ClassUsingJasper}}. -->
+<!-- @c @end table -->
+<!-- @c The answer to this (and related questions) can be found in the Jasper -->
+<!-- @c chapter of the Release Notes, section ``Getting Started''. -->
+<!-- @c @table @var -->
+<!-- @c @item Question: -->
+<!-- @c My first test of Java calling SICStus under MacOS X (i.e.@: calling -->
+<!-- @c @code{se.sics.jasper.SICStus}) failed with the following message. Yes, I -->
+<!-- @c set the @code{java.library.path}. -->
+<!-- @c @example -->
+<!-- @c @group -->
+<!-- @c Exception in thread "main" java.lang.UnsatisfiedLinkError: /Users/ptollinger/bin/powerpc-apple-darwin/lib/libspnative.jnilib: -->
+<!-- @c         at java.lang.ClassLoader$NativeLibrary.load(Native Method) -->
+<!-- @c         at java.lang.ClassLoader.loadLibrary0(ClassLoader.java:1560) -->
+<!-- @c         at java.lang.ClassLoader.loadLibrary(ClassLoader.java:1485) -->
+<!-- @c         at java.lang.Runtime.loadLibrary0(Runtime.java:788) -->
+<!-- @c         at java.lang.System.loadLibrary(System.java:834) -->
+<!-- @c         at se.sics.jasper.SICStus.loadNativeCode(SICStus.java:491) -->
+<!-- @c         at se.sics.jasper.SICStus.initSICStus(SICStus.java:749) -->
+<!-- @c         at se.sics.jasper.SICStus.<init>(SICStus.java:811) -->
+<!-- @c         at se.sics.jasper.SICStus.main(SICStus.java:439) -->
+<!-- @c @end group -->
+<!-- @c @end example -->
+<!-- @c @end table -->
+<!-- @c You need to set @env{DYLD_LIBRARY_PATH} to include the SICStus runtime library: -->
+<!-- @c @example -->
+<!-- @c @group -->
+<!-- @c bash> @kbd{export DYLD_LIBRARY_PATH=@var{location of @code{@LIBSPRT{}.dylib}}} -->
+<!-- @c @end group -->
+<!-- @c @end example -->
+<!-- @node Standard Prolog Compliance -->
+<!-- @chapter Standard Prolog Compliance -->
+<!-- SICStus 3.8 supports standard Prolog, adhering to the International -->
+<!-- Standard ISO/IEC 13211-1 (PROLOG: Part 1-General Core) -->
+<!-- (@uref{http://webstore.ansi.org/ansidocstore/product.asp?sku=INCITS%2FISO%2FIEC+13211%2D1%2D1995}). At the same -->
+<!-- time it also supports programs written in earlier versions of -->
+<!-- SICStus.  This is achieved by introducing two execution modes -->
+<!-- @code{iso} and @code{sicstus}. Users can change between the modes -->
+<!-- using the Prolog flag @code{language}.  Main issues: -->
+<!-- @itemize @bullet -->
+<!-- @item -->
+<!-- The @code{sicstus} execution mode is -->
+<!-- practically identical to 3.7.1, except for minor changes in error -->
+<!-- term format. -->
+<!-- @item -->
+<!-- The @code{iso} mode is fully compliant with ISO standard, but no strict -->
+<!-- conformance mode is provided. -->
+<!-- @item -->
+<!-- The dual mode system supports the gradual transition from legacy -->
+<!-- SICStus code to ISO Prolog compliant programs. -->
+<!-- @item -->
+<!-- Note that the built-in predicates, functions and Prolog -->
+<!-- flags, required by the ISO standard, are also available in -->
+<!-- @code{sicstus} execution mode, unless they conflict with existing -->
+<!-- SICStus predicates or functions. This expansion of the language -->
+<!-- carries a remote risk of name clashes with user code. -->
+<!-- @end itemize -->
+<!-- @node Miscellaneous -->
+<!-- @chapter Miscellaneous -->
+<!-- @table @var -->
+<!-- @item Question: @value{sphfill} @emph{[Windows]} -->
+<!-- How do I save a -->
+<!-- transcript of my Prolog session under Windows? -->
+<!-- @end table -->
+<!-- As of 3.8.3 the windowed executable (@command{spwin}) can save a -->
+<!-- transcript of the interaction with the Prolog top-level.  The command -->
+<!-- is under the @samp{File} menu. You may wish to increase the number of -->
+<!-- @w{@samp{save lines}} in the @w{@samp{Windows settings}} (under the -->
+<!-- @samp{settings} menu). -->
+<!-- @table @var -->
+<!-- @item Question: @value{sphfill} @emph{[Windows]} -->
+<!-- How do increase the number of history lines used by the windowed -->
+<!-- executable (@command{spwin})? -->
+<!-- @end table -->
+<!-- @xref{The Console Window, , The Console Window, relnotes, the SICStus -->
+<!-- Prolog Release Notes}. -->
+<!-- @c The history is saved in a file @file{spcmd.hst} in your home folder (as -->
+<!-- @c specified with the @env{HOME} environment variable). You can create a -->
+<!-- @c file @file{spcmd.ini} in the same folder that contains a single line like: -->
+<!-- @c @example -->
+<!-- @c lines 42 -->
+<!-- @c @end example -->
+<!-- @c @noindent -->
+<!-- @c This tells @file{spwin.exe} to keep a history of 42 lines the -->
+<!-- @c next time @file{spwin.exe} is started. The number of history lines is -->
+<!-- @c forced to lie between 1 and 101 (inclusive). -->
+<!-- @c -->
+<!-- @c If you don't want a history to be saved between sessions add a line: -->
+<!-- @c @example -->
+<!-- @c save 0 -->
+<!-- @c @end example -->
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Frequently Asked Questions</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/faq/index.html&amp;body=Feedback%20on%20documentation%20node%20html/faq/index.html%20in%20Frequently%20Asked%20Questions.">Send feedback on this subject.</a>
+</body></html>
+

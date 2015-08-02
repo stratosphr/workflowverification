@@ -1,0 +1,114 @@
+<html lang="en">
+<head>
+<title>mpg-ref-prompt - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dprolog_005fload_005fcontext.html#mpg_002dref_002dprolog_005fload_005fcontext" title="mpg-ref-prolog_load_context">
+<link rel="next" href="mpg_002dref_002dpublic.html#mpg_002dref_002dpublic" title="mpg-ref-public">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-prompt"></a>
+<a name="mpg_002dref_002dprompt"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dpublic.html#mpg_002dref_002dpublic">mpg-ref-public</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dprolog_005fload_005fcontext.html#mpg_002dref_002dprolog_005fload_005fcontext">mpg-ref-prolog_load_context</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.169 <code>prompt/2</code></h4>
+
+<p><a name="index-prompt_002f2-_0028built_002din_002c-ref-page_0029-4826"></a><a name="index-prompt_002f2-_0028built_002din_002c-ref-page_0029-4827"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>prompt(</code><var>-OldPrompt</var><code>, </code><var>+NewPrompt</var><code>)</code>
+
+   <p>Queries or changes the prompt string of the current input stream or an
+input stream <var>Stream</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>OldPrompt</var><dd><dfn>atom</dfn>
+
+     <p>The old prompt atom.
+
+     <br><dt><var>NewPrompt</var><dd><dfn>atom</dfn>, must be nonvar
+
+     <p>The new prompt atom. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>A <dfn>prompt atom</dfn> is a sequence of characters that indicates the
+Prolog system is waiting for input when a &ldquo;Read&rdquo; or &ldquo;Get&rdquo; predicate is
+called.  If an input stream connected to a terminal is waiting for
+input at the beginning of a line (at line position 0), the prompt atom
+will be printed through an output stream associated with
+the same terminal.
+
+   <p>Prolog sets the prompt to &lsquo;<samp><span class="samp">|: </span></samp>&rsquo; for every new top-level
+query. This is the prompt that can be changed by invoking
+<code>prompt/2</code>.
+
+   <p>Unlike state changes
+such as those implemented as prolog flags, the scope of a prompt
+change is a goal typed at the toplevel.  Therefore, the change is in
+force only until returning to the toplevel (prompt = &lsquo;<samp><span class="samp">| ?- </span></samp>&rsquo;).
+
+   <p>To <em>query</em> the current prompt atom, <var>OldPrompt</var> and
+<var>NewPrompt</var> should be the same unbound variable.
+
+   <p>To <em>set</em> the prompt, <var>NewPrompt</var> should be an instantiated atom.
+
+   <p>The &ldquo;Load&rdquo; predicates change the prompt
+during the time operations are performed: If a built-in loading
+predicate is performed on <code>user</code> (such as <code>compile(user)</code>,
+etc.), the prompt is set to &lsquo;<samp><span class="samp">| </span></samp>&rsquo;.  This prompt is not affected
+by <code>prompt/2</code>.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dt><code>type_error</code><dd><var>NewPrompt</var> is not an atom
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002diou_002dtin_002dcpr.html#ref_002diou_002dtin_002dcpr">ref-iou-tin-cpr</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dprompt.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dprompt.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

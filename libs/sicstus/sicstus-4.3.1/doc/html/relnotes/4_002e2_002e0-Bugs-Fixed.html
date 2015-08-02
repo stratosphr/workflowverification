@@ -1,0 +1,107 @@
+<html lang="en">
+<head>
+<title>4.2.0 Bugs Fixed - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e2_002e0-Changes.html#g_t4_002e2_002e0-Changes" title="4.2.0 Changes">
+<link rel="prev" href="4_002e2_002e0-New-Features.html#g_t4_002e2_002e0-New-Features" title="4.2.0 New Features">
+<link rel="next" href="4_002e2_002e0-Other-Changes.html#g_t4_002e2_002e0-Other-Changes" title="4.2.0 Other Changes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.2.0-Bugs-Fixed"></a>
+<a name="g_t4_002e2_002e0-Bugs-Fixed"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e2_002e0-Other-Changes.html#g_t4_002e2_002e0-Other-Changes">4.2.0 Other Changes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="4_002e2_002e0-New-Features.html#g_t4_002e2_002e0-New-Features">4.2.0 New Features</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e2_002e0-Changes.html#g_t4_002e2_002e0-Changes">4.2.0 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.16.2 Bugs Fixed</h4>
+
+     <ul>
+<li>Interrupt latency problem fixed. 
+<li><!-- SPRM 11263 -->
+<!-- SPRM 11953 -->
+Fixed exception handling bug introduced in 4.1.3. 
+<li>Misencoded and null strings from C are handled gracefully. 
+<li><code>write_term(X,[max_depth(D)])</code> did not always respect the depth limit. 
+<li><!-- SPRM 11961 -->
+<code>seeing/1</code> and <code>telling/1</code> now return <code>user</code> for the
+current input resp. output stream, which was always intended. 
+<li><!-- SPRM 11988 -->
+If the standard input stream encounters an invalid character, it will be
+silently replaced with the Unicode replacement character <code>0xFFFD</code>. This
+was already the case for the standard output streams.
+
+     <p>The same behavior, for the standard input and output streams, is now
+also in effect when running SICStus in the SPIDER IDE. 
+<li>When <code>open/[3,4]</code> cannot expand a system property, e.g. 
+<code>open('$FOO/bar.txt', read, S)</code> when the system property <code>FOO</code>
+is undefined or empty, an exception is raised.  Previosly,
+<code>open/[3,4]</code> silently failed in this case. 
+<li>The system property <code>SP_ALLOW_CHDIR</code> could not be set using the environment
+variable of the same name. 
+<li>The <samp><span class="command">spld</span></samp> tool would ignore the <samp><span class="option">--namebase</span></samp> argument
+for some generated files. 
+<li>CLPFD:
+          <ul>
+<li><!-- SPRM 12088 -->
+Dangling pointer hazard fixed for domain variables with frozen goals. 
+<li>Missing propagation problems fixed. 
+<li><code>sorting/3</code> could fall into infinite loop. 
+<li>Indexical compilation problems fixed. 
+</ul>
+     <li>CLPQ/CLPR: called the undefined predicate <code>'C'/3</code>. 
+<li><code>library(terms)</code>: bugs in <code>sub_term/2</code>,  <code>term_variables/2</code>,
+<code>subsumeschk/2</code> and friends. 
+<li><!-- SPRM 12089 -->
+
+     <p>Improvements in how <code>library('linda/server')</code> and
+<code>library('linda/client')</code> handle server shutdown.
+
+     <p>The server will stop listening for new connections as soon as it
+receives a shutdown request from a client. Among other things this makes
+the socket port available for re-use on the same machine.
+
+     <p>A call to <code>linda_client:shutdown_server/0</code>, in the client, will not
+return until the server has acknowledged the command. This removes a
+race condition when the client attempts to re-connect to the server.
+
+     <li>A number of problems in <code>library(odbc)</code> has been fixed. There are
+also some new features and other changes; see above. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e2_002e0-Bugs-Fixed.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e2_002e0-Bugs-Fixed.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

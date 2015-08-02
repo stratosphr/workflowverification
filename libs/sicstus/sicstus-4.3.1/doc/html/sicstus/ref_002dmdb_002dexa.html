@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+<title>ref-mdb-exa - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmdb.html#ref_002dmdb" title="ref-mdb">
+<link rel="prev" href="ref_002dmdb_002dacl.html#ref_002dmdb_002dacl" title="ref-mdb-acl">
+<link rel="next" href="ref_002dmdb_002didb.html#ref_002dmdb_002didb" title="ref-mdb-idb">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-mdb-exa"></a>
+<a name="ref_002dmdb_002dexa"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dmdb_002didb.html#ref_002dmdb_002didb">ref-mdb-idb</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dmdb_002dacl.html#ref_002dmdb_002dacl">ref-mdb-acl</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmdb.html#ref_002dmdb">ref-mdb</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.12.7 Modification of Running Code: Examples</h4>
+
+<ul class="menu">
+<li><a accesskey="1" href="ref_002dmdb_002dexa_002dasz.html#ref_002dmdb_002dexa_002dasz">ref-mdb-exa-asz</a>:                      Example: assertz
+<li><a accesskey="2" href="ref_002dmdb_002dexa_002drtr.html#ref_002dmdb_002dexa_002drtr">ref-mdb-exa-rtr</a>:                      Example: retract
+<li><a accesskey="3" href="ref_002dmdb_002dexa_002dabo.html#ref_002dmdb_002dexa_002dabo">ref-mdb-exa-abo</a>:                      Example: abolish
+</ul>
+
+<p><a name="index-self_002dmodifying-procedures-1612"></a>
+<a name="index-procedures_002c-self_002dmodifying-1613"></a>
+
+   <p>The following examples show what happens when a procedure is modified while it is
+running.  This can happen in two ways:
+     <ol type=1 start=1>
+
+     <li>The procedure calls some other procedure that modifies it. 
+<li>The procedure succeeds nondeterminately, and a subsequent goal makes
+the modification.
+        </ol>
+ In either case, the question arises
+as to whether the modifications take effect upon backtracking into the
+modified procedure.  In SICStus Prolog the answer is that they don't. 
+As explained in the overview to this section (see
+<a href="ref_002dmdb_002dbas.html#ref_002dmdb_002dbas">ref-mdb-bas</a>), modifications to a procedure affect only
+calls to that procedure that occur after the modification.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmdb_002dexa.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmdb_002dexa.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

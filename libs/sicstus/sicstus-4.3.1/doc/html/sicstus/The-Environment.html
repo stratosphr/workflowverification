@@ -1,0 +1,66 @@
+<html lang="en">
+<head>
+<title>The Environment - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Predicates.html#Predicates" title="Predicates">
+<link rel="prev" href="Conventions.html#Conventions" title="Conventions">
+<link rel="next" href="Memory-Leaks.html#Memory-Leaks" title="Memory Leaks">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="The-Environment"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Memory-Leaks.html#Memory-Leaks">Memory Leaks</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Conventions.html#Conventions">Conventions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Predicates.html#Predicates">Predicates</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.6.5.2 The Environment</h5>
+
+<p><a name="index-environment-2662"></a>To enable sharing of databases between process, programs
+have to create <dfn>environments</dfn> and the databases should be
+opened in these environments.  A database can be shared between
+processes that open it in the same environment.  An environment
+physically consists of a directory containing the files needed to enable
+sharing databases between processes.  The directory of the
+environment has to be located in a local file system.
+
+   <p>Databases can be opened outside any environment (see
+<code>db_open/4</code>), but in that case a process writing the database
+must ensure exclusive access or the behavior of the predicates is
+undefined.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/The-Environment.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/The-Environment.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

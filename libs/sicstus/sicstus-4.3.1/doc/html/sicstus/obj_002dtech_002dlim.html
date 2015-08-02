@@ -1,0 +1,103 @@
+<html lang="en">
+<head>
+<title>obj-tech-lim - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="obj_002dtech.html#obj_002dtech" title="obj-tech">
+<link rel="prev" href="obj_002dtech_002dsyn.html#obj_002dtech_002dsyn" title="obj-tech-syn">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="obj-tech-lim"></a>
+<a name="obj_002dtech_002dlim"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="obj_002dtech_002dsyn.html#obj_002dtech_002dsyn">obj-tech-syn</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="obj_002dtech.html#obj_002dtech">obj-tech</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.22.5.2 Limitations</h5>
+
+<p>This section summarizes the current limitations of SICStus Objects.
+
+<h4 class="subheading">Debugging</h4>
+
+<p>When you debug SICStus Objects programs that were compiled using the
+<code>obj_decl</code> module, you are tracing the translated version of your
+code. This includes all method clauses and (some) message sending
+commands.
+
+   <p>The source-linked debugger cannot connect compiled SICStus Objects
+code with the source code. 
+<!-- This is similar to the problem of tracing -->
+<!-- Prolog's DCG grammar rules. -->
+
+<h4 class="subheading">Garbage Collection</h4>
+
+<!-- label garbagecollection -->
+<p>There is no garbage collection of objects. It is the responsibility of
+the programmer to keep track of unused objects. In particular, avoid
+doing the following:
+
+<pre class="example">     | ?- <kbd>create(</kbd><var>Class</var><kbd>, </kbd><var>Object</var><kbd>).</kbd>
+</pre>
+   <p>Unless the create message for <var>Class</var> made some provision for finding
+the new object again, it is now lost. It cannot be used, and it cannot
+be destroyed.
+
+<h4 class="subheading">Multiple Inheritance</h4>
+
+<p>The provisions for multiple inheritance in this version of SICStus
+Objects are limited. In particular, there is no control over the
+inheritance of slots, which makes repeated inheritance
+impossible. However, it does support the mixin style of multiple
+inheritance.
+
+<h4 class="subheading">Persistence</h4>
+
+<p>While objects are more persistent than Prolog variables, there is no
+automatic way to save objects from one execution of your program to
+the next. Hence they are less persistent than the clauses in the
+Prolog database.
+
+   <p>If you need to save a set of objects from one Prolog session to
+another, copy the objects to the Prolog database as terms, and save
+them to a QOF file. Then, after you reload the QOF file, rebuild the
+objects. Keep in mind that addresses are not valid from one session to
+another.
+
+   <p>In short, there is no way to avoid initializing objects at run time.
+
+<!-- label builtins -->
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dtech_002dlim.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dtech_002dlim.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

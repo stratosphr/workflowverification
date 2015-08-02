@@ -1,0 +1,205 @@
+<html lang="en">
+<head>
+<title>obj-inh-sih - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="obj_002dinh.html#obj_002dinh" title="obj-inh">
+<link rel="next" href="obj_002dinh_002dmih.html#obj_002dinh_002dmih" title="obj-inh-mih">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="obj-inh-sih"></a>
+<a name="obj_002dinh_002dsih"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="obj_002dinh_002dmih.html#obj_002dinh_002dmih">obj-inh-mih</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="obj_002dinh.html#obj_002dinh">obj-inh</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.22.3.1 Single Inheritance</h5>
+
+<p>The simplest case is when a new class inherits some properties (slots
+and methods) from a single superclass. That superclass may, in turn,
+be defined in terms of its superclass, etc. The new class, its
+superclass, its superclass's superclass (if any) and so on are all
+ancestors of the new class.
+
+<h4 class="subheading">Class Definitions</h4>
+
+<p>The definition of a class with a single superclass begins with a <code>class/1</code>
+directive of the form
+
+<pre class="example">     :- class <var>ClassName</var> = [<var>SlotDef</var>, <var><small class="dots">...</small></var>] +  <var>SuperClass</var>.
+</pre>
+   <p class="noindent">where the list of <var>SlotDef</var> descriptions may be empty. In that case,
+the definition can simplified to
+
+<pre class="example">     :- class <var>ClassName</var> = <var>SuperClass</var>.
+</pre>
+   <p>The class <var>SuperClass</var> must be a defined class when this definition is given.
+
+   <p>In SICStus Objects, a subclass inherits all the slots of its
+superclass. And, by default, it inherits all the methods of its
+superclass. The remainder of this section describes what the
+programmer can do to control this inheritance.
+
+<h4 class="subheading">Slots</h4>
+
+<p>A class's slots are a combination of those explicitly defined in its
+slot description list and the slots it inherits from its
+superclass. In SICStus Objects, a class inherits all the slots of its
+superclass. It follows that a class inherits all the slots of all its
+ancestors.
+
+   <p>The programmer's control over inheritance of slots is limited. It is
+not possible to rename an inherited slot, nor is it possible to change
+its type, unless it is a class slot. It is possible to change a slot's
+initial representation. And, it is possible to effectively change a slot's
+visibility.
+
+   <p>To change the initial representation or the type (when allowed) of a slot,
+include a new <var>SlotDef</var> in the list of slot descriptions for the class,
+with the same slot name and a new type or initial representation. The type of a
+class slot
+can only be changed to a subclass of the type of the superclass's
+slot. The new initial representation must still be a constant of the
+appropriate type.
+
+   <p>The <code>named_point</code> class, defined earlier, could have better been defined
+from the point class, which began as follows:
+
+<pre class="example">     :- class point =
+             [public x:float=0,
+              public y:float=0].
+</pre>
+   <p>The definition of the <code>named_point</code> class would then begin with
+
+<pre class="example">     :- class named_point =
+             [public name:atom,
+              public x:float=1.0] + point.
+</pre>
+   <p>This <code>named_point</code> class has public slots named <code>name</code>, <code>x</code> and
+<code>y</code>, with the same types and initial values as the earlier
+<code>named_point</code> definition, which did not use inheritance.  This
+<code>named_point</code> class also inherits all the methods of the <code>point</code>
+class, which saves us from having to write them again (and maintain them).
+
+   <p>A slot that was private or protected in a superclass may be defined as
+public. This will cause get and put methods to be generated in the
+subclass. A slot that was public in a superclass may be defined as
+protected or private, but this does not prevent it from inheriting the get and
+put methods of the superclass. For that, the <code>uninherit/1</code>
+directive, defined below, is
+needed.
+
+<h4 class="subheading">Methods</h4>
+
+<p>In SICStus Objects, by default, a class inherits all the methods of
+its superclass. The programmer has more control over the inheritance
+of methods than the inheritance of slots, however. In particular,
+methods can be uninherited and they can be redefined.
+
+   <p>To prevent a method from being inherited, use the <code>uninherit/1</code>
+directive. For example, suppose that the class <code>point</code> is defined as
+before. That is, its definition begins as follows:
+
+<pre class="example">     :- class point =
+             [public x:float=0,
+              public y:float=0].
+</pre>
+   <p>Because both slots are public, a put method is automatically generated
+for each, which allows their values to be changed.
+
+   <p>The definition of a new class <code>fixed_point</code> might begin as follows:
+
+<pre class="example">     :- class fixed_point = point.
+     
+     :- uninherit
+             point &lt;&lt; (x/l),
+             point &lt;&lt; (y/l).
+     
+     Self &lt;- create(X, Y) :-
+             store_slot(x, X),
+             store_slot(y, Y).
+</pre>
+   <p>The parentheses are necessary because of the precedences of the &lsquo;<samp><span class="samp">&lt;&lt;</span></samp>&rsquo; and
+&lsquo;<samp><span class="samp">/</span></samp>&rsquo; operators.
+
+   <p>Because the put methods from <code>point</code> are not inherited, no instance of
+the <code>fixed_point</code> class can change its <code>x</code> and <code>y</code> values once
+created&mdash;unless the class definition contains another method for doing
+so. The get methods are inherited from <code>point</code>, however.
+
+   <p>To redefine a method, simply include method clauses for its message
+within a class's definition. The new method clauses replace, or
+shadow, the inherited method clauses for this class.
+
+   <p>Another way to prevent the <code>x</code> and <code>y</code> slots of the
+<code>fixed_point</code> class from being modified would be to shadow the put
+methods. For example, they might be redefined as
+
+<pre class="example">     Self &lt;&lt; x(_) :-
+             format(user_error, "cannot modify x slot representation.~n.", []),
+             fail.
+     
+     Self &lt;&lt; y(_) :-
+             format(user_error, "cannot modify y slot representation.~n", []),
+             fail.
+</pre>
+   <p>Now attempts to modify the <code>x</code> or <code>y</code> values of a fixed point
+object generate a specific error message and fail.  A more complicated
+version would raise an appropriate exception.
+
+<h4 class="subheading">Send Super</h4>
+
+<p>Even when a superclass's method is shadowed or uninherited, it is
+possible to use the superclass's method inside a method clause for the
+new class. This makes it possible to define a &ldquo;wrapper&rdquo; for the
+superclass's method, which invokes the superclass's method without
+having to duplicate its code. This
+technique works with all message types.
+
+   <p>Sending a message to a superclass is done with a command of the form
+
+<pre class="example">     <code>super</code> <var>MessageOp</var> <var>Message</var>
+</pre>
+   <p class="noindent">where <var>MessageOp</var> is one of the message operators (&lsquo;<samp><span class="samp">&lt;&lt;</span></samp>&rsquo;, &lsquo;<samp><span class="samp">&gt;&gt;</span></samp>&rsquo; or
+&lsquo;<samp><span class="samp">&lt;-</span></samp>&rsquo;) and <var>Message</var> is a message defined for the superclass.  A
+generalization of this syntax may be used to specify which superclass
+to send the message to.  This is discussed in <a href="obj_002dinh_002dmih.html#obj_002dinh_002dmih">obj-inh-mih</a>.
+
+   <p>Sending a message to a class's superclass can only be done within a
+message clause.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dinh_002dsih.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dinh_002dsih.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

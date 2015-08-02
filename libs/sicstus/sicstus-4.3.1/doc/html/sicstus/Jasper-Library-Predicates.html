@@ -1,0 +1,314 @@
+<html lang="en">
+<head>
+<title>Jasper Library Predicates - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Jasper-Library.html#The-Jasper-Library" title="The Jasper Library">
+<link rel="prev" href="Jasper-Method-Call-Example.html#Jasper-Method-Call-Example" title="Jasper Method Call Example">
+<link rel="next" href="Conversion-between-Prolog-Arguments-and-Java-Types.html#Conversion-between-Prolog-Arguments-and-Java-Types" title="Conversion between Prolog Arguments and Java Types">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Jasper-Library-Predicates"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Conversion-between-Prolog-Arguments-and-Java-Types.html#Conversion-between-Prolog-Arguments-and-Java-Types">Conversion between Prolog Arguments and Java Types</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Jasper-Method-Call-Example.html#Jasper-Method-Call-Example">Jasper Method Call Example</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Jasper-Library.html#The-Jasper-Library">The Jasper Library</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.18.8.2 Jasper Library Predicates</h5>
+
+     <dl>
+<dt><code>jasper_initialize(</code><var>-JVM</var><code>)</code><dt><code>jasper_initialize(</code><var>+Options</var><code>, </code><var>-JVM</var><code>)</code><dd><a name="index-jasper_005finitialize_002f_005b1_002c2_005d-_0028jasper_0029-3393"></a><a name="index-jasper_005finitialize_002f_005b1_002c2_005d-_0028jasper_0029-3394"></a>
+Loads and initializes the Java VM. <var>JVM</var> is a reference to the Java
+VM. <var>Options</var> is a list of options. The options can be of the
+following types:
+          <dl>
+<dt><code>classpath(&lt;classpath&gt;)</code><dd>If <code>&lt;classpath&gt;</code> is an atom it will be added (unmodified) to
+the Java VM's classpath.  If <code>&lt;classpath&gt;</code> is a list, each
+element will be expanded using <code>absolute_file_name/2</code> and
+concatenated using the Java VM's path-separator. Example:
+          <pre class="example">               classpath([library('jasper/examples'),'$HOME/joe'])
+</pre>
+          <p>In addition to the classpaths specified here, Jasper will automatically
+add <code>jasper.jar</code> to the classpath together with the contents of the
+<samp><span class="env">CLASSPATH</span></samp> environment variable.
+
+          <br><dt><code>if_exists(</code><var>option</var><code>)</code><dd>This option determines what happens if a JVM has already been initialized,
+either through a previous call to <code>jasper_initialize</code> or because
+Prolog have been called from Java. If a JVM already exists then the
+other options are ignored.
+               <dl>
+<dt><code>ok</code><dd>The default. Argument <var>JVM</var> is bound to the existing JVM. 
+<br><dt><code>fail</code><dd>The call to <code>jasper_initialize/2</code> fails. 
+<br><dt><code>error</code><dd>The call to <code>jasper_initialize/2</code> throws an exception
+(<code>java_exception(</code><var>some text</var><code>)</code>). 
+</dl>
+
+          <br><dt><code>if_not_exists(</code><var>option</var><code>)</code><dd>This option determines what happens if a JVM has not already been initialized.
+               <dl>
+<dt><code>ok</code><dd>The default. The remaining options are used to initialize the JVM. 
+<br><dt><code>fail</code><dd>The call to <code>jasper_initialize/2</code> fails. 
+<br><dt><code>error</code><dd>The call to <code>jasper_initialize/2</code> throws an exception
+(<code>java_exception(</code><var>some text</var><code>)</code>). 
+</dl>
+
+          <p>As an example, to access the currently running JVM and to give an error
+if there is no running JVM use
+<code>jasper_initialize([if_exists(ok),if_not_exists(error)], JVM)</code>.
+
+          <br><dt><var>Option</var><dd>The option is an atom that will be passed directly to the Java VM
+as an option. This enables the user to send additional options to the
+Java VM. Example:
+          <pre class="example">               jasper_initialize(['-Dkenny.is.dead=42'],JVM),
+</pre>
+          </dl>
+     In addition to the options specified by the user, Jasper adds a couple
+of options on its own in order for Java to find the Jasper classes and
+the Jasper native library.
+
+     <!-- This @use{predicate} is also called implicitly by the glue-code when a -->
+     <!-- direct-mapped Java method (i.e.@: a method defined using -->
+     <!-- @code{foreign(...,java,...)} @use{facts} in a @use{foreign resource}) is called. It -->
+     <!-- is then called with an empty option-list. It is generally recommended -->
+     <!-- that the JVM be explicitly initialized. -->
+     <p>There is currently no support for creating multiple JVMs (few JDKs, if
+any, supports this).
+
+     <br><dt><code>jasper_deinitialize(</code><var>+JVM</var><code>)</code><dd><a name="index-jasper_005fdeinitialize_002f1-_0028jasper_0029-3395"></a><a name="index-jasper_005fdeinitialize_002f1-_0028jasper_0029-3396"></a>
+
+     <p>De-initialize Java. Don't call this, current versions of the JVM does
+not support deinitialization.
+
+     <br><dt><code>jasper_call(</code><var>+JVM</var><code>,</code><var>+Method</var><code>,</code><var>+TypeInfo</var><code>,</code><var>+Args</var><code>)</code><dd><a name="index-jasper_005fcall_002f4-_0028jasper_0029-3397"></a><a name="index-jasper_005fcall_002f4-_0028jasper_0029-3398"></a>
+Calls a Java static or instance method.
+
+          <dl>
+<dt><var>JVM</var><dd>   A reference to the Java VM, as obtained by
+   <code>jasper_initialize/[1,2]</code>.
+
+          <br><dt><var>Method</var><dd><a name="index-method_002f3-_0028Java-method-identifier_0029-3399"></a>
+   A term of the form <code>method(</code><var>ClassName</var><code>,
+</code><var>MethodName</var><code>, </code><var>Flags</var><code>)</code> that identifies the method to call. 
+<!-- exactly as for foreign declarations (@pxref{Declaring Java-methods}). -->
+
+               <dl>
+  <dt><var>ClassName</var><dd>  <a name="index-Fully-Qualified-Classname-3400"></a>  <a name="index-Classname_002c-Fully-Qualified-3401"></a>  This is the <dfn>Fully Qualified Classname</dfn> of the class (for example,
+  <code>java/lang/String</code>) of the object or where to look for the static
+  method.  Note that you need to surround the atom with single
+  quotes since it contains <code>/</code> characters.  The class is ignored when
+  calling instance methods but should still be an atom, e.g. 
+  <code>''</code>. 
+  <br><dt><var>Name</var><dd>  This is the name of the method, as an atom. 
+  <br><dt><var>Flags</var><dd>  This is the singleton list <code>[instance]</code> for
+  instance methods and <code>[static]</code> for static methods. 
+  </dl>
+
+          <br><dt><var>TypeInfo</var><dd>   Information about the argument types and the argument
+conversion that should be applied. See <a href="Conversion-between-Prolog-Arguments-and-Java-Types.html#Conversion-between-Prolog-Arguments-and-Java-Types">Conversion between Prolog Arguments and Java Types</a> for more information on specifying
+argument types.
+
+          <p>Note that for an instance method the first argument must be an
+object reference (specified with <code>+object(</code><var>Class</var><code>)</code>). In this
+case the class is ignored but should still be an atom, e.g. 
+<code>''</code>.
+
+          <br><dt><var>Args</var><dd>   A term with one position for each argument to the
+method. For an instance method the first argument is the instance. 
+</dl>
+
+     <br><dt><code>jasper_new_object(</code><var>+JVM</var><code>,</code><var>+ClassName</var><code>,</code><var>+TypeInfo</var><code>,</code><var>+Args</var><code>,</code><var>-Object</var><code>)</code><dd><a name="index-jasper_005fnew_005fobject_002f5-_0028jasper_0029-3402"></a><a name="index-jasper_005fnew_005fobject_002f5-_0028jasper_0029-3403"></a>
+Creates a new Java object.
+
+     <p>See <code>jasper_call/4</code> above for an explanation of the arguments
+<var>JVM</var>, <var>ClassName</var>, <var>TypeInfo</var> and <var>Args</var>.
+          <dl>
+<dt><var>ClassName</var><dd>   An an atom containing the <em>fully qualified classname</em>
+<br><dt><var>TypeInfo</var><dd>   <var>TypeInfo</var> has the same format as for a static void method. 
+<br><dt><var>Args</var><dd>   A term with one position for each argument to the constructor. 
+<br><dt><var>Object</var><dd>   This argument is bound to a (local) reference to the created
+   object. See <a href="Global-vs_002e-Local-References.html#Global-vs_002e-Local-References">Global vs. Local References</a>. 
+</dl>
+
+     <p>As an example, the  following code creates a
+<code>java/lang/Integer</code> object initialized from a string of digits. It
+then calls the instance method <code>doubleValue</code> to obtain the floating
+point representation of the Integer.
+
+     <pre class="example">          | ?- <kbd>Chars = "4711",</kbd>
+               <kbd>%% get existing JVM</kbd>
+               <kbd>jasper_initialize([if_not_exists(error)], JVM),</kbd>
+               <kbd>jasper_new_object(JVM, 'java/lang/Integer',</kbd>
+                                 <kbd>init(+chars), init(Chars), S),</kbd>
+               <kbd>jasper_call(JVM,</kbd>
+                           <kbd>method('java/lang/Integer', doubleValue, [instance]),</kbd>
+                           <kbd>to_double(+object('java/lang/Integer'), [-double]),</kbd>
+                           <kbd>to_double(S,X)).</kbd>
+          
+          S = '$java_object'(135875344),
+          X = 4711.0,  % note that this is now a floating point number
+          JVM = '$jvm'(1076414148),
+          Chars = [52,55,49,49]  % a.k.a. "4711"
+</pre>
+     <br><dt><code>jasper_create_global_ref(</code><var>+JVM</var><code>,</code><var>+Ref</var><code>,</code><var>-GlobalRef</var><code>)</code><dd><a name="index-jasper_005fcreate_005fglobal_005fref_002f3-_0028jasper_0029-3404"></a><a name="index-jasper_005fcreate_005fglobal_005fref_002f3-_0028jasper_0029-3405"></a>
+Creates a global reference (<var>GlobalRef</var>) for a (non-null) Java object
+(<var>Ref</var>). See <a href="Global-vs_002e-Local-References.html#Global-vs_002e-Local-References">Global vs. Local References</a>.
+
+     <br><dt><code>jasper_delete_global_ref(</code><var>+JVM</var><code>,</code><var>+GlobalRef</var><code>)</code><dd><a name="index-jasper_005fdelete_005fglobal_005fref_002f2-_0028jasper_0029-3406"></a><a name="index-jasper_005fdelete_005fglobal_005fref_002f2-_0028jasper_0029-3407"></a>
+Destroys a global reference. See <a href="Global-vs_002e-Local-References.html#Global-vs_002e-Local-References">Global vs. Local References</a>.
+
+     <br><dt><code>jasper_create_local_ref(</code><var>+JVM</var><code>,</code><var>+Ref</var><code>,</code><var>-LocalRef</var><code>)</code><dd><a name="index-jasper_005fcreate_005flocal_005fref_002f3-_0028jasper_0029-3408"></a><a name="index-jasper_005fcreate_005flocal_005fref_002f3-_0028jasper_0029-3409"></a>
+Creates a local reference (<var>LocalRef</var>) for a (non-null) Java object
+(<var>Ref</var>). See <a href="Global-vs_002e-Local-References.html#Global-vs_002e-Local-References">Global vs. Local References</a>. Rarely needed.
+
+     <br><dt><code>jasper_delete_local_ref(</code><var>+JVM</var><code>,</code><var>+GlobalRef</var><code>)</code><dd><a name="index-jasper_005fdelete_005flocal_005fref_002f2-_0028jasper_0029-3410"></a><a name="index-jasper_005fdelete_005flocal_005fref_002f2-_0028jasper_0029-3411"></a>
+Destroys a local reference. See <a href="Global-vs_002e-Local-References.html#Global-vs_002e-Local-References">Global vs. Local References</a>.
+
+     <br><dt><code>jasper_is_jvm(</code><var>+JVM</var><code>)</code><dd><a name="index-jasper_005fis_005fjvm_002f1-_0028jasper_0029-3412"></a><a name="index-jasper_005fis_005fjvm_002f1-_0028jasper_0029-3413"></a>
+Succeeds if <var>JVM</var> is a reference to a Java Virtual Machine.
+
+     <br><dt><code>jasper_is_object(</code><var>+Object</var><code>)</code><dt><code>jasper_is_object(</code><var>+JVM</var><code>,</code><var>+Object</var><code>)</code><dd><a name="index-jasper_005fis_005fobject_002f_005b1_002c2_005d-_0028jasper_0029-3414"></a><a name="index-jasper_005fis_005fobject_002f_005b1_002c2_005d-_0028jasper_0029-3415"></a>
+Succeeds if <var>Object</var> is a reference to a Java object. The
+representation of Java object <em>will</em> change so use
+<code>jasper_is_object/1</code> to recognize objects instead of relying on the
+internal representation. Currently the <var>JVM</var> argument is
+ignored. If, and when, multiple JVMs becomes a possibility
+<code>jasper_is_object/2</code> will verify that <var>Object</var> is an object in
+a particular JVM.
+
+     <br><dt><code>jasper_is_same_object(</code><var>+JVM</var><code>,</code><var>+Object1</var><code>,</code><var>+Object2</var><code>)</code><dd><a name="index-jasper_005fis_005fsame_005fobject_002f3-_0028jasper_0029-3416"></a><a name="index-jasper_005fis_005fsame_005fobject_002f3-_0028jasper_0029-3417"></a>
+Succeeds if <var>Object1</var> and <var>Object2</var> refers to the same Java
+object (or both are null object references). The same object may be
+represented by two different terms in Prolog so <code>==/2</code> can
+<em>not</em> be used to reliably detect if two object references refer to
+the same object.
+
+     <br><dt><code>jasper_is_instance_of(</code><var>+JVM</var><code>,</code><var>+Object</var><code>,</code><var>+ClassName</var><code>)</code><dd><a name="index-jasper_005fis_005finstance_005fof_002f3-_0028jasper_0029-3418"></a><a name="index-jasper_005fis_005finstance_005fof_002f3-_0028jasper_0029-3419"></a>
+Succeeds if <var>Object</var> is an instance of class <var>ClassName</var>;
+fails otherwise. <var>ClassName</var> is a fully qualified classname; see
+<code>jasper_call/4</code>.
+
+     <br><dt><code>jasper_object_class_name(</code><var>+JVM</var><code>,</code><var>+Object</var><code>,</code><var>-ClassName</var><code>)</code><dd><a name="index-jasper_005fobject_005fclass_005fname_002f3-_0028jasper_0029-3420"></a><a name="index-jasper_005fobject_005fclass_005fname_002f3-_0028jasper_0029-3421"></a>
+
+     <p>Returns the fully qualified name of the class of <var>+Object</var> as an
+atom.
+
+     <!-- FIXME [PM] is this something for te thread server stuff? All the -->
+     <!-- problems outlined in Java Threads apply -->
+     <!-- Didn't make it into 3.8.5 -->
+     <!-- @item jasper_yield(@var{+JVM}) -->
+     <!-- @PLindex jasper_yield/1 -->
+     <!-- Call this to allow calls from Java into Prolog during long-running execution of -->
+     <!-- Prolog code. @xref{Java Threads} for additional details. -->
+     <br><dt><code>jasper_null(</code><var>+JVM</var><code>,</code><var>-NullRef</var><code>)</code><dd><a name="index-jasper_005fnull_002f2-_0028jasper_0029-3422"></a><a name="index-jasper_005fnull_002f2-_0028jasper_0029-3423"></a>
+
+     <p>Create a null object reference.
+
+     <br><dt><code>jasper_is_null(</code><var>+JVM</var><code>,</code><var>+Ref</var><code>)</code><dd><a name="index-jasper_005fnull_002f2-_0028jasper_0029-3424"></a><a name="index-jasper_005fnull_002f2-_0028jasper_0029-3425"></a>
+
+     <p>Succeeds if <var>Ref</var> is a null object reference, fails otherwise, e.g. 
+if <var>Ref</var> is not an object reference.
+
+</dl>
+
+<!-- @node Calling Java from Prolog -->
+<!-- @section Calling Java from Prolog -->
+<!-- @c BETA replace all occurrences of @use{meta-call} with method call -->
+<!-- Java methods can be called from Prolog in two ways. The easiest way is -->
+<!-- to use the @use{meta-call} @use{predicates} provided in @code{library(jasper)}. See -->
+<!-- @ref{Jasper} for more information. Another, slightly more efficient, -->
+<!-- method will be described here. You should read @ref{Conversion between -->
+<!-- Prolog Arguments and Java Types} even if you intend to use only @use{meta-calls} to access Java methods. -->
+<!-- Java methods can be called much in the same way as C functions are -->
+<!-- called (@pxref{Calling C}); by creating a @use{foreign resource}. When -->
+<!-- loaded, this resource installs a set of @use{predicates} that are mapped onto -->
+<!-- Java-methods such that invoking a Java method looks like any other -->
+<!-- Prolog @use{predicate} call. Such methods are sometimes called @dfn{direct mapped}. -->
+<!-- In fact, a foreign resource (as defined in @ref{Foreign Resources}) is -->
+<!-- not language specific itself. The language is instead specified in the -->
+<!-- second @use{argument} to the @code{foreign/3} @use{fact} and it is possible to mix -->
+<!-- foreign C functions with foreign Java methods. -->
+<!-- How a foreign resource is created in general is described in detail in -->
+<!-- @ref{Creating the Linked Foreign Resource}. The following section(s) -->
+<!-- will focus on the Java-specific parts of foreign resources. -->
+<!-- @node Static and Dynamic Linking for Jasper -->
+<!-- @subsection Static and Dynamic Linking -->
+<!-- There is only limited support for static foreign resources using Java -->
+<!-- (@pxref{Foreign Resources}) (mainly due to the fact the Java does not -->
+<!-- support statically linked code). Even though Jasper allows static -->
+<!-- foreign resources to some extent, it is recommended that only dynamic -->
+<!-- foreign resources be used. -->
+<!-- @node Java Method Identifiers -->
+<!-- @section Java Method Identifiers -->
+<!-- Java-methods are specified in a call to @code{jasper_call/4} similarly -->
+<!-- to C-function foreign declarations. There are two -->
+<!-- major differences. The first is how methods are identified. It is not -->
+<!-- enough to simply use an @use{atom} as the C interface does. Instead, a @use{term} -->
+<!-- @code{method/3} is used: -->
+<!-- @table @code -->
+<!-- @item method(+@var{ClassName},+@var{MethodName},+@var{Flags}) -->
+<!-- @findex method/3 (Java method identifier) -->
+<!-- Used as first @use{argument} to @code{foreign/3} when declaring Java -->
+<!-- methods and when calling a Java method through the @use{meta-call} facility -->
+<!-- @code{jasper_call/4}. -->
+<!-- The first @use{argument} is an @use{atom} containing the @emph{Fully -->
+<!-- Qualified Classname} of the class (for example, @code{java/lang/String}) -->
+<!-- The second @use{argument} is the method name. The third @use{argument} is a @use{list} of -->
+<!-- flags. Possible flags are @code{instance} or @code{static}, indicating -->
+<!-- whether or not the method is static or non-static. Non-static methods -->
+<!-- @emph{must} have an object-reference as their first @use{argument}. This is a -->
+<!-- reference to the object on which the method will be invoked. -->
+<!-- This @use{term} is then used to identify the method in the -->
+<!-- call to @code{jasper_call/4}. So, to call the -->
+<!-- non-static Java method @code{getFactors} in the class -->
+<!-- @code{PrimeNumber} in the package @code{numbers}, the @code{method/3} -->
+<!-- @use{term} would look like -->
+<!-- @example -->
+<!-- method('numbers/PrimeNumber','getFactors',[instance]) -->
+<!-- @end example -->
+<!-- @end table -->
+<!-- The @use{syntax} for @code{foreign/3} is basically the same as for -->
+<!-- C-functions: -->
+<!-- @table @code -->
+<!-- @item foreign(@var{+MethodIdentifier}, @code{java}, @var{+Predicate}) @representation{sphfill} @strong{hook} -->
+<!-- @PLindex foreign/3 -->
+<!-- Specifies the Prolog interface to a Java method. -->
+<!-- @var{MethodIdentifier} is @code{method/3} @use{term} as described -->
+<!-- above. @var{Predicate} specifies the name of the Prolog @use{predicate} that -->
+<!-- will be used to call @var{MethodIdentifier}.  @var{Predicate} also specifies -->
+<!-- how the @use{predicate} @use{arguments} are to be translated into the corresponding -->
+<!-- Java @use{arguments}. -->
+<!-- @end table -->
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Jasper-Library-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Jasper-Library-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

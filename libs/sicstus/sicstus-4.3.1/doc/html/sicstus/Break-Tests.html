@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+<title>Break Tests - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Breakpoint-Conditions.html#Breakpoint-Conditions" title="Breakpoint Conditions">
+<link rel="prev" href="Port-Tests.html#Port-Tests" title="Port Tests">
+<link rel="next" href="Other-Tests.html#Other-Tests" title="Other Tests">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Break-Tests"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Other-Tests.html#Other-Tests">Other Tests</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Port-Tests.html#Port-Tests">Port Tests</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Breakpoint-Conditions.html#Breakpoint-Conditions">Breakpoint Conditions</a>
+<hr>
+</div>
+
+<h4 class="subsection">5.9.4 Tests Related to the Break Level</h4>
+
+<p>These tests can be used both inside and outside the condition evaluation
+process, and also can be used in queries about past break levels.
+
+     <dl>
+<dt><code>break_level(</code><var>N</var><code>)</code><dd><a name="index-break_005flevel_002f1-_0028debugger-condition_0029-2123"></a>We are at (or focused on) break level <var>N</var> (<var>N</var> = 0 for the
+outermost break level). 
+<br><dt><code>max_inv(</code><var>MaxInv</var><code>)</code><dd><a name="index-max_005finv_002f1-_0028debugger-condition_0029-2124"></a>The last invocation number used within the current break level is
+<var>MaxInv</var>. Note that this invocation number may not be present in the
+backtrace (because the corresponding call exited
+determinately). 
+<br><dt><code>private(</code><var>Priv</var><code>)</code><dd><a name="index-private_002f1-_0028debugger-condition_0029-2125"></a>The private information associated with the break level is <var>Priv</var>. 
+Similarly to <code>goal_private/1</code>, this condition refers initially to
+an unbound variable and can be used to store an arbitrary Prolog
+term. However, it is strongly recommended that <var>Priv</var> be used as an
+open ended list, see <a href="Storing-User-Information-in-the-Backtrace.html#Storing-User-Information-in-the-Backtrace">Storing User Information in the Backtrace</a>.
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Break-Tests.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Break-Tests.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

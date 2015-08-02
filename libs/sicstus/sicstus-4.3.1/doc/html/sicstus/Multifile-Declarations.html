@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+<title>Multifile Declarations - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl" title="ref-lod-dcl">
+<link rel="next" href="Dynamic-Declarations.html#Dynamic-Declarations" title="Dynamic Declarations">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Multifile-Declarations"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Dynamic-Declarations.html#Dynamic-Declarations">Dynamic Declarations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl">ref-lod-dcl</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.3.4.1 Multifile Declarations</h5>
+
+<p><a name="index-multifile-declaration-696"></a><a name="index-declaration_002c-multifile-697"></a><a name="index-multifile_002f1-_0028declaration_0029-698"></a><a name="index-multifile_002f1-_0028declaration_0029-699"></a>
+
+   <p>A declaration
+
+<pre class="example">     :- multifile <var>:PredSpec</var>, ..., <var>:PredSpec</var>. &nbsp;<!-- /@w --> <dfn>ISO</dfn>
+</pre>
+   <p class="noindent">where each <var>PredSpec</var> is a predicate spec, causes the
+specified predicates to become <dfn>multifile</dfn>.  This means that
+if more clauses are subsequently loaded from other files for
+the same predicate, the new clauses will not replace
+the old ones, but will be added at the end instead.
+
+   <p><a name="index-hook-predicate-700"></a><a name="index-predicate_002c-hook-701"></a>An example where multifile declarations are particularly
+useful is in defining <dfn>hook predicates</dfn>.  A hook predicate is
+a user-defined predicate that somehow alters or customizes the
+behavior of SICStus Prolog.  A number of such hook predicates are
+described in this manual.  See also <a href="ref_002dsem_002dtyp_002dhok.html#ref_002dsem_002dtyp_002dhok">ref-sem-typ-hok</a>. 
+Hook predicates should always be declared as multifile, as this is the
+convention followed in the library modules.
+
+   <p>Multifile declarations <em>must precede</em> any other
+declarations for the same predicate(s)!
+
+   <p>If a file containing clauses for a multifile predicate is reloaded, the
+old clauses from the same file are removed. The new clauses are added at
+the end.  <strong>Please note</strong>: if the file being reloaded is a
+module-file, however, all predicates belonging to the module are
+abolished, including any multifile predicate.
+
+   <p>If a multifile predicate is loaded from a file with no
+multifile declaration for it, the predicate is
+redefined as if it were an ordinary predicate (i.e. the user is
+asked for confirmation).
+
+   <p>If a multifile predicate is declared dynamic in one file, it must also
+be done so in the other files from which it is loaded. 
+See <a href="mpg_002dref_002dmultifile.html#mpg_002dref_002dmultifile">mpg-ref-multifile</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Multifile-Declarations.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Multifile-Declarations.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

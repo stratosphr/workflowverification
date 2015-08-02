@@ -1,0 +1,107 @@
+<html lang="en">
+<head>
+<title>mpg-ref-if_then - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dand.html#mpg_002dref_002dand" title="mpg-ref-and">
+<link rel="next" href="mpg_002dref_002dor.html#mpg_002dref_002dor" title="mpg-ref-or">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-if_then"></a>
+<a name="mpg_002dref_002dif_005fthen"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dor.html#mpg_002dref_002dor">mpg-ref-or</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dand.html#mpg_002dref_002dand">mpg-ref-and</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.103 <code>-&gt;/2</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-g_t_002d_003e_002f2-_0028built_002din_002c-ref-page_0029-4653"></a><a name="index-g_t_002d_003e_002f2-_0028built_002din_002c-ref-page_0029-4654"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><var>+P</var> <code>-&gt;</code> <var>+Q</var>
+
+   <p>When occurring other than as the first argument of a disjunction operator
+(<code>;/2</code>), this is equivalent to:
+
+<pre class="example">     <var>P</var> -&gt; <var>Q</var> ; fail.
+</pre>
+   <h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:P</var><dd><dfn>callable</dfn>, must be nonvar
+<br><dt><var>:Q</var><dd><dfn>callable</dfn>, must be nonvar
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>This is not normally regarded as a built-in
+predicate, since it is part of the syntax of the language.  However,
+it is like a built-in predicate in that you can say
+<code>call((</code><var>P</var><code> -&gt; </code><var>Q</var><code>))</code>.
+
+   <p>&lsquo;<samp><span class="samp">-&gt;</span></samp>&rsquo; cuts away any choice points in the execution of <var>P</var>
+
+   <p>Note that the operator precedence of
+&lsquo;<samp><span class="samp">-&gt;</span></samp>&rsquo;
+is greater than 1000, so it dominates commas.  Thus, in:
+<pre class="example">     f :- p, q -&gt; r, s.
+     f.
+</pre>
+   <p>&lsquo;<samp><span class="samp">-&gt;</span></samp>&rsquo; cuts away any choices in <code>p</code> or in <code>q</code>, but unlike
+cut (<code>!</code>) it does not cut away the alternative choice for
+<code>f</code>.
+
+   <p>Cuts in <var>P</var> do not make sense, but are allowed, their scope
+being the goal <var>P</var>.  The scope of cuts in <var>Q</var> extends to
+the containing clause.
+
+<h4 class="subheading">Backtracking</h4>
+
+<p>Depends on <var>Q</var>.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Call errors (see <a href="ref_002dsem_002dexc.html#ref_002dsem_002dexc">ref-sem-exc</a>).
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dsem.html#ref_002dsem">ref-sem</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dif_005fthen.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dif_005fthen.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,118 @@
+<html lang="en">
+<head>
+<title>mpg-ref-current_module - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dcurrent_005fkey.html#mpg_002dref_002dcurrent_005fkey" title="mpg-ref-current_key">
+<link rel="next" href="mpg_002dref_002dcurrent_005fop.html#mpg_002dref_002dcurrent_005fop" title="mpg-ref-current_op">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-current_module"></a>
+<a name="mpg_002dref_002dcurrent_005fmodule"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dcurrent_005fop.html#mpg_002dref_002dcurrent_005fop">mpg-ref-current_op</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dcurrent_005fkey.html#mpg_002dref_002dcurrent_005fkey">mpg-ref-current_key</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.52 <code>current_module/[1,2]</code></h4>
+
+<p><a name="index-current_005fmodule_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4533"></a><a name="index-current_005fmodule_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4534"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>current_module(</code><var>?ModuleName</var><code>)</code>
+
+   <p>Queries whether a module is &ldquo;current&rdquo; or backtracks through all
+of the current modules.
+
+   <p><code>current_module(</code><var>?ModuleName</var><code>, </code><var>?AbsFile</var><code>)</code>
+
+   <p>Associates modules with their module-files.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>ModuleName</var><dd><dfn>atom</dfn>
+
+     <br><dt><var>AbsFile</var><dd><dfn>atom</dfn>
+
+     <p>Absolute filename in which the module is defined. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>A loaded module becomes &ldquo;current&rdquo; as soon as some predicate is defined
+in it, and a module can never lose the property of being current.
+
+   <p>It is possible for a current module to have no associated
+file, in which case <code>current_module/1</code> will succeed on it but
+<code>current_module/2</code> will fail.  This arises for the special module
+<code>user</code> and for dynamically-created modules (see <a href="ref_002dmod.html#ref_002dmod">ref-mod</a>).
+
+   <p>If its arguments are not correct, or if <var>Module</var> has no associated file,
+<code>current_module/2</code> simply fails.
+
+<h4 class="subheading">Backtracking</h4>
+
+<p><code>current_module/1</code> backtracks through
+all of the current modules.  The following command will print out all
+current modules:
+<pre class="example">     | ?- <kbd>current_module(Module), writeq(Module), nl, fail.</kbd>
+</pre>
+   <p><code>current_module/2</code> backtracks through all of the current modules
+and their associated files.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>type_error</code><dd></dl>
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     | ?- <kbd>findall(M,current_module(M),Ms).</kbd>
+     Ms = [chr,user,prolog,'SU_messages',clpfd] ? &lt;RET&gt;
+     yes
+     | ?- <kbd>findall(M-F,current_module(M,F),MFs).</kbd>
+     MFs = ['SU_messages'-'/src/sicstus/matsc/sicstus4/Utils/x86-linux-glibc2.3/bin/sp-4.1.0/sicstus-4.1.0/library/SU_messages.pl'] ?
+     yes
+</pre>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmod_002dilm.html#ref_002dmod_002dilm">ref-mod-ilm</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dcurrent_005fmodule.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dcurrent_005fmodule.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

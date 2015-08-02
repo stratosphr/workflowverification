@@ -1,0 +1,79 @@
+<html lang="en">
+<head>
+<title>ref-mod-n2m - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmod.html#ref_002dmod" title="ref-mod">
+<link rel="prev" href="ref_002dmod_002ddef.html#ref_002dmod_002ddef" title="ref-mod-def">
+<link rel="next" href="ref_002dmod_002dlod.html#ref_002dmod_002dlod" title="ref-mod-lod">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-mod-n2m"></a>
+<a name="ref_002dmod_002dn2m"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dmod_002dlod.html#ref_002dmod_002dlod">ref-mod-lod</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dmod_002ddef.html#ref_002dmod_002ddef">ref-mod-def</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmod.html#ref_002dmod">ref-mod</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.11.4 Converting Non-module-files into Module-files</h4>
+
+<p><a name="index-module_002dfiles_002c-converting-into-1498"></a><a name="index-converting-into-module_002dfiles-1499"></a>
+
+   <p>The Prolog cross-referencer can automatically generate <code>module/2</code>
+declarations from its cross-reference information.  This is useful if
+you want to take a set of files making up a program and make each of
+those files into a module-file.  For more information, see <a href="The-Cross_002dReferencer.html#The-Cross_002dReferencer">The Cross-Referencer</a>
+
+   <p>Alternatively, if you have a complete Prolog program consisting of a set of
+source files <code>{file1, file2, ...}</code>, and you wish to encapsulate it in a
+single module <var>mod</var>, this can be done by creating a &ldquo;driver&rdquo;
+file of the following form:
+<pre class="example">     
+     
+     :- module(<var>mod</var>, [ ... ]).
+     
+     :- ensure_loaded(file1).
+     :- ensure_loaded(file2).
+        .
+        .
+        .
+</pre>
+   <p>When a module is created in this way, none of the files in the program
+<code>{file1, file2, ...}</code> have to
+be changed.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dn2m.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dn2m.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

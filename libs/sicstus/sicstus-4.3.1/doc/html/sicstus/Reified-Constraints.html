@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+<title>Reified Constraints - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="CLPFD-Interface.html#CLPFD-Interface" title="CLPFD Interface">
+<link rel="prev" href="A-Constraint-Satisfaction-Problem.html#A-Constraint-Satisfaction-Problem" title="A Constraint Satisfaction Problem">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Reified-Constraints"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="A-Constraint-Satisfaction-Problem.html#A-Constraint-Satisfaction-Problem">A Constraint Satisfaction Problem</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="CLPFD-Interface.html#CLPFD-Interface">CLPFD Interface</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.10.3.3 Reified Constraints</h5>
+
+<p>Instead of merely posting constraints it is often useful to reflect its
+truth representation into a 0/1-variable <var>B</var>, so that:
+
+     <ul>
+<li>the constraint is posted if <var>B</var> is set to 1
+<li>the negation of the constraint is posted if <var>B</var> is set to 0
+<li><var>B</var> is set to 1 if the constraint becomes entailed
+<li><var>B</var> is set to 0 if the constraint becomes disentailed
+</ul>
+
+   <p><a name="index-reification-2791"></a><a name="index-g_t_0023_003c_003d_003e-_002f2-_0028clpfd_0029-2792"></a><a name="index-g_t_0023_003c_003d_003e-_002f2-_0028clpfd_0029-2793"></a>
+This mechanism is known as <dfn>reification</dfn>.  Several frequently used
+operations can be defined in terms of reified constraints.  A reified
+constraint is written:
+
+<pre class="example">     | ?- <var>Constraint</var><kbd> #&lt;=&gt; </kbd><var>B</var><kbd>.</kbd>
+</pre>
+   <p class="noindent">where <var>Constraint</var> is reifiable.  As an example of a constraint that
+uses reification, consider <code>exactly(</code><var>X</var><code>,</code><var>L</var><code>,</code><var>N</var><code>)</code>,
+defined to be true if <var>X</var> occurs exactly <var>N</var> times in the list
+<var>L</var>.  It can be defined thus:
+
+<pre class="example">     exactly(_, [], 0).
+     exactly(X, [Y|L], N) :-
+         X #= Y #&lt;=&gt; B,
+         N #= M+B,
+         exactly(X, L, M).
+</pre>
+   <p>Finally, reified constraints can be used as terms inside arithmetic
+expression.  The representation of the term is 1 if the constraint is true, and 0
+otherwise. For example:
+
+<pre class="example">     | ?- <kbd>X #= 10, B #= (X#&gt;=2) + (X#&gt;=4) + (X#&gt;=8).</kbd>
+     B = 3,
+     X = 10
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Reified-Constraints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Reified-Constraints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

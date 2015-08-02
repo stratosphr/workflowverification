@@ -1,0 +1,124 @@
+<html lang="en">
+<head>
+<title>ref-mgc-gch - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmgc.html#ref_002dmgc" title="ref-mgc">
+<link rel="prev" href="ref_002dmgc_002dmgc.html#ref_002dmgc_002dmgc" title="ref-mgc-mgc">
+<link rel="next" href="ref_002dmgc_002dgcd.html#ref_002dmgc_002dgcd" title="ref-mgc-gcd">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-mgc-gch"></a>
+<a name="ref_002dmgc_002dgch"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dmgc_002dgcd.html#ref_002dmgc_002dgcd">ref-mgc-gcd</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dmgc_002dmgc.html#ref_002dmgc_002dmgc">ref-mgc-mgc</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmgc.html#ref_002dmgc">ref-mgc</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.10.5 Interaction of Garbage Collection and Heap Expansion</h4>
+
+<p>For most programs, the default
+settings for the garbage collection parameters should suffice. 
+For programs that have high heap requirements, the default
+parameters may result in a higher ratio of garbage collection time to
+run time.  These programs should be given more space in which to run.
+
+   <p>The <code>gc_margin</code> is a non-negative integer specifying the desired margin in
+kilobytes.  For example, the default representation of 1000 means that the
+heap will not be expanded if garbage collection can reclaim at least
+one megabyte.  The advantage of this criterion is that
+it takes into account both
+the user's estimate of the heap usage and the effectiveness of garbage
+collecting.
+
+     <ol type=1 start=1>
+
+     <li> Setting the <code>gc_margin</code> higher than the default will cause fewer heap expansions
+and garbage collections.  However, it will use more space, and garbage
+collections will be more time-consuming when they do occur.
+
+     <p>Setting the margin too large will cause the heap to expand so that if
+it does overflow, the resulting garbage collection will
+significantly disrupt normal processing.  This will be especially so
+if much of the heap is accessible to future computation. 
+<li> Setting the <code>gc_margin</code> lower than the default will use less space, and
+garbage collections will be less time-consuming.  However, it will cause more
+heap expansions and garbage collections.
+
+     <p>Setting the margin too small will cause many garbage collections in a small
+amount of time, so that the ratio of garbage-collecting time to computation
+time will be abnormally high. 
+<li>Setting the margin correctly will cause the heap to expand to a size
+where expansions and garbage collections are infrequent and garbage
+collections are not too time-consuming, if they occur at all.
+        </ol>
+
+   <p>The correct representation for the <code>gc_margin</code> is dependent upon many factors.
+Here is a non-prioritized list of some of them:
+     <ul>
+<li>The amount of memory available to the Prolog process
+<li>The maximum memory limit imposed on the Prolog process
+<li>The program's rate of heap garbage generation
+<li>The program's rate of heap non-garbage generation
+<li>The program's backtracking behavior
+<li>The amount of time needed to collect the generated garbage
+<li>The growth rate of the other Prolog stacks
+</ul>
+
+   <p>The algorithm used when the heap overflows is as follows:
+
+<pre class="display">     
+     if <code>gc</code> is on
+     and the heap is larger than <code>gc_margin</code> kilobytes then
+        garbage collect the heap
+        if less than <code>gc_margin</code> kilobytes are reclaimed then
+           try to expand the heap
+        endif
+     else
+        try to expand the heap
+     endif
+</pre>
+   <p><a name="index-gc_005fmargin-_0028prolog-flag_0029-1468"></a>The user can use the <code>gc_margin</code> option of <code>prolog_flag/3</code> to
+reset the <code>gc_margin</code> (see <a href="ref_002dlps_002dove.html#ref_002dlps_002dove">ref-lps-ove</a>).  If a garbage
+collection reclaims at least the <code>gc_margin</code> kilobytes of heap space
+the heap is not expanded after garbage collection completes. 
+Otherwise, the heap is expanded after garbage collection.  This
+expansion provides space for the future heap usage that will
+presumably occur.  In addition, no garbage collection occurs if the
+heap is smaller than <code>gc_margin</code> kilobytes.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmgc_002dgch.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmgc_002dgch.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

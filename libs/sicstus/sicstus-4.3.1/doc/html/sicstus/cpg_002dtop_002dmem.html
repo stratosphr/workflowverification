@@ -1,0 +1,83 @@
+<html lang="en">
+<head>
+<title>cpg-top-mem - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dtop.html#cpg_002dtop" title="cpg-top">
+<link rel="prev" href="cpg_002dtop_002dmain.html#cpg_002dtop_002dmain" title="cpg-top-main">
+<link rel="next" href="cpg_002dtop_002dsig.html#cpg_002dtop_002dsig" title="cpg-top-sig">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-top-mem"></a>
+<a name="cpg_002dtop_002dmem"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dtop_002dsig.html#cpg_002dtop_002dsig">cpg-top-sig</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dtop_002dmain.html#cpg_002dtop_002dmain">cpg-top-main</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dtop.html#cpg_002dtop">cpg-top</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.2.7 Memory Management</h4>
+
+<p><a name="index-Memory-management_002c-C-functions-for-5091"></a><a name="index-C-functions-for-memory-management-5092"></a>
+
+     <dl>
+<dt><code>SP_calloc()</code><dd>Allocates memory for an array of elements, and clears the allocated memory.
+
+     <br><dt><code>SP_foreign_stash() &nbsp;<!-- /@w --> </code><strong>[macro]</strong><dd>provide a memory location unique to the current foreign resource instance
+
+     <br><dt><code>SP_free()</code><dd>Deallocates a piece of memory.
+
+     <br><dt><code>SP_malloc()</code><dd>Allocates a piece of memory.
+
+     <br><dt><code>SP_mutex_lock()</code><dd>Locks a mutex.
+
+     <br><dt><code>SP_mutex_unlock()</code><dd>Unlocks a mutex.
+
+     <br><dt><code>SP_realloc()</code><dd>Changes the size of an allocated piece of memory.
+
+     <br><dt><code>SP_register_atom()</code><dd>prevents an atom from being discarded by
+atom garbage collection even if not referenced by Prolog code
+
+     <br><dt><code>SP_set_memalloc_hooks() &nbsp;<!-- /@w --> </code><strong>[preinit]</strong><dd>provide the memory management bottom layer
+
+     <br><dt><code>SP_strdup()</code><dd>Makes a copy of a string in allocated memory.
+
+     <br><dt><code>SP_unregister_atom()</code><dd>enables an atom to be discarded
+during atom garbage collection if not referenced by Prolog code
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dtop_002dmem.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dtop_002dmem.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

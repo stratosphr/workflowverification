@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+<title>The DB-Spec Informal Description - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dbdb.html#lib_002dbdb" title="lib-bdb">
+<link rel="prev" href="Berkeley-DB.html#Berkeley-DB" title="Berkeley DB">
+<link rel="next" href="Predicates.html#Predicates" title="Predicates">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="The-DB-Spec-Informal-Description"></a>
+<a name="The-DB_002dSpec-Informal-Description"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Predicates.html#Predicates">Predicates</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Berkeley-DB.html#Berkeley-DB">Berkeley DB</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dbdb.html#lib_002dbdb">lib-bdb</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.6.4 The DB-Spec&mdash;Informal Description</h4>
+
+<p><a name="index-db_002dspec-2659"></a>The <dfn>db-spec</dfn> defines which functors are allowed and which
+parts of a term are used for indexing in a database.  The
+syntax of a db-spec is a skeletal goal with no module.  The
+db-spec is a list of atoms and compound terms where
+the arguments are either <code>+</code> or <code>-</code>.  A term can
+be inserted in the database if there is a spec in the spec
+list with the same functor.
+
+   <p>Multilevel indexing is not supported, terms have to be
+&ldquo;flattened&rdquo;.
+
+   <p><a name="index-indexed-term-2660"></a><a name="index-term_002c-indexed-2661"></a>Every spec with the functor of the <dfn>indexed term</dfn> specifies an
+indexing.  Every argument where there is a <code>+</code> in the spec is
+indexed on.
+
+   <p>The idea of the db-spec is illustrated with a few examples.  (A section
+further down explains the db-spec in a more formal way).
+
+   <p>Given a spec of <code>[f(+,-), .(+,-), g, f(-,+)]</code> the indexing works
+as follows.  (The parts with indexing are underlined.)
+
+   <p><table summary=""><tr align="left"><td valign="top"><var>Term</var>               </td><td valign="top"><var>Store</var>                      </td><td valign="top"><var>Fetch</var>
+<br></td></tr><tr align="left"><td valign="top"><br></td></tr><tr align="left"><td valign="top"><code>g(x,y)</code>              </td><td valign="top">domain error              </td><td valign="top">domain error
+<br></td></tr><tr align="left"><td valign="top"><br></td></tr><tr align="left"><td valign="top"><code>f(A,B)</code>       </td><td valign="top"><code>f(A,B)</code>                    </td><td valign="top">instantiation error
+<br></td></tr><tr align="left"><td valign="top"></td><td valign="top"><code>-</code>
+<br></td></tr><tr align="left"><td valign="top"><br></td></tr><tr align="left"><td valign="top"><code>f(a,b)</code>       </td><td valign="top"><code>f(a,b)  f(a,b)</code>            </td><td valign="top"><code>f(a,b)</code>
+<br></td></tr><tr align="left"><td valign="top"></td><td valign="top"><code>- -     -   -</code>             </td><td valign="top"><code>- -</code>
+<br></td></tr><tr align="left"><td valign="top"><br></td></tr><tr align="left"><td valign="top"><code>[a,b]</code>        </td><td valign="top"><code>.(a,.(b,[]))</code>              </td><td valign="top"><code>.(a,.(b,[]))</code>
+<br></td></tr><tr align="left"><td valign="top"></td><td valign="top"><code>- -</code>                       </td><td valign="top"><code>- -</code>
+<br></td></tr><tr align="left"><td valign="top"><br></td></tr><tr align="left"><td valign="top"><code>g</code>            </td><td valign="top"><code>g</code>                         </td><td valign="top"><code>g</code>
+<br></td></tr><tr align="left"><td valign="top"></td><td valign="top"><code>-</code>                         </td><td valign="top"><code>-</code>
+   <br></td></tr></table>
+
+   <p>The specification <code>[f(+,-), f(-,+)]</code> is different from
+<code>[f(+,+)]</code>.  The first specifies that two indices are to be made
+whereas the second specifies that only one index is to be made on both
+arguments of the term.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/The-DB_002dSpec-Informal-Description.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/The-DB_002dSpec-Informal-Description.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

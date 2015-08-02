@@ -1,0 +1,94 @@
+<html lang="en">
+<head>
+<title>Housekeeping - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Tcl_002fTk-Prolog-Library.html#The-Tcl_002fTk-Prolog-Library" title="The Tcl/Tk Prolog Library">
+<link rel="prev" href="Passing-Control-to-Tk.html#Passing-Control-to-Tk" title="Passing Control to Tk">
+<link rel="next" href="Summary.html#Summary" title="Summary">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Housekeeping"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Summary.html#Summary">Summary</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Passing-Control-to-Tk.html#Passing-Control-to-Tk">Passing Control to Tk</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Tcl_002fTk-Prolog-Library.html#The-Tcl_002fTk-Prolog-Library">The Tcl/Tk Prolog Library</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.37.4.7 Housekeeping functions</h5>
+
+<p>Here we will described the functions that don't fit into any of the
+above categories and are essentially housekeeping functions.
+
+   <p>There is a predicate that returns a reference to the main window
+of a Tcl/Tk interpreter:
+
+   <p><a name="index-tk_005fmain_005fwindow_002f2-_0028tcltk_0029-4027"></a><a name="index-tk_005fmain_005fwindow_002f2-_0028tcltk_0029-4028"></a>
+<pre class="example">     tk_main_window(<var>+TclInterpreter</var>, <var>-TkWindow</var>)
+</pre>
+   <p class="noindent">which given a reference to a Tcl interpreter <var>Tclnterpreter</var>, returns
+a reference to its main window in <var>TkWindow</var>.
+
+   <p>The window reference can then be used in <code>tk_destroy_window/1</code>:
+
+   <p><a name="index-tk_005fdestroy_005fwindow_002f1-_0028tcltk_0029-4029"></a><a name="index-tk_005fdestroy_005fwindow_002f1-_0028tcltk_0029-4030"></a>
+<pre class="example">     tk_destroy_window(<var>+TkWindow</var>)
+</pre>
+   <p class="noindent">which destroys the window or widget referenced by <var>TkWindow</var> and
+all of its sub-widgets.
+
+   <p>The predicate <code>tk_make_window_exist/1</code> also takes a window
+reference:
+
+   <p><a name="index-tk_005fmake_005fwindow_005fexist_002f1-_0028tcltk_0029-4031"></a><a name="index-tk_005fmake_005fwindow_005fexist_002f1-_0028tcltk_0029-4032"></a>
+<pre class="example">     tk_make_window_exist(<var>+TkWindow</var>)
+</pre>
+   <p class="noindent">which causes the window referenced by <var>TkWindow</var> in the Tcl
+interpreter <var>TclInterpreter</var> to be immediately mapped to the display. 
+This is useful because normally Tk delays displaying new information for
+a long as possible (waiting until the machine is idle, for example), but
+using this call causes Tk to display the window immediately.
+
+   <p>There is a predicate for determining how many main windows, and
+hence Tcl/Tk interpreters (excluding simple Tcl interpreters), are
+currently in use:
+
+   <p><a name="index-tk_005fnum_005fmain_005fwindows_002f1-_0028tcltk_0029-4033"></a><a name="index-tk_005fnum_005fmain_005fwindows_002f1-_0028tcltk_0029-4034"></a>
+<pre class="example">     tk_num_main_windows(<var>-NumberOfWindows</var>)
+</pre>
+   <p class="noindent">which returns an integer in the variable <var>NumberOfWindows</var>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Housekeeping.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Housekeeping.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,116 @@
+<html lang="en">
+<head>
+<title>mpg-ref-statistics - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dspy.html#mpg_002dref_002dspy" title="mpg-ref-spy">
+<link rel="next" href="mpg_002dref_002dstream_005fcode.html#mpg_002dref_002dstream_005fcode" title="mpg-ref-stream_code">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-statistics"></a>
+<a name="mpg_002dref_002dstatistics"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dstream_005fcode.html#mpg_002dref_002dstream_005fcode">mpg-ref-stream_code</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dspy.html#mpg_002dref_002dspy">mpg-ref-spy</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.217 <code>statistics/[0,2]</code></h4>
+
+<p><a name="index-statistics_002f_005b0_002c2_005d-_0028built_002din_002c-ref-page_0029-4944"></a><a name="index-statistics_002f_005b0_002c2_005d-_0028built_002din_002c-ref-page_0029-4945"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>statistics</code>
+
+   <p>Displays statistics relating to memory usage and
+execution time.
+
+   <p><code>statistics(</code><var>?Keyword</var><code>, </code><var>?List</var><code>)</code>
+
+   <p>Obtains individual statistics.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Keyword</var><dd><dfn>atom</dfn>
+
+     <p>Statistics key (see <a href="ref_002dmgc_002dove_002dsta.html#ref_002dmgc_002dove_002dsta">ref-mgc-ove-sta</a>).
+
+     <br><dt><var>List</var><dd><dfn>list of integer</dfn>
+
+     <p>List of statistics. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p><code>statistics/0</code> displays various statistics
+relating to memory usage, runtime and garbage collection, including
+information about which areas of memory have overflowed and how much time
+has been spent expanding them.  The printing is handled by <code>print_message/2</code>.
+
+   <p>Garbage collection statistics are initialized to zero when a Prolog
+session starts.  The statistics increase until the session is over.
+
+   <p><code>statistics/2</code> is usually used with <var>Keyword</var> instantiated to
+a keyword such as <code>runtime</code> and <var>List</var> unbound.  The predicate
+then binds <var>List</var> to a list of statistics related to the keyword. 
+It can be used in programs that depend on current runtime
+statistical information for their control strategy, and in programs
+that choose to format and write out their own statistical summaries.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>type_error</code><dt><code>domain_error</code><dd>Invalid keyword. 
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<p>To report information on the runtime of
+a predicate <code>p/0</code>, add the following to your program:
+<pre class="example">     :- statistics(runtime, [T0|_]),
+        p,
+        statistics(runtime, [T1|_]),
+        T is T1 - T0,
+        format('p/0 took ~3d sec.~n', [T]).
+</pre>
+   <h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmgc_002dove_002dsta.html#ref_002dmgc_002dove_002dsta">ref-mgc-ove-sta</a>, <a href="ref_002dmsg.html#ref_002dmsg">ref-msg</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dstatistics.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dstatistics.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

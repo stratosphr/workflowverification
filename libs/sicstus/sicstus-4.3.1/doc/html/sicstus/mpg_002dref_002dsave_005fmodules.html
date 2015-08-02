@@ -1,0 +1,107 @@
+<html lang="en">
+<head>
+<title>mpg-ref-save_modules - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dsave_005ffiles.html#mpg_002dref_002dsave_005ffiles" title="mpg-ref-save_files">
+<link rel="next" href="mpg_002dref_002dsave_005fpredicates.html#mpg_002dref_002dsave_005fpredicates" title="mpg-ref-save_predicates">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-save_modules"></a>
+<a name="mpg_002dref_002dsave_005fmodules"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dsave_005fpredicates.html#mpg_002dref_002dsave_005fpredicates">mpg-ref-save_predicates</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dsave_005ffiles.html#mpg_002dref_002dsave_005ffiles">mpg-ref-save_files</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.196 <code>save_modules/2</code></h4>
+
+<p><a name="index-save_005fmodules_002f2-_0028built_002din_002c-ref-page_0029-4897"></a><a name="index-save_005fmodules_002f2-_0028built_002din_002c-ref-page_0029-4898"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>save_modules(</code><var>+Modules</var><code>, </code><var>+File</var><code>)</code>
+
+   <p>Saves all predicates in <var>Modules</var> in PO format to <var>File</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Modules</var><dd><dfn>atom</dfn> or <dfn>list of atom</dfn>, must be ground
+
+     <p>An atom representing a current module, or a list of such atoms
+representing a list of modules.
+
+     <br><dt><var>File</var><dd><dfn>file_spec</dfn>, must be ground
+
+     <p>A file specification, &lsquo;<samp><span class="samp">.po</span></samp>&rsquo; extension optional. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>The module declarations, predicates, multifile
+clauses and initializations belonging to <var>Modules</var> are
+saved in object format into the file denoted by <var>File</var>.  Source
+file information and embedded directives (except
+initializations) are <em>not</em> saved.
+
+   <p>The
+PO file produced can be loaded using <code>load_files/[1,2]</code>. 
+When multiple modules are saved into a file, loading that file will
+import only the first of those modules into the module in which the
+load occurred.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>Modules</var> or <var>File</var> is not bound.
+
+     <br><dt><code>type_error</code><dd><var>Modules</var> is not a valid list of module names, or a single module name,
+or <var>File</var> is not a valid file specification.
+
+     <br><dt><code>permission_error</code><dd><var>File</var> is not writable.
+
+     <br><dt><code>existence_error</code><dd>A given module is not a current module. 
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>load_files/[1,2]</code>, <a href="Saving.html#Saving">Saving</a>,
+<a href="ref_002dsls.html#ref_002dsls">ref-sls</a>, <a href="ref_002dsls_002dssl.html#ref_002dsls_002dssl">ref-sls-ssl</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dsave_005fmodules.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dsave_005fmodules.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

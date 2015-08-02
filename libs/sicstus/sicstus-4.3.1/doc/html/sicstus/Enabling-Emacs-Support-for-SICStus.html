@@ -1,0 +1,91 @@
+<html lang="en">
+<head>
+<title>Enabling Emacs Support for SICStus - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Installation.html#Installation" title="Installation">
+<link rel="prev" href="Customizing-Emacs.html#Customizing-Emacs" title="Customizing Emacs">
+<link rel="next" href="Enabling-Emacs-Support-for-SICStus-Documentation.html#Enabling-Emacs-Support-for-SICStus-Documentation" title="Enabling Emacs Support for SICStus Documentation">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Enabling-Emacs-Support-for-SICStus"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Enabling-Emacs-Support-for-SICStus-Documentation.html#Enabling-Emacs-Support-for-SICStus-Documentation">Enabling Emacs Support for SICStus Documentation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Customizing-Emacs.html#Customizing-Emacs">Customizing Emacs</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Installation.html#Installation">Installation</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">3.12.1.3 Enabling Emacs Support for SICStus</h5>
+
+<p>This section is for reference only, <strong>it can safely be skipped</strong>; it will let you understand the
+setup that is performed by the <samp><span class="file">sictus_emacs_init.el</span></samp> file.
+
+   <p>Assuming the Emacs interface for SICStus Prolog has been installed in
+the default location, inserting the following lines in your
+<samp><span class="file">~/.emacs</span></samp> will make Emacs use this mode automatically when editing
+files with a &lsquo;<samp><span class="samp">.pro</span></samp>&rsquo; or &lsquo;<samp><span class="samp">.pl</span></samp>&rsquo; extension:
+
+<pre class="example">     (setq load-path
+        (cons (expand-file-name "/usr/local/lib/sicstus-4.3.1/emacs")
+              load-path))
+     (autoload 'run-prolog "prolog" "Start a Prolog sub-process." t)
+     (autoload 'prolog-mode "prolog" "Major mode for editing Prolog programs." t)
+     (setq prolog-use-sicstus-sd t)
+     (setq auto-mode-alist (append '(("\\.pro$" . prolog-mode)
+                                     ("\\.pl$" . prolog-mode))
+                               auto-mode-alist))
+</pre>
+   <p class="noindent">where the path in the first line is the file system path to
+<samp><span class="file">prolog.el</span></samp> (the generic Prolog mode) and <samp><span class="file">sicstus-support.el</span></samp>
+(SICStus specific code).  For example, <samp><span class="file">~/emacs</span></samp> means that the
+file is in the user's home directory, in directory emacs. Windows paths
+can be written like <samp><span class="file">C:/Program Files/SICStus Prolog 4.3.1/emacs</span></samp>.
+
+   <p>The last line above makes sure that files ending with &lsquo;<samp><span class="samp">.pro</span></samp>&rsquo; or &lsquo;<samp><span class="samp">.pl</span></samp>&rsquo; are
+assumed to be Prolog files and not Perl, which is the default Emacs
+setting for &lsquo;<samp><span class="samp">.pl</span></samp>&rsquo;. If this is undesirable, remove that line. It is then necessary
+for the user to manually switch to Prolog mode by typing <kbd>M-x
+prolog-mode</kbd> after opening a Prolog file; for an alternative approach,
+see <a href="Mode-Line.html#Mode-Line">Mode Line</a>.
+
+   <p>If the shell command <samp><span class="command">sicstus</span></samp> is not available in the default
+path, it is necessary to set the representation of the environment variable
+<samp><span class="env">EPROLOG</span></samp> to a shell command to invoke SICStus Prolog. This is an
+example for C Shell:
+
+<pre class="example">     % <kbd>setenv EPROLOG /usr/local/bin/sicstus</kbd>
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Enabling-Emacs-Support-for-SICStus.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Enabling-Emacs-Support-for-SICStus.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

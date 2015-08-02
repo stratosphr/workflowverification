@@ -1,0 +1,117 @@
+<html lang="en">
+<head>
+<title>mpg-ref-query_class - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dquery_005fabbreviation.html#mpg_002dref_002dquery_005fabbreviation" title="mpg-ref-query_abbreviation">
+<link rel="next" href="mpg_002dref_002dquery_005fclass_005fhook.html#mpg_002dref_002dquery_005fclass_005fhook" title="mpg-ref-query_class_hook">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-query_class"></a>
+<a name="mpg_002dref_002dquery_005fclass"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dquery_005fclass_005fhook.html#mpg_002dref_002dquery_005fclass_005fhook">mpg-ref-query_class_hook</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dquery_005fabbreviation.html#mpg_002dref_002dquery_005fabbreviation">mpg-ref-query_abbreviation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.175 <code>query_class/5</code> &nbsp;<!-- /@w --> <dfn>[extendible]</dfn></h4>
+
+<p><a name="index-query_005fclass_002f5-_0028built_002din_002c-ref-page_0029-4838"></a><a name="index-query_005fclass_002f5-_0028built_002din_002c-ref-page_0029-4839"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- multifile 'SU_messages':query_class/5.</code>
+
+   <p><code>'SU_messages':query_class(</code><var>+QueryClass</var><code>, </code><var>-Prompt</var><code>, </code><var>-InputMethod</var><code>, </code><var>-MapMethod</var><code>, </code><var>-FailureMode</var><code>)</code>
+
+   <p>Access the parameters of a given <var>QueryClass</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>QueryClass</var><dd><dfn>term</dfn>
+
+     <p>Determines the allowed values for the atom <var>Answer</var>.
+
+     <br><dt><var>Prompt</var><dd><dfn>atom</dfn>
+
+     <p>The prompt to display at the terminal.
+
+     <br><dt><var>InputMethod</var><dd><dfn>term</dfn>
+
+     <p>A ground term, which specifies how to obtain
+input from the user
+
+     <br><dt><var>MapMethod</var><dd><dfn>term</dfn>
+
+     <p>A ground term, which specifies how to process the
+input to get the abstract answer to the query.
+
+     <br><dt><var>FailureMode</var><dd><dfn>term</dfn>
+
+     <p>An atom determining what to print in case of
+an input error, before re-querying the user.  Possible values are:
+
+          <ul>
+<li><code>help_query</code> - print the help message and print the query text
+again;
+
+          <li><code>help</code> - only print the help message;
+
+          <li><code>query</code> - only print the query text;
+
+          <li><code>none</code> - do not print anything. 
+</ul>
+
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>For the list of default input- and map methods, see the &ldquo;Default
+Input Methods&rdquo; and &ldquo;Default Map Methods&rdquo; subsections in
+<a href="Query-Processing.html#Query-Processing">Query Processing</a>.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p><code>ask_query/4</code> checks the output arguments.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Query-Processing.html#Query-Processing">Query Processing</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dquery_005fclass.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dquery_005fclass.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

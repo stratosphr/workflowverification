@@ -1,0 +1,116 @@
+<html lang="en">
+<head>
+<title>Command Line Editing - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Release-Notes-and-Installation-Guide-for-Windows.html#Release-Notes-and-Installation-Guide-for-Windows" title="Release Notes and Installation Guide for Windows">
+<link rel="prev" href="Windows-Notes.html#Windows-Notes" title="Windows Notes">
+<link rel="next" href="The-Console-Window.html#The-Console-Window" title="The Console Window">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Command-Line-Editing"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="The-Console-Window.html#The-Console-Window">The Console Window</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Windows-Notes.html#Windows-Notes">Windows Notes</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Release-Notes-and-Installation-Guide-for-Windows.html#Release-Notes-and-Installation-Guide-for-Windows">Release Notes and Installation Guide for Windows</a>
+<hr>
+</div>
+
+<h3 class="section">4.4 Command Line Editing</h3>
+
+<p>Command line editing supporting Emacs-like commands and IBM&nbsp;PC<!-- /@w --> arrow keys
+is provided in the
+<!-- [PM] 4.0.5 SP4 only has line editin in spwin.exe -->
+windowed executable (<samp><span class="command">spwin.exe</span></samp>). 
+<!-- console-based executable. -->
+The following commands
+are available:
+
+     <dl>
+<dt><kbd>^h</kbd><dd>erase previous char
+
+     <br><dt><kbd>^d</kbd><dd>erase next char
+
+     <br><dt><kbd>^u</kbd><dd>kill line
+
+     <br><dt><kbd>^f</kbd><dd>forward char
+
+     <br><dt><kbd>^b</kbd><dd>backward char
+
+     <br><dt><kbd>^a</kbd><dd>begin of line
+
+     <br><dt><kbd>^e</kbd><dd>end of line
+
+     <br><dt><kbd>^p</kbd><dd>previous line
+
+     <br><dt><kbd>^n</kbd><dd>next line
+
+     <br><dt><kbd>^i</kbd><dd>insert space
+
+     <br><dt><kbd>^s</kbd><dd>forward search
+
+     <br><dt><kbd>^r</kbd><dd>reverse search
+
+     <br><dt><kbd>^v</kbd><dd>view history
+
+     <br><dt><kbd>^q</kbd><dd>input next char blindly
+
+     <br><dt><kbd>^k</kbd><dd>kill to end of line
+</dl>
+
+<!-- [PM] 4.0.5 updated path -->
+   <p>Options may be specified in the file <samp><span class="file">~/spcmd4.ini</span></samp> as:
+
+<pre class="example">     <var>Option</var> <var>Value</var>
+</pre>
+   <p class="noindent">on separate lines.  Recognized options are:
+
+     <dl>
+<dt><code>lines</code><dd><var>Value</var> is the number of lines in the history buffer. 1-100 is
+accepted; the default is 25.
+
+     <br><dt><code>save</code><dd><var>Value</var> is either 0 (don't save or restore history buffer)
+<!-- [PM] 4.0.5 updated path -->
+or 1 (save history buffer in <samp><span class="file">~/spcmd4.hst</span></samp> on exit, restore
+history from the same file on start-up). 
+</dl>
+
+<!-- [PM] 4.0.5 -nocmd was never in SP4 (and we don't have line editing -->
+<!-- in sicstus.exe, only in spwin.exe where -nocmd makes no sense. -->
+<!-- The command line editing is switched off by giving the option -->
+<!-- @option{-nocmd} when starting SICStus.  Command line editing will be -->
+<!-- automatically turned off if SICStus is run with piped input -->
+<!-- (e.g.@: from Emacs). -->
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Command-Line-Editing.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Command-Line-Editing.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

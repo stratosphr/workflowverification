@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<pnml>
+    <net>
+        <place id="P2"/>
+        <place id="P3"/>
+        <place id="P4"/>
+        <place id="P5"/>
+        <place id="P6"/>
+        <place id="P7"/>
+        <place id="i"/>
+        <place id="o"/>
+        <transition id="consulter"/>
+        <transition id="deconnecter"/>
+        <transition id="mdp"/>
+        <transition id="pseudo"/>
+        <transition id="split"/>
+        <transition id="valider"/>
+        <arc id="consulter-P7" source="consulter" target="P7"/>
+        <arc id="deconnecter-o" source="deconnecter" target="o"/>
+        <arc id="i-split" source="i" target="split"/>
+        <arc id="mdp-P5" source="mdp" target="P5"/>
+        <arc id="P2-pseudo" source="P2" target="pseudo"/>
+        <arc id="P3-mdp" source="P3" target="mdp"/>
+        <arc id="P4-valider" source="P4" target="valider"/>
+        <arc id="P5-valider" source="P5" target="valider"/>
+        <arc id="P6-deconnecter" source="P6" target="deconnecter"/>
+        <arc id="P7-consulter" source="P7" target="consulter"/>
+        <arc id="P7-deconnecter" source="P7" target="deconnecter"/>
+        <arc id="pseudo-P4" source="pseudo" target="P4"/>
+        <arc id="split-P2" source="split" target="P2"/>
+        <arc id="split-P3" source="split" target="P3"/>
+        <arc id="valider-P6" source="valider" target="P6"/>
+        <arc id="valider-P7" source="valider" target="P7"/>
+    </net>
+</pnml>

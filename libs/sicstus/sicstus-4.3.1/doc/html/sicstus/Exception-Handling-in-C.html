@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+<title>Exception Handling in C - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Calling-Prolog-from-C.html#Calling-Prolog-from-C" title="Calling Prolog from C">
+<link rel="prev" href="Calling-Prolog-Asynchronously.html#Calling-Prolog-Asynchronously" title="Calling Prolog Asynchronously">
+<link rel="next" href="Reading-a-goal-from-a-string.html#Reading-a-goal-from-a-string" title="Reading a goal from a string">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Exception-Handling-in-C"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Reading-a-goal-from-a-string.html#Reading-a-goal-from-a-string">Reading a goal from a string</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Calling-Prolog-Asynchronously.html#Calling-Prolog-Asynchronously">Calling Prolog Asynchronously</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Calling-Prolog-from-C.html#Calling-Prolog-from-C">Calling Prolog from C</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.5.4 Exception Handling in C</h4>
+
+<p><a name="index-exception-handling-in-C-2334"></a>
+<a name="index-exception-term-2335"></a><a name="index-term_002c-exception-2336"></a>When an exception has been raised, the functions <code>SP_query()</code>,
+<code>SP_query_cut_fail()</code> and <code>SP_next_solution()</code> return
+<!-- FIXME Always with SP_errno set to (the not exported) UNCAUGHT_EXCEPTION -->
+<code>SP_ERROR</code>.  To access the <dfn>exception term</dfn> (the argument
+of the call to <code>raise_exception/1</code>), which is asserted when the
+exception is raised, the function <code>SP_exception_term()</code> is used. 
+As a side-effect, the exception term is retracted, so if
+your code wants to pass the exception term back to Prolog,
+use <code>SP_raise_exception()</code>. 
+<a name="index-SP_005fexception_005fterm_0028_0029-_0028C-function_0029-2337"></a>
+To raise an exception from a C function called from Prolog, just call
+<code>SP_raise_exception()</code>.  Upon return, Prolog will detect that an
+exception has been raised, any representation returned from the function will be
+ignored, and the exception will be passed back to Prolog. 
+<strong>Please note</strong>: this should only be called right before returning
+to Prolog. 
+<a name="index-SP_005fraise_005fexception_0028_0029-_0028C-function_0029-2338"></a>
+To propagate failure to Prolog, call <code>SP_fail()</code>. Upon return,
+Prolog will backtrack.  <strong>Please note</strong>: this should only be called
+right before returning to Prolog. 
+<a name="index-SP_005ffail_0028_0029-_0028C-function_0029-2339"></a>
+<a name="index-SP_005fon_005ffault_0028_0029-_0028C-macro_0029-2340"></a>Prolog error handling is mostly done by raising and catching exceptions. 
+However, some <dfn>faults</dfn> are of a nature such that when they occur,
+the internal program state may be corrupted, and it is not safe to
+merely raise an exception.  In runtime systems, the C
+macro <code>SP_on_fault()</code> provides an environment for handling faults.
+
+   <p><a name="index-SP_005fraise_005ffault_0028_0029-_0028C-function_0029-2341"></a>The function <code>SP_raise_fault()</code> can be used to raise a fault with an
+encoded string explaining the reason.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Exception-Handling-in-C.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Exception-Handling-in-C.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

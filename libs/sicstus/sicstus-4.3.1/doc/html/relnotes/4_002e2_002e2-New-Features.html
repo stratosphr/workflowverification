@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+<title>4.2.2 New Features - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e2_002e2-Changes.html#g_t4_002e2_002e2-Changes" title="4.2.2 Changes">
+<link rel="next" href="4_002e2_002e2-Bugs-Fixed.html#g_t4_002e2_002e2-Bugs-Fixed" title="4.2.2 Bugs Fixed">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.2.2-New-Features"></a>
+<a name="g_t4_002e2_002e2-New-Features"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e2_002e2-Bugs-Fixed.html#g_t4_002e2_002e2-Bugs-Fixed">4.2.2 Bugs Fixed</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e2_002e2-Changes.html#g_t4_002e2_002e2-Changes">4.2.2 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.18.1 New Features</h4>
+
+     <ul>
+<li><code>library(odbc)</code>:
+          <ul>
+<li>Unicode data is now passed to and from the ODBC manager on all
+platforms. Also, some arbitrary size limits on the length of (text) data
+have been removed. 
+<li>The SQL &ldquo;null&rdquo; representation is now supported as parameter to queries, and is
+represented as the atom <code>null</code>. <strong>Please note</strong>: this is an
+incompatible change for string parameters. When passing string
+parameters to <code>odbc_query_execute_sql/[3,5]</code> using atoms, the atom
+<code>null</code> used to be treated as the four character string consisting
+of the characters <kbd>n</kbd>, <kbd>u</kbd>, <kbd>l</kbd> and <kbd>l</kbd> but it is now
+treated as a SQL &ldquo;null&rdquo; representation. A workaround is to always pass strings
+as lists of character codes (which also works in older versions of
+SICStus) or as a list of atoms (which only works in SICStus 4.2.2 and
+later). 
+</ul>
+     </ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e2_002e2-New-Features.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e2_002e2-New-Features.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

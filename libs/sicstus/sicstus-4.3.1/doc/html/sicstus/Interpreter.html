@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+<title>Interpreter - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Programming-Examples.html#Programming-Examples" title="Programming Examples">
+<link rel="prev" href="Use-Of-Meta.html#Use-Of-Meta" title="Use Of Meta">
+<link rel="next" href="Translate.html#Translate" title="Translate">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Interpreter"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Translate.html#Translate">Translate</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Use-Of-Meta.html#Use-Of-Meta">Use Of Meta</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Programming-Examples.html#Programming-Examples">Programming Examples</a>
+<hr>
+</div>
+
+<h4 class="subsection">9.11.6 Prolog in Prolog</h4>
+
+<p>This example shows how simple it is to write a Prolog interpreter
+in Prolog, and illustrates the use of a variable goal.  In
+this mini-interpreter, goals and clauses are represented as
+ordinary Prolog data structures (i.e. terms).  Terms
+representing clauses are specified using the predicate
+<code>my_clause/1</code>, e.g.:
+
+<pre class="example">     my_clause( (grandparent(X, Z) :- parent(X, Y), parent(Y, Z)) ).
+</pre>
+   <p>A unit clause will be represented by a term such as
+
+<pre class="example">     my_clause( (parent(john, mary) :- true) ).
+</pre>
+   <p>The mini-interpreter consists of three clauses:
+
+<pre class="example">     execute((P,Q)) :- !, execute(P), execute(Q).
+     execute(P) :- predicate_property(P, built_in), !, P.
+     execute(P) :- my_clause((P :- Q)), execute(Q).
+</pre>
+   <p>The second clause enables the mini-interpreter to cope with calls
+to ordinary Prolog predicates, e.g. built-in predicates. 
+The mini-interpreter needs to be extended to cope with the other control
+structures, i.e. <code>!</code>, <code>(P;Q)</code>, <code>(P-&gt;Q)</code>,
+<code>(P-&gt;Q;R)</code>, <code>(\+ P)</code>, and <code>if(P,Q,R)</code>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Interpreter.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Interpreter.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

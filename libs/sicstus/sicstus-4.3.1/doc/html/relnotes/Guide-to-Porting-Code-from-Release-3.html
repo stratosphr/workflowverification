@@ -1,0 +1,183 @@
+<html lang="en">
+<head>
+<title>Guide to Porting Code from Release 3 - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Revision-History.html#Revision-History" title="Revision History">
+<link rel="prev" href="What-Is-New-In-Release-4.html#What-Is-New-In-Release-4" title="What Is New In Release 4">
+<link rel="next" href="Limitations-in-the-Current-Release.html#Limitations-in-the-Current-Release" title="Limitations in the Current Release">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Guide-to-Porting-Code-from-Release-3"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Limitations-in-the-Current-Release.html#Limitations-in-the-Current-Release">Limitations in the Current Release</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="What-Is-New-In-Release-4.html#What-Is-New-In-Release-4">What Is New In Release 4</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Revision-History.html#Revision-History">Revision History</a>
+<hr>
+</div>
+
+<h3 class="section">13.2 Guide to Porting Code from Release 3</h3>
+
+<p>Release 4 does not provide a mode in which it is 100% compatible with
+earlier releases.  However, in addition to what is said in <a href="What-Is-New-In-Release-4.html#What-Is-New-In-Release-4">What Is New In Release 4</a> (read that first!), this section provides further guidelines for
+migrating Prolog code from release 3 to release 4.
+
+     <ol type=1 start=1>
+<li>First of all, make sure that your code runs in ISO execution mode. In
+release 3, the command line option <samp><span class="option">--iso</span></samp> can be used.
+
+     <li>A number of built-in predicates have been dropped. They are listed in
+the table below, along with their approximate substitutes. Refer to
+the documentation for each case.
+
+     <p><table summary=""><tr align="left"><td valign="top" width="50%"><strong>Dropped built-in</strong> </td><td valign="top" width="50%"><strong>Replaced by</strong>
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>get0/[1,2]</code>, <code>get/[1,2]</code> </td><td valign="top" width="50%"><code>get_code/[1,2]</code>, <code>get_byte/[1,2]</code>
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>ttyget0/1</code>, <code>ttyget/1</code> </td><td valign="top" width="50%"><code>get_code/2</code>, <code>get_byte/2</code>
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>put/[1,2]</code>, <code>tab/[1,2]</code> </td><td valign="top" width="50%"><code>put_code/[1,2]</code>, <code>put_byte/[1,2]</code>
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>ttyput/1</code>, <code>ttytab/1</code> </td><td valign="top" width="50%"><code>put_code/2</code>, <code>put_byte/2</code>
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>skip/[1,2]</code> </td><td valign="top" width="50%"><code>skip_code/[1,2]</code>, <code>skip_byte/[1,2]</code>
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>ttyskip/1</code> </td><td valign="top" width="50%"><code>skip_code/2</code>, <code>skip_byte/2</code>
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>ttynl/0</code> </td><td valign="top" width="50%"><code>nl/1</code>
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>ttyflush/0</code> </td><td valign="top" width="50%"><code>flush_output/1</code>
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>fileerrors/0</code>, <code>nofileerrors/0</code> </td><td valign="top" width="50%"><code>set_prolog_flag/2</code>
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>'C'/3</code> </td><td valign="top" width="50%">unification
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>call_residue/2</code> </td><td valign="top" width="50%"><code>call_residue_vars/2</code>
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>undo/1</code> </td><td valign="top" width="50%"><code>prolog:undo/1</code>
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>help/0</code> </td><td valign="top" width="50%">the message system
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>version/0</code> </td><td valign="top" width="50%">the message system
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>version/1</code> </td><td valign="top" width="50%">the message system
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>fcompile/1</code> </td><td valign="top" width="50%"><code>save_files/2</code>
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>load/1</code> </td><td valign="top" width="50%"><code>load_files/2</code>
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>load_foreign_files/2</code> </td><td valign="top" width="50%"><samp><span class="command">splfr</span></samp> + <code>load_foreign_resource/1</code>
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>require/1</code> </td><td valign="top" width="50%"><code>use_module/2</code>
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>is_mutable/1</code> </td><td valign="top" width="50%"><code>mutable/1</code>
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="50%"><code>module/1</code> </td><td valign="top" width="50%"><code>set_module/1</code>
+     <br></td></tr></table>
+
+     <li>The hook predicates <code>user:term_expansion/[2,4]</code> and
+<code>user:term_expansion/3</code> are now called
+<code>user:term_expansion/6</code> and <var>Module</var><code>:term_expansion/5</code>
+and have a modified API; see
+<a href="../sicstus/ref_002dlod_002dexp.html#ref_002dlod_002dexp">Term and Goal Expansion</a>.
+
+     <li>The set of library modules has been enriched by incorporating a subset
+of the Quintus Prolog library modules that we have deemed useful.
+
+     <p><code>library(clpb)</code>, <code>library(clpq)</code> and <code>library(clpr)</code> are provided but not supported. 
+<code>library(flinkage)</code> and <code>library(spaceout)</code> are not included
+in release 4.  <code>library(objects)</code> has been replaced by its
+Quintus counterpart, with a completely different API.
+
+     <p>The following table lists the affected SICStus 3 library modules.
+
+     <p><table summary=""><tr align="left"><td valign="top" width="40%"><strong>Affected module</strong> </td><td valign="top" width="40%"><strong>Closest equivalent</strong> </td><td valign="top" width="20%"><strong>Comment</strong>
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="40%"><code>arrays</code> </td><td valign="top" width="40%"><code>arrays3</code> </td><td valign="top" width="20%">a
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="40%"><code>assoc</code> </td><td valign="top" width="40%"><code>assoc3</code> </td><td valign="top" width="20%">b
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="40%"><code>charsio</code> </td><td valign="top" width="40%"><code>codesio</code> </td><td valign="top" width="20%">c
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="40%"><code>clpfd</code> </td><td valign="top" width="40%"><code>clpfd</code> </td><td valign="top" width="20%">d
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="40%"><code>lists</code> </td><td valign="top" width="40%"><code>lists3</code> </td><td valign="top" width="20%">e
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="40%"><code>queues</code> </td><td valign="top" width="40%"><code>queues3</code> </td><td valign="top" width="20%">f
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="40%"><code>random</code> </td><td valign="top" width="40%"><code>random3</code> </td><td valign="top" width="20%">g
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="40%"><code>sockets</code> </td><td valign="top" width="40%"><code>sockets</code> </td><td valign="top" width="20%">d
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="40%"><code>system</code> </td><td valign="top" width="40%"><code>system3</code> </td><td valign="top" width="20%">h
+
+     <p><br></td></tr><tr align="left"><td valign="top" width="40%"><code>terms</code> </td><td valign="top" width="40%"><code>terms</code> </td><td valign="top" width="20%">d
+
+     <br></td></tr></table>
+
+     <p>Comments to the table:
+
+          <ol type=a start=1>
+<li><code>library(arrays3)</code> is a code migration library module;
+the long-term solution is to use <code>library(logarrs)</code> instead.
+
+          <li><code>library(assoc3)</code> is a code migration library module;
+the long-term solution is to use <code>library(avl)</code> instead.
+
+          <li>The syllable &lsquo;<samp><span class="samp">chars</span></samp>&rsquo; has been changed to &lsquo;<samp><span class="samp">codes</span></samp>&rsquo; throughout.
+
+          <li>Several API changes; see the documentation.
+
+          <li><code>library(lists3)</code> is a code migration library module;
+the long-term solution is to use <code>library(lists)</code> instead.
+
+          <li><code>library(queues3)</code> is a code migration library module;
+the long-term solution is to use <code>library(queues)</code> instead.
+
+          <li><code>library(random3)</code> is a code migration library module;
+the long-term solution is to use <code>library(random)</code> instead.
+
+          <li><code>library(system3)</code> is a code migration library module;
+the long-term solution is to use <code>library(system)</code>,
+<code>library(file_systems)</code> and <code>library(process)</code> instead.
+
+          <p>One difference between <code>library(system3)</code> and the original release
+3 version is that <code>exec/3</code> returns a process reference, a compound
+term, instead of an integer process identifier.
+
+          </ol>
+        </ol>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Guide-to-Porting-Code-from-Release-3.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Guide-to-Porting-Code-from-Release-3.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

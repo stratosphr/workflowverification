@@ -1,0 +1,75 @@
+<html lang="en">
+<head>
+<title>ref-lte-atm - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlte.html#ref_002dlte" title="ref-lte">
+<link rel="prev" href="ref_002dlte_002dc2t.html#ref_002dlte_002dc2t" title="ref-lte-c2t">
+<link rel="next" href="ref_002dlte_002danv.html#ref_002dlte_002danv" title="ref-lte-anv">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-lte-atm"></a>
+<a name="ref_002dlte_002datm"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dlte_002danv.html#ref_002dlte_002danv">ref-lte-anv</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dlte_002dc2t.html#ref_002dlte_002dc2t">ref-lte-c2t</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlte.html#ref_002dlte">ref-lte</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.8.5 Atom Operations</h4>
+
+<p><a name="index-atom_005flength_002f2-_0028built_002din_0029-1225"></a><a name="index-atom_005flength_002f2-_0028built_002din_0029-1226"></a>
+To compute <var>Length</var>, the number of characters of the atom <var>Atom</var>, use:
+
+<pre class="example">     ?- <kbd>atom_length(</kbd><var>Atom</var><kbd>,</kbd><var>Length</var><kbd>).</kbd>
+</pre>
+   <p><a name="index-atom_005fconcat_002f3-_0028built_002din_0029-1227"></a><a name="index-atom_005fconcat_002f3-_0028built_002din_0029-1228"></a>
+To concatenate <var>Atom1</var> with <var>Atom2</var> giving <var>Atom12</var>, use
+the following. The predicate can also be used to split a given
+<var>Atom12</var> into two unknown parts:
+
+<pre class="example">     ?- <kbd>atom_concat(</kbd><var>Atom1</var><kbd>,</kbd><var>Atom2</var><kbd>,</kbd><var>Atom12</var><kbd>).</kbd>
+</pre>
+   <p><a name="index-sub_005fatom_002f5-_0028built_002din_0029-1229"></a><a name="index-sub_005fatom_002f5-_0028built_002din_0029-1230"></a>
+To extract a sub-atom <var>SubAtom</var> from <var>Atom</var>, such that the
+number of characters preceding <var>SubAtom</var> is <var>Before</var>, the
+number of characters after <var>SubAtom</var> is <var>After</var>, and the
+length of <var>SubAtom</var> is <var>Length</var>, use the following. Only
+<var>Atom</var> needs to be instantiated:
+
+<pre class="example">     ?- <kbd>sub_atom(</kbd><var>Atom</var><kbd>,</kbd><var>Before</var><kbd>,</kbd><var>Length</var><kbd>,</kbd><var>After</var><kbd>,</kbd><var>SubAtom</var><kbd>).</kbd>
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlte_002datm.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlte_002datm.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

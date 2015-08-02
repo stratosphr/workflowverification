@@ -1,0 +1,263 @@
+<html lang="en">
+<head>
+<title>Java Threads - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002djasper.html#lib_002djasper" title="lib-jasper">
+<link rel="prev" href="SPTerm-and-Memory.html#SPTerm-and-Memory" title="SPTerm and Memory">
+<link rel="next" href="The-Jasper-Library.html#The-Jasper-Library" title="The Jasper Library">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Java-Threads"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="The-Jasper-Library.html#The-Jasper-Library">The Jasper Library</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="SPTerm-and-Memory.html#SPTerm-and-Memory">SPTerm and Memory</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002djasper.html#lib_002djasper">lib-jasper</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.18.7 Java Threads</h4>
+
+<p>None of the pre-3.9 methods in <code>se.sics.jasper</code> are thread safe. 
+They can only be called from the thread that created the SICStus
+object. (This is different from how <code>se.sics.jasper</code> used to work
+in release 3.8.)
+
+<!-- @emph{There will be a solution to this in 3.9 final.} -->
+   <p>As of 3.9 there are two ways to set up for calls to SICStus from multiple
+threads.
+
+   <p>One way is to use the static method <code>newProlog</code> in the class
+<code>Jasper</code>:
+
+<div class="defun">
+&mdash; Method on Jasper: Prolog <b>newProlog</b> <code>(String argv[], String bootPath)</code><var><a name="index-newProlog-on-Jasper-3389"></a></var><br>
+<blockquote><p>Creates a <code>Prolog</code> interface object. Starts a server thread, which
+will serve that <code>Prolog</code>. The server thread takes care of all
+interaction with the Prolog runtime, making sure that all calls to the
+Prolog runtime will be done from one and the same thread. 
+</p></blockquote></div>
+
+   <p>See the HTML documentation on the <code>interface Prolog</code> for details
+on what methods are available for a client thread.
+
+   <p>Another way is to create a SICStus object and use the following methods:
+
+<div class="defun">
+&mdash; Method on SICStus: Prolog <b>newProlog</b> <code>()</code><var><a name="index-newProlog-on-SICStus-3390"></a></var><br>
+<blockquote><p>Returns the <code>Prolog</code> interface for this SICStus object. 
+Creates a server and a client (<code>Prolog</code>) interface for this
+SICStus object. The server may be started by calling
+<code>startServer()</code>
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Method on SICStus: <b>startServer</b> <code>()</code><var><a name="index-startServer-on-SICStus-3391"></a></var><br>
+<blockquote><p>Start serving requests from a Prolog client. This method does not
+return until another thread calls <code>stopServer()</code>. Before calling
+this method you should call <code>newProlog()</code> and hand the result
+over to another Thread. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Method on SICStus: <b>stopServer</b> <code>()</code><var><a name="index-stopServer-on-SICStus-3392"></a></var><br>
+<blockquote><p>Stops the server. Calling this method causes the Thread running in
+the <code>startServer()</code> method to return. 
+</p></blockquote></div>
+
+   <p>As with the first method, the <code>interface Prolog</code> defines the
+methods available for the client threads.
+
+<!-- BETA [PM] This whole section should be reworked for the new thread -->
+<!-- server thingie -->
+<!-- The SICStus Prolog engine does not support multiple simultaneously -->
+<!-- executing (native) threads. The classes in @code{se.sics.jasper} -->
+<!-- protects against this by locking a mutual exclusion lock @samp{mutex} -->
+<!-- around critical calls into the Prolog runtime system (using Java -->
+<!-- @code{synchronized} blocks). -->
+<!-- @menu -->
+<!-- * Synchronization Issues:: -->
+<!-- * SPQuery and Threads:: -->
+<!-- @end menu -->
+<!-- @node Synchronization Issues -->
+<!-- @subsection Synchronization Issues -->
+<!-- These rules governs the locking of the Prolog @samp{mutex} -->
+<!-- @enumerate -->
+<!-- @item -->
+<!-- The thread running in the Prolog runtime system always owns the -->
+<!-- @samp{mutex}. -->
+<!-- @item -->
+<!-- All calls from Java to Prolog behaves as if wrapped in a -->
+<!-- @code{synchronized (sp) @{@}} block, where @code{sp} is the -->
+<!-- @code{SICStus} object. -->
+<!-- @item -->
+<!-- All calls from Prolog to Java behaves as if Prolog made the call through -->
+<!-- a (Java) @code{synchronized (sp) @{@}} block. -->
+<!-- @end enumerate -->
+<!-- This means that, if Java is the top-level application, multiple Java -->
+<!-- threads can call Prolog and synchronization will ensure that these call -->
+<!-- will happen one after the other. -->
+<!-- However, the above rules also mean that if Prolog is the top-level -->
+<!-- application then the main thread (the thread in which the Prolog -->
+<!-- application started) is the @emph{only} thread that can ever call Java -->
+<!-- from Prolog and vice versa. -->
+<!-- As an example, the action associated with user interface components are -->
+<!-- typically performed by a separate thread. This means that if the action -->
+<!-- of a @samp{AWT} or @samp{Swing} button tries to call Prolog this will -->
+<!-- work if Java is the top-level application (once all other threads have -->
+<!-- finished any calls to Prolog). If, on the other hande, Prolog is the -->
+<!-- top-level application then the thread trying to perform the button -->
+<!-- action will never be able to acquire the @samp{mutex}. A possible -->
+<!-- solution to this problem is to let the main thread perform any calls to -->
+<!-- Prolog and to let other threads pass requests to the main thread. -->
+<!-- @strong{Never} use @code{wait()} or other ways to release the lock on -->
+<!-- the SICStus @samp{mutex}. It may be tempting to use @code{wait()} in, -->
+<!-- for example, the main thread, to let other threads obtain the SICStus -->
+<!-- @samp{mutex}. Don't do this; it will lead to unpredictable behavior. -->
+<!-- @c [PM] Tcl/Tk is documented as one native thread one interpreter. -->
+<!-- @c [PM] Berkeley DB I don't know. -->
+<!-- @c [PM] JDK has this problem with local references, this is documented -->
+<!-- @c      in the Jasper docs. -->
+<!-- @strong{Please note}: Some libraries using @use{foreign resources} linked to -->
+<!-- third-party products may not work properly if called from multiple -->
+<!-- threads even if the calls are properly sequentialized. Libraries using -->
+<!-- third-party products include @code{library(tcltk)} and -->
+<!-- @code{library(bdb)}. You should ensure that libraries with this problem -->
+<!-- are only called from the main Prolog thread. -->
+<!-- @node SPQuery and Threads -->
+<!-- @subsection SPQuery and Threads -->
+<!-- Due to the way the methods that create and manipulate @code{SPQuery} -->
+<!-- objects affect the lifetime of Prolog data you need to take special -->
+<!-- precautions when multiple threads call Prolog. You should enclose the -->
+<!-- creation of a @code{SPQuery} object in a @code{synchronized (sp) @{@}} -->
+<!-- block that extend all the way to the closing of the @use{query} object. That -->
+<!-- is, in a multithreaded setting code that use opened @use{queries} should look -->
+<!-- like this: -->
+<!-- @example -->
+<!-- synchronized (sp) @{ -->
+<!-- SPQuery query; -->
+<!-- @dots{} set up argument SPTerm objects -->
+<!-- query = sp.openQuery(@dots{}.); -->
+<!-- try @{ -->
+<!-- @dots{} -->
+<!-- while (query.nextSolution()) @{ -->
+<!-- // access variable bindings -->
+<!-- @dots{} -->
+<!-- @} -->
+<!-- @} -->
+<!-- finally @{ // always terminate queries -->
+<!-- query.close(); // or query.cut() -->
+<!-- @} -->
+<!-- @} -->
+<!-- @end example -->
+<!-- Synchronizing in this manner is necessary to prevent another thread -->
+<!-- from allocating Prolog data that is then reclaimed by -->
+<!-- @code{query.nextSolution()} or @code{query.close()}. -->
+<!-- Consider the following example where synchronization is @emph{not} used: -->
+<!-- @example -->
+<!-- Thread A              Thread B -->
+<!-- |                     | -->
+<!-- x = new SPTerm()         | -->
+<!-- |                     | -->
+<!-- |                  q=sp.openQuery(@dots{}) -->
+<!-- |                     | -->
+<!-- x.consFunctor(@dots{})       | -->
+<!-- |                     | -->
+<!-- |                  q.nextSolution() -->
+<!-- |                     | -->
+<!-- x.getArg(@dots{})            | -->
+<!-- |                    @dots{} -->
+<!-- |                  q.close() -->
+<!-- @end example -->
+<!-- @noindent -->
+<!-- The @use{SP_term_ref} @code{x} is created before the @use{query} @code{q} and is -->
+<!-- therefore valid throughout the example. However, the Prolog term created -->
+<!-- by @code{consFunctor} is created, on the Prolog heap, @emph{after} the -->
+<!-- @use{query} @code{q}. The Prolog term will therefore be reclaimed by Prolog -->
+<!-- due to the @code{fail} implicitly performed by -->
+<!-- @code{nextSolution}. However, this is @emph{not} detected and will -->
+<!-- therefore lead to crashes or other undefined behavior in code that -->
+<!-- access the term ref @code{x} (such as @code{getArg} in the example) or -->
+<!-- when the Prolog @use{garbage collector} tries to traverse the -->
+<!-- @use{SP_term_ref}. @xref{SPTerm and Memory} for additional details. -->
+<!-- Proper use of synchronization will lead to the following scenario where -->
+<!-- Thread A and Thread A' shows two (of several) possibilities depending the timing -->
+<!-- between Thread A and B. Double vertical bars represents a thread owning -->
+<!-- the SICStus object @samp{mutex}: -->
+<!-- @example -->
+<!-- Thread A              Thread B             Thread A' -->
+<!-- |                     |                    | -->
+<!-- x = new SPTerm()         |                 x = new SPTerm() -->
+<!-- |                     |                 x.consFunctor(@dots{}) -->
+<!-- |                     |                 x.getArg(@dots{}) -->
+<!-- |                     |                    | -->
+<!-- |                  synchronize (sp) @{     | -->
+<!-- |                     ||                   | -->
+<!-- |                  q=sp.openQuery(@dots{})     | -->
+<!-- |                     ||                   | -->
+<!-- |                  q.nextSolution()        | -->
+<!-- |                     ||                   | -->
+<!-- |                    @dots{}                   | -->
+<!-- |                  q.close()               | -->
+<!-- |                     ||                   | -->
+<!-- |                     @} // end block      | -->
+<!-- |                     |                    | -->
+<!-- x.consFunctor(@dots{})       |                    | -->
+<!-- |                     |                    | -->
+<!-- x.getArg(@dots{})            |                    | -->
+<!-- |                     |                    | -->
+<!-- @end example -->
+<!-- @noindent -->
+<!-- In this case the Prolog term created  by @code{consFunctor} is created -->
+<!-- either before or after the lifetime of the @use{query} @code{q}. -->
+<!-- @c However, if Prolog calls back into Java the mutex is released and Java -->
+<!-- @c is once again free to call into Prolog from any thread. -->
+<!-- @c -->
+<!-- @c Note that opened @use{queries} (using @code{SICStus.openQuery}) must still be -->
+<!-- @c properly nested. The easiest way to ensure this is to use -->
+<!-- @c @code{openQuery} from at most one thread and perform other Prolog calls -->
+<!-- @c using @code{SICStus.query} or @code{SICStus.queryCutFail}. -->
+<!-- @c -->
+<!-- @c As long as Prolog code is running the Prolog runtime system owns the -->
+<!-- @c mutex lock and Java is prevented from calling Prolog. To explicitly -->
+<!-- @c allow calls from Java into Prolog during a long-running execution of -->
+<!-- @c Prolog code use the @use{predicate} @code{jasper_yield/1}. -->
+<!-- ====================================================================== -->
+<!-- End of the part from java.texi merged with jasper.texi -->
+<!-- ====================================================================== -->
+<!-- *- Mode:texinfo -*- -->
+<!-- [PM] This is the main part of java.texi suitable for -->
+<!-- @including in sicstus.texi -->
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Java-Threads.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Java-Threads.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

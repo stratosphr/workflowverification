@@ -1,0 +1,152 @@
+<html lang="en">
+<head>
+<title>4.0.5 Other Changes - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e0_002e5-Changes.html#g_t4_002e0_002e5-Changes" title="4.0.5 Changes">
+<link rel="prev" href="4_002e0_002e5-Bugs-Fixed.html#g_t4_002e0_002e5-Bugs-Fixed" title="4.0.5 Bugs Fixed">
+<link rel="next" href="4_002e0_002e5-Known-Issues.html#g_t4_002e0_002e5-Known-Issues" title="4.0.5 Known Issues">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.0.5-Other-Changes"></a>
+<a name="g_t4_002e0_002e5-Other-Changes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e0_002e5-Known-Issues.html#g_t4_002e0_002e5-Known-Issues">4.0.5 Known Issues</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="4_002e0_002e5-Bugs-Fixed.html#g_t4_002e0_002e5-Bugs-Fixed">4.0.5 Bugs Fixed</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e0_002e5-Changes.html#g_t4_002e0_002e5-Changes">4.0.5 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.8.3 Other Changes</h4>
+
+     <ul>
+<li><!-- SPRM 11088 -->
+The windowed executable (<samp><span class="command">spwin.exe</span></samp>) on Windows now saves and
+reads the command history (see <a href="Command-Line-Editing.html#Command-Line-Editing">Command Line Editing</a>).
+
+     <li><!-- SPRM 10959 -->
+<code>write/[1,2]</code> is now much faster when writing atomic terms.
+
+     <li><!-- SPRM 10959 -->
+<code>assertz/1</code> and friends are now faster when asserting facts,
+i.e. clauses without bodies.
+
+     <li><!-- SPRM 11122 -->
+<code>library(terms)</code>:
+the new predicate <code>term_hash/3</code> allows more control over
+the hashing behavior and hash algorithm used.
+
+     <p>Notable new features: a new, better, default hash algorithm and
+several other algorithms, including the 4.0.4 version, are available;
+it is possible to obtain a full 32-bit hash representation; it is possible to
+get an instantiation error or hash representation when the term being hashed is
+nonground.
+
+     <p><code>term_hash/[2,4]</code> has been changed to use a better hash
+function by default. The new hash function gives fewer collisions in
+general, and gives the same representation on all platforms.
+
+     <p><strong>Please note</strong>: The change of hash function is an incompatible
+change that may affect programs or data that depend on the old hash
+algorithm.  The old behavior can be obtained as follows:
+
+     <pre class="example">          %% Pre 4.0.5 version
+          term_hash_4_0_4(Term, Hash) :-
+             term_hash(Term, [algorithm('sicstus-4.0.4')], Hash).
+          
+          term_hash_4_0_4(Term, Depth, Range, Value) :-
+             term_hash(Term, [algorithm('sicstus-4.0.4'), depth(Depth), range(Range)], Hash).
+</pre>
+     <li><!-- SPRM 11063 -->
+<code>library(debugger_examples)</code> updated.
+
+     <li>Extended Runtime systems (a separate product, adding the compiler to
+runtime systems) now require a license at runtime. By default
+<samp><span class="command">spld</span></samp> will embed the license into the executable.
+
+     <!-- Very few care about this feature. -->
+     <!-- @item -->
+     <!-- The application builder (@command{spld}) can now embed license -->
+     <!-- information into the executable. This is for use with extended -->
+     <!-- runtime systems. -->
+     <!-- too much detail -->
+     <!-- @item -->
+     <!-- The documentation for @code{SP_load_sicstus_run_time()} now correctly -->
+     <!-- describes the return representation. -->
+     <li>The hook <code>user:error_exception/1</code> is now called with the
+exception term specified by ISO Prolog, i.e. the same term that is
+seen by <code>catch/3</code> and <code>on_exception/3</code>. It used to be called
+with an internal representation of the exception.
+This affects error exceptions, i.e. those with functor
+<code>error/2</code>. The old (pre 4.0.5) representation passed to
+<code>user:error_exception/1</code> is the second argument of the
+<code>error/2</code> structure.
+
+     <p><strong>Please note</strong>: This is an incompatible change. Old code that
+uses <code>user:error_exception/1</code> may need to be updated. 
+If the old code looked like:
+     <pre class="example">          %% Pre 4.0.5 version
+          user:error_exception(Old) :- do_something(Old).
+</pre>
+     <p class="noindent">it can be rewritten as follows (which will also work in older versions
+of SICStus Prolog):
+     <pre class="example">          %% &gt;= 4.0.5 version
+          user:error_exception(New) :-
+             ( New = error(_, Old) -&gt; true; Old = New),
+             do_something(Old).
+</pre>
+     <li><!-- [PM] 4.0.5 SP_TRIM_BIGMEMS_LOOP is now the default -->
+<code>trimcore/0</code> is now more thorough when releasing memory back to
+the operating system. This also affects the <code>trimcore</code>-variant
+used by the top-level.
+
+     <li>It is now possible to tell SICStus to use <code>malloc()</code> et al. as
+memory manager instead of the default custom allocator.
+
+     <p><code>malloc()</code> is selected when starting <samp><span class="command">sicstus</span></samp> with the new option
+<samp><span class="option">-m</span></samp>; when initializing the SICStus runtime with the
+environment variable <code>SP_USE_MALLOC</code> set to <code>yes</code>; for
+SICStus runtimes built with the new <samp><span class="command">spld</span></samp> option
+<samp><span class="option">--memhook=malloc</span></samp>; and when calling
+<code>SP_set_memalloc_hooks()</code> with the new option
+<code>SP_SET_MEMALLOC_HOOKS_HINT_USE_MALLOC</code>. 
+See <a href="../sicstus/cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks.html#cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks">SP_set_memalloc_hooks</a>.
+
+     <li><code>library(clpfd)</code>:
+unification with domain variables as well as
+propositional combinations of arithmetic constraints have been accelerated. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e0_002e5-Other-Changes.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e0_002e5-Other-Changes.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

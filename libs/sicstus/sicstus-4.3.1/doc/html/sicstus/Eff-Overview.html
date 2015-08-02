@@ -1,0 +1,106 @@
+<html lang="en">
+<head>
+<title>Eff Overview - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" title="Writing Efficient Programs">
+<link rel="next" href="Execution-Profiling.html#Execution-Profiling" title="Execution Profiling">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Eff-Overview"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Execution-Profiling.html#Execution-Profiling">Execution Profiling</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Writing-Efficient-Programs.html#Writing-Efficient-Programs">Writing Efficient Programs</a>
+<hr>
+</div>
+
+<h3 class="section">9.1 Overview</h3>
+
+<p>This chapter gives a number of tips on how to organize your
+programs for increased efficiency.  A lot of clarity and
+efficiency is gained by sticking to a few basic rules.  This list is
+necessarily very incomplete.  The reader is referred to textbooks such
+as [O'Keefe 90] for a thorough exposition of the elements of Prolog
+programming style and techniques.
+
+     <ul>
+<li>Don't write code in the first place if there is a library
+predicate that will do the job.
+
+     <li>Write clauses representing base case before clauses
+representing recursive cases.
+
+     <li>Input arguments before output arguments in clause
+heads and goals.
+
+     <li>Use pure data structures instead of database changes.
+
+     <li>Use cuts sparingly, and <em>only</em> at proper places
+(see <a href="ref_002dsem_002dctr_002dcut.html#ref_002dsem_002dctr_002dcut">ref-sem-ctr-cut</a>).  A cut should be placed at the exact point that it
+is known that the current choice is the correct one: no sooner, no
+later.
+
+     <li>Make cuts as local in their effect as possible.  If a
+predicate is intended to be determinate, define <em>it</em> as
+such; don't rely on its callers to prevent unintended
+backtracking.
+
+     <li>Binding output arguments before a cut is a common
+source of programming errors.  If a predicate is not steadfast, it is
+usually for this reason.
+
+     <li>Replace cuts by if-then-else constructs if the test is simple
+enough (see <a href="Conditionals-and-Disjunction.html#Conditionals-and-Disjunction">Conditionals and Disjunction</a>).
+
+     <li>Use disjunctions sparingly, <em>always</em> put parentheses around
+them, <em>never</em> put parentheses around the individual disjuncts,
+<em>never</em> put the &lsquo;<samp><span class="samp">;</span></samp>&rsquo; at the end of a line.
+
+     <li>Write the clauses of a predicate so that they discriminate
+on the principal functor of the first argument (see below). 
+For maximum efficiency, avoid &ldquo;defaulty&rdquo; programming (&ldquo;catch-all&rdquo;
+clauses).
+
+     <li>Don't use lists (<code>[...]</code>), &ldquo;round lists&rdquo; (<code>(...)</code>),
+or braces (<code>{...}</code>) to represent compound terms, or
+&ldquo;tuples&rdquo;, of some fixed arity.  The name of a compound
+term comes for free.
+
+     <li>Before trying to optimize your program for speed, use execution
+profiling to get an idea of where most of the time is being spent,
+and, more importantly, why. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Eff-Overview.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Eff-Overview.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

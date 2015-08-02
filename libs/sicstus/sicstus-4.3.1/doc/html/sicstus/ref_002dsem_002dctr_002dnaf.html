@@ -1,0 +1,64 @@
+<html lang="en">
+<head>
+<title>ref-sem-ctr-naf - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsem_002dctr.html#ref_002dsem_002dctr" title="ref-sem-ctr">
+<link rel="prev" href="ref_002dsem_002dctr_002dite.html#ref_002dsem_002dctr_002dite" title="ref-sem-ctr-ite">
+<link rel="next" href="ref_002dsem_002dctr_002ddol.html#ref_002dsem_002dctr_002ddol" title="ref-sem-ctr-dol">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-sem-ctr-naf"></a>
+<a name="ref_002dsem_002dctr_002dnaf"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dsem_002dctr_002ddol.html#ref_002dsem_002dctr_002ddol">ref-sem-ctr-dol</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dsem_002dctr_002dite.html#ref_002dsem_002dctr_002dite">ref-sem-ctr-ite</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsem_002dctr.html#ref_002dsem_002dctr">ref-sem-ctr</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.2.3.4 Negation as Failure</h5>
+
+<!-- [PM] 4.2.3 Note: backslash in macro argument needs quoting with backslash. -->
+<p><a name="index-g_t_005c_002b-_002f1_002c-not-provable-618"></a><a name="index-g_t_005c_002b-_002f1_002c-not-provable-619"></a>
+The following construct provides a kind of pseudo-negation meaning
+&ldquo;<var>P</var> is not provable&rdquo;.  This is not real negation (&ldquo;<var>P</var> is
+false&rdquo;).  The following two goals are equivalent:
+
+<pre class="example">     \+ <var>P</var>
+     
+     (<var>P</var> -&gt; fail ; true)
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsem_002dctr_002dnaf.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsem_002dctr_002dnaf.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,125 @@
+<html lang="en">
+<head>
+<title>mpg-ref-call_cleanup - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dcall.html#mpg_002dref_002dcall" title="mpg-ref-call">
+<link rel="next" href="mpg_002dref_002dcall_005fresidue_005fvars.html#mpg_002dref_002dcall_005fresidue_005fvars" title="mpg-ref-call_residue_vars">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-call_cleanup"></a>
+<a name="mpg_002dref_002dcall_005fcleanup"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dcall_005fresidue_005fvars.html#mpg_002dref_002dcall_005fresidue_005fvars">mpg-ref-call_residue_vars</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dcall.html#mpg_002dref_002dcall">mpg-ref-call</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.31 <code>call_cleanup/2</code></h4>
+
+<p><a name="index-call_005fcleanup_002f2-_0028built_002din_002c-ref-page_0029-4487"></a><a name="index-call_005fcleanup_002f2-_0028built_002din_002c-ref-page_0029-4488"></a>
+
+   <p><code>call_cleanup(</code><var>+Goal</var><code>, </code><var>+Cleanup</var><code>)</code>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p>Executes the procedure call <var>Goal</var>.  When <var>Goal</var> succeeds
+determinately, is cut, fails, or raises an exception,
+<var>Cleanup</var> is executed.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:Goal</var><dd><dfn>callable</dfn>, must be nonvar
+
+     <br><dt><var>:Cleanup</var><dd><dfn>callable</dfn>, must be nonvar
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>This construction can be used to ensure that <var>Cleanup</var> is executed
+as soon as <var>Goal</var> has completed execution, no matter how it
+finishes.  In more detail:
+
+   <p>When <code>call_cleanup/2</code> with a continuation <var>C</var> is called or
+backtracked into, first <var>Goal</var> is called or backtracked
+into.  Then there are four possibilities:
+
+     <ol type=1 start=1>
+<li><var>Goal</var> succeeds determinately, possibly leaving some
+blocked subgoals.  <var>Cleanup</var> is executed with continuation
+<var>C</var>.
+
+     <li><var>Goal</var> succeeds with some alternatives outstanding.  Execution
+proceeds to <var>C</var>.  If a cut that removes the outstanding
+alternatives is encountered, <var>Cleanup</var> is executed with continuation
+to proceed after the cut.  Also, if an exception <var>E</var> that will
+be caught by an ancestor of the <code>call_cleanup/2</code> <var>Goal</var>
+is raised, <var>Cleanup</var> is executed with continuation
+<code>raise_exception(</code><var>E</var><code>)</code>.
+
+     <li><var>Goal</var> fails.  <var>Cleanup</var> is executed with continuation <code>fail</code>.
+
+     <li><var>Goal</var> raises an exception <var>E</var>.  <var>Cleanup</var> is executed with
+continuation <code>raise_exception(</code><var>E</var><code>)</code>.
+        </ol>
+
+   <p>In a typical use of <code>call_cleanup/2</code>, <var>Cleanup</var> succeeds
+determinately after performing some side-effect; otherwise,
+unexpected behavior may result.
+
+   <p>Note that the Prolog top-level operates as a read-execute-fail loop,
+which backtracks into or cuts the query when the user
+types <kbd>;</kbd> or &lt;RET&gt; respectively.  Also, some predicates, such as
+<code>halt/[0,1]</code> and <code>abort/0</code>,
+are implemented in terms of
+exceptions.  All of these circumstances can trigger the execution of
+<var>Cleanup</var>.
+
+<h4 class="subheading">Backtracking</h4>
+
+<p>Depends on the arguments.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Call errors (see <a href="ref_002dsem_002dexc.html#ref_002dsem_002dexc">ref-sem-exc</a>).
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dsem.html#ref_002dsem">ref-sem</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dcall_005fcleanup.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dcall_005fcleanup.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

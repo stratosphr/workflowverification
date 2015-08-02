@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+<title>ref-syn-cpt-sli - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsyn_002dcpt.html#ref_002dsyn_002dcpt" title="ref-syn-cpt">
+<link rel="prev" href="ref_002dsyn_002dcpt_002dlis.html#ref_002dsyn_002dcpt_002dlis" title="ref-syn-cpt-lis">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-syn-cpt-sli"></a>
+<a name="ref_002dsyn_002dcpt_002dsli"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dsyn_002dcpt_002dlis.html#ref_002dsyn_002dcpt_002dlis">ref-syn-cpt-lis</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsyn_002dcpt.html#ref_002dsyn_002dcpt">ref-syn-cpt</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.1.3.2 Strings As Lists</h5>
+
+<p><a name="index-strings_002c-lists-of-character-codes-501"></a>
+<a name="index-character-codes_002c-lists-of-502"></a>
+<a name="index-characters_002c-strings-of-503"></a>
+<a name="index-strings_002c-lists-of-character-codes-504"></a>
+
+   <p><a name="index-string-_0028definition_0029-505"></a>
+For convenience, a further  notational  variant  is  allowed  for
+lists  of  integers that correspond to character codes.  Lists
+written in this notation are called <dfn>strings</dfn>. 
+E.g.:
+
+<pre class="example">     "SICStus"
+</pre>
+   <p class="noindent">which, by default, denotes exactly the same list as
+
+<pre class="example">     [83,73,67,83,116,117,115]
+</pre>
+   <p>The Prolog flag <code>double_quotes</code> can be used to change the way
+strings are interpreted. The default representation of the flag is <code>codes</code>,
+which implies the above interpretation. If the flag is set to
+<code>chars</code>, a string is transformed to a list of character atoms.  E.g. with
+this setting the above string represents the list:
+<a name="index-double_005fquotes-_0028prolog-flag_0029-506"></a>
+<pre class="example">     ['S','I','C','S',t,u,s]
+</pre>
+   <p>Finally if <code>double_quotes</code> has the representation <code>atom</code>, the
+string is made equivalent to the atom formed from its characters:
+the above sample string is then the same as the atom
+<code>'SICStus'</code>.
+
+   <p><strong>Please note:</strong> Most code assumes that the Prolog flag
+<code>double_quotes</code> has its default representation (<code>codes</code>). Changing this
+flag is not recommended.
+
+   <p>Backslashes in the sequence denote escape sequences
+(see <a href="ref_002dsyn_002dsyn_002desc.html#ref_002dsyn_002dsyn_002desc">ref-syn-syn-esc</a>).  As for quoted atoms, if a double quote
+character is included in the sequence it must be escaped, e.g. 
+<code>"can\"t"</code>.
+
+   <p>The built-in predicates that print terms (see <a href="ref_002diou_002dtou.html#ref_002diou_002dtou">ref-iou-tou</a>) don't
+use string syntax even if they could. 
+<!-- [MC] not included in 4.0, at least -->
+<!-- However, as a debugging aid, -->
+<!-- the library module @code{printcodes} (@pxref{lib-printcodes}) makes -->
+<!-- lists of character codes print in string syntax. -->
+
+   <p>The characters that are allowed to occur within double quotes are
+restricted to a subset of Unicode; see <a href="ref_002dsyn_002dsyn_002dtok.html#ref_002dsyn_002dsyn_002dtok">ref-syn-syn-tok</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dcpt_002dsli.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dcpt_002dsli.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

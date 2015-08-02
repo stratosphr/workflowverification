@@ -1,0 +1,173 @@
+<html lang="en">
+<head>
+<title>Scheduling Constraints - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Available-Constraints.html#Available-Constraints" title="Available Constraints">
+<link rel="prev" href="Graph-Constraints.html#Graph-Constraints" title="Graph Constraints">
+<link rel="next" href="Placement-Constraints.html#Placement-Constraints" title="Placement Constraints">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Scheduling-Constraints"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Placement-Constraints.html#Placement-Constraints">Placement Constraints</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Graph-Constraints.html#Graph-Constraints">Graph Constraints</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Available-Constraints.html#Available-Constraints">Available Constraints</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.10.4.7 Scheduling Constraints</h5>
+
+<p>The following constraint can be thought of as constraining <var>n</var> tasks
+so that the total resource consumption does not exceed a given limit at
+any time.  <strong>API change wrt. release 3:</strong>
+
+     <dl>
+<dt><code>cumulative(</code><var>+Tasks</var><code>)</code><dt><code>cumulative(</code><var>+Tasks</var><code>,</code><var>+Options</var><code>)</code><dd><a name="index-cumulative_002f_005b1_002c2_005d-_0028clpfd_0029-2929"></a><a name="index-cumulative_002f_005b1_002c2_005d-_0028clpfd_0029-2930"></a>
+
+     <p>A task is represented by a term <code>task(</code><var>Oi,Di,Ei,Hi,Ti</var><code>)</code> where
+<var>Oi</var> is the start time, <var>Di</var> the non-negative duration, <var>Ei</var>
+the end time, <var>Hi</var> the non-negative resource consumption, and
+<var>Ti</var> the task identifier.  All fields are domain variables with
+bounded domains, or integers.
+
+     <p>Let <var>n</var> be the number of tasks and <var>L</var> the global resource limit
+(by default 1, but see below), and:
+
+     <pre class="display">          <var>Hij</var> = <var>Hi</var>, <span class="roman">if</span> <var>Oi</var> &lt;= <var>j</var> &lt; <var>Oi</var>+<var>Di</var>
+          <var>Hij</var> = 0 <span class="roman">otherwise</span>
+</pre>
+     <p>The constraint holds if:
+
+          <ol type=1 start=1>
+<li>For every task <var>i</var>, <var>Oi+Di=Ei</var>, and
+<li>For all instants <var>j</var>,
+<var>H1j</var>+<small class="dots">...</small>+<var>Hnj</var> &lt;= <var>L</var>.
+          </ol>
+
+     <p>Corresponds to <code>cumulative/4</code> in MiniZinc<!-- /@w -->. 
+If all durations are 1, corresponds to <code>bin_packing/3</code> in MiniZinc<!-- /@w -->.
+
+     <p><var>Options</var> is a list of zero or more of the following, where
+<var>Boolean</var> must be <code>true</code> or <code>false</code> (<code>false</code> is the
+default).
+
+          <dl>
+<dt><code>limit(</code><var>L</var><code>)</code><dd><a name="index-limit_002f1-_0028cumulative_002f2-option_0029-2931"></a>See above.
+
+          <br><dt><code>precedences(</code><var>Ps</var><code>)</code><dd><a name="index-precedences_002f1-_0028cumulative_002f2-option_0029-2932"></a><var>Ps</var> encodes a set of precedence constraints to apply to the tasks. 
+<var>Ps</var> should be a list of terms of the form:
+
+          <pre class="display">               <var>Ti</var><code>-</code><var>Tj</var><code> #= </code><var>Dij</var>
+</pre>
+          <p>where <var>Ti</var> and <var>Tj</var> should be task identifiers, and <var>Dij</var>
+should be a a domain variable (or an integer), denoting:
+
+          <pre class="display">               <var>Oi-Oj = Dij </var><span class="roman">and</span><var> Dij </var><span class="roman">in</span><var> r</var>
+</pre>
+          <br><dt><code>global(</code><var>Boolean</var><code>)</code><dd><a name="index-global_002f1-_0028cumulative_002f2-option_0029-2933"></a>if <code>true</code>, a more expensive algorithm will be used in order to
+achieve tighter pruning of the bounds of the parameters. 
+</dl>
+
+     <p>This constraint is due to Aggoun and Beldiceanu
+[Aggoun &amp; Beldiceanu 93]. 
+</dl>
+
+   <p>The following constraint can be thought of as constraining <var>n</var> tasks
+to be placed in time and on <var>m</var> machines.  Each machine has a
+resource limit, which is interpreted as a lower or upper bound on the
+total amount of resource used on that machine at any point in time that
+intersects with some task.
+
+     <dl>
+<dt><code>cumulatives(</code><var>+Tasks</var><code>,</code><var>+Machines</var><code>)</code><dt><code>cumulatives(</code><var>+Tasks</var><code>,</code><var>+Machines</var><code>,</code><var>+Options</var><code>)</code><dd><a name="index-cumulatives_002f_005b2_002c3_005d-_0028clpfd_0029-2934"></a><a name="index-cumulatives_002f_005b2_002c3_005d-_0028clpfd_0029-2935"></a>
+
+     <p>A task is represented by a term <code>task(</code><var>Oi,Di,Ei,Hi,Mi</var><code>)</code> where
+<var>Oi</var> is the start time, <var>Di</var> the non-negative duration, <var>Ei</var>
+the end time, <var>Hi</var> the resource consumption (if positive) or
+production (if negative), and <var>Mi</var> a machine identifier.  All fields
+are domain variables with bounded domains, or integers.
+
+     <p>A machine is represented by a term <code>machine(</code><var>Mj,Lj</var><code>)</code> where
+<var>Mj</var> is the identifier, an integer; and <var>Lj</var> is the resource bound of the
+machine, which must be a domain variable with bounded domains or an integer.
+
+     <p>Let there be <var>n</var> tasks and:
+
+     <pre class="display">          <var>Hijm</var> = <var>Hi</var>, <span class="roman">if</span> <var>Mi</var>=<var>m</var> <span class="roman">and</span> <var>Oi</var> &lt;= <var>j</var> &lt; <var>Oi</var>+<var>Di</var>
+          <var>Hijm</var> = 0 <span class="roman">otherwise</span>
+</pre>
+     <p>If the resource bound is <code>lower</code> (the default), the constraint
+holds if:
+
+          <ol type=1 start=1>
+<li>For every task <var>i</var>, <var>Si+Di=Ei</var>, and
+<li>For all machines <var>m</var> and instants <var>j</var> such that there exists a
+task <var>i</var> where <var>Mi</var>=<var>m</var> and <var>Oi</var> &lt;= <var>j</var> &lt;
+<var>Oi</var>+<var>Di</var>, <var>H1jm</var>+<small class="dots">...</small>+<var>Hnjm</var> &gt;= <var>Lm</var>.
+          </ol>
+
+     <p>If the resource bound is <code>upper</code>, the constraint holds if:
+
+          <ol type=1 start=1>
+<li>For every task <var>i</var>, <var>Si+Di=Ei</var>, and
+<li>For all machines <var>m</var> and instants <var>j</var>,
+<var>H1jm</var>+<small class="dots">...</small>+<var>Hnjm</var> &lt;= <var>Lm</var>.
+          </ol>
+
+     <p><var>Options</var> is a list of zero or more of the following, where
+<var>Boolean</var> must be <code>true</code> or <code>false</code> (<code>false</code> is the
+default):
+
+          <dl>
+<dt><code>bound(</code><var>B</var><code>)</code><dd><a name="index-bound_002f1-_0028cumulatives_002f3-option_0029-2936"></a>If <code>lower</code> (the default), each resource limit is treated
+as a lower bound. 
+If <code>upper</code>, each resource limit is treated
+as an upper bound.
+
+          <br><dt><code>prune(</code><var>P</var><code>)</code><dd><a name="index-prune_002f1-_0028cumulatives_002f3-option_0029-2937"></a>If <code>all</code> (the default), the constraint will try to prune as many
+variables as possible.  If <code>next</code>, only variables that occur in the
+first nonground task term (wrt. the order given when the constraint
+was posted) can be pruned.
+
+          <br><dt><code>generalization(</code><var>Boolean</var><code>)</code><dd><a name="index-generalization_002f1-_0028cumulatives_002f3-option_0029-2938"></a>If <code>true</code>, extra reasoning based on assumptions on machine
+assignment will be done to infer more.
+
+          <br><dt><code>task_intervals(</code><var>Boolean</var><code>)</code><dd><a name="index-task_005fintervals_002f1-_0028cumulatives_002f3-option_0029-2939"></a>If <code>true</code>, extra global reasoning will be performed in an attempt
+to infer more. 
+</dl>
+     </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Scheduling-Constraints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Scheduling-Constraints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

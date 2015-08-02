@@ -1,0 +1,146 @@
+<html lang="en">
+<head>
+<title>ref-mod-sem - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmod.html#ref_002dmod" title="ref-mod">
+<link rel="prev" href="ref_002dmod_002dmet.html#ref_002dmod_002dmet" title="ref-mod-met">
+<link rel="next" href="ref_002dmod_002dsum.html#ref_002dmod_002dsum" title="ref-mod-sum">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-mod-sem"></a>
+<a name="ref_002dmod_002dsem"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dmod_002dsum.html#ref_002dmod_002dsum">ref-mod-sum</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dmod_002dmet.html#ref_002dmod_002dmet">ref-mod-met</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmod.html#ref_002dmod">ref-mod</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.11.17 Semantics of Module Name Expansion</h4>
+
+<p>Although module name expansion is performed when code is consulted, compiled or asserted,
+it is perhaps best explained in terms of an interpreter,
+especially the issue of how deeply clauses are expanded. 
+The semantics of <code>call/1</code>, taking <code>meta_predicate</code>
+declarations into account, is shown as if defined by the interpreter
+shown below.  The interpreter's case analysis is as follows:
+
+     <dl>
+<dt><var>control constructs</var><dd>(Including cuts and module prefixes). 
+The interpreter implements the semantics of the construct,
+expanding its argument. 
+<br><dt><var>callable terms with functor N/A</var><dd>First, we look for a <code>meta_predicate</code> declaration for <var>N/A</var>. 
+If one exists, the relevant arguments are expanded. 
+Otherwise, the goal is left unexpanded. 
+Then, if <var>N/A</var> is a built-in predicate, it is called. 
+Otherwise, a clause with head functor <var>N/A</var> is looked up
+using the imaginary predicate <code>:-/2</code>,
+unified against, and its body is interpreted. 
+<br><dt><var>non-callable terms</var><dd>Raise error exception. 
+</dl>
+
+   <p>Throughout the interpretation, we must keep track of the module context. 
+The interpreter is as follows, slightly simplified. 
+<code>--&gt;/2</code> is <em>not</em> a predicate:
+
+<pre class="example">     call(M:Body) :-
+             call(Body, M).
+     
+     call(Var, M) :- \+callable(Var), !,
+             must_be(Term, callable, call(M:Var), 1).
+     call(!, _) :- !,
+             % <em>cut relevant choicepoints.</em>
+     call((A, B), M) :- !,
+             call(A, M),
+             call(B, M).
+     call((A -&gt; B), M) :- !,
+         (   call(A, M) -&gt;
+             call(B, M)
+         ).
+     call((A -&gt; B ; C), M) :- !,
+         (   call(A, M) -&gt;
+             call(B, M)
+         ;   call(C, M)
+         ).
+     call((A ; B), M) :- !,
+         (   call(A, M)
+         ;   call(B, M)
+         ).
+     call(\+(A), M) :- !,
+         (   call(A, M) -&gt;
+             fail
+         ;   true
+         ).
+     call(_^A, M) :- !,
+             call(A, M).
+     call(do(Iter,Body), M) :- !,
+         (   Iter
+         do  call(Body, M)
+         ).
+     call(if(A,B,C), M) :- !,
+          if(call(A, M),
+             call(B, M),
+             call(C, M)).
+     call(once(A), M) :- !,
+         (   call(A, M) -&gt; true
+         ).
+     call(Goal, M) :-
+         (   predicate_property(M:Goal, meta_predicate(Meta)) -&gt;
+             functor(Goal, Name, Arity),
+             functor(AGoal, Name, Arity),
+             (   foreacharg(Spec,Meta),
+                 foreacharg(Arg,Goal),
+                 foreacharg(Ann,AGoal),
+                 param(M)
+             do  (   Spec==(:) -&gt; Ann = M:Arg
+                 ;   integer(Spec) -&gt; Ann = M:Arg
+                 ;   Ann = Arg
+                 )
+             ),
+             call_goal(AGoal, M)
+         ;   call_goal(Goal, M)
+         ).
+     
+     call_goal(asserta(X), _) :- !,
+             asserta(X).
+     call_goal(asserta(X,R), _) :- !,
+             asserta(X, R).
+     % <em>and so on for all built-in predicates</em>
+     call_goal(Goal, M) :-
+             (M:Goal :- Body),
+             call(Body, M).
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dsem.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dsem.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

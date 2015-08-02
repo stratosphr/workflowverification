@@ -1,0 +1,116 @@
+<html lang="en">
+<head>
+<title>mpg-top-hok - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dtop.html#mpg_002dtop" title="mpg-top">
+<link rel="prev" href="mpg_002dtop_002dgru.html#mpg_002dtop_002dgru" title="mpg-top-gru">
+<link rel="next" href="mpg_002dtop_002dlis.html#mpg_002dtop_002dlis" title="mpg-top-lis">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-top-hok"></a>
+<a name="mpg_002dtop_002dhok"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dtop_002dlis.html#mpg_002dtop_002dlis">mpg-top-lis</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dtop_002dgru.html#mpg_002dtop_002dgru">mpg-top-gru</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dtop.html#mpg_002dtop">mpg-top</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.2.12 Hook Predicates</h4>
+
+<p><a name="index-hook-predicates-4360"></a><a name="index-predicates_002c-hook-4361"></a>
+     <dl>
+<dt><code>user:breakpoint_expansion(</code><var>+Macro</var><code>, </code><var>-Body</var><code>) &nbsp;<!-- /@w --> </code><strong>hook,development</strong><dd>defines debugger condition macros
+
+     <br><dt><code>user:debugger_command_hook(</code><var>+DCommand</var><code>,</code><var>-Actions</var><code>) &nbsp;<!-- /@w --> </code><strong>hook,development</strong><dd>Allows the interactive debugger to be extended with user-defined
+commands.
+
+     <br><dt><code>user:error_exception(</code><var>=Exception</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd><var>Exception</var> is an exception that traps to the debugger if it is
+switched on.
+
+     <br><dt><code>user:file_search_path(</code><var>+F</var><code>,</code><var>-D</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>directory <var>D</var> is included in file search path <var>F</var>
+
+     <br><dt><code>foreign(</code><var>+F</var><code>,</code><var>-P</var><code>)</code><dt><code>foreign(</code><var>+F</var><code>,</code><var>-L</var><code>,</code><var>-P</var><code>)</code><dd>Describes the interface between Prolog and the foreign
+<var>Routine</var>
+
+     <br><dt><code>foreign_resource(</code><var>+R</var><code>,</code><var>-L</var><code>)</code><dd>resource <var>R</var> defines foreign functions in list <var>L</var>
+
+     <br><dt><code>user:generate_message_hook(</code><var>+M</var><code>,</code><var>?S0</var><code>,</code><var>?S</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>A way for the user to override the call to
+<code>'SU_messages':generate_message/3</code> in <code>print_message/2</code>.
+
+     <br><dt><code>goal_expansion(</code><var>+Term1</var><code>, </code><var>+Layout1</var><code>, </code><var>+Module</var><code>, </code><var>-Term2</var><code>, </code><var>-Layout2</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>Defines transformations on goals while clauses are being compiled or asserted,
+and during meta-calls.
+
+     <br><dt><code>user:library_directory(</code><var>-D</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd><var>D</var> is a library directory that will be searched
+
+     <br><dt><code>user:message_hook(</code><var>+S</var><code>,</code><var>+M</var><code>,</code><var>+L</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>Overrides the call to <code>print_message_lines/3</code>
+in <code>print_message/2</code>.
+
+     <br><dt><code>user:portray(</code><var>+T</var><code>)</code><dd>A way for the user to over-ride the default behavior
+of <code>print/1</code>.
+
+     <br><dt><code>user:portray_message(</code><var>+S</var><code>,</code><var>+M</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>Tells <code>print_message/2</code> what to do.
+
+     <br><dt><code>user:query_hook(</code><var>+QueryClass</var><code>, </code><var>+Query</var><code>, </code><var>+QueryLines</var><code>, </code><var>+Help</var><code>, </code><var>+HelpLines</var><code>, </code><var>-Answer</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>Called by <code>ask_query/4</code> before processing the query.  If this
+predicate succeeds, it is assumed that the query has been
+processed and nothing further is done.
+
+     <br><dt><code>user:query_class_hook(</code><var>+QueryClass</var><code>, </code><var>-Prompt</var><code>, </code><var>-InputMethod</var><code>, </code><var>-MapMethod</var><code>, </code><var>-FailureMode</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>Provides the user with a method of overriding the call to
+<code>'SU_messages':query_class/5</code> in the preparation phase of query
+processing.  This way the default query class characteristics can be
+changed.
+
+     <br><dt><code>user:query_input_hook(</code><var>+InputMethod</var><code>, </code><var>+Prompt</var><code>, </code><var>-RawInput</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>Provides the user with a method of overriding the call to
+<code>'SU_messages':query_input/3</code> in the input phase of query
+processing.  This way the implementation of the default input methods
+can be changed.
+
+     <br><dt><code>user:query_map_hook(</code><var>+MapMethod</var><code>, </code><var>+RawInput</var><code>, </code><var>-Result</var><code>, </code><var>-Answer</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>Provides the user with a method of overriding the call to
+<code>'SU_messages':query_map/4</code> in the mapping phase of query
+processing.  This way the implementation of the default map methods
+can be changed.
+
+     <br><dt><code>user:runtime_entry(</code><var>+M</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>This predicate is called upon start-up and
+exit of stand alone applications.
+
+     <br><dt><code>user:term_expansion(</code><var>+Term1</var><code>, </code><var>+Layout1</var><code>, </code><var>+Tokens1</var><code>, </code><var>-Term2</var><code>, </code><var>-Layout2</var><code>, </code><var>-Tokens2</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>Overrides or complements the standard transformations to be done by
+<code>expand_term/2</code>.
+
+     <br><dt><code>user:unknown_predicate_handler(</code><var>+G</var><code>,</code><var>+M</var><code>,</code><var>-N</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>hook to trap calls to unknown predicates
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dtop_002dhok.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dtop_002dhok.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+<title>cpg-ref-SP_atom_length - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSP_005fatom_005ffrom_005fstring.html#cpg_002dref_002dSP_005fatom_005ffrom_005fstring" title="cpg-ref-SP_atom_from_string">
+<link rel="next" href="cpg_002dref_002dSP_005fcalloc.html#cpg_002dref_002dSP_005fcalloc" title="cpg-ref-SP_calloc">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-SP_atom_length"></a>
+<a name="cpg_002dref_002dSP_005fatom_005flength"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002dSP_005fcalloc.html#cpg_002dref_002dSP_005fcalloc">cpg-ref-SP_calloc</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSP_005fatom_005ffrom_005fstring.html#cpg_002dref_002dSP_005fatom_005ffrom_005fstring">cpg-ref-SP_atom_from_string</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.2 <code>SP_atom_length()</code></h4>
+
+<p><a name="index-SP_005fatom_005flength_0028_0029-_0028C-function_0029-5101"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     
+     size_t
+     SP_atom_length(SP_atom atom);
+</pre>
+   <p>Obtains the length of the encoded string representing a Prolog atom.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>atom</var><dd><a name="index-SP_005fatom-_0028C-type_0029-5102"></a>The atom to inspect. 
+</dl>
+
+<h4 class="subheading">Return Value</h4>
+
+<p>The length if <code>atom</code> is valid, and
+0 otherwise.
+
+<h4 class="subheading">Description</h4>
+
+<p>Same as <code>strlen(SP_string_from_atom(a)</code>, but runs in <var>O(1)</var> time.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Creating-and-Manipulating-SP_005fterm_005frefs.html#Creating-and-Manipulating-SP_005fterm_005frefs">Creating and Manipulating SP_term_refs</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fatom_005flength.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fatom_005flength.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

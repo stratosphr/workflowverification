@@ -1,0 +1,104 @@
+<html lang="en">
+<head>
+<title>FDBG Customizing Output - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="FDBG-Advanced-Usage.html#FDBG-Advanced-Usage" title="FDBG Advanced Usage">
+<link rel="next" href="FDBG-Writing-Visualizers.html#FDBG-Writing-Visualizers" title="FDBG Writing Visualizers">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="FDBG-Customizing-Output"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="FDBG-Writing-Visualizers.html#FDBG-Writing-Visualizers">FDBG Writing Visualizers</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="FDBG-Advanced-Usage.html#FDBG-Advanced-Usage">FDBG Advanced Usage</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.14.4.1 Customizing Output</h5>
+
+<p>The printing of variable names is customized by defining the
+following hook predicate.
+
+     
+<a name="index-fdvar_005fportray_002f3-_0028fdbg_002c-hook_0029-3302"></a>
+<a name="index-fdvar_005fportray_002f3-_0028fdbg_002c-hook_0029-3303"></a>
+<dl>
+<dt><code>fdbg:fdvar_portray(</code><var>Name</var><code>, </code><var>Var</var><code>, </code><var>FDSet</var><code>)  &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>This hook predicate is called whenever an annotated constraint
+variable (see <a href="FDBG-Annotation.html#FDBG-Annotation">FDBG Annotation</a>) is printed.  <var>Name</var> is the
+assigned name of the variable <var>Var</var>, whose domain <em>will
+be</em> <var>FDSet</var> as soon as the narrowings of the current constraint take
+effect.  The <em>current</em> domain is not passed to the hook, but it
+can be easily determined with a call to <code>fd_set/2</code>.  (Although
+these two sets may be the same if the constraint didn't narrow it.)
+
+     <p>If <code>fdbg:fdvar_portray/3</code> is undefined or fails the default
+representation is printed, which is <var>Name</var> between angle brackets.
+</dl>
+
+   <p>The printing of legend lines is customized by defining the following
+hook predicate.
+
+     
+<a name="index-legend_005fportray_002f3-_0028fdbg_002c-hook_0029-3304"></a>
+<a name="index-legend_005fportray_002f3-_0028fdbg_002c-hook_0029-3305"></a>
+<dl>
+<dt><code>fdbg:legend_portray(</code><var>Name</var><code>, </code><var>Var</var><code>, </code><var>FDSet</var><code>)  &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>This hook is called for each line of the legend by the built-in
+legend printer.  The arguments are the same as in the case of
+<code>fdbg:fdvar_portray/3</code>.  Note that a prefix of four spaces and a
+closing newline character is always printed by FDBG.
+
+     <p>If <code>fdbg:fdvar_portray/3</code> is undefined or fails the default
+representation is printed, which is
+
+     <pre class="example">          <var>Name</var> = <var>RangeNow</var> [ -&gt; <var>RangeAfter</var> ]
+</pre>
+     <p>The arrow and <var>RangeAfter</var> are only printed if the constraint narrowed
+the domain of <var>Var</var>. 
+</dl>
+
+   <p>The following example will print a list of all possible values instead
+of the range for each variable in the legend:
+
+<pre class="example">     :- multifile fdbg:legend_portray/3.
+     fdbg:legend_portray(Name, Var, Set) :-
+             fd_set(Var, Set0),
+             fdset_to_list(Set0, L0),
+             fdset_to_list(Set, L),
+             (   L0 == L
+             -&gt;  format('~p = ~p', [Name, L])
+             ;   format('~p = ~p -&gt; ~p', [Name, L0, L])
+             ).
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Customizing-Output.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Customizing-Output.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,122 @@
+<html lang="en">
+<head>
+<title>mpg-ref-save_program - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dsave_005fpredicates.html#mpg_002dref_002dsave_005fpredicates" title="mpg-ref-save_predicates">
+<link rel="next" href="mpg_002dref_002dsee.html#mpg_002dref_002dsee" title="mpg-ref-see">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-save_program"></a>
+<a name="mpg_002dref_002dsave_005fprogram"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dsee.html#mpg_002dref_002dsee">mpg-ref-see</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dsave_005fpredicates.html#mpg_002dref_002dsave_005fpredicates">mpg-ref-save_predicates</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.198 <code>save_program/[1,2]</code></h4>
+
+<p><a name="index-save_005fprogram_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4901"></a><a name="index-save_005fprogram_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4902"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>save_program(</code><var>+File</var><code>)</code>
+
+   <p><code>save_program(</code><var>+File</var><code>, </code><var>+Goal</var><code>)</code>
+
+   <p>Saves the state of the current execution in object format to
+<var>File</var>. A goal, <var>Goal</var>, to be called upon
+execution/restoring of the saved state, may be specified.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>File</var><dd><dfn>file_spec</dfn>, must be ground
+
+     <p>A file specification, &lsquo;<samp><span class="samp">.sav</span></samp>&rsquo; extension optional.
+
+     <br><dt><var>:Goal</var><dd><dfn>callable</dfn>, must be nonvar
+
+     <p>A goal, defaults to <code>true</code>. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p><code>save_program/[1,2]</code> creates a binary representation of all
+predicates in all modules existing in the system.  However, it does
+not save the user's pre-linked code.  It also saves such states of the
+system as operator definitions, Prolog flags, debugging and advice
+state, initializations, and dependencies on foreign resources.
+
+   <p>The resulting file can be restored using <code>restore/1</code>.
+
+   <p>Any unbound variables in <var>Goal</var> with attributes or blocked goals
+attached to them will be replaced by plain, brand new variables. This
+is analogous to the way attributed variables are handled in terms that
+are written, copied, asserted, gathered as solutions to
+<code>findall/3</code> and friends, or raised as exceptions. To retain the
+attributes, you can use <code>copy_term/3</code> (see <a href="ref_002dlte_002dcpt.html#ref_002dlte_002dcpt">ref-lte-cpt</a>).
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>File</var> or <var>Goal</var> is not bound.
+
+     <br><dt><code>type_error</code><dd><var>File</var> is not a valid file specification, or <var>Goal</var> is not a callable.
+
+     <br><dt><code>permission_error</code><dd><var>File</var> is not writable. 
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     | ?- <kbd>save_program(state, format('Restored!\n',[])).</kbd>
+     % /home/matsc/sicstus4/Bips/state.sav created in 0 msec
+     yes
+     
+     | ?- <kbd>restore(state).</kbd>
+     % restoring /home/matsc/sicstus4/Bips/state.sav...
+     % /home/matsc/sicstus4/Bips/state.sav restored in 10 msec 16 bytes
+     Restored!
+     yes
+</pre>
+<h4 class="subheading">See Also</h4>
+
+<p><code>restore/1</code>, <a href="Saving.html#Saving">Saving</a>,
+<a href="ref_002dsls.html#ref_002dsls">ref-sls</a>, <a href="ref_002dsls_002dsst.html#ref_002dsls_002dsst">ref-sls-sst</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dsave_005fprogram.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dsave_005fprogram.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,114 @@
+<html lang="en">
+<head>
+<title>mpg-ref-do - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002ddisplay.html#mpg_002dref_002ddisplay" title="mpg-ref-display">
+<link rel="next" href="mpg_002dref_002ddynamic.html#mpg_002dref_002ddynamic" title="mpg-ref-dynamic">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-do"></a>
+<a name="mpg_002dref_002ddo"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002ddynamic.html#mpg_002dref_002ddynamic">mpg-ref-dynamic</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002ddisplay.html#mpg_002dref_002ddisplay">mpg-ref-display</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.67 <code>do/2</code></h4>
+
+<p><a name="index-do_002f2-_0028built_002din_002c-ref-page_0029-4567"></a><a name="index-do_002f2-_0028built_002din_002c-ref-page_0029-4568"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>(</code><var>+Iterator</var><code> do </code><var>+Body</var><code>)</code>
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>+Iterator</var><dd><dfn>iterator</dfn>, must be nonvar
+<br><dt><var>:Body</var><dd><dfn>callable</dfn>, must be nonvar
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>This control structure reduces the need to write auxiliary predicates performing simple
+iterations.  A <dfn>iterator</dfn> is a term of one of the following forms:
+
+     <dl>
+<dt><code>fromto(</code><var>First</var><code>,</code><var>In</var><code>,</code><var>Out</var><code>,</code><var>Last</var><code>)</code><dd><a name="index-fromto_002f4-_0028iterator_0029-4569"></a>Iterate <var>Body</var> starting with <var>In</var>=<var>First</var> until
+<var>Out</var>=<var>Last</var>. <var>In</var> and <var>Out</var> are local variables in
+<var>Body</var>. 
+<br><dt><code>foreach(</code><var>X</var><code>,</code><var>List</var><code>)</code><dd><a name="index-foreach_002f2-_0028iterator_0029-4570"></a>Iterate <var>Body</var> with <var>X</var> ranging over all elements of
+<var>List</var>. <var>X</var> is a local variable in <var>Body</var>. Can also be
+used for constructing a list. 
+<br><dt><code>foreacharg(</code><var>X</var><code>,</code><var>Struct</var><code>)</code><dt><code>foreacharg(</code><var>X</var><code>,</code><var>Struct</var><code>,</code><var>I</var><code>)</code><dd><a name="index-foreacharg_002f2-_0028iterator_0029-4571"></a><a name="index-foreacharg_002f3-_0028iterator_0029-4572"></a>Iterate <var>Body</var> with <var>X</var> ranging over all arguments of
+<var>Struct</var> and <var>I</var> ranging over the argument number, 1-based. 
+<var>X</var> and <var>I</var> are local variable in <var>Body</var>. Cannot be
+used for constructing a term. 
+<br><dt><code>count(</code><var>I</var><code>,</code><var>Min</var><code>,</code><var>Max</var><code>)</code><dd><a name="index-count_002f3-_0028iterator_0029-4573"></a>Iterate <var>Body</var> with <var>I</var> ranging over integers from <var>Min</var>
+up to <var>Max</var>. <var>I</var> is a local variable in <var>Body</var>. Can be
+used for controlling iteration as well as counting, i.e. <var>Max</var> can
+be a variable. 
+<br><dt><code>for(</code><var>I</var><code>,</code><var>Min</var><code>,</code><var>Max</var><code>)</code><dd><a name="index-for_002f3-_0028iterator_0029-4574"></a>Iterate <var>Body</var> with <var>I</var> ranging over integers from <var>Min</var>
+to <var>Max</var>. <var>I</var> is a local variable in <var>Body</var>. <var>Min</var> and
+<var>Max</var> can be arithmetic expressions. Can be used only for
+controlling iteration, i.e. <var>Max</var> cannot be uninstantiated. 
+<br><dt><code>param(</code><var>X</var><code>)</code><dd><a name="index-param_002f1-_0028iterator_0029-4575"></a>For declaring variables in <var>Body</var> global, ie shared with the context. 
+<var>X</var> can be a single variable, or a list of them. 
+<br><dt><dfn>iterator</dfn><code>,</code><dfn>iterator</dfn><dd><a name="index-g_t_002c_002f2-_0028iterator_0029-4576"></a>The iterators are iterated synchronously; that is, they all take
+their first &ldquo;representation&rdquo; for the first execution of <var>Body</var>, their second
+&ldquo;representation&rdquo; for the second execution of <var>Body</var>, etc. The order in which
+they are written does not matter, and the set of local variables in
+<var>Body</var> is the union of those of the iterators. When multiple
+iteration specifiers are given in this way, typically not all of them
+will impose a termination condition on the loop (e.g. <code>foreach</code> with an
+uninstantiated list and count with an uninstantiated maximum do not
+impose a termination condition), but at least one of them should do
+so. If several specifiers impose termination conditions, then these
+conditions must coincide, i.e. specify the same number of iterations. 
+</dl>
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Call errors (see <a href="ref_002dsem_002dexc.html#ref_002dsem_002dexc">ref-sem-exc</a>).
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dsem_002dctr_002ddol.html#ref_002dsem_002dctr_002ddol">ref-sem-ctr-dol</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002ddo.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002ddo.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

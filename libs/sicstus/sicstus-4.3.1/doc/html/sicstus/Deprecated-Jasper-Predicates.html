@@ -1,0 +1,83 @@
+<html lang="en">
+<head>
+<title>Deprecated Jasper Predicates - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Deprecated-Jasper-API.html#Deprecated-Jasper-API" title="Deprecated Jasper API">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Deprecated-Jasper-Predicates"></a>
+<p>
+Up:&nbsp;<a rel="up" accesskey="u" href="Deprecated-Jasper-API.html#Deprecated-Jasper-API">Deprecated Jasper API</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.18.8.8 Deprecated Jasper Predicates</h5>
+
+     <dl>
+<dt><code>jasper_new_object(</code><var>+JVM</var><code>,</code><var>+Class</var><code>,</code><var>+TypeSig</var><code>,</code><var>+Args</var><code>,</code><var>-Object</var><code>) &nbsp;<!-- /@w --> </code><strong>obsolescent</strong><dd><a name="index-jasper_005fnew_005fobject_002f5-_0028jasper_0029-3426"></a><a name="index-jasper_005fnew_005fobject_002f5-_0028jasper_0029-3427"></a>
+Creates a new Java object.
+          <dl>
+<dt><var>JVM</var><dd>A reference to the Java VM, as obtained by
+<code>jasper_initialize/[1,2]</code>. 
+<br><dt><var>Class</var><dd>An an atom containing the <em>fully qualified classname</em> (i.e. 
+package name separated with '/', followed by the class name), for
+example <code>java/lang/String</code>, <code>se/sics/jasper/SICStus</code>. 
+<br><dt><var>TypeSig</var><dd>The <em>type signature</em> of the class constructor. A type signature is
+a string that uniquely defines a method within a class.  For a
+definition of type signatures, see the
+<a href="http://java.sun.com/products/jdk/1.2/docs/guide/jni/index.html">JNI Documentation</a>. 
+<br><dt><var>Args</var><dd>A list of argument specifiers. See <a href="Deprecated-Argument-Conversions.html#Deprecated-Argument-Conversions">Deprecated Argument Conversions</a>. 
+<br><dt><var>Object</var><dd>A term on the form <code>'$java_object'(X)</code>, where X is a Java object
+reference. This is the Prolog handle to the Java object. See <a href="Global-vs_002e-Local-References.html#Global-vs_002e-Local-References">Global vs. Local References</a>. 
+</dl>
+     <!-- [PD] 4.0.3beta1 Removed -->
+<!-- @item jasper_call_static(@var{+JVM},@var{+Class},@var{+MethodName},@var{+TypeSig},@var{+Args},@var{-RetVal}) @value{sphfill} @strong{obsolescent} -->
+<!-- @PLXindex {jasper_call_static/6 (jasper)} -->
+<!-- Calls a static Java method. For an explanation of the @var{JVM}, -->
+<!-- @var{Class}, @var{TypeSig}, and @var{Args}, see -->
+<!-- @code{jasper_new_object/5}. @var{MethodName} is the name of the static -->
+<!-- method. @var{RetVal} is the return value of the method. -->
+<!-- @item jasper_call_instance(@var{+JVM},@var{+Object},@var{+MethodName},@var{+TypeSig},@var{+Args},@var{-RetVal}) @value{sphfill} @strong{obsolescent} -->
+<!-- @PLXindex {jasper_call_instance/6 (jasper)} -->
+<!-- Calls a Java method on an object. For an explanation of the @var{JVM}, -->
+<!-- @var{Class}, @var{TypeSig}, and @var{Args}, see -->
+<!-- @code{jasper_new_object/5}. @var{Object} is an object reference as -->
+<!-- obtained from @code{jasper_new_object/5}. @var{RetVal} is the return -->
+<!-- value of the method. -->
+
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Deprecated-Jasper-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Deprecated-Jasper-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

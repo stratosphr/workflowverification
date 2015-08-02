@@ -1,0 +1,112 @@
+<html lang="en">
+<head>
+<title>mpg-ref-query_abbreviation - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dput_005fcode.html#mpg_002dref_002dput_005fcode" title="mpg-ref-put_code">
+<link rel="next" href="mpg_002dref_002dquery_005fclass.html#mpg_002dref_002dquery_005fclass" title="mpg-ref-query_class">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-query_abbreviation"></a>
+<a name="mpg_002dref_002dquery_005fabbreviation"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dquery_005fclass.html#mpg_002dref_002dquery_005fclass">mpg-ref-query_class</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dput_005fcode.html#mpg_002dref_002dput_005fcode">mpg-ref-put_code</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.174 <code>query_abbreviation/3</code> &nbsp;<!-- /@w --> <dfn>[extendible]</dfn></h4>
+
+<p><a name="index-query_005fabbreviation_002f3-_0028built_002din_002c-ref-page_0029-4836"></a><a name="index-query_005fabbreviation_002f3-_0028built_002din_002c-ref-page_0029-4837"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- multifile 'SU_messages':query_abbreviation/3.</code>
+
+   <p><code>'SU_messages':query_abbreviation(</code><var>+QueryClass</var><code>, </code><var>-Prompt</var><code>, </code><var>-Pairs</var><code>)</code>
+
+   <p>A way to specify one letter abbreviations for responses to queries
+from the Prolog System.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>QueryClass</var><dd><dfn>atom</dfn>
+
+     <p>The query class being defined.
+
+     <br><dt><var>Prompt</var><dd><dfn>atom</dfn>
+
+     <p>The prompt to be used, typically indicating appropriate abbreviations.
+
+     <br><dt><var>Pairs</var><dd><dfn>list of pair</dfn>
+
+     <p>A list of word-abbreviation pairs, defining the characters accepted
+and the corresponding abstract answers. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>This predicate defines a query class with the given prompt, the <code>line</code> input
+method, the <code>char(</code><var>Pairs</var><code>)</code> map method and <code>help_query</code>
+failure mode.  The predicate is actually implemented by the first
+clause of <code>'SU_messages':query_class/5</code>:
+
+<pre class="example">     query_class(QueryClass, Prompt, line, char(Pairs), help_query) :-
+             query_abbreviation(QueryClass, Prompt, Pairs), !.
+</pre>
+   <p>Prolog only asks for keyboard input in a few different ways.  These
+are enumerated in the clauses for
+<code>'SU_messages':query_abbreviation/3</code>.  These clauses specify
+valid abbreviations for a given key word.  For example,
+
+<pre class="example">     query_abbreviation(yes_or_no, ' (y or n) ', [yes-[-1,0'y,0'Y], no-"nN"]) :- !.
+</pre>
+   <p>a French translator might decide that the letters &lsquo;<samp><span class="samp">O</span></samp>&rsquo; and &lsquo;<samp><span class="samp">o</span></samp>&rsquo; are reasonable
+abreviations for &lsquo;<samp><span class="samp">oui</span></samp>&rsquo; (yes), and therefore write
+
+<pre class="example">     query_abbreviation(yes_or_no, ' (y or n) ', [yes-[-1,0'o,0'O], no-"nN"]) :- !.
+</pre>
+   <h4 class="subheading">Exceptions</h4>
+
+<p><code>ask_query/4</code> checks the output arguments.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Query-Processing.html#Query-Processing">Query Processing</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dquery_005fabbreviation.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dquery_005fabbreviation.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

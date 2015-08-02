@@ -1,0 +1,111 @@
+<html lang="en">
+<head>
+<title>cpg-ref-SP_foreign_stash - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSP_005ffopen.html#cpg_002dref_002dSP_005ffopen" title="cpg-ref-SP_fopen">
+<link rel="next" href="cpg_002dref_002dSP_005ffprintf.html#cpg_002dref_002dSP_005ffprintf" title="cpg-ref-SP_fprintf">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-SP_foreign_stash"></a>
+<a name="cpg_002dref_002dSP_005fforeign_005fstash"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002dSP_005ffprintf.html#cpg_002dref_002dSP_005ffprintf">cpg-ref-SP_fprintf</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSP_005ffopen.html#cpg_002dref_002dSP_005ffopen">cpg-ref-SP_fopen</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.21 <code>SP_foreign_stash()</code> &nbsp;<!-- /@w --> <dfn>[macro]</dfn></h4>
+
+<p><a name="index-SP_005fforeign_005fstash_0028_0029-_0028C-macro_0029-5125"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     
+     void *
+     SP_foreign_stash();
+</pre>
+   <p>Obtains a storage location that is unique to the calling foreign resource.
+
+<h4 class="subheading">Return Value</h4>
+
+<p>The location, initially set to <code>NULL</code>.
+
+<h4 class="subheading">Description</h4>
+
+<p>A dynamic foreign resource that is used by multiple SICStus
+runtimes in the same process may need to maintain a global state that
+is kept separate for each SICStus runtime. Each SICStus runtime
+maintains a location (containing a <code>void*</code>) for each foreign
+resource. A foreign resource can then access this location to
+store any data that is specific to the calling SICStus runtime.
+
+   <p>You can use <code>SP_foreign_stash()</code> to get access to a location,
+where the foreign resource can store a <code>void*</code>. Typically this
+would be a pointer to a C struct that holds all information that need
+to be stored in global variables. This struct can be allocated and
+initialized by the foreign resource init function, it should be
+deallocated by the foreign resource deinit function.
+
+   <p><code>SP_foreign_stash()</code> is only available for use in dynamic
+foreign resources.
+
+<h4 class="subheading">Examples</h4>
+
+<p>The representation returned by <code>SP_foreign_stash()</code> is only valid
+until the next SICStus API call. The correct way to initialize the
+location pointed at by <code>SP_foreign_stash()</code> is therefore:
+<pre class="example">     struct my_state {...};
+     
+     init_my_foreign_resource(...)
+     {
+        struct my_state *p = SP_malloc(sizeof(struct my_state));
+        (*SP_foreign_stash()) = (void*)p;
+     }
+</pre>
+   <p class="noindent">The following example is incorrect; <code>SP_malloc()</code> may be called
+between the time <code>SP_foreign_stash()</code> is called and the time its
+return representation is used:
+<pre class="example">     // WRONG
+     (*SP_foreign_stash()) = SP_malloc(sizeof(struct my_state));
+</pre>
+   <h4 class="subheading">See Also</h4>
+
+<p><a href="OS-Threads.html#OS-Threads">OS Threads</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fforeign_005fstash.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fforeign_005fstash.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

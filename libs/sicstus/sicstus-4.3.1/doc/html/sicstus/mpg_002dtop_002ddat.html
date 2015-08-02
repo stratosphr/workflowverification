@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+<title>mpg-top-dat - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dtop.html#mpg_002dtop" title="mpg-top">
+<link rel="prev" href="mpg_002dtop_002dcon.html#mpg_002dtop_002dcon" title="mpg-top-con">
+<link rel="next" href="mpg_002dtop_002ddeb.html#mpg_002dtop_002ddeb" title="mpg-top-deb">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-top-dat"></a>
+<a name="mpg_002dtop_002ddat"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dtop_002ddeb.html#mpg_002dtop_002ddeb">mpg-top-deb</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dtop_002dcon.html#mpg_002dtop_002dcon">mpg-top-con</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dtop.html#mpg_002dtop">mpg-top</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.2.5 Database</h4>
+
+<p><a name="index-database_002c-predicates-for-4346"></a><a name="index-predicates-for-database-4347"></a>
+     <dl>
+<dt><code>abolish(</code><var>:F</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>abolish the predicate(s) specified by <var>F</var>
+
+     <br><dt><code>abolish(</code><var>:F</var><code>,</code><var>+O</var><code>)</code><dd>abolish the predicate(s) specified by <var>F</var> with options <var>O</var>
+
+     <br><dt><code>assert(</code><var>:C</var><code>)</code><dt><code>assert(</code><var>:C</var><code>,</code><var>-R</var><code>)</code><dd>clause <var>C</var> is asserted; reference <var>R</var> is returned
+
+     <br><dt><code>asserta(</code><var>:C</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>asserta(</code><var>:C</var><code>,</code><var>-R</var><code>)</code><dd>clause <var>C</var> is asserted before existing clauses; reference
+<var>R</var> is returned
+
+     <br><dt><code>assertz(</code><var>:C</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>assertz(</code><var>:C</var><code>,</code><var>-R</var><code>)</code><dd>clause <var>C</var> is asserted after existing clauses; reference <var>R</var>
+is returned
+
+     <br><dt><code>bb_delete(</code><var>:Key</var><code>,</code><var>-Term</var><code>)</code><dd>Delete from the blackboard <var>Term</var> stored under <var>Key</var>.
+
+     <br><dt><code>bb_get(</code><var>:Key</var><code>,</code><var>-Term</var><code>)</code><dd>Get from the blackboard <var>Term</var> stored under <var>Key</var>.
+
+     <br><dt><code>bb_put(</code><var>:Key</var><code>,</code><var>+Term</var><code>)</code><dd>Store <var>Term</var> under <var>Key</var> on the blackboard.
+
+     <br><dt><code>bb_update(</code><var>:Key</var><code>, </code><var>-OldTerm</var><code>, </code><var>+NewTerm</var><code>)</code><dd>Replace <var>OldTerm</var> by <var>NewTerm</var> under <var>Key</var>
+on the blackboard.
+
+     <br><dt><code>clause(</code><var>:P</var><code>,</code><var>?Q</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>clause(</code><var>:P</var><code>,</code><var>?Q</var><code>,</code><var>?R</var><code>)</code><dd>there is a clause for a dynamic predicate with head <var>P</var>,
+body <var>Q</var>, and reference <var>R</var>
+
+     <br><dt><code>current_key(</code><var>?N</var><code>, </code><var>?K</var><code>)</code><dd><var>N</var> is the name and <var>K</var> is the key of a recorded term
+
+     <br><dt><code>dynamic </code><var>:P</var><code> &nbsp;<!-- /@w --> </code><strong>ISO,declaration</strong><dd>predicates specified by <var>P</var> are dynamic
+
+     <br><dt><code>erase(</code><var>+R</var><code>)</code><dd>erase the clause or record with reference <var>R</var>
+
+     <br><dt><code>instance(</code><var>+R</var><code>,</code><var>-T</var><code>)</code><dd><var>T</var> is an instance of the clause or term referenced by <var>R</var>
+
+     <br><dt><code>recorda(</code><var>+K</var><code>,</code><var>+T</var><code>,</code><var>-R</var><code>)</code><dd>make term <var>T</var> the first record under key <var>K</var>; reference <var>R</var>
+is returned
+
+     <br><dt><code>recorded(</code><var>?K</var><code>,</code><var>?T</var><code>,</code><var>?R</var><code>)</code><dd>term <var>T</var> is recorded under key <var>K</var> with reference <var>R</var>
+
+     <br><dt><code>recordz(</code><var>+K</var><code>,</code><var>+T</var><code>,</code><var>-R</var><code>)</code><dd>make term <var>T</var> the last record under key <var>K</var>; reference <var>R</var> is
+returned
+
+     <br><dt><code>retract(</code><var>:C</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>erase the first dynamic clause that matches <var>C</var>
+
+     <br><dt><code>retractall(</code><var>:H</var><code>)</code><dd>erase every clause whose head matches <var>H</var>
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dtop_002ddat.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dtop_002ddat.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

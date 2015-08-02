@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+<title>ref-iou-sfh-cst - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" title="ref-iou-sfh">
+<link rel="prev" href="ref_002diou_002dsfh_002dbos.html#ref_002diou_002dsfh_002dbos" title="ref-iou-sfh-bos">
+<link rel="next" href="ref_002diou_002dsfh_002dflu.html#ref_002diou_002dsfh_002dflu" title="ref-iou-sfh-flu">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-iou-sfh-cst"></a>
+<a name="ref_002diou_002dsfh_002dcst"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002diou_002dsfh_002dflu.html#ref_002diou_002dsfh_002dflu">ref-iou-sfh-flu</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002diou_002dsfh_002dbos.html#ref_002diou_002dsfh_002dbos">ref-iou-sfh-bos</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002diou_002dsfh.html#ref_002diou_002dsfh">ref-iou-sfh</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.6.7.9 Closing a Stream</h5>
+
+<p><a name="index-close_002f1-_0028built_002din_0029-1013"></a><a name="index-close_002f1-_0028built_002din_0029-1014"></a>
+
+   <p><a name="index-closing-a-stream-1015"></a><a name="index-stream_002c-closing-1016"></a><a name="index-closing-a-file-1017"></a><a name="index-file_002c-closing-1018"></a>
+
+     <ul>
+<li><code>close(</code><var>X</var><code>)</code> closes the stream corresponding to <var>X</var>,
+where <var>X</var> should be a stream object created by <code>open/[3,4]</code>,
+or a file specification passed to <code>see/1</code> or <code>tell/1</code>. 
+In the example:
+
+     <pre class="example">          see(foo),
+          ...
+          close(foo)
+</pre>
+     <p class="noindent"><samp><span class="file">foo</span></samp> will be closed.  However, in the example:
+
+     <pre class="example">          open(foo, read, S),
+          ...
+          close(foo)
+</pre>
+     <p class="noindent">an exception will be raised and <samp><span class="file">foo</span></samp> will not be closed. 
+See <a href="mpg_002dref_002dclose.html#mpg_002dref_002dclose">mpg-ref-close</a>.
+
+     <li><code>told/0</code> closes the current output stream.  The current output stream is
+then set to be <code>user_output</code>. 
+<a name="index-told_002f0-_0028built_002din_0029-1019"></a><a name="index-told_002f0-_0028built_002din_0029-1020"></a>
+
+     <li><code>seen/0</code> closes the current input stream.  The current input stream is
+then set to be <code>user_input</code>. 
+<a name="index-seen_002f0-_0028built_002din_0029-1021"></a><a name="index-seen_002f0-_0028built_002din_0029-1022"></a>
+
+   </ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dsfh_002dcst.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dsfh_002dcst.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

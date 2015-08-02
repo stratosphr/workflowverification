@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+<title>Examples of Debugging Runtime Systems - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems" title="Debugging Runtime Systems">
+<link rel="prev" href="Customizing-the-Debugged-Runtime-System.html#Customizing-the-Debugged-Runtime-System" title="Customizing the Debugged Runtime System">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Examples-of-Debugging-Runtime-Systems"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Customizing-the-Debugged-Runtime-System.html#Customizing-the-Debugged-Runtime-System">Customizing the Debugged Runtime System</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems">Debugging Runtime Systems</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.9.3 Examples of Debugging Runtime Systems</h4>
+
+<p>The following examples show how to start Prolog debugging when SICStus
+is run from within Java via Jasper. The examples assume that the SICStus
+files are part of a development system installation.
+
+   <p>The first example initializes the SICStus system property
+<samp><span class="env">SP_USE_DEVSYS</span></samp> by setting the environment variable with the same
+name. This method of passing SICStus system properties also works well
+when SICStus is embedded in some other, non-Java, program.
+
+<pre class="example">     $ <kbd>SP=/usr/local/sicstus4.3.1</kbd>
+     $ <kbd>SP_USE_DEVSYS=yes</kbd>
+     $ <kbd>export SP_USE_DEVSYS</kbd>
+     $ <kbd>java -jar \</kbd>
+            <kbd>"$SP/lib/sicstus-4.3.1/bin/jasper.jar"</kbd>
+     Trying to load SICStus.
+     % The debugger will first creep -- showing everything (trace)
+             1      1 Call: write('If you see this message, you have successfully') ? &lt;RET&gt;
+     If you see this message, you have successfully
+             1      1 Exit: write('If you see this message, you have successfully') ? <kbd>n</kbd>
+     
+     initialized the SICStus Prolog engine.
+     $ <kbd>unset SP_USE_DEVSYS</kbd>
+</pre>
+   <p>The second example initializes the SICStus system property
+<samp><span class="env">SP_USE_DEVSYS</span></samp> by setting the Java system property
+<samp><span class="env">se.sics.sicstus.property.SP_USE_DEVSYS</span></samp>. This method of passing
+SICStus system properties is specific to Jasper.
+
+<pre class="example">     $ <kbd>SP='/usr/local/sicstus4.3.1<!-- /@w -->'</kbd>
+     $ <kbd>java -Dse.sics.sicstus.property.SP_USE_DEVSYS=yes \</kbd>
+            <kbd>-jar "$SP/lib/sicstus-4.3.1/bin/jasper.jar"</kbd>
+     Trying to load SICStus.
+     % The debugger will first creep -- showing everything (trace)
+             1      1 Call: write('If you see this message, you have successfully') ? <kbd>n</kbd>
+     If you see this message, you have successfully
+     initialized the SICStus Prolog engine.
+     $
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Examples-of-Debugging-Runtime-Systems.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Examples-of-Debugging-Runtime-Systems.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

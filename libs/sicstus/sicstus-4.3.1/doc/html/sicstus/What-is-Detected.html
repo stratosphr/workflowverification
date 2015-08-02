@@ -1,0 +1,142 @@
+<html lang="en">
+<head>
+<title>What is Detected - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Determinacy-Checker.html#The-Determinacy-Checker" title="The Determinacy Checker">
+<link rel="prev" href="Det-Options.html#Det-Options" title="Det Options">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="What-is-Detected"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Det-Options.html#Det-Options">Det Options</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Determinacy-Checker.html#The-Determinacy-Checker">The Determinacy Checker</a>
+<hr>
+</div>
+
+<h4 class="subsection">9.7.6 What is Detected</h4>
+
+<p>As mentioned earlier, it is not in general possible to find exactly
+which places in a program will lead to nondeterminacy.  The
+determinacy checker gives predicates the benefit of the doubt:
+when it's possible that a predicate will be determinate, it
+will not be reported.  The checker will only report places in your
+program that will be nondeterminate regardless of which
+arguments are bound.  Despite this, the checker catches most
+unwanted nondeterminacy in practice.
+
+   <p>The determinacy checker looks for the following sources of
+nondeterminacy:
+
+     <ul>
+<li>Multiple clauses that can't be distinguished by the principal
+functor of the first arguments, and are not made
+determinate with an explicit cut, <code>fail/0</code>,
+<code>false/0</code>, or <code>raise_exception/1</code>.  First argument
+indexing is not considered for multifile predicates,
+because another file may have a clause for this predicate
+with the same principal functor of its first argument.
+
+     <li>A clause with a disjunction not forced to be
+determinate by a cut, <code>fail/0</code>, <code>false/0</code>, or
+<code>raise_exception/1</code> in each arm of the disjunction but the
+last, or where the whole disjunction is followed by a cut,
+<code>fail/0</code>, <code>false/0</code>, or <code>raise_exception/1</code>.
+
+     <li>A clause that calls something known to be nondeterminate,
+other than when it is followed by a cut, <code>fail/0</code>,
+<code>false/0</code>, or <code>raise_exception/1</code>, or where it appears in the
+condition of an if-then-else construct.  Known nondeterminate
+predicates include hooks and those declared
+nondeterminate or dynamic (since they can be modified,
+dynamic predicates are assumed to be nondeterminate),
+plus the following built-in predicates:
+
+          <ul>
+<li><code>absolute_file_name/3</code>, when the options list contains
+<code>solutions(all)</code>.
+
+          <li><code>atom_concat/3</code>, when the first two arguments are
+variables not appearing earlier in the clause (including the
+clause head).
+
+          <li><code>bagof/3</code>, when the second argument contains any
+variables not appearing earlier in the clause (including the
+clause head).
+
+          <li><code>clause/[2,3]</code>.
+
+          <li><code>current_op/3</code>, when any argument contains any
+variables not appearing earlier in the clause (including the
+clause head).
+
+          <li><code>current_key/2</code>, when the second argument contains any
+variables not appearing earlier in the clause (including the
+clause head).
+
+          <li><code>current_predicate/2</code>, when the second argument contains any
+variables not appearing earlier in the clause (including the
+clause head).
+
+          <li><code>length/2</code>, when both arguments are variables not
+appearing earlier in the clause (including the clause
+head).
+
+          <li><code>predicate_property/2</code>, when either argument contains any
+variables not appearing earlier in the clause (including the
+clause head).
+
+          <li><code>recorded/3</code>.
+
+          <li><code>repeat/0</code>.
+
+          <li><code>retract/1</code>.
+
+          <li><code>setof/3</code>, when the second argument contains any
+variables not appearing earlier in the clause (including the
+clause head).
+
+          <li><code>source_file/[1,2]</code> when the last argument contains any
+variables not appearing earlier in the clause (including the
+clause head).
+
+          <li><code>sub_atom/5</code>, when at least two of the second, fourth and fifth
+arguments are variables not appearing earlier in the
+clause (including the clause head).
+
+     </ul>
+     </ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/What-is-Detected.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/What-is-Detected.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

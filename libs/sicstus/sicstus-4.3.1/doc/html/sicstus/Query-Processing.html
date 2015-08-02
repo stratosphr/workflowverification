@@ -1,0 +1,80 @@
+<html lang="en">
+<head>
+<title>Query Processing - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmsg.html#ref_002dmsg" title="ref-msg">
+<link rel="prev" href="Message-Handling-Predicates.html#Message-Handling-Predicates" title="Message Handling Predicates">
+<link rel="next" href="Query-Handling-Predicates.html#Query-Handling-Predicates" title="Query Handling Predicates">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Query-Processing"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Query-Handling-Predicates.html#Query-Handling-Predicates">Query Handling Predicates</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Message-Handling-Predicates.html#Message-Handling-Predicates">Message Handling Predicates</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmsg.html#ref_002dmsg">ref-msg</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.16.3 Query Processing</h4>
+
+<p>All user input in the Prolog system is handled by a single
+predicate:
+<pre class="example">     <code>ask_query(</code><var>QueryClass</var><code>, </code><var>Query</var><code>, </code><var>Help</var><code>, </code><var>Answer</var><code>)</code>
+</pre>
+   <p><var>QueryClass</var>, described below, specifies the form of the query
+interaction.  <var>Query</var> is an abstract message term specifying
+the query text, <var>Help</var> is an abstract message term used as a
+help message in certain cases, and <var>Answer</var> is the (abstract) result
+of the query.
+
+   <p><code>ask_query/4</code> is a built-in predicate, so that users can
+invoke it to have their own queries processed in the same way as the
+system queries.
+
+   <p>The processing of queries is highly customizable.  For example, this
+allows changing the language of the input expected from the user, or to
+make queries appear in dialog windows rather than on the terminal.
+
+<ul class="menu">
+<li><a accesskey="1" href="Query-Classes.html#Query-Classes">Query Classes</a>:  Query Classes
+<li><a accesskey="2" href="Query-Phases.html#Query-Phases">Query Phases</a>:  Phases of Query Processing
+<li><a accesskey="3" href="Query-Hooks.html#Query-Hooks">Query Hooks</a>:  Hooks in Query Processing
+<li><a accesskey="4" href="Default-Input-Methods.html#Default-Input-Methods">Default Input Methods</a>:  Default Input Methods
+<li><a accesskey="5" href="Default-Map-Methods.html#Default-Map-Methods">Default Map Methods</a>:  Default Map Methods
+<li><a accesskey="6" href="Default-Query-Classes.html#Default-Query-Classes">Default Query Classes</a>:  Default Query Classes
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Query-Processing.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Query-Processing.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

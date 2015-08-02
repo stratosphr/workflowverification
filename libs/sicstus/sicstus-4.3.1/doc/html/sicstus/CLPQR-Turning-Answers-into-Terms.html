@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+<title>CLPQR Turning Answers into Terms - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="CLPQR-Projection.html#CLPQR-Projection" title="CLPQR Projection">
+<link rel="prev" href="CLPQR-Variable-Ordering.html#CLPQR-Variable-Ordering" title="CLPQR Variable Ordering">
+<link rel="next" href="CLPQR-Projecting-Inequalities.html#CLPQR-Projecting-Inequalities" title="CLPQR Projecting Inequalities">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CLPQR-Turning-Answers-into-Terms"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CLPQR-Projecting-Inequalities.html#CLPQR-Projecting-Inequalities">CLPQR Projecting Inequalities</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="CLPQR-Variable-Ordering.html#CLPQR-Variable-Ordering">CLPQR Variable Ordering</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="CLPQR-Projection.html#CLPQR-Projection">CLPQR Projection</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.11.5.2 Turning Answers into Terms</h5>
+
+<p>In meta-programming applications one needs to get a grip on the results
+computed by the clp(Q,R) solver. You can use the predicate
+<code>dump/3</code> for that purpose:
+<pre class="example">     clp(r) ?- <kbd>{2*A+B+C=10,C-D=E,A&lt;10}, dump([A,B,C,D,E],[a,b,c,d,e],Constraints).</kbd>
+     
+     Constraints = [e&lt;10.0,a=10.0-c-d-2.0*e,b=c+d],
+     {C=10.0-2.0*A-B},
+     {E=10.0-2.0*A-B-D},
+     {A&lt;10.0}
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-Turning-Answers-into-Terms.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-Turning-Answers-into-Terms.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

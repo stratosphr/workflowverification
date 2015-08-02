@@ -1,0 +1,33 @@
+%-----------------------------------------------------------------------------%
+% Require adjacent rows and adjacent columns in the array 'x' to be
+% lexicographically ordered.  Adjacent rows and adjacent columns cannot be
+% equal.
+%-----------------------------------------------------------------------------%
+
+include "sicstus.mzn";
+
+predicate strict_lex2(array[int, int] of var int: x) =
+    let {
+            set of int: row_indexes = index_set_1of2(x),
+            set of int: column_indexes = index_set_2of2(x),
+	    int : n_rows = card(row_indexes),
+	    int : n_columns = card(column_indexes),
+            int : nn = n_rows * n_columns,
+            array [1..nn] of var int : xx = [x[i,j] | i in row_indexes, 
+                                                      j in column_indexes]
+        }
+	in
+	    lex2_int_sicstus(xx, n_rows, n_columns, -2);
+
+predicate strict_lex2(array[int, int] of var bool: x) =
+    let {
+            set of int: row_indexes = index_set_1of2(x),
+            set of int: column_indexes = index_set_2of2(x),
+	    int : n_rows = card(row_indexes),
+	    int : n_columns = card(column_indexes),
+            int : nn = n_rows * n_columns,
+            array [1..nn] of var bool : xx = [x[i,j] | i in row_indexes, 
+                                                       j in column_indexes]
+        }
+	in
+	    lex2_bool_sicstus(xx, n_rows, n_columns, -2);

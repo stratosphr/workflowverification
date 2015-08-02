@@ -1,0 +1,141 @@
+<html lang="en">
+<head>
+<title>cpg-ref-user_close - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSU_005finitialize.html#cpg_002dref_002dSU_005finitialize" title="cpg-ref-SU_initialize">
+<link rel="next" href="cpg_002dref_002duser_005fflush_005foutput.html#cpg_002dref_002duser_005fflush_005foutput" title="cpg-ref-user_flush_output">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-user_close"></a>
+<a name="cpg_002dref_002duser_005fclose"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002duser_005fflush_005foutput.html#cpg_002dref_002duser_005fflush_005foutput">cpg-ref-user_flush_output</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSU_005finitialize.html#cpg_002dref_002dSU_005finitialize">cpg-ref-SU_initialize</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.105 <code>user_close()</code></h4>
+
+<p><a name="index-user_005fclose_0028_0029-_0028C-function_0029-5235"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     spio_t_error_code
+     user_close(
+       void **puser_data,
+       spio_t_bits close_options
+       );
+</pre>
+   <p>This is the prototype for one of the <dfn>methods</dfn> of user defined
+streams. It is used when SICStus wants to close one or both directions
+of a user defined stream.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>puser_data</var><dd>A pointer to the same representation as was passed to <code>SP_create_stream()</code>.
+On successful return, if the stream has been closed and any resources
+freed, then <code>*puser_data</code> should be set to <code>NULL</code>.
+
+     <p>If <code>user_close</code> fails, it can still set <code>*puser_data</code> to
+<code>NULL</code> to signify that the stream is no longer usable.
+
+     <br><dt><var>close_options</var><dd>The following bits can be set:
+
+          <dl>
+<dt><code>SPIO_DEVICE_CLOSE_OPTION_READ</code><dd>
+The read direction should be closed. Only set if the device was
+created as an input or bidirectional device.
+
+          <br><dt><code>SPIO_DEVICE_CLOSE_OPTION_WRITE</code><dd>The write direction should be closed. Only set if the device was
+created as an output or bidirectional device.
+
+          <br><dt><code>SPIO_DEVICE_CLOSE_OPTION_FORCE</code><dd>The specified directions should be closed without attempting to flush
+any data. Among other things this option may be passed if a previous
+call to <code>user_close</code> returned an error. 
+</dl>
+
+     <p class="noindent">Note that a bidirectional stream should only close the directions
+specified by the <code>close_options</code>. Also note that
+<code>user_close</code> for a bidirectional stream may be called several
+times and that the same direction flag, e.g. 
+<code>SPIO_DEVICE_CLOSE_OPTION_READ</code> may be specified more than once,
+even if that direction has already been closed successfully.
+
+     <p>Once a call to <code>user_close</code> has set <code>*puser_data</code> to
+<code>NULL</code>, none of the device <dfn>methods</dfn> will be called
+again.  Note that a <code>*puser_data</code> may be set to <code>NULL</code> even
+when a failure code is returned.  This is useful if the failure is
+unrecoverable.
+
+     <p>There is no option to specify non-blocking close, it is expected that
+<code>user_close</code> will finish <dfn>quickly</dfn>. To make this more likely,
+<code>user_flush_output</code> is called before non-forcibly closing an
+output stream. 
+</dl>
+
+<h4 class="subheading">Return Value</h4>
+
+<p>On success, return <code>SPIO_S_NOERR</code> or some other success code and
+set <code>*puser_data</code> if and only if the user data and any other
+resources have been freed.
+
+   <p>On failure, return a SPIO error code. Error codes with special meaning
+for <code>user_close</code>:
+
+     <dl>
+<dt><code>SPIO_E_END_OF_FILE</code><dd>Returned if there were buffered data and it is not possible to write
+more data onto the stream, e.g. some underlying device has been
+closed. 
+</dl>
+
+<p class="noindent">Other error codes may also be returned.
+
+<h4 class="subheading">Description</h4>
+
+<p>Should close one or all directions depending on the
+<code>close_options</code>.  If all directions have been closed, the user
+data should be deallocated and <code>*puser_data</code> set to
+<code>NULL</code>.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="cpg_002dref_002dSP_005fcreate_005fstream.html#cpg_002dref_002dSP_005fcreate_005fstream">cpg-ref-SP_create_stream</a>. 
+<a href="Defining-a-New-Stream.html#Defining-a-New-Stream">Defining a New Stream</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002duser_005fclose.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002duser_005fclose.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

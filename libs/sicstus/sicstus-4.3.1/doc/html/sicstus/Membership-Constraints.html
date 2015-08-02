@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+<title>Membership Constraints - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Available-Constraints.html#Available-Constraints" title="Available Constraints">
+<link rel="prev" href="Arithmetic-Constraints.html#Arithmetic-Constraints" title="Arithmetic Constraints">
+<link rel="next" href="Propositional-Constraints.html#Propositional-Constraints" title="Propositional Constraints">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Membership-Constraints"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Propositional-Constraints.html#Propositional-Constraints">Propositional Constraints</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Arithmetic-Constraints.html#Arithmetic-Constraints">Arithmetic Constraints</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Available-Constraints.html#Available-Constraints">Available Constraints</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.10.4.2 Membership Constraints</h5>
+
+     <dl>
+<dt><code>domain(</code><var>+Variables</var><code>, </code><var>+Min</var><code>, </code><var>+Max</var><code>)</code><dd><a name="index-domain_002f3-_0028clpfd_0029-2819"></a><a name="index-domain_002f3-_0028clpfd_0029-2820"></a>
+where <var>Variables</var> is a list of domain variables or integers,
+<var>Min</var> is an integer or the atom <code>inf</code> (minus infinity), and
+<var>Max</var> is an integer or the atom <code>sup</code> (plus infinity).  True if
+the variables all are elements of the range <var>Min</var><code>..</code><var>Max</var>.
+
+     <br><dt><var>?X</var><code> in </code><var>+Range</var><code> &nbsp;<!-- /@w --> </code><strong>reifiable</strong><dd><a name="index-in_002f2-_0028clpfd_0029-2821"></a><a name="index-in_002f2-_0028clpfd_0029-2822"></a>
+defines a membership constraint.  <var>X</var> is an integer or a domain
+variable and <var>Range</var> is a <var>ConstantRange</var> (see <a href="Syntax-of-Indexicals.html#Syntax-of-Indexicals">Syntax of Indexicals</a>).  True if <var>X</var> is an element of the range.
+
+     <br><dt><var>?X</var><code> in_set </code><var>+FDSet</var><code> &nbsp;<!-- /@w --> </code><strong>reifiable</strong><dd><a name="index-in_005fset_002f2-_0028clpfd_0029-2823"></a><a name="index-in_005fset_002f2-_0028clpfd_0029-2824"></a>
+defines a membership constraint.  <var>X</var> is an integer or a domain
+variable and <var>FDSet</var> is an FD set (see <a href="FD-Set-Operations.html#FD-Set-Operations">FD Set Operations</a>). 
+True if <var>X</var> is an element of the FD set. 
+</dl>
+
+   <p><code>in/2</code> and <code>in_set/2</code> constraints maintain domain-consistency
+and their reified versions detect domain-entailment and -disentailment.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Membership-Constraints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Membership-Constraints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

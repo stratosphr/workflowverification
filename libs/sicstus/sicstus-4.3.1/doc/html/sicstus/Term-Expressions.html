@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+<title>Term Expressions - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints" title="Defining Primitive Constraints">
+<link rel="prev" href="Range-Expressions.html#Range-Expressions" title="Range Expressions">
+<link rel="next" href="Monotonicity-of-Ranges.html#Monotonicity-of-Ranges" title="Monotonicity of Ranges">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Term-Expressions"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Monotonicity-of-Ranges.html#Monotonicity-of-Ranges">Monotonicity of Ranges</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Range-Expressions.html#Range-Expressions">Range Expressions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints">Defining Primitive Constraints</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.10.10.5 Term Expressions</h5>
+
+<p>A term expression has one of the following forms, where <var>T1</var> and
+<var>T2</var> denote term expressions, <var>X</var> denotes a variable, <var>I</var>
+denotes an integer, and <var>S</var> denotes the current store.
+
+     <dl>
+<dt><code>min(</code><var>X</var><code>)</code><dd>evaluates to the minimum of <var>D(X,S)</var>
+
+     <br><dt><code>max(</code><var>X</var><code>)</code><dd>evaluates to the maximum of <var>D(X,S)</var>
+
+     <br><dt><code>card(</code><var>X</var><code>)</code><dd>evaluates to the size of <var>D(X,S)</var>
+
+     <br><dt><var>X</var><dd>evaluates to the integer representation of <var>X</var>.  The indexical will suspend
+until <var>X</var> is assigned.
+
+     <br><dt><var>I</var><dd>an integer
+
+     <br><dt><code>inf</code><dd>minus infinity
+
+     <br><dt><code>sup</code><dd>plus infinity
+
+     <br><dt><code>-</code><var>T1</var><dd>evaluates to <var>S(T1)</var> negated
+
+     <br><dt><var>T1</var><code>+</code><var>T2</var><dd>evaluates to the sum of <var>S(T1)</var> and <var>S(T2)</var>
+
+     <br><dt><var>T1</var><code>-</code><var>T2</var><dd>evaluates to the difference of <var>S(T1)</var> and <var>S(T2)</var>
+
+     <br><dt><var>T1</var><code>*</code><var>T2</var><dd>evaluates to the product of <var>S(T1)</var> and <var>S(T2)</var>,
+where <var>S(T2)</var> must not be negative
+
+     <br><dt><var>T1</var><code>/&gt;</code><var>T2</var><dd>evaluates to the floored quotient of <var>S(T1)</var> and <var>S(T2)</var>,
+where <var>S(T2)</var> must be positive
+
+     <br><dt><var>T1</var><code>/&lt;</code><var>T2</var><dd>evaluates to the ceilinged quotient of <var>S(T1)</var> and <var>S(T2)</var>,
+where <var>S(T2)</var> must be positive
+
+     <br><dt><var>T1</var><code> mod </code><var>T2</var><dd>evaluates to the floored remainder of <var>S(T1)</var> and <var>S(T2)</var>
+
+     <br><dt><var>T1</var><code> rem </code><var>T2</var><dd>evaluates to the truncated remainder of <var>S(T1)</var> and <var>S(T2)</var>
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Term-Expressions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Term-Expressions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

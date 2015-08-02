@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+<title>ref-syn-ops-bop - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsyn_002dops.html#ref_002dsyn_002dops" title="ref-syn-ops">
+<link rel="prev" href="ref_002dsyn_002dops_002dres.html#ref_002dsyn_002dops_002dres" title="ref-syn-ops-res">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-syn-ops-bop"></a>
+<a name="ref_002dsyn_002dops_002dbop"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dsyn_002dops_002dres.html#ref_002dsyn_002dops_002dres">ref-syn-ops-res</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsyn_002dops.html#ref_002dsyn_002dops">ref-syn-ops</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.1.5.4 Built-in Operators</h5>
+
+<p><a name="index-built_002din-operators_002c-list-of-535"></a>
+<a name="index-operators_002c-built_002din-536"></a>
+<a name="index-operators_002c-list-of-537"></a>
+<pre class="example">     :- op( 1200, xfx, [ :-, --&gt; ]).
+     :- op( 1200,  fx, [ :-, ?- ]).
+     :- op( 1150,  fx, [ mode, public, dynamic, volatile, discontiguous,
+                         multifile, block, meta_predicate,
+                         initialization ]).
+     :- op( 1100, xfy, [ ;, do ]).
+     :- op( 1050, xfy, [ -&gt; ]).
+     :- op( 1000, xfy, [ ',' ]).
+     :- op(  900,  fy, [ \+, spy, nospy ]).
+     :- op(  700, xfx, [ =, \=, is, =.., ==, \==, @&lt;, @&gt;, @=&lt;, @&gt;=,
+                                     =:=, =\=, &lt;, &gt;, =&lt;, &gt;= ]).
+     :- op(  550, xfy, [ : ]).
+     :- op(  500, yfx, [ +, -, \, /\, \/ ]).
+     :- op(  400, yfx, [ *, /, //, div, mod, rem, &lt;&lt;, &gt;&gt; ]).
+     :- op(  200, xfx, [ ** ]).
+     :- op(  200, xfy, [ ^ ]).
+     :- op(  200,  fy, [ +, -, \ ]).
+</pre>
+   <p>The above operators are as in the ISO Prolog standard, except
+the following, which are not present in ISO Prolog at all:
+
+<pre class="example">     :- op( 1150,  fx, [ mode, public, dynamic, volatile, discontiguous,
+                         multifile, block, meta_predicate,
+                         initialization ]).
+     :- op( 1100, xfy, [ do ]).
+     :- op(  900,  fy, [ spy, nospy ]).
+     :- op(  550, xfy, [ : ]).
+     :- op(  500, yfx, [ \ ]).
+     :- op(  200,  fy, [ + ]).
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dops_002dbop.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dops_002dbop.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

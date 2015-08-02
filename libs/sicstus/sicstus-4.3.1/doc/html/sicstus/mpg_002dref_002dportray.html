@@ -1,0 +1,109 @@
+<html lang="en">
+<head>
+<title>mpg-ref-portray - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dphrase.html#mpg_002dref_002dphrase" title="mpg-ref-phrase">
+<link rel="next" href="mpg_002dref_002dportray_005fclause.html#mpg_002dref_002dportray_005fclause" title="mpg-ref-portray_clause">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-portray"></a>
+<a name="mpg_002dref_002dportray"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dportray_005fclause.html#mpg_002dref_002dportray_005fclause">mpg-ref-portray_clause</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dphrase.html#mpg_002dref_002dphrase">mpg-ref-phrase</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.156 <code>portray/1</code> &nbsp;<!-- /@w --> <dfn>[hook]</dfn></h4>
+
+<p><a name="index-portray_002f1-_0028hook_002c-ref-page_0029-4785"></a><a name="index-portray_002f1-_0028hook_002c-ref-page_0029-4786"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- multifile user:portray/1.</code>
+
+   <p><code>user:portray(</code><var>+Term</var><code>)</code>
+
+   <p>A way for the user to over-ride the default behavior of <code>print/1</code>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Term</var><dd><dfn>term</dfn>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>If <code>user:portray/1</code> is defined, then the predicates listed below
+performing term output will call it on the term itself and on every
+non-variable subterm <var>T</var>.  If <code>user:portray/1</code> succeeds, it
+is assumed to have written <var>T</var>. If it fails, the calling predicate
+will write the principal functor of <var>T</var> and treat the arguments of <var>T</var>
+recursively.
+
+   <p>Note that on lists (<code>[_|_]</code>), <code>user:portray/1</code> will be
+called on the whole list to <code>user:portray/1</code> and, if that call
+fails, on each list element, but <em>not</em> on every tail of the list.
+
+   <p>Note that a variable written from within <code>user:portray/1</code> may be
+written with a different name than that used by the surrounding write
+predicate.
+
+   <p>The affected predicates are:
+
+     <dl>
+<dt><code>print/[1,2]</code>
+<br><dt><code>write_term/[2,3]</code><dd>when used with the option <code>portrayed(true)</code>
+
+     <br><dt>goals during debugging<dd>controlled by the <code>debugger_print_options</code> Prolog flag,
+whose representation by default includes <code>portrayed(true)</code>
+<a name="index-debugger_005fprint_005foptions-_0028prolog-flag_0029-4787"></a>
+<br><dt>top-level variable bindings<dd>controlled by the <code>toplevel_print_options</code> Prolog flag,
+whose representation by default includes <code>portrayed(true)</code>
+<a name="index-toplevel_005fprint_005foptions-_0028prolog-flag_0029-4788"></a></dl>
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Exceptions are treated as failures, except an error
+message is also printed.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002diou_002dtou.html#ref_002diou_002dtou">ref-iou-tou</a>, <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dportray.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dportray.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

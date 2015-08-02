@@ -1,0 +1,114 @@
+<html lang="en">
+<head>
+<title>CLPQR Linearity - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dclpqr.html#lib_002dclpqr" title="lib-clpqr">
+<link rel="prev" href="CLPQR-Interface.html#CLPQR-Interface" title="CLPQR Interface">
+<link rel="next" href="CLPQR-Numerical-Precision.html#CLPQR-Numerical-Precision" title="CLPQR Numerical Precision">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CLPQR-Linearity"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CLPQR-Numerical-Precision.html#CLPQR-Numerical-Precision">CLPQR Numerical Precision</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="CLPQR-Interface.html#CLPQR-Interface">CLPQR Interface</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dclpqr.html#lib_002dclpqr">lib-clpqr</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.11.3 Linearity and Nonlinear Residues</h4>
+
+<p>The clp(Q,R) system is restricted to deal with linear constraints because
+the decision algorithms for general nonlinear constraints are prohibitively
+expensive to run. If you need this functionality badly, you should look into
+symbolic algebra packages. 
+Although the clp(Q,R) system cannot solve nonlinear constraints, it will
+collect them faithfully in the hope that through the addition of further (linear)
+constraints they might get simple enough to solve eventually. 
+If an answer contains nonlinear constraints, you have to be aware of the
+fact that success is qualified modulo the existence of a solution to the
+system of residual (nonlinear) constraints:
+<pre class="example">     clp(r) ?- <kbd>{sin(X) = cos(X)}.</kbd>
+     
+     clpr:{sin(X)-cos(X)=0.0}
+</pre>
+   <p>There are indeed infinitely many solutions to this constraint
+(<code>X = 0.785398 + n*Pi</code>), but clp(Q,R) has no direct means to find
+and represent them.
+
+   <p>The systems goes through some lengths to recognize linear expressions
+as such. The method is based on a normal form for multivariate
+polynomials. In addition, some simple isolation axioms, that can be
+used in equality constraints, have been added. 
+The current major limitation of the method is that full polynomial
+division has not been implemented. 
+Examples:
+
+<p class="noindent">This is an example where the isolation axioms are sufficient to determine
+the representation of <var>X</var>.
+<pre class="example">     clp(r) ?- <kbd>{sin(cos(X)) = 1/2}.</kbd>
+     
+     X = 1.0197267436954502
+</pre>
+   <p class="noindent">If we change the equation into an inequation, clp(Q,R) gives up:
+<pre class="example">     clp(r) ?- <kbd>{sin(cos(X)) &lt; 1/2}.</kbd>
+     
+     clpr:{sin(cos(X))-0.5&lt;0.0}
+</pre>
+   <p class="noindent">The following is easy again:
+<pre class="example">     clp(r) ?- <kbd>{sin(X+2+2)/sin(4+X) = Y}.</kbd>
+     
+     Y = 1.0
+</pre>
+   <p class="noindent">And so is this:
+<pre class="example">     clp(r) ?- <kbd>{(X+Y)*(Y+X)/X = Y*Y/X+99}.</kbd>
+     
+     {Y=49.5-0.5*X}
+</pre>
+   <p class="noindent">An ancient symbol manipulation benchmark consists in rising the expression
+<code>X+Y+Z+1</code> to the 15th power:
+<pre class="example">     clp(q) ?- <kbd>{exp(X+Y+Z+1,15)=0}.</kbd>
+     clpq:{Z^15+Z^14*15+Z^13*105+Z^12*455+Z^11*1365+Z^10*3003+...
+            <span class="roman">... polynomial continues for a few pages ...</span>
+            =0}
+</pre>
+   <p class="noindent">Computing its roots is another story.
+
+<ul class="menu">
+<li><a accesskey="1" href="CLPQR-How-Nonlinear-Residues-Are-Made-to-Disappear.html#CLPQR-How-Nonlinear-Residues-Are-Made-to-Disappear">CLPQR How Nonlinear Residues Are Made to Disappear</a>:  How Nonlinear Residues Are Made to Disappear
+<li><a accesskey="2" href="CLPQR-Isolation-Axioms.html#CLPQR-Isolation-Axioms">CLPQR Isolation Axioms</a>:  Isolation Axioms
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-Linearity.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-Linearity.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

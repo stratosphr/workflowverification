@@ -1,0 +1,77 @@
+<html lang="en">
+<head>
+<title>Predicates for Prolog to Interact with Tcl Interpreters - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Quick-Reference.html#Quick-Reference" title="Quick Reference">
+<link rel="prev" href="Command-Format-Summary.html#Command-Format-Summary" title="Command Format Summary">
+<link rel="next" href="Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters-with-Tk-Extensions.html#Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters-with-Tk-Extensions" title="Predicates for Prolog to Interact with Tcl Interpreters with Tk Extensions">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters-with-Tk-Extensions.html#Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters-with-Tk-Extensions">Predicates for Prolog to Interact with Tcl Interpreters with Tk Extensions</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Command-Format-Summary.html#Command-Format-Summary">Command Format Summary</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Quick-Reference.html#Quick-Reference">Quick Reference</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.37.6.2 Predicates for Prolog to Interact with Tcl Interpreters</h5>
+
+     
+<a name="index-tcl_005fnew_002f1-_0028tcltk_0029-4035"></a>
+<a name="index-tcl_005fnew_002f1-_0028tcltk_0029-4036"></a>
+<dl>
+<dt><code>tcl_new(</code><var>-TclInterpreter</var><code>)</code><dd>Create a Tcl interpreter and return a handle to it in the variable
+<var>Interpreter</var>.
+
+     <p><a name="index-tcl_005fdelete_002f1-_0028tcltk_0029-4037"></a><a name="index-tcl_005fdelete_002f1-_0028tcltk_0029-4038"></a>
+<br><dt><code>tcl_delete(</code><var>+TclInterpreter</var><code>)</code><dd>Given a handle to a Tcl interpreter in variable <var>TclInterpreter</var>,
+it deletes the interpreter from the system.
+
+     <p><a name="index-tcl_005feval_002f3-_0028tcltk_0029-4039"></a><a name="index-tcl_005feval_002f3-_0028tcltk_0029-4040"></a>
+<br><dt><code>tcl_eval(</code><var>+TclInterp</var><code>, </code><var>+Command</var><code>, </code><var>-Result</var><code>)</code><dd>Evaluates the Tcl command term  given in <var>Command</var> in the
+Tcl interpreter handle provided in <var>TclInterpreter</var>. 
+The result of the evaluation is returned as a string in <var>Result</var>.
+
+     <p><a name="index-tcl_005fevent_002f3-_0028tcltk_0029-4041"></a><a name="index-tcl_005fevent_002f3-_0028tcltk_0029-4042"></a>
+<br><dt><code>tcl_event(</code><var>+TclInterp</var><code>, </code><var>+Command</var><code>, </code><var>-Events</var><code>)</code><dd>Evaluates the Tcl command term given in <var>Command</var> in the Tcl
+interpreter handle provided in <var>TclInterpreter</var>.  The first
+Prolog events arising from the evaluation is returned as a list
+in <var>Events</var>.  Blocks until there is something on the event
+queue. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

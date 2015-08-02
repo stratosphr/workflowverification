@@ -1,0 +1,214 @@
+<html lang="en">
+<head>
+<title>too-splfr - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Command-Reference-Pages.html#Command-Reference-Pages" title="Command Reference Pages">
+<link rel="prev" href="too_002dspld.html#too_002dspld" title="too-spld">
+<link rel="next" href="too_002dsplm.html#too_002dsplm" title="too-splm">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="too-splfr"></a>
+<a name="too_002dsplfr"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="too_002dsplm.html#too_002dsplm">too-splm</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="too_002dspld.html#too_002dspld">too-spld</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Command-Reference-Pages.html#Command-Reference-Pages">Command Reference Pages</a>
+<hr>
+</div>
+
+<h3 class="section">13.6 <samp><span class="command">splfr</span></samp> &mdash; SICStus Prolog Foreign Resource Linker</h3>
+
+<p><a name="index-splfr_00281_0029-_0028command-line-tool_0029-5258"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     % <kbd>splfr [ </kbd><var>Option</var><kbd> | </kbd><var>InputFile</var><kbd> ] ...</kbd>
+</pre>
+<h4 class="subheading">Description</h4>
+
+<p>The foreign resource linker, <samp><span class="command">splfr</span></samp>, is used for creating
+foreign resources (see <a href="Foreign-Resources.html#Foreign-Resources">Foreign Resources</a>).  <samp><span class="command">splfr</span></samp>
+reads terms from a Prolog file, applying op declarations and
+extracting any <code>foreign_resource/2</code> fact with first
+argument matching the resource name and all <code>foreign/[2,3]</code>
+facts.  Based on this information, it generates the necessary
+glue code, and combines it with any additional C or object files
+provided by the user into a linked foreign resource.  The output
+file name will be the resource name with a suitable extension.
+
+<h4 class="subheading">Options</h4>
+
+<p>The input to <samp><span class="command">splfr</span></samp> can be divided into <var>Option</var>s and
+<var>InputFile</var>s and they can be arbitrarily mixed on the command
+line. Anything not interpreted as an option will be interpreted as an
+input file.  Exactly one of the input files should be a Prolog file. 
+The following options are available:
+
+     <dl>
+<dt><samp><span class="option">-?</span></samp><dt><samp><span class="option">--help</span></samp><dd>Prints out a summary of all options.
+
+     <br><dt><samp><span class="option">-v</span></samp><dt><samp><span class="option">--verbose</span></samp><dd>Print detailed information about each step in the compilation/linking
+sequence. Multiple occurrences increase verbosity.
+
+     <br><dt><samp><span class="option">-vv</span></samp><dd>Same as -v -v.
+
+     <br><dt><samp><span class="option">--version</span></samp><dd>Prints out the version number of <samp><span class="command">spld</span></samp> and exits successfully.
+
+     <br><dt><samp><span class="option">--config=</span><var>ConfigFile</var></samp><dd>Specify another configuration file. This option is not intended for
+normal use. The file name may not contain spaces.
+
+     <br><dt><samp><span class="option">--conf </span><var>VAR</var><span class="option">=</span><var>VALUE</var><span class="option"> &nbsp;<!-- /@w --> </span><strong>since release 4.0.3</strong></samp><dd>Override values from the configuration file. Can occur multiple times. 
+For instance, &lsquo;<samp><span class="samp">--conf CC=/usr/bin/gcc</span></samp>&rsquo; would override the default C
+compiler.
+
+     <br><dt><samp><span class="option">--cflag=</span><var>CFlag</var></samp><dd><var>CFlag</var> is an option to pass to the C-compiler. This option can
+occur multiple times.
+
+     <p>The current behavior is that if <var>CFlag</var> contains commas then each
+comma-separated part is treated as a separate compiler option. This may
+change in the future, so instead you should use multiple occurences of
+<samp><span class="option">--cflag</span></samp>. To turn off splitting at commas and treat <var>CFlag</var> as a
+single option even it contains a comma, you can pass the option
+<samp><span class="option">--conf SPLIT_OPT_CFLAG=0</span></samp>. This can be useful with certain
+options to the <samp><span class="command">gcc</span></samp> compiler.
+
+     <br><dt><samp><span class="option">-- &nbsp;<!-- /@w --> </span><strong>since release 4.0.3</strong></samp><dt><samp><span class="option">--LD &nbsp;<!-- /@w --> </span><strong>since release 4.0.3</strong></samp><dt><samp><span class="option">-LD</span></samp><dd>Don't process the rest of the command-line, but send it directly to the
+compiler/linker. Note that linking is often performed by the compiler.
+
+     <br><dt><samp><span class="option">--sicstus=</span><var>Executable</var></samp><dd><samp><span class="command">splfr</span></samp>
+relies on using SICStus during some stages of its
+execution. The default is the SICStus-executable installed with the
+distribution.  <var>Executable</var> can be used to override this, in case
+the user wants to use another SICStus executable.
+
+     <br><dt><samp><span class="option">--keep</span></samp><dd>Keep temporary files and interface code and rename them to
+human-readable names. Not intended for the casual user, but useful if
+you want to know exactly what code is generated.
+
+     <br><dt><samp><span class="option">--resource=</span><var>ResourceName</var></samp><dd><!-- FIXME define basename -->
+Specify the resource's name. This defaults to the basename of the
+Prolog source file found on the command line.
+
+     <!-- @item -source=@var{SourceFile} -->
+     <!-- Specify the resource's Prolog source file. This source file determines the -->
+     <!-- interface of the foreign resource. -->
+     <br><dt><samp><span class="option">-o, --output=</span><var>OutputFileName</var></samp><dd>Specify output file name. This defaults to the name of the resource,
+suffixed with the platform's standard shared object suffix (i.e. 
+&lsquo;<samp><span class="samp">.so</span></samp>&rsquo; on most UNIX dialects, &lsquo;<samp><span class="samp">.dll</span></samp>&rsquo; under Windows). The use of
+this option is discouraged, except to change the output directory.
+
+     <br><dt><samp><span class="option">-S</span></samp><dt><samp><span class="option">--static</span></samp><dd>Create a statically linked foreign resource instead of a
+dynamically linked one, which is the default. A statically linked
+foreign resource is a single object file, which can be
+prelinked into a Prolog system. See also the <samp><span class="command">spld</span></samp> tool,
+<a href="The-Application-Builder.html#The-Application-Builder">The Application Builder</a>.
+
+     <br><dt><samp><span class="option">--no-rpath</span></samp><dd>Under UNIX, the default is to embed into the shared object all linker
+library directories for use by the dynamic linker. For most UNIX linkers
+this corresponds to adding a <samp><span class="option">-R</span><var>path</var></samp> for each
+<samp><span class="option">-L</span><var>path</var></samp>. The <samp><span class="option">--no-rpath</span></samp> option inihibits this.
+
+     <br><dt><samp><span class="option">--nocompile</span></samp><dd>Don't compile, just generate code. This may be useful in Makefiles, for
+example to generate the header file in a separate step. Implies
+<samp><span class="option">--keep</span></samp>.
+
+     <br><dt><samp><span class="option">--namebase=</span><var>namebase</var></samp><dd><var>namebase</var> will be used as part of the name of generated files. The
+default name base is the resource name (e.g. as specified with
+<samp><span class="option">--resource</span></samp>). If <samp><span class="option">--static</span></samp> is specified, the default
+<var>namebase</var> is the resource name followed by &lsquo;<samp><span class="samp">_s</span></samp>&rsquo;.
+
+     <br><dt><samp><span class="option">--header=</span><var>headername</var></samp><dd>Specify the name of the generated header file. The default if
+is <var>namebase</var><code>_glue.h</code>. 
+All C files that define foreign functions or that call SICStus API
+functions should include this file. Among other things the generated
+header file includes prototypes corresponding to the <code>foreign/[2,3]</code>
+declarations in the Prolog code.
+
+     <br><dt><samp><span class="option">--multi-sp-aware</span></samp><dd>
+Create a (dynamic) foreign resource that can be loaded by several
+SICStus runtimes in the same process, at the same time. See <a href="Foreign-Resources-and-Multiple-SICStus-Runtimes.html#Foreign-Resources-and-Multiple-SICStus-Runtimes">Foreign Resources and Multiple SICStus Runtimes</a> for details.
+
+     <!-- [PM] 4.1.0 never implemented in SP4. -->
+     <!-- @itemx -exclusive-access -->
+     <!-- @itemx -context-hook=@var{name} -->
+     <!-- @itemx -no-context-hook -->
+     <!-- Specifies various degrees of support for more than one SICStus in the -->
+     <!-- same process. @xref{Foreign Resources and Multiple SICStus Runtimes} for details. -->
+     <br><dt><samp><span class="option">--moveable</span></samp><dd>Don't embed paths into the foreign resource.
+
+     <p>On platforms that support it, i.e. some versions of UNIX, the default
+behavior of <samp><span class="command">splfr</span></samp> is to add each directory <var>dir</var> specified
+with <samp><span class="option">-L</span><var>dir</var></samp> to the search path used by the runtime loader
+(using the SysV <code>ld -R</code> option or similar). The option
+<samp><span class="option">--moveable</span></samp> turns off this behavior. For additional details, see
+the corresponding option to <samp><span class="command">spld</span></samp> (see <a href="The-Application-Builder.html#The-Application-Builder">The Application Builder</a>).
+
+     <br><dt><samp><span class="option">--structs</span></samp><dd>The Prolog source file uses <code>library(structs)</code>. 
+This option makes <samp><span class="command">splfr</span></samp> understand
+foreign type specifications and translate them into C declarations in
+the generated header file. 
+See See <a href="lib_002dstructs.html#lib_002dstructs">lib-structs</a>.
+
+     <br><dt><samp><span class="option">--objects &nbsp;<!-- /@w --> </span><strong>since release 4.3</strong></samp><dd>The Prolog source file uses <code>library(objects)</code>. 
+This option makes <samp><span class="command">splfr</span></samp> understand
+that library's syntax extensions. 
+See See <a href="lib_002dobjects.html#lib_002dobjects">lib-objects</a>.
+
+   </dl>
+   there may be additional, undocumented, options, some of which may be
+described with the <samp><span class="option">--help</span></samp> option.
+
+<h4 class="subheading">Files</h4>
+
+<p>Arguments to <samp><span class="command">spld</span></samp> not recognized as options are assumed
+to be input-files and are handled as follows:
+
+     <dl>
+<dt>&lsquo;<samp><span class="samp">*.pro</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.pl</span></samp>&rsquo;<dd>The Prolog file containing the relevant declarations. 
+Exactly one such argument should be given.
+
+     <br><dt>&lsquo;<samp><span class="samp">*.so</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.sl</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.s.o</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.o</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.obj</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.dll</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.lib</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.dylib</span></samp>&rsquo;<dd>These files are assumed to be input-files to the linker and will be
+passed on unmodified.
+
+     <br><dt>&lsquo;<samp><span class="samp">*.c</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.cc</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.C</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.cpp</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.c++</span></samp>&rsquo;<dd>These files are assumed to be C/C++ source code and will be
+compiled by the C/C++-compiler before being passed to the linker. 
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker">The Foreign Resource Linker</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/too_002dsplfr.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/too_002dsplfr.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

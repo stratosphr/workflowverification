@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+<title>Initializations - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl" title="ref-lod-dcl">
+<link rel="prev" href="Include-Declarations.html#Include-Declarations" title="Include Declarations">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Initializations"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Include-Declarations.html#Include-Declarations">Include Declarations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl">ref-lod-dcl</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.3.4.11 Initializations</h5>
+
+<p><a name="index-initialization-741"></a><a name="index-initialization_002f1-_0028declaration_0029-742"></a><a name="index-initialization_002f1-_0028declaration_0029-743"></a>
+
+   <p>A directive
+
+<pre class="example">     :- initialization <var>:Goal</var>. &nbsp;<!-- /@w --> <dfn>ISO</dfn>
+</pre>
+   <p class="noindent">in a file appends <var>Goal</var> to the list of goals that shall be
+executed <dfn>after</dfn> that file has been loaded.
+
+   <p><code>initialization/1</code> is actually callable at any point during
+loading of a file.  Initializations are saved by
+<code>save_modules/2</code> and <code>save_program/[1,2]</code>, and so are executed
+after loading or restoring such files too, in input order.
+
+   <p><var>Goal</var> is associated with the file loaded, and with a
+module, if applicable.  When a file, or module, is going to
+be reloaded, all goals earlier installed by that file, or in that
+module, are removed first. 
+See <a href="mpg_002dref_002dinitialization.html#mpg_002dref_002dinitialization">mpg-ref-initialization</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Initializations.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Initializations.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

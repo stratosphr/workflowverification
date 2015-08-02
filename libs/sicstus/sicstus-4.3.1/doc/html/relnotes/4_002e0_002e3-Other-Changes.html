@@ -1,0 +1,79 @@
+<html lang="en">
+<head>
+<title>4.0.3 Other Changes - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e0_002e3-Changes.html#g_t4_002e0_002e3-Changes" title="4.0.3 Changes">
+<link rel="prev" href="4_002e0_002e3-Bugs-Fixed.html#g_t4_002e0_002e3-Bugs-Fixed" title="4.0.3 Bugs Fixed">
+<link rel="next" href="4_002e0_002e3-Known-Issues.html#g_t4_002e0_002e3-Known-Issues" title="4.0.3 Known Issues">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.0.3-Other-Changes"></a>
+<a name="g_t4_002e0_002e3-Other-Changes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e0_002e3-Known-Issues.html#g_t4_002e0_002e3-Known-Issues">4.0.3 Known Issues</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="4_002e0_002e3-Bugs-Fixed.html#g_t4_002e0_002e3-Bugs-Fixed">4.0.3 Bugs Fixed</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e0_002e3-Changes.html#g_t4_002e0_002e3-Changes">4.0.3 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.6.3 Other Changes</h4>
+
+     <ul>
+<li>Output to different interactive output streams, like <code>user_output</code>
+and <code>user_error</code>, are now properly ordered.
+
+     <li>If the standard OS streams cannot be used, the SICStus runtime will
+use null streams instead of failing initialization. Happened when
+started from recent Linux <code>nohup</code> command.
+
+     <li><!-- SPRM 10397 -->
+Under UNIX, <samp><span class="command">sicstus</span></samp> now interprets command line arguments
+using locale information (the Windows version already did this).
+
+     <li><!-- sprm SPRM 10696 -->
+Saved-states invoked as shell scripts will now use a version specific
+name for the sicstus executable, e.g., <samp><span class="command">exec sicstus-4.0.3
+...</span></samp> instead of <samp><span class="command">exec sicstus ...</span></samp>.
+
+     <li>The <samp><span class="command">spld</span></samp> tool now ignores the <code>--more-memory</code> option and
+no longer attempts to use a modified linker script on x86 Linux.
+
+     <li>The <samp><span class="command">splfr</span></samp> tool no longer uses a fixed name for some temporary
+files, which prevented parallel make.
+
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e0_002e3-Other-Changes.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e0_002e3-Other-Changes.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

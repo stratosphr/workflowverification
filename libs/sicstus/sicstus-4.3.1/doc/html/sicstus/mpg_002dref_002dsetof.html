@@ -1,0 +1,123 @@
+<html lang="en">
+<head>
+<title>mpg-ref-setof - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dset_005fstream_005fposition.html#mpg_002dref_002dset_005fstream_005fposition" title="mpg-ref-set_stream_position">
+<link rel="next" href="mpg_002dref_002dsimple.html#mpg_002dref_002dsimple" title="mpg-ref-simple">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-setof"></a>
+<a name="mpg_002dref_002dsetof"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dsimple.html#mpg_002dref_002dsimple">mpg-ref-simple</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dset_005fstream_005fposition.html#mpg_002dref_002dset_005fstream_005fposition">mpg-ref-set_stream_position</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.208 <code>setof/3</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-setof_002f3-_0028built_002din_002c-ref-page_0029-4926"></a><a name="index-setof_002f3-_0028built_002din_002c-ref-page_0029-4927"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>setof(</code><var>+Template</var><code>, </code><var>+Generator</var><code>, </code><var>-Set</var><code>)</code>
+
+   <p>Returns the non-empty set <var>Set</var> of all instances of <var>Template</var> such
+that <var>Generator</var> is provable.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Template</var><dd><dfn>term</dfn>
+
+     <br><dt><var>:Generator</var><dd><dfn>callable</dfn>, must be nonvar
+
+     <p>A goal to be proved as if by <code>call/1</code>.
+
+     <br><dt><var>Set</var><dd><dfn>list of term</dfn>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p><var>Set</var> is a non-empty set of terms represented as a list of those terms, without
+duplicates,  in the standard order for terms (see <a href="ref_002dlte_002dcte.html#ref_002dlte_002dcte">ref-lte-cte</a>). 
+If there are no instances of <var>Template</var> such that
+<var>Generator</var> is satisfied, then <code>setof/3</code> simply fails.
+
+   <p>Obviously, the set to be enumerated should be finite, and should be
+enumerable by Prolog in finite time.  It is possible for the provable
+instances to contain variables, but in this case <var>Set</var> will
+only provide an imperfect representation of what is in reality an infinite
+set.
+
+   <p>If <var>Generator</var> is instantiated, but contains uninstantiated
+variables that do not also appear in <var>Template</var>, then
+<code>setof/3</code> can succeed nondeterminately, generating alternative
+values for <var>Set</var> corresponding to different instantiations of the
+free variables of <var>Generator</var>.  (It is to allow for such usage that
+<var>Set</var> is constrained to be non-empty.)
+
+   <p>If <var>Generator</var> is of the form <var>A^B</var> then all the variables in
+<var>A</var> are treated as being existentially quantified.
+
+   <p><strong>Please note</strong>: If the instances being gathered contain
+attributed variables (see <a href="lib_002datts.html#lib_002datts">lib-atts</a>) or suspended goals
+(see <a href="ref_002dsem_002dsec.html#ref_002dsem_002dsec">ref-sem-sec</a>), those variables are replaced by brand new
+variables, without attributes, in the <var>Set</var>.  To retain the
+attributes, you can use <code>copy_term/3</code> (see <a href="ref_002dlte_002dcpt.html#ref_002dlte_002dcpt">ref-lte-cpt</a>).
+
+<h4 class="subheading">Backtracking</h4>
+
+<p><code>setof/3</code> can succeed nondeterminately, generating alternative
+values for <var>Set</var> corresponding to different instantiations of the
+free variables of <var>Generator</var>.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Call errors (see <a href="ref_002dsem_002dexc.html#ref_002dsem_002dexc">ref-sem-exc</a>).
+
+<h4 class="subheading">Examples</h4>
+
+<p>See <code>findall/3</code> for examples that illustrate
+the differences among <code>findall/3</code>, <code>setof/3</code>, and <code>bagof/3</code>.
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>findall/3</code>, <code>bagof/3</code>, <code>^/2</code>, <a href="ref_002dall.html#ref_002dall">ref-all</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dsetof.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dsetof.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+<title>ref-sem-ctr-dis - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsem_002dctr.html#ref_002dsem_002dctr" title="ref-sem-ctr">
+<link rel="prev" href="ref_002dsem_002dctr_002dcut.html#ref_002dsem_002dctr_002dcut" title="ref-sem-ctr-cut">
+<link rel="next" href="ref_002dsem_002dctr_002dite.html#ref_002dsem_002dctr_002dite" title="ref-sem-ctr-ite">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-sem-ctr-dis"></a>
+<a name="ref_002dsem_002dctr_002ddis"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dsem_002dctr_002dite.html#ref_002dsem_002dctr_002dite">ref-sem-ctr-ite</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dsem_002dctr_002dcut.html#ref_002dsem_002dctr_002dcut">ref-sem-ctr-cut</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsem_002dctr.html#ref_002dsem_002dctr">ref-sem-ctr</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.2.3.2 Disjunction</h5>
+
+<p><a name="index-disjunction-601"></a><a name="index-or-602"></a><a name="index-g_t_003b_002f2_002c-disjunction-603"></a><a name="index-g_t_003b_002f2_002c-disjunction-604"></a>
+It is sometimes convenient to use an additional operator &lsquo;<samp><span class="samp">;</span></samp>&rsquo;, standing
+for  disjunction  (or).  (The  precedence  of  &lsquo;<samp><span class="samp">;</span></samp>&rsquo;  is  such that it
+dominates &lsquo;<samp><span class="samp">,</span></samp>&rsquo; but is dominated by &lsquo;<samp><span class="samp">:-</span></samp>&rsquo;.)  An example is the clause (A), which can be read as (B).
+<pre class="example">     grandfather(X, Z) :-
+          (   mother(X, Y)
+          ;   father(X, Y)
+          ),
+          father(Y, Z).&nbsp;<!-- /@w --> (A)
+</pre>
+   <pre class="display">     
+     &ldquo;For any X, Y, and Z,
+         X has Z as a grandfather if
+         either the mother of X is Y
+             or the father of X is Y,
+         and the father of Y is Z.&rdquo;&nbsp;<!-- /@w --> (B)
+</pre>
+   <p>Such uses of disjunction can usually be eliminated by defining  an
+extra predicate.  For instance, (A) is equivalent to (C)
+<pre class="example">     grandfather(X, Z) :- parent(X, Y), father(Y, Z).
+     parent(X, Y) :- mother(X, Y).
+     parent(X, Y) :- father(X, Y).&nbsp;<!-- /@w --> (C)
+</pre>
+   <!-- Therefore, disjunction will not be mentioned further in  the  following -->
+<!-- more formal description of the semantics of clauses. -->
+   <p>For historical reasons, the token &lsquo;<samp><span class="samp">|</span></samp>&rsquo;, when used outside a list, is
+actually an alias for &lsquo;<samp><span class="samp">;</span></samp>&rsquo;.  The aliasing is performed when terms
+are read in.  Since release 4.3, however, &lsquo;<samp><span class="samp">|</span></samp>&rsquo; can be defined as a
+proper infix operator, which then disables the aliasing. 
+So the use of &lsquo;<samp><span class="samp">|</span></samp>&rsquo; instead of &lsquo;<samp><span class="samp">;</span></samp>&rsquo; for disjunction is
+not recommended in new code.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsem_002dctr_002ddis.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsem_002dctr_002ddis.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

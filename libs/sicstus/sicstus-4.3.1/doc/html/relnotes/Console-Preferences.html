@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+<title>Console Preferences - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Console-Window.html#The-Console-Window" title="The Console Window">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Console-Preferences"></a>
+<p>
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Console-Window.html#The-Console-Window">The Console Window</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.5.1 Console Preferences</h4>
+
+<p>The stream-based console window is a completely separate library, using
+its own configuration info. It will look at the environment variable
+<samp><span class="env">CONSOLE</span></samp>, which should contain a string of the form
+<var>name</var>:<var>representation</var>{,<var>name</var>:<var>representation</var>} where <var>name</var> is
+one of the following:
+
+     <dl>
+<dt><code>sl</code><dd>The number of lines you can scroll back.  There is no limit, but the
+more you specify the more memory will be used.  Memory is allocated when
+data becomes available.  The default is 200.
+
+     <br><dt><code>rows</code><dd>The initial number of lines.  The default is 24.
+
+     <br><dt><code>cols</code><dd>The initial number of columns.  The default is 80.
+
+     <br><dt><code>x</code><dd>The X coordinate of the top-left corner.  The default is determined by
+the system. 
+<!-- [PM] 3.8.5 "A little more information than I needed" -->
+<!-- The default is @code{CW_USEDEFAULT}. -->
+
+     <br><dt><code>y</code><dd>The Y coordinate of the top-left corner.  The default is determined by
+the system. 
+<!-- The default is @code{CW_USEDEFAULT}. -->
+
+   </dl>
+
+<!-- The user should know this or keep her hands off. -->
+<!-- Under Windows 2000 or newer, you would use the @samp{System} Control -->
+<!-- Panel to specify this. -->
+   <p>Many of these settings are also accessible from the menu &lsquo;<samp><span class="samp">settings</span></samp>&rsquo;
+of the console.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Console-Preferences.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Console-Preferences.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

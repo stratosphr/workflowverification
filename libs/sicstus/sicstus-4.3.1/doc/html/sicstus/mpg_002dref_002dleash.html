@@ -1,0 +1,121 @@
+<html lang="en">
+<head>
+<title>mpg-ref-leash - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dkeysort.html#mpg_002dref_002dkeysort" title="mpg-ref-keysort">
+<link rel="next" href="mpg_002dref_002dlength.html#mpg_002dref_002dlength" title="mpg-ref-length">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-leash"></a>
+<a name="mpg_002dref_002dleash"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dlength.html#mpg_002dref_002dlength">mpg-ref-length</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dkeysort.html#mpg_002dref_002dkeysort">mpg-ref-keysort</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.110 <code>leash/1</code> &nbsp;<!-- /@w --> <dfn>[development]</dfn></h4>
+
+<p><a name="index-leash_002f1-_0028built_002din_002c-ref-page_0029-4667"></a><a name="index-leash_002f1-_0028built_002din_002c-ref-page_0029-4668"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>leash(</code><var>+Mode</var><code>)</code>
+
+   <p>Starts leashing on the ports given by <var>Mode</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Mode</var><dd>
+<dfn>list of one of
+</dfn><code>[call,exit,redo,fail,exception,all,half,loose,tight,off]</code>, must be ground
+
+     <p>A list of the ports to be leashed. 
+A single keyword can be given without enclosing it in a list. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>Some of the keywords denote a set of ports:
+
+     <dl>
+<dt><code>all</code><dd>Stands for all five port.
+
+     <br><dt><code>half</code><dd>Stands for the Exception, Call and Redo ports.
+
+     <br><dt><code>loose</code><dd>Stands for the Exception and Call ports.
+
+     <br><dt><code>tight</code><dd>Stands for all ports but Exit.
+
+     <br><dt><code>off</code><dd>Stands for no ports. 
+</dl>
+
+   <p>The leashing mode only applies to procedures that do not have spypoints
+on them, and it determines which ports of such procedures are leashed.  By
+default, all five ports are leashed.  On arrival at a leashed port, the
+debugger will stop to allow you to look at the execution state and decide
+what to do next.  At unleashed ports, the goal is displayed but program
+execution does not stop to allow user interaction.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>Mode</var> is not ground
+
+     <br><dt><code>domain_error</code><dd><var>Mode</var> is not a valid leash specification
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     | ?- <kbd>leash(off).</kbd>
+</pre>
+   <p>turns off all leashing; now when you creep you will get an exhaustive
+trace but no opportunity to interact with the debugger.  You can get
+back to the debugger to interact with it by pressing <kbd>^c t</kbd>.
+
+<pre class="example">     | ?- <kbd>leash([call,redo]).</kbd>
+</pre>
+   <p>leashes on the Call and Redo ports.  When creeping, the debugger will
+now stop at every Call and Redo port to allow you to interact.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Basic-Debug.html#Basic-Debug">Basic Debug</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dleash.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dleash.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

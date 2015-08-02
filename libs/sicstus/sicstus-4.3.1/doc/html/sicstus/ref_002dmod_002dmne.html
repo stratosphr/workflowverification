@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+<title>ref-mod-mne - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmod.html#ref_002dmod" title="ref-mod">
+<link rel="prev" href="ref_002dmod_002didp.html#ref_002dmod_002didp" title="ref-mod-idp">
+<link rel="next" href="ref_002dmod_002dmet.html#ref_002dmod_002dmet" title="ref-mod-met">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-mod-mne"></a>
+<a name="ref_002dmod_002dmne"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dmod_002dmet.html#ref_002dmod_002dmet">ref-mod-met</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dmod_002didp.html#ref_002dmod_002didp">ref-mod-idp</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmod.html#ref_002dmod">ref-mod</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.11.15 Module Name Expansion</h4>
+
+<p><a name="index-module-name-expansion-1563"></a><a name="index-name-expansion_002c-module-1564"></a>
+<a name="index-source-module-1565"></a><a name="index-modules_002c-source-1566"></a>
+
+   <p>The concept of a source module is explained in
+<a href="ref_002dmod_002dsom.html#ref_002dmod_002dsom">ref-mod-som</a>.  For any goal, the applicable source module is
+determined when the goal is compiled rather than when it is
+executed.
+
+   <p>A procedure that needs to refer to the source module has arguments
+designated for module name expansion.  These arguments are expanded
+when code is consulted, compiled or asserted
+by the transformation <var>X -&gt; M:X</var> where <var>M</var> is the
+name of the source module.  For example, the goal <code>call(X)</code> is
+expanded into <code>call(M:X)</code> and the goal <code>clause(Head, Body)</code>
+is expanded into <code>clause(M:Head, Body)</code>.
+
+   <p>Module name expansion is avoided if the argument to be expanded is
+already a <code>:/2</code> term.  In this case it is unnecessary since the
+module to be used has already been supplied by the programmer.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dmne.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dmne.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

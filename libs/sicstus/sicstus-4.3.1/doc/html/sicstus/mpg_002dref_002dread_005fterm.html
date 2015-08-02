@@ -1,0 +1,200 @@
+<html lang="en">
+<head>
+<title>mpg-ref-read_term - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dread_005fline.html#mpg_002dref_002dread_005fline" title="mpg-ref-read_line">
+<link rel="next" href="mpg_002dref_002dreconsult.html#mpg_002dref_002dreconsult" title="mpg-ref-reconsult">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-read_term"></a>
+<a name="mpg_002dref_002dread_005fterm"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dreconsult.html#mpg_002dref_002dreconsult">mpg-ref-reconsult</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dread_005fline.html#mpg_002dref_002dread_005fline">mpg-ref-read_line</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.185 <code>read_term/[2,3]</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-read_005fterm_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029-4861"></a><a name="index-read_005fterm_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029-4862"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>read_term(</code><var>-Term</var><code>, </code><var>+Options</var><code>)</code>
+
+   <p><code>read_term(</code><var>+Stream</var><code>, </code><var>-Term</var><code>, </code><var>+Options</var><code>)</code>
+
+   <p>Read a term from <var>Stream</var>,
+optionally returning extra information about the term.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Stream</var><dd><dfn>stream_object</dfn>, must be ground
+
+     <p>A valid Prolog input stream, defaults to the current input stream.
+
+     <br><dt><var>Term</var><dd><dfn>term</dfn>
+
+     <p>The term that is read.
+
+     <br><dt><var>Options</var><dd><dfn>list of term</dfn>, must be ground, except <var>Vars</var>, <var>Names</var>, and <var>Layout</var>
+as described below.
+
+     <p>A list of zero or more of the following:
+
+          <dl>
+<dt><code>syntax_errors(</code><var>Val</var><code>)</code><dd><a name="index-syntax_005ferrors_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029-4863"></a>Controls what action to take on syntax errors.  <var>Val</var> must be
+one of the values allowed for the <code>syntax_errors</code> Prolog flag.  The
+default is set by that flag. See <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>. 
+<a name="index-syntax_005ferrors-_0028prolog-flag_0029-4864"></a>
+<br><dt><code>variables(</code><var>Vars</var><code>)</code><dd><a name="index-variables_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029-4865"></a><var>Vars</var> is bound to the list of variables in the
+term input, in left-to-right traversal order.
+
+          <br><dt><code>variable_names(</code><var>Names</var><code>)</code><dd><a name="index-variable_005fnames_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029-4866"></a><var>Names</var> is bound to a list of <var>Name</var><code>=</code><var>Var</var>
+pairs, where each <var>Name</var> is an atom indicating the name of a
+non-anonymous variable in the term, and <var>Var</var> is the
+corresponding variable. 
+<!-- [PM] 4.3 Ulrich made a good argument that the unspecified order was unintentional. Also, -->
+<!-- we never documented the order and it was _never_ ordered by name, so no correct -->
+<!-- code could have depended on the order. -->
+<!-- @c [PM] 4.3 Make this clear so no-one assumes DFS-order, or name order, or @< var-order etc. -->
+<!-- @c          Ulrich would like the standard to require left-to-right order. I object. -->
+<!-- The elements of the list are not in any particular order. -->
+The elements of the list are in the same order as in <var>Term</var>, i.e. in left-to-right traversal order.
+
+          <br><dt><code>singletons(</code><var>Names</var><code>)</code><dd><a name="index-singletons_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029-4867"></a><var>Names</var> is bound to a list of <var>Name</var><code>=</code><var>Var</var>
+pairs, one for each non-anonymous variable appearing only once in the term. 
+<!-- [PM] pre-4.3: -->
+<!-- pairs, one for each variable appearing only once in the term -->
+<!-- and whose name does not begin with @samp{_}. -->
+<!-- The Prolog flag @code{legacy_char_classification} changes the criteria -->
+<!-- for which variables are included in @code{@var{Names}}. When -->
+<!-- @code{legacy_char_classification} is in effect the list also includes -->
+<!-- variables that occur only once in the term and whose name begin with -->
+<!-- @samp{_} followed by a character that is not an uppercase Latin 1 -->
+<!-- character. -->
+<!-- @findex legacy_char_classification (prolog flag) -->
+<!-- [PM] 4.3 See variable_names/1 -->
+The elements of the list are in the same order as in <var>Term</var>, i.e. in left-to-right traversal order.
+
+          <br><dt><code>cycles(</code><var>Boolean</var><code>)</code><dd><a name="index-cycles_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029-4868"></a><a name="index-cyclic-term-4869"></a><a name="index-term_002c-cyclic-4870"></a><var>Boolean</var> must be <code>true</code> or <code>false</code>.  If selected, any
+occurrences of <code>@/2</code> in the term read in are replaced by the
+potentially cyclic terms they denote as described below. 
+Otherwise (the default), <var>Term</var> is just unified with the
+term read in.
+
+          <!-- [PM] 4.3 Mostly from sicstus3/doc/builtin.texi -->
+          <p>The notation used when this option is selected is
+<code>@(</code><var>Template</var><code>,</code><var>Substitution</var><code>)</code> where
+<var>Substitution</var> is a list of <var>Var</var>=<var>Term</var> pairs where
+the <var>Var</var> occurs in <var>Template</var> or in one of the <var>Term</var>s. 
+This notation stands for the instance of <var>Template</var> obtained by
+binding each <var>Var</var> to its corresponding <var>Term</var>.  The
+purpose of this notation is to provide a finite printed representation
+of cyclic terms.  This notation is not used by default, and
+<code>@/2</code> has no special meaning except in this context.
+
+          <p>Terms can be written in this notation using <code>write_term/[2,3]</code> (see <a href="mpg_002dref_002dwrite_005fterm.html#mpg_002dref_002dwrite_005fterm">mpg-ref-write_term</a>).
+
+          <br><dt><code>layout(</code><var>Layout</var><code>)</code><dd><a name="index-layout_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029-4871"></a><a name="index-layout-term-4872"></a><a name="index-term_002c-layout-4873"></a><var>Layout</var> is bound to a <dfn>layout term</dfn> corresponding to
+<var>Term</var> (see <a href="Glossary.html#Glossary">Glossary</a>).
+
+          <br><dt><code>consume_layout(</code><var>Boolean</var><code>)</code><dd><a name="index-consume_005flayout_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029-4874"></a><var>Boolean</var> must be <code>true</code> or <code>false</code>.  If this option is
+<code>true</code>, <code>read_term/[2,3]</code> will consume the
+<var>layout-text-item</var> that follows the terminating &lsquo;<samp><span class="samp">.</span></samp>&rsquo; (this
+<var>layout-text-item</var> can either be a <var>layout-char</var> or a
+<var>comment</var> starting with a &lsquo;<samp><span class="samp">%</span></samp>&rsquo;). If the option is <code>false</code>, the
+<var>layout-text-item</var> will remain in the input stream, so that
+subsequent character input predicates will see it. The default of
+the <code>consume_layout</code> option is <code>false</code>. 
+<!-- @code{true} in @code{sicstus} -->
+<!-- execution mode, and it is @code{false} in @code{iso} execution mode. -->
+</dl>
+     </dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>The characters read are subject to character-conversion.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Stream errors (see <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>), plus:
+
+     <dl>
+<dt><code>syntax_error</code><dd>A syntax error was found.
+
+     <br><dt><code>instantiation_error</code><dt><code>type_error</code><dt><code>domain_error</code><dd>An illegal option was specified. 
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     | ?- <kbd>read_term(T, [variable_names(L)]).</kbd>
+     |: <kbd>append([U|X],Y,[U|Z]) :- append(X,Y,Z).</kbd>
+     L = ['U'=_A,'X'=_B,'Y'=_C,'Z'=_D],
+     T = (append([_A|_B],_C,[_A|_D]):-append(_B,_C,_D))
+</pre>
+<pre class="example">     | ?- <kbd>read_term(T, [layout(L), variable_names(Va), singletons(S)]).</kbd>
+     |: <kbd>[</kbd>
+          <kbd>foo(X),</kbd>
+          <kbd>X = Y</kbd>
+          <kbd>].</kbd>
+     
+     L = [35,[36,36],[36,[37,37,37],38]],
+     S = ['Y'=_A],
+     T = [foo(_B),_B=_A],
+     Va = ['X'=_B,'Y'=_A]
+     
+     | ?- <kbd>read_term(T, [consume_layout(false)]), get_code(C).</kbd>
+     |: <kbd>1.</kbd>
+     
+     C = 10,
+     T = 1
+     
+     | ?- <kbd>read_term(T, [consume_layout(true)]), get_code(C).</kbd>
+     |: <kbd>1.</kbd>
+     |: <kbd>a</kbd>
+     
+     C = 97,
+     T = 1
+</pre>
+   <h4 class="subheading">See Also</h4>
+
+<p><code>read/[1,2]</code>, <code>char_conversion/2</code>, <a href="ref_002diou_002dtin_002dtrm.html#ref_002diou_002dtin_002dtrm">ref-iou-tin-trm</a>, <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dread_005fterm.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dread_005fterm.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

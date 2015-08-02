@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+<title>Placement of Cuts - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Cut.html#The-Cut" title="The Cut">
+<link rel="prev" href="Making-Predicates-Determinate.html#Making-Predicates-Determinate" title="Making Predicates Determinate">
+<link rel="next" href="Terminating-a-Backtracking-Loop.html#Terminating-a-Backtracking-Loop" title="Terminating a Backtracking Loop">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Placement-of-Cuts"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Terminating-a-Backtracking-Loop.html#Terminating-a-Backtracking-Loop">Terminating a Backtracking Loop</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Making-Predicates-Determinate.html#Making-Predicates-Determinate">Making Predicates Determinate</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Cut.html#The-Cut">The Cut</a>
+<hr>
+</div>
+
+<h4 class="subsection">9.4.3 Placement of Cuts</h4>
+
+<p><a name="index-placement-of-cut-2429"></a><a name="index-cut_002c-placement-of-2430"></a>
+Programs can often be made more readable by the placing of
+cuts as early as possible in clauses.  For example, consider
+the predicate <code>p/0</code> defined by
+<pre class="example">     p :- a, b, !, c, d.
+     p :- e, f.
+</pre>
+   <p>Suppose that <code>b/0</code> is a test that determines which clause of
+<code>p/0</code> applies; <code>a/0</code> may or may not be a test, but <code>c/0</code>
+and <code>d/0</code> are not supposed to fail under any circumstances.  A
+cut is most appropriately placed after the call to <code>b/0</code>.  If
+in fact <code>a/0</code> is the test and <code>b/0</code> is not supposed to fail,
+it would be much clearer to move the cut before the call to
+<code>b/0</code>.
+
+   <p>A tool to aid in determinacy checking is included in the distribution. 
+It is described in depth in <a href="The-Determinacy-Checker.html#The-Determinacy-Checker">The Determinacy Checker</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Placement-of-Cuts.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Placement-of-Cuts.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

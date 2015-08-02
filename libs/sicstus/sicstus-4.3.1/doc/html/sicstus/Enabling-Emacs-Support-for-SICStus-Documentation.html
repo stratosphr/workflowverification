@@ -1,0 +1,77 @@
+<html lang="en">
+<head>
+<title>Enabling Emacs Support for SICStus Documentation - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Installation.html#Installation" title="Installation">
+<link rel="prev" href="Enabling-Emacs-Support-for-SICStus.html#Enabling-Emacs-Support-for-SICStus" title="Enabling Emacs Support for SICStus">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Enabling-Emacs-Support-for-SICStus-Documentation"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Enabling-Emacs-Support-for-SICStus.html#Enabling-Emacs-Support-for-SICStus">Enabling Emacs Support for SICStus</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Installation.html#Installation">Installation</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">3.12.1.4 Enabling Emacs Support for SICStus Documentation</h5>
+
+<p>If you follow the steps in Section Quick Start, above, you can skip this
+section.
+
+   <p>It is possible to look up the documentation for any built-in or
+library predicate from within Emacs (using <kbd>C-c ?</kbd> or the
+menu). For this to work Emacs must be told about the location of the
+&lsquo;<samp><span class="samp">info</span></samp>&rsquo;-files that make up the documentation.
+
+   <p>The default location for the &lsquo;<samp><span class="samp">info</span></samp>&rsquo;-files are
+<samp><span class="file">&lt;prefix&gt;/lib/sicstus-4.3.1/doc/info/</span></samp> on UNIX platforms and
+<samp><span class="file">C:/Program Files/SICStus Prolog 4.3.1/doc/info/</span></samp> under Windows.
+
+   <p>Add the following to your <samp><span class="file">~/.emacs</span></samp> file, assuming INFO is the
+path to the info files, e.g. <samp><span class="file">C:/Program Files/SICStus Prolog 4.3.1/doc/info/</span></samp>
+<pre class="example">     (setq Info-default-directory-list
+        (append Info-default-directory-list '("INFO")))
+</pre>
+   <p class="noindent">for GNU Emacs, or
+<!-- [PM] 4.3 Keep this reference to XEmacs. -->
+<pre class="example">     (setq Info-directory-list
+        (append Info-directory-list '("INFO")))
+</pre>
+   <p class="noindent">for XEmacs. You can also use <kbd>M-x customize-group &lt;RET&gt; info &lt;RET&gt;</kbd> if
+your Emacs is recent enough. You may have to quit and restart Emacs for
+these changes to take effect.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Enabling-Emacs-Support-for-SICStus-Documentation.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Enabling-Emacs-Support-for-SICStus-Documentation.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

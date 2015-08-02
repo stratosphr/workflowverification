@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+<title>OS Memory Management - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Operating-System-Services.html#Operating-System-Services" title="Operating System Services">
+<link rel="next" href="OS-File-System.html#OS-File-System" title="OS File System">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="OS-Memory-Management"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="OS-File-System.html#OS-File-System">OS File System</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Operating-System-Services.html#Operating-System-Services">Operating System Services</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">6.4.7.1 Memory Management</h5>
+
+<p>The standard C library memory allocation functions (<code>malloc</code>,
+<code>calloc</code>, <code>realloc</code>, and <code>free</code>) are available in
+foreign code, but cannot reuse any free memory that SICStus Prolog's
+memory manager may have available, and so may contribute to memory
+fragmentation.
+
+<!-- Furthermore, the C library functions may return values that are not -->
+<!-- aligned pointers, something which many functions of the foreign -->
+<!-- language interface require. -->
+   <p>The following functions provide the same services via SICStus Prolog's
+memory manager. 
+<!-- All pointers returned are aligned. -->
+
+     <dl>
+<dt><code>SP_malloc()</code><dd><a name="index-SP_005fmalloc_0028_0029-_0028C-function_0029-2289"></a>Allocates a piece of memory. 
+<br><dt><code>SP_calloc()</code><dd><a name="index-SP_005fcalloc_0028_0029-_0028C-function_0029-2290"></a>Allocates memory for an array of elements, and clears the allocated memory. 
+<br><dt><code>SP_realloc()</code><dd><a name="index-SP_005frealloc_0028_0029-_0028C-function_0029-2291"></a>Changes the size of an allocated piece of memory. 
+<br><dt><code>SP_free()</code><dd><a name="index-SP_005ffree_0028_0029-_0028C-function_0029-2292"></a>Deallocates a piece of memory. 
+<br><dt><code>SP_strdup()</code><dd><a name="index-SP_005fstrdup_0028_0029-_0028C-function_0029-2293"></a>Makes a copy of a string in allocated memory. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/OS-Memory-Management.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/OS-Memory-Management.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

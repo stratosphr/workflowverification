@@ -1,0 +1,105 @@
+<html lang="en">
+<head>
+<title>lib-codesio - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Prolog-Library.html#The-Prolog-Library" title="The Prolog Library">
+<link rel="prev" href="lib_002dclpqr.html#lib_002dclpqr" title="lib-clpqr">
+<link rel="next" href="lib_002dcomclient.html#lib_002dcomclient" title="lib-comclient">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="lib-codesio"></a>
+<a name="lib_002dcodesio"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="lib_002dcomclient.html#lib_002dcomclient">lib-comclient</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="lib_002dclpqr.html#lib_002dclpqr">lib-clpqr</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Prolog-Library.html#The-Prolog-Library">The Prolog Library</a>
+<hr>
+</div>
+
+<h3 class="section">10.12 I/O on Lists of Character Codes&mdash;<code>library(codesio)</code></h3>
+
+<p>This package defines I/O predicates that read from, or write to, a
+code-list.  There are also predicates to open a stream
+referring to a code-list.  The stream may be used with
+general Stream I/O predicates.
+
+   <p>Exported predicates:
+
+     <dl>
+<dt><code>format_to_codes(</code><var>+Format</var><code>, </code><var>:Arguments</var><code>, </code><var>-Codes</var><code>)</code><dt><code>format_to_codes(</code><var>+Format</var><code>, </code><var>:Arguments</var><code>, </code><var>?S0</var><code>, </code><var>?S</var><code>)</code><dd><a name="index-format_005fto_005fcodes_002f_005b3_002c4_005d-_0028codesio_0029-3191"></a><a name="index-format_005fto_005fcodes_002f_005b3_002c4_005d-_0028codesio_0029-3192"></a>
+Prints <var>Arguments</var> into a code-list using <code>format/3</code>.  <var>Codes</var> is unified with the list,
+alternatively <var>S0</var> and <var>S</var> are unified with the head
+and tail of the list, respectively. 
+<br><dt><code>write_to_codes(</code><var>+Term</var><code>, </code><var>-Codes</var><code>)</code><dt><code>write_to_codes(</code><var>+Term</var><code>, </code><var>?S0</var><code>, </code><var>?S</var><code>)</code><dd><a name="index-write_005fto_005fcodes_002f_005b2_002c3_005d-_0028codesio_0029-3193"></a><a name="index-write_005fto_005fcodes_002f_005b2_002c3_005d-_0028codesio_0029-3194"></a>
+A specialized <code>format_to_codes/[3,4]</code>. Writes <var>Term</var> into a
+code-list using <code>write/2</code>.  <var>Codes</var> is
+unified with the list.  Alternatively, <var>S0</var> and <var>S</var>
+are unified with the head and tail of the list,
+respectively. 
+<br><dt><code>write_term_to_codes(</code><var>+Term</var><code>, </code><var>-Codes</var><code>, </code><var>+Options</var><code>)</code><dt><code>write_term_to_codes(</code><var>+Term</var><code>, </code><var>?S0</var><code>, </code><var>?S</var><code>, </code><var>+Options</var><code>)</code><dd><a name="index-write_005fterm_005fto_005fcodes_002f_005b3_002c4_005d-_0028codesio_0029-3195"></a><a name="index-write_005fterm_005fto_005fcodes_002f_005b3_002c4_005d-_0028codesio_0029-3196"></a>
+A specialized <code>format_to_codes/[3,4]</code>. Writes <var>Term</var> into a
+code-list using <code>write_term/3</code> and <var>Options</var>.  <var>Codes</var> is
+unified with the list.  Alternatively, <var>S0</var> and <var>S</var> are
+unified with the head and tail of the list, respectively. 
+<br><dt><code>read_from_codes(</code><var>+Codes</var><code>, </code><var>-Term</var><code>)</code><dd><a name="index-read_005ffrom_005fcodes_002f2-_0028codesio_0029-3197"></a><a name="index-read_005ffrom_005fcodes_002f2-_0028codesio_0029-3198"></a>
+Reads <var>Term</var> from <var>Codes</var> using <code>read/2</code>.  The <var>Codes</var>
+must, as usual, be terminated by a <var>full-stop</var>, i.e. a &lsquo;<samp><span class="samp">.</span></samp>&rsquo;,
+possibly followed by <var>layout-text</var>. 
+<br><dt><code>read_term_from_codes(</code><var>+Codes</var><code>, </code><var>-Term</var><code>, </code><var>+Options</var><code>)</code><dd><a name="index-read_005fterm_005ffrom_005fcodes_002f3-_0028codesio_0029-3199"></a><a name="index-read_005fterm_005ffrom_005fcodes_002f3-_0028codesio_0029-3200"></a>
+Reads <var>Term</var> from <var>Codes</var> using <code>read_term/3</code> and
+<var>Options</var>.  The <var>Codes</var> must, as usual, be terminated by a
+<var>full-stop</var>, i.e. a &lsquo;<samp><span class="samp">.</span></samp>&rsquo;, possibly followed by
+<var>layout-text</var>. 
+<br><dt><code>open_codes_stream(</code><var>+Codes</var><code>, </code><var>-Stream</var><code>)</code><dd><a name="index-open_005fcodes_005fstream_002f2-_0028codesio_0029-3201"></a><a name="index-open_005fcodes_005fstream_002f2-_0028codesio_0029-3202"></a>
+<var>Stream</var> is opened as an input stream to an existing
+code-list.  The stream may be read with the Stream I/O
+predicates and must be closed using <code>close/1</code>.  The
+list is copied to an internal buffer when the stream is
+opened and must therefore be a ground code-list at that
+point. 
+<br><dt><code>with_output_to_codes(</code><var>:Goal</var><code>, </code><var>-Codes</var><code>)</code><dt><code>with_output_to_codes(</code><var>:Goal</var><code>, </code><var>?S0</var><code>, </code><var>?S</var><code>)</code><dt><code>with_output_to_codes(</code><var>:Goal</var><code>, </code><var>-Stream</var><code>, </code><var>?S0</var><code>, </code><var>?S</var><code>)</code><dd><a name="index-with_005foutput_005fto_005fcodes_002f_005b2_002c3_002c4_005d-_0028codesio_0029-3203"></a><a name="index-with_005foutput_005fto_005fcodes_002f_005b2_002c3_002c4_005d-_0028codesio_0029-3204"></a>
+<var>Goal</var> is called with the <code>current_output</code> stream set to
+a new stream. This stream writes to an internal buffer,
+which is, after the successful execution of <var>Goal</var>, converted to a
+list of character codes.  <var>Codes</var> is unified with the
+list, alternatively <var>S0</var> and <var>S</var> are unified with
+the head and tail of the list, respectively. 
+<code>with_output_to_codes/4</code> also passes the stream in the
+<var>Stream</var> argument. It can be used only by <var>Goal</var> for
+writing. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dcodesio.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dcodesio.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

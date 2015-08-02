@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+<title>ref-ere-err-syn - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dere_002derr.html#ref_002dere_002derr" title="ref-ere-err">
+<link rel="prev" href="ref_002dere_002derr_002dcns.html#ref_002dere_002derr_002dcns" title="ref-ere-err-cns">
+<link rel="next" href="ref_002dere_002derr_002dres.html#ref_002dere_002derr_002dres" title="ref-ere-err-res">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-ere-err-syn"></a>
+<a name="ref_002dere_002derr_002dsyn"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dere_002derr_002dres.html#ref_002dere_002derr_002dres">ref-ere-err-res</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dere_002derr_002dcns.html#ref_002dere_002derr_002dcns">ref-ere-err-cns</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dere_002derr.html#ref_002dere_002derr">ref-ere-err</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.15.4.11 Syntax Errors</h5>
+
+<p><a name="index-syntax-errors-1742"></a>
+<a name="index-errors_002c-syntax-1743"></a>
+
+   <p>A syntax error occurs when data are read from some external source
+but have an improper format or cannot be processed for some other reason. 
+This category mainly applies to <code>read/1</code> and its variants.
+
+   <p>The <var>SICStus_Error</var> term associated with a syntax error is
+<pre class="example">     syntax_error(<var>Goal, Position, Message, Left, Right</var>)
+</pre>
+   <p class="noindent">where <var>Goal</var> is the goal in question, <var>Position</var> identifies
+the position in the stream where reading started,
+and <var>Message</var> describes the error.  Left and right are lists of
+tokens before and after the error, respectively.
+
+   <p>Note that the <var>Position</var> is where reading started, not where the
+error <em>is</em>.
+
+   <p><code>read/1</code> does two things.  First, it reads a sequence of characters from the
+current input stream up to and including a clause terminator, or the end of
+file marker, whichever comes first.  Then it attempts to parse the sequence
+of characters as a Prolog term.  If the parse is unsuccessful, a syntax error
+occurs.  Thus, in the case of syntax errors, <code>read/1</code> disobeys the normal
+rule that predicates should detect and report errors before they perform any
+side-effects, because the side-effect of reading the characters has been done.
+
+   <p><a name="index-syntax_005ferrors-_0028prolog-flag_0029-1744"></a><a name="index-syntax_005ferrors_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029-1745"></a>A syntax error does not necessarily cause an exception to be thrown. 
+For I/O predicates, but not for <code>number_chars/2</code> and <code>number_codes/2</code>,
+The behavior can be controlled via the <code>syntax_errors</code> Prolog flag
+(see <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>), or via the <code>syntax_errors/1</code> option to
+<code>read_term/[2,3]</code>.  The following values are possible:
+
+     <dl>
+<dt><code>quiet</code><dd><a name="index-quiet-_0028syntax_005ferrors-flag-value_0029-1746"></a>When a syntax error is detected, nothing is printed, and <code>read/1</code>
+just quietly fails.
+
+     <br><dt><code>dec10</code><dd><a name="index-dec10-_0028syntax_005ferrors-flag-value_0029-1747"></a>This provides compatibility with other Prologs:  when a syntax error
+is detected, a syntax error message is issued with <code>print_message/2</code>, and
+the <code>read</code> is repeated.  This is the default.
+
+     <br><dt><code>fail</code><dd><a name="index-fail-_0028syntax_005ferrors-flag-value_0029-1748"></a>This provides compatibility with other Prologs.  When a syntax error is
+detected, a syntax error message is printed on <code>user_error</code>, and the
+<code>read</code> then fails.
+
+     <br><dt><code>error</code><dd><a name="index-error-_0028syntax_005ferrors-flag-value_0029-1749"></a>When a syntax error is detected, an exception is thrown. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002derr_002dsyn.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002derr_002dsyn.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

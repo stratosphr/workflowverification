@@ -1,0 +1,108 @@
+<html lang="en">
+<head>
+<title>Conversion Declarations - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" title="Calling C from Prolog">
+<link rel="prev" href="Foreign-Resources.html#Foreign-Resources" title="Foreign Resources">
+<link rel="next" href="Conversions-between-Prolog-Arguments-and-C-Types.html#Conversions-between-Prolog-Arguments-and-C-Types" title="Conversions between Prolog Arguments and C Types">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Conversion-Declarations"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Conversions-between-Prolog-Arguments-and-C-Types.html#Conversions-between-Prolog-Arguments-and-C-Types">Conversions between Prolog Arguments and C Types</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Foreign-Resources.html#Foreign-Resources">Foreign Resources</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Calling-C-from-Prolog.html#Calling-C-from-Prolog">Calling C from Prolog</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.2.2 Conversion Declarations</h4>
+
+<p>Conversion declaration predicates:
+
+     <dl>
+<dt><code>foreign_resource(</code><var>+ResourceName</var><code>,</code><var>+Functions</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd><a name="index-foreign_005fresource_002f2-_0028Module_002c-hook_0029-2214"></a><a name="index-foreign_005fresource_002f2-_0028Module_002c-hook_0029-2215"></a>
+<a name="index-init-function-2216"></a><a name="index-function_002c-init-2217"></a><a name="index-deinit-function-2218"></a><a name="index-function_002c-deinit-2219"></a>Specifies that a set of foreign functions, to be called from Prolog, are
+to be found in the resource named by <var>ResourceName</var>. 
+<var>Functions</var> is a list of functions exported by the resource. 
+Only functions that are to be called from Prolog and optionally one
+<dfn>init function</dfn> and one <dfn>deinit function</dfn> should be listed. The
+init and deinit functions are specified as
+<code>init(</code><var>Function</var><code>)</code> and <code>deinit(</code><var>Function</var><code>)</code>
+respectively (see <a href="Init-and-Deinit-Functions.html#Init-and-Deinit-Functions">Init and Deinit Functions</a>). This predicate
+should be defined entirely in terms of facts (unit clauses)
+and will be called in the relevant module, i.e. not necessarily
+in the <code>user</code> module.  For example:
+
+     <pre class="example">          foreign_resource('terminal', [scroll,pos_cursor,ask]).
+</pre>
+     <p class="noindent">specifies that functions <code>scroll()</code>, <code>pos_cursor()</code> and
+<code>ask()</code> are to be found in the resource <samp><span class="file">terminal</span></samp>. 
+See <a href="mpg_002dref_002dforeign_005fresource.html#mpg_002dref_002dforeign_005fresource">mpg-ref-foreign_resource</a>.
+
+     <br><dt><code>foreign(</code><var>+CFunctionName</var><code>, </code><var>+Predicate</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dt><code>foreign(</code><var>+CFunctionName</var><code>, </code><var>+Language</var><code>, </code><var>+Predicate</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd><a name="index-foreign_002f_005b2_002c3_005d-_0028Module_002c-hook_0029-2220"></a><a name="index-foreign_002f_005b2_002c3_005d-_0028Module_002c-hook_0029-2221"></a>
+Specify the Prolog interface to a C function.  <var>Language</var> is at
+present constrained to the atom <code>c</code>, so there is no advantage
+in using <code>foreign/3</code> over <code>foreign/2</code>.  <var>CFunctionName</var> is
+the name of a C function.  <var>Predicate</var> specifies the name of the
+Prolog predicate that will be used to call <var>CFunction()</var>. 
+<var>Predicate</var> also specifies how the predicate arguments
+are to be translated to and from the corresponding C
+arguments. These predicates should be defined entirely in
+terms of facts (unit clauses) and will be called in the
+relevant module, i.e. not necessarily in the <code>user</code>
+module.  For example:
+
+     <pre class="example">          foreign(pos_cursor, c, move_cursor(+integer, +integer)).
+</pre>
+     <p>The above example says that the C function <code>pos_cursor()</code> has two
+integer representation arguments and that we will use the predicate
+<code>move_cursor/2</code> to call this function.  A goal
+<code>move_cursor(5, 23)</code> would translate into the C call
+<code>pos_cursor(5,23);</code>.
+
+     <p>The third argument of the predicate <code>foreign/3</code> specifies how to
+translate between Prolog arguments and C arguments. A call to a foreign
+predicate will throw an Instantiation Error if an input arguments is
+uninstantiated, a Type Error if an input arguments has the wrong type,
+or a Domain Error if an input arguments is in the wrong domain.  The
+call will fail upon return from the function if the output arguments
+don't unify with the actual arguments.
+
+     <p>The available conversions are listed in the next subsection. 
+See <a href="mpg_002dref_002dforeign.html#mpg_002dref_002dforeign">mpg-ref-foreign</a>. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Conversion-Declarations.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Conversion-Declarations.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

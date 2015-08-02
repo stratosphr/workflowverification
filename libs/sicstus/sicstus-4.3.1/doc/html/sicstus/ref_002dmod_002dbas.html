@@ -1,0 +1,100 @@
+<html lang="en">
+<head>
+<title>ref-mod-bas - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmod.html#ref_002dmod" title="ref-mod">
+<link rel="prev" href="ref_002dmod_002dove.html#ref_002dmod_002dove" title="ref-mod-ove">
+<link rel="next" href="ref_002dmod_002ddef.html#ref_002dmod_002ddef" title="ref-mod-def">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-mod-bas"></a>
+<a name="ref_002dmod_002dbas"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dmod_002ddef.html#ref_002dmod_002ddef">ref-mod-def</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dmod_002dove.html#ref_002dmod_002dove">ref-mod-ove</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmod.html#ref_002dmod">ref-mod</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.11.2 Basic Concepts</h4>
+
+<p>Each predicate in a program is identified by its <dfn>module</dfn>, as well as by
+its name and arity.
+
+   <p><a name="index-public-predicates-1483"></a><a name="index-predicates_002c-public-1484"></a>
+<a name="index-private-predicates-1485"></a><a name="index-predicates_002c-private-1486"></a>
+
+   <p>A module defines a set of predicates, among which some have the property
+of being <dfn>public</dfn>.  Public predicates are predicates that can be
+<dfn>imported</dfn> by other modules, which means that they can then be
+called from within those modules.  Predicates that are not public are
+<dfn>private</dfn> to the module in which they are defined; that is, they
+cannot be called from outside that module (except by explicitly
+overriding the modularity rules as described in <a href="ref_002dmod_002dvis.html#ref_002dmod_002dvis">ref-mod-vis</a>).
+
+   <p>There are two kinds of importation:
+
+   <p><a name="index-importation-1487"></a>
+     <ol type=1 start=1>
+
+     <li>A module <var>M1</var> may import a specified set of predicates from another
+module <var>M2</var>.  All the specified predicates should be public in <var>M2</var>. 
+<li>A module <var>M1</var> may import all the public predicates of another module
+<var>M2</var>.
+        </ol>
+
+   <p>Built-in predicates don't need to be imported; they are automatically
+available from within any module.
+
+   <p>There is a special module called <code>user</code>, which is used by default when
+predicates are being defined and no other module has been specified.
+
+   <p>The other predefined module is the <code>prolog</code> module
+where all the built-in predicates reside.  The exported
+built-in predicates are automatically imported into each new
+module as it is created.
+
+   <p>If you are using a program written by someone else, you need not be
+concerned as to whether or not that program has been made into a module. 
+The act of loading a module from a file using <code>compile/1</code>,
+or <code>ensure_loaded/1</code> (see <a href="ref_002dlod.html#ref_002dlod">ref-lod</a>) will automatically import
+all the public predicates in that module.  Thus the command
+<pre class="example">     :- ensure_loaded(library(lists)).
+</pre>
+   <p class="noindent">will load the list-processing predicates from the library and make
+them available.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dbas.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dbas.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

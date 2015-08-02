@@ -1,0 +1,103 @@
+<html lang="en">
+<head>
+<title>ref-sls-sst - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsls.html#ref_002dsls" title="ref-sls">
+<link rel="prev" href="ref_002dsls_002dove.html#ref_002dsls_002dove" title="ref-sls-ove">
+<link rel="next" href="ref_002dsls_002dssl.html#ref_002dsls_002dssl" title="ref-sls-ssl">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-sls-sst"></a>
+<a name="ref_002dsls_002dsst"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dsls_002dssl.html#ref_002dsls_002dssl">ref-sls-ssl</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dsls_002dove.html#ref_002dsls_002dove">ref-sls-ove</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsls.html#ref_002dsls">ref-sls</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.4.2 Saved-States</h4>
+
+<p><a name="index-saved_002dstate-770"></a>
+<a name="index-save_005fprogram_002f_005b1_002c2_005d-_0028built_002din_0029-771"></a><a name="index-save_005fprogram_002f_005b1_002c2_005d-_0028built_002din_0029-772"></a>
+
+   <p><a name="index-restore_002f1-_0028built_002din_0029-773"></a><a name="index-restore_002f1-_0028built_002din_0029-774"></a>
+
+   <p>Saved-states are just a special case of PO files.  The
+<code>save_program/[1,2]</code> predicate will save the execution state in a
+file.  The state consists of all predicates and modules except built-in
+predicates and clauses of volatile predicates, the current operator
+declarations, the current character-conversion mapping, the values of
+all writable Prolog flags except those marked as <dfn>volatile</dfn> in
+<a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>, any blackboard data (see <a href="ref_002dmdb_002dbbd.html#ref_002dmdb_002dbbd">ref-mdb-bbd</a>), database
+data (see <a href="ref_002dmdb_002dbas.html#ref_002dmdb_002dbas">ref-mdb-bas</a>), and as of release 4.2, information for
+source-linked debugging. 
+See <a href="mpg_002dref_002dsave_005fprogram.html#mpg_002dref_002dsave_005fprogram">mpg-ref-save_program</a>.
+
+   <p>A saved-state, can be restored using the <code>restore/1</code>
+predicate from within Prolog:
+
+<pre class="example">     | ?- <kbd>restore(</kbd><var>File</var><kbd>).</kbd>
+</pre>
+   <p class="noindent">which will replace the current program state
+by the one in <var>File</var>. 
+See <a href="mpg_002dref_002drestore.html#mpg_002dref_002drestore">mpg-ref-restore</a>.
+
+   <p>A saved-state can also be given as an option to the <samp><span class="command">sicstus</span></samp>
+command:
+
+<pre class="example">     % <kbd>sicstus -r </kbd><var>File</var>
+</pre>
+   <p class="noindent">which will start execution by restoring <var>File</var>.
+
+   <p>The location (i.e. directory) of the saved-state, when it is created
+with <code>save_program/[1,2]</code> and loaded with <code>restore/1</code>, is
+treated in a special way in order to make it possible locate files when
+the saved-state has been moved. See <a href="Saving.html#Saving">Saving</a> for more information.
+
+   <p><a name="index-initialization-of-saved_002dstates-775"></a><a name="index-saved_002dstates_002c-initialization-of-776"></a>
+The <code>save_program/2</code> predicate can be used to specify an initial goal
+that will be run when the saved-state is restored. For example:
+
+<pre class="example">     | ?- <kbd>save_program(saved_state,initial_goal([a,b,c])).</kbd>
+</pre>
+   <p>When <samp><span class="file">saved_state</span></samp> is loaded <code>initial_goal/1</code> will be called. This allows
+saved-states to be generated that will immediately start running the user's
+program when they are restored. In addition to this <code>save_program/2</code>
+facility, see also the <code>initialization/1</code> facility to declare
+goal to be executed upon loading (see <a href="Initializations.html#Initializations">Initializations</a>).
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsls_002dsst.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsls_002dsst.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

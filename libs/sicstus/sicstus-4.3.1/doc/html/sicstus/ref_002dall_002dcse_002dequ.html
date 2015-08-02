@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+<title>ref-all-cse-equ - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dall_002dcse.html#ref_002dall_002dcse" title="ref-all-cse">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-all-cse-equ"></a>
+<a name="ref_002dall_002dcse_002dequ"></a>
+<p>
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dall_002dcse.html#ref_002dall_002dcse">ref-all-cse</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.13.2.1 Existential Quantifier</h5>
+
+<p><a name="index-g_t_005e_002f2-_0028built_002din_0029-1640"></a><a name="index-g_t_005e_002f2-_0028built_002din_0029-1641"></a>
+
+   <p><a name="index-existential-quantifier-1642"></a><a name="index-quantifier_002c-existential-1643"></a>
+
+   <p><var>X</var> <code>^</code> <var>P</var> is recognized as meaning &ldquo;there exists an
+<var>X</var> such that <var>P</var> is true&rdquo;, and is treated as equivalent to
+simply calling <var>P</var>.  The use of the explicit existential
+quantifier outside <code>setof/3</code> and <code>bagof/3</code> is superfluous.
+
+   <p>Variables occurring in <var>Generator</var> will not be treated as free if they are
+explicitly bound within <var>Generator</var> by an existential quantifier. 
+An existential quantification is written:
+<pre class="example">     <var>Y</var>^<var>Q</var>
+</pre>
+   <p class="noindent">meaning &ldquo;there exists a <var>Y</var> such that <var>Q</var> is true&rdquo;, where <var>Y</var>
+is some Prolog variable. 
+For example:
+<pre class="example">     | ?- <kbd>setof(X, Y^likes(X,Y), S).</kbd>
+</pre>
+   <p class="noindent">would produce the single result
+<pre class="example">     X = _400,
+     Y = _415,
+     S = [bill,dick,harry,jan,tom] <kbd>;</kbd>
+     
+     no
+</pre>
+   <p class="noindent">in contrast to the earlier example.
+
+   <p>Furthermore, it is possible to existentially quantify a term, where
+all the variables in that term are taken to be existentially quantified
+in the goal.  e.g.
+
+<pre class="example">     A=term(X,Y), setof(Z, A^foo(X,Y,Z), L).
+</pre>
+   <p class="noindent">will treat <var>X</var> and <var>Y</var> as if they are existentially quantified.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dall_002dcse_002dequ.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dall_002dcse_002dequ.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

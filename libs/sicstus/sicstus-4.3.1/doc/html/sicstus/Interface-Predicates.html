@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+<title>Interface Predicates - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" title="Calling C from Prolog">
+<link rel="prev" href="Conversions-between-Prolog-Arguments-and-C-Types.html#Conversions-between-Prolog-Arguments-and-C-Types" title="Conversions between Prolog Arguments and C Types">
+<link rel="next" href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker" title="The Foreign Resource Linker">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Interface-Predicates"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker">The Foreign Resource Linker</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Conversions-between-Prolog-Arguments-and-C-Types.html#Conversions-between-Prolog-Arguments-and-C-Types">Conversions between Prolog Arguments and C Types</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Calling-C-from-Prolog.html#Calling-C-from-Prolog">Calling C from Prolog</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.2.4 Interface Predicates</h4>
+
+     <dl>
+<dt><code>load_foreign_resource(</code><var>:Resource</var><code>)</code><dd><a name="index-load_005fforeign_005fresource_002f1-_0028built_002din_0029-2222"></a><a name="index-load_005fforeign_005fresource_002f1-_0028built_002din_0029-2223"></a>
+
+     <p>Unless a foreign resource with the same name as <var>Resource</var> has
+been statically linked, the linked foreign resource specified by
+<var>Resource</var> is linked into the Prolog load image.  In both cases, the
+predicates defined by <var>Resource</var> are installed, and any
+init function is called.  Dynamic linking is not possible if the
+foreign resource was linked using the <samp><span class="option">--static</span></samp> option.
+
+     <p>If a resource with the same name has been previously loaded, it will be
+unloaded, as if <code>unload_foreign_resource(</code><var>Resource</var><code>)</code> were
+called, before <var>Resource</var> is loaded.
+
+     <p>An example of usage of <code>load_foreign_resource/1</code> can be found in its
+reference page, <a href="mpg_002dref_002dload_005fforeign_005fresource.html#mpg_002dref_002dload_005fforeign_005fresource">mpg-ref-load_foreign_resource</a>.
+
+     <br><dt><code>unload_foreign_resource(</code><var>:ResourceName</var><code>)</code><dd><a name="index-unload_005fforeign_005fresource_002f1-_0028built_002din_0029-2224"></a><a name="index-unload_005fforeign_005fresource_002f1-_0028built_002din_0029-2225"></a>
+Any deinit function associated with <var>ResourceName</var>, a resource
+name, is called, and the predicates defined by <var>ResourceName</var>
+are uninstalled.  If <var>ResourceName</var> has been dynamically linked, it
+is unlinked from the Prolog load image.
+
+     <p>If no resource named <var>ResourceName</var> is currently loaded, an
+existence error is raised.
+
+     <p>For backward compatibility, <var>ResourceName</var> can also be of the same
+type as the argument to <code>load_foreign_resource/1</code>. In that
+case the resource name will be derived from the absolute file name in
+the same manner as for <code>load_foreign_resource/1</code>. Also for backward
+compatibility, <code>unload_foreign_resource/1</code> is a
+meta-predicate, but the module is ignored. 
+See <a href="mpg_002dref_002dunload_005fforeign_005fresource.html#mpg_002dref_002dunload_005fforeign_005fresource">mpg-ref-unload_foreign_resource</a>.
+
+     <!-- FIXME [PM] 3.9b5 Should make a separate paragraph somewhere about the -->
+     <!-- perils of defining various hooks using (unloadable) foreign -->
+     <!-- code. This includes atexit but also SP_stream methods, wcx hooks, SP_signal, etc. -->
+     <blockquote>
+<strong>Please note</strong>: all foreign resources are unloaded before Prolog exits. 
+This implies that the C library function <code>atexit(</code><var>func</var><code>)</code>
+cannot be used if <var>func</var> is defined in a dynamically linked
+foreign resource. 
+<!-- [PM] 3.9b4 used to say that atexit is a UNIX function. It is ANSI C. -->
+</blockquote>
+
+     <!-- In Muse, the system is required to be adjusted to one worker -->
+     <!-- first, and the predicates defined become @dfn{cavalier} -->
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Interface-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Interface-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

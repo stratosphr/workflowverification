@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+<title>mpg-ref-if - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dhalt.html#mpg_002dref_002dhalt" title="mpg-ref-halt">
+<link rel="next" href="mpg_002dref_002dinclude.html#mpg_002dref_002dinclude" title="mpg-ref-include">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-if"></a>
+<a name="mpg_002dref_002dif"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dinclude.html#mpg_002dref_002dinclude">mpg-ref-include</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dhalt.html#mpg_002dref_002dhalt">mpg-ref-halt</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.102 <code>if/3</code></h4>
+
+<p><a name="index-if_002f3-_0028built_002din_002c-ref-page_0029-4651"></a><a name="index-if_002f3-_0028built_002din_002c-ref-page_0029-4652"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>if(</code><var>+P</var><code>,</code><var>+Q</var><code>,</code><var>+R</var><code>)</code>
+
+   <p><em>If</em> <var>P</var> <em>then</em> <var>Q</var> <em>else</em> <var>R</var>, for all solution of
+<var>P</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:P</var><dd><dfn>callable</dfn>, must be nonvar
+<br><dt><var>:Q</var><dd><dfn>callable</dfn>, must be nonvar
+<br><dt><var>:R</var><dd><dfn>callable</dfn>, must be nonvar
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>Analogous to
+
+<pre class="display">     if <var>P</var> then <var>Q</var> else <var>R</var>
+</pre>
+   <p class="noindent">but differs from <code>P -&gt; Q ; R</code> in that <code>if(P, Q, R)</code> explores
+<em>all</em> solutions to the goal <var>P</var>.  There is a small time
+penalty for this&mdash;if <var>P</var> is known to have only one solution of
+interest, the form <code>P -&gt; Q ; R</code> should be preferred.
+
+   <p>This is normally regarded as part of the syntax of the language, but
+it is like a built-in predicate in that you can write
+<code>call(if(P,Q,R))</code>.
+
+   <p>Cuts in <var>P</var> do not make sense, but are allowed, their scope
+being the goal <var>P</var>.  The scope of cuts in <var>Q</var> and <var>R</var>
+extends to the containing clause.
+
+<h4 class="subheading">Backtracking</h4>
+
+<p>Depends on the arguments.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Call errors (see <a href="ref_002dsem_002dexc.html#ref_002dsem_002dexc">ref-sem-exc</a>).
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dsem.html#ref_002dsem">ref-sem</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dif.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dif.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

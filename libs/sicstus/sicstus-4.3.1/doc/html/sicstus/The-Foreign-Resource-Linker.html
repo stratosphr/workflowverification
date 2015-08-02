@@ -1,0 +1,79 @@
+<html lang="en">
+<head>
+<title>The Foreign Resource Linker - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" title="Calling C from Prolog">
+<link rel="prev" href="Interface-Predicates.html#Interface-Predicates" title="Interface Predicates">
+<link rel="next" href="Init-and-Deinit-Functions.html#Init-and-Deinit-Functions" title="Init and Deinit Functions">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="The-Foreign-Resource-Linker"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Init-and-Deinit-Functions.html#Init-and-Deinit-Functions">Init and Deinit Functions</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Interface-Predicates.html#Interface-Predicates">Interface Predicates</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Calling-C-from-Prolog.html#Calling-C-from-Prolog">Calling C from Prolog</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.2.5 The Foreign Resource Linker</h4>
+
+<p><a name="index-foreign-resource-linker-2226"></a><a name="index-linker_002c-foreign-resource-2227"></a><a name="index-splfr-2228"></a>The foreign resource linker, <samp><span class="command">splfr</span></samp>, is used for creating
+foreign resources (see <a href="Foreign-Resources.html#Foreign-Resources">Foreign Resources</a>).  <samp><span class="command">splfr</span></samp>
+reads terms from a Prolog file
+<!-- [PM] 4.0.3+ the fact that it applies local op declarations is not -->
+<!-- really enough so no point in mentioning it. -->
+<!-- , applying op declarations and -->
+extracting any <code>foreign_resource/2</code> fact with first
+argument matching the resource name and all <code>foreign/[2,3]</code>
+facts.  Based on this information, it generates the necessary
+glue code, including a header file that the user code should include,
+and combines it with any additional C or object files
+provided by the user into a linked foreign resource.  The output
+file name will be the resource name with a suitable extension.
+
+   <p>Note that no pathnames passed to <samp><span class="command">splfr</span></samp> should contain spaces. 
+Under Windows, this can be avoided by using the short version of
+pathnames as necessary.
+
+   <p>See <a href="too_002dsplfr.html#too_002dsplfr">too-splfr</a> for detailed information about <samp><span class="command">splfr</span></samp> options etc..
+
+<ul class="menu">
+<li><a accesskey="1" href="Customizing-splfr.html#Customizing-splfr">Customizing splfr</a>:  Customizing <samp><span class="command">splfr</span></samp>
+<li><a accesskey="2" href="Manual-splfr.html#Manual-splfr">Manual splfr</a>:  Creating Linked Foreign Resources Manually under UNIX
+<li><a accesskey="3" href="Windows_002dspecific-splfr-issues.html#Windows_002dspecific-splfr-issues">Windows-specific splfr issues</a>:  Windows-specific splfr issues
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/The-Foreign-Resource-Linker.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/The-Foreign-Resource-Linker.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

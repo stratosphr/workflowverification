@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+<title>ref-iou-tou-dsp - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002diou_002dtou.html#ref_002diou_002dtou" title="ref-iou-tou">
+<link rel="prev" href="ref_002diou_002dtou_002ddis.html#ref_002diou_002dtou_002ddis" title="ref-iou-tou-dis">
+<link rel="next" href="ref_002diou_002dtou_002dpor.html#ref_002diou_002dtou_002dpor" title="ref-iou-tou-por">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-iou-tou-dsp"></a>
+<a name="ref_002diou_002dtou_002ddsp"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002diou_002dtou_002dpor.html#ref_002diou_002dtou_002dpor">ref-iou-tou-por</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002diou_002dtou_002ddis.html#ref_002diou_002dtou_002ddis">ref-iou-tou-dis</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002diou_002dtou.html#ref_002diou_002dtou">ref-iou-tou</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.6.4.4 Displaying Terms</h5>
+
+<p><a name="index-display_002f1-_0028built_002din_0029-875"></a><a name="index-display_002f1-_0028built_002din_0029-876"></a>
+
+   <p><a name="index-print_002f_005b1_002c2_005d-_0028built_002din_0029-877"></a><a name="index-print_002f_005b1_002c2_005d-_0028built_002din_0029-878"></a>
+
+   <p>Like <code>write_canonical/[1,2]</code>, <code>display/1</code> ignores operator declarations and
+shows all compound terms in standard prefix form.  For example, the command
+<pre class="example">     | ?- <kbd>display(a+b).</kbd>
+</pre>
+   <p class="noindent">produces the following:
+<pre class="example">     +(a,b)
+</pre>
+   <!-- [PM] 4.3 display/1 is legacy cruft. Use write_canonical/1 if you want to see the innards of a term. -->
+<!-- Calling @code{display/1} is a good way of finding out how Prolog parses a term -->
+<!-- with several operators. -->
+   <p>Unlike <code>write_canonical/[1,2]</code>, <code>display/1</code>
+does not put quotes around atoms and functors,
+even when needed for reading the term back in, so <code>write_canonical/[1,2]</code> is often preferable. 
+See <a href="mpg_002dref_002ddisplay.html#mpg_002dref_002ddisplay">mpg-ref-display</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dtou_002ddsp.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dtou_002ddsp.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+<title>Java Exception Handling - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002djasper.html#lib_002djasper" title="lib-jasper">
+<link rel="prev" href="Jasper-Package-Class-Reference.html#Jasper-Package-Class-Reference" title="Jasper Package Class Reference">
+<link rel="next" href="SPTerm-and-Memory.html#SPTerm-and-Memory" title="SPTerm and Memory">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Java-Exception-Handling"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="SPTerm-and-Memory.html#SPTerm-and-Memory">SPTerm and Memory</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Jasper-Package-Class-Reference.html#Jasper-Package-Class-Reference">Jasper Package Class Reference</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002djasper.html#lib_002djasper">lib-jasper</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.18.5 Java Exception Handling</h4>
+
+<p>Exceptions are handled seamlessly between Java and Prolog. This means
+that exceptions can be thrown in Prolog and caught in Java and the other
+way around. For example, if a predicate called from Java throws an
+exception with <code>throw/1</code> and the predicate itself does not
+catch the exception, the Java-method that performed the query,
+<code>queryCutFail()</code> for example, will throw an exception (of class
+<code>SPException</code>) containing the exception term. Symmetrically,
+a Java-exception thrown (and not caught) in a method called from Prolog
+will cause the corresponding predicate (<code>simple/2</code> in the
+example above) to throw an exception consisting of the exception object
+(in the internal Prolog representation of a Java object). See <a href="Handling-Java-Exceptions.html#Handling-Java-Exceptions">Handling Java Exceptions</a> for examples of catching Java exceptions in Prolog.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Java-Exception-Handling.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Java-Exception-Handling.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

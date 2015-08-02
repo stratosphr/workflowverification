@@ -1,0 +1,129 @@
+<html lang="en">
+<head>
+<title>cpg-ref-SP_read_from_string - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSP_005fraise_005fexception.html#cpg_002dref_002dSP_005fraise_005fexception" title="cpg-ref-SP_raise_exception">
+<link rel="next" href="cpg_002dref_002dSP_005frealloc.html#cpg_002dref_002dSP_005frealloc" title="cpg-ref-SP_realloc">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-SP_read_from_string"></a>
+<a name="cpg_002dref_002dSP_005fread_005ffrom_005fstring"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002dSP_005frealloc.html#cpg_002dref_002dSP_005frealloc">cpg-ref-SP_realloc</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSP_005fraise_005fexception.html#cpg_002dref_002dSP_005fraise_005fexception">cpg-ref-SP_raise_exception</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.87 <code>SP_read_from_string()</code></h4>
+
+<p><a name="index-SP_005fread_005ffrom_005fstring_0028_0029-_0028C-function_0029-5198"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     
+     int
+     SP_read_from_string(SP_term_ref t,
+                         const char *string,
+                         SP_term_ref values[])
+</pre>
+   <p>Assigns to <code>tt</code> the result of reading a term from the its
+textual representation <code>string</code>. Variables that occur in the
+term are bound to the corresponding term in <code>val</code>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>term</var><dd>The SP_term_ref to assign.
+
+     <br><dt><var>string</var><dd>The string to read from.
+
+     <br><dt><var>values</var><dd>The SP_term_refs to bind variables to. 
+The vector is terminated by <code>0</code> (zero). 
+<code>values</code> may be <code>NULL</code>, which is treated as an empty
+vector. 
+</dl>
+
+<h4 class="subheading">Return Value</h4>
+
+<p>Nonzero on success, and 0 otherwise.
+
+<h4 class="subheading">Description</h4>
+
+<p>The variables in the term are ordered according to their first
+occurence during a depth first traversal in increasing argument
+order. That is, the same order as used by
+<code>terms:term_variables_bag/2</code> (see <a href="lib_002dterms.html#lib_002dterms">lib-terms</a>). Variables that
+do not have a corresponding entry in <code>vals</code> are ignored. Entries
+in <code>vals</code> that do not correspond to a variable in the term are
+ignored.
+
+   <p>The string should be encoded using the SICStus Prolog internal encoding.
+
+<h4 class="subheading">Examples</h4>
+
+<p>This example creates the term <code>foo(X,42,42,X)</code> (without error
+checking):
+
+<pre class="example">     SP_term_ref x = SP_new_term_ref();
+     SP_term_ref y = SP_new_term_ref();
+     SP_term_ref term = SP_new_term_ref();
+     SP_term_ref vals[] = {x,y,x,0}; // zero-terminated
+     
+     SP_put_variable(x);
+     SP_put_integer(y,42);
+     
+     SP_read_from_string(term, "foo(A,B,B,C).", vals);
+     #if 0
+        A corresponds to vals[0] (x),
+        B to vals[1] (y),
+        C to vals[2] (x).
+        A and C therefore both are bound to
+        the variable referred to by x.
+        B is bound to the term referred to by y (42).
+        So term refers to a term foo(X,42,42,X).
+     #endif
+</pre>
+   <p>See <a href="Reading-a-goal-from-a-string.html#Reading-a-goal-from-a-string">Reading a goal from a string</a>, for an example of using
+<code>SP_read_from_string()</code> to call an arbitrary goal.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Creating-Prolog-Terms.html#Creating-Prolog-Terms">Creating Prolog Terms</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fread_005ffrom_005fstring.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fread_005ffrom_005fstring.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

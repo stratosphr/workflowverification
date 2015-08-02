@@ -1,0 +1,108 @@
+<html lang="en">
+<head>
+<title>mpg-ref-see - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dsave_005fprogram.html#mpg_002dref_002dsave_005fprogram" title="mpg-ref-save_program">
+<link rel="next" href="mpg_002dref_002dseeing.html#mpg_002dref_002dseeing" title="mpg-ref-seeing">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-see"></a>
+<a name="mpg_002dref_002dsee"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dseeing.html#mpg_002dref_002dseeing">mpg-ref-seeing</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dsave_005fprogram.html#mpg_002dref_002dsave_005fprogram">mpg-ref-save_program</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.199 <code>see/1</code></h4>
+
+<p><a name="index-see_002f1-_0028built_002din_002c-ref-page_0029-4903"></a><a name="index-see_002f1-_0028built_002din_002c-ref-page_0029-4904"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>see(</code><var>+FileOrStream</var><code>)</code>
+<!-- FIXED: SPIO Document open mode (text, some default encoding) -->
+Makes file <var>FileOrStream</var> the current input stream.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>FileOrStream</var><dd><dfn>file_spec</dfn> or <dfn>stream_object</dfn>, must be ground
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>If there is an open input stream associated with <var>FileOrStream</var>, and that
+stream was opened by <code>see/1</code>, then it is made the current input stream. 
+Otherwise, the specified file is opened for input in text mode with default options and
+made the current input stream.
+
+   <p>Different file names (that is, names that do not unify) represent
+different streams (even if they correspond to the same file). 
+Therefore, assuming <samp><span class="file">food</span></samp> and <samp><span class="file">./food</span></samp> represent the same file, the
+following sequence will open two streams, both connected to the same
+file.
+
+<pre class="example">     see(food)
+     ...
+     see('./food')
+</pre>
+   <p>It is important to remember to close streams when you have finished with
+them.  Use <code>seen/0</code> or <code>close/[1,2]</code>.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>FileOrStream</var> is not instantiated enough.
+
+     <br><dt><code>existence_error</code><dd><var>FileOrStream</var> specifies a nonexisting file, and the <code>fileerrors</code>
+Prolog flag is <code>on</code>. 
+<a name="index-fileerrors-_0028prolog-flag_0029-4905"></a>
+<br><dt><code>permission_error</code><dd><var>FileOrStream</var> is a stream not currently open for input, or
+<var>FileOrStream</var> specifies a file with insufficient access
+permission, and the <code>fileerrors</code> Prolog flag is <code>on</code>.
+
+     <br><dt><code>domain_error</code><dd><var>FileOrStream</var> is neither a file_spec nor a stream_object. 
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>seen/0</code>, <code>open/[3,4]</code>, <code>current_input/1</code>, <a href="ref_002diou_002dsfh.html#ref_002diou_002dsfh">ref-iou-sfh</a>,
+<a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dsee.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dsee.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

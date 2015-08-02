@@ -1,0 +1,186 @@
+<html lang="en">
+<head>
+<title>4.1.0 Bugs Fixed - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e1_002e0-Changes.html#g_t4_002e1_002e0-Changes" title="4.1.0 Changes">
+<link rel="prev" href="4_002e1_002e0-New-Features.html#g_t4_002e1_002e0-New-Features" title="4.1.0 New Features">
+<link rel="next" href="4_002e1_002e0-Other-Changes.html#g_t4_002e1_002e0-Other-Changes" title="4.1.0 Other Changes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.1.0-Bugs-Fixed"></a>
+<a name="g_t4_002e1_002e0-Bugs-Fixed"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e1_002e0-Other-Changes.html#g_t4_002e1_002e0-Other-Changes">4.1.0 Other Changes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="4_002e1_002e0-New-Features.html#g_t4_002e1_002e0-New-Features">4.1.0 New Features</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e1_002e0-Changes.html#g_t4_002e1_002e0-Changes">4.1.0 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.12.2 Bugs Fixed</h4>
+
+     <ul>
+<li>Compiler: pathological case bug.
+
+     <li><!-- SPRM 11356 -->
+<code>SP_raise_exception()</code> and <code>SP_fail()</code> would sometimes not
+be handled correctly when foreign code called Prolog recursively. 
+Now, exceptions are preserved in callbacks from foreign functions.
+
+     <li><!-- SPRM 11348 -->
+<code>format/[2,3]</code> et al. used to treat all non-reserved exceptions
+as consistency errors. Now non-error exceptions, i.e. not
+<code>error/2</code>, are passed on to the caller.
+
+     <p>Reserved exceptions from the goal invoked for the &lsquo;<samp><span class="samp">~@</span></samp>&rsquo; spec are
+now passed on to the caller. This ensures that
+<code>timeout:time_out/3</code> and other interrupts will be able to
+terminate such a goal.
+
+     <li>Source-linked debugging could sometimes indicate the wrong line of code.
+
+     <li><!-- SPRM 11477 -->
+<code>see/1</code> and <code>tell/1</code> would not accept stream objects.
+
+     <li><!-- SPRM 11673 -->
+Multiple issues when changing one of the standard streams
+(<code>user_input</code>, <code>user_output</code>, and <code>user_error</code>) with
+<code>set_prolog_flag/2</code>. These issues affected <code>stream_property/2</code>,
+<code>current_stream/3</code> and could lead to access to freed memory during
+<code>close/[1,2]</code>.
+
+     <li><code>stream_property/2</code> no longer returns an <code>eol/1</code> property for
+binary streams.
+
+     <li><!-- SPRM 11221 -->
+SICStus no longer sets any environment variables. Setting environment
+variables has undefined behavior in multi-threaded processes, especially
+on UNIX-like operating systems. Symptoms included segmentation fault in
+<code>getenv()</code> if several SICStus runtimes were initialized at the same time in
+different threads of the same process. See below for the new concept
+&ldquo;System Properties&rdquo;, which has replaced most uses of environment
+variables.
+
+     <li><code>SP_event()</code> handlers are no longer allowed to run when the SICStus
+runtime calls Prolog code in contexts where their result, e.g. 
+failure or exception, cannot be propagated to the caller. This could
+potentially lead to timeouts and other asynchronous events being
+ignored.
+
+     <li>If <code>open/4</code> fails to open a file for writing, it will now generate
+a <code>permission_error</code>, as prescribed by the ISO Prolog standard. It
+used to raise a system error.
+
+     <li><!-- SPRM 11638 -->
+The <code>open/4</code> option <code>if_exists(generate_unique_name)</code> would
+sometimes access and use freed memory when generating a new file name.
+
+     <li><!-- SPRM 11653 -->
+<code>SP_get_list_n_codes()</code> would report more bytes written than what
+was actually written.
+
+     <li><!-- SPRM 11685 -->
+Goals run as part of <code>initialization/1</code> now have access to the load
+context (<code>prolog_load_context/2</code>), similarly to how other goals
+appearing in directives are treated. This also means that
+<code>absolute_file_name/[2,3]</code> will use the location saved in the load
+context as default directory.
+
+     <p><strong>Please note</strong>: The change in default directory for
+<code>absolute_file_name/[2,3]</code>, and thus <code>open/[3,4]</code> et al., is an
+incompatible change that may affect some programs. Old code that depends
+on the current directive may need to be updated to explicitly call
+<code>file_systems:current_directory/1</code>.
+
+     <p>If the old code looked like:
+     <pre class="example">          %% Pre 4.1.0 version
+          :- initialization read_some_file('myfile').
+</pre>
+     <p class="noindent">it can be rewritten as follows (which will also work in older versions
+of SICStus Prolog):
+     <pre class="example">          %% &gt;= 4.1.0 version
+          :- use_module(library(file_systems), [current_directory/1]).
+          :- initialization  current_directory(CWD),
+                             absolute_file_name('myfile', Absfile,
+                                                [relative_to(CWD)]),
+                             read_some_file(Absfile).
+</pre>
+     <li><code>prolog_load_context(stream,S)</code> will now only succeed when
+compiling or consulting the code. It used to return a closed stream
+instead of failing.
+
+     <li><!-- SPRM 11382, 11406, 11566 -->
+<code>library(clpfd)</code>:
+          <ul>
+<li><code>nvalue/2</code> would miss solutions. 
+<li><code>element/3</code> did not maintain arc-consistency in its first argument. 
+<li>Undefined behavior when combining CLPFD with frozen goals, now made consistent. 
+<li>Strength reduction problem for some propositional constraints. 
+<li>Missing meta-predicate declaration for <code>fd_global/[3,4]</code>. 
+<li>Some data was not protected from garbage collection. 
+<li>Output of <code>copy_term/3</code> was sometimes incomplete or not correct. 
+</ul>
+
+     <li>Exported, non-existing predicates:
+<code>file_systems:file_must_exist/[1,2]</code>, <code>lists3:nextto/3</code>,
+<code>lists3:nth/4</code>.
+
+     <li>The directory listing predicates in <code>library(file_systems)</code>,
+e.g. <code>directory_member_of_directory/2</code>, no longer fail if they
+encounter a broken symbolic link.
+
+     <li><code>library(process)</code>: Process creation would leak small amounts of
+memory.
+
+     <li><!-- SPRM 11469 -->
+<code>library(random)</code>: <code>maybe/0</code> would always fail the first time. 
+<li>A typo prevented <code>library(detcheck)</code> from working. 
+<li><!-- SPRM 9763, take two -->
+The <samp><span class="command">spdet</span></samp> tool now tries the extension &lsquo;<samp><span class="samp">.pro</span></samp>&rsquo; in addition
+to &lsquo;<samp><span class="samp">.pl</span></samp>&rsquo;. Other minor improvements. 
+<li><code>library(xref)</code>: slighly more precise. 
+<li><!-- SPRM 11585 -->
+<code>sockets:socket_client_open/3</code> would give system error with
+<code>SPIO_E_HOST_NOT_FOUND</code> when connecting to localhost on some
+platforms.
+
+     <li><code>system:environ/2</code> would leak memory if called with a variable as
+first argument.
+
+     <li><!-- SPRM 11567 -->
+The Emacs mode did not work in recent Emacsen. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e1_002e0-Bugs-Fixed.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e1_002e0-Bugs-Fixed.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

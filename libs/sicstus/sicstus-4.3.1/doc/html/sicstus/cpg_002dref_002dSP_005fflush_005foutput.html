@@ -1,0 +1,113 @@
+<html lang="en">
+<head>
+<title>cpg-ref-SP_flush_output - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSP_005ffclose.html#cpg_002dref_002dSP_005ffclose" title="cpg-ref-SP_fclose">
+<link rel="next" href="cpg_002dref_002dSP_005ffopen.html#cpg_002dref_002dSP_005ffopen" title="cpg-ref-SP_fopen">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-SP_flush_output"></a>
+<a name="cpg_002dref_002dSP_005fflush_005foutput"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002dSP_005ffopen.html#cpg_002dref_002dSP_005ffopen">cpg-ref-SP_fopen</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSP_005ffclose.html#cpg_002dref_002dSP_005ffclose">cpg-ref-SP_fclose</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.19 <code>SP_flush_output()</code></h4>
+
+<p><a name="index-SP_005fflush_005foutput_0028_0029-_0028C-function_0029-5123"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     
+     spio_t_error_code
+     SP_flush_output(
+       SP_stream *stream,
+       spio_t_bits flush_options);
+</pre>
+   <p>Ensure that all buffered data reaches its destination.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>stream</var><dd>The stream to flush. This stream should be open for writing.
+
+     <br><dt><var>flush_options</var><dd>The following bits can be set:
+
+          <dl>
+<dt><code>SP_FLUSH_OUTPUT_OPTION_NONBLOCKING</code><dd>
+If this is set, the function should return <dfn>quickly</dfn> or with
+a <code>SPIO_E_WOULD_BLOCK</code> code.
+
+          <p>Can return <code>SPIO_E_NOT_SUPPORTED</code> if the stream cannot support
+non-blocking flush.
+
+          <br><dt><code>SP_FLUSH_OUTPUT_OPTION_AUTOFLUSH</code><dd>Only flush stream if it has AUTOFLUSH enabled. 
+<!-- FIXME: xref AUTOFLUSH. -->
+</dl>
+     </dl>
+
+<h4 class="subheading">Return Value</h4>
+
+<p>On success, all buffered data should have been written and
+<code>SPIO_S_NOERR</code> or some other success code returned.
+
+   <p>On failure, returns a SPIO error code. Error codes with special meaning
+for <code>SP_flush_output()</code>:
+
+     <dl>
+<dt><code>SPIO_E_END_OF_FILE</code><dd>Returned if it is not possible to write more data onto the stream,
+e.g. some underlying device has been closed.
+
+     <br><dt><code>SPIO_E_WOULD_BLOCK</code><dd><code>SP_FLUSH_OUTPUT_OPTION_NONBLOCKING</code> was set but the operation
+would block.
+
+     <br><dt><code>SPIO_E_NOT_SUPPORTED</code><dd>Some unsupported option, e.g. 
+<code>SP_FLUSH_OUTPUT_OPTION_NONBLOCKING</code>,  was passed. 
+</dl>
+
+<p class="noindent">Other error codes may also be returned.
+
+<!-- @description -->
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Prolog-Streams.html#Prolog-Streams">Prolog Streams</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fflush_005foutput.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fflush_005foutput.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

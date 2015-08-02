@@ -1,0 +1,82 @@
+<html lang="en">
+<head>
+<title>Setting up the C compiler on Windows - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Application-Builder.html#The-Application-Builder" title="The Application Builder">
+<link rel="prev" href="All_002din_002done-Executables.html#All_002din_002done-Executables" title="All-in-one Executables">
+<link rel="next" href="Extended-Runtime-Systems.html#Extended-Runtime-Systems" title="Extended Runtime Systems">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Setting-up-the-C-compiler-on-Windows"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Extended-Runtime-Systems.html#Extended-Runtime-Systems">Extended Runtime Systems</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="All_002din_002done-Executables.html#All_002din_002done-Executables">All-in-one Executables</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Application-Builder.html#The-Application-Builder">The Application Builder</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">6.7.3.3 Setting up the C compiler on Windows</h5>
+
+<p><samp><span class="command">spld</span></samp> (and <samp><span class="command">splfr</span></samp>) are command line tools and need to
+have access to a working C compiler and linker. This is typically not a
+problem on UNIX-like systems but on Windows there are some special steps
+needed in order to set up the environment so that the C compiler can be
+used.
+
+   <p>The easiest way to get a command prompt where the C compiler works is to
+open the &lsquo;<samp><span class="samp">Visual Studio 2005 Command Prompt</span></samp>&rsquo; from the Start
+menu. On Windows Vista this is located under &lsquo;<samp><span class="samp">All Programs/Microsoft
+Visual Studio 2005/Visual Studio Tools.Tools/</span></samp>&rsquo;. This opens up a command prompt
+where <samp><span class="command">cl.exe</span></samp> (the C compiler) can be found via the <samp><span class="env">PATH</span></samp>
+environment variable.
+
+   <p>An alternative is to run the Visual Studio set up script from the
+command prompt, something like:
+<pre class="example">     C:\&gt;"C:\Program Files\Microsoft Visual Studio 8\VC\vcvarsall.bat" x86
+</pre>
+   <p>This is in fact what the &lsquo;<samp><span class="samp">Visual Studio 2005 Command
+Prompt</span></samp>&rsquo; shortcut does.
+
+   <p>Similar steps will work for other versions of Visual Studio. Note that
+there are different versions of SICStus Prolog for different versions
+of Visual Studio. This is necessary since each version of Visual
+Studio comes with its own version of the C library.
+
+   <p>Once the environment is set up for using the C compiler you should be
+able to use the <samp><span class="command">spld</span></samp> (and <samp><span class="command">splfr</span></samp>) tools without
+problem.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Setting-up-the-C-compiler-on-Windows.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Setting-up-the-C-compiler-on-Windows.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

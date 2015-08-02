@@ -1,0 +1,77 @@
+<html lang="en">
+<head>
+<title>ref-lod-rpx - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlod.html#ref_002dlod" title="ref-lod">
+<link rel="prev" href="ref_002dlod_002dlod.html#ref_002dlod_002dlod" title="ref-lod-lod">
+<link rel="next" href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl" title="ref-lod-dcl">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-lod-rpx"></a>
+<a name="ref_002dlod_002drpx"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl">ref-lod-dcl</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dlod_002dlod.html#ref_002dlod_002dlod">ref-lod-lod</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlod.html#ref_002dlod">ref-lod</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.3.3 Redefining Procedures during Program Execution</h4>
+
+<p><a name="index-procedures_002c-redefining-during-execution-688"></a>
+<a name="index-redefining-procedures_002c-during-execution-689"></a>
+<a name="index-break_002f0-_0028built_002din_0029-690"></a><a name="index-break_002f0-_0028built_002din_0029-691"></a>
+
+   <p>You can redefine procedures during the execution of the program, which
+can be very useful while debugging.  The normal way to do this is to
+use the &lsquo;<samp><span class="samp">break</span></samp>&rsquo; option of the debugger to enter a break state (see
+<code>break/0</code>, <a href="ref_002dere_002dint.html#ref_002dere_002dint">ref-ere-int</a>), and then load an altered version of
+some procedures.  If you do this, it is advisable, after redefining
+the procedures and exiting from the break state, to wind the
+computation back to the first call to any of the procedures you are
+changing: you can do this by using the &lsquo;<samp><span class="samp">retry</span></samp>&rsquo; option with an
+argument that is the invocation number of that call.  If you don't
+wind the computation back like this, then:
+     <ul>
+<li>if you are in the middle of
+executing a procedure that you redefine, you will find that the old
+definition of the procedure continues to be used until it exits or fails;
+<li>if you should backtrack into a procedure you have just redefined,
+alternative clauses in the old definition will still be used. 
+</ul>
+   See <a href="mpg_002dref_002dbreak.html#mpg_002dref_002dbreak">mpg-ref-break</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlod_002drpx.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlod_002drpx.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

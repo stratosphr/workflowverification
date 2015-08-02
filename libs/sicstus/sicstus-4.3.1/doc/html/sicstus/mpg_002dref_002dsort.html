@@ -1,0 +1,96 @@
+<html lang="en">
+<head>
+<title>mpg-ref-sort - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dskip_005fline.html#mpg_002dref_002dskip_005fline" title="mpg-ref-skip_line">
+<link rel="next" href="mpg_002dref_002dsource_005ffile.html#mpg_002dref_002dsource_005ffile" title="mpg-ref-source_file">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-sort"></a>
+<a name="mpg_002dref_002dsort"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dsource_005ffile.html#mpg_002dref_002dsource_005ffile">mpg-ref-source_file</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dskip_005fline.html#mpg_002dref_002dskip_005fline">mpg-ref-skip_line</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.214 <code>sort/2</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-sort_002f2-_0028built_002din_002c-ref-page_0029-4938"></a><a name="index-sort_002f2-_0028built_002din_002c-ref-page_0029-4939"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>sort(</code><var>+List</var><code>, </code><var>-Sorted</var><code>)</code>
+
+   <p>Sorts the elements of the list <var>List</var> into the ascending
+standard order, and removes any multiple occurrences of an element. 
+The resulting sorted list is unified with the list <var>Sorted</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>List</var><dd><dfn>list of term</dfn>, must be a proper list
+
+     <br><dt><var>Sorted</var><dd><dfn>list of term</dfn>
+</dl>
+
+   <p><var>Sorted</var> is type checked since release 4.3 for alignment with the
+ISO Prolog standard. Previous releases simply failed instead of
+reporting an error for malformed <var>Sorted</var>.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instatiation_error</code><dt><code>type_error</code><dd><var>List</var> is not a proper list
+
+     <br><dt><code>type_error</code><dd><var>Sorted</var> cannot be unified with a proper list
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     | ?- <kbd>sort([a,X,1,a(x),a,a(X)], L).</kbd>
+     L = [X,1,a,a(X),a(x)]
+</pre>
+   <p>(The time taken to do this is at worst order (<var>N</var> log <var>N</var>) where
+<var>N</var> is the length of the list.)
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlte_002dcte_002dsor.html#ref_002dlte_002dcte_002dsor">ref-lte-cte-sor</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dsort.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dsort.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

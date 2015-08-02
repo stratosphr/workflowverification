@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+<title>FDBG Writing Legend Printers - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="FDBG-Advanced-Usage.html#FDBG-Advanced-Usage" title="FDBG Advanced Usage">
+<link rel="prev" href="FDBG-Writing-Visualizers.html#FDBG-Writing-Visualizers" title="FDBG Writing Visualizers">
+<link rel="next" href="FDBG-Showing-Selected-Constraints-_0028simple-version_0029.html#FDBG-Showing-Selected-Constraints-_0028simple-version_0029" title="FDBG Showing Selected Constraints (simple version)">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="FDBG-Writing-Legend-Printers"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="FDBG-Showing-Selected-Constraints-_0028simple-version_0029.html#FDBG-Showing-Selected-Constraints-_0028simple-version_0029">FDBG Showing Selected Constraints (simple version)</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="FDBG-Writing-Visualizers.html#FDBG-Writing-Visualizers">FDBG Writing Visualizers</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="FDBG-Advanced-Usage.html#FDBG-Advanced-Usage">FDBG Advanced Usage</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.14.4.3 Writing Legend Printers</h5>
+
+<p>When you write your own visualizers, you might not be satisfied with the
+default format of the legend.  Therefore you might want to write your
+own legend printer, replacing <code>fdbg_legend/[1,2]</code>.  This should be
+quite straightforward based on the variable list returned by
+<code>fdbg_annotate/[3,4]</code>.  Processing the rest of the action
+list and writing conclusions about the constraint behavior is not
+that easy though.  To help your work, FDBG provides a predicate to
+transform the raw action list to a more readable form:
+
+     
+<a name="index-fdbg_005ftransform_005factions_002f3-_0028fdbg_0029-3310"></a>
+<a name="index-fdbg_005ftransform_005factions_002f3-_0028fdbg_0029-3311"></a>
+<dl>
+<dt><code>fdbg_transform_actions(</code><var>+Actions</var><code>, </code><var>+Vars</var><code>, </code><var>-TransformedActions</var><code>)</code><dd>This will do the following transformations to <var>Actions</var>, returning
+the result in <var>TransformedActions</var>:
+
+          <ol type=1 start=1>
+<li>remove all actions concerning variables in <var>Vars</var> (the list
+returned by <code>fdbg_annotate/[3,4]</code>);
+<li>remove multiple <code>exit</code> and/or <code>fail</code> commands;
+<li>remove all ground actions, translating those that will cause
+failure into <code>fail(</code><var>Action</var><code>)</code>;
+<li>substitute all other narrowings with an <code>fdvar/3</code> compound
+term per variable.
+          </ol>
+
+     <p>The transformed action list may contain the following terms:
+
+          <dl>
+<dt><code>exit</code><dd>the constraint exits
+
+          <br><dt><code>fail</code><dd>the constraint fails due to a <code>fail</code> action
+
+          <br><dt><code>fail(</code><var>Action</var><code>)</code><dd>the constraint fails because of <var>Action</var>
+
+          <br><dt><code>call(</code><var>Goal</var><code>)</code><dd><var>Actions</var> originally contained this action.  FDBG can't do anything
+with that but to inform the user about it.
+
+          <br><dt><code>fdvar(</code><var>Name</var><code>, </code><var>Var</var><code>, </code><var>FDSet</var><code>)</code><dd><var>Actions</var> also narrowed some variables that didn't appear in
+the <var>Vars</var> list, this is one of them.  The meaning of the
+arguments is the usual, described in <a href="FDBG-Writing-Visualizers.html#FDBG-Writing-Visualizers">FDBG Writing Visualizers</a>.  This should normally not happen.
+
+          <br><dt><var>AnythingElse</var><dd><var>Actions</var> contained unrecognized actions too, these are copied
+unmodified.  This shouldn't happen! 
+</dl>
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Writing-Legend-Printers.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Writing-Legend-Printers.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,80 @@
+<html lang="en">
+<head>
+<title>Writing User-stream Hooks - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Hookable-Standard-Streams.html#Hookable-Standard-Streams" title="Hookable Standard Streams">
+<link rel="next" href="Writing-User_002dstream-Post_002dhooks.html#Writing-User_002dstream-Post_002dhooks" title="Writing User-stream Post-hooks">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Writing-User-stream-Hooks"></a>
+<a name="Writing-User_002dstream-Hooks"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Writing-User_002dstream-Post_002dhooks.html#Writing-User_002dstream-Post_002dhooks">Writing User-stream Post-hooks</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Hookable-Standard-Streams.html#Hookable-Standard-Streams">Hookable Standard Streams</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">6.6.3.1 Writing User-stream Hooks</h5>
+
+<p>The user-stream hook is, if defined, called during
+<code>SP_initialize()</code>. It has the following prototype:
+
+<pre class="example">     SP_stream *user_stream_hook(void *user_data, int which)
+</pre>
+   <p>If the hook is not defined, SICStus will attempt to open the
+standard TTY/console versions of these streams. If they are
+unavailable (such as for non-console executables under Windows), the
+result is undefined.
+
+   <p>It is called once for each stream. The <code>which</code>
+argument indicates which stream it is called for. The representation
+of <code>which</code> is one of the following:
+
+     <dl>
+<dt><code>SP_STREAMHOOK_STDIN</code><dd><a name="index-SP_005fSTREAMHOOK_005fSTDIN-_0028stream-hook_0029-2367"></a>Create stream for standard input. 
+<br><dt><code>SP_STREAMHOOK_STDOUT</code><dd><a name="index-SP_005fSTREAMHOOK_005fSTDOUT-_0028stream-hook_0029-2368"></a>Create stream for standard output. 
+<br><dt><code>SP_STREAMHOOK_STDERR</code><dd><a name="index-SP_005fSTREAMHOOK_005fSTDERR-_0028stream-hook_0029-2369"></a>Create stream for standard error. 
+</dl>
+
+   <p>The set of possible values for <code>which</code> may be expanded in
+the future.
+
+   <p>The hook should return a standard SICStus I/O stream, as
+described in <a href="Defining-a-New-Stream.html#Defining-a-New-Stream">Defining a New Stream</a>.
+
+   <p>See <a href="cpg_002dref_002dSP_005fset_005fuser_005fstream_005fhook.html#cpg_002dref_002dSP_005fset_005fuser_005fstream_005fhook">cpg-ref-SP_set_user_stream_hook</a> for details.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Writing-User_002dstream-Hooks.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Writing-User_002dstream-Hooks.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

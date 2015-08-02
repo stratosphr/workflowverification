@@ -1,0 +1,77 @@
+<html lang="en">
+<head>
+<title>ref-mod-dmo - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmod.html#ref_002dmod" title="ref-mod">
+<link rel="prev" href="ref_002dmod_002dtyi.html#ref_002dmod_002dtyi" title="ref-mod-tyi">
+<link rel="next" href="ref_002dmod_002dmpc.html#ref_002dmod_002dmpc" title="ref-mod-mpc">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-mod-dmo"></a>
+<a name="ref_002dmod_002ddmo"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dmod_002dmpc.html#ref_002dmod_002dmpc">ref-mod-mpc</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dmod_002dtyi.html#ref_002dmod_002dtyi">ref-mod-tyi</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmod.html#ref_002dmod">ref-mod</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.11.9 Creating a Module Dynamically</h4>
+
+<p><a name="index-modules_002c-dynamic-creation-of-1530"></a><a name="index-dynamic-creation-of-modules-1531"></a>
+
+   <p>There are several ways in which you can create a module without
+loading a module-file for it.  One way to do this is by asserting
+clauses into a specified module.  For example, the command (A) will
+create the dynamic predicate <code>f/1</code> and the module <code>m</code> if they did not
+previously exist.
+
+<pre class="example">     | ?- <kbd>assert(m:f(x)).</kbd>&nbsp;<!-- /@w --> (A)
+</pre>
+   <p>Another way to create a module dynamically is to compile a
+non-module-file into a specified module.  For example (B), will
+compile the clauses in <var>File</var> into the module <var>M</var>.
+
+<pre class="example">     | ?- <kbd>compile(</kbd><var>M</var><kbd>:</kbd><var>File</var><kbd>).</kbd>&nbsp;<!-- /@w --> (B)
+</pre>
+   <p>The same effect can be achieved by (temporarily) changing the type-in
+module to <var>M</var> (see <a href="ref_002dmod_002dtyi.html#ref_002dmod_002dtyi">ref-mod-tyi</a>) and then calling
+<code>compile(</code><var>File</var><code>)</code>, or executing the command in module <var>M</var> as
+in (C).
+
+<pre class="example">     | ?- <var>M</var><kbd>:compile(</kbd><var>File</var><kbd>).</kbd>&nbsp;<!-- /@w --> (C)
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002ddmo.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002ddmo.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

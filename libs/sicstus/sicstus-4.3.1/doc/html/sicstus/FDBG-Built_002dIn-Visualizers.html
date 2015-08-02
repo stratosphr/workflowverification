@@ -1,0 +1,138 @@
+<html lang="en">
+<head>
+<title>FDBG Built-In Visualizers - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="FDBG-Basics.html#FDBG-Basics" title="FDBG Basics">
+<link rel="prev" href="FDBG-Naming-Terms.html#FDBG-Naming-Terms" title="FDBG Naming Terms">
+<link rel="next" href="FDBG-Debugger-Commands.html#FDBG-Debugger-Commands" title="FDBG Debugger Commands">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="FDBG-Built-In-Visualizers"></a>
+<a name="FDBG-Built_002dIn-Visualizers"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="FDBG-Debugger-Commands.html#FDBG-Debugger-Commands">FDBG Debugger Commands</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="FDBG-Naming-Terms.html#FDBG-Naming-Terms">FDBG Naming Terms</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="FDBG-Basics.html#FDBG-Basics">FDBG Basics</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.14.3.3 Built-In Visualizers</h5>
+
+<p>The default visualizers are generic predicates to display FDBG
+events (see <a href="FDBG-Events.html#FDBG-Events">FDBG Events</a>) in a well readable form.  These visualizers
+naturally don't exploit any problem specific information&mdash;to have more
+&ldquo;fancy&rdquo; output, you have to write your own visualizers; see <a href="FDBG-Writing-Visualizers.html#FDBG-Writing-Visualizers">FDBG Writing Visualizers</a>.  To use these visualizers, pass them in the
+appropriate argument to <code>fdbg_on/1</code>; see <a href="FDBG-Options.html#FDBG-Options">FDBG Options</a>, or
+call them directly from user defined visualizers.
+
+     
+<a name="index-fdbg_005fshow_002f2-_0028fdbg_0029-3287"></a>
+<a name="index-fdbg_005fshow_002f2-_0028fdbg_0029-3288"></a>
+<dl>
+<dt><code>fdbg_show(</code><var>+Constraint</var><code>, </code><var>+Actions</var><code>)</code><dd>This visualizer produces a trace output of all woken constraints,
+in which a line showing the constraint is followed by a legend
+(see <a href="FDBG-Legend.html#FDBG-Legend">FDBG Legend</a>) of all the variables appearing in it, and
+finally an empty line to separate events from each other.  The usual
+output will look like this:
+
+     <pre class="example">          &lt;fdvar_1&gt;#=0
+              fdvar_1 = inf..sup -&gt; {0}
+              Constraint exited.
+</pre>
+     <p>Here, we can see an arithmetical constraint being woken.  It narrows
+&lsquo;<samp><span class="samp">fdvar_1</span></samp>&rsquo; to a domain consisting of the singleton representation 0, and
+since this is the narrowest domain possible, the constraint doesn't have
+anything more to do: it exits.
+
+     <p>Note that when you pass <code>fdbg_show</code> as an option, you should omit
+the two arguments, like in:
+
+     <pre class="example">          fdbg_on([..., constraint_hook(fdbg_show), ...]).
+</pre>
+     <p><a name="index-fdbg_005flabel_005fshow_002f3-_0028fdbg_0029-3289"></a><a name="index-fdbg_005flabel_005fshow_002f3-_0028fdbg_0029-3290"></a>
+<br><dt><code>fdbg_label_show(</code><var>+Event</var><code>, </code><var>+LabelID</var><code>, </code><var>+Variable</var><code>)</code><dd>This visualizer produces a wallpaper trace output of all labeling
+events.  It is best used together with <code>fdbg_show/2</code>.  Each
+labeling event produces a single line of output, some of them are
+followed by an empty line, some others are always followed by another
+labeling action and therefore the empty line is omitted.  Here is a
+sample output of <code>fdbg_label_show/3</code>:
+
+     <pre class="example">          Labeling [9, &lt;list_1&gt;]: starting in range 0..3.
+          Labeling [9, &lt;list_1&gt;]: step: &lt;list_1&gt; = 0
+</pre>
+     <p>What we see here is the following:
+
+          <ul>
+<li>The prefix &lsquo;<samp><span class="samp">Labeling</span></samp>&rsquo; identifies the event. 
+<li>The number in the brackets (9) is a unique identification number
+belonging to a labeling attempt.  Only <em>one</em> labeling step with
+this number can be in effect at a time.  This number in fact is the
+invocation number of the predicate doing the labeling for that
+variable. 
+<li>The name in the brackets (<code>&lt;list_1&gt;</code>) identifies the variable
+currently being labeled.  Note that several identification numbers might
+belong to the same variable, depending on the mode of labeling. 
+<li>The text after the colon specifies the actual labeling event. 
+This string can be:
+
+               <ul>
+<li>&ldquo;starting in range <var>Range</var>.&rdquo; meaning the starting of a
+labeling attempt in range <var>Range</var>
+<li>&ldquo;<var>Mode</var>: <var>Narrowing</var>.&rdquo; meaning a labeling step in mode
+<var>Mode</var>.  <var>Narrowing</var> is the actual narrowing done in the
+labeling step.  <var>Mode</var> is one of the following:
+
+                    <dl>
+<dt><code>step</code><dd>meaning <code>step</code> mode labeling
+<br><dt><code>indomain_up</code><dd>meaning <code>enum</code> mode labeling or a direct call to <code>indomain/1</code>
+<br><dt><code>indomain_down</code><dd>meaning <code>enum,down</code> mode labeling
+<br><dt><code>bisect</code><dd>meaning <code>bisect</code> mode labeling
+<br><dt><code>dual</code><dd>when the domain contains exactly two values and the labeling attempt is
+nothing more than a selection between them
+</dl>
+
+               <li>&ldquo;failed.&rdquo; meaning the labeling attempt failed. 
+</ul>
+          </ul>
+
+     <p>Note that when you pass <code>fdbg_label_show/3</code> as an option, you
+should omit the three arguments, like in
+
+     <pre class="example">          fdbg_on([..., labeling_hook(fdbg_label_show), ...]).
+</pre>
+     </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Built_002dIn-Visualizers.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Built_002dIn-Visualizers.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

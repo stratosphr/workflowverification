@@ -1,0 +1,107 @@
+<html lang="en">
+<head>
+<title>Known Bugs and Limitations - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Jasper-Notes.html#Jasper-Notes" title="Jasper Notes">
+<link rel="prev" href="Changes-in-Jasper-from-SICStus-3.html#Changes-in-Jasper-from-SICStus-3" title="Changes in Jasper from SICStus 3">
+<link rel="next" href="Java-Examples-Directory.html#Java-Examples-Directory" title="Java Examples Directory">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Known-Bugs-and-Limitations"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Java-Examples-Directory.html#Java-Examples-Directory">Java Examples Directory</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Changes-in-Jasper-from-SICStus-3.html#Changes-in-Jasper-from-SICStus-3">Changes in Jasper from SICStus 3</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Jasper-Notes.html#Jasper-Notes">Jasper Notes</a>
+<hr>
+</div>
+
+<h3 class="section">8.6 Known Bugs and Limitations</h3>
+
+     <ul>
+<li>Jasper cannot be used from within applets, since Jasper relies on
+calling methods declared as <code>native</code>. This is due to a
+security-restriction enforced on applets by Java; they are not allowed to call
+native code.
+
+     <!-- [PM] 3.9b5 checkSPTermAge=true is now the default so no corruption -->
+     <!-- should be able to happen. -->
+     <!-- @item -->
+     <!-- Some uses of @code{SPTerm} can corrupt the Prolog data areas. This is a -->
+     <!-- well understood, easily avoidable, problem that cannot easily be fixed -->
+     <!-- in Jasper (or SICStus); @pxref{SPTerm and Memory, , SPTerm and Memory, -->
+     <!-- sicstus, the SICStus Prolog Manual}. @xref{Jasper Package Options} for -->
+     <!-- a flag that tells Jasper to give exceptions in potentially troublesome -->
+     <!-- cases. -->
+     <li>Some uses of <code>SPTerm</code> will leak memory on the Prolog side. This is
+not really a bug but may come as a surprise to the unwary. See <a href="../sicstus/SPTerm-and-Memory.html#SPTerm-and-Memory">SPTerm and Memory</a>.
+
+     <!-- Fixed in 3.8.6 -->
+     <!-- @item -->
+     <!-- There is currently no way to pass @code{null} object references between -->
+     <!-- Java and Prolog. A null reference will currently give an exception, this -->
+     <!-- will probably change. -->
+     <!-- [PD] Obsolete -->
+     <!-- @item -->
+     <!-- On some combinations of C-compilers and JDKs (specifically GCC with -->
+     <!-- Sun's JDK), the following warning may occur: -->
+     <!-- @example -->
+     <!-- @group -->
+     <!-- % @kbd{splfr simple.pl} -->
+     <!-- SICStus 3.8.7 (sparc-solaris-5.7): Mon Feb 21 10:43:17 MET 2000 -->
+     <!-- Licensed to SICS -->
+     <!-- @{spk.ai82.c generated, 20 msec@} -->
+     <!-- In file included from /usr/local/jdk1.2/include/jni.h:35, -->
+     <!-- from spk.ai82.c:94: -->
+     <!-- /usr/local/jdk1.2/include/solaris/jni_md.h:20: warning: \ -->
+     <!-- ignoring pragma: "@@(#)jni_md.h      1.11    99/02/01 SMI -->
+     <!-- @end group -->
+     <!-- @end example -->
+     <!-- The warning can be safely ignored. You can suppress the warnings when -->
+     <!-- using @command{gcc} by -->
+     <!-- passing the options @option{-cflag=-Wno-unknown-pragmas} to @command{splfr}. -->
+     <!-- [PD] 3.10 This bug is fixed. It was not a bug in the Sun JDK @dots{} -->
+     <!-- @item -->
+     <!-- In multi threaded mode, there is a known bug, which may cause a -->
+     <!-- segmentation fault on the Solaris platform with JDK 1.3.  We believe -->
+     <!-- this to be caused by a bug in the Sun JDK that Sun has fixed in -->
+     <!-- JDK 1.4. If you experience this problem, we recommend that -->
+     <!-- you try using JDK 1.2 or JDK 1.4. -->
+     <li>Loading multiple SICStus runtimes has not been very well tested
+with multi threaded Jasper.
+
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Known-Bugs-and-Limitations.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Known-Bugs-and-Limitations.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

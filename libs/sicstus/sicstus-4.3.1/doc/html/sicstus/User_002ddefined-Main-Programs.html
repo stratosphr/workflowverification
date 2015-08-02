@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+<title>User-defined Main Programs - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Stand_002dAlone-Executables.html#Stand_002dAlone-Executables" title="Stand-Alone Executables">
+<link rel="prev" href="The-Application-Builder.html#The-Application-Builder" title="The Application Builder">
+<link rel="next" href="Generic-Runtime-Systems.html#Generic-Runtime-Systems" title="Generic Runtime Systems">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="User-defined-Main-Programs"></a>
+<a name="User_002ddefined-Main-Programs"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Generic-Runtime-Systems.html#Generic-Runtime-Systems">Generic Runtime Systems</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="The-Application-Builder.html#The-Application-Builder">The Application Builder</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Stand_002dAlone-Executables.html#Stand_002dAlone-Executables">Stand-Alone Executables</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.7.4 User-defined Main Programs</h4>
+
+<p>Runtime systems may or may not have an automatically generated
+main program.  This is controlled by the <samp><span class="option">--main</span></samp> option to
+<samp><span class="command">spld</span></samp>.  If <samp><span class="option">--main=user</span></samp> is given, a function
+<code>user_main()</code> must be supplied:
+
+   <p><a name="index-user_005fmain_0028_0029-_0028C-function_0029-2385"></a>
+<pre class="example">     int user_main(int argc, char *argv[])
+</pre>
+   <p><code>user_main()</code> is responsible for initializing the Prolog engine,
+loading code, and issuing any Prolog queries. An
+alternative is to use <samp><span class="option">--main=none</span></samp> and write your own
+<code>main()</code> function.
+
+<ul class="menu">
+<li><a accesskey="1" href="Initializing-the-Prolog-Engine.html#Initializing-the-Prolog-Engine">Initializing the Prolog Engine</a>:  Initializing the Prolog Engine
+<li><a accesskey="2" href="Loading-Prolog-Code.html#Loading-Prolog-Code">Loading Prolog Code</a>:  Loading Prolog Code
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/User_002ddefined-Main-Programs.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/User_002ddefined-Main-Programs.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

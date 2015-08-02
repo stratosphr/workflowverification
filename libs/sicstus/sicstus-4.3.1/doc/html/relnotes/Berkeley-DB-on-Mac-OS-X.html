@@ -1,0 +1,94 @@
+<html lang="en">
+<head>
+<title>Berkeley DB on Mac OS X - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Berkeley-DB-Notes.html#Berkeley-DB-Notes" title="Berkeley DB Notes">
+<link rel="prev" href="Berkeley-DB-on-MS-Windows.html#Berkeley-DB-on-MS-Windows" title="Berkeley DB on MS Windows">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Berkeley-DB-on-Mac-OS-X"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Berkeley-DB-on-MS-Windows.html#Berkeley-DB-on-MS-Windows">Berkeley DB on MS Windows</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Berkeley-DB-Notes.html#Berkeley-DB-Notes">Berkeley DB Notes</a>
+<hr>
+</div>
+
+<h3 class="section">9.2 Berkeley DB on Mac OS X</h3>
+
+<p>The prebuilt installation of SICStus for Mac OS X assumes that Berkeley
+DB is installed in the default location
+<samp><span class="file">/usr/local/BerkeleyDB.4.8/</span></samp>.
+
+   <p>There is no binary installer available for installing Berkeley DB on
+Mac OS X. Instead you need to build it yourself. To do this you need to
+download and install the Apple C compiler (Xcode) and then download,
+build and install the Berkeley DB library, using something like the
+following in the Terminal program:
+
+     <ol type=1 start=1>
+<li>Unpack the downloaded source code archive. At the time of writing,
+4.8.30 is the latest version of Berkeley DB 4.8.
+
+     <p><code>tar xzf db-4.8.30.tar.gz</code>
+
+     <li>Move into the source code folder tree
+
+     <p><code>cd db-4.8.30/build_unix/</code>
+
+     <li>Configure Berkeley DB for both 32-bit and 64-bit
+
+     <p><code>../dist/configure LDFLAGS='-arch x86_64 -arch i386' CFLAGS='-arch x86_64 -arch i386'</code>
+
+     <li>Build
+
+     <p><code>make</code>
+
+     <li>Install in the standard location
+
+     <p><code>sudo make install</code>
+
+     <p>The installation step requires that you are running as an administrator
+and the <code>sudo</code> command will require that you provide the password.
+
+     <li>Verify that Berkeley DB was installed
+
+     <p><code>/usr/local/BerkeleyDB.4.8/db_archive -V</code>
+
+     <p>This should print some version information, e.g. &lsquo;<samp><span class="samp">Berkeley DB 4.8.30: (April 9, 2010)</span></samp>&rsquo;.
+
+        </ol>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Berkeley-DB-on-Mac-OS-X.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Berkeley-DB-on-Mac-OS-X.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

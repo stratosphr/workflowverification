@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+<title>ref-mgc-ago-are - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmgc_002dago.html#ref_002dmgc_002dago" title="ref-mgc-ago">
+<link rel="prev" href="ref_002dmgc_002dago_002dprm.html#ref_002dmgc_002dago_002dprm" title="ref-mgc-ago-prm">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-mgc-ago-are"></a>
+<a name="ref_002dmgc_002dago_002dare"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dmgc_002dago_002dprm.html#ref_002dmgc_002dago_002dprm">ref-mgc-ago-prm</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmgc_002dago.html#ref_002dmgc_002dago">ref-mgc-ago</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.10.7.4 Details of Atom Registration</h5>
+
+<p>The functions that register and unregister atoms are
+in fact using reference counting to keep track of atoms that have been
+registered.  As a result, it is safe to combine your code with libraries
+and code others have written.  If the other code has been careful to
+register and unregister its atoms as appropriate, atoms will not be
+reclaimed until everyone has unregistered them.
+
+   <p>Of course, it is possible when writing code that needs to register atoms
+that errors could occur.  Atoms that are registered too many times simply
+will not be garbage collected until they are fully unregistered.  However,
+atoms that aren't registered when they should be may be reclaimed on
+atom garbage collection.  One normally doesn't need to think about the
+reference counting going on in <code>SP_register_atom()</code> and
+<code>SP_unregister_atom()</code>, but some understanding of its details could
+prove helpful when debugging.
+
+   <p>To help you diagnose problems with registering
+and unregistering atoms, <code>SP_register_atom()</code> and
+<code>SP_unregister_atom()</code> both normally return the current reference count
+for the atom.  If an error occurs, e.g. a nonexistent atom is registered
+or unregistered, <code>SP_ERROR</code> is returned.
+
+   <p>An unregistered atom has a reference count of 0. 
+Unregistering an atom that is unregistered is a no-op; in this
+case, <code>SP_unregister_atom()</code> returns 0.  A permanent atom has a
+reference count of 256.  In addition, if an atom is simultaneously
+registered 256 times, it becomes permanent.  (An atom with 256 distinct
+references is an unlikely candidate for reclamation!) 
+Registering or unregistering an atom that
+is permanent is also a no-op;  <code>SP_register_atom()</code> and
+<code>SP_unregister_atom()</code> return 256.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmgc_002dago_002dare.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmgc_002dago_002dare.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

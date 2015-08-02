@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+<title>str-ifc - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dstructs.html#lib_002dstructs" title="lib-structs">
+<link rel="prev" href="str_002dnul.html#str_002dnul" title="str-nul">
+<link rel="next" href="str_002detr.html#str_002detr" title="str-etr">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="str-ifc"></a>
+<a name="str_002difc"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="str_002detr.html#str_002detr">str-etr</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="str_002dnul.html#str_002dnul">str-nul</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dstructs.html#lib_002dstructs">lib-structs</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.35.7 Interfacing with Foreign Code</h4>
+
+<p>Foreign terms may be passed between Prolog and other languages
+through the foreign interface.
+
+   <p>To use this, all foreign types to be passed between Prolog and another
+language must be declared with <code>foreign_type/2</code> before the <code>foreign/[2,3]</code>
+clauses specifying the foreign functions.
+
+   <p>The <code>structs</code> package extends the foreign type specifications recognized
+by the foreign interface.  In addition to the types already recognized
+by the foreign interface, any atomic type recognized by the <code>structs</code>
+package is understood, as well as a pointer to any named <code>structs</code> type.
+
+   <p>For example, if you have a function
+
+<pre class="example">     char nth_char(string, n)
+         char *string;
+         int n;
+         {
+             return string[n];
+         }
+</pre>
+   <p>You might use it from Prolog as follows:
+<pre class="example">     :- foreign_type cstring = array(integer_8).
+     
+     foreign(nth_char, c, nth_char(+pointer(cstring), +integer, [-integer_8])).
+</pre>
+   <p>This allows the predicate <code>nth_char/3</code> to be called from Prolog to
+determine the nth character of a C string.
+
+   <p>Note that all existing foreign interface type specifications are
+unaffected, in particular <code>address/[0,1]</code> continue to pass addresses to
+and from Prolog as plain integers.
+
+   <p>If you use the foreign resource linker, <samp><span class="command">splfr</span></samp>, on a Prolog
+file that uses the <code>structs</code> package, you must pass it the
+<samp><span class="option">--structs</span></samp> option.  This will make <samp><span class="command">splfr</span></samp> understand
+foreign type specifications and translate them into C declarations in
+the generated header file (see <a href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker">The Foreign Resource Linker</a>).
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/str_002difc.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/str_002difc.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,191 @@
+<html lang="en">
+<head>
+<title>Breakpoint Predicates - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Debug-Intro.html#Debug-Intro" title="Debug Intro">
+<link rel="prev" href="Advanced-Debugging.html#Advanced-Debugging" title="Advanced Debugging">
+<link rel="next" href="Breakpoint-Processing.html#Breakpoint-Processing" title="Breakpoint Processing">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Breakpoint-Predicates"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Breakpoint-Processing.html#Breakpoint-Processing">Breakpoint Processing</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Advanced-Debugging.html#Advanced-Debugging">Advanced Debugging</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Debug-Intro.html#Debug-Intro">Debug Intro</a>
+<hr>
+</div>
+
+<h3 class="section">5.7 Breakpoint Handling Predicates</h3>
+
+<p><a name="index-breakpoint-handling-predicates-2062"></a><a name="index-predicates_002c-breakpoint-handling-2063"></a>
+This section describes the advanced built-in predicates for
+creating and removing breakpoints.
+
+     <dl>
+<dt><code>add_breakpoint(</code><var>:Spec</var><code>, </code><var>?BID</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dd><a name="index-add_005fbreakpoint_002f2-_0028built_002din_0029-2064"></a><a name="index-add_005fbreakpoint_002f2-_0028built_002din_0029-2065"></a>
+Adds a breakpoint with a spec <var>Spec</var>, the breakpoint
+identifier assigned is unified with <var>BID</var>.  <var>Spec</var> is one
+of the following:
+
+          <dl>
+<dt><var>Tests</var><code>-</code><var>Actions</var><br><dt><var>Tests</var><dd>standing for <var>Tests</var><code>-[]</code>
+<br><dt><code>-</code><var>Actions</var><dd>standing for <code>[]-</code><var>Actions</var>
+</dl>
+
+     <p>Here, both <var>Tests</var> and <var>Actions</var> are either a simple
+<var>Condition</var>, see <a href="Breakpoint-Conditions.html#Breakpoint-Conditions">Breakpoint Conditions</a>, or a composite
+Condition. Conditions can be composed by forming lists, or by
+using the &lsquo;<samp><span class="samp">,</span></samp>&rsquo;, &lsquo;<samp><span class="samp">;</span></samp>&rsquo;, &lsquo;<samp><span class="samp">-&gt;</span></samp>&rsquo;, and &lsquo;<samp><span class="samp">\+</span></samp>&rsquo; operators,
+with the usual meaning of conjunction, disjunction,
+if-then-else, and negation, respectively. A list of conditions is
+equivalent to a conjunction of the same conditions
+(<code>[</code><var>A</var><code>|</code><var>B</var><code>]</code> is treated as <code>(</code><var>A</var><code>,</code><var>B</var><code>)</code>).
+
+     <p>The <code>add_breakpoint/2</code> predicate performs some
+transformations and checks before adding the breakpoint.  All
+condition macros invoked are expanded into their bodies, and this
+process is repeated for the newly introduced bodies. The <code>goal</code> and
+<code>pred</code> conditions are then extracted from the outermost
+conjunctions of the <em>test</em> part and moved to the beginning of
+the conjunction. If these are inconsistent, a consistency error is
+signalled. Module name expansion is performed for certain tests,
+as described below.
+
+     <p>Both the original and the transformed breakpoint spec is recorded
+by the debugger. The original is returned in
+<code>current_breakpoint/5</code>, while the transformed spec is used in
+determining the applicability of breakpoints.
+
+     <p>There can only be a single plain spypoint for each
+predicate.  If a plain spypoint is added, and there is
+already a plain spypoint for the given predicate, then:
+
+          <ol type=a start=1>
+<li>the old spypoint is deleted and a new added as the most recent
+breakpoint, if this change affects the breakpoint selection
+mechanism. 
+<li>otherwise, the old spypoint is kept and enabled if needed.
+          </ol>
+See <a href="mpg_002dref_002dadd_005fbreakpoint.html#mpg_002dref_002dadd_005fbreakpoint">mpg-ref-add_breakpoint</a>.
+
+     <br><dt><code>spy(</code><var>:PredSpec</var><code>, </code><var>:Spec</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dd><a name="index-spy_002f_005b1_002c2_005d-_0028built_002din_0029-2066"></a><a name="index-spy_002f_005b1_002c2_005d-_0028built_002din_0029-2067"></a>
+Adds a conditional spypoint with a breakpoint spec formed by
+adding <code>pred(</code><var>Pred</var><code>)</code> to the test part of <var>Spec</var>, for each
+predicate <var>Pred</var> designated by the generalized predicate
+spec <var>PredSpec</var>. 
+See <a href="mpg_002dref_002dspy.html#mpg_002dref_002dspy">mpg-ref-spy</a>.
+
+     <br><dt><code>current_breakpoint(</code><var>:Spec</var><code>, </code><var>?BID</var><code>, </code><var>?Status</var><code>, </code><var>?Kind</var><code>, </code><var>?Type</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dd><a name="index-current_005fbreakpoint_002f5-_0028built_002din_0029-2068"></a><a name="index-current_005fbreakpoint_002f5-_0028built_002din_0029-2069"></a>
+There is a breakpoint with breakpoint spec <var>Spec</var>,
+identifier <var>BID</var>, status <var>Status</var>, kind <var>Kind</var>, and type
+<var>Type</var>.  <var>Status</var> is one of <code>on</code> or <code>off</code>, referring
+to enabled and disabled breakpoints.  <var>Kind</var> is one of
+<code>plain(</code><var>MFunc</var><code>)</code>, <code>conditional(</code><var>MFunc</var><code>)</code> or
+<code>generic</code>, where <var>MFunc</var> is the module qualified
+functor of the specific breakpoint. <var>Type</var> is the
+breakpoint type: <code>debugger</code> or <code>advice</code>.
+
+     <p><code>current_breakpoint/5</code> enumerates all breakpoints on
+backtracking.
+
+     <p>The <var>Spec</var> as returned by <code>current_breakpoint/5</code> is exactly the
+same as supplied at the creation of the breakpoint. 
+See <a href="mpg_002dref_002dcurrent_005fbreakpoint.html#mpg_002dref_002dcurrent_005fbreakpoint">mpg-ref-current_breakpoint</a>.
+
+     <br><dt><code>remove_breakpoints(</code><var>+BIDs</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dt><code>disable_breakpoints(</code><var>+BIDs</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dt><code>enable_breakpoints(</code><var>+BIDs</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dd><a name="index-remove_005fbreakpoints_002f1-_0028built_002din_0029-2070"></a><a name="index-remove_005fbreakpoints_002f1-_0028built_002din_0029-2071"></a>
+<a name="index-disable_005fbreakpoints_002f1-_0028built_002din_0029-2072"></a><a name="index-disable_005fbreakpoints_002f1-_0028built_002din_0029-2073"></a>
+<a name="index-enable_005fbreakpoints_002f1-_0028built_002din_0029-2074"></a><a name="index-enable_005fbreakpoints_002f1-_0028built_002din_0029-2075"></a>
+Removes, disables or enables the breakpoints with identifiers
+specified by <var>BIDs</var>. <var>BIDs</var> can be a number, a list of
+numbers or one of the atoms: <code>all</code>, <code>debugger</code>,
+<code>advice</code>. The atoms specify all breakpoints, debugger
+type breakpoints and advice type breakpoints, respectively.
+
+     <br><dt><code>execution_state(</code><var>:Tests</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dd><a name="index-execution_005fstate_002f_005b1_002c2_005d-_0028built_002din_0029-2076"></a><a name="index-execution_005fstate_002f_005b1_002c2_005d-_0028built_002din_0029-2077"></a>
+<var>Tests</var> are satisfied in the current state of the execution. 
+Arbitrary tests can be used in this predicate, if it is called
+from inside the debugger, i.e. from within a <code>true</code>
+condition. Otherwise only those tests can be used, which query the data
+stored in the backtrace. An exception is raised if the latter
+condition is violated, i.e. a non-backtraced test
+(see <a href="Breakpoint-Conditions.html#Breakpoint-Conditions">Breakpoint Conditions</a>) occurs in a call of
+<code>execution_state/1</code> from outside the debugger.
+
+     <br><dt><code>execution_state(</code><var>+FocusConditions</var><code>, </code><var>:Tests</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dd><var>Tests</var> are satisfied in the state of the execution pointed to by
+<var>FocusConditions</var> (see <a href="Past-States.html#Past-States">Past States</a>). An exception is raised if
+there is a non-backtraced test among <var>Tests</var>. 
+</dl>
+
+   <p>Note that the predicate arguments holding a breakpoint
+spec (<var>Spec</var> or <var>Tests</var> above) are subject to module name
+expansion.  The first argument within simple tests
+<code>goal(_)</code>, <code>pred(_)</code>, <code>parent_pred(_)</code>,
+<code>parent_pred(_,_)</code>, <code>ancestor(_,_)</code>, and <code>true(_)</code> will
+inherit the module name from the (module name expanded)
+breakpoint spec/tests predicate argument, if there is
+no explicit module qualification within the simple test. Within
+the <code>proceed(</code><var>Old</var><code>,</code><var>New</var><code>)</code> and
+<code>flit(</code><var>Old</var><code>,</code><var>New</var><code>)</code> command representation settings, <var>Old</var> will
+get the module name from the <code>goal</code> or <code>pred</code> condition
+by default, while <var>New</var> from the whole breakpoint spec
+argument. 
+See <a href="mpg_002dref_002dexecution_005fstate.html#mpg_002dref_002dexecution_005fstate">mpg-ref-execution_state</a>.
+
+   <p>The following hook predicate can be used to customize the behavior
+of the interactive debugger.
+
+     <dl>
+<dt><code>debugger_command_hook(</code><var>+DCommand</var><code>,</code><var>?Actions</var><code>) &nbsp;<!-- /@w --> </code><strong>hook,development</strong><dt><code>user:debugger_command_hook(</code><var>+DCommand</var><code>,</code><var>?Actions</var><code>)</code><dd><a name="index-debugger_005fcommand_005fhook_002f2-_0028user_002c-hook_0029-2078"></a><a name="index-debugger_005fcommand_005fhook_002f2-_0028user_002c-hook_0029-2079"></a>
+<a name="index-user_003adebugger_005fcommand_005fhook_002f2-_0028hook_0029-2080"></a><a name="index-user_003adebugger_005fcommand_005fhook_002f2-_0028hook_0029-2081"></a>
+This predicate is called for each debugger command that SICStus Prolog
+reads. The first argument is the abstract format of the
+debugger command <var>DCommand</var>, as returned by the query facility
+(see <a href="Query-Processing.html#Query-Processing">Query Processing</a>). If it succeeds, <var>Actions</var> is taken as
+the list of actions (see <a href="Action-Conditions.html#Action-Conditions">Action Conditions</a>) to be done for the
+given debugger command. If it fails, the debugger command is interpreted
+in the standard way.
+
+     <p>Note that if a line typed in response to the debugger prompt cannot
+be parsed as a debugger command, <code>debugger_command_hook/2</code> is
+called with the term <code>unknown(Line,Warning)</code>. Here,
+<code>Line</code> is the code-list typed in, with any leading whitespace
+removed, and <code>Warning</code> is a warning message. This allows the user
+to define new debugger commands, see <a href="Hooks-Related-to-Breakpoints.html#Hooks-Related-to-Breakpoints">Hooks Related to Breakpoints</a>
+for an example. 
+See <a href="mpg_002dref_002ddebugger_005fcommand_005fhook.html#mpg_002dref_002ddebugger_005fcommand_005fhook">mpg-ref-debugger_command_hook</a>. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Breakpoint-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Breakpoint-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

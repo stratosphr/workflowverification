@@ -1,0 +1,134 @@
+<html lang="en">
+<head>
+<title>ref-lte-cte-sot - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlte_002dcte.html#ref_002dlte_002dcte" title="ref-lte-cte">
+<link rel="prev" href="ref_002dlte_002dcte_002dbas.html#ref_002dlte_002dcte_002dbas" title="ref-lte-cte-bas">
+<link rel="next" href="ref_002dlte_002dcte_002dsor.html#ref_002dlte_002dcte_002dsor" title="ref-lte-cte-sor">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-lte-cte-sot"></a>
+<a name="ref_002dlte_002dcte_002dsot"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dlte_002dcte_002dsor.html#ref_002dlte_002dcte_002dsor">ref-lte-cte-sor</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dlte_002dcte_002dbas.html#ref_002dlte_002dcte_002dbas">ref-lte-cte-bas</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlte_002dcte.html#ref_002dlte_002dcte">ref-lte-cte</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.8.8.2 Standard Order of Terms</h5>
+
+<p><a name="index-terms_002c-ordering-on-1237"></a>
+<a name="index-standard_002c-order-on-terms-1238"></a>
+<a name="index-order-on-terms_002c-standard-1239"></a>
+
+   <p>These predicates use a standard total order when comparing terms.  The
+standard total order is:
+
+     <ul>
+<li>Variables, by age (oldest first&mdash;the order is <em>not</em> related
+to the names of variables).
+
+     <li>Floats, in numeric order (e.g. -1.0 is put before 1.0).
+
+     <li>Integers, in numeric order (e.g. -1 is put before 1).
+
+     <li>Atoms, in alphabetical (i.e. character code) order.
+
+     <li>Compound terms, ordered first by arity, then by the name of
+the principal functor, then by age for mutables and by the
+arguments in left-to-right order for other terms.  Recall
+that lists are equivalent to compound terms with principal
+functor <code>./2</code>. 
+</ul>
+
+   <p>For example, here is a list of terms in standard order:
+
+<pre class="example">     [ X, -1.0, -9, 1, fie, foe, X = Y, foe(0,2), fie(1,1,1) ]
+</pre>
+   <blockquote>
+<strong>Please note</strong>: the standard order is only well-defined for finite (acyclic)
+terms.  There are infinite (cyclic) terms for which no order
+relation holds.  Furthermore, blocking goals
+(see <a href="ref_002dsem_002dsec.html#ref_002dsem_002dsec">ref-sem-sec</a>) on variables or modifying their attributes
+(see <a href="lib_002datts.html#lib_002datts">lib-atts</a>) does not preserve their order. 
+</blockquote>
+
+   <p>The predicates for comparison of terms are described below.
+
+     
+<a name="index-g_t_003d_003d_002f2-_0028built_002din_0029-1240"></a>
+<a name="index-g_t_003d_003d_002f2-_0028built_002din_0029-1241"></a>
+<dl>
+
+     <!-- [PM] 4.2.3 Note: backslash in macro argument needs quoting with backslash. -->
+     <p><a name="index-g_t_005c_003d_003d_002f2-_0028built_002din_0029-1242"></a><a name="index-g_t_005c_003d_003d_002f2-_0028built_002din_0029-1243"></a>
+
+     <p><a name="index-g_t_0040_0040_003c_002f2-_0028built_002din_0029-1244"></a><a name="index-g_t_0040_0040_003c_002f2-_0028built_002din_0029-1245"></a>
+
+     <p><a name="index-g_t_0040_0040_003e_002f2-_0028built_002din_0029-1246"></a><a name="index-g_t_0040_0040_003e_002f2-_0028built_002din_0029-1247"></a>
+
+     <p><a name="index-g_t_0040_0040_003d_003c_002f2-_0028built_002din_0029-1248"></a><a name="index-g_t_0040_0040_003d_003c_002f2-_0028built_002din_0029-1249"></a>
+
+     <p><a name="index-g_t_0040_0040_003e_003d_002f2-_0028built_002din_0029-1250"></a><a name="index-g_t_0040_0040_003e_003d_002f2-_0028built_002din_0029-1251"></a>
+
+     <dt><var>+T1</var> <code>==</code> <var>+T2</var><dd><var>T1</var> and <var>T2</var> are
+literally identical  (in  particular,  variables in equivalent positions in
+the two terms must be identical).
+
+     <br><dt><var>+T1</var> <code>\==</code> <var>+T2</var><dd><var>T1</var> and <var>T2</var> are
+<em>not</em> literally identical.
+
+     <br><dt><var>+T1</var> <code>@&lt;</code> <var>+T2</var><dd><var>T1</var> is before term <var>T2</var> in the standard order.
+
+     <br><dt><var>+T1</var> <code>@&gt;</code> <var>+T2</var><dd><var>T1</var> is after term <var>T2</var>
+
+     <br><dt><var>+T1</var> <code>@=&lt;</code> <var>+T2</var><dd><var>T1</var> is not after term <var>T2</var>
+
+     <br><dt><var>+T1</var> <code>@&gt;=</code> <var>+T2</var><dd><var>T1</var> is not before term <var>T2</var>
+
+     <br><dt><code>compare(</code><var>-Op</var><code>, </code><var>+T1</var><code>, </code><var>+T2</var><code>)</code><dd>the result of comparing terms <var>T1</var> and <var>T2</var> is <var>Op</var>, where
+the possible values for <var>Op</var> are:
+
+          <dl>
+<dt><code>=</code><dd>if <var>T1</var> is identical to <var>T2</var>,
+<br><dt><code>&lt;</code><dd>if <var>T1</var> is before <var>T2</var> in the standard order,
+<br><dt><code>&gt;</code><dd>if <var>T1</var> is after <var>T2</var> in the standard order. 
+</dl>
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlte_002dcte_002dsot.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlte_002dcte_002dsot.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

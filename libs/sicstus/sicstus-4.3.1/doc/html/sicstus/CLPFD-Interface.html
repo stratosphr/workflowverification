@@ -1,0 +1,154 @@
+<html lang="en">
+<head>
+<title>CLPFD Interface - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dclpfd.html#lib_002dclpfd" title="lib-clpfd">
+<link rel="prev" href="CLPFD-Caveats.html#CLPFD-Caveats" title="CLPFD Caveats">
+<link rel="next" href="Available-Constraints.html#Available-Constraints" title="Available Constraints">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CLPFD-Interface"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Available-Constraints.html#Available-Constraints">Available Constraints</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="CLPFD-Caveats.html#CLPFD-Caveats">CLPFD Caveats</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dclpfd.html#lib_002dclpfd">lib-clpfd</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.10.3 Solver Interface</h4>
+
+<ul class="menu">
+<li><a accesskey="1" href="Posting-Constraints.html#Posting-Constraints">Posting Constraints</a>:  Posting Constraints
+<li><a accesskey="2" href="A-Constraint-Satisfaction-Problem.html#A-Constraint-Satisfaction-Problem">A Constraint Satisfaction Problem</a>:  A Constraint Satisfaction Problem
+<li><a accesskey="3" href="Reified-Constraints.html#Reified-Constraints">Reified Constraints</a>:  Reified Constraints
+</ul>
+
+<p>The solver contains predicates for checking the consistency and
+entailment of finite domain constraints, as well as solving for solution
+values for your problem variables.
+
+   <p><a name="index-finite-domain-2778"></a><a name="index-domain_002c-finite-2779"></a><a name="index-constraint-2780"></a><a name="index-domain-variable-2781"></a><a name="index-variable_002c-domain-2782"></a>
+In the context of this constraint solver, a <dfn>finite domain</dfn> is a
+subset of small integers, and a <dfn>finite domain constraint</dfn> denotes a
+relation over a tuple of small integers (see <a href="Glossary.html#Glossary">Glossary</a>).  Hence,
+only small integers and unbound variables are allowed in finite domain
+constraints.
+
+   <p>All <dfn>domain variables</dfn>, i.e. variables that occur as arguments to
+finite domain constraints get associated with a finite domain, either
+explicitly declared by the program, or implicitly imposed by the
+constraint solver.  Temporarily, the domain of a variable may actually
+be infinite, if it does not have a finite lower or upper bound.  If
+during the computation a variable receives a new lower or upper bound
+that cannot be represented as a small integer, an overflow condition is
+issued.  This is expressed as silent failure or as a representation
+error, subject to the <code>overflow</code> option of <code>fd_flag/3</code>.
+
+   <p>The set of current domains of all domain variables is called the
+<dfn>domain store</dfn>.  Domain store <var>S</var> is an <dfn>extension</dfn> of domain
+store <var>T</var> if each domain in <var>S</var> is a subset of the corresponding
+domain in <var>T</var>.  If some domain is empty, the store is
+<dfn>contradictory</dfn> and execution backtracks; otherwise, it is <dfn>consistent</dfn>. 
+<a name="index-contradictory-store-2783"></a><a name="index-store_002c-contradictory-2784"></a><a name="index-consistent-store-2785"></a><a name="index-store_002c-consistent-2786"></a>
+At the end of a successful computation, all domains have usually become
+singletons, i.e. the domain variables have become assigned.  The
+domains don't become singletons automatically.  Usually, it takes some
+amount of search to find an assignment that satisfies all constraints. 
+It is the programmer's responsibility to do so.  If some domain
+variables are left unassigned in a computation, the garbage collector
+will preserve all constraint data that is attached to them.
+
+   <p><strong>Please note</strong>: if a term containing domain variables is written,
+copied, asserted, gathered as a solution to <code>findall/3</code> and
+friends, or raised as an exception, those domain variables will be
+replaced by brand new variables in the copy.  To retain the domains and
+any attached constraints, you can use <code>copy_term/3</code> with
+<code>clpfd:full_answer</code> asserted (see <a href="ref_002dlte_002dcpt.html#ref_002dlte_002dcpt">ref-lte-cpt</a> and <a href="Answer-Constraints.html#Answer-Constraints">Answer Constraints</a>).  <strong>API change wrt. release 3.</strong>
+
+<!-- A constraint is @dfn{entailed} when it is true in all possible -->
+<!-- assignments of its arguments.  It is @dfn{disentailed} when there are -->
+<!-- no assignments that can make it true.  Entailment is closely related -->
+<!-- to the concept of @dfn{reification} (@pxref{Reify}). -->
+   <p>Every finite domain constraint is implemented by a <dfn>propagator</dfn>, or
+a set of such.  Some constraints have alternative propagators with
+differing properties.  All propagators act as coroutines performing
+incremental constraint solving, removing values from domains, and/or
+entailment checking.  They wake up by changes in the domains of its
+arguments.  A propagator <var>P</var> can be seen as a function on constraint
+store <var>S</var>: <var>P(S)</var> denotes the extension of <var>S</var> resulting
+from applying <var>P</var> on <var>S</var>.
+
+   <p>Propagators come in two kinds: <dfn>indexicals</dfn>, stateless reactive
+functional rules implemented by a stack machine and running, and
+<dfn>global propagators</dfn>, usually stateful, implemented in C or
+Prolog, and using algorithms from many fields of computer science. 
+At the heart of the constraint solver is a scheduler for
+propagators, where indexicals have priority over global propagators.
+
+   <p>Certain properties of propagators are desirable:
+
+     <dl>
+<dt><b>Correct</b><dd>A correct propagator never removes values that are consistent
+wrt. its constraint. This property is mandatory.
+
+     <br><dt><b>Checking</b><dd>A checking propagator accepts all ground assignments that satisfies the
+given constraint, and rejects all ground assignments that violate it. 
+This property is also mandatory.
+
+     <br><dt><b>Contracting</b><dd>A contracting propagator never adds any representation to any domain.
+This property is also mandatory.
+
+     <br><dt><b>Monotone</b><dd>A propagator <var>P</var> is monotone if, for all domain stores <var>S</var> and
+<var>T</var>, <var>S</var> is an extension of <var>T</var> implies that <var>P(S)</var> is
+an extension of <var>P(T)</var>.  This property is not mandatory but helps
+understanding and debugging.
+
+     <br><dt><b>Idempotent</b><dd>A propagator <var>P</var> is idempotent if, for all domain stores <var>S</var>,
+<var>P(S)</var> equals <var>P(P(S))</var>.
+
+     <br><dt><b>Domain-Consistent</b><dd>A domain-consistent propagator removes all inconsistent values.  This
+property is not mandatory and only a few propagators have it.  The
+reason is that the complexity of maintaining domain-consistency is often
+prohibitively high.
+
+     <br><dt><b>Bounds-Consistent</b><dd>A bounds-consistent propagator adjusts all inconsistent upper and lower
+domain bounds.  This property is not mandatory, and is implied by
+domain-consistency.  This property is more widespread and usually less
+costly to maintain than domain-consistency, but far from all propagators
+have it. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPFD-Interface.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPFD-Interface.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

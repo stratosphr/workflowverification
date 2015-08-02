@@ -1,0 +1,170 @@
+<html lang="en">
+<head>
+<title>mpg-ref-append - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dadd_005fbreakpoint.html#mpg_002dref_002dadd_005fbreakpoint" title="mpg-ref-add_breakpoint">
+<link rel="next" href="mpg_002dref_002darg.html#mpg_002dref_002darg" title="mpg-ref-arg">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-append"></a>
+<a name="mpg_002dref_002dappend"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002darg.html#mpg_002dref_002darg">mpg-ref-arg</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dadd_005fbreakpoint.html#mpg_002dref_002dadd_005fbreakpoint">mpg-ref-add_breakpoint</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.7 <code>append/3</code></h4>
+
+<p><a name="index-append_002f3-_0028built_002din_002c-ref-page_0029-4434"></a><a name="index-append_002f3-_0028built_002din_002c-ref-page_0029-4435"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>append(</code><var>?List1</var><code>, </code><var>?List2</var><code>, </code><var>?List3</var><code>)</code>
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>List1</var><dd><dfn>list of term</dfn>
+<br><dt><var>List2</var><dd><dfn>list of term</dfn>
+<br><dt><var>List3</var><dd><dfn>list of term</dfn>
+
+     <p>A list consisting of <var>List1</var> followed by <var>List2</var>. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>Appends lists <var>List1</var> and <var>List2</var> to form <var>List3</var>:
+
+<pre class="example">     | ?- <kbd>append([a,b], [a,d], X).</kbd>
+     
+     X = [a,b,a,d]
+     
+     | ?- <kbd>append([a], [a], [a]).</kbd>
+     
+     no
+     | ?- <kbd>append(2, [a], X).</kbd>
+     
+     no
+</pre>
+   <p>Takes <var>List3</var> apart:
+<pre class="example">     | ?- <kbd>append(X, [e], [b,e,e]).</kbd>
+     
+     X = [b,e]
+     
+     | ?- <kbd>append([b|X], [e,r], [b,o,r,e,r]).</kbd>
+     
+     X = [o,r]
+     
+     | ?- <kbd>append(X, Y, [h,i]).</kbd>
+     
+     X = [],
+     Y = [h,i] <kbd>;</kbd>
+     
+     X = [h],
+     Y = [i] <kbd>;</kbd>
+     
+     X = [h,i],
+     Y = [] <kbd>;</kbd>
+     
+     no
+</pre>
+   <h4 class="subheading">Backtracking</h4>
+
+<p>Suppose L is bound to a proper list.  That is, it has the form
+[<var>T1</var>,<small class="dots">...</small>,<var>Tn</var>] for some <var>n</var>.  In that instance, the
+following things apply:
+
+     <ol type=1 start=1>
+<li><code>append(</code><var>L</var><code>, </code><var>X</var><code>, </code><var>Y</var><code>)</code> has at most one solution, whatever <var>X</var> and <var>Y</var> are, and
+cannot backtrack at all. 
+<li><code>append(</code><var>X</var><code>, </code><var>Y</var><code>, </code><var>L</var><code>)</code> has at most <var>n+1</var> solutions, whatever <var>X</var> and <var>Y</var> are, and
+though it can backtrack over these it cannot run away without finding
+a solution. 
+<li><code>append(</code><var>X</var><code>, </code><var>L</var><code>, </code><var>Y</var><code>)</code>, however, can backtrack indefinitely if <var>X</var> and <var>Y</var> are
+variables.
+        </ol>
+
+<h4 class="subheading">Examples</h4>
+
+<p>The following examples are
+perfectly ordinary uses of <code>append/3</code>:
+
+   <p>To enumerate adjacent pairs of elements from a list:
+<pre class="example">     next_to(X, Y, (*in*) List3) :-
+             append(_, [X,Y|_], List3).
+</pre>
+   <p>To check whether Word1 and Word2 are the same except for
+a single transposition.  (<code>append/5</code> in <code>library(lists)</code> would be
+better for this task.)
+<pre class="example">     one_transposition(Word1, Word2) :-
+             append(Prefix, [X,Y|Suffix], Word1),
+             append(Prefix, [Y,X|Suffix], Word2).
+     
+     | ?- <kbd>one_transposition("fred", X).</kbd>
+     X = "rfed" <kbd>;</kbd>
+     X = "ferd" <kbd>;</kbd>
+     X = "frde" <kbd>;</kbd>
+     no
+</pre>
+   <p>Given a list of words and commas, to backtrack through the phrases
+delimited by commas:
+<pre class="example">     comma_phrase(List3, Phrase) :-
+             append(F, [','|Rest], List3),
+             !,
+             (   Phrase = F
+             ;   comma_phrase(Rest, Phrase)
+             ).
+     comma_phrase(List3, List3).
+     
+     | ?- <kbd>comma_phrase([this,is,',',um,',',an, example], X).</kbd>
+     X = [this,is] <kbd>;</kbd>
+     X = [um] <kbd>;</kbd>
+     X = [an,example] <kbd>;</kbd>
+     no
+</pre>
+   <h4 class="subheading">Exceptions</h4>
+
+<p>None.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlte_002dacl.html#ref_002dlte_002dacl">ref-lte-acl</a>,
+<code>library(lists)</code>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dappend.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dappend.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

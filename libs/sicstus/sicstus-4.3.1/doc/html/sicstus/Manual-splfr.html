@@ -1,0 +1,62 @@
+<html lang="en">
+<head>
+<title>Manual splfr - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker" title="The Foreign Resource Linker">
+<link rel="prev" href="Customizing-splfr.html#Customizing-splfr" title="Customizing splfr">
+<link rel="next" href="Windows_002dspecific-splfr-issues.html#Windows_002dspecific-splfr-issues" title="Windows-specific splfr issues">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Manual-splfr"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Windows_002dspecific-splfr-issues.html#Windows_002dspecific-splfr-issues">Windows-specific splfr issues</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Customizing-splfr.html#Customizing-splfr">Customizing splfr</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker">The Foreign Resource Linker</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">6.2.5.2 Creating Linked Foreign Resources Manually under UNIX</h5>
+
+<p>The only supported method for building foreign resources is by
+compiling and linking them with <samp><span class="command">splfr</span></samp>. However, this is
+sometimes inconvenient, for instance when writing a Makefile for use
+with <samp><span class="command">make</span></samp>. To figure out what needs to be done to build a
+foreign resource, you should build it once with <code>splfr&nbsp;--verbose&nbsp;--keep&nbsp;...</code><!-- /@w -->, note what compiler and linker flags are
+used, and save away any generated files. You can then mimic the build
+commands used by <samp><span class="command">splfr</span></samp> in your <samp><span class="file">Makefile</span></samp>. You should
+repeat this process each time you upgrade SICStus Prolog.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Manual-splfr.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Manual-splfr.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

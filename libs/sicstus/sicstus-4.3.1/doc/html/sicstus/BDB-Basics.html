@@ -1,0 +1,80 @@
+<html lang="en">
+<head>
+<title>BDB Basics - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dbdb.html#lib_002dbdb" title="lib-bdb">
+<link rel="next" href="Current-Limitations.html#Current-Limitations" title="Current Limitations">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="BDB-Basics"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Current-Limitations.html#Current-Limitations">Current Limitations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dbdb.html#lib_002dbdb">lib-bdb</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.6.1 Basics</h4>
+
+<p>The idea is to get a behavior similar to <code>assert/1</code>,
+<code>retract/1</code> and <code>clause/2</code>, but the terms are stored on
+files instead of in primary memory.
+
+   <p>The differences compared with the Prolog database are:
+
+     <ul>
+<li><a name="index-database-2658"></a>A <dfn>database</dfn> must be opened before any access and closed after the
+last access. (There are special predicates for this:
+<code>db_open/[4,5]</code> and <code>db_close/1</code>.)
+
+     <li>The functors and the indexing specifications of the terms to
+be stored have to be given when the database is
+created. (see <a href="The-DB_002dSpec.html#The-DB_002dSpec">The DB-Spec</a>).
+
+     <li>The indexing is specified when the database is created.  It is
+possible to index on other parts of the term than just the
+functor and first argument.
+
+     <li>Changes affect the database immediately.
+
+     <li>The database will store variables with attributes or with blocked
+goals as ordinary variables. 
+</ul>
+
+   <p>Some commercial databases can't store non-ground terms
+or more than one instance of a term.  This library module
+can however store terms of either kind.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/BDB-Basics.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/BDB-Basics.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

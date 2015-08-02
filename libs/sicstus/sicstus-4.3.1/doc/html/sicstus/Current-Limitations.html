@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+<title>Current Limitations - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dbdb.html#lib_002dbdb" title="lib-bdb">
+<link rel="prev" href="BDB-Basics.html#BDB-Basics" title="BDB Basics">
+<link rel="next" href="Berkeley-DB.html#Berkeley-DB" title="Berkeley DB">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Current-Limitations"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Berkeley-DB.html#Berkeley-DB">Berkeley DB</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="BDB-Basics.html#BDB-Basics">BDB Basics</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dbdb.html#lib_002dbdb">lib-bdb</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.6.2 Current Limitations</h4>
+
+     <ul>
+<li>The terms are not necessarily fetched in the same order as they
+were stored.
+
+     <li>If the process dies during an update operation (<code>db_store/3</code>,
+<code>db_erase/[2,3]</code>), the database can be inconsistent.
+
+     <li>Databases can only be shared between processes running on the
+machine where the environment is created (see <a href="Predicates.html#Predicates">Predicates</a>).  The
+database itself can be on a different machine.
+
+     <li>The number of terms ever inserted in a database cannot
+exceed 2^32-1.
+
+     <li>Duplicate keys are not handled efficiently by Berkeley DB.  This
+limitation is supposed to get lifted in the future.  Duplicate keys can
+result from indexing on non-key attribute sets, inserting terms
+with variables on indexing positions, or simply from storing the
+same term more than once. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Current-Limitations.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Current-Limitations.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

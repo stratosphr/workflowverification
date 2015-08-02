@@ -1,0 +1,103 @@
+<html lang="en">
+<head>
+<title>Start - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Run-Intro.html#Run-Intro" title="Run Intro">
+<link rel="next" href="Reading-In.html#Reading-In" title="Reading In">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Start"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Reading-In.html#Reading-In">Reading In</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Run-Intro.html#Run-Intro">Run Intro</a>
+<hr>
+</div>
+
+<h3 class="section">3.1 Getting Started</h3>
+
+<p><a name="index-running-256"></a><a name="index-command_002dline-arguments-257"></a><a name="index-arguments_002c-command_002dline-258"></a>
+Under UNIX, SICStus Prolog can be started from one of the shells. 
+On other platforms, it is normally started by clicking on an icon. 
+However, it is often convenient to run SICStus Prolog under GNU Emacs
+or the SPIDER IDE (see <a href="SPIDER.html#SPIDER">SPIDER</a>),
+instead.  A GNU Emacs interface for SICStus Prolog is described later
+(see <a href="Emacs-Interface.html#Emacs-Interface">Emacs Interface</a>).  From a UNIX or Windows shell, SICStus Prolog
+can be
+started by invoking the <samp><span class="command">sicstus</span></samp> command-line tool,
+using the full path to <samp><span class="command">sicstus</span></samp> unless its location has been
+added to the shell's path.
+
+   <p>Under UNIX, a saved-state <var>file</var> can be executed directly by
+typing:
+
+<pre class="example">     % <var>file</var> <var>argument<small class="dots">...</small></var>
+</pre>
+   <p>This is equivalent to:
+
+<pre class="example">     % <kbd>sicstus -r </kbd><var>file</var><kbd> [-- </kbd><var>argument<small class="dots">...</small></var><kbd>]</kbd>
+</pre>
+   <blockquote>
+<strong>Please note</strong>: Saved-states don't store the complete
+path of the binary <code>sicstus</code>. Instead, they call the main executable
+using the version specific name
+<samp><span class="command">sicstus-4.3.1</span></samp>,
+which is assumed to be found in the shell's path. If
+there are several versions of SICStus installed, it is up to the user to
+make sure that the correct start-script is found. 
+</blockquote>
+
+   <p>Notice that the flags are not available when executing
+saved-states&mdash;all the command-line arguments are treated as
+Prolog arguments.
+
+   <p>The development system checks that a valid SICStus license
+exists and, unless the <samp><span class="option">--nologo</span></samp> option was used, responds
+with a message of identification and the prompt &lsquo;<samp><span class="samp">|&nbsp;?-&nbsp;</span></samp>&rsquo;<!-- /@w --> as
+soon as it is ready to accept input, thus:
+
+<pre class="example">     SICStus 4.3.1 ...
+     Licensed to SICS
+     | ?-
+</pre>
+   <p><a name="index-top_002dlevel-259"></a><a name="index-directive-260"></a><a name="index-query-261"></a>
+At this point the top-level is expecting input of a <dfn>query</dfn>.  You
+cannot type in clauses or directives immediately
+(see <a href="Inserting-Clauses.html#Inserting-Clauses">Inserting Clauses</a>).  While typing in a query, the prompt
+(on following lines) becomes &lsquo;<samp>     </samp>&rsquo;.  That is, the
+&lsquo;<samp><span class="samp">|&nbsp;?-&nbsp;</span></samp>&rsquo;<!-- /@w --> appears only for the first line of the query,
+and subsequent lines are indented.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Start.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Start.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,172 @@
+<html lang="en">
+<head>
+<title>lib-queues - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Prolog-Library.html#The-Prolog-Library" title="The Prolog Library">
+<link rel="prev" href="lib_002dprologbeans.html#lib_002dprologbeans" title="lib-prologbeans">
+<link rel="next" href="lib_002drandom.html#lib_002drandom" title="lib-random">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="lib-queues"></a>
+<a name="lib_002dqueues"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="lib_002drandom.html#lib_002drandom">lib-random</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="lib_002dprologbeans.html#lib_002dprologbeans">lib-prologbeans</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Prolog-Library.html#The-Prolog-Library">The Prolog Library</a>
+<hr>
+</div>
+
+<h3 class="section">10.29 Queue Operations &mdash;<code>library(queues)</code></h3>
+
+<p>This module provides an implementation of queues, where you can
+     <ul>
+<li>create an empty queue
+<li>add an element at either end of a queue
+<li>add a list of elements at either end of a queue
+<li>remove an element from the front of a queue
+<li>remove a list of elements from the front of a queue
+<li>determine the length of a queue
+<li>enumerate the elements of a queue
+<li>recognise a queue
+<li>print a queue nicely
+</ul>
+   The representation was invented by Mark Johnson of the Center for
+the Study of Language and Information.  All operations are fast.
+
+   <p>Exported predicates:
+
+     <dl>
+<dt><code>empty_queue(</code><var>?Queue</var><code>)</code><dd><a name="index-empty_005fqueue_002f1-_0028queues_0029-3767"></a><a name="index-empty_005fqueue_002f1-_0028queues_0029-3768"></a>
+is true when <var>Queue</var> represents an empty queue.  It can be used to
+test whether an existing queue is empty or to make a new empty queue. 
+<br><dt><code>singleton_queue(</code><var>?X</var><code>, </code><var>?Queue</var><code>)</code><dd><a name="index-singleton_005fqueue_002f2-_0028queues_0029-3769"></a><a name="index-singleton_005fqueue_002f2-_0028queues_0029-3770"></a>
+is true when <var>Queue</var> is a queue with just one element <var>X</var>. 
+<br><dt><code>portray_queue(</code><var>+Queue</var><code>)</code><dd><a name="index-portray_005fqueue_002f1-_0028queues_0029-3771"></a><a name="index-portray_005fqueue_002f1-_0028queues_0029-3772"></a>
+writes a queue out in a pretty form, as <var>Queue[elements]</var>.  This form
+cannot be read back in, it is just supposed to be readable.  While it
+is meant to be called only when <code>is_queue(</code><var>Queue</var><code>)</code> has been established,
+as by <code>user:portray(Q) :- is_queue(Q), !, portray_queue(Q)</code>. 
+it is also meant to work however it is called. 
+<br><dt><code>is_queue(</code><var>+Queue</var><code>)</code><dd><a name="index-is_005fqueue_002f1-_0028queues_0029-3773"></a><a name="index-is_005fqueue_002f1-_0028queues_0029-3774"></a>
+is true when <var>Queue</var> is a queue.  The elements of <var>Queue</var> do not have
+to be instantiated, and the <var>Back</var> of the <var>Queue</var> may or may not be. 
+It can only be used to recognise queues, not to generate them. 
+To generate queues, use <code>queue_length(</code><var>Queue</var><code>, _)</code>. 
+<br><dt><code>queue_head(</code><var>+Queue</var><code>, </code><var>-Head</var><code>)</code><dd><a name="index-queue_005fhead_002f2-_0028queues_0029-3775"></a><a name="index-queue_005fhead_002f2-_0028queues_0029-3776"></a>
+is true when <var>Head</var> is the first element of the given <var>Queue</var>.  It does
+not remove <var>Head</var> from <var>Queue</var>; <var>Head</var> is still there afterwards.  It can
+only be used to find <var>Head</var>, it cannot be used to make a <var>Queue</var>. 
+<br><dt><code>queue_tail(</code><var>?Queue</var><code>, </code><var>?Tail</var><code>)</code><dd><a name="index-queue_005ftail_002f2-_0028queues_0029-3777"></a><a name="index-queue_005ftail_002f2-_0028queues_0029-3778"></a>
+is true when <var>Queue</var> and <var>Tail</var> are both queues and <var>Tail</var> contains all the
+elements of <var>Queue</var> except the first.  Note that <var>Queue</var> and <var>Tail</var> share
+structure, so that you can add elements at the back of only one of them. 
+It can solve for either argument given the other. 
+<br><dt><code>queue_cons(</code><var>?Head</var><code>, </code><var>?Tail</var><code>, </code><var>?Queue</var><code>)</code><dd><a name="index-queue_005fcons_002f3-_0028queues_0029-3779"></a><a name="index-queue_005fcons_002f3-_0028queues_0029-3780"></a>
+is true when <var>Head</var> is the head of <var>Queue</var> and <var>Tail</var> is the tail of <var>Queue</var>,
+that is, when <var>Tail</var> and <var>Queue</var> are both queues, and the elements of the
+<var>Queue</var> are <var>Head</var> followed by the elements of <var>Tail</var> in order.  It can be
+used in either direction, so
+     <pre class="example">              queue_cons(+Head, +Q0, -Q)      adds Head to Q0 giving Q
+              queue_cons(-Head, -Q, +Q0)      removes Head from Q0 giving Q
+</pre>
+     <br><dt><code>queue_last(</code><var>?Last</var><code>, </code><var>?Queue</var><code>)</code><dd><a name="index-queue_005flast_002f_005b2_002c3_005d-_0028queues_0029-3781"></a><a name="index-queue_005flast_002f_005b2_002c3_005d-_0028queues_0029-3782"></a>
+is true when <var>Last</var> is the last element currently in <var>Queue</var>.  It does
+not remove <var>Last</var> from <var>Queue</var>; it is still there.  This can be used to
+generate a non-empty <var>Queue</var>.  The cost is <var>O(|Queue|)</var>. 
+<br><dt><code>queue_last(</code><var>+Fore</var><code>, </code><var>+Last</var><code>, </code><var>-Queue</var><code>)</code><dd>is true when <var>Fore</var> and <var>Queue</var> are both lists and the elements of <var>Queue</var>
+are the elements of <var>Fore</var> in order followed by <var>Last</var>.  This is the
+operation which adds an element at the end of <var>Fore</var> giving <var>Queue</var>;  it
+is not reversible, unlike <code>queue_cons/3</code>, and it side-effects <var>Fore</var>,
+again unlike <code>queue_cons/3</code>. 
+<br><dt><code>append_queue(</code><var>?List</var><code>, </code><var>?Queue0</var><code>, </code><var>?Queue</var><code>)</code><dd><a name="index-append_005fqueue_002f3-_0028queues_0029-3783"></a><a name="index-append_005fqueue_002f3-_0028queues_0029-3784"></a>
+is true when <var>Queue</var> is obtained by appending the elements of <var>List</var>
+in order at the front of <var>Queue0</var>, e.g. 
+<code>append_queue([a,b,c], Queue[d,e], Queue[a,b,c,d,e])</code>.  Use
+     <pre class="example">              append_queue([+X1,...,+Xn], +Q0, -Q) to add X1,...,Xn to Q0 giving Q
+              append_queue([-X1,...,-Xn], -Q, +Q0) to take X1...Xn from Q0 giving Q
+</pre>
+     <p>The cost is <var>O(n)</var> and the operation is pure. 
+<br><dt><code>queue_append(</code><var>+Queue0</var><code>, </code><var>+List</var><code>, </code><var>-Queue</var><code>)</code><dd><a name="index-queue_005fappend_002f3-_0028queues_0029-3785"></a><a name="index-queue_005fappend_002f3-_0028queues_0029-3786"></a>
+is true when <var>Queue</var> is obtained by appending the elements of <var>List</var>
+in order at the rear end of <var>Queue0</var>, e.g. 
+<code>append_queue(Queue[a,b,c], [d,e], Queue[a,b,c,d,e])</code>. 
+This is like <code>queue_last/3</code>; it side-effects <var>Queue0</var>. 
+<br><dt><code>list_queue(</code><var>?List</var><code>, </code><var>?Queue</var><code>)</code><dd><a name="index-list_005fqueue_002f2-_0028queues_0029-3787"></a><a name="index-list_005fqueue_002f2-_0028queues_0029-3788"></a>
+is true when <var>Queue</var> is a queue and <var>List</var> is a list and both have
+the same elements in the same order.  <code>list_queue/2</code> and <code>queue_list/2</code>
+are the same except for argument order. 
+<br><dt><code>queue_list(</code><var>?Queue</var><code>, </code><var>?List</var><code>)</code><dd><a name="index-queue_005flist_002f2-_0028queues_0029-3789"></a><a name="index-queue_005flist_002f2-_0028queues_0029-3790"></a>
+is true when <var>Queue</var> is a queue and <var>List</var> is a list and both have
+the same elements in the same order.  <code>queue_list/2</code> and <code>list_queue/2</code>
+are the same except for argument order. 
+<br><dt><code>queue_length(</code><var>?Queue</var><code>, </code><var>?Length</var><code>)</code><dd><a name="index-queue_005flength_002f2-_0028queues_0029-3791"></a><a name="index-queue_005flength_002f2-_0028queues_0029-3792"></a>
+is true when <var>Queue</var> is a queue having <var>Length</var> elements.  It may be used
+to determine the <var>Length</var> of a <var>Queue</var> or to make a <var>Queue</var> of given <var>Length</var>. 
+<br><dt><code>queue_member(</code><var>?Element</var><code>, </code><var>+Queue</var><code>)</code><dd><a name="index-queue_005fmember_002f2-_0028queues_0029-3793"></a><a name="index-queue_005fmember_002f2-_0028queues_0029-3794"></a>
+is true when <var>Element</var> is an element of <var>Queue</var>.  It could be made to
+generate queues, but that would be rather inefficient.  It bears
+the name <code>queue_member/2</code> because it is prepared to enumerate <var>Elements</var>. 
+<br><dt><code>queue_memberchk(</code><var>+Element</var><code>, </code><var>+Queue</var><code>)</code><dd><a name="index-queue_005fmemberchk_002f2-_0028queues_0029-3795"></a><a name="index-queue_005fmemberchk_002f2-_0028queues_0029-3796"></a>
+is true when the given <var>Element</var> is an element of <var>Queue</var>.  Once it finds
+a member of <var>Queue</var> which unifies with <var>Element</var>, it commits to it.  Use
+it to check a ground <var>Element</var>. 
+<br><dt><code>map_queue(</code><var>:Pred</var><code>, </code><var>+Queue[X1,...,Xn]</var><code>)</code><dd><a name="index-map_005fqueue_002f_005b2_002c3_005d-_0028queues_0029-3797"></a><a name="index-map_005fqueue_002f_005b2_002c3_005d-_0028queues_0029-3798"></a>
+succeeds when <var>Pred(Xi)</var> succeeds for each element <var>Xi</var> of the <var>Queue</var>. 
+<br><dt><code>map_queue(</code><var>:Pred</var><code>, </code><var>+Queue[X1,...,Xn]</var><code>, </code><var>?Queue[Y1,...,Yn]</var><code>)</code><dd>succeeds when <var>Pred(Xi,Yi)</var> succeeds for each corresponding pair
+of elements <var>Xi</var>, <var>Yi</var> of the two queues. 
+<br><dt><code>map_queue_list(</code><var>:Pred</var><code>, </code><var>?Queue[X1,...,Xn]</var><code>, </code><var>?[Y1,...,Yn]</var><code>)</code><dd><a name="index-map_005fqueue_005flist_002f3-_0028queues_0029-3799"></a><a name="index-map_005fqueue_005flist_002f3-_0028queues_0029-3800"></a>
+succeeds when <var>Pred(Xi, Yi)</var> is true for each corresponding pair <var>Xi,Yi</var>
+of elements of the <var>Queue</var> and the <var>List</var>.  It may be used to generate
+either of the sequences from the other. 
+<br><dt><code>map_list_queue(</code><var>:Pred</var><code>, </code><var>?[X1,...,Xn]</var><code>, </code><var>?Queue[Y1,...,Yn]</var><code>)</code><dd><a name="index-map_005flist_005fqueue_002f3-_0028queues_0029-3801"></a><a name="index-map_005flist_005fqueue_002f3-_0028queues_0029-3802"></a>
+succeeds when <var>Pred(Xi, Yi)</var> is true for each corresponding pair <var>Xi,Yi</var>
+of elements of the <var>List</var> and the <var>Queue</var>.  It may be used to generate
+either of the sequences from the other. 
+<br><dt><code>some_queue(</code><var>:Pred</var><code>, </code><var>+Queue[X1,...,Xn]</var><code>)</code><dd><a name="index-some_005fqueue_002f_005b2_002c3_005d-_0028queues_0029-3803"></a><a name="index-some_005fqueue_002f_005b2_002c3_005d-_0028queues_0029-3804"></a>
+succeeds when <var>Pred(Xi)</var> succeeds for some <var>Xi</var> in the <var>Queue</var>.  It will
+try all ways of proving <var>Pred(Xi)</var> for each <var>Xi</var>, and will try each <var>Xi</var>
+in the <var>Queue</var>.  <code>somechk_queue/2</code> is to <code>some_queue/2</code> as <code>memberchk/2</code>
+is to <code>member/2</code>; you are more likely to want <code>somechk_queue/2</code>. 
+This acts on backtracking like <code>member/2</code>; <var>Queue</var> should be proper. 
+<br><dt><code>some_queue(</code><var>:Pred</var><code>, </code><var>+Queue[X1,...,Xn]</var><code>, </code><var>?Queue[Y1,...,Yn]</var><code>)</code><dd>is true when <var>Pred(Xi, Yi)</var> is true for some <var>i</var>. 
+<br><dt><code>somechk_queue(</code><var>:Pred</var><code>, </code><var>+Queue[X1,...,Xn]</var><code>)</code><dd><a name="index-somechk_005fqueue_002f_005b2_002c3_005d-_0028queues_0029-3805"></a><a name="index-somechk_005fqueue_002f_005b2_002c3_005d-_0028queues_0029-3806"></a>
+is true when <var>Pred(Xi)</var> is true for some <var>i</var>, and it commits to
+the first solution it finds (like <code>memberchk/2</code>). 
+<br><dt><code>somechk_queue(</code><var>:Pred</var><code>, </code><var>+Queue[X1,...,Xn]</var><code>, </code><var>?Queue[Y1,...,Yn]</var><code>)</code><dd>is true when <var>Pred(Xi, Yi)</var> is true for some <var>i</var>, and it commits to
+the first solution it finds (like <code>memberchk/2</code>). 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dqueues.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dqueues.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

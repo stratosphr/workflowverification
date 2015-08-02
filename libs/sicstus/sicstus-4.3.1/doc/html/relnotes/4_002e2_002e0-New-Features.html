@@ -1,0 +1,159 @@
+<html lang="en">
+<head>
+<title>4.2.0 New Features - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e2_002e0-Changes.html#g_t4_002e2_002e0-Changes" title="4.2.0 Changes">
+<link rel="next" href="4_002e2_002e0-Bugs-Fixed.html#g_t4_002e2_002e0-Bugs-Fixed" title="4.2.0 Bugs Fixed">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.2.0-New-Features"></a>
+<a name="g_t4_002e2_002e0-New-Features"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e2_002e0-Bugs-Fixed.html#g_t4_002e2_002e0-Bugs-Fixed">4.2.0 Bugs Fixed</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e2_002e0-Changes.html#g_t4_002e2_002e0-Changes">4.2.0 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.16.1 New Features</h4>
+
+     <ul>
+<li>If the Prolog flag <code>source_info</code> is on at compile time,
+more information from the source code is kept around at runtime,
+with improved functionality including:
+          <ul>
+<li>The debugger can show variable bindings for the current clause and its
+ancestors. 
+<li>The Emacs interface offers a variable bindings window that is updated on
+every debugger port interaction. 
+<li><code>listing/[0,1]</code> displays the clauses with their source code
+variable names. 
+<li>PO files and saved-states retain information about variable names and
+line numbers. 
+<li>The SICStus Prolog IDE (SPIDER) also takes advantage of the improved
+debugging information, e.g. the variable bindings view in SPIDER now has
+information for more variables than in earlier releases. 
+<li>Generic runtime systems are now available on all platforms, not only on
+Windows. See <a href="../sicstus/Generic-Runtime-Systems.html#Generic-Runtime-Systems">Generic Runtime Systems</a> for details. 
+</ul>
+
+     <li>Execution profiling has been reengineered:
+          <ul>
+<li>The execution profile can be printed in a format similar to <code>gprof(1)</code>. 
+<li>There is no longer any need to specially instrument code for profiling. 
+<li>Execution profiling is available for compiled as well as interpreted code. 
+<li>Execution profiling is either globally <em>on</em> or globally <em>off</em>,
+reflected by the representation of the new <code>profiling</code> Prolog flag.
+<li>The new scheme keeps track of the number of calls per caller-callee pair. 
+<li>The new scheme detects calls that succeed nondeterminately. 
+<li>No clause level data is maintained, all data is per predicate. 
+<li>The <code>profiledcode</code> representation of the <code>compiling</code> Prolog flag has
+been dropped. 
+<li>PO files don't store any profiling data. 
+<li>The built-in predicates
+<code>profile_data/4</code> and
+<code>profile_reset/1</code> have been replaced by
+<code>profile_reset/0</code>,
+<code>profile_data/1</code>,
+<code>print_profile/[0,1]</code>,
+<code>coverage_data/1</code>, and
+<code>print_coverage/[0,1]</code>. 
+<li>SPIDER can present the profile information. 
+</ul>
+
+     <li>Improved performance on Linux Intel, 32 and 64 bits.
+
+     <li>Coverage analysis is now available, for compiled as well as interpreted code:
+          <ul>
+<li>It uses the same infrastructure as execution profiling. 
+<li>Code coverage can be reported textually in a hierarchical format,
+or alternatively by highlighting the relevant lines of code in the
+relevant Emacs buffers and in SPIDER. 
+</ul>
+
+     <li>It is now possible to debug runtime systems, e.g. when SICStus is
+embedded in some other applications, such as Java. It is also possible
+to attach to a runtime system from SPIDER. See <a href="../sicstus/Debugging-Runtime-Systems.html#Debugging-Runtime-Systems">Debugging Runtime Systems</a>.
+
+     <li>The <code>meta_predicate/1</code> predicate property will retrieve the
+specifications used in the original meta-predicate declaration, which
+can be integers or the atoms <code>:</code>, <code>*</code>, <code>+</code>, <code>-</code>, or <code>?</code>. 
+Previously, only the atoms <code>:</code> or <code>?</code> would be retrieved. 
+<strong>Please note</strong>: This is an incompatible change.  Code that
+inspects this predicate property may need to be updated.
+
+     <li>A new stream property, <code>id</code>, has been added. This property provides
+a unique identity that is never re-used, even after the stream has been
+closed. 
+See <a href="../sicstus/mpg_002dref_002dstream_005fproperty.html#mpg_002dref_002dstream_005fproperty"><code>stream_property/2</code></a>.
+
+     <li>CLPFD:
+          <ul>
+<li>The <code>case/[3,4]</code> constraint has been extended to take linear inequalities
+into account in addition to the DAG. 
+<li>The new constraint <code>smt/1</code> provides a front-end to the extended
+<code>case/[3,4]</code> constraint. 
+<li>Reified constraints can be used as terms in arithmetic expressions. 
+</ul>
+
+     <li><code>library(zinc)</code>: upgraded to FlatZinc version 1.2.
+
+     <li>Changes to <code>library(odbc)</code>:
+          <ul>
+<li>New predicates:
+
+               <dl>
+<dt><code>odbc_current_table/[2,3]</code><dd>Enumerate tables and their attributes. 
+<br><dt><code>odbc_table_column/[3,4]</code><dd>Enumerate table columns and their attributes. 
+</dl>
+
+          <li><code>odbc:odbc_query_close/1</code> can now close both result sets and
+statement handles.
+
+          <li>The format has changed for some odbc exceptions. 
+Now all odbc-related exceptions have the same basic structure. 
+</ul>
+
+     <li>When SICStus is started from Emacs, using <kbd>M-x run-prolog</kbd>, or from
+the launcher script in the <samp><span class="file">Applications</span></samp> folder, the system
+property <samp><span class="env">SP_ULIMIT_DATA_SEGMENT_SIZE</span></samp> is set to
+<code>unlimited</code>. This ensures that overly restrictive default limits on
+process memory usage don't affect SICStus. This is primarily an issue
+on Mac OS X. Previously, this setting was only applied when SICStus was
+invoked from the SICStus Prolog IDE (SPIDER).
+
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e2_002e0-New-Features.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e2_002e0-New-Features.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

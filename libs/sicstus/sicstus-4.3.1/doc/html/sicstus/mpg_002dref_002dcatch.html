@@ -1,0 +1,99 @@
+<html lang="en">
+<head>
+<title>mpg-ref-catch - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dcallable.html#mpg_002dref_002dcallable" title="mpg-ref-callable">
+<link rel="next" href="mpg_002dref_002dchar_005fcode.html#mpg_002dref_002dchar_005fcode" title="mpg-ref-char_code">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-catch"></a>
+<a name="mpg_002dref_002dcatch"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dchar_005fcode.html#mpg_002dref_002dchar_005fcode">mpg-ref-char_code</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dcallable.html#mpg_002dref_002dcallable">mpg-ref-callable</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.34 <code>catch/3</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-catch_002f3-_0028built_002din_002c-ref-page_0029-4493"></a><a name="index-catch_002f3-_0028built_002din_002c-ref-page_0029-4494"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>catch(</code><var>+ProtectedGoal</var><code>, </code><var>-Exception</var><code>, </code><var>+Handler</var><code>)</code>
+
+   <p>Specify an exception handler for <var>ProtectedGoal</var>, and call
+<var>ProtectedGoal</var>, as described in <a href="ref_002dere.html#ref_002dere">ref-ere</a>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:ProtectedGoal</var><dd><dfn>callable</dfn>, must be nonvar
+
+     <br><dt><var>Exception</var><dd><dfn>term</dfn>
+
+     <br><dt><var>:Handler</var><dd><dfn>callable</dfn>, must be nonvar
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<p>Fail on exception:
+<pre class="example">     :- meta_predicate fail_on_exception(0).
+     fail_on_exception(C):-
+         catch(C, E, print_exception_then_fail(C, E)).
+     
+     print_exception_then_fail(C, E) :-
+         format(user_error, 'Exception occured while calling ~q:~n', [C]),
+         print_message(warning, E),
+         fail.
+</pre>
+   <h4 class="subheading">Backtracking</h4>
+
+<p>Depends on <var>ProtectedGoal</var> and <var>Handler</var>.
+
+<h4 class="subheading">Exceptions</h4>
+
+<!-- [PM] 4.3 There are no exceptions from catch/3 itself. See Cor.2 7.8.9. -->
+<!-- Call errors (@pxref{ref-sem-exc}). -->
+<p>None.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dere.html#ref_002dere">ref-ere</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dcatch.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dcatch.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

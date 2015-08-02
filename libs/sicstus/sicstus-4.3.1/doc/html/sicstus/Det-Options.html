@@ -1,0 +1,100 @@
+<html lang="en">
+<head>
+<title>Det Options - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Determinacy-Checker.html#The-Determinacy-Checker" title="The Determinacy Checker">
+<link rel="prev" href="Det-Example.html#Det-Example" title="Det Example">
+<link rel="next" href="What-is-Detected.html#What-is-Detected" title="What is Detected">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Det-Options"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="What-is-Detected.html#What-is-Detected">What is Detected</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Det-Example.html#Det-Example">Det Example</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Determinacy-Checker.html#The-Determinacy-Checker">The Determinacy Checker</a>
+<hr>
+</div>
+
+<h4 class="subsection">9.7.5 Options</h4>
+
+<p>When run from the command line, the determinacy checker has a few
+options to control its workings.
+
+   <p>The <samp><span class="option">-r</span></samp> option specifies that the checker should recursively
+check files in such a way that it finds nondeterminacy caused by calls
+to other nondeterminate predicates, whether they are
+declared so or not.  Also, predicates that appear to be
+determinate will be treated as such, whether declared
+<code>nondet</code> or not.  This option is quite useful when first running
+the checker on a file, as it will find all predicates that should
+be either made determinate or declared <code>nondet</code> at once. 
+Without this option, each time a <code>nondet</code> declaration is
+added, the checker may find previously unnoticed nondeterminacy.
+
+   <p>For example, if the original example above, without any <code>nondet</code>
+declarations, were checked with the <samp><span class="option">-r</span></samp> option, the output
+would be:
+<pre class="example">     * Non-determinate: user:parent/2 (clause 1)
+     *     Indexing cannot distinguish this from clause 2.
+     * Non-determinate: user:parent/2 (clause 3)
+     *     Indexing cannot distinguish this from clause 4.
+     * Non-determinate: user:is_parent/1 (clause 1)
+     *     Calls nondet predicate user:parent/2.
+</pre>
+   <p>The <samp><span class="option">-d</span></samp> option causes the tool to print out the needed
+<code>nondet</code> declarations.  These can be readily pasted into the
+source files.  Note that it only prints the <code>nondet</code>
+declarations that are not already present in the files.  However,
+these declarations should not be pasted into your code without
+each one first being checked to see if the reported nondeterminacy is
+intended.
+
+   <p>The <samp><span class="option">-D</span></samp> option is like <samp><span class="option">-d</span></samp>, except that it prints out
+all <code>nondet</code> declarations that should appear, whether they
+are already in the file or not.  This is useful if you prefer to replace
+all old <code>nondet</code> declarations with new ones.
+
+   <p>Your code will probably rely on operator declarations and
+possibly term expansion. The determinacy checker handles this
+in the following way:
+<!-- in much the same way as @code{fcompile/1}: -->
+you must supply an
+initialization file, using the <samp><span class="option">-i</span></samp> <var>ifile</var> option. 
+<!-- Contrary to @code{fcompile/1}, -->
+<samp><span class="command">spdet</span></samp> will execute any operator
+declaration it encounters.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Det-Options.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Det-Options.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,235 @@
+<html lang="en">
+<head>
+<title>lib-sockets - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Prolog-Library.html#The-Prolog-Library" title="The Prolog Library">
+<link rel="prev" href="lib_002dsets.html#lib_002dsets" title="lib-sets">
+<link rel="next" href="lib_002dstructs.html#lib_002dstructs" title="lib-structs">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="lib-sockets"></a>
+<a name="lib_002dsockets"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="lib_002dstructs.html#lib_002dstructs">lib-structs</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="lib_002dsets.html#lib_002dsets">lib-sets</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Prolog-Library.html#The-Prolog-Library">The Prolog Library</a>
+<hr>
+</div>
+
+<h3 class="section">10.34 Socket I/O&mdash;<code>library(sockets)</code></h3>
+
+<p><a name="index-sockets-3877"></a><a name="index-process-communication-3878"></a><a name="index-communication_002c-process-3879"></a>This library package defines a number of predicates for
+communicating over sockets.
+
+   <p>To create a (bi-directional) stream connected to a remote server,
+use <code>socket_client_open/3</code>.
+
+   <p>To open a port for remote clients to connect to, use
+<code>socket_server_open/[2,3]</code> and to open a stream to a connecting
+client, use <code>socket_server_accept/4</code>.
+
+   <p>To be able to multiplex input and output from several streams (not
+necesessarily socket streams) and incoming connections, use
+<code>socket_select/7</code>.
+
+   <p><a name="index-address_002c-socket-3880"></a><a name="index-socket-address-3881"></a>When opening a client or server socket a <dfn>socket address</dfn>
+needs to be specified. The address specifies the address family
+and family-specific information. The following formats are
+supported for socket addresses:
+     <dl>
+<dt><code>inet(</code><var>Nodename</var><code>,</code><var>Servname</var><code>)</code><dt><var>Nodename</var><code>:</code><var>Servname</var><dt><var>Servname</var><dd>This specifies the address for and ordinary internet
+socket (<code>AF_INET</code> or <code>AF_INET6</code>). 
+<var>Nodename</var> is the internet address of the remote host, as an
+atom, something like <code>'www.sics.se'</code> or
+<code>'193.10.64.51'</code>. The empty nodename <code>''</code> (the default),
+has special meaning, see the documentation for
+<code>socket_client_open/3</code> and <code>socket_server_open/[2,3]</code>. 
+<var>Servname</var> is either a port number as an atom of decimal
+digits or as an integer, e.g. <code>'80'</code>, or <code>80</code>;
+alternatively some <dfn>well known port names</dfn> can be used, e.g. 
+<code>'http'</code>. The set of well known port names is OS specific,
+portable code should use integer port numbers. 
+<var>Servname</var> can also be a variable when opening a server socket
+with <code>socket_server_open/[2,3]</code>. In this case a available
+port is assigned automatically and Servname is bound to it.
+
+     <br><dt><code>unix(</code><var>Path</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.0.3</strong><dd>A Unix domain (<code>AF_UNIX</code>) socket is opened at the specified
+file system location. This is only supported on Unix-like
+platforms. 
+<var>Path</var> is a file-name and is passed to
+<code>absolute_file_name/2</code>. There may be platform-specific
+restrictions on the length of the resulting pathname and the file
+system containing it. 
+</dl>
+
+   <p>All streams below can be read from as well as written to.  All I/O
+predicates operating on streams can be used, for example
+<code>get_code/2</code>, <code>get_byte/2</code>,
+<code>read/2</code>, <code>write/2</code>, <code>format/3</code>,
+<code>current_stream/3</code>,
+etc.  The predicates that create streams take options similar to
+<code>open/4</code>, e.g. to specify whether the stream is binary
+(the default) or text.
+
+     <dl>
+<dt><code>socket_client_open(</code><var>+Addr</var><code>, </code><var>-Stream</var><code>, </code><var>+Options</var><code>)</code><dd><a name="index-socket_005fclient_005fopen_002f3-_0028sockets_0029-3882"></a><a name="index-socket_005fclient_005fopen_002f3-_0028sockets_0029-3883"></a>
+Creates a stream <var>Stream</var> connected to address <var>Addr</var>. 
+See above for the allowed address formats. If the nodename is
+empty (<code>''</code>) then a connection is made to the local machine.
+
+     <p>The stream is created using options from <var>Options</var>. Supported
+options include:
+          <dl>
+<dt><code>type(binary)</code><dd>Create a binary stream (the default). 
+<br><dt><code>type(text)</code><dd>Create a text stream. The default encoding is Latin 1. 
+<br><dt><code>eof_action(</code><var>Action</var><code>)</code><dd>end of file action, as for <code>open/4</code>. 
+<!-- @item flush(auto) -->
+<!-- As for open/4. -->
+<br><dt><code>encoding(</code><var>ENCODING</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.1</strong><dd>As for open/4. Implies <code>type(text)</code>. 
+<br><dt><code>eol(</code><var>Eol</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.1</strong><dd>As for open/4. Implies <code>type(text)</code>. 
+</dl>
+
+     <p>To create a binary stream to some web server <code>www.sics.se</code>, you
+would do e.g.
+     <pre class="example">          | ?- socket_client_open('www.sics.se':80, Stream, [type(binary)]).
+</pre>
+     <p class="noindent">or, to make a text (Latin 1)
+stream to a <code>daytime</code> service in Hong Kong you could do:
+
+     <pre class="example">          | ?- socket_client_open('stdtime.gov.hk':daytime, S, [type(text)]),
+               read_line(S, L),
+               format('~s', [L]).
+</pre>
+     <p>See the source code for <code>library('linda/client')</code> for a
+simple client.
+
+     <br><dt><code>socket_server_open(</code><var>?Addr</var><code>, </code><var>-ServerSocket</var><code>, </code><var>+Options</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.0.3</strong><dd><a name="index-socket_005fserver_005fopen_002f_005b2_002c3_005d-_0028sockets_0029-3884"></a><a name="index-socket_005fserver_005fopen_002f_005b2_002c3_005d-_0028sockets_0029-3885"></a>
+Create a server socket <var>ServerSocket</var> that listens on address <var>Addr</var>. 
+See above for the allowed address formats. If the nodename is
+empty (<code>''</code>) then any remote client machine is allowed to
+connect unless the option <code>loopback(true)</code> is also specified. 
+<var>Addr</var>
+can specify an internet address where the port is a variable in
+which case a free port number is used and <var>Port</var> is bound to
+it. The common case is that Addr is a numeric port number or a
+variable that becomes bound to a free port number.
+
+     <p>The created server socket should be closed with
+<code>socket_server_close/1</code> eventually. Incoming connection can
+be accepted
+with <code>socket_server_accept/4</code> and waited for with
+<code>socket_select/7</code>. 
+See the source code for <code>library('linda/server')</code> for a
+simple server that uses this predicate.
+
+     <p><var>Options</var> is a list of options, currently
+          <dl>
+<dt><code>reuseaddr(Bool) &nbsp;<!-- /@w --> </code><strong>since release 4.0.3</strong><dd><var>Bool</var> is either <code>true</code> or <code>false</code> (the default). If
+<code>true</code> then allow reuse of local addresses. For internet
+sockets this corresponds to the <code>SO_REUSEADDR</code> socket
+option. For unix domain sockets this means that the file will be
+deleted, if present, before opening. 
+<br><dt><code>numeric_nodename(Bool) &nbsp;<!-- /@w --> </code><strong>since release 4.0.3</strong><dd><var>Bool</var> is either <code>true</code> or <code>false</code> (the default). If
+<code>true</code> then the nodename of an internet address will be
+treated as a numerical address and no name lookup will be
+performed. 
+<br><dt><code>numeric_servname(Bool) &nbsp;<!-- /@w --> </code><strong>since release 4.0.3</strong><dd><var>Bool</var> is either <code>true</code> or <code>false</code> (the default). If
+<code>true</code> then the servname of an internet address will be
+treated as a numerical port number and no lookup of well
+known port names will be performed. 
+<br><dt><code>loopback(Bool) &nbsp;<!-- /@w --> </code><strong>since release 4.0.3</strong><dd><var>Bool</var> is either <code>true</code> or <code>false</code> (the default). If
+<code>true</code> then the nodename will be ignored and the socket will
+only listen to connection from the loopback device, i.e. the
+local machine. 
+</dl>
+     <br><dt><code>socket_server_open(</code><var>?Port</var><code>, </code><var>-ServerSocket</var><code>)</code><dd>The same as
+<code>socket_server_open(</code><var>Port</var><code>, </code><var>ServerSocket</var><code>, [])</code>. 
+<br><dt><code>socket_server_accept(</code><var>+ServerSocket</var><code>, </code><var>-Client</var><code>, </code><var>-Stream</var><code>, </code><var>+StreamOptions</var><code>)</code><dd><a name="index-socket_005fserver_005faccept_002f4-_0028sockets_0029-3886"></a><a name="index-socket_005fserver_005faccept_002f4-_0028sockets_0029-3887"></a>
+The first connection to socket <var>ServerSocket</var> is extracted,
+blocking if necessary.  The stream <var>Stream</var> is created on this
+connection using <var>StreamOptions</var> as for
+<code>socket_client_open/3</code>. <var>Client</var> will be unified with an atom containing
+the numerical Internet host address of the connecting client. 
+Note that the stream will be <code>type(binary)</code> unless
+<code>type(text)</code> is specified either explicitly or implicitly
+with <code>encoding/1</code> or other text-only options. 
+<br><dt><code>socket_server_close(</code><var>+ServerSocket</var><code>)</code><dd><a name="index-socket_005fserver_005fclose_002f1-_0028sockets_0029-3888"></a><a name="index-socket_005fserver_005fclose_002f1-_0028sockets_0029-3889"></a>
+Close the server socket <var>ServerSocket</var> and stop listening on
+its port. 
+<br><dt><code>socket_select(</code><var>+ServerSockets</var><code>,</code><var>-SReady</var><code>, </code><var>+ReadStreams</var><code>,</code><var>-RReady</var><code>, </code><var>+WriteStreams</var><code>,</code><var>-WReady</var><code>, </code><var>+Timeout</var><code>)</code><dd><a name="index-socket_005fselect_002f7-_0028sockets_0029-3890"></a><a name="index-socket_005fselect_002f7-_0028sockets_0029-3891"></a>
+Check for server sockets with incoming connections (i.e. ready
+for <code>socket_server_accept/4</code>), streams on <var>ReadStreams</var>
+ready for input, and streams on <var>WriteStreams</var>
+ready for output. The streams can be any kind of streams, they need
+not be socket streams. The ready server sockets are returned (in the same
+order) in <var>SReady</var>, the ready input streams in <var>RReady</var>,
+and the ready output streams in <var>WReady</var>.
+
+     <p>An input (output) stream is ready for input (output) when an
+<dfn>item</dfn> can be read (written) without blocking. An item
+is a character for text streams and a byte for binary streams. 
+Note that a stream is considered ready for I/O if the
+corresponding I/O operation will raise an error (such as if the
+stream is past end of stream).
+
+     <p>Each entry in the input lists <var>ServerSockets</var>,
+<var>ReadStreams</var>, and <var>WriteStreams</var> can be either a server
+socket or stream respectively or a term
+<var>Term</var><code>-</code><var>Entry</var> where <var>Entry</var> is the server
+socket or stream and <var>Term</var> is some arbitrary term used for
+book-keeping. If an entry is associated with a term in this way
+then so will the corresponding ready entry.
+
+     <p>If <var>TimeOut</var> is instantiated to <code>off</code>, the predicate
+waits until something is available.  If <var>TimeOut</var> is a nonzero
+number (integer or floating point), then the predicate waits at
+most that number of seconds before returning. For backward
+compatibility, if <var>TimeOut</var> is <var>S:U</var> the predicate waits
+at most <var>S</var> seconds and <var>U</var> microseconds. If there is a
+timeout, all ready lists are unified with <code>[]</code>.
+
+     <p>See the source code for <code>library('linda/server')</code> for a
+simple server that uses this predicate. 
+<br><dt><code>current_host(</code><var>?HostName</var><code>)</code><dd><a name="index-current_005fhost_002f1-_0028sockets_0029-3892"></a><a name="index-current_005fhost_002f1-_0028sockets_0029-3893"></a>
+<var>HostName</var> is unified with the fully qualified name of the
+machine that the process is executing on. The call will also succeed if
+<var>HostName</var> is instantiated to the unqualified name of the
+machine in lower case. <strong>Please note:</strong> this predicate will
+fail if there are errors, e.g. if no domain has been
+configured. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dsockets.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dsockets.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,317 @@
+<html lang="en">
+<head>
+<title>SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="#Top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1 class="settitle">SICStus Prolog Release Notes</h1>
+   <div class="contents">
+<h2>Table of Contents</h2>
+<ul>
+<li><a name="toc_Top" href="index.html#Top">SICStus Prolog Release Notes</a>
+<li><a name="toc_Overview" href="Overview.html#Overview">1 Overview</a>
+<li><a name="toc_Platforms" href="Platforms.html#Platforms">2 Platforms</a>
+<li><a name="toc_Release-Notes-and-Installation-Guide-for-UNIX" href="Release-Notes-and-Installation-Guide-for-UNIX.html#Release-Notes-and-Installation-Guide-for-UNIX">3 Release Notes and Installation Guide for UNIX</a>
+<ul>
+<li><a href="UNIX-installation.html#UNIX-installation">3.1 Installation</a>
+<ul>
+<li><a href="UNIX-Installation-Prerequisites.html#UNIX-Installation-Prerequisites">3.1.1 Prerequisites</a>
+<ul>
+<li><a href="C-Compiler-and-Linker.html#C-Compiler-and-Linker">3.1.1.1 C Compiler and Linker</a>
+</li></ul>
+<li><a href="The-Installation-Script.html#The-Installation-Script">3.1.2 The Installation Script</a>
+<li><a href="The-Uninstallation-Script.html#The-Uninstallation-Script">3.1.3 The Uninstallation Script</a>
+</li></ul>
+<li><a href="Platform-specific-UNIX-notes.html#Platform-specific-UNIX-notes">3.2 Platform Specific Notes</a>
+</li></ul>
+<li><a name="toc_Release-Notes-and-Installation-Guide-for-Windows" href="Release-Notes-and-Installation-Guide-for-Windows.html#Release-Notes-and-Installation-Guide-for-Windows">4 Release Notes and Installation Guide for Windows</a>
+<ul>
+<li><a href="Windows-Requirements.html#Windows-Requirements">4.1 Requirements</a>
+<li><a href="Windows-Installation.html#Windows-Installation">4.2 Installation</a>
+<li><a href="Windows-Notes.html#Windows-Notes">4.3 Windows Notes</a>
+<li><a href="Command-Line-Editing.html#Command-Line-Editing">4.4 Command Line Editing</a>
+<li><a href="The-Console-Window.html#The-Console-Window">4.5 The Console Window</a>
+<ul>
+<li><a href="Console-Preferences.html#Console-Preferences">4.5.1 Console Preferences</a>
+</li></ul>
+<li><a href="Windows-Limitations.html#Windows-Limitations">4.6 Windows Limitations</a>
+</li></ul>
+<li><a name="toc_Special-Releases" href="Special-Releases.html#Special-Releases">5 Special Releases</a>
+<ul>
+<li><a href="Beta-Releases.html#Beta-Releases">5.1 Beta Releases</a>
+</li></ul>
+<li><a name="toc_REX" href="REX.html#REX">6 Managing Extended Runtime License Information</a>
+<li><a name="toc_Tcl_002fTk-Notes" href="Tcl_002fTk-Notes.html#Tcl_002fTk-Notes">7 Tcl/Tk Notes</a>
+<ul>
+<li><a href="The-Tcl_002fTk-Terminal.html#The-Tcl_002fTk-Terminal">7.1 The Tcl/Tk Terminal Window</a>
+</li></ul>
+<li><a name="toc_Jasper-Notes" href="Jasper-Notes.html#Jasper-Notes">8 Jasper Notes</a>
+<ul>
+<li><a href="Supported-Java-Versions.html#Supported-Java-Versions">8.1 Supported Java Versions</a>
+<li><a href="Getting-Started.html#Getting-Started">8.2 Getting Started</a>
+<ul>
+<li><a href="Windows.html#Windows">8.2.1 Windows</a>
+<li><a href="UNIX.html#UNIX">8.2.2 UNIX</a>
+<li><a href="Running-Java-from-SICStus.html#Running-Java-from-SICStus">8.2.3 Running Java from SICStus</a>
+<li><a href="Running-SICStus-from-Java.html#Running-SICStus-from-Java">8.2.4 Running SICStus from Java</a>
+</li></ul>
+<li><a href="Jasper-Package-Options.html#Jasper-Package-Options">8.3 Jasper Package Options</a>
+<li><a href="Multi-Threading.html#Multi-Threading">8.4 Multi Threading</a>
+<li><a href="Changes-in-Jasper-from-SICStus-3.html#Changes-in-Jasper-from-SICStus-3">8.5 Changes in Jasper from SICStus 3</a>
+<li><a href="Known-Bugs-and-Limitations.html#Known-Bugs-and-Limitations">8.6 Known Bugs and Limitations</a>
+<li><a href="Java-Examples-Directory.html#Java-Examples-Directory">8.7 Java Examples Directory</a>
+<li><a href="Java-Resources-Online.html#Java-Resources-Online">8.8 Resources</a>
+</li></ul>
+<li><a name="toc_Berkeley-DB-Notes" href="Berkeley-DB-Notes.html#Berkeley-DB-Notes">9 Berkeley DB Notes</a>
+<ul>
+<li><a href="Berkeley-DB-on-MS-Windows.html#Berkeley-DB-on-MS-Windows">9.1 Berkeley DB on MS Windows</a>
+<li><a href="Berkeley-DB-on-Mac-OS-X.html#Berkeley-DB-on-Mac-OS-X">9.2 Berkeley DB on Mac OS X</a>
+</li></ul>
+<li><a name="toc_ODBC-Notes" href="ODBC-Notes.html#ODBC-Notes">10 ODBC Notes</a>
+<ul>
+<li><a href="ODBC-on-MS-Windows.html#ODBC-on-MS-Windows">10.1 ODBC on MS Windows</a>
+<li><a href="ODBC-on-Mac-OS-X.html#ODBC-on-Mac-OS-X">10.2 ODBC on Mac OS X</a>
+<li><a href="ODBC-on-Linux.html#ODBC-on-Linux">10.3 ODBC on Linux</a>
+</li></ul>
+<li><a name="toc_The-SICStus-Prolog-IDE" href="The-SICStus-Prolog-IDE.html#The-SICStus-Prolog-IDE">11 The SICStus Prolog IDE (SPIDER)</a>
+<li><a name="toc_The-Emacs-Interface" href="The-Emacs-Interface.html#The-Emacs-Interface">12 The Emacs Interface</a>
+<ul>
+<li><a href="Emacs-Installation.html#Emacs-Installation">12.1 Installation</a>
+<ul>
+<li><a href="Installing-On_002dLine-Documentation.html#Installing-On_002dLine-Documentation">12.1.1 Installing On-Line Documentation</a>
+</li></ul>
+</li></ul>
+<li><a name="toc_Revision-History" href="Revision-History.html#Revision-History">13 Revision History</a>
+<ul>
+<li><a href="What-Is-New-In-Release-4.html#What-Is-New-In-Release-4">13.1 What Is New In Release 4</a>
+<ul>
+<li><a href="Virtual-Machine.html#Virtual-Machine">13.1.1 Virtual Machine</a>
+<li><a href="Prolog-Language.html#Prolog-Language">13.1.2 Prolog Language</a>
+<ul>
+<li><a href="Prolog-Language.html#Prolog-Language">13.1.2.1 Single Language Mode</a>
+<li><a href="Prolog-Language.html#Prolog-Language">13.1.2.2 DCG Notation</a>
+<li><a href="Prolog-Language.html#Prolog-Language">13.1.2.3 Asserting Terms with Attributed Variables</a>
+<li><a href="Prolog-Language.html#Prolog-Language">13.1.2.4 Arithmetic</a>
+<li><a href="Prolog-Language.html#Prolog-Language">13.1.2.5 Syntax</a>
+<li><a href="Prolog-Language.html#Prolog-Language">13.1.2.6 Prolog Flags</a>
+<li><a href="Prolog-Language.html#Prolog-Language">13.1.2.7 Stream Properties</a>
+<li><a href="Prolog-Language.html#Prolog-Language">13.1.2.8 Statistics Keywords</a>
+<li><a href="Prolog-Language.html#Prolog-Language">13.1.2.9 Built-In Predicates</a>
+<li><a href="Prolog-Language.html#Prolog-Language">13.1.2.10 Hook Predicates</a>
+</li></ul>
+<li><a href="Library-Modules.html#Library-Modules">13.1.3 Library Modules</a>
+<li><a href="Input_002dOutput-System.html#Input_002dOutput-System">13.1.4 Input-Output System</a>
+<li><a href="Foreign-Language-APIs.html#Foreign-Language-APIs">13.1.5 Foreign Language APIs</a>
+<ul>
+<li><a href="Foreign-Language-APIs.html#Foreign-Language-APIs">13.1.5.1 Foreign Language Interface</a>
+<li><a href="Foreign-Language-APIs.html#Foreign-Language-APIs">13.1.5.2 C API Functions</a>
+<li><a href="Foreign-Language-APIs.html#Foreign-Language-APIs">13.1.5.3 Java API</a>
+</li></ul>
+</li></ul>
+<li><a href="Guide-to-Porting-Code-from-Release-3.html#Guide-to-Porting-Code-from-Release-3">13.2 Guide to Porting Code from Release 3</a>
+<li><a href="Limitations-in-the-Current-Release.html#Limitations-in-the-Current-Release">13.3 Limitations in the Current Release</a>
+<li><a href="4_002e0_002e1-Changes.html#4_002e0_002e1-Changes">13.4 Changes Introduced in Version 4.0.1</a>
+<ul>
+<li><a href="4_002e0_002e1-New-Features.html#4_002e0_002e1-New-Features">13.4.1 New Features</a>
+<li><a href="4_002e0_002e1-Bugs-Fixed.html#4_002e0_002e1-Bugs-Fixed">13.4.2 Bugs Fixed</a>
+<li><a href="4_002e0_002e1-Other-Changes.html#4_002e0_002e1-Other-Changes">13.4.3 Other Changes</a>
+<li><a href="4_002e0_002e1-Known-Issues.html#4_002e0_002e1-Known-Issues">13.4.4 Known Issues</a>
+</li></ul>
+<li><a href="4_002e0_002e2-Changes.html#4_002e0_002e2-Changes">13.5 Changes Introduced in Version 4.0.2</a>
+<ul>
+<li><a href="4_002e0_002e2-New-Features.html#4_002e0_002e2-New-Features">13.5.1 New Features</a>
+<li><a href="4_002e0_002e2-Bugs-Fixed.html#4_002e0_002e2-Bugs-Fixed">13.5.2 Bugs Fixed</a>
+<li><a href="4_002e0_002e2-Other-Changes.html#4_002e0_002e2-Other-Changes">13.5.3 Other Changes</a>
+<li><a href="4_002e0_002e2-Known-Issues.html#4_002e0_002e2-Known-Issues">13.5.4 Known Issues</a>
+</li></ul>
+<li><a href="4_002e0_002e3-Changes.html#4_002e0_002e3-Changes">13.6 Changes Introduced in Version 4.0.3</a>
+<ul>
+<li><a href="4_002e0_002e3-New-Features.html#4_002e0_002e3-New-Features">13.6.1 New Features</a>
+<li><a href="4_002e0_002e3-Bugs-Fixed.html#4_002e0_002e3-Bugs-Fixed">13.6.2 Bugs Fixed</a>
+<li><a href="4_002e0_002e3-Other-Changes.html#4_002e0_002e3-Other-Changes">13.6.3 Other Changes</a>
+<li><a href="4_002e0_002e3-Known-Issues.html#4_002e0_002e3-Known-Issues">13.6.4 Known Issues</a>
+</li></ul>
+<li><a href="4_002e0_002e4-Changes.html#4_002e0_002e4-Changes">13.7 Changes Introduced in Version 4.0.4</a>
+<ul>
+<li><a href="4_002e0_002e4-New-Features.html#4_002e0_002e4-New-Features">13.7.1 New Features</a>
+<li><a href="4_002e0_002e4-Bugs-Fixed.html#4_002e0_002e4-Bugs-Fixed">13.7.2 Bugs Fixed</a>
+<li><a href="4_002e0_002e4-Other-Changes.html#4_002e0_002e4-Other-Changes">13.7.3 Other Changes</a>
+<li><a href="4_002e0_002e4-Known-Issues.html#4_002e0_002e4-Known-Issues">13.7.4 Known Issues</a>
+</li></ul>
+<li><a href="4_002e0_002e5-Changes.html#4_002e0_002e5-Changes">13.8 Changes Introduced in Version 4.0.5</a>
+<ul>
+<li><a href="4_002e0_002e5-New-Features.html#4_002e0_002e5-New-Features">13.8.1 New Features</a>
+<li><a href="4_002e0_002e5-Bugs-Fixed.html#4_002e0_002e5-Bugs-Fixed">13.8.2 Bugs Fixed</a>
+<li><a href="4_002e0_002e5-Other-Changes.html#4_002e0_002e5-Other-Changes">13.8.3 Other Changes</a>
+<li><a href="4_002e0_002e5-Known-Issues.html#4_002e0_002e5-Known-Issues">13.8.4 Known Issues</a>
+</li></ul>
+<li><a href="4_002e0_002e6-Changes.html#4_002e0_002e6-Changes">13.9 Changes Introduced in Version 4.0.6</a>
+<li><a href="4_002e0_002e7-Changes.html#4_002e0_002e7-Changes">13.10 Changes Introduced in Version 4.0.7</a>
+<ul>
+<li><a href="4_002e0_002e7-New-Features.html#4_002e0_002e7-New-Features">13.10.1 New Features</a>
+<li><a href="4_002e0_002e7-Bugs-Fixed.html#4_002e0_002e7-Bugs-Fixed">13.10.2 Bugs Fixed</a>
+<li><a href="4_002e0_002e7-Other-Changes.html#4_002e0_002e7-Other-Changes">13.10.3 Other Changes</a>
+<li><a href="4_002e0_002e7-Known-Issues.html#4_002e0_002e7-Known-Issues">13.10.4 Known Issues</a>
+</li></ul>
+<li><a href="4_002e0_002e8-Changes.html#4_002e0_002e8-Changes">13.11 Changes Introduced in Version 4.0.8</a>
+<ul>
+<li><a href="4_002e0_002e8-New-Features.html#4_002e0_002e8-New-Features">13.11.1 New Features</a>
+<li><a href="4_002e0_002e8-Bugs-Fixed.html#4_002e0_002e8-Bugs-Fixed">13.11.2 Bugs Fixed</a>
+<li><a href="4_002e0_002e8-Other-Changes.html#4_002e0_002e8-Other-Changes">13.11.3 Other Changes</a>
+<li><a href="4_002e0_002e8-Known-Issues.html#4_002e0_002e8-Known-Issues">13.11.4 Known Issues</a>
+</li></ul>
+<li><a href="4_002e1_002e0-Changes.html#4_002e1_002e0-Changes">13.12 Changes Introduced in Version 4.1.0</a>
+<ul>
+<li><a href="4_002e1_002e0-New-Features.html#4_002e1_002e0-New-Features">13.12.1 New Features</a>
+<li><a href="4_002e1_002e0-Bugs-Fixed.html#4_002e1_002e0-Bugs-Fixed">13.12.2 Bugs Fixed</a>
+<li><a href="4_002e1_002e0-Other-Changes.html#4_002e1_002e0-Other-Changes">13.12.3 Other Changes</a>
+<li><a href="4_002e1_002e0-Known-Issues.html#4_002e1_002e0-Known-Issues">13.12.4 Known Issues</a>
+</li></ul>
+<li><a href="4_002e1_002e1-Changes.html#4_002e1_002e1-Changes">13.13 Changes Introduced in Version 4.1.1</a>
+<ul>
+<li><a href="4_002e1_002e1-Bugs-Fixed.html#4_002e1_002e1-Bugs-Fixed">13.13.1 Bugs Fixed</a>
+<li><a href="4_002e1_002e1-Known-Issues.html#4_002e1_002e1-Known-Issues">13.13.2 Known Issues</a>
+</li></ul>
+<li><a href="4_002e1_002e2-Changes.html#4_002e1_002e2-Changes">13.14 Changes Introduced in Version 4.1.2</a>
+<ul>
+<li><a href="4_002e1_002e2-Bugs-Fixed.html#4_002e1_002e2-Bugs-Fixed">13.14.1 Bugs Fixed</a>
+<li><a href="4_002e1_002e2-Other-Changes.html#4_002e1_002e2-Other-Changes">13.14.2 Other Changes</a>
+<li><a href="4_002e1_002e2-Known-Issues.html#4_002e1_002e2-Known-Issues">13.14.3 Known Issues</a>
+</li></ul>
+<li><a href="4_002e1_002e3-Changes.html#4_002e1_002e3-Changes">13.15 Changes Introduced in Version 4.1.3</a>
+<ul>
+<li><a href="4_002e1_002e3-New-Features.html#4_002e1_002e3-New-Features">13.15.1 New Features</a>
+<li><a href="4_002e1_002e3-Bugs-Fixed.html#4_002e1_002e3-Bugs-Fixed">13.15.2 Bugs Fixed</a>
+<li><a href="4_002e1_002e3-Other-Changes.html#4_002e1_002e3-Other-Changes">13.15.3 Other Changes</a>
+<li><a href="4_002e1_002e3-Known-Issues.html#4_002e1_002e3-Known-Issues">13.15.4 Known Issues</a>
+</li></ul>
+<li><a href="4_002e2_002e0-Changes.html#4_002e2_002e0-Changes">13.16 Changes Introduced in Version 4.2.0</a>
+<ul>
+<li><a href="4_002e2_002e0-New-Features.html#4_002e2_002e0-New-Features">13.16.1 New Features</a>
+<li><a href="4_002e2_002e0-Bugs-Fixed.html#4_002e2_002e0-Bugs-Fixed">13.16.2 Bugs Fixed</a>
+<li><a href="4_002e2_002e0-Other-Changes.html#4_002e2_002e0-Other-Changes">13.16.3 Other Changes</a>
+<li><a href="4_002e2_002e0-Known-Issues.html#4_002e2_002e0-Known-Issues">13.16.4 Known Issues</a>
+</li></ul>
+<li><a href="4_002e2_002e1-Changes.html#4_002e2_002e1-Changes">13.17 Changes Introduced in Version 4.2.1</a>
+<ul>
+<li><a href="4_002e2_002e1-New-Features.html#4_002e2_002e1-New-Features">13.17.1 New Features</a>
+<li><a href="4_002e2_002e1-Bugs-Fixed.html#4_002e2_002e1-Bugs-Fixed">13.17.2 Bugs Fixed</a>
+<li><a href="4_002e2_002e1-Other-Changes.html#4_002e2_002e1-Other-Changes">13.17.3 Other Changes</a>
+<li><a href="4_002e2_002e1-Known-Issues.html#4_002e2_002e1-Known-Issues">13.17.4 Known Issues</a>
+</li></ul>
+<li><a href="4_002e2_002e2-Changes.html#4_002e2_002e2-Changes">13.18 Changes Introduced in Version 4.2.2</a>
+<ul>
+<li><a href="4_002e2_002e2-New-Features.html#4_002e2_002e2-New-Features">13.18.1 New Features</a>
+<li><a href="4_002e2_002e2-Bugs-Fixed.html#4_002e2_002e2-Bugs-Fixed">13.18.2 Bugs Fixed</a>
+<li><a href="4_002e2_002e2-Other-Changes.html#4_002e2_002e2-Other-Changes">13.18.3 Other Changes</a>
+<li><a href="4_002e2_002e2-Known-Issues.html#4_002e2_002e2-Known-Issues">13.18.4 Known Issues</a>
+</li></ul>
+<li><a href="4_002e2_002e3-Changes.html#4_002e2_002e3-Changes">13.19 Changes Introduced in Version 4.2.3</a>
+<ul>
+<li><a href="4_002e2_002e3-New-Features.html#4_002e2_002e3-New-Features">13.19.1 New Features</a>
+<li><a href="4_002e2_002e3-Bugs-Fixed.html#4_002e2_002e3-Bugs-Fixed">13.19.2 Bugs Fixed</a>
+<li><a href="4_002e2_002e3-Other-Changes.html#4_002e2_002e3-Other-Changes">13.19.3 Other Changes</a>
+<li><a href="4_002e2_002e3-Known-Issues.html#4_002e2_002e3-Known-Issues">13.19.4 Known Issues</a>
+</li></ul>
+<li><a href="4_002e3_002e0-Changes.html#4_002e3_002e0-Changes">13.20 Changes Introduced in Version 4.3.0</a>
+<ul>
+<li><a href="4_002e3_002e0-New-Features.html#4_002e3_002e0-New-Features">13.20.1 New Features</a>
+<li><a href="4_002e3_002e0-Bugs-Fixed.html#4_002e3_002e0-Bugs-Fixed">13.20.2 Bugs Fixed</a>
+<li><a href="4_002e3_002e0-Standard-Conformance-Changes.html#4_002e3_002e0-Standard-Conformance-Changes">13.20.3 Changes Related to Standard Conformance</a>
+<li><a href="4_002e3_002e0-Other-Changes.html#4_002e3_002e0-Other-Changes">13.20.4 Other Changes</a>
+<li><a href="4_002e3_002e0-Known-Issues.html#4_002e3_002e0-Known-Issues">13.20.5 Known Issues</a>
+</li></ul>
+<li><a href="4_002e3_002e1-Changes.html#4_002e3_002e1-Changes">13.21 Changes Introduced in Version 4.3.1</a>
+<ul>
+<li><a href="4_002e3_002e1-New-Features.html#4_002e3_002e1-New-Features">13.21.1 New Features</a>
+<li><a href="4_002e3_002e1-Bugs-Fixed.html#4_002e3_002e1-Bugs-Fixed">13.21.2 Bugs Fixed</a>
+<li><a href="4_002e3_002e1-Known-Issues.html#4_002e3_002e1-Known-Issues">13.21.3 Known Issues</a>
+</li></ul>
+</li></ul>
+<li><a name="toc_Generic-Limitations" href="Generic-Limitations.html#Generic-Limitations">14 Generic Limitations</a>
+<li><a name="toc_Contact-Information" href="Contact-Information.html#Contact-Information">15 Contact Information</a>
+</li></ul>
+</div>
+
+
+
+<div class="node">
+<a name="Top"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Overview.html#Overview">Overview</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="../index.html#dir">(dir)</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="../index.html#dir">(dir)</a>
+<hr>
+</div>
+
+<h2 class="unnumbered">SICStus Prolog Release Notes</h2>
+
+<!-- [PM] moved the copyright notice here -->
+<p>Release notes for SICStus Prolog 4.3.1, November 2014. 
+Copyright &copy; 1995-2014 SICS
+
+   <p>Permission is granted to make and distribute verbatim copies of
+these notes provided the copyright notice and this permission notice
+are preserved on all copies.
+
+   <p>Permission is granted to copy and distribute modified versions of these
+notes under the conditions for verbatim copying, provided that the entire
+resulting derived work is distributed under the terms of a permission
+notice identical to this one.
+
+   <p>Permission is granted to copy and distribute translations of these notes
+into another language, under the above conditions for modified versions,
+except that this permission notice may be stated in a translation approved
+by SICS.
+
+<ul class="menu">
+<li><a accesskey="1" href="Overview.html#Overview">Overview</a>:  Overview
+<li><a accesskey="2" href="Platforms.html#Platforms">Platforms</a>:  Platforms
+<li><a accesskey="3" href="Release-Notes-and-Installation-Guide-for-UNIX.html#Release-Notes-and-Installation-Guide-for-UNIX">Release Notes and Installation Guide for UNIX</a>:  Release Notes and Installation Guide for UNIX
+<li><a accesskey="4" href="Release-Notes-and-Installation-Guide-for-Windows.html#Release-Notes-and-Installation-Guide-for-Windows">Release Notes and Installation Guide for Windows</a>:  Release Notes and Installation Guide for Windows
+<li><a accesskey="5" href="Special-Releases.html#Special-Releases">Special Releases</a>:  Special Releases
+<li><a accesskey="6" href="REX.html#REX">REX</a>:  Managing Extended Runtime License Information
+<li><a accesskey="7" href="Tcl_002fTk-Notes.html#Tcl_002fTk-Notes">Tcl/Tk Notes</a>:  Tcl/Tk Notes
+<li><a accesskey="8" href="Jasper-Notes.html#Jasper-Notes">Jasper Notes</a>:  Jasper Notes
+<li><a accesskey="9" href="Berkeley-DB-Notes.html#Berkeley-DB-Notes">Berkeley DB Notes</a>:  Berkeley DB Notes
+<li><a href="ODBC-Notes.html#ODBC-Notes">ODBC Notes</a>:  ODBC Notes
+<li><a href="The-SICStus-Prolog-IDE.html#The-SICStus-Prolog-IDE">The SICStus Prolog IDE</a>:  The SICStus Prolog IDE (SPIDER)
+<li><a href="The-Emacs-Interface.html#The-Emacs-Interface">The Emacs Interface</a>:  The Emacs Interface
+<li><a href="Revision-History.html#Revision-History">Revision History</a>:  Revision History
+<li><a href="Generic-Limitations.html#Generic-Limitations">Generic Limitations</a>:  Generic Limitations
+<li><a href="Contact-Information.html#Contact-Information">Contact Information</a>:  Contact Information
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/index.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/index.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

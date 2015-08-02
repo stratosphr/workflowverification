@@ -1,0 +1,194 @@
+<html lang="en">
+<head>
+<title>Defining a New Stream - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="SICStus-Streams.html#SICStus-Streams" title="SICStus Streams">
+<link rel="prev" href="Prolog-Streams.html#Prolog-Streams" title="Prolog Streams">
+<link rel="next" href="Hookable-Standard-Streams.html#Hookable-Standard-Streams" title="Hookable Standard Streams">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Defining-a-New-Stream"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Hookable-Standard-Streams.html#Hookable-Standard-Streams">Hookable Standard Streams</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Prolog-Streams.html#Prolog-Streams">Prolog Streams</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="SICStus-Streams.html#SICStus-Streams">SICStus Streams</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.6.2 Defining a New Stream</h4>
+
+<p>The following steps are required to define a new stream in C:
+
+     <ul>
+<li>Define low level functions (byte or character reading, writing etc).
+
+     <li>Initialize and open your stream.
+
+     <li>Allocate memory needed for your particular stream.
+
+     <li>Initialize and install a Prolog stream with
+<code>SP_create_stream()</code>.
+
+   </ul>
+
+   <p>The following sample makes it possible to create read-only binary
+streams that use the C <code>FILE*</code> API.
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     #include &lt;stdio.h&gt;
+     #include &lt;string.h&gt;
+     #include &lt;errno.h&gt;
+     
+     struct stdio_t_stream {
+       FILE *f;
+     };
+     typedef struct stdio_t_stream stdio_t_stream;
+     
+     static spio_t_error_code SPCDECL stdio_read(void *user_data,
+                                                 void *buf,
+                                                 size_t *pbuf_size,
+                                                 spio_t_bits read_options)
+     {
+       spio_t_error_code ecode = SPIO_E_ERROR;
+       stdio_t_stream *s;
+       size_t res;
+     
+       if (read_options &amp; SPIO_DEVICE_READ_OPTION_NONBLOCKING) {
+         ecode = SPIO_E_NOT_SUPPORTED;
+         goto barf;
+       }
+     
+       s = (stdio_t_stream *)user_data;
+     
+       res = fread(buf, 1, *pbuf_size, s-&gt;f);
+       if (res == 0) {                 /* error */
+         if (feof(s-&gt;f)) {
+           ecode = SPIO_E_END_OF_FILE;
+         } else {                      /* some other error */
+           ecode = SPIO_E_OS_ERROR;
+         }
+         goto barf;
+       }
+       *pbuf_size = res;             /* number of bytes read */
+     
+       return SPIO_S_NOERR;
+     
+      barf:
+       return ecode;
+     }
+</pre>
+   <pre class="example">     static spio_t_error_code SPCDECL stdio_close(void **puser_data, spio_t_bits close_options)
+     {
+       stdio_t_stream *s;
+     
+       s = (stdio_t_stream *)*puser_data;
+       /* we can ignore SPIO_DEVICE_CLOSE_OPTION_FORCE */
+     
+       if (close_options &amp; SPIO_DEVICE_CLOSE_OPTION_READ) {
+         *puser_data = NULL;       /* tell caller we are gone */
+         if (fclose(s-&gt;f) != 0) {
+           ;          /* ignore errors */
+         }
+       }
+       return SPIO_S_NOERR;
+     }
+</pre>
+   <pre class="example">     /* Identify our streams with (an arbitrary) pointer that is unique to us */
+     #define STDIO_STREAM_CLASS ((void*)&amp;stdio_open_c)
+     
+     int stdio_open_c(char const *path,
+                      char const *direction,
+                      SP_stream **pstream)
+     {
+       spio_t_error_code ecode = SPIO_E_ERROR;
+       stdio_t_stream *s = NULL;
+       SP_stream *stream = NULL;
+     
+       if (strcmp(direction, "read") != 0) goto not_supported;
+     
+       /* read */
+       s = (stdio_t_stream*)SP_malloc(sizeof *s);
+       if (s == NULL) goto out_of_memory;
+     
+       /* open binary */
+       s-&gt;f = fopen(path, "rb");
+       if (s-&gt;f == NULL) {
+         ecode = SPIO_E_OPEN_ERROR;
+         goto barf;
+       }
+       ecode = SP_create_stream((void*)s,
+                                STDIO_STREAM_CLASS,
+                                stdio_read,
+                                NULL, /* write */ NULL, /* flush_output */ NULL, /* seek */
+                                stdio_close,
+                                NULL, /* interrupt */ NULL, /* ioctl */ NULL, /* args */
+                                SP_CREATE_STREAM_OPTION_BINARY,
+                                &amp;stream);
+       if (SPIO_FAILED(ecode)) goto barf;
+     
+       *pstream = stream;
+       return 0;                     /* success */
+     
+      barf:
+       if (s != NULL) {
+         if (s-&gt;f != NULL) fclose(s-&gt;f);
+         SP_free(s);
+       }
+       return ecode;
+      out_of_memory:
+       ecode = SPIO_E_OUT_OF_MEMORY;
+       goto barf;
+      not_supported:
+       ecode = SPIO_E_NOT_IMPLEMENTED;
+       goto barf;
+     }
+</pre>
+   <p>Calling <code>stdio_open_c("foo", "read", &amp;stream)</code> will open the file
+<samp><span class="file">foo</span></samp> as binary stream that can be read by all SICStus stream
+operations.
+
+   <p>There are several stream implementions in the SICStus Prolog library
+that can serve as sample, e.g. <code>library(codesio)</code> and
+<code>library(tcltk)</code>.
+
+   <p>See <a href="cpg_002dref_002dSP_005fcreate_005fstream.html#cpg_002dref_002dSP_005fcreate_005fstream">cpg-ref-SP_create_stream</a> for details.
+
+<ul class="menu">
+<li><a accesskey="1" href="Low-Level-I_002fO-Functions.html#Low-Level-I_002fO-Functions">Low Level I/O Functions</a>:  Low Level I/O Functions
+<!-- * Internal Representation:: Internal Representation -->
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Defining-a-New-Stream.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Defining-a-New-Stream.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

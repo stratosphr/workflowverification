@@ -1,0 +1,75 @@
+<html lang="en">
+<head>
+<title>mpg-ref-exc - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dref.html#mpg_002dref" title="mpg-ref">
+<link rel="prev" href="mpg_002dref_002daty.html#mpg_002dref_002daty" title="mpg-ref-aty">
+<link rel="next" href="mpg_002dref_002doth.html#mpg_002dref_002doth" title="mpg-ref-oth">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-exc"></a>
+<a name="mpg_002dref_002dexc"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002doth.html#mpg_002dref_002doth">mpg-ref-oth</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002daty.html#mpg_002dref_002daty">mpg-ref-aty</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dref.html#mpg_002dref">mpg-ref</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.1.5 Exceptions</h4>
+
+<p>The <b>Exceptions</b> field of the reference page consists of a list of
+exception type names, each followed by a brief description of the
+situation that causes that type of exception to be raised.  The
+following example comes from the reference page for <code>assert/[1,2]</code>:
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd>If <var>Head</var> (in <var>Clause</var>) or <var>M</var> is uninstantiated.
+
+     <br><dt><code>type_error</code><dd>If <var>Head</var> is not of type callable, or if <var>M</var> is
+not an atom, or if <var>Body</var> is not a valid clause body. 
+</dl>
+
+   <p>For <em>input</em> arguments, an exception <em>will</em> be raised if the argument
+isn't of the specified type.
+
+   <p>For <em>output</em> arguments, an exception <em>might</em> be raised if the
+argument is <dfn>nonvar</dfn>, and not of the specified type. The generated
+<em>representation</em> of the argument <em>will</em> be of the specified type.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dexc.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dexc.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

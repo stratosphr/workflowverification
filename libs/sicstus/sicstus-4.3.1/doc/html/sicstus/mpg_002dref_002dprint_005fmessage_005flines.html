@@ -1,0 +1,112 @@
+<html lang="en">
+<head>
+<title>mpg-ref-print_message_lines - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dprint_005fmessage.html#mpg_002dref_002dprint_005fmessage" title="mpg-ref-print_message">
+<link rel="next" href="mpg_002dref_002dprint_005fprofile.html#mpg_002dref_002dprint_005fprofile" title="mpg-ref-print_profile">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-print_message_lines"></a>
+<a name="mpg_002dref_002dprint_005fmessage_005flines"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dprint_005fprofile.html#mpg_002dref_002dprint_005fprofile">mpg-ref-print_profile</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dprint_005fmessage.html#mpg_002dref_002dprint_005fmessage">mpg-ref-print_message</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.163 <code>print_message_lines/3</code></h4>
+
+<p><a name="index-print_005fmessage_005flines_002f3-_0028built_002din_002c-ref-page_0029-4814"></a><a name="index-print_005fmessage_005flines_002f3-_0028built_002din_002c-ref-page_0029-4815"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>print_message_lines(</code><var>+Stream</var><code>, </code><var>+Severity</var><code>, </code><var>+Lines</var><code>)</code>
+
+   <p>Print the <var>Lines</var> to <var>Stream</var>, preceding each line with a
+prefix corresponding to <var>Severity</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Stream</var><dd><dfn>stream_object</dfn>, must be ground
+
+     <p>Any valid output stream.
+
+     <br><dt><var>Severity</var><dd><dfn>one of </dfn><code>[query,help,informational,warning,error,silent,</code><dfn>term</dfn><code>]</code>
+
+     <br><dt><var>Lines</var><dd><dfn>list of list of pair</dfn>
+
+     <p>Must be of the form <code>[</code><var>Line1</var><code>, </code><var>Line2</var><code>, ...]</code>, where each
+<var>Linei</var> must be of the form
+<code>[</code><var>Control_1-Args_1</var><code>,</code><var>Control_2-Args_2</var><code>, ...]</code>. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>If <var>Severity</var> is a valid severity, the prefix will be as described
+for <code>print_message/2</code>, otherwise <var>Severity</var> itself will be
+used as the prefix.  If <var>Severity</var> is <code>query</code>, no newline is
+written after the last line (otherwise, a newline is written).
+
+   <p>This predicate is intended to be used in conjunction with
+<code>user:message_hook/3</code>.  After a message is intercepted using
+<code>user:message_hook/3</code>, this command is used to print the lines. 
+If the hook has not been defined, the arguments are those provided by
+the system.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Stream errors (see <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>), plus:
+
+     <dl>
+<dt><code>instantiation_error</code><dt><code>type_error</code><dd>in <var>Lines</var>. 
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<p>Suppose you want to intercept messages and force them to go to a different stream:
+
+<pre class="example">     user:message_hook(Severity, Message, Lines):-
+         my_stream(MyStream),
+         print_message_lines(MyStream, Severity, Lines).
+</pre>
+   <h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmsg.html#ref_002dmsg">ref-msg</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dprint_005fmessage_005flines.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dprint_005fmessage_005flines.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

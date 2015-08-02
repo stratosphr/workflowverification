@@ -1,0 +1,201 @@
+<html lang="en">
+<head>
+<title>PB Prolog Server Interface - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dprologbeans.html#lib_002dprologbeans" title="lib-prologbeans">
+<link rel="prev" href="PB-First-Example.html#PB-First-Example" title="PB First Example">
+<link rel="next" href="PB-Java-Client-Interface.html#PB-Java-Client-Interface" title="PB Java Client Interface">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="PB-Prolog-Server-Interface"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="PB-Java-Client-Interface.html#PB-Java-Client-Interface">PB Java Client Interface</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="PB-First-Example.html#PB-First-Example">PB First Example</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dprologbeans.html#lib_002dprologbeans">lib-prologbeans</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.28.4 Prolog Server Interface</h4>
+
+<p>The Prolog interface is based on the idea of a Prolog server that
+provides its service by answering queries from external applications
+(typically Java applications). The Prolog interface in PrologBeans
+is defined in <samp><span class="file">library(prologbeans)</span></samp>, which implements the
+Prolog server and exports the following predicates:
+
+     <dl>
+<dt><code>start</code><dt><code>start(</code><var>+Options</var><code>)</code><dd><a name="index-start_002f_005b0_002c1_005d-_0028prologbeans_0029-3747"></a><a name="index-start_002f_005b0_002c1_005d-_0028prologbeans_0029-3748"></a>
+starts the Prolog server using the options specified.  <strong>Please
+note</strong>: <code>start/[0,1]</code> will not return until a server shutdown
+occurs.  <var>Options</var> should be a list of zero or more of:
+
+          <dl>
+<dt><code>port(</code><var>?Val</var><code>)</code><dd><a name="index-port_002f1-_0028start_002f1-option_0029-3749"></a>an integer denoting the port number of the Prolog server. The default
+port, if no port option is present, is 8066. In the case of the
+default port being used, the Socket Reuse Adress bit will be set in
+the underlying sockets layer. If <var>Val</var> is a variable,
+some unused port will be selected by the OS, the actual port number
+can be obtained with <code>get_server_property/1</code>, typically from a
+<code>server_started</code> event listener.
+
+          <br><dt><code>accepted_hosts(</code><var>+Val</var><code>)</code><dd><a name="index-accepted_005fhosts_002f1-_0028start_002f1-option_0029-3750"></a>a list of atoms denoting the hosts (in form of IP-addresses) that are
+accepted by the Prolog server (default: <code>['127.0.0.1']</code>).
+
+          <br><dt><code>session_timeout(</code><var>+Val</var><code>)</code><dd><a name="index-session_005ftimeout_002f1-_0028start_002f1-option_0029-3751"></a>an integer denoting the duration of a session in seconds. The session will be
+removed if it has been inactive more than this timeout when the
+session garbage collect starts. If the session timeout is set
+to zero there will be no garbage collect on sessions
+(default: <code>0</code>).
+
+          <br><dt><code>session_gc_timeout(</code><var>+Val</var><code>)</code><dd><a name="index-session_005fgc_005ftimeout_002f1-_0028start_002f1-option_0029-3752"></a>an integer denoting the minimum time in seconds between two consecutive
+session garbage collections. If the timeout is set to zero there will
+be no garbage collect on sessions (default: <code>0</code>). 
+</dl>
+
+     <p>For example:
+
+     <pre class="example">          :- start([port(7500),
+                    accepted_hosts(['127.0.0.1','99.8.7.6'])]).
+</pre>
+     <br><dt><code>shutdown</code><dt><code>shutdown(+Mode)</code><dd><a name="index-shutdown_002f_005b0_002c1_005d-_0028prologbeans_0029-3753"></a><a name="index-shutdown_002f_005b0_002c1_005d-_0028prologbeans_0029-3754"></a>
+shuts down the server and closes the sockets and the streams after
+processing all available input. There are three modes:
+          <dl>
+<dt><code>now</code><dd>as soon as possible (default). 
+<br><dt><code>no_sessions</code><dd>after all sessions have ended (all sessions have either been
+explicitly removed by request of the client application, or they have
+been garbage collected). <strong>Please note</strong>:
+there can still be connections to the Prolog server even when all
+sessions have ended. 
+<br><dt><code>no_connections</code><dd>after all connections to the Prolog server are closed. <strong>Please note</strong>:
+there can still be user sessions left when all connections have been closed.
+
+     </dl>
+
+     <br><dt><code>register_query(</code><var>+Query</var><code>, </code><var>:PredicateToCall</var><code>)</code><dt><code>register_query(</code><var>+Query</var><code>, </code><var>:PredicateToCall</var><code>, </code><var>+SessionVar</var><code>)</code><dd><a name="index-register_005fquery_002f_005b2_002c3_005d-_0028prologbeans_0029-3755"></a><a name="index-register_005fquery_002f_005b2_002c3_005d-_0028prologbeans_0029-3756"></a>
+registers a query and the corresponding goal. Before the
+registration, any previously registered query matching <var>Query</var>
+will be removed (as if by <code>unregister_query(</code><var>Query</var><code>)</code>).  The
+goal <var>PredicateToCall</var> will be called when a query matching
+<var>Query</var> is received.
+
+     <p>Typically, <var>Query</var> and <var>PredicateToCall</var> share variables that
+are instantiated by the call, and the instantiated <var>Query</var>
+is passed back to the client. In general, variable bindings can be
+arbitrary Prolog terms, including terms containing unbound variables. 
+However, any unbound variables with attributes or blocked goals
+attached to them will be replaced by plain, brand new variables. This
+is analogous to the way attributed variables are handled in terms that are
+written, copied, asserted, gathered as solutions to <code>findall/3</code>
+and friends, or raised as exceptions. If the attributes must be passed
+to the client, the Prolog code can obtain them by using
+<code>copy_term/3</code> (see <a href="ref_002dlte_002dcpt.html#ref_002dlte_002dcpt">ref-lte-cpt</a>).
+
+     <p>The goal is called determinately, i.e. it is never backtracked into. 
+If it fails, the term <code>no</code> is passed to the client instead of the
+instantiated <var>Query</var>.  If it raises an exception <var>E</var>,
+the term <code>error(</code><var>E</var><code>)</code> is passed to the client instead of the
+instantiated <var>Query</var>.
+
+     <p>Before calling the query, the variable <var>SessionVar</var>, if
+given, is bound to the id of the current session. Session ids are
+typically generated in web applications that track users and mark all
+consecutive web-accesses with the same session id.
+
+     <br><dt><code>unregister_query(</code><var>+Query</var><code>)</code><dd>unregisters all queries matching <var>Query</var>. 
+<a name="index-unregister_005fquery_002f1-_0028prologbeans_0029-3757"></a><a name="index-unregister_005fquery_002f1-_0028prologbeans_0029-3758"></a>
+
+     <br><dt><code>session_get(</code><var>+SessionID</var><code>, </code><var>+ParameterName</var><code>, </code><var>+DefaultValue</var><code>, </code><var>-Value</var><code>)</code><dd><a name="index-session_005fget_002f4-_0028prologbeans_0029-3759"></a><a name="index-session_005fget_002f4-_0028prologbeans_0029-3760"></a>
+returns the representation of a given parameter in a given session. If no
+representation exists, it will return the default representation.  Arguments:
+          <dl>
+<dt><var>SessionID</var><dd> is the id of the session for which values have been stored
+<br><dt><var>ParameterName</var><dd>an atom, is the name of the parameter to retrieve
+<br><dt><var>DefaultValue</var><dd>is the representation that will be used if no representation is stored
+<br><dt><var>Value</var><dd>is the stored representation or the default representation if nothing was stored
+</dl>
+
+     <br><dt><code>session_put(</code><var>+SessionID</var><code>, </code><var>+ParameterName</var><code>, </code><var>+Value</var><code>)</code><dd><a name="index-session_005fput_002f3-_0028prologbeans_0029-3761"></a><a name="index-session_005fput_002f3-_0028prologbeans_0029-3762"></a>
+stores the representation of the given parameter. <strong>Please note</strong>: any pre-existing
+representation for this parameter will be overwritten. Note that
+<code>session_put/3</code> will not be undone when backtracking (the current
+implementation is based on <code>assert</code>).  Arguments:
+
+          <dl>
+<dt><var>SessionID</var><dd>is the id of the session for the values to store
+<br><dt><var>ParameterName</var><dd>an atom, is the name of the parameter to store
+<br><dt><var>Value</var><dd>the representation to be stored
+</dl>
+
+     <br><dt><code>register_event_listener(</code><var>+Event</var><code>, </code><var>:PredicateToCall</var><code>)</code><dt><code>register_event_listener(</code><var>+Event</var><code>, </code><var>:PredicateToCall</var><code>, </code><var>-Id</var><code>)</code><dd><a name="index-register_005fevent_005flistener_002f_005b2_002c3_005d-_0028prologbeans_0029-3763"></a><a name="index-register_005fevent_005flistener_002f_005b2_002c3_005d-_0028prologbeans_0029-3764"></a>
+Registers <var>PredicateToCall</var> to be called (as if by
+<code>once(</code><var>PredicateToCall</var><code>)</code>) when the event matching <var>Event</var> occurs
+(event matching is on principal functor only). If the goal fails or
+raises an exception a warning is written to <code>user_error</code> but the failure
+or exception is otherwise ignored. Arguments:
+
+          <dl>
+<dt><var>Event</var><dd>is the event template; see below. 
+<br><dt><var>PredicateToCall</var><dd>an arbitrary goal. 
+<br><dt><var>Id</var><dd>becomes bound to a (ground) term that can be used with
+<code>unregister_event_listener/1</code> to remove this event listener. 
+</dl>
+
+     <p>The predefined events are as follows:
+
+          <dl>
+<dt><code>session_started(</code><var>+SessionID</var><code>)</code><dd>called before the first call to a query for this session
+<br><dt><code>session_ended(</code><var>+SessionID</var><code>)</code><dd>called before the session is about to be garbage collected (removed)
+<br><dt><code>server_started</code><dd>called when the server is about to start (enter its main loop)
+<br><dt><code>server_shutdown</code><dd>called  when the server is about to shut down
+</dl>
+
+     <p>Attempt to register an event listener for other events than the
+predefined events will throw an exception.
+
+     <p>More than one listeners can be defined for the same event. They will be
+called in some unspecified order when the event occurs.
+
+     <br><dt><code>unregister_event_listener(</code><var>+Id</var><code>)</code><dd><a name="index-unregister_005fevent_005flistener_002f1-_0028prologbeans_0029-3765"></a><a name="index-unregister_005fevent_005flistener_002f1-_0028prologbeans_0029-3766"></a>
+
+     <p>Unregister a previously registered event listener. The <var>Id</var> is the
+representation returned by the corresponding call to
+<code>register_event_listener/3</code>. It is an error to attempt to
+unregister an event listener more than once.
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/PB-Prolog-Server-Interface.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/PB-Prolog-Server-Interface.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

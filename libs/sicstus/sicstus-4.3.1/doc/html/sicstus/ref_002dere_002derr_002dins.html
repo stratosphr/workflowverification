@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+<title>ref-ere-err-ins - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dere_002derr.html#ref_002dere_002derr" title="ref-ere-err">
+<link rel="next" href="ref_002dere_002derr_002duns.html#ref_002dere_002derr_002duns" title="ref-ere-err-uns">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-ere-err-ins"></a>
+<a name="ref_002dere_002derr_002dins"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dere_002derr_002duns.html#ref_002dere_002derr_002duns">ref-ere-err-uns</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dere_002derr.html#ref_002dere_002derr">ref-ere-err</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.15.4.1 Instantiation Errors</h5>
+
+<p><a name="index-instantiation-errors-1713"></a><a name="index-errors_002c-instantiation-1714"></a>
+
+   <p>An instantiation error occurs when a predicate or command is called with
+one of its input arguments insufficiently instantiated.
+
+   <p>The <var>SICStus_Error</var> term associated with an instantiation error is
+<pre class="example">     instantiation_error(<var>Goal, ArgNo</var>)
+</pre>
+   <p class="noindent">where <var>ArgNo</var> is a non-negative integer indicating which argument caused the
+problem.  <var>ArgNo</var>=0 means that the problem could not be localized to a single
+argument.
+
+   <p>Note that the <var>ArgNo</var>th argument of <var>Goal</var> might well be
+a non-variable:  the error is <em>in</em> that argument.  For example, the goal
+<pre class="example">     X is Y+1
+</pre>
+   <p class="noindent">where <var>Y</var> is uninstantiated throws the exception
+<pre class="example">     error(instantiation_error,
+           instantiation_error(_A is _B+1,2))
+</pre>
+   <p class="noindent">because the second argument to <code>is/2</code> contains a variable.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002derr_002dins.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002derr_002dins.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

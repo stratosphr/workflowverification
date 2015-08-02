@@ -1,0 +1,128 @@
+<html lang="en">
+<head>
+<title>4.0.3 Bugs Fixed - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e0_002e3-Changes.html#g_t4_002e0_002e3-Changes" title="4.0.3 Changes">
+<link rel="prev" href="4_002e0_002e3-New-Features.html#g_t4_002e0_002e3-New-Features" title="4.0.3 New Features">
+<link rel="next" href="4_002e0_002e3-Other-Changes.html#g_t4_002e0_002e3-Other-Changes" title="4.0.3 Other Changes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.0.3-Bugs-Fixed"></a>
+<a name="g_t4_002e0_002e3-Bugs-Fixed"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e0_002e3-Other-Changes.html#g_t4_002e0_002e3-Other-Changes">4.0.3 Other Changes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="4_002e0_002e3-New-Features.html#g_t4_002e0_002e3-New-Features">4.0.3 New Features</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e0_002e3-Changes.html#g_t4_002e0_002e3-Changes">4.0.3 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.6.2 Bugs Fixed</h4>
+
+     <ul>
+<li><!-- [PM] 10526 -->
+<code>trimcore/0</code> could lead to memory corruption. 
+<!-- [PM] Too obscure to mention -->
+<!-- @item -->
+<!-- Some unprotected atoms could be reclaimed by atom GC. -->
+
+     <!-- [PM] 4.0.2+ too much detail? -->
+     <!-- @item -->
+     <!-- Improved behavior with incomplete locale specified in environment. This -->
+     <!-- prevented sicstus from starting on Mac OS X 10.5 (Leopard) when -->
+     <!-- running under @command{Terminal.app}. -->
+     <li><!-- SPRM 10747 -->
+<code>append/3</code> &ldquo;optimization&rdquo; could cause garbage collector crash.
+
+     <li><samp><span class="command">spld</span></samp> and <samp><span class="command">splfr</span></samp>: multiple <samp><span class="option">--cflag</span></samp>
+options accumulate, as documented.
+
+     <li><!-- SPRM 10611 -->
+<code>sockets:current_host/1</code> would fail on Windows 2000 with some
+network configurations.
+
+     <li><code>process:process_release/1</code> did not work.
+
+     <li><!-- SPRM 10682 -->
+All process creation routines in <code>library(system3)</code> now work when
+there are command line options in the command argument, as was intended.
+
+     <li><!-- SPRM 10697 -->
+<code>file_systems:current_directory/2</code> was sensitive to load context
+when passed a relative path as its second argument.
+
+     <!-- Now tries to display the real character -->
+     <!-- @item -->
+     <!-- @c SPRM 10693 -->
+     <!-- @c [PM] 4.0.3beta1+ Now tries to display full Unicode instead of -->
+     <!-- @c giving up and using '?' as in 4.0.3beta1 -->
+     <!-- The Windows GUI @command{spwin.exe} now tries harder to display -->
+     <!-- non-@w{Latin 1} characters. It used to display garbled text. -->
+     <li><!-- SPRM 10735 (4.0.3beta1+) -->
+The Windows GUI <samp><span class="command">spwin.exe</span></samp> command &lsquo;<samp><span class="samp">Save Transcript</span></samp>&rsquo; now
+works and uses UTF-16 with BOM which can be read by most Windows
+programs and by recent Emacs and XEmacs.
+
+     <li><!-- SPRM 10522 -->
+The menu commands of the Windows GUI <samp><span class="command">spwin.exe</span></samp> no longer
+load foreign resources. This prevents extra foreign resources from
+being recorded by <code>save_program/[1,2]</code>.
+
+     <li><code>library(chr)</code>
+          <ul>
+<li><!-- SPRM 10620 -->
+Multiple occurrences of the same answer constraint are no longer suppressed. 
+<li><!-- SPRM 10738 -->
+Error in compile-time error message. 
+</ul>
+
+     <li><code>library(clpfd)</code>
+          <ul>
+<li><code>element/3</code> and <code>cumulatives/[2,3]</code> could crash. 
+<li><!-- SPRM 10607 -->
+Bug in <code>dom(X)+dom(Y)</code> in indexicals. 
+<li><!-- SPRM 10707 -->
+Structure sharing issues with <code>fd_set/2</code> and <code>in_set/2</code> in the global
+constraint API. 
+<li><code>mod</code> and <code>rem</code> are now available with the intended semantics. 
+<li>Incorrect reification of arithmetic relations involving division, <code>mod</code> and <code>rem</code>. 
+</ul>
+
+     <li><!-- SPRM 10628 -->
+Variables not transferred correctly in the PrologBeans process communication protocol.
+
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e0_002e3-Bugs-Fixed.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e0_002e3-Bugs-Fixed.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

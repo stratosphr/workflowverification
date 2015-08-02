@@ -1,0 +1,77 @@
+<html lang="en">
+<head>
+<title>ref-mod-sum - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmod.html#ref_002dmod" title="ref-mod">
+<link rel="prev" href="ref_002dmod_002dsem.html#ref_002dmod_002dsem" title="ref-mod-sem">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-mod-sum"></a>
+<a name="ref_002dmod_002dsum"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dmod_002dsem.html#ref_002dmod_002dsem">ref-mod-sem</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmod.html#ref_002dmod">ref-mod</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.11.18 Predicate Summary</h4>
+
+<p><a name="index-modules_002c-predicates-for-1574"></a><a name="index-predicates-for-modules-1575"></a>
+     <dl>
+<dt><code>current_module(</code><var>?M</var><code>)</code><dd><var>M</var> is the name of a current module
+
+     <br><dt><code>current_module(</code><var>?M</var><code>,</code><var>?F</var><code>)</code><dd><var>F</var> is the name of the file in which <var>M</var>'s module
+declaration appears
+
+     <br><dt><code>meta_predicate </code><var>:P</var><code> &nbsp;<!-- /@w --> </code><strong>declaration</strong><dd>declares predicates <var>P</var> that are dependent on
+the module from which they are called
+
+     <br><dt><code>module(</code><var>+M</var><code>,</code><var>+L</var><code>) &nbsp;<!-- /@w --> </code><strong>declaration</strong><dt><code>module(</code><var>+M</var><code>,</code><var>+L</var><code>,</code><var>+O</var><code>) &nbsp;<!-- /@w --> </code><strong>declaration</strong><dd>declaration that module <var>M</var> exports predicates in <var>L</var>, options <var>O</var>
+
+     <br><dt><code>save_modules(</code><var>+L</var><code>,</code><var>+F</var><code>)</code><dd>save the modules specifed in <var>L</var> into file <var>F</var>
+
+     <br><dt><code>set_module(</code><var>+M</var><code>)</code><dd>make <var>M</var> the type-in module
+
+     <br><dt><code>use_module(</code><var>:F</var><code>)</code><dd>import the module-file(s) <var>F</var>, loading them if necessary
+
+     <br><dt><code>use_module(</code><var>:F</var><code>,</code><var>+I</var><code>)</code><dd>import the procedure(s) <var>I</var> from the module-file <var>F</var>
+
+     <br><dt><code>use_module(</code><var>?M</var><code>,</code><var>:F</var><code>,</code><var>+I</var><code>)</code><dd>import <var>I</var> from module <var>M</var>, loading
+module-file <var>F</var> if necessary
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dsum.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dsum.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

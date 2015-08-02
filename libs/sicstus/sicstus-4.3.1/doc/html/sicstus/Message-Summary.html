@@ -1,0 +1,120 @@
+<html lang="en">
+<head>
+<title>Message Summary - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmsg.html#ref_002dmsg" title="ref-msg">
+<link rel="prev" href="Query-Handling-Predicates.html#Query-Handling-Predicates" title="Query Handling Predicates">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Message-Summary"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Query-Handling-Predicates.html#Query-Handling-Predicates">Query Handling Predicates</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmsg.html#ref_002dmsg">ref-msg</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.16.5 Predicate Summary</h4>
+
+<p><a name="index-messages-and-queries_002c-predicates-for-1830"></a><a name="index-predicates-for-messages-and-queries-1831"></a>
+     <dl>
+<dt><code>ask_query(</code><var>+QueryClass</var><code>, </code><var>+Query</var><code>, </code><var>+Help</var><code>, </code><var>-Answer</var><code>) &nbsp;<!-- /@w --> </code><strong>hookable</strong><dd>Prints the question <var>Query</var>, then reads and processes user input
+according to <var>QueryClass</var>, and returns the result of the processing,
+the abstract answer term <var>Answer</var>.  The <var>Help</var> message is
+printed in case of invalid input.
+
+     <br><dt><code>user:message_hook(</code><var>+M</var><code>,</code><var>+S</var><code>,</code><var>+L</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>intercept the printing of a message
+
+     <br><dt><code>'SU_messages':generate_message(</code><var>+M</var><code>,</code><var>?SO</var><code>,</code><var>?S</var><code>) &nbsp;<!-- /@w --> </code><strong>extendible</strong><dd>determines the mapping from a message term
+into a sequence of lines of text to be printed
+
+     <br><dt><code>user:generate_message_hook(</code><var>+M</var><code>,</code><var>?S0</var><code>,</code><var>?S</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>intercept message before it is given to
+<code>'SU_messages':generate_message/3</code>
+
+     <br><dt><code>goal_source_info(</code><var>+AGoal</var><code>, </code><var>-Goal</var><code>, </code><var>-SourceInfo</var><code>)</code><dd>Decomposes the annotated goal <var>AGoal</var> into a <var>Goal</var> proper
+and the <var>SourceInfo</var> descriptor term, indicating the source
+position of the goal.
+
+     <br><dt><code>user:portray_message(</code><var>+Severity</var><code>,</code><var>+Message</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>Tells <code>print_message/2</code> what to do.
+
+     <br><dt><code>print_message(</code><var>+S</var><code>,</code><var>+M</var><code>) &nbsp;<!-- /@w --> </code><strong>hookable</strong><dd>print a message <var>M</var> of severity <var>S</var>
+
+     <br><dt><code>print_message_lines(</code><var>+S</var><code>,</code><var>+P</var><code>,</code><var>+L</var><code>)</code><dd>print the message lines <var>L</var> to stream <var>S</var> with prefix <var>P</var>
+
+     <br><dt><code>'SU_messages':query_abbreviation(</code><var>+T</var><code>,</code><var>-P</var><code>) &nbsp;<!-- /@w --> </code><strong>extendible</strong><dd>specifies one letter
+abbreviations for responses to queries from the Prolog system
+
+     <br><dt><code>user:query_hook(</code><var>+QueryClass</var><code>, </code><var>+Query</var><code>, </code><var>+QueryLines</var><code>, </code><var>+Help</var><code>, </code><var>+HelpLines</var><code>, </code><var>-Answer</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>Called by <code>ask_query/4</code> before processing the query.  If this
+predicate succeeds, it is assumed that the query has been
+processed and nothing further is done.
+
+     <br><dt><code>'SU_messages':query_class(</code><var>+QueryClass</var><code>, </code><var>-Prompt</var><code>, </code><var>-InputMethod</var><code>, </code><var>-MapMethod</var><code>, </code><var>-FailureMode</var><code>) &nbsp;<!-- /@w --> </code><strong>extendible</strong><dd>Access the parameters of a given <var>QueryClass</var>.
+
+     <br><dt><code>user:query_class_hook(</code><var>+QueryClass</var><code>, </code><var>-Prompt</var><code>, </code><var>-InputMethod</var><code>, </code><var>-MapMethod</var><code>, </code><var>-FailureMode</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>Provides the user with a method of overriding the call to
+<code>'SU_messages':query_class/5</code> in the preparation phase of query
+processing.  This way the default query class characteristics can be
+changed.
+
+     <br><dt><code>'SU_messages':query_input(</code><var>+InputMethod</var><code>, </code><var>+Prompt</var><code>, </code><var>-RawInput</var><code>) &nbsp;<!-- /@w --> </code><strong>extendible</strong><dd>Implements the input phase of query processing.
+
+     <br><dt><code>user:query_input_hook(</code><var>+InputMethod</var><code>, </code><var>+Prompt</var><code>, </code><var>-RawInput</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>Provides the user with a method of overriding the call to
+<code>'SU_messages':query_input/3</code> in the input phase of query
+processing.  This way the implementation of the default input methods
+can be changed.
+
+     <br><dt><code>'SU_messages':query_map(</code><var>+MapMethod</var><code>, </code><var>+RawInput</var><code>, </code><var>-Result</var><code>, </code><var>-Answer</var><code>) &nbsp;<!-- /@w --> </code><strong>extendible</strong><dd>Implements the mapping phase of query processing.
+
+     <br><dt><code>user:query_map_hook(</code><var>+MapMethod</var><code>, </code><var>+RawInput</var><code>, </code><var>-Result</var><code>, </code><var>-Answer</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>Provides the user with a method of overriding the call to
+<code>'SU_messages':query_map/4</code> in the mapping phase of query
+processing.  This way the implementation of the default map methods
+can be changed.
+
+   </dl>
+
+<!-- `@xref' -->
+<!-- Used to start a sentence in the printed manual saying `See ...' -->
+<!-- or an Info cross-reference saying `*Note NAME: NODE.'. -->
+<!-- `@ref' -->
+<!-- Used within or, more often, at the end of a sentence; same as -->
+<!-- `@xref' for Info; produces just the reference in the printed -->
+<!-- manual without a preceding `See'. -->
+<!-- `@pxref' -->
+<!-- Used within PARENTHESES to make a reference that suits both an Info -->
+<!-- file and a printed book.  Starts with a lower case `see' within the -->
+<!-- printed manual. (`p' is for `parenthesis'.) -->
+<!-- `@inforef' -->
+<!-- Used to make a reference to an Info file for which there is no -->
+<!-- printed manual. -->
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Message-Summary.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Message-Summary.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

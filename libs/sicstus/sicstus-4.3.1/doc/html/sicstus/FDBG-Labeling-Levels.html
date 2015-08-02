@@ -1,0 +1,82 @@
+<html lang="en">
+<head>
+<title>FDBG Labeling Levels - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="FDBG-Concepts.html#FDBG-Concepts" title="FDBG Concepts">
+<link rel="prev" href="FDBG-Events.html#FDBG-Events" title="FDBG Events">
+<link rel="next" href="FDBG-Visualizers.html#FDBG-Visualizers" title="FDBG Visualizers">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="FDBG-Labeling-Levels"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="FDBG-Visualizers.html#FDBG-Visualizers">FDBG Visualizers</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="FDBG-Events.html#FDBG-Events">FDBG Events</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="FDBG-Concepts.html#FDBG-Concepts">FDBG Concepts</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.14.2.2 Labeling Levels</h5>
+
+<p><a name="index-labeling-levels-3261"></a><a name="index-levels_002c-labeling-3262"></a>
+In this subsection we give three definitions regarding the labeling
+procedure.
+
+     <dl>
+<dt><dfn>labeling session</dfn><dd>This term denotes the whole labeling procedure that starts with the call
+of <code>labeling/2</code> or an equivalent predicate and finishes by
+exiting this predicate.  Normally, there is at most one labeling
+session per run.
+
+     <br><dt><dfn>labeling attempt</dfn><dd>One choicepoint of a labeling session.  Exactly one variable
+is associated with a labeling attempt, although this is not necessarily
+true vice versa.  For example in <code>enum</code> mode labeling, a single
+labeling attempt tries every possible representation, but in <code>step</code> mode
+labeling, several binary choicepoints are created.
+
+     <br><dt><dfn>labeling step</dfn><dd>The event of somehow constraining the domain of a variable.  This
+usually means either setting the variable to a specific representation or
+limiting it with a lower or an upper bound. 
+</dl>
+
+   <p>As you can see there is a hierarchical relation among these definitions:
+a labeling session consists of several labeling attempts, which, in
+turn, might consist of several labeling steps.
+
+   <p>A <dfn>labeling event</dfn>, on the other hand, can either be a labeling
+step, or the start of a labeling attempt, or the failure of the same. 
+See <a href="FDBG-Events.html#FDBG-Events">FDBG Events</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Labeling-Levels.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Labeling-Levels.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

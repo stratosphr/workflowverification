@@ -1,0 +1,106 @@
+<html lang="en">
+<head>
+<title>cpg-ref-SP_fprintf - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSP_005fforeign_005fstash.html#cpg_002dref_002dSP_005fforeign_005fstash" title="cpg-ref-SP_foreign_stash">
+<link rel="next" href="cpg_002dref_002dSP_005ffree.html#cpg_002dref_002dSP_005ffree" title="cpg-ref-SP_free">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-SP_fprintf"></a>
+<a name="cpg_002dref_002dSP_005ffprintf"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002dSP_005ffree.html#cpg_002dref_002dSP_005ffree">cpg-ref-SP_free</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSP_005fforeign_005fstash.html#cpg_002dref_002dSP_005fforeign_005fstash">cpg-ref-SP_foreign_stash</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.22 <code>SP_fprintf()</code></h4>
+
+<p><a name="index-SP_005ffprintf_0028_0029-_0028C-function_0029-5126"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     
+     spio_t_error_code
+     SP_fprintf(
+        SP_stream *stream,
+        char const *fmt, ...);
+</pre>
+   <p>Formatted output on the Prolog stream <code>stream</code>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>stream</var><dd>The stream. Must be a text stream open for output.
+
+     <br><dt><var>fmt</var><dd>The format string. This uses the same syntax as the C library
+<code>printf</code> functions.
+
+     <br><dt><var><small class="dots">...</small></var><dd>The data to format. 
+</dl>
+
+<h4 class="subheading">Return Value</h4>
+
+<p>On success, all data has been written and <code>SPIO_S_NOERR</code> or some
+other success code returned.
+
+   <p>On failure, returns an error code without transferring any data. Error
+codes with special meaning for <code>SP_fprintf()</code>:
+
+     <dl>
+<dt><code>SPIO_E_PARAMETER_ERROR</code><dd>The underlying C library function reported an error while formatting
+the string. 
+</dl>
+
+<p class="noindent">Other error codes may also be returned.
+
+<h4 class="subheading">Description</h4>
+
+<p>First the formatting operation will be performed. The resulting string
+will be assumed to be in internal encoding, and will then be output
+using the <code>SP_put_encoded_string()</code> function. This means
+e.g. that the &lsquo;<samp><span class="samp">%c</span></samp>&rsquo; printf conversion specification can only be
+used for ASCII characters, and the strings included using a &lsquo;<samp><span class="samp">%s</span></samp>&rsquo;
+specification should also be encoded strings.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Prolog-Streams.html#Prolog-Streams">Prolog Streams</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005ffprintf.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005ffprintf.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

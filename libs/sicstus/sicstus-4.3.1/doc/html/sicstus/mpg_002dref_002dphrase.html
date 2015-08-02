@@ -1,0 +1,157 @@
+<html lang="en">
+<head>
+<title>mpg-ref-phrase - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dpeek_005fcode.html#mpg_002dref_002dpeek_005fcode" title="mpg-ref-peek_code">
+<link rel="next" href="mpg_002dref_002dportray.html#mpg_002dref_002dportray" title="mpg-ref-portray">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-phrase"></a>
+<a name="mpg_002dref_002dphrase"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dportray.html#mpg_002dref_002dportray">mpg-ref-portray</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dpeek_005fcode.html#mpg_002dref_002dpeek_005fcode">mpg-ref-peek_code</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.155 <code>phrase/[2,3]</code></h4>
+
+<p><a name="index-phrase_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029-4782"></a><a name="index-phrase_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029-4783"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>phrase(</code><var>+PhraseType</var><code>, </code><var>+List</var><code>)</code>
+
+   <p><code>phrase(</code><var>+PhraseType</var><code>, </code><var>+List</var><code>, </code><var>-Rest</var><code>)</code>
+
+   <p>Used in conjunction with a grammar to parse or generate strings.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:PhraseType</var><dd><dfn>callable</dfn>, must be nonvar
+
+     <p>Name of a phrase type.
+
+     <br><dt><var>List</var><dd><dfn>list of term</dfn>
+
+     <p>A list of symbols &mdash; tokens or <dfn>codes</dfn>.
+
+     <br><dt><var>Rest</var><dd><dfn>list of term</dfn>
+
+     <p>A tail of <var>List</var>; what remains of
+<var>List</var> after <var>PhraseType</var> has been found. 
+Defaults to <code>[]</code>. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>This predicate is a convenient way to start execution of grammar
+rules.  Runs through the grammar rules checking whether there is a
+path by which <var>PhraseType</var> can be rewritten as <var>List</var>.
+
+   <p><a name="index-parsing-phrases-4784"></a>If <var>List</var> is bound, this goal corresponds
+to using the grammar for parsing.  If <var>List</var> is unbound, this
+goal corresponds to using the grammar for generation.
+
+   <p><code>phrase/[2,3]</code> succeeds when the portion of <var>List</var> between the start of
+<var>List</var> and the start of <var>Rest</var> is a phrase of type
+<var>PhraseType</var> (according to the current grammar rules), where
+<var>PhraseType</var> is either a non-terminal or, more generally, a grammar
+rule body.
+
+   <p><code>phrase/[2,3]</code> allows variables to occur as non-terminals in grammar
+rule bodies, just as <code>call/1</code> allows variables to occur as goals
+in clause bodies.
+
+<h4 class="subheading">Backtracking</h4>
+
+<p>Depends on <var>PhraseType</var>.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Call errors (see <a href="ref_002dsem_002dexc.html#ref_002dsem_002dexc">ref-sem-exc</a>).
+
+<h4 class="subheading">Examples</h4>
+
+<p>Here is a simple grammar that parses an arithmetic expression (made up
+of digits and operators) and computes its representation.  Create a file
+containing the following rules:
+
+<pre class="example">
+                                 <div align="right"><em>grammar.pl</em>
+     </div>
+     expr(Z) --&gt; term(X), "+", expr(Y), {Z is X + Y}.
+     expr(Z) --&gt; term(X), "-", expr(Y), {Z is X - Y}.
+     expr(X) --&gt; term(X).
+     
+     term(Z) --&gt; number(X), "*", term(Y), {Z is X * Y}.
+     term(Z) --&gt; number(X), "/", term(Y), {Z is X / Y}.
+     term(Z) --&gt; number(Z).
+     
+     number(C) --&gt; "+", number(C).
+     number(C) --&gt; "-", number(X), {C is -X}.
+     number(X) --&gt; [C], {"0"=&lt;C, C=&lt;"9", X is C - "0"}.
+</pre>
+   <p>In the last rule, C is the character code of a decimal digit.
+
+   <p>This grammar can now be used to parse and evaluate an expression:
+
+<pre class="example">     | ?- <kbd>[grammar]</kbd>.
+     | ?- <kbd>phrase(expr(Z), "-2+3*5+1").</kbd>
+     
+     Z = 14
+     
+     | ?- <kbd>phrase(expr(Z), "-2+3*5", Rest).</kbd>
+     
+     Z = 13,
+     Rest = [] <kbd>;</kbd>
+     
+     Z = 1,
+     Rest = "*5" <kbd>;</kbd>
+     
+     Z = -2,
+     Rest = "+3*5" <kbd>;</kbd>
+     
+     no
+</pre>
+   <h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlod_002dexp.html#ref_002dlod_002dexp">ref-lod-exp</a>, <a href="ref_002dgru.html#ref_002dgru">ref-gru</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dphrase.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dphrase.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,106 @@
+<html lang="en">
+<head>
+<title>Creating Breakpoints - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Advanced-Debugging.html#Advanced-Debugging" title="Advanced Debugging">
+<link rel="next" href="Processing-Breakpoints.html#Processing-Breakpoints" title="Processing Breakpoints">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Creating-Breakpoints"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Processing-Breakpoints.html#Processing-Breakpoints">Processing Breakpoints</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Advanced-Debugging.html#Advanced-Debugging">Advanced Debugging</a>
+<hr>
+</div>
+
+<h4 class="subsection">5.6.1 Creating Breakpoints</h4>
+
+<p><a name="index-breakpoint-spec-1989"></a><a name="index-spec_002c-breakpoint-1990"></a>Breakpoints can be created using the <code>add_breakpoint/2</code>
+built-in predicate.  Its first argument should contain the
+description of the breakpoint, the so called <dfn>breakpoint
+spec</dfn>. It will return the <dfn>breakpoint identifier</dfn> (BID) of the
+created breakpoint in its second argument. For example:
+
+<pre class="example">     | ?- <kbd>add_breakpoint(pred(foo/2), BID).</kbd>
+     % Plain spypoint for user:foo/2 added, BID=1
+     BID = 1
+</pre>
+   <p><a name="index-plain-spypoint-1991"></a><a name="index-spypoint_002c-plain-1992"></a><a name="index-pred_002f1-_0028debugger-condition_0029-1993"></a>Here, we have a simple breakpoint spec, prescribing that the
+debugger should stop at all ports of all invocations of the
+predicate <code>foo/2</code>. Thus the above goal actually creates
+a <em>plain spypoint</em>, exactly as <code>?- spy foo/2.</code> does.
+
+   <p>A slightly more complicated example follows:
+
+<pre class="example">     | ?- <kbd>add_breakpoint([pred(foo/2),line('/myhome/bar.pl',123)], _).</kbd>
+     % Conditional spypoint for user:foo/2 added, BID=1
+</pre>
+   <p><a name="index-spypoint_002c-conditional-1994"></a><a name="index-conditional-spypoint-1995"></a>This breakpoint will be activated only for those calls of
+<code>foo/2</code> that occur in line 123 of the Prolog program file
+<code>'/myhome/bar.pl'</code>. Because of the additional condition, this is
+called a <em>conditional spypoint</em>.
+
+   <p><a name="index-breakpoint-identifier-1996"></a><a name="index-identifier_002c-breakpoint-1997"></a>The breakpoint identifier (BID) returned by
+<code>add_breakpoint/2</code> is an integer, assigned in increasing order,
+i.e. more recent breakpoints receive higher identifier
+values. When looking for applicable breakpoints, the debugger
+tries the breakpoints in descending order of BIDs, i.e. the most
+recent applicable breakpoint is used. Breakpoint identifiers
+can be used for referring to breakpoints to be deleted, disabled
+or enabled (see later).
+
+   <p><a name="index-breakpoint-action-1998"></a><a name="index-action_002c-breakpoint-1999"></a><a name="index-breakpoint-test-2000"></a><a name="index-test_002c-breakpoint-2001"></a><a name="index-breakpoint-condition-2002"></a><a name="index-condition_002c-breakpoint-2003"></a>Generally, the breakpoint spec is a pair
+<var>Tests</var><code>-</code><var>Actions</var>. Here, the <var>Tests</var> part describes
+the conditions under which the breakpoint should be activated,
+while the <var>Actions</var> part contains instructions on what should be
+done at activation. The test part is built from tests, while the action
+part from actions and tests. Test, actions and composite constructs
+built from these are generally referred to as <dfn>breakpoint
+conditions</dfn>, or simply conditions.
+
+   <p>The action part can be omitted, and then the breakpoint spec
+consists of tests only. For spypoints, the default action part is
+<code>[show(print),command(ask)]</code>. This instructs the debugger to print
+the goal in question and then ask the user what to do next,
+exactly as described in <a href="Debug-Format.html#Debug-Format">Debug Format</a>.  To illustrate other
+possibilities let us explain the effect of the
+<code>[show(display),command(proceed)]</code> action part: this will use
+<code>display/1</code> for presenting the goal (just as the &lsquo;<samp><span class="samp">d</span></samp>&rsquo;
+debugger command does, see <a href="Debug-Commands.html#Debug-Commands">Debug Commands</a>), and will then proceed
+with execution without stopping (i.e. the spypoint is
+unleashed).
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Creating-Breakpoints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Creating-Breakpoints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

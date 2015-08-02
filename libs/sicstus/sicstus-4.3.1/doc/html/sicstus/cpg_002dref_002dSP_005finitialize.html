@@ -1,0 +1,151 @@
+<html lang="en">
+<head>
+<title>cpg-ref-SP_initialize - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSP_005fgetenv.html#cpg_002dref_002dSP_005fgetenv" title="cpg-ref-SP_getenv">
+<link rel="next" href="cpg_002dref_002dSP_005fis_005fatom.html#cpg_002dref_002dSP_005fis_005fatom" title="cpg-ref-SP_is_atom">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-SP_initialize"></a>
+<a name="cpg_002dref_002dSP_005finitialize"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002dSP_005fis_005fatom.html#cpg_002dref_002dSP_005fis_005fatom">cpg-ref-SP_is_atom</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSP_005fgetenv.html#cpg_002dref_002dSP_005fgetenv">cpg-ref-SP_getenv</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.44 <code>SP_initialize()</code> &nbsp;<!-- /@w --> <dfn>[macro]</dfn></h4>
+
+<p><a name="index-SP_005finitialize_0028_0029-_0028C-macro_0029-5150"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     
+     int
+     SP_initialize(int argc,
+     	      char **argv,
+     	      SP_options *options);
+</pre>
+   <p>Initializes the Prolog engine.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>argc</var><dd>The number of elements of the <code>argv</code> vector.
+
+     <br><dt><var>argv</var><dd>A vector of strings that can be accessed by <code>prolog_flag(argv,X)</code>. 
+This argument is copied by <code>SP_initialize()</code> so it can be discarded
+by the caller. May be passed as <code>NULL</code> if <code>argc</code> is zero.
+
+     <p>Each entry should be an encoded string, i.e. encoded using
+&lsquo;<samp><span class="samp">UTF-8</span></samp>&rsquo;. This may not be the encoding used by the operating
+system when invoking <code>main()</code>. A better alternative is to pass
+zero for <code>argc</code>, NULL for <code>argv</code> and use
+<code>SP_set_argv()</code> to pass the <code>argv</code> entries.
+
+     <!-- @arg boot_path -->
+     <!-- normally @code{null}; @code{sp_initialize()} will then use the location of the -->
+     <!-- sicstus runtime system or the executable to locate the any supporting -->
+     <!-- files. -->
+     <!-- if, for some reason, @code{boot_path} must be passed explicitly it -->
+     <!-- should be the name of a directory, equivalent to @file{$sp_path/bin}. if -->
+     <!-- the boot path cannot be determined by any other means, -->
+     <!-- @code{sp_initialize()} will look up the representation of the environment -->
+     <!-- variable @env{sp_path} and look for the file -->
+     <!-- @file{$sp_path/bin/sprt.sav} (@file{$sp_path/bin/spre.sav}), which -->
+     <!-- contains the (extended) runtime library. -->
+     <br><dt><var>options</var><dd>A pointer to an option block. In most cases it suffice to pass <code>NULL</code>.
+
+     <p>An option block can be initialized with
+<code>SP_OPTIONS_STATIC_INITIALIZER</code> and its <code>options</code> field set
+to point to a <code>SP_option</code> array. Each <code>SP_option</code> is a typed
+representation. Currently the only type is
+<code>SP_option_type_system_property</code>, for setting initial system
+properties (see <a href="System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a>).
+
+     <p>To pass the system properties <code>foo</code> and <code>bar</code>, with values <code>true</code> and <code>hello</code>, respectively, you would do something like this
+
+     <pre class="example">          
+            ...
+            int res;
+            SP_options opts = SP_OPTIONS_STATIC_INITIALIZER;
+            SP_option props[2];
+          
+            opts.noptions = 0;
+            opts.options = &amp;props;
+            props[opts.noptions].type = SP_option_type_system_property;
+            props[opts.noptions].u.prop.key = "foo";
+            props[opts.noptions].u.prop.representation = "true";
+            opts.noptions++;
+          
+            props[opts.noptions].type = SP_option_type_system_property;
+            props[opts.noptions].u.prop.key = "bar";
+            props[opts.noptions].u.prop.representation = "hello";
+            opts.noptions++;
+          
+            res = SP_initialize(argv, argc, &amp;opts);
+            if (res != SP_SUCCESS) {
+                 ... /<!-- /@w -->* error handling *<!-- /@w -->/
+            }
+            ...
+</pre>
+     </dl>
+
+<h4 class="subheading">Return Value</h4>
+
+<p><code>SP_SUCCESS</code> if initialization was successful. 
+<!-- [PM] 4.0 Seems to return SP_FAILURE for all (most?) failures -->
+<!-- , @code{SP_ERROR} otherwise. -->
+If initialization was successful, further calls to
+<code>SP_initialize()</code> will be no-ops (and return <code>SP_SUCCESS</code>).
+
+<h4 class="subheading">Description</h4>
+
+<p>This must be done before any interface functions are called, except
+those annotated as <dfn>[preinit]</dfn>. 
+The function will allocate data
+areas used by Prolog, initialize command line arguments so that they
+can be accessed by the <code>argv</code> Prolog flag, and load the Runtime
+Library.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Initializing-the-Prolog-Engine.html#Initializing-the-Prolog-Engine">Initializing the Prolog Engine</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005finitialize.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005finitialize.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

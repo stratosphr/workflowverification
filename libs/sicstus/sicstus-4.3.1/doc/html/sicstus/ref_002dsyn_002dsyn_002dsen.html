@@ -1,0 +1,113 @@
+<html lang="en">
+<head>
+<title>ref-syn-syn-sen - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsyn_002dsyn.html#ref_002dsyn_002dsyn" title="ref-syn-syn">
+<link rel="prev" href="ref_002dsyn_002dsyn_002dnot.html#ref_002dsyn_002dsyn_002dnot" title="ref-syn-syn-not">
+<link rel="next" href="ref_002dsyn_002dsyn_002dtrm.html#ref_002dsyn_002dsyn_002dtrm" title="ref-syn-syn-trm">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-syn-syn-sen"></a>
+<a name="ref_002dsyn_002dsyn_002dsen"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dsyn_002dsyn_002dtrm.html#ref_002dsyn_002dsyn_002dtrm">ref-syn-syn-trm</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dsyn_002dsyn_002dnot.html#ref_002dsyn_002dsyn_002dnot">ref-syn-syn-not</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsyn_002dsyn.html#ref_002dsyn_002dsyn">ref-syn-syn</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.1.7.3 Syntax of Sentences as Terms</h5>
+
+<p><a name="index-syntax_002c-of-sentences-as-terms-545"></a>
+
+   <p><table summary=""><tr align="left"><td valign="top" width="20%"><var>sentence</var> </td><td valign="top" width="40%">::= <var>module</var> <code>:</code> <var>sentence</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>list</var> </td><td valign="top" width="40%"><span class="roman">{ where </span><var>list</var><span class="roman"> is a list of </span><var>sentence</var><span class="roman"> }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>clause</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>directive</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>query</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>grammar-rule</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>clause</var> </td><td valign="top" width="40%">::= <var>rule</var> | <var>unit-clause</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>rule</var> </td><td valign="top" width="40%">::= <var>head</var> <code>:-</code> <var>body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>unit-clause</var> </td><td valign="top" width="40%">::= <var>head</var> </td><td valign="top" width="40%"><span class="roman">{ where </span><var>head</var><span class="roman"> is not otherwise a </span><var>sentence</var><span class="roman"> }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>directive</var> </td><td valign="top" width="40%">::= <code>:-</code> <var>body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>query</var> </td><td valign="top" width="40%">::= <code>?-</code> <var>body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>head</var> </td><td valign="top" width="40%">::= <var>module</var> <code>:</code> <var>head</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>goal</var> </td><td valign="top" width="40%"><span class="roman">{ where </span><var>goal</var><span class="roman"> is not a </span><var>variable</var><span class="roman"> }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>body</var> </td><td valign="top" width="40%">::= <var>module</var> <code>:</code> <var>body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>body</var> <code>-&gt;</code> <var>body</var> <var>disj</var> <var>body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>body</var> <code>-&gt;</code> <var>body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>\+</code> <var>body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>body</var> <var>disj</var> <var>body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>body</var> <code>,</code> <var>body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>once(</code><var>body</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>do(</code><var>iter</var><code>,</code><var>body</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>if(</code><var>body</var><code>,</code><var>body</var><code>,</code><var>body</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>term</var> <code>^</code> <var>body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>goal</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>goal</var> </td><td valign="top" width="40%">::= <var>term</var> </td><td valign="top" width="40%"><span class="roman">{ where </span><var>term</var><span class="roman"> is not otherwise a </span><var>body</var><span class="roman"> }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>grammar-rule</var> </td><td valign="top" width="40%">::= <var>gr-head</var> <code>--&gt;</code> <var>gr-body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>gr-head</var> </td><td valign="top" width="40%">::= <var>module</var> <code>:</code> <var>gr-head</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>gr-head</var> <code>,</code> <var>terminals</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>non-terminal</var> </td><td valign="top" width="40%"><span class="roman">{ where </span><var>non-terminal</var><span class="roman"> is not a </span><var>variable</var><span class="roman"> }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>gr-body</var> </td><td valign="top" width="40%">::= <var>module</var> <code>:</code> <var>gr-body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>gr-body</var> <code>-&gt;</code> <var>gr-body</var> <var>disj</var> <var>gr-body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>gr-body</var> <code>-&gt;</code> <var>gr-body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>\+</code> <var>gr-body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>gr-body</var> <var>disj</var> <var>gr-body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>gr-body</var> <code>,</code> <var>gr-body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>once(</code><var>gr-body</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>do(</code><var>iter</var><code>,</code><var>gr-body</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>if(</code><var>gr-body</var><code>,</code><var>gr-body</var><code>,</code><var>gr-body</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>term</var> <code>^</code> <var>gr-body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>non-terminal</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>terminals</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>gr-condition</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>non-terminal</var> </td><td valign="top" width="40%">::= <var>term</var> </td><td valign="top" width="40%"><span class="roman">{ where </span><var>term</var><span class="roman"> is not otherwise a </span><var>gr-body</var><span class="roman"> }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>terminals</var> </td><td valign="top" width="40%">::= <var>list</var> | <var>string</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>gr-condition</var> </td><td valign="top" width="40%">::= <code>!</code> | <code>{</code><var>body</var><code>}</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>module</var> </td><td valign="top" width="40%">::= <var>atom</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>disj</var> </td><td valign="top" width="40%">::= <code>;</code> | <code>|</code> </td><td valign="top" width="40%"><span class="roman">{ read as </span><code>;</code><span class="roman"> unless </span><code>|</code><span class="roman"> is declared infix }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>iter</var> </td><td valign="top" width="40%">::= <var>iter</var> <code>,</code> <var>iter</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">::= <code>fromto(</code><var>term</var><code>,</code><var>term</var><code>,</code><var>term</var><code>,</code><var>term</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>foreach(</code><var>term</var><code>,</code><var>term</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>foreacharg(</code><var>term</var><code>,</code><var>term</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>foreacharg(</code><var>term</var><code>,</code><var>term</var><code>,</code><var>term</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>count(</code><var>term</var><code>,</code><var>term</var><code>,</code><var>term</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>for(</code><var>term</var><code>,</code><var>term</var><code>,</code><var>term</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>param(</code><var>term</var><code>)</code>
+   <br></td></tr></table>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dsyn_002dsen.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dsyn_002dsen.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

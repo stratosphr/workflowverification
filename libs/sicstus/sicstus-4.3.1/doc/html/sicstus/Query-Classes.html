@@ -1,0 +1,131 @@
+<html lang="en">
+<head>
+<title>Query Classes - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Query-Processing.html#Query-Processing" title="Query Processing">
+<link rel="next" href="Query-Phases.html#Query-Phases" title="Query Phases">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Query-Classes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Query-Phases.html#Query-Phases">Query Phases</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Query-Processing.html#Query-Processing">Query Processing</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.16.3.1 Query Classes</h5>
+
+<p>Queries posed by the system can be classified according to the kind of
+input they expect, the way the input is processed, etc.  Queries of the
+same kind form a <em>query class</em>.
+
+   <p>For example, queries requiring a yes/no answer form a query class with
+the following characteristics:
+
+     <ul>
+<li>the text &lsquo;<samp><span class="samp"> (y or n) </span></samp>&rsquo; is used as the prompt;
+
+     <li>a single line of text is input;
+
+     <li>if the first non-whitespace character of the input is <kbd>y</kbd> or
+<kbd>n</kbd> (possibly in capitals), the query returns the atom
+<code>yes</code> or <code>no</code>, respectively, as the abstract answer;
+
+     <li>otherwise a help message is displayed and the query is repeated. 
+</ul>
+
+   <p>There are built-in query classes for reading in yes/no answers, toplevel
+queries, debugger commands, etc.
+
+   <p>A query class is characterized by a ground Prolog term,
+which is supplied as the first argument to the query processing
+predicate <code>ask_query/4</code>.  The characteristics of a query
+class are normally described by the extendible predicate
+<pre class="example">     'SU_messages':query_class(<var>QueryClass</var>, <var>Prompt</var>, <var>InputMethod</var>,
+                               <var>MapMethod</var>, <var>FailureMode</var>).
+</pre>
+   <p>The arguments of the <code>query_class</code> predicate have the
+following meaning:
+     <dl>
+<dt><var>Prompt</var><dd>an atom to be used for prompting the user.
+
+     <br><dt><var>InputMethod</var><dd>a non-variable term, which specifies how to
+obtain input from the user.
+
+     <p>For example, a built-in input method is described by the atom
+<code>line</code>.  This requests that a line is input from the user, and the
+code-list is returned.  Another built-in input method is
+<code>term(</code><var>Options</var><code>)</code>; here, a Prolog term is read and
+returned.
+
+     <p>The input obtained using <var>InputMethod</var> is called <dfn>raw input</dfn>, as it
+may undergo further processing.
+
+     <p>In addition to the built-in input methods, the user can define his/her
+own extensions.
+
+     <br><dt><var>MapMethod</var><dd>a non-variable term, which specifies how to
+process the raw input to get the abstract answer to the query.
+
+     <p>For example, the built-in map method <code>char([yes-"yY", no-"nN"])</code>
+expects a code-list as raw input, and gives the answer term
+<code>yes</code> or <code>no</code> depending on the first non-whitespace character
+of the input.  For another example, the built-in map method <code>=</code>
+requests that the raw input itself be returned as the answer
+term&mdash;this is often used in conjunction with the input method
+<code>term(</code><var>Options</var><code>)</code>.
+
+     <p>In addition to the built-in map methods the user can define his/her
+own extensions.
+
+     <br><dt><var>FailureMode</var><dd>This is used only when the mapping of raw input fails, and
+the query must be repeated.  This happens for example if the user typed
+a character other than <kbd>y</kbd> or <kbd>n</kbd> in case of the
+<code>yes_or_no</code> query class.  <var>FailureMode</var> determines what to
+print before re-querying the user.  Possible values are:
+
+          <dl>
+<dt><code>help_query</code><dd>print a help message, then print the text of the query again
+
+          <br><dt><code>help</code><dd>only print the help message
+
+          <br><dt><code>query</code><dd>only print the text of the query
+
+          <br><dt><code>none</code><dd>don't print anything
+</dl>
+     </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Query-Classes.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Query-Classes.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

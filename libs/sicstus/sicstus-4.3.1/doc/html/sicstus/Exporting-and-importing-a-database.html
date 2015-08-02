@@ -1,0 +1,66 @@
+<html lang="en">
+<head>
+<title>Exporting and importing a database - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dbdb.html#lib_002dbdb" title="lib-bdb">
+<link rel="prev" href="The-DB_002dSpec.html#The-DB_002dSpec" title="The DB-Spec">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Exporting-and-importing-a-database"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="The-DB_002dSpec.html#The-DB_002dSpec">The DB-Spec</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dbdb.html#lib_002dbdb">lib-bdb</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.6.8 Exporting and importing a database</h4>
+
+<p>Since the database format of a Berkeley DB may change from version to
+version it may become necessary to migrate a database when upgrading. 
+To this purpose there are two predicates available:
+<code>db_export/[2,3]</code> and <code>db_import/[2,3]</code>
+(see <a href="The-Predicates.html#The-Predicates">The Predicates</a>).
+
+   <p>The export/import feature was introduced in SICStus 3.12.0, but in
+that version you have to use <code>bdb:export/[2,3]</code> and
+<code>bdb:import/[2,3]</code>. Neither is exported from the bdb
+module, but can be used with module prefixing.
+
+   <p>Since the bdb interface prior to SICStus 4 uses a custom hash function,
+the standard Berkeley DB migration tools will not
+work when migrating a database from SICStus 3 to SICStus 4.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Exporting-and-importing-a-database.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Exporting-and-importing-a-database.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

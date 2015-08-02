@@ -1,0 +1,91 @@
+<html lang="en">
+<head>
+<title>Speed - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Tips.html#Tips" title="Tips">
+<link rel="prev" href="Auto_002dfill-Mode.html#Auto_002dfill-Mode" title="Auto-fill Mode">
+<link rel="next" href="Changing-Colors.html#Changing-Colors" title="Changing Colors">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Speed"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Changing-Colors.html#Changing-Colors">Changing Colors</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Auto_002dfill-Mode.html#Auto_002dfill-Mode">Auto-fill Mode</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Tips.html#Tips">Tips</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">3.12.6.3 Speed</h5>
+
+<p>There are several things to do if the speed of the Emacs environment
+is a problem:
+
+     <ul>
+<li>First of all, make sure that <samp><span class="file">prolog.el</span></samp> and
+<samp><span class="file">sicstus-support.el</span></samp> are compiled, i.e. that there is a
+<samp><span class="file">prolog.elc</span></samp> and a <samp><span class="file">sicstus-support.elc</span></samp> file at the same
+location as the original files. To do the compilation, start Emacs
+and type <kbd>M-x byte-compile-file &lt;RET&gt; </kbd><var>path</var><kbd> &lt;RET&gt;</kbd>,
+where <var>path</var> is the path to the &lsquo;<samp><span class="samp">*.el</span></samp>&rsquo; file. Don't be alarmed
+if there are a few warning messages as this is normal.  If all went
+well, there should now be a compiled file, which is used the next time
+Emacs is started.
+
+     <li>The next thing to try is changing the setting of
+<code>prolog-use-prolog-tokenizer-flag</code> to <code>nil</code>. This means that
+Emacs uses built-in functions for some of the source code parsing,
+thus speeding up indentation. The problem is that it does not handle all
+peculiarities of the Prolog syntax, so this is a trade-off between
+correctness and speed.
+
+     <li>The setting of the <code>prolog-parse-mode</code> variable also affects
+the speed, <code>'beg-of-line</code> being faster than  <code>'beg-of-clause</code>.
+
+     <li>Font locking may be slow. You can turn it off using customization,
+available through <kbd>M-x customize-group</kbd> &lt;RET&gt; <kbd>font-lock</kbd>
+&lt;RET&gt;. An alternative is to enable one of the lazy font locking
+modes. You can also turn it off completely; see <a href="Basic-Configuration.html#Basic-Configuration">Basic Configuration</a>.
+
+     <!-- [PM] This was never correct -->
+     <!-- @item -->
+     <!-- If you want to disable font-locking for Prolog altogether, use: -->
+     <!-- @example -->
+     <!-- (setq font-lock-global-modes -->
+     <!-- (cons '(not prolog-inferior-mode) font-lock-global-modes)) -->
+     <!-- @end example -->
+   </ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Speed.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Speed.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

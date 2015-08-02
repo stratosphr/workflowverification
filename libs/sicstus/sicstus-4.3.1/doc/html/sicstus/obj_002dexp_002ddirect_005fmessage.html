@@ -1,0 +1,97 @@
+<html lang="en">
+<head>
+<title>obj-exp-direct_message - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="obj_002dexp.html#obj_002dexp" title="obj-exp">
+<link rel="prev" href="obj_002dexp_002ddestroy.html#obj_002dexp_002ddestroy" title="obj-exp-destroy">
+<link rel="next" href="obj_002dexp_002dend_005fclass.html#obj_002dexp_002dend_005fclass" title="obj-exp-end_class">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="obj-exp-direct_message"></a>
+<a name="obj_002dexp_002ddirect_005fmessage"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="obj_002dexp_002dend_005fclass.html#obj_002dexp_002dend_005fclass">obj-exp-end_class</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="obj_002dexp_002ddestroy.html#obj_002dexp_002ddestroy">obj-exp-destroy</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="obj_002dexp.html#obj_002dexp">obj-exp</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.22.6.15 <code>direct_message/4</code></h5>
+
+<!-- label direct_message#4-predpage -->
+<p><a name="index-direct_005fmessage_002f4-_0028objects_0029-3619"></a><a name="index-direct_005fmessage_002f4-_0028objects_0029-3620"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<!-- manheading Synopsis -->
+<p><code>direct_message(</code><var>?Class</var><code>, </code><var>?Op</var><code>, </code><var>?Name</var><code>, </code><var>?Arity</var><code>)</code>
+
+<h4 class="subheading">Arguments</h4>
+
+<!-- manheading Arguments -->
+     <dl>
+<dt><var>Class</var><dd><dfn>atom</dfn>
+
+     <br><dt><var>Op</var><dd><dfn>message_operator</dfn>
+
+     <br><dt><var>Name</var><dd><dfn>atom</dfn>
+
+     <br><dt><var>Arity</var><dd><dfn>integer</dfn>
+
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<!-- manheading Description -->
+<p><var>Name</var>/<var>Arity</var> is an <var>Op</var> message
+directly understood (defined rather than inherited) by
+instances of <var>Class</var>.  This predicate is used to test whether a message
+is defined for a class.
+
+   <p><var>Op</var> is one of <code>&lt;-</code>, <code>&gt;&gt;</code>, or <code>&lt;&lt;</code>, specifying the kind of message.
+
+   <p>This predicate violates the principle of information
+hiding by telling whether the method for a message is defined
+within a class or inherited. Hence its use in ordinary programs is
+discouraged.  It may be useful, however, during debugging or in
+developing programming support tools.
+
+<h4 class="subheading">See Also</h4>
+
+<!-- manheading See Also -->
+<p><code>&lt;-/2</code>, <code>&lt;&lt;/2</code>, <code>&gt;&gt;/2</code>, <code>message/4</code>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dexp_002ddirect_005fmessage.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dexp_002ddirect_005fmessage.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

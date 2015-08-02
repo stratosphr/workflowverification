@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+<title>ref-mod-cim - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmod.html#ref_002dmod" title="ref-mod">
+<link rel="prev" href="ref_002dmod_002dmpc.html#ref_002dmod_002dmpc" title="ref-mod-mpc">
+<link rel="next" href="ref_002dmod_002dncl.html#ref_002dmod_002dncl" title="ref-mod-ncl">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-mod-cim"></a>
+<a name="ref_002dmod_002dcim"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dmod_002dncl.html#ref_002dmod_002dncl">ref-mod-ncl</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dmod_002dmpc.html#ref_002dmod_002dmpc">ref-mod-mpc</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmod.html#ref_002dmod">ref-mod</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.11.11 Debugging Code in a Module</h4>
+
+<p><a name="index-modules_002c-debugging-1535"></a>
+<a name="index-debugging-modules-1536"></a>
+
+   <p>Having loaded a module to be debugged, you can trace through its execution
+in the normal way.  When the debugger stops at a port, the procedure being
+debugged is displayed with its module name as a prefix unless the module is
+<code>user</code>.
+
+   <p>The predicate <code>spy/1</code>  depends on the source module. 
+It can be useful to override this during debugging.  For example,
+<pre class="example">     | ?- <kbd>spy mod1:f/3.</kbd>
+</pre>
+   <p class="noindent">puts a spypoint on <code>f/3</code> in module <code>mod1</code>.
+
+   <p>It can also be useful to call directly a predicate that is private to its
+module in order to test that it is doing the right thing.  This can be done
+by prefixing the goal with its module; for example,
+<pre class="example">     | ?- <kbd>mod1:f(a,b,X).</kbd>
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dcim.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dcim.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

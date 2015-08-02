@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+<title>Windows Installation - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Release-Notes-and-Installation-Guide-for-Windows.html#Release-Notes-and-Installation-Guide-for-Windows" title="Release Notes and Installation Guide for Windows">
+<link rel="prev" href="Windows-Requirements.html#Windows-Requirements" title="Windows Requirements">
+<link rel="next" href="Windows-Notes.html#Windows-Notes" title="Windows Notes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Windows-Installation"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Windows-Notes.html#Windows-Notes">Windows Notes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Windows-Requirements.html#Windows-Requirements">Windows Requirements</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Release-Notes-and-Installation-Guide-for-Windows.html#Release-Notes-and-Installation-Guide-for-Windows">Release Notes and Installation Guide for Windows</a>
+<hr>
+</div>
+
+<h3 class="section">4.2 Installation</h3>
+
+<p>The development system comes in two flavors:
+
+     <ol type=1 start=1>
+<li>A console-based executable suitable to run from a DOS-prompt,
+from batch files, or under SPIDER or Emacs.
+
+     <li>A windowed executable providing command line editing and menus. 
+See <a href="Command-Line-Editing.html#Command-Line-Editing">Command Line Editing</a>. Except for very simple interactions it is
+preferable to use the SPIDER IDE see <a href="../sicstus/SPIDER.html#SPIDER">SICStus Prolog IDE</a> or the Emacs mode see <a href="The-Emacs-Interface.html#The-Emacs-Interface">The Emacs Interface</a>
+when interacting with SICStus Prolog.
+        </ol>
+
+   <p>The distribution consists of a single, self-installing executable
+(<samp><span class="file">InstallSICStus.exe</span></samp>) containing development system, runtime
+support files, library sources, and manuals. Note that the installer
+itself asks for a decyption key, when started. This decryption key
+is different from the license code.
+
+<!-- Installed files on a shared drive can be reused for installation on -->
+<!-- other machines. -->
+   <p>SICStus Prolog requires a license code to run. You should have received
+from SICS your site name, the expiration date and the code. This
+information is normally entered during installation:
+
+<pre class="example">     Expiration date: <var>ExpirationDate</var>
+     Site: <var>Site</var>
+     License Code: <var>Code</var>
+</pre>
+   <p class="noindent">but it can also be entered by starting SICStus <strong>with
+Administrative rights</strong> from the Start menu
+(<samp><span class="command">spwin.exe</span></samp>) and selecting <samp><span class="command">Enter License</span></samp> from the
+<samp><span class="command">settings</span></samp> menu. Entering the license requires Administrative
+rights. Running SICStus should be possible from a limited account.
+
+<!-- @noindent -->
+<!-- but it can also be entered later on by executing the following commands -->
+<!-- at a command prompt (@SAMPLELICENSEPRODUCT{} differs between platforms): -->
+<!-- @example -->
+<!-- @group -->
+<!-- % @kbd{splm -i @var{Site}} -->
+<!-- % @kbd{splm -a @SAMPLELICENSEPRODUCT{} @var{ExpirationDate} @var{Code}} -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- @noindent -->
+<!-- Under Windows 2000/XP, @command{splm} must be run by a user with -->
+<!-- Administrative rights.  The windowed version of -->
+<!-- SICStus (@command{spwin.exe}) has a menu item for license entry, making -->
+<!-- @command{splm} unnecessary under Windows. -->
+<!-- sicstus.tex @xrefs Windows Notes -->
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Windows-Installation.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Windows-Installation.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

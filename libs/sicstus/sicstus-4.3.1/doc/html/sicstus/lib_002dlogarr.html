@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+<title>lib-logarr - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Prolog-Library.html#The-Prolog-Library" title="The Prolog Library">
+<link rel="prev" href="lib_002dlists.html#lib_002dlists" title="lib-lists">
+<link rel="next" href="lib_002dobjects.html#lib_002dobjects" title="lib-objects">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="lib-logarr"></a>
+<a name="lib_002dlogarr"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="lib_002dobjects.html#lib_002dobjects">lib-objects</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="lib_002dlists.html#lib_002dlists">lib-lists</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Prolog-Library.html#The-Prolog-Library">The Prolog Library</a>
+<hr>
+</div>
+
+<h3 class="section">10.21 Array Operations&mdash;<code>library(logarr)</code></h3>
+
+<p>This libary module provides extendible arrays with logarithmic access time. 
+<strong>Please note:</strong> the atom <code>$</code> is used to indicate an unset element, and the
+functor <code>$/4</code> is used to indicate a subtree.  In general, array
+elements whose principal function symbol is <code>$</code> will not work.
+
+   <p>Exported predicates:
+
+     <dl>
+new_array(<var>-A</var>)
+    returns a new empty array <var>A</var>. 
+<dt><code>is_array(</code><var>+A</var><code>)</code><dd>checks whether <var>A</var> is an array. 
+<br><dt><code>alist(</code><var>+Array</var><code>, </code><var>-List</var><code>)</code><dd>returns a list of pairs <var>Index-Element</var> of all the elements
+of <var>Array</var> that have been set. 
+<br><dt><code>aref(</code><var>+Index</var><code>, </code><var>+Array</var><code>, </code><var>-Element</var><code>)</code><dd>unifies <var>Element</var> with <var>Array[Index]</var>, or fails if <var>Array[Index]</var>
+has not been set. 
+<br><dt><code>arefa(</code><var>+Index</var><code>, </code><var>+Array</var><code>, </code><var>-Element</var><code>)</code><dd>is as <code>aref/3</code>, except that it unifies <var>Element</var> with a new array if
+<var>Array[Index]</var> is undefined.  This is useful for multidimensional
+arrays implemented as arrays of arrays. 
+<br><dt><code>arefl(</code><var>+Index</var><code>, </code><var>+Array</var><code>, </code><var>-Element</var><code>)</code><dd>is as <code>aref/3</code>, except that <var>Element</var> appears as <code>[]</code> for
+undefined cells. 
+<br><dt><code>aset(</code><var>+Index</var><code>, </code><var>+Array</var><code>, </code><var>+Element</var><code>, </code><var>-NewArray</var><code>)</code><dd>unifies <var>NewArray</var> with the result of setting <var>Array[Index]</var>
+to <var>Element</var>. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dlogarr.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dlogarr.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

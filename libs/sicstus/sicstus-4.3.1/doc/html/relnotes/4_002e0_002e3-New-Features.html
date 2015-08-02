@@ -1,0 +1,94 @@
+<html lang="en">
+<head>
+<title>4.0.3 New Features - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e0_002e3-Changes.html#g_t4_002e0_002e3-Changes" title="4.0.3 Changes">
+<link rel="next" href="4_002e0_002e3-Bugs-Fixed.html#g_t4_002e0_002e3-Bugs-Fixed" title="4.0.3 Bugs Fixed">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.0.3-New-Features"></a>
+<a name="g_t4_002e0_002e3-New-Features"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e0_002e3-Bugs-Fixed.html#g_t4_002e0_002e3-Bugs-Fixed">4.0.3 Bugs Fixed</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e0_002e3-Changes.html#g_t4_002e0_002e3-Changes">4.0.3 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.6.1 New Features</h4>
+
+     <ul>
+<li><!-- SPRM 10657, 10275 -->
+The new Prolog flag <code>legacy_char_classification</code> makes it
+possible to use full Unicode, e.g. Chinese characters, in unquoted atoms
+and variable names. See <a href="../sicstus/ref_002dlps_002dflg.html#ref_002dlps_002dflg">Prolog Flags</a>.
+
+     <li><!-- SPRM 10765 -->
+The Prolog flag <code>redefine_warnings</code> can take new values,
+and is no longer ignored in runtime systems. 
+See <a href="../sicstus/ref_002dlps_002dflg.html#ref_002dlps_002dflg">Prolog Flags</a>.
+
+     <li><code>SP_load_sicstus_run_time()</code>, and related functionality for
+loading multiple SICStus runtimes into a process, is now available.
+
+     <li>Jasper Java interface (<code>library(jasper)</code>) is now
+available. Jasper is mainly for legacy code; PrologBeans is still
+the preferred method of calling Prolog from Java.
+
+     <li><!-- SPRM 10651 -->
+<code>library(sockets)</code> now supports UNIX domain (<code>AF_UNIX</code>)
+sockets on UNIX-like platforms.  The new predicate
+<code>socket_server_open/3</code> allows some options when opening a server
+socket.
+
+     <li><!-- SPRM 10397 -->
+<code>SP_set_argv()</code>, a new C API function for setting the values returned
+by the <code>argv</code> Prolog flag. Similar to the <code>argv</code> argument to
+<code>SP_initialize()</code>, but can report failure and can use locale
+information.
+
+     <li><samp><span class="command">spld</span></samp> and <samp><span class="command">splfr</span></samp>: new command line options. 
+The new (POSIX) option <samp><span class="option">--</span></samp> is treated the same as the older
+<samp><span class="option">-LD</span></samp>. New option <samp><span class="option">--conf </span><var>VAR</var><span class="option">=</span><var>VAL</var></samp> to
+override variable <var>VAR</var> in the configuration file. Option
+processing has been rewritten to be more robust and consistent. 
+See <a href="../sicstus/The-Application-Builder.html#The-Application-Builder">The Application Builder</a> and <a href="../sicstus/The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker">The Foreign Resource Linker</a>.
+
+     <li><samp><span class="command">sicstus</span></samp> The new (POSIX) option <samp><span class="option">--</span></samp> is a synonym for
+the old <samp><span class="option">-a</span></samp>.
+
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e0_002e3-New-Features.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e0_002e3-New-Features.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

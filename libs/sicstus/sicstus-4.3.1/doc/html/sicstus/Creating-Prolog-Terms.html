@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+<title>Creating Prolog Terms - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Support-Functions.html#Support-Functions" title="Support Functions">
+<link rel="prev" href="Atoms-in-C.html#Atoms-in-C" title="Atoms in C">
+<link rel="next" href="Accessing-Prolog-Terms.html#Accessing-Prolog-Terms" title="Accessing Prolog Terms">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Creating-Prolog-Terms"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Accessing-Prolog-Terms.html#Accessing-Prolog-Terms">Accessing Prolog Terms</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Atoms-in-C.html#Atoms-in-C">Atoms in C</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Support-Functions.html#Support-Functions">Support Functions</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.4.3 Creating Prolog Terms</h4>
+
+<p>The following functions create a term and store it as the representation of an
+SP_term_ref, which must exist prior to the call.  They return zero
+if the conversion fails (as far as failure can be detected), and a
+nonzero representation otherwise, assigning to <code>t</code> the converted representation.
+
+     <dl>
+<dt><code>SP_put_variable()</code><dd><a name="index-SP_005fput_005fvariable_0028_0029-_0028C-function_0029-2249"></a>Creates a variable. 
+<br><dt><code>SP_put_integer()</code><dd><a name="index-SP_005fput_005finteger_0028_0029-_0028C-function_0029-2250"></a>Creates an integer. 
+<br><dt><code>SP_put_float()</code><dd><a name="index-SP_005fput_005ffloat_0028_0029-_0028C-function_0029-2251"></a>Creates a float. 
+<br><dt><code>SP_put_atom()</code><dd><a name="index-SP_005fput_005fatom_0028_0029-_0028C-function_0029-2252"></a>Creates an atom. 
+<br><dt><code>SP_put_string()</code><dd><a name="index-SP_005fput_005fstring_0028_0029-_0028C-function_0029-2253"></a>Creates an atom. 
+<br><dt><code>SP_put_address()</code><dd><a name="index-SP_005fput_005faddress_0028_0029-_0028C-function_0029-2254"></a>Creates an integer representing a pointer. 
+<br><dt><code>SP_put_list_codes()</code><dd><a name="index-SP_005fput_005flist_005fcodes_0028_0029-_0028C-function_0029-2255"></a>Creates a char-list. 
+<br><dt><code>SP_put_list_n_codes()</code><dd><a name="index-SP_005fput_005flist_005fn_005fcodes_0028_0029-_0028C-function_0029-2256"></a>Creates a char-list. 
+<br><dt><code>SP_put_list_n_bytes()</code><dd><a name="index-SP_005fput_005flist_005fn_005fbytes_0028_0029-_0028C-function_0029-2257"></a>Creates a byte-list. 
+<br><dt><code>SP_put_integer_bytes()</code><dd><a name="index-SP_005fput_005finteger_005fbytes_0028_0029-_0028C-function_0029-2258"></a>Creates an arbitrarily sized integer. 
+<br><dt><code>SP_put_number_codes()</code><dd><a name="index-SP_005fput_005fnumber_005fcodes_0028_0029-_0028C-function_0029-2259"></a>Creates a char-list denoting a number. 
+<br><dt><code>SP_put_functor()</code><dd><a name="index-SP_005fput_005ffunctor_0028_0029-_0028C-function_0029-2260"></a>Creates a compound term. 
+<br><dt><code>SP_put_list()</code><dd><a name="index-SP_005fput_005flist_0028_0029-_0028C-function_0029-2261"></a>Creates a list. 
+<br><dt><code>SP_cons_functor()</code><dd><a name="index-SP_005fcons_005ffunctor_0028_0029-_0028C-function_0029-2262"></a>Creates a compound term with arguments filled in. 
+<br><dt><code>SP_cons_list()</code><dd><a name="index-SP_005fcons_005flist_0028_0029-_0028C-function_0029-2263"></a>Creates a list with arguments filled in. 
+<br><dt><code>SP_read_from_string() (C function)</code><dd><a name="index-SP_005fread_005ffrom_005fstring_0028_0029-_0028C-function_0029-2264"></a>Reads a term from its textual representation,
+replacing variables by specified terms. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Creating-Prolog-Terms.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Creating-Prolog-Terms.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

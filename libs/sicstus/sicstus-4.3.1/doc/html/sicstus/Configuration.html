@@ -1,0 +1,190 @@
+<html lang="en">
+<head>
+<title>Configuration - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Emacs-Interface.html#Emacs-Interface" title="Emacs Interface">
+<link rel="prev" href="Mode-Line.html#Mode-Line" title="Mode Line">
+<link rel="next" href="Tips.html#Tips" title="Tips">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Configuration"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Tips.html#Tips">Tips</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Mode-Line.html#Mode-Line">Mode Line</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Emacs-Interface.html#Emacs-Interface">Emacs Interface</a>
+<hr>
+</div>
+
+<h4 class="subsection">3.12.5 Configuration</h4>
+
+<p>The behavior of the Emacs interface can be controlled by a set of
+user-configurable settings. Some of these can be changed on the fly,
+while some require Emacs to be restarted. To set a variable on the fly,
+type <kbd>M-x set-variable &lt;RET&gt; VariableName &lt;RET&gt; Value
+&lt;RET&gt;</kbd>. Note that variable names can be completed by typing a few
+characters and then pressing &lt;TAB&gt;.
+
+   <p>To set a variable so that the setting is used every time Emacs is
+started, add lines of the following format to <samp><span class="file">~/.emacs</span></samp>:
+
+<pre class="example">     (setq VariableName Value)
+</pre>
+   <p>Note that the Emacs interface is presently not using the
+&lsquo;<samp><span class="samp">Customize</span></samp>&rsquo; functionality to edit the settings.
+
+   <p>The available settings are:
+
+     <dl>
+<dt><code>prolog-system</code><a name="index-prolog_002dsystem-431"></a><dd>The Prolog system to use. 
+<!-- Available settings are @code{'mercury}, @code{'sicstus}, and @code{'swi}. -->
+Defaults to <code>'sicstus</code>, which will be assumed for the rest of this
+chapter. See the on-line documentation for the meaning of other
+settings. For other settings of <code>prolog-system</code> the variables below
+named <code>sicstus-</code><var>something</var> will not be used, in some cases
+corresponding functionality is available through variables named
+<code>prolog-</code><var>something</var>.
+
+     <br><dt><code>sicstus-version</code><a name="index-sicstus_002dversion-432"></a><dd>The version of SICStus that is used. Defaults to <code>'(4 . 2)</code>. 
+Note that the spaces are significant!
+
+     <br><dt><code>prolog-use-sicstus-sd</code><a name="index-prolog_002duse_002dsicstus_002dsd-433"></a><dd>Set to <code>t</code> (the default) to enable the source-linked debugging
+extensions by default. The debugging can be enabled via the
+<code>Prolog</code> menu even if this variable is <code>nil</code>. Note that the
+source-linked debugging only works if <code>sicstus-version</code> is
+set correctly.
+
+     <br><dt><code>prolog-indent-width</code><a name="index-prolog_002dindent_002dwidth-434"></a><dd>How many positions to indent the body of a clause. Defaults
+to <code>tab-width</code>, normally 8.
+
+     <br><dt><code>prolog-paren-indent</code><a name="index-prolog_002dparen_002dindent-435"></a><dd>The number of positions to indent code inside grouping
+parentheses. Defaults to 4, which gives the following indentation.
+
+     <pre class="example">          p :-
+                  (   q1
+                  ;   q2,
+                      q3
+                  ).
+</pre>
+     <p>Note that the spaces between the parentheses and the code are
+automatically inserted when &lt;TAB&gt; is pressed at those positions.
+
+     <br><dt><code>prolog-align-comments-flag</code><a name="index-prolog_002dalign_002dcomments_002dflag-436"></a><dd>Set to <code>nil</code> to prevent single <code>%</code>-comments from being automatically
+aligned. Defaults to <code>t</code>.
+
+     <p>Note that comments with one <code>%</code> are indented to comment-column, comments
+with two <code>%</code> to the code level, and that comments with three <code>%</code> are
+never changed when indenting.
+
+     <br><dt><code>prolog-indent-mline-comments-flag</code><a name="index-prolog_002dindent_002dmline_002dcomments_002dflag-437"></a><dd>Set to <code>nil</code> to prevent indentation of text inside <code>/*
+... */</code> comments. Defaults <code>t</code>.
+
+     <br><dt><code>sicstus-keywords</code><a name="index-sicstus_002dkeywords-438"></a><dd>This is a list with keywords that are highlighted in a special color
+when used as directives (i.e. as <code>:-
+</code><var>keyword</var>). Defaults to
+     <pre class="example">            '("block" "discontiguous" "dynamic" "initialization"
+              "meta_predicate" "mode" "module" "multifile" "public" "volatile"
+              "det" "nondet"                      ; for spdet
+              )
+</pre>
+     <br><dt><code>prolog-electric-newline-flag</code><a name="index-prolog_002delectric_002dnewline_002dflag-439"></a><dd>Set to <code>nil</code> to prevent Emacs from automatically indenting the next
+line when pressing &lt;RET&gt;. Defaults to <code>t</code>.
+
+     <br><dt><code>prolog-hungry-delete-key-flag</code><a name="index-prolog_002dhungry_002ddelete_002dkey_002dflag-440"></a><dd>Set to <code>t</code> to enable deletion of all whitespace before the
+cursor when pressing &lt;DEL&gt; (unless inside a comment, string,
+or quoted atom). Defaults to <code>nil</code>.
+
+     <br><dt><code>prolog-electric-dot-flag</code><a name="index-prolog_002delectric_002ddot_002dflag-441"></a><dd>Set to <code>t</code> to enable the electric dot function. If enabled,
+pressing <kbd>.</kbd> at the end of a non-empty line inserts a dot and a
+newline.  When pressed at the beginning of a line, a new head of
+the last predicate is inserted. When pressed at the end of a line
+with only whitespace, a recursive call to the current predicate is
+inserted. The function respects the arity of the predicate
+and inserts parentheses and the correct number of commas for separation
+of the arguments. Defaults to <code>nil</code>.
+
+     <br><dt><code>prolog-electric-underscore-flag</code><a name="index-prolog_002delectric_002dunderscore_002dflag-442"></a><dd>Set to <code>t</code> to enable the electric underscore function. When
+enabled, pressing underscore (<kbd>_</kbd>) when the cursor is on a
+variable, replaces the variable with the anynomous variable. Defaults to
+<code>nil</code>.
+
+     <br><dt><code>prolog-use-prolog-tokenizer-flag</code><a name="index-prolog_002duse_002dprolog_002dtokenizer_002dflag-443"></a><dd>Set to <code>nil</code> to use built-in functions of Emacs for parsing the
+source code when indenting. This is faster than the default but
+does not handle some of the syntax peculiarities of
+Prolog. Defaults to <code>t</code>.
+
+     <br><dt><code>prolog-parse-mode</code><a name="index-prolog_002dparse_002dmode-444"></a><dd>What position the parsing is done from when indenting code. Two possible
+settings: <code>'beg-of-line</code> and <code>'beg-of-clause</code>. The first is
+faster but may result in erroneous indentation in <code>/* ... */</code>
+comments.  The default is <code>'beg-of-line</code>.
+
+     <br><dt><code>prolog-imenu-flag</code><a name="index-prolog_002dimenu_002dflag-445"></a><dd>Set to <code>t</code> to enable a new <code>Predicate</code> menu that contains all
+predicates of the current file. Choosing an entry in the menu
+moves the cursor to the start of that predicate. Defaults to
+<code>nil</code>.
+
+     <br><dt><code>prolog-info-predicate-index</code><a name="index-prolog_002dinfo_002dpredicate_002dindex-446"></a><dd>The info node for the SICStus predicate index. This is important
+if the online help function is to be used (by pressing <kbd>C-c ?</kbd>, or
+choosing the <code>Prolog/Help on predicate</code> menu entry). The default
+setting is <code>"(sicstus)Predicate Index"</code>.
+
+     <br><dt><code>prolog-underscore-wordchar-flag</code><a name="index-prolog_002dunderscore_002dwordchar_002dflag-447"></a><dd>Set to <code>nil</code> to not make underscore (<kbd>_</kbd>) a word-constituent
+character.  Defaults to <code>t</code>. 
+</dl>
+
+   <p>Font-locking uses a number of &ldquo;faces&rdquo;, which can be customized with
+regular Emacs commands, for instance <kbd>M-x describe-face &lt;RET&gt;
+FaceName &lt;RET&gt;</kbd>.  The following faces are relevant:
+
+     <dl>
+<dt><code>highlight &nbsp;<!-- /@w --> </code><strong>since release 4.2</strong><a name="index-highlight-_0040since_007brelease-4_002e2_007d-448"></a><dd>Source code highlight at debug ports. 
+<br><dt><code>pltrace-face-reached-det &nbsp;<!-- /@w --> </code><strong>since release 4.2</strong><a name="index-pltrace_002dface_002dreached_002ddet-_0040since_007brelease-4_002e2_007d-449"></a><dd>Highlight for a line of code reached by coverage analysis
+with no nondet calls made from that line of code. 
+<br><dt><code>pltrace-face-reached-nondet &nbsp;<!-- /@w --> </code><strong>since release 4.2</strong><a name="index-pltrace_002dface_002dreached_002dnondet-_0040since_007brelease-4_002e2_007d-450"></a><dd>Highlight for a line of code reached by coverage analysis
+with one or more nondet calls made from that line of code. 
+<br><dt><code>pltrace-face-reached-not &nbsp;<!-- /@w --> </code><strong>since release 4.2</strong><a name="index-pltrace_002dface_002dreached_002dnot-_0040since_007brelease-4_002e2_007d-451"></a><dd>Highlight for a line of code not reached by coverage analysis. 
+<br><dt><code>prolog-warning-face &nbsp;<!-- /@w --> </code><strong>since release 4.2</strong><a name="index-prolog_002dwarning_002dface-_0040since_007brelease-4_002e2_007d-452"></a><dd>Face used in warning messages. 
+<br><dt><code>prolog-informational-face &nbsp;<!-- /@w --> </code><strong>since release 4.2</strong><a name="index-prolog_002dinformational_002dface-_0040since_007brelease-4_002e2_007d-453"></a><dd>Face used in informational messages. 
+<br><dt><code>prolog-exception-face &nbsp;<!-- /@w --> </code><strong>since release 4.2</strong><a name="index-prolog_002dexception_002dface-_0040since_007brelease-4_002e2_007d-454"></a><dd>Face used in the first line of an error exception message,
+as well as to highlight Exception port displays. 
+<br><dt><code>prolog-error-face &nbsp;<!-- /@w --> </code><strong>since release 4.2</strong><a name="index-prolog_002derror_002dface-_0040since_007brelease-4_002e2_007d-455"></a><dd>Face used in other lines of exception messages. 
+<br><dt><code>prolog-call-face &nbsp;<!-- /@w --> </code><strong>since release 4.2</strong><a name="index-prolog_002dcall_002dface-_0040since_007brelease-4_002e2_007d-456"></a><dd>Face used to highlight Call port displays. 
+<br><dt><code>prolog-exit-face &nbsp;<!-- /@w --> </code><strong>since release 4.2</strong><a name="index-prolog_002dexit_002dface-_0040since_007brelease-4_002e2_007d-457"></a><dd>Face used to highlight Exit port displays. 
+<br><dt><code>prolog-redo-face &nbsp;<!-- /@w --> </code><strong>since release 4.2</strong><a name="index-prolog_002dredo_002dface-_0040since_007brelease-4_002e2_007d-458"></a><dd>Face used to highlight Redo port displays. 
+<br><dt><code>prolog-fail-face &nbsp;<!-- /@w --> </code><strong>since release 4.2</strong><a name="index-prolog_002dfail_002dface-_0040since_007brelease-4_002e2_007d-459"></a><dd>Face used to highlight Fail port displays. 
+<br><dt><code>prolog-builtin-face &nbsp;<!-- /@w --> </code><strong>since release 4.2</strong><a name="index-prolog_002dbuiltin_002dface-_0040since_007brelease-4_002e2_007d-460"></a><dd>Face used to highlight keywords used in directives (see <code>sicstus-keywords</code>). 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Configuration.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Configuration.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

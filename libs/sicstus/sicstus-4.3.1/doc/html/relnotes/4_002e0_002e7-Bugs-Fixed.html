@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+<title>4.0.7 Bugs Fixed - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e0_002e7-Changes.html#g_t4_002e0_002e7-Changes" title="4.0.7 Changes">
+<link rel="prev" href="4_002e0_002e7-New-Features.html#g_t4_002e0_002e7-New-Features" title="4.0.7 New Features">
+<link rel="next" href="4_002e0_002e7-Other-Changes.html#g_t4_002e0_002e7-Other-Changes" title="4.0.7 Other Changes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.0.7-Bugs-Fixed"></a>
+<a name="g_t4_002e0_002e7-Bugs-Fixed"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e0_002e7-Other-Changes.html#g_t4_002e0_002e7-Other-Changes">4.0.7 Other Changes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="4_002e0_002e7-New-Features.html#g_t4_002e0_002e7-New-Features">4.0.7 New Features</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e0_002e7-Changes.html#g_t4_002e0_002e7-Changes">4.0.7 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.10.2 Bugs Fixed</h4>
+
+     <ul>
+<!-- SPRM 11075 -->
+<li><code>SP_event()</code> handlers are no longer allowed to run during
+<code>SP_fclose()</code>, which sometimes needs to perform some cleanup by
+calling Prolog code. This can no longer cause <code>SP_event()</code>
+handlers to run. 
+<!-- SPRM 11263 -->
+<li>Exceptions during exception handling would cause the top-level
+to exit. 
+<!-- SPRM 11237 -->
+<li><code>SP_event()</code> handlers were not always called during event
+handling. One symptom was that, at least on Windows,
+<code>timeout:time_out/3</code> could not always interrupt a goal called
+from an event handler. 
+<li>Bug in redefining multifile predicates. 
+<!-- SPRM 11337 -->
+<li><code>sockets:socket_select/7</code> leaked memory on Windows. 
+<!-- SPRM 11329 -->
+<li><code>library(queues)</code>: bug in <code>portray_queue/1</code>. 
+<li><code>library(clpfd)</code>:
+Incorrect reification and efficiency bugs in arithmetic relations involving division, <code>mod</code> and <code>rem</code>;
+incorrect handling of <code>inf</code> and <code>sup</code> in <code>table/[2,3]</code>. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e0_002e7-Bugs-Fixed.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e0_002e7-Bugs-Fixed.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

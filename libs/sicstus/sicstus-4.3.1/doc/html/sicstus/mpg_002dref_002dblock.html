@@ -1,0 +1,132 @@
+<html lang="en">
+<head>
+<title>mpg-ref-block - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dbb_005fupdate.html#mpg_002dref_002dbb_005fupdate" title="mpg-ref-bb_update">
+<link rel="next" href="mpg_002dref_002dbreak.html#mpg_002dref_002dbreak" title="mpg-ref-break">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-block"></a>
+<a name="mpg_002dref_002dblock"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dbreak.html#mpg_002dref_002dbreak">mpg-ref-break</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dbb_005fupdate.html#mpg_002dref_002dbb_005fupdate">mpg-ref-bb_update</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.26 <code>block/1</code> &nbsp;<!-- /@w --> <dfn>[declaration]</dfn></h4>
+
+<p><a name="index-block_002f1-_0028built_002din_002c-ref-page_0029-4476"></a><a name="index-block_002f1-_0028built_002din_002c-ref-page_0029-4477"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- block </code><var>+BlockSpec</var>
+
+   <p>Specifies conditions
+for blocking goals of the predicates referred to by <var>BlockSpec</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:BlockSpec</var><dd><dfn>callable</dfn>, must be ground
+
+     <p>Goal template or list of goal templates, of the form
+<var>f</var><code>(</code><var>Arg1</var><code>, </code><var>Arg2</var><code>,...)</code>. 
+Each <var>Argn</var> is one of:
+
+          <dl>
+<dt>&lsquo;<samp><span class="samp">-</span></samp>&rsquo;<dd>part of a block condition
+
+          <br><dt>&lsquo;<samp><span class="samp">?</span></samp>&rsquo;<dd>otherwise
+</dl>
+     </dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>When a goal for a block declared predicate is
+to be executed, the block specs are interpreted as conditions for
+blocking the goal, and if at least one condition evaluates
+to <code>true</code>, the goal is blocked.
+
+   <p>A block condition evaluates to <code>true</code> iff all arguments
+specified as &lsquo;<samp><span class="samp">-</span></samp>&rsquo; are uninstantiated, in which case the
+goal is blocked until at least one of those variables
+is instantiated.  If several conditions evaluate to <code>true</code>,
+the implementation picks one of them and blocks the goal
+accordingly.
+
+   <p>The recommended style is to write the block declarations in
+front of the source code of the predicate they refer to. 
+Indeed, they are part of the source code of the predicate,
+and must precede the first clause.  For example, with the
+definition:
+
+<pre class="example">     :- block merge(-,?,-), merge(?,-,-).
+     
+     merge([], Y, Y).
+     merge(X, [], X).
+     merge([H|X], [E|Y], [H|Z]) :- H @&lt; E,  merge(X, [E|Y], Z).
+     merge([H|X], [E|Y], [E|Z]) :- H @&gt;= E, merge([H|X], Y, Z).
+</pre>
+   <p class="noindent">calls to <code>merge/3</code> having uninstantiated arguments in
+the first <em>and</em> third position <em>or</em> in the second <em>and</em>
+third position will suspend.
+
+   <p>The behavior of blocking goals for a given predicate
+on uninstantiated arguments cannot be switched off, except
+by abolishing or redefining the predicate.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Exceptions in the context of loading code are printed as error messages.
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>BlockSpec</var> not ground.
+
+     <br><dt><code>type_error</code><dd><var>BlockSpec</var> not a valid specification.
+
+     <br><dt><code>context_error</code><dd>Declaration appeared in a goal.
+
+     <br><dt><code>permission_error</code><dd>Declaration appeared as a clause. 
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Block-Declarations.html#Block-Declarations">Block Declarations</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dblock.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dblock.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,117 @@
+<html lang="en">
+<head>
+<title>cpg-ref-SP_load_sicstus_run_time - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSP_005fload.html#cpg_002dref_002dSP_005fload" title="cpg-ref-SP_load">
+<link rel="next" href="cpg_002dref_002dSP_005fmalloc.html#cpg_002dref_002dSP_005fmalloc" title="cpg-ref-SP_malloc">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-SP_load_sicstus_run_time"></a>
+<a name="cpg_002dref_002dSP_005fload_005fsicstus_005frun_005ftime"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002dSP_005fmalloc.html#cpg_002dref_002dSP_005fmalloc">cpg-ref-SP_malloc</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSP_005fload.html#cpg_002dref_002dSP_005fload">cpg-ref-SP_load</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.54 <code>SP_load_sicstus_run_time()</code></h4>
+
+<p><a name="index-SP_005fload_005fsicstus_005frun_005ftime_0028_0029-_0028C-function_0029-5160"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p>&nbsp;<!-- /@w --> <strong>since release 4.0.3</strong>
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     
+     int
+     SP_load_sicstus_run_time(SP_get_dispatch_type **pfuncp,
+                              void *reserved);
+</pre>
+   <h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>pfuncp</var><dd>On success the address of the
+<code>SP_get_dispatch()</code> function of the newly loaded SICStus runtime
+is stored at this address.
+
+     <br><dt><var>reserved</var><dd>Reserved, should be <code>NULL</code>. 
+</dl>
+
+<h4 class="subheading">Return Value</h4>
+
+<!-- SPRM 11089 -->
+<!-- zero if a new runtime could not be loaded, non-zero otherwise. -->
+<p>Positive if a new runtime could be loaded, non-positive on
+error. <strong>Please note</strong>: The return representation was incorrectly
+described prior to SICStus Prolog 4.0.5. Also note that, for
+historical reasons, the meaning of the return representation is different from
+the convention used by most of the SICStus Prolog C API.
+
+<h4 class="subheading">Description</h4>
+
+<p><code>SP_load_sicstus_run_time()</code> loads a new SICStus runtime.
+
+   <p>As a special case, if <code>SP_load_sicstus_run_time()</code> is called from a
+SICStus runtime that has not been initialized (with
+<code>SP_initialize()</code>) and that has not previously been loaded as the
+result of calling <code>SP_load_sicstus_run_time()</code>, no new runtime
+is loaded. Instead, the <code>SP_get_dispatch()</code> of the runtime itself is
+returned. In particular, the first time <code>SP_load_sicstus_run_time()</code>
+is called on the initial SICStus runtime, and if this happens before
+the initial SICStus runtime is initialized, no new runtime is
+loaded.
+
+   <p>Calling <code>SP_load_sicstus_run_time()</code> from a particular runtime can
+be done from any thread.
+
+   <p>An application that links statically with the SICStus runtime should
+not call <code>SP_load_sicstus_run_time()</code>.
+
+   <p>You should not use pre-linked foreign resources when using
+multiple SICStus runtimes in the same process.
+
+   <p>For an example of loading and using multiple SICStus runtimes, see
+<samp><span class="file">library/jasper/spnative.c</span></samp> that implements this functionality for
+the Java interface Jasper.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Multiple-SICStus-Runtimes.html#Multiple-SICStus-Runtimes">Multiple SICStus Runtimes</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fload_005fsicstus_005frun_005ftime.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fload_005fsicstus_005frun_005ftime.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

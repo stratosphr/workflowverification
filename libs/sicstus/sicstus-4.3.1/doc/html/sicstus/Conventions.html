@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+<title>Conventions - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Predicates.html#Predicates" title="Predicates">
+<link rel="next" href="The-Environment.html#The-Environment" title="The Environment">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Conventions"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="The-Environment.html#The-Environment">The Environment</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Predicates.html#Predicates">Predicates</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.6.5.1 Conventions</h5>
+
+<p>The following conventions are used in the predicate descriptions
+below.
+     <ul>
+<li><var>Mode</var> is either <code>update</code> or <code>read</code> or <code>enumerate</code>. 
+In mode <code>read</code> no updates can be made.  Mode <code>enumerate</code> is
+like mode <code>read</code>, but indexing cannot be used, i.e. you can
+only sequentially enumerate the items in the database.  In mode
+<code>enumerate</code> only the file storing the terms along with their
+references is used.
+
+     <li><var>EnvRef</var> is a reference to an open database environment.  The
+environment is returned when it is opened.  The reference becomes
+invalid after the environment has been closed.
+
+     <li><var>DBRef</var> is a reference to an open database.  The reference is
+returned when the database is opened.  The reference becomes
+invalid after the database has been closed.
+
+     <li><var>TermRef</var> is a reference to a term in a given database. 
+The reference is returned when a term is stored.  The reference
+stays valid even after the database has been closed and hence can
+be stored permanently as part of another term.  However, if such
+references are stored in the database, automatic compression of
+the database (using <code>db_compress/[2,3]</code>) is not possible, in
+that case the user has to write her own compressing predicate.
+
+     <li><var>SpecList</var> is a description of the indexing scheme;
+see <a href="The-DB_002dSpec.html#The-DB_002dSpec">The DB-Spec</a>.
+
+     <li><var>Term</var> is any Prolog term.
+
+     <li><var>Iterator</var> is a non-backtrackable mutable object.  It can be
+used to iterate through a set of terms stored in a database. 
+The iterators are unidirectional. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Conventions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Conventions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

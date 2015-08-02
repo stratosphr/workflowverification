@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+<title>PB Intro - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dprologbeans.html#lib_002dprologbeans" title="lib-prologbeans">
+<link rel="next" href="PB-Features.html#PB-Features" title="PB Features">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="PB-Intro"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="PB-Features.html#PB-Features">PB Features</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dprologbeans.html#lib_002dprologbeans">lib-prologbeans</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.28.1 Introduction</h4>
+
+<p>PrologBeans is a package for integrating Prolog with applications
+written in other languages. Currently Java and .NET are supported. 
+PrologBeans is based on running Prolog as a separate server process,
+and the other part of the application as a client process. 
+This makes PrologBeans automatically distributable since the server
+and the client can run on different computers anywhere on the
+Internet.
+
+   <p>PrologBeans is designed to be used when client applications need to
+send queries to a Prolog server (and less intended for showing a GUI
+from a Prolog program). One typical application would be to connect a
+Java or .NET based web application to a Prolog server (see examples
+later).
+
+   <div class="block-image"><img src="images/prologbeansarch.png" alt="images/prologbeansarch.png"></div>
+<em>PrologBeans setup where the Prolog application serves several users accessing both via a web application server and a .NET GUI.</em>
+
+   <p>The PrologBeans package consists of two parts. The Prolog server is a
+library module, <samp><span class="file">library(prologbeans)</span></samp>. The client is a class
+library, <samp><span class="file">prologbeans.jar</span></samp> for Java and <samp><span class="file">prologbeans.dll</span></samp>
+for .NET (MS Windows only).
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/PB-Intro.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/PB-Intro.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,90 @@
+<html lang="en">
+<head>
+<title>FDBG Name Auto-Generation - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="FDBG-Concepts.html#FDBG-Concepts" title="FDBG Concepts">
+<link rel="prev" href="FDBG-Selectors.html#FDBG-Selectors" title="FDBG Selectors">
+<link rel="next" href="FDBG-Legend.html#FDBG-Legend" title="FDBG Legend">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="FDBG-Name-Auto-Generation"></a>
+<a name="FDBG-Name-Auto_002dGeneration"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="FDBG-Legend.html#FDBG-Legend">FDBG Legend</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="FDBG-Selectors.html#FDBG-Selectors">FDBG Selectors</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="FDBG-Concepts.html#FDBG-Concepts">FDBG Concepts</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.14.2.6 Name Auto-Generation</h5>
+
+<p><a name="index-name-auto_002dgeneration-3268"></a><a name="index-auto_002dgeneration-of-names-3269"></a>
+There are two cases when a name is automatically generated.
+
+     <ol type=1 start=1>
+
+     <li>When a name is assigned to a compound term by the user, each
+variable appearing in it is assigned a so called <dfn>derived</dfn>
+name, which is created by appending a variant of the selector of the
+variable to the original name. 
+<!-- Note that lists are handled specially: the corresponding -->
+<!-- part of the selector is a @emph{single} integer, namely the index of the -->
+<!-- element in the list, starting from 1. -->
+For example, the call:
+     <pre class="example">          fdbg_assign_name(bar(A, [B, C], foobar(D, E)), foo)
+</pre>
+     <p class="noindent">will create the following name/term entries:
+
+     <p><table summary=""><tr align="left"><td valign="top"><var>Name</var> </td><td valign="top"><var>Term/Variable</var> </td><td valign="top"><var>Selector</var>
+<br></td></tr><tr align="left"><td valign="top"><code>foo</code> </td><td valign="top"><code>bar(A, [B, C], foobar(D, E))</code> </td><td valign="top"><code>[]</code>
+<br></td></tr><tr align="left"><td valign="top"><code>foo_1</code> </td><td valign="top"><code>A</code> </td><td valign="top"><code>[1]</code>
+<br></td></tr><tr align="left"><td valign="top"><code>foo_2_1</code> </td><td valign="top"><code>B</code> </td><td valign="top"><code>[2,#1]</code>
+<br></td></tr><tr align="left"><td valign="top"><code>foo_2_2</code> </td><td valign="top"><code>C</code> </td><td valign="top"><code>[2,#2]</code>
+<br></td></tr><tr align="left"><td valign="top"><code>foo_3_1</code> </td><td valign="top"><code>D</code> </td><td valign="top"><code>[3,1]</code>
+<br></td></tr><tr align="left"><td valign="top"><code>foo_3_2</code> </td><td valign="top"><code>E</code> </td><td valign="top"><code>[3,2]</code>
+     <br></td></tr></table>
+
+     <p>See <a href="FDBG-Naming-Terms.html#FDBG-Naming-Terms">FDBG Naming Terms</a>.
+
+     <li>If, during the annotation of a term (see <a href="FDBG-Annotation.html#FDBG-Annotation">FDBG Annotation</a>) an
+unnamed constraint variable is found, it is assigned a unique
+&ldquo;anonymous&rdquo; name.  This name consists of the prefix &lsquo;<samp><span class="samp">fdvar</span></samp>&rsquo;, an
+underscore character, and an integer.  The integer is automatically
+incremented when necessary.
+
+        </ol>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Name-Auto_002dGeneration.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Name-Auto_002dGeneration.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

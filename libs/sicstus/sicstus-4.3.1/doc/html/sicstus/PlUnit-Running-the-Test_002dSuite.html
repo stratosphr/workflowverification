@@ -1,0 +1,104 @@
+<html lang="en">
+<head>
+<title>PlUnit Running the Test-Suite - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dplunit.html#lib_002dplunit" title="lib-plunit">
+<link rel="prev" href="PlUnit-A-Unit-Test-Box.html#PlUnit-A-Unit-Test-Box" title="PlUnit A Unit Test Box">
+<link rel="next" href="PlUnit-Tests-and-Production-Systems.html#PlUnit-Tests-and-Production-Systems" title="PlUnit Tests and Production Systems">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="PlUnit-Running-the-Test-Suite"></a>
+<a name="PlUnit-Running-the-Test_002dSuite"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="PlUnit-Tests-and-Production-Systems.html#PlUnit-Tests-and-Production-Systems">PlUnit Tests and Production Systems</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="PlUnit-A-Unit-Test-Box.html#PlUnit-A-Unit-Test-Box">PlUnit A Unit Test Box</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dplunit.html#lib_002dplunit">lib-plunit</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.26.4 Running the Test-Suite</h4>
+
+<p>At any time, the tests can be executed by loading the program and
+running <code>run_tests/[0,1,2]</code>:
+
+     <dl>
+<dt><code>run_tests</code><dd><a name="index-run_005ftests_002f_005b0_002c1_002c2_005d-_0028plunit_0029-3728"></a><a name="index-run_005ftests_002f_005b0_002c1_002c2_005d-_0028plunit_0029-3729"></a>
+Run all individual tests of all test-units.
+
+     <br><dt><code>run_tests(</code><var>Spec</var><code>)</code><dt><code>run_tests(</code><var>Spec</var><code>,</code><var>Options</var><code>)</code><dd>Run only the specified tests.  The options <code>quiet</code> and
+<code>verbose</code> (the default) are available; see below. 
+<var>Spec</var> should be one of:
+
+          <ul>
+<li>a term <var>Unit</var> where <var>Unit</var> is the name of a test-unit,
+denotes all individual tests of the test-unit <var>Unit</var>, or
+<li>a term <var>Unit:Test</var> where <var>Unit</var> is the name of a test-unit and
+<var>Test</var> is one of its individual tests, denotes the given test only, or
+<li>a term <var>Unit:List</var> where <var>Unit</var> is the name of a test-unit and
+<var>List</var> is a list of its individual tests, denotes the given list of tests, or
+<li>finally, a list of terms of one of the above forms. 
+</ul>
+     </dl>
+
+   <p>Running single tests is particularly useful for tracing a test, e.g.:
+
+<pre class="example">     | ?- <kbd>trace, run_tests(lists:member).</kbd>
+</pre>
+   <p><code>run_tests/[0,1,2]</code> prints a report during execution.  The
+<code>quiet</code> options suppresses informational messages; in its absence,
+messages are printed in full as follows.
+
+   <p>First, each test-unit report begins with a header:
+
+<pre class="display">     <code>% PL-Unit: </code><var>Unit</var>
+</pre>
+   <p>Then comes a message (success or failure) for all specified tests not
+marked as <code>blocked</code> or <code>fixme</code>.  Success messages are
+informational; others are error or warning messages. Any errors
+encountered while executing options are also reported.  To close the
+test-unit, a footer is printed:
+
+<pre class="display">     <code>% done</code>
+</pre>
+   <p>After all test-units, a summary report is printed, stating:
+
+     <ul>
+<li>how many tests passed resp. failed
+<li>which tests were blocked
+<li>details for each test marked as <code>fixme</code>
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/PlUnit-Running-the-Test_002dSuite.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/PlUnit-Running-the-Test_002dSuite.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+<title>4.1.3 Bugs Fixed - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e1_002e3-Changes.html#g_t4_002e1_002e3-Changes" title="4.1.3 Changes">
+<link rel="prev" href="4_002e1_002e3-New-Features.html#g_t4_002e1_002e3-New-Features" title="4.1.3 New Features">
+<link rel="next" href="4_002e1_002e3-Other-Changes.html#g_t4_002e1_002e3-Other-Changes" title="4.1.3 Other Changes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.1.3-Bugs-Fixed"></a>
+<a name="g_t4_002e1_002e3-Bugs-Fixed"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e1_002e3-Other-Changes.html#g_t4_002e1_002e3-Other-Changes">4.1.3 Other Changes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="4_002e1_002e3-New-Features.html#g_t4_002e1_002e3-New-Features">4.1.3 New Features</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e1_002e3-Changes.html#g_t4_002e1_002e3-Changes">4.1.3 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.15.2 Bugs Fixed</h4>
+
+     <ul>
+<li>Critical virtual machine bugs. 
+<li>Improvements to interrupt handling (<code>SP_event()</code>,
+<code>SP_signal()</code> and related functionality). 
+<li>When running under the SPIDER IDE, I/O
+operations could fail with <code>SPIO_E_INTERRUPTED</code>. 
+<li>When running under the SPIDER IDE, <code>restore/1</code> would
+disrupt the debugging session. 
+<li><!-- SPRM 11823 -->
+Linking with the SICStus runtime on Linux no longer marks the stack as
+executable. This would prevent SICStus from starting on some versions
+of SE Linux. 
+<li><!-- SPIO_THREAD_KILL_DELAY_DEFAULT et al. -->
+Work around OS bugs on Mac OS X 10.5, Mac OS X 10.6 and Linux
+that would sometimes cause SICStus to hang when closing streams. 
+<li>Source-info bug for huge interpreted clauses. 
+<li><!-- SPRM 13577 (related 13578, 13579) -->
+Source-info bug for interpreted code, introduced in 4.2.0. 
+<li>Profiling: <code>profile_reset/1</code> was broken; problems with multifile. 
+<li><code>library(timeout)</code>: <code>time_out/3</code> would sometimes interrupt I/O
+or miss a timeout under Windows. 
+<li><code>library(sockets)</code>: Some operations would raise an exception when
+an interrupt occurred, e.g. at <kbd>^C</kbd>. 
+<li>CLPQ/CLPR: constants \pi and e were inaccurate. 
+<li>CLPFD:
+          <ul>
+<li><code>relation/3, table/[2,3]</code>: bugs with empty and infinite sets. 
+<li><!-- SPRM 11813 -->
+Missing propagation in the context of unification. 
+</ul>
+     <li><!-- SPRM 11909 -->
+Prologbeans: passing deeply nested terms to and from Prolog could lead
+to stack overflow in Prologbeans client code (Java, .NET). 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e1_002e3-Bugs-Fixed.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e1_002e3-Bugs-Fixed.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

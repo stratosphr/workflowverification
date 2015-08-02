@@ -1,0 +1,197 @@
+<html lang="en">
+<head>
+<title>mpg-ref-load_files - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dlisting.html#mpg_002dref_002dlisting" title="mpg-ref-listing">
+<link rel="next" href="mpg_002dref_002dload_005fforeign_005fresource.html#mpg_002dref_002dload_005fforeign_005fresource" title="mpg-ref-load_foreign_resource">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-load_files"></a>
+<a name="mpg_002dref_002dload_005ffiles"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dload_005fforeign_005fresource.html#mpg_002dref_002dload_005fforeign_005fresource">mpg-ref-load_foreign_resource</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dlisting.html#mpg_002dref_002dlisting">mpg-ref-listing</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.117 <code>load_files/[1,2]</code></h4>
+
+<p><a name="index-load_005ffiles_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4681"></a><a name="index-load_005ffiles_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4682"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<!-- FIXED: SPIO -->
+<p><code>load_files(</code><var>+Files</var><code>)</code>
+
+   <p><code>load_files(</code><var>+Files</var><code>, </code><var>+Options</var><code>)</code>
+
+<!-- [PM] 4.0 Should this really be here; ./2 is described elsewhere!? -->
+<!-- [MC] Yes. -->
+   <p><code>[</code><var>+Files</var><code>]</code>
+
+   <p>Loads the specified Prolog source and/or object file(s) into memory. 
+Subsumes all other load predicates.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:Files</var><dd><dfn>file_spec</dfn> or <dfn>list of file_spec</dfn>, must be ground
+
+     <p>A file specification or a list of file specifications;
+extensions optional.
+
+     <br><dt><var>Options</var><dd><dfn>list of term</dfn>, must be ground
+
+     <p>A list of zero or more options of the form:
+          <dl>
+<dt><code>if(</code><var>X</var><code>)</code><dd><a name="index-if_002f1-_0028load_005ffiles_002f2-option_0029-4683"></a><code>true</code> (the default) to always load, or <code>changed</code> to
+load only if the file has not yet been loaded or if it has
+been modified since it was last loaded.  A non-module-file
+is not considered to have been previously loaded if it was
+loaded into a different module.  The file specification <code>user</code> is
+never considered to have been previously loaded.
+
+          <br><dt><code>when(</code><var>When</var><code>)</code><dd><a name="index-when_002f1-_0028load_005ffiles_002f2-option_0029-4684"></a><code>always</code> (the default) to always load, or <code>compile_time</code>
+to load only if the goal is not in the scope of another
+<code>load_files/[1,2]</code> directive occurring in a PO file.
+
+          <p>The latter is intended for use when the file only defines
+predicates that are needed for proper term or goal
+expansion during compilation of other files.
+
+          <br><dt><code>load_type(</code><var>LoadType</var><code>)</code><dd><a name="index-load_005ftype_002f1-_0028load_005ffiles_002f2-option_0029-4685"></a><code>source</code> to load source files only, <code>object</code> to
+load object (PO) files only,
+<!-- @code{ql} (@strong{obsolescent}) to load @samp{.ql} files only, -->
+or <code>latest</code> (the default) to load any type of file, whichever is
+newest.  If the file specification is <code>user</code>, <code>source</code> is forced.
+
+          <br><dt><code>imports(</code><var>Imports</var><code>)</code><dd><a name="index-imports_002f1-_0028load_005ffiles_002f2-option_0029-4686"></a><code>all</code> (the default) to import all exported
+predicates if the file is a module-file, or a list of
+predicates to import.
+
+          <br><dt><code>compilation_mode(</code><var>Mode</var><code>)</code><dd><a name="index-compilation_005fmode_002f1-_0028load_005ffiles_002f2-option_0029-4687"></a><code>compile</code> to translate into compiled code, <code>consult</code> to
+translate into static, interpreted code, or
+<code>assert_all</code> to translate into dynamic, interpreted
+code.
+
+          <p>The default is the compilation mode of any ancestor
+<code>load_files/[1,2]</code> goal, or <code>compile</code> otherwise. Note
+that <var>Mode</var> has no effect when a PO file is
+loaded, and that it is recommended to use <code>assert_all</code> in
+conjunction with <code>load_type(source)</code>, to ensure that the source
+file will be loaded even in the presence of a PO file.
+
+          <!-- @item wcx(@var{Wcx}) -->
+          <!-- @findex wcx/1 (load_files/2 option) -->
+          <!-- To pass the term @var{Wcx} to the wide character extension component; -->
+          <!-- @pxref{Prolog Level WCX Features}. -->
+     </dl>
+     In addition the <code>open/4</code> options <code>encoding/1</code>, <code>encoding_signature/1</code> and
+<code>eol/1</code> can be specified. These will be used if the Prolog code is
+loaded from a source file.  See <a href="mpg_002dref_002dopen.html#mpg_002dref_002dopen">mpg-ref-open</a>, for details. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p><code>load_files/[1,2]</code> reads Prolog clauses, in source or precompiled
+form, and adds them to the Prolog database, after first deleting any previous
+versions of the predicates they define.  Clauses for a single predicate must
+all be in the same file unless that predicate is declared to be <code>multifile</code>.
+
+   <p>If a source file contains directives, that is, terms with principal
+functor <code>:-/1</code> or <code>?-/1</code>, then these are executed as they
+are encountered.  Initialization goals specified with
+<code>initialization/1</code> are executed after the load.
+
+   <p>A non-module source file can be loaded into any module by <code>load_files/[1,2]</code>,
+but the module of the predicates in a precompiled file is fixed at the time it is
+created.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>Files</var> or <var>Options</var> is not ground.
+
+     <br><dt><code>type_error</code><dd>In <var>Files</var> or <var>Options</var>.
+
+     <br><dt><code>domain_error</code><dd>Illegal option in <var>Options</var>.
+
+     <br><dt><code>existence_error</code><dd>A specified file does not exist.  If the <code>fileerrors</code> flag is <code>off</code>, the
+predicate fails instead of raising this exception.
+
+     <br><dt><code>permission_error</code><dd>A specified file not readable.  If the <code>fileerrors</code> flag is <code>off</code>, the
+predicate fails instead of raising this exception.
+
+     <p>While loading clauses from a PO file, clauses for an existing
+multifile predicate were encountered, but were compiled in a way
+different from the existing clauses.  In this case, the existing clauses
+remain untouched, the multifile clauses from the PO file are simply ignored,
+the load continues, and an exception is raised at the end.
+
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<p>Several of the other built-in predicates of this category could
+be defined in terms of <code>load_files/2</code>:
+
+<pre class="example">     [File|Files] :-
+         load_files([File|Files]).
+     
+     consult(Files) :-
+         load_files(Files, [load_type(source),compilation_mode(consult)]).
+     
+     ensure_loaded(Files) :-
+             load_files(Files, [if(changed)]).
+     
+     use_module(File) :-
+         load_files(File, [if(changed)]).
+     
+     use_module(File, Imports) :-
+         load_files(File, [if(changed),imports(Imports)]).
+</pre>
+   <p>Code that is only needed at compile-time, e.g. for operator declarations
+or compile-time expansion, is conveniently loaded with the following idiom:
+
+<pre class="example">     :- load_files(library(obj_decl), [when(compile_time), if(changed)]).
+</pre>
+   <h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlod_002dlod.html#ref_002dlod_002dlod">ref-lod-lod</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dload_005ffiles.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dload_005ffiles.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

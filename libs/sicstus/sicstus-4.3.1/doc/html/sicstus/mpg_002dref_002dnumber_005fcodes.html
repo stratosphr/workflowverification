@@ -1,0 +1,135 @@
+<html lang="en">
+<head>
+<title>mpg-ref-number_codes - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dnumber_005fchars.html#mpg_002dref_002dnumber_005fchars" title="mpg-ref-number_chars">
+<link rel="next" href="mpg_002dref_002dnumbervars.html#mpg_002dref_002dnumbervars" title="mpg-ref-numbervars">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-number_codes"></a>
+<a name="mpg_002dref_002dnumber_005fcodes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dnumbervars.html#mpg_002dref_002dnumbervars">mpg-ref-numbervars</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dnumber_005fchars.html#mpg_002dref_002dnumber_005fchars">mpg-ref-number_chars</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.143 <code>number_codes/2</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-number_005fcodes_002f2-_0028built_002din_002c-ref-page_0029-4739"></a><a name="index-number_005fcodes_002f2-_0028built_002din_002c-ref-page_0029-4740"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>number_codes(</code><var>+Number</var><code>, </code><var>-Codes</var><code>)</code>
+
+   <p><code>number_codes(</code><var>-Number</var><code>, </code><var>+Codes</var><code>)</code>
+
+   <p><var>Codes</var> is the <dfn>codes</dfn> comprising the printed
+representation of <var>Number</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Number</var><dd><dfn>number</dfn>
+
+     <br><dt><var>Codes</var><dd><dfn>codes</dfn>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>Initially, either <var>Number</var> must be instantiated to a number, or
+<var>Codes</var> must be instantiated to a proper <dfn>codes</dfn>.
+
+   <p>If <var>Codes</var> is instantiated to a <dfn>codes</dfn> that corresponds to
+the correct syntax of a number, <var>Number</var> will be unified with that
+number.
+
+   <p>Else, <var>Number</var> should be instantiated to a number, and <var>Codes</var>
+will be unified with the <dfn>codes</dfn> that make up its printed
+representation.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>Number</var> is uninstantiated and <var>Chars</var> is not instantiated enough
+
+     <br><dt><code>type_error</code><dd><var>Number</var> is not a number or
+<var>Codes</var> cannot be unified with a list of integers
+
+     <br><dt><code>representation_error</code><dd>An element of <var>Codes</var> is an invalid character code, or
+<var>Codes</var> is a list corresponding to a number that can't be represented
+
+     <br><dt><code>syntax_error</code><dd><var>Codes</var> does not correspond to a syntactically valid number
+</dl>
+
+   <p>The check of <var>Codes</var> when <var>Number</var> is instantiated was added
+in release 4.3 for alignment with the ISO Prolog standard. Previous
+releases simply failed in this case instead of reporting an error for
+malformed <var>Codes</var>.
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     | ?- <kbd>number_codes(foo, L).</kbd>
+     
+     ! Type error in argument 1 of number_codes/2
+     ! expected a number, but found foo
+     ! goal:  number_codes(foo,_104)
+</pre>
+<pre class="example">     | ?- <kbd>number_codes(431, L).</kbd>
+     
+     L = [52,51,49]
+</pre>
+   <pre class="example">     | ?- <kbd>number_codes(X, [102,111,111]).</kbd>
+     
+     ! Syntax error in number_codes/2
+     ! number syntax
+     ! in line 0
+</pre>
+   <pre class="example">     | ?- <kbd>number_codes(X, [52,51,49]).</kbd>
+     
+     X = 431
+</pre>
+   <pre class="example">     | ?- <kbd>number_codes(X, "15.0e+12").</kbd>
+     
+     X = 1.5E+13
+</pre>
+   <h4 class="subheading">See Also</h4>
+
+<p><code>number_chars/2</code>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dnumber_005fcodes.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dnumber_005fcodes.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,90 @@
+<html lang="en">
+<head>
+<title>ref-sem-occ - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsem.html#ref_002dsem" title="ref-sem">
+<link rel="prev" href="ref_002dsem_002dexc.html#ref_002dsem_002dexc" title="ref-sem-exc">
+<link rel="next" href="ref_002dsem_002dcon.html#ref_002dsem_002dcon" title="ref-sem-con">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-sem-occ"></a>
+<a name="ref_002dsem_002docc"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dsem_002dcon.html#ref_002dsem_002dcon">ref-sem-con</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dsem_002dexc.html#ref_002dsem_002dexc">ref-sem-exc</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsem.html#ref_002dsem">ref-sem</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.2.7 Occurs-Check</h4>
+
+<p><a name="index-occurs_002dcheck-670"></a>
+<a name="index-cyclic-terms-671"></a>
+<a name="index-terms_002c-cyclic-672"></a>
+
+   <p>Prolog's unification does not have an <dfn>occurs-check</dfn>; that is,
+when unifying a variable against a term, the system does not check to
+see if the variable occurs in the term.  When the variable occurs in
+the term, unification should fail, but the absence of the check means
+that the unification succeeds, producing a <dfn>cyclic</dfn> term. 
+Operations such as trying to print a cyclic term will cause a loop.
+
+   <p>The absence of the occurs-check is not a bug or a design oversight, but
+a conscious design decision.  The reason for this decision is that
+unification with the occurs-check is at best linear on the sum of the
+sizes of the terms being unified, whereas unification without the
+occurs-check is linear on the size of the smallest of the terms being
+unified.  For any programming language to be practical, basic
+operations should take constant time.  Unification against a variable
+may be thought of as the basic operation of Prolog, and this can take
+constant time only if the occurs-check is omitted.  Thus the absence of
+an occurs-check is essential to Prolog's practicality as a programming
+language.  The inconvenience caused by this restriction is, in
+practice, very slight.
+
+   <p>SICStus Prolog unifies, compares (see <a href="ref_002dlte_002dcte.html#ref_002dlte_002dcte">ref-lte-cte</a>), asserts, and
+copies cyclic terms without looping.  The <code>write_term/[2,3]</code>
+built-in predicate can optionally handle cyclic terms.  Unification
+with occurs-check is available as a built-in predicate;
+see <a href="ref_002dlte_002dmet_002dusu.html#ref_002dlte_002dmet_002dusu">ref-lte-met-usu</a>. 
+The <code>acyclic_term/1</code> built-in predicate can test whether a term
+is acyclic; <code>subsumes_term/2</code> can test whether a term is subsumed
+by another one (see <a href="ref_002dlte.html#ref_002dlte">ref-lte</a>). 
+Additional predicates for subsumption and testing
+(a)cyclicity are available in a library package; see <a href="lib_002dterms.html#lib_002dterms">lib-terms</a>. 
+Other predicates usually don't handle cyclic terms well.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsem_002docc.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsem_002docc.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

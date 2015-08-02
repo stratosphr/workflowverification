@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+<title>ref-ere-err-exi - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dere_002derr.html#ref_002dere_002derr" title="ref-ere-err">
+<link rel="prev" href="ref_002dere_002derr_002drep.html#ref_002dere_002derr_002drep" title="ref-ere-err-rep">
+<link rel="next" href="ref_002dere_002derr_002dper.html#ref_002dere_002derr_002dper" title="ref-ere-err-per">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-ere-err-exi"></a>
+<a name="ref_002dere_002derr_002dexi"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dere_002derr_002dper.html#ref_002dere_002derr_002dper">ref-ere-err-per</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dere_002derr_002drep.html#ref_002dere_002derr_002drep">ref-ere-err-rep</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dere_002derr.html#ref_002dere_002derr">ref-ere-err</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.15.4.7 Existence Errors</h5>
+
+<p><a name="index-existence-errors-1725"></a>
+<a name="index-errors_002c-existence-1726"></a>
+
+   <p>An existence error occurs when a predicate attempts to access something that
+does not exist.  For example, trying to compile a file that
+does not exist, erasing a database reference that has already been erased.
+
+   <p>The <var>SICStus_Error</var> term associated with an existence error is
+<pre class="example">     existence_error(<var>Goal, ArgNo, ObjectType, Culprit, Message</var>)
+</pre>
+     <dl>
+<dt><var>ArgNo</var><dd>index of argument of <var>Goal</var> where <var>Culprit</var> appears
+
+     <br><dt><var>ObjectType</var><dd>expected type of non-existent object
+
+     <br><dt><var>Culprit</var><dd>name for the non-existent object
+
+     <br><dt><var>Message</var><dd>the constant <code>0</code> or <code>''</code>, or
+some additional information provided by the operating system or other
+support system indicating why <var>Culprit</var> is thought not to exist. 
+</dl>
+
+   <p>For example, &lsquo;<samp><span class="samp">see('../brother/niece')</span></samp>&rsquo; might throw the exception
+<pre class="example">     error(existence_error(source_sink,'../brother/niece'),
+           existence_error(see('../brother/niece'),1,file,'../brother/niece',0))
+</pre>
+   <p><a name="index-fileerrors-_0028prolog-flag_0029-1727"></a><a name="index-fileerrors_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029-1728"></a><a name="index-file_005ferrors_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029-1729"></a>An existence error does not necessarily cause an exception to be thrown. 
+For I/O predicates,
+the behavior can be controlled with the <code>fileerrors</code> Prolog flag
+(see <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>) or with the <code>fileerrors/1</code> alias
+<code>file_errors/1</code> option to <code>absolute_file_name/3</code>.  The
+following values are possible:
+
+     <dl>
+<dt><code>on </code><span class="roman">(fileerrors flag representation)</span><dt><code>error </code><span class="roman">(absolute_file_name/3 fileerrors representation)</span><dd><a name="index-on-_0028fileerrors-flag-value_0029-1730"></a><a name="index-error-_0028absolute_005ffile_005fname_002f3-fileerrors-value_0029-1731"></a>Throw an exception if a given file can't be opened.  The default.
+
+     <br><dt><code>off </code><span class="roman">(fileerrors flag representation)</span><dt><code>fail </code><span class="roman">(absolute_file_name/3 fileerrors representation)</span><dd><a name="index-off-_0028fileerrors-flag-value_0029-1732"></a><a name="index-fail-_0028absolute_005ffile_005fname_002f3-fileerrors-value_0029-1733"></a>Merely fail if a given file can't be opened.
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002derr_002dexi.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002derr_002dexi.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

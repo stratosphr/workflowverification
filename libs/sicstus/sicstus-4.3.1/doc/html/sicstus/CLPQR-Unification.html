@@ -1,0 +1,96 @@
+<html lang="en">
+<head>
+<title>CLPQR Unification - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="CLPQR-Interface.html#CLPQR-Interface" title="CLPQR Interface">
+<link rel="prev" href="CLPQR-Solver-Predicates.html#CLPQR-Solver-Predicates" title="CLPQR Solver Predicates">
+<link rel="next" href="CLPQR-Feedback.html#CLPQR-Feedback" title="CLPQR Feedback">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CLPQR-Unification"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CLPQR-Feedback.html#CLPQR-Feedback">CLPQR Feedback</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="CLPQR-Solver-Predicates.html#CLPQR-Solver-Predicates">CLPQR Solver Predicates</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="CLPQR-Interface.html#CLPQR-Interface">CLPQR Interface</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.11.2.3 Unification</h5>
+
+<p>Equality constraints are added to the store implicitly each time
+variables that have been mentioned in explicit constraints are
+bound&mdash;either to another such variable or to a number.
+<pre class="example">     clp(r) ?- <kbd>{2*A+3*B=C/2}, C=10.0, A=B.</kbd>
+     
+     A = 1.0,
+     B = 1.0,
+     C = 10.0
+</pre>
+   <p>Is equivalent modulo rounding errors to
+<pre class="example">     clp(r) ?- <kbd>{2*A+3*B=C/2, C=10, A=B}.</kbd>
+     
+     A = 1.0,
+     B = 0.9999999999999999,
+     C = 10.0
+</pre>
+   <p>The shortcut bypassing the use of <code>{}/1</code> is allowed and makes
+sense because the interpretation of this equality in Prolog and clp(R)
+coincides.  In general, equations involving interpreted functors,
+<code>+/2</code> in this case, must be fed to the solver explicitly:
+<pre class="example">     clp(r) ?- <kbd>X=3.0+1.0, X=4.0.</kbd>
+     
+     no
+</pre>
+   <p>Moreover, variables known by clp(R) may be bound directly to
+floats only.  Likewise, variables known by clp(Q) may be
+bound directly to rational numbers only;
+see <a href="CLPQR-Fragments-and-Bits.html#CLPQR-Fragments-and-Bits">CLPQR Fragments and Bits</a>. Failing to do so is rewarded with an exception:
+<pre class="example">     clp(q) ?- <kbd>{2*A+3*B=C/2}, C=10.0, A=B.</kbd>
+     ! Type error in argument 2 of = /2
+     ! 'a rational number' expected, but 10.0 found
+     ! goal:  _254=10.0
+</pre>
+   <p>This is because <code>10.0</code> is not a rational constant. To make clp(Q) happy
+you have to say:
+<pre class="example">     clp(q) ?- <kbd>{2*A+3*B=C/2}, C=rat(10,1), A=B.</kbd>
+     
+     A = 1,
+     B = 1,
+     C = 10
+</pre>
+   <p>If you use <code>{}/1</code>, you don't have to worry about such details.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-Unification.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-Unification.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

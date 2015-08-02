@@ -1,0 +1,374 @@
+<html lang="en">
+<head>
+<title>Arithmetic-Logical Constraints - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Available-Constraints.html#Available-Constraints" title="Available Constraints">
+<link rel="prev" href="Propositional-Constraints.html#Propositional-Constraints" title="Propositional Constraints">
+<link rel="next" href="Extensional-Constraints.html#Extensional-Constraints" title="Extensional Constraints">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Arithmetic-Logical-Constraints"></a>
+<a name="Arithmetic_002dLogical-Constraints"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Extensional-Constraints.html#Extensional-Constraints">Extensional Constraints</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Propositional-Constraints.html#Propositional-Constraints">Propositional Constraints</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Available-Constraints.html#Available-Constraints">Available Constraints</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.10.4.4 Arithmetic-Logical Constraints</h5>
+
+     <dl>
+<dt><code>smt(</code><var>:ConstraintBody</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.2</strong><dd><a name="index-smt_002f1-_0028clpfd_0029-2839"></a><a name="index-smt_002f1-_0028clpfd_0029-2840"></a>
+
+     <p>The arithmetic, membership, and propositional constraints described
+earlier are transformed at compile time to conjunctions of library
+constraints.  Although linear in the size of the source code, the
+expansion of a propositional formula over reifiable constraints to
+library goals can have time and memory overheads, and propagates
+disjunctions very weakly.  Temporary variables holding intermediate
+values may have to be introduced, and the grain size of the constraint
+solver invocations can be rather small.  As an alternative to the
+default propagation of such constraint formulas, this constraint is a
+front-end to the <code>case/[3,4]</code> propagator, which treats such a
+formula globally.  The pruning can be stronger and it can run faster
+than the default propagator, but this is not necessarily the case. 
+Bounds-consistency is not guaranteed.
+
+     <p><var>ConstraintBody</var> should be of one of the following forms, or a
+propositional combination of such forms.  See <a href="Syntax-of-Indexicals.html#Syntax-of-Indexicals">Syntax of Indexicals</a>
+for the exact definition:
+
+          <ul>
+<li><dfn>var</dfn> <code>in</code> <var>ConstantRange</var>
+<li><code>element(</code><dfn>var</dfn><code>,</code><var>CList</var><code>,</code><dfn>var</dfn><code>)</code>
+<li><code>table([</code><var>VList</var><code>],</code><var>CTable</var><code>)</code>
+<li><var>LinExpr</var> <var>RelOp</var> <var>LinExpr</var>
+<li><dfn>var</dfn> <span class="roman">{ </span><code>X</code><span class="roman"> stands for </span><code>X#=1</code><span class="roman"> }</span>
+</ul>
+
+     <br><dt><code>count(</code><var>+Val</var><code>,</code><var>+List</var><code>,</code><var>+RelOp</var><code>,</code><var>?Count</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.0.5,deprecated</strong><dd><a name="index-count_002f4-_0028clpfd_0029-2841"></a><a name="index-count_002f4-_0028clpfd_0029-2842"></a>
+where <var>Val</var> is an integer, <var>List</var> is a list of integers or
+domain variables, <var>Count</var> an integer or a domain variable, and
+<var>RelOp</var> is a relational symbol as in <a href="Arithmetic-Constraints.html#Arithmetic-Constraints">Arithmetic Constraints</a>. 
+True if <var>N</var> is the number of elements of <var>List</var> that are equal
+to <var>Val</var> and <var>N RelOp Count</var>.  Implemented by decomposition into
+one <code>sum/3</code> constraint, one arithmetic comparison, and several
+reified equalities.
+
+     <p>Corresponds to <code>count_*/3</code>, <code>exactly/3</code> in MiniZinc<!-- /@w -->.
+
+     <p><code>count/4</code> maintains domain-consistency, but in practice, the
+following constraint is a better alternative.
+
+     <br><dt><code>global_cardinality(</code><var>+Xs</var><code>,</code><var>+Vals</var><code>)</code><dt><code>global_cardinality(</code><var>+Xs</var><code>,</code><var>+Vals</var><code>,</code><var>+Options</var><code>)</code><dd><a name="index-global_005fcardinality_002f_005b2_002c3_005d-_0028clpfd_0029-2843"></a><a name="index-global_005fcardinality_002f_005b2_002c3_005d-_0028clpfd_0029-2844"></a>
+where <var>Xs</var> = <var>[X1,<small class="dots">...</small>,Xd]</var> is a list of integers or domain
+variables, and <var>Vals</var> = <var>[K1-V1,<small class="dots">...</small>,Kn-Vn]</var> is a list of
+pairs where each key <var>Ki</var> is a unique integer and <var>Vi</var> is a
+domain variable or an integer.  True if every element of <var>Xs</var> is
+equal to some key and for each pair <var>Ki-Vi</var>, exactly <var>Vi</var>
+elements of <var>Xs</var> are equal to <var>Ki</var>.
+
+     <p>If either <var>Xs</var> or <var>Vals</var> is ground, and in many other special
+cases, <code>global_cardinality/[2,3]</code> maintains domain-consistency, but
+generally, bounds-consistency cannot be guaranteed.  An
+domain-consistency algorithm [Regin 96] is used, roughly linear in the
+total size of the domains.
+
+     <p>Corresponds to <code>global_cardinality*/*</code> and <code>distribute/3</code> in MiniZinc<!-- /@w -->.
+
+     <p><var>Options</var> is a list of zero or more of the following:
+
+          <dl>
+<dt><code>consistency(</code><var>Cons</var><code>)</code><dd><a name="index-consistency_002f1-_0028global_005fcardinality_002f3-option_0029-2845"></a>Which filtering algorithm to use.  One of the following:
+               <dl>
+<dt><code>domain</code><dd><a name="index-domain-_0028global_005fcardinality_002f3-consistency_002f1-value_0029-2846"></a>The constraint will use the algorithm mentioned above. 
+Implies <code>on(dom)</code>.  The default. 
+<br><dt><code>bounds</code><dd><a name="index-bounds-_0028global_005fcardinality_002f3-consistency_002f1-value_0029-2847"></a>The constraint will use the algorithm mentioned above. 
+Implies <code>on(minmax)</code>. 
+<br><dt><code>representation</code><dd><a name="index-representation-_0028global_005fcardinality_002f3-consistency_002f1-value_0029-2848"></a>The constraint will use a simple algorithm, which prevents too few or
+too many of the <var>Xs</var> from taking values among the <var>Vals</var>. 
+Implies <code>on(val)</code>. 
+</dl>
+
+          <br><dt><code>on(</code><var>On</var><code>)</code><dd><a name="index-on_002f1-_0028global_005fcardinality_002f3-option_0029-2849"></a>How eagerly to wake up the constraint.  One of the following:
+               <dl>
+<dt><code>dom</code><dd><a name="index-dom-_0028global_005fcardinality_002f3-on_002f1-value_0029-2850"></a>to wake up when the domain of a variable is changed (the default);
+<br><dt><code>minmax</code><dd><a name="index-minmax-_0028global_005fcardinality_002f3-on_002f1-value_0029-2851"></a>to wake up when a bound of a variable is changed;
+<br><dt><code>val</code><dd><a name="index-val-_0028global_005fcardinality_002f3-on_002f1-value_0029-2852"></a>to wake up when a variable becomes ground. 
+</dl>
+
+          <br><dt><code>cost(</code><var>Cost</var><code>,</code><var>Matrix</var><code>)</code><dd><a name="index-cost_002f2-_0028global_005fcardinality_002f3-option_0029-2853"></a>Overrides any <code>consistency/1</code> option representation.  A cost is associated
+with the constraint and reflected into the domain variable <var>Cost</var>. 
+<var>Matrix</var> should be a <var>d*n</var> matrix of integers, represented as a
+list of <var>d</var> lists, each of length <var>n</var>.  Assume that each
+<var>Xi</var> equals <var>K(pi)</var>.  The cost of the constraint is then
+<var>Matrix[1,p1]+<small class="dots">...</small>+Matrix[d,pd]</var>.
+
+          <p>With this option, a domain-consistency algorithm [Regin 99] is used,
+the complexity of which is roughly <var>O(d(m + n </var><span class="roman">log</span><var> n))</var> where
+<var>m</var> is the total size of the domains. 
+</dl>
+
+     <br><dt><code>all_different(</code><var>+Variables</var><code>)</code><dt><code>all_different(</code><var>+Variables</var><code>, </code><var>+Options</var><code>)</code><dt><code>all_distinct(</code><var>+Variables</var><code>)</code><dt><code>all_distinct(</code><var>+Variables</var><code>, </code><var>+Options</var><code>)</code><dd><a name="index-all_005fdifferent_002f_005b1_002c2_005d-_0028clpfd_0029-2854"></a><a name="index-all_005fdifferent_002f_005b1_002c2_005d-_0028clpfd_0029-2855"></a>
+<a name="index-all_005fdistinct_002f_005b1_002c2_005d-_0028clpfd_0029-2856"></a><a name="index-all_005fdistinct_002f_005b1_002c2_005d-_0028clpfd_0029-2857"></a>
+where <var>Variables</var> is a list of domain variables or integers.  Each
+variable is constrained to take a representation that is unique among the
+variables.  Declaratively, this is equivalent to an inequality
+constraint for each pair of variables.
+
+     <p>Corresponds to <code>alldifferent/1</code> in MiniZinc<!-- /@w -->.
+
+     <p><var>Options</var> is a list of zero or more of the following:
+
+          <dl>
+<dt><var>L</var><code> #= </code><var>R</var><code> &nbsp;<!-- /@w --> </code><strong>since release 4.3</strong><dd><a name="index-g_t_0023_003d_002f2-_0028all_005fdifferent_002f2-option_0029-2858"></a><a name="index-g_t_0023_003d_002f2-_0028all_005fdistinct_002f2-option_0029-2859"></a>where <var>R</var> should be an integer, and <var>R</var> an expressions on one of
+the following forms, where <var>X1</var>, <small class="dots">...</small>, <var>Xj</var> occur among <var>Variables</var>:
+               <dl>
+<dt><var>X1</var><code> + ... + </code><var>Xj</var><br><dt><var>X1</var><code>*</code><var>X1</var><code> + ... + </code><var>Xj</var><code>*</code><var>Xj</var><br><dt><var>X1</var><code> * ... * </code><var>Xj</var><dd></dl>
+          The given equation is a side-constraint for the constraint to hold. 
+A special bounds-consistency algorithm is used, which considers the main
+constraint and the side-constraints globally.  This option is only valid
+if the domains of <var>X1</var>, <small class="dots">...</small>, <var>Xj</var> consist of integers strictly
+greater than zero.
+
+          <br><dt><code>consistency(</code><var>Cons</var><code>)</code><dd><a name="index-consistency_002f1-_0028all_005fdifferent_002f2-option_0029-2860"></a><a name="index-consistency_002f1-_0028all_005fdistinct_002f2-option_0029-2861"></a>Which algorithm to use, one of the following:
+
+               <dl>
+<dt><code>domain</code><dd><a name="index-domain-_0028all_005fdifferent_002f2-consistency_002f1-value_0029-2862"></a><a name="index-domain-_0028all_005fdistinct_002f2-consistency_002f1-value_0029-2863"></a>The default for <code>all_distinct/[1,2]</code> and <code>assignment/[2,3]</code>. 
+A domain-consistency algorithm [Regin 94] is used, roughly linear in
+the total size of the domains.  Implies <code>on(dom)</code>.
+
+               <br><dt><code>bounds</code><dd><a name="index-bounds-_0028all_005fdifferent_002f2-consistency_002f1-value_0029-2864"></a><a name="index-bounds-_0028all_005fdistinct_002f2-consistency_002f1-value_0029-2865"></a>A bounds-consistency algorithm [Lopez-Ortiz 03] is used, which runs
+in <var>O(n </var><span class="roman">log</span><var> n)</var> time for <var>n</var> variables.  Implies
+<code>on(minmax)</code>.
+
+               <br><dt><code>representation</code><dd><a name="index-representation-_0028all_005fdifferent_002f2-consistency_002f1-value_0029-2866"></a><a name="index-representation-_0028all_005fdistinct_002f2-consistency_002f1-value_0029-2867"></a>The default for <code>all_different/[1,2]</code>.  An algorithm achieving
+exactly the same pruning as a set of pairwise inequality constraints is
+used, roughly linear in the number of variables.  Implies
+<code>on(val)</code>. 
+</dl>
+
+          <br><dt><code>on(</code><var>On</var><code>)</code><dd><a name="index-on_002f1-_0028all_005fdifferent_002f2-option_0029-2868"></a><a name="index-on_002f1-_0028all_005fdistinct_002f2-option_0029-2869"></a>How eagerly to wake up the constraint.  One of the following:
+               <dl>
+<dt><code>dom</code><dd><a name="index-dom-_0028all_005fdifferent_002f2-on_002f1-value_0029-2870"></a><a name="index-dom-_0028all_005fdistinct_002f2-on_002f1-value_0029-2871"></a>(the default for <code>all_distinct/[1,2]</code> and <code>assignment/[2,3]</code>),
+to wake up when the domain of a variable is changed;
+<br><dt><code>min</code><dd><a name="index-min-_0028all_005fdifferent_002f2-on_002f1-value_0029-2872"></a><a name="index-min-_0028all_005fdistinct_002f2-on_002f1-value_0029-2873"></a>to wake up when the lower bound of a domain is changed;
+<br><dt><code>max</code><dd><a name="index-max-_0028all_005fdifferent_002f2-on_002f1-value_0029-2874"></a><a name="index-max-_0028all_005fdistinct_002f2-on_002f1-value_0029-2875"></a>to wake up when the upper bound of a domain is changed;
+<br><dt><code>minmax</code><dd><a name="index-minmax-_0028all_005fdifferent_002f2-on_002f1-value_0029-2876"></a><a name="index-minmax-_0028all_005fdistinct_002f2-on_002f1-value_0029-2877"></a>to wake up when some bound of a domain is changed;
+<br><dt><code>val</code><dd><a name="index-val-_0028all_005fdifferent_002f2-on_002f1-value_0029-2878"></a><a name="index-val-_0028all_005fdistinct_002f2-on_002f1-value_0029-2879"></a>(the default for <code>all_different/[1,2]</code>), to wake up when a variable becomes ground. 
+</dl>
+          </dl>
+
+     <br><dt><code>nvalue(</code><var>?N</var><code>, </code><var>+Variables</var><code>)</code><dd><a name="index-nvalue_002f2-_0028clpfd_0029-2880"></a><a name="index-nvalue_002f2-_0028clpfd_0029-2881"></a>
+where <var>Variables</var> is a list of domain variables with finite bounds
+or integers, and <var>N</var> is an integer or a domain variable.  True if
+<var>N</var> is the number of distinct values taken by <var>Variables</var>. 
+Approximates bounds-consistency in <var>N</var> and domain-consistency in
+<var>Variables</var>.  Can be thought of as a relaxed version of
+<code>all_distinct/2</code>.
+
+     <p>Corresponds to <code>nvalue/2</code> in MiniZinc<!-- /@w -->. 
+</dl>
+
+   <p>The following is a constraint over two lists of length <var>n</var> of
+variables.  Each variable is constrained to take a representation in <var>[1,n]</var>
+that is unique for its list.  Furthermore, the lists are dual in a sense
+described below.
+
+     <dl>
+<dt><code>assignment(</code><var>+Xs</var><code>, </code><var>+Ys</var><code>)</code><dt><code>assignment(</code><var>+Xs</var><code>, </code><var>+Ys</var><code>, </code><var>+Options</var><code>)</code><dd><a name="index-assignment_002f_005b2_002c3_005d-_0028clpfd_0029-2882"></a><a name="index-assignment_002f_005b2_002c3_005d-_0028clpfd_0029-2883"></a>
+where <var>Xs</var> = <var>[X1,<small class="dots">...</small>,Xn]</var> and <var>Ys</var> =
+<var>[Y1,<small class="dots">...</small>,Yn]</var> are lists of domain variables or integers.  True
+if all <var>Xi, Yi </var><span class="roman">in</span><var> [1,n]</var> and <var>Xi=j </var><span class="roman">iff</span><var> Yj=i</var>.
+
+     <p>Corresponds to <code>inverse/2</code> in MiniZinc<!-- /@w -->.
+
+     <p><var>Options</var> is a list of zero or more of the following, where
+<var>Boolean</var> must be <code>true</code> or <code>false</code> (<code>false</code> is the
+default):
+
+          <dl>
+<dt><code>on(</code><var>On</var><code>)</code><dd><a name="index-on_002f1-_0028assignment_002f3-option_0029-2884"></a>Same meaning as for <code>all_different/2</code>.
+
+          <br><dt><code>consistency(</code><var>Cons</var><code>)</code><dd><a name="index-consistency_002f1-_0028assignment_002f3-option_0029-2885"></a>Same meaning as for <code>all_different/2</code>.
+
+          <br><dt><code>circuit(</code><var>Boolean</var><code>)</code><dd><a name="index-circuit_002f1-_0028assignment_002f3-option_0029-2886"></a>If <code>true</code>, <code>circuit(</code><var>Xs</var><code>,</code><var>Ys</var><code>)</code> must hold for the
+constraint to be true.
+
+          <br><dt><code>cost(</code><var>Cost</var><code>,</code><var>Matrix</var><code>)</code><dd><a name="index-cost_002f2-_0028assignment_002f3-option_0029-2887"></a>A cost is associated with the constraint and reflected into the domain
+variable <var>Cost</var>.  <var>Matrix</var> should be an <var>n*n</var> matrix of
+integers, represented as a list of lists.  The cost of the constraint is
+<var>Matrix[1,X1]+<small class="dots">...</small>+Matrix[n,Xn]</var>.
+
+          <p>With this option, a domain-consistency algorithm [Sellmann 02] is used,
+the complexity of which is roughly <var>O(n(m + n </var><span class="roman">log</span><var> n))</var> where
+<var>m</var> is the total size of the domains. 
+</dl>
+     </dl>
+
+   <p>The following constraint captures the relation between a list of values,
+a list of the values in ascending order, and their positions in the
+original list:
+
+     <dl>
+<dt><code>sorting(</code><var>+Xs</var><code>,</code><var>+Ps</var><code>,</code><var>+Ys</var><code>)</code><dd><a name="index-sorting_002f3-_0028clpfd_0029-2888"></a><a name="index-sorting_002f3-_0028clpfd_0029-2889"></a>
+where <var>Xs</var> = <var>[X1,<small class="dots">...</small>,Xn]</var>, <var>Ps</var> =
+<var>[P1,<small class="dots">...</small>,Pn]</var>, and <var>Ys</var> = <var>[Y1,<small class="dots">...</small>,Yn]</var> are lists of
+domain variables or integers.  The constraint holds if the following are
+true:
+
+          <ul>
+<li><var>Ys</var> is in ascending order.
+
+          <li><var>Ps</var> is a permutation of <var>[1,n]</var>.
+
+          <li><span class="roman">for all</span><var> i </var><span class="roman">in</span><var> [1,n] : Xi = Y(Pi)</var>
+</ul>
+
+     <p>In practice, the underlying algorithm [Mehlhorn 00] is likely to achieve
+bounds-consistency, and is guaranteed to do so if <var>Ps</var> is ground or
+completely free.
+
+     <p>Corresponds to <code>sort/2</code> in MiniZinc<!-- /@w -->. 
+</dl>
+
+   <p>The following constraint is a generalization of <code>sorting/3</code>, namely:
+
+     <ul>
+<li>It sorts not domain variables or integers, but tuples of them. 
+<li>The tuples are split into a key prefix and a representation suffix. They are sorted
+wrt. the key part only. 
+<li>The sort is stable: if two tuples have identical keys, their relative
+order is preserved in the output. 
+</ul>
+
+     <dl>
+<dt><code>keysorting(</code><var>+Xs</var><code>,</code><var>+Ys</var><code>)</code><dt><code>keysorting(</code><var>+Xs</var><code>,</code><var>+Ys</var><code>,</code><var>+Options</var><code>)</code><dd><a name="index-keysorting_002f3-_0028clpfd_0029-2890"></a><a name="index-keysorting_002f3-_0028clpfd_0029-2891"></a>
+where <var>Xs</var> and <var>Ys</var> are lists of tuples of domain variables or
+integers.  Both lists should be of the same length <var>n</var>, and all
+tuples should have the same length <var>m</var>.  The constraint holds if the following are
+true:
+
+          <ul>
+<li><var>Ps</var> is a permutation of <var>[1,n]</var>.
+
+          <li><span class="roman">for all</span><var> i </var><span class="roman">in</span><var> [1,n], j </var><span class="roman">in</span><var> [1,m] : Ys[i,j] = Xs[Ps[i],j]</var>.
+
+          <li><var>[[Ys[i,j],Ps[i]] | i in [1,n], j in [1,keys]]</var> is in lex ascending
+order, where <var>keys</var> defaults to 1 (see the options). 
+</ul>
+
+     <p>The filtering algorithm is based on [Mehlhorn 00] and endeavors to achieve
+bounds-consistency, but does not guarantee it.
+
+     <p>Corresponds to Prolog's <code>keysort/2</code>.
+
+     <p><var>Options</var> is a list of zero or more of the following:
+
+          <dl>
+<dt><code>keys(</code><var>Keys</var><code>)</code><dd><a name="index-keys_002f1-_0028keysorting_002f3-option_0029-2892"></a>where <var>Keys</var> should be a positive integer, denoting the length of
+the key prefix.  The default is 1.
+
+          <br><dt><code>permutation(</code><var>Ps</var><code>)</code><dd><a name="index-permutation_002f1-_0028keysorting_002f3-option_0029-2893"></a>where <var>Ps</var> should be a list of length <var>n</var> of integers or domain
+variables.  Its meaning is described above. 
+</dl>
+     </dl>
+
+   <p>The following constraints express the fact that several vectors of
+domain variables are in ascending lexicographic order:
+
+     <dl>
+<dt><code>lex_chain(</code><var>+Vectors</var><code>)</code><dt><code>lex_chain(</code><var>+Vectors</var><code>,</code><var>+Options</var><code>)</code><dd><a name="index-lex_005fchain_002f_005b1_002c2_005d-_0028clpfd_0029-2894"></a><a name="index-lex_005fchain_002f_005b1_002c2_005d-_0028clpfd_0029-2895"></a>
+where <var>Vectors</var> is a list of vectors (lists) of domain variables
+with finite bounds or integers.  The constraint holds if <var>Vectors</var>
+are in ascending lexicographic order.
+
+     <p>Corresponds to <code>*lex2/1</code>, <code>lex_greater*/2</code>, <code>lex_less*/2</code> in MiniZinc<!-- /@w -->.
+
+     <p><var>Options</var> is a list of zero or more of the following:
+
+          <dl>
+<dt><code>op(</code><var>Op</var><code>)</code><dd><a name="index-op_002f1-_0028lex_005fchain_002f2-option_0029-2896"></a>If <var>Op</var> is the atom <code>#=&lt;</code> (the default), the constraints holds
+if <var>Vectors</var> are in non-descending lexicographic order.  If <var>Op</var>
+is the atom <code>#&lt;</code>, the constraints holds if <var>Vectors</var> are in
+strictly ascending lexicographic order.
+
+          <br><dt><code>increasing</code><dd><a name="index-increasing_002f0-_0028lex_005fchain_002f2-option_0029-2897"></a>This option imposes the additional constraint that each vector in
+<var>Vectors</var> be sorted in strictly ascending order.
+
+          <br><dt><code>among(</code><var>Least</var><code>,</code><var>Most</var><code>,</code><var>Values</var><code>)</code><dd><a name="index-among_002f3-_0028lex_005fchain_002f2-option_0029-2898"></a>If given, <var>Least</var> and <var>Most</var> should be integers such that <var>0
+&lt;= Least &lt;= Most</var> and <var>Values</var> should be a list of distinct
+integers.  This option imposes the additional constraint on each vector
+in <var>Vectors</var> that at least <var>Least</var> and at most <var>Most</var>
+elements belong to <var>Values</var>.
+
+          <br><dt><code>global(</code><var>Boolean</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.2.1</strong><dd><a name="index-global_002f1-_0028lex_005fchain_002f2-option_0029-2899"></a>if <code>true</code>, a more expensive algorithm [Carlsson &amp; Beldiceanu 02],
+which guaranteed domain-consistency unless the <code>increasing/0</code> or
+<code>among/3</code> options are given, will be used. 
+</dl>
+     </dl>
+
+   <p>In the following constraints, a <em>literal</em> is either a term <code>X</code>
+or a term <code>#\ X</code>, where <code>X</code> is a 0/1 variable.  They maintain
+domain-consistency:
+
+     <dl>
+<dt><code>bool_and(</code><var>+Lits</var><code>, </code><var>+Lit</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.3</strong><dd><a name="index-bool_005fand_002f2-_0028clpfd_0029-2900"></a><a name="index-bool_005fand_002f2-_0028clpfd_0029-2901"></a>
+where <var>Lits</var> is a list of literals <code>[L0,...,Lj]</code> and <var>Lit</var> is a literal. 
+True if <var>Lit</var> equals the Boolean conjunction of <var>Lits</var>, and
+usually more efficient than the equivalent <code>L0#/\...#/\Lj #&lt;=&gt; Lit</code>.
+
+     <br><dt><code>bool_or(</code><var>+Lits</var><code>, </code><var>+Lit</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.3</strong><dd><a name="index-bool_005for_002f2-_0028clpfd_0029-2902"></a><a name="index-bool_005for_002f2-_0028clpfd_0029-2903"></a>
+where <var>Lits</var> is a list of literals <code>[L0,...,Lj]</code> and <var>Lit</var> is a literal. 
+True if <var>Lit</var> equals the Boolean disjunction of <var>Lits</var>, and
+usually more efficient than the equivalent <code>L0#\/...#\/Lj #&lt;=&gt; Lit</code>.
+
+     <br><dt><code>bool_xor(</code><var>+Lits</var><code>, </code><var>+Lit</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.3</strong><dd><a name="index-bool_005fxor_002f2-_0028clpfd_0029-2904"></a><a name="index-bool_005fxor_002f2-_0028clpfd_0029-2905"></a>
+where <var>Lits</var> is a list of literals <code>[L0,...,Lj]</code> and <var>Lit</var> is a literal. 
+True if <var>Lit</var> equals the Boolean exclusive or of <var>Lits</var>, and
+usually more efficient than the equivalent <code>L0#\...#\Lj #&lt;=&gt; Lit</code>.
+
+     <br><dt><code>bool_channel(</code><var>+Lits</var><code>, </code><var>?Y</var><code>, </code><var>+Relop</var><code>, </code><var>+Offset</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.3</strong><dd><a name="index-bool_005fchannel_002f4-_0028clpfd_0029-2906"></a><a name="index-bool_005fchannel_002f4-_0028clpfd_0029-2907"></a>
+where <var>Lits</var> is a list of literals <code>[L0,...,Lj]</code>, <var>Y</var> is a
+domain variable, <var>RelOp</var> is an arithmetic comparison as in
+<a href="Syntax-of-Arithmetic-Expressions.html#Syntax-of-Arithmetic-Expressions">Syntax of Arithmetic Expressions</a>, and <var>Offset</var> is an integer. 
+Expresses the constraint <var>Li #&lt;=&gt; (Y RelOp i+Offset)</var> for
+<var>i</var><code> in 0..j</code>. Usually more efficient than a bunch of reified
+comparisons between a given variable and a sequence of integers. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Arithmetic_002dLogical-Constraints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Arithmetic_002dLogical-Constraints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,144 @@
+<html lang="en">
+<head>
+<title>MT Multiple - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Multiple-SICStus-Runtimes-in-C.html#Multiple-SICStus-Runtimes-in-C" title="Multiple SICStus Runtimes in C">
+<link rel="prev" href="MT-Single.html#MT-Single" title="MT Single">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="MT-Multiple"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="MT-Single.html#MT-Single">MT Single</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Multiple-SICStus-Runtimes-in-C.html#Multiple-SICStus-Runtimes-in-C">Multiple SICStus Runtimes in C</a>
+<hr>
+</div>
+
+<h4 class="subsection">8.2.2 Using More than One SICStus Runtime</h4>
+
+<p>Using more than one SICStus runtime in a process is only supported when
+the dynamic library version of the SICStus runtime is used (e.g. 
+<code>sprt4-3-1.dll</code>, <code>libsprt4-3-1.so</code>).
+
+   <p>An application that wants to use more than one SICStus runtime needs to
+be built using the <samp><span class="option">--multi-sp-aware</span></samp> option to <samp><span class="command">spld</span></samp>. C-code
+compiled by <code>spld --multi-sp-aware</code> will have the C preprocessor macro
+<code>MULTI_SP_AWARE</code> defined and non-zero.
+
+   <p>Unlike the single runtime case described above, an application built
+with <samp><span class="option">--multi-sp-aware</span></samp> will not have a global variable that holds the
+dispatch vector. Instead, your code will have to take steps to ensure that
+the appropriate dispatch vector is used when switching between SICStus
+runtimes.
+
+   <p>There are several steps needed to access a SICStus runtime from an
+application built with <samp><span class="option">--multi-sp-aware</span></samp>.
+
+     <ol type=1 start=1>
+<li>You must obtain the dispatch vector of the initial SICStus runtime
+using <code>SP_get_dispatch()</code>. Note that this function is special in
+that it is not accessed through the dispatch vector; instead, it is
+exported in the ordinary manner from the SICStus runtime dynamic
+library (<code>sprt4-3-1.dll</code> under Windows and, typically,
+<code>libsprt4-3-1.so</code> under UNIX).
+
+     <li>You must ensure that <code>SICStusDISPATCHVAR</code>
+expands to something that references the dispatch vector obtained in
+step 1.
+
+     <p>The C preprocessor macro <code>SICStusDISPATCHVAR</code> should expand to a
+<code>SICSTUS_API_STRUCT_TYPE *</code>, that is, a pointer to the dispatch
+vector that should be used. When <samp><span class="option">--multi-sp-aware</span></samp> is not used
+<code>SICStusDISPATCHVAR</code> expands to <code>sp_GlobalSICStus</code> as
+described above. When using <samp><span class="option">--multi-sp-aware</span></samp> it is
+probably best to let <code>SICStusDISPATCHVAR</code> expand to a local
+variable.
+
+     <li>Once you have access to the SICStus API of the initial SICStus runtime
+you can call the SICStus API function <code>SP_load_sicstus_run_time()</code> to
+load additional runtimes.
+
+        </ol>
+
+<!-- FIXME [PM] 3.9b4 -->
+<!-- SP_initialize/glue_initialize should not accept sp_pre_XXX arguments -->
+<!-- when MULTI_SP_AWARE. The reason is that prelinked resources may be -->
+<!-- static and therefore will not handle multiple runtimes correctly. (In -->
+<!-- fact, if the embedder uses -DMULTI_SP_AWARE, there should be a -->
+<!-- link-time error when the static foreign resource tries to link against -->
+<!-- the embedders sp_GlobalSICStus. -->
+<pre class="example">     SICSTUS_API_STRUCT_TYPE *SP_get_dispatch(void *reserved);
+</pre>
+   <p><code>SP_get_dispatch()</code> returns the dispatch vector of the SICStus
+runtime. The argument <code>reserved</code> should be <code>NULL</code>. This
+function can be called from any thread.
+
+<pre class="example">     typedef SICSTUS_API_STRUCT_TYPE *SP_get_dispatch_type(void *);
+     
+     int SP_load_sicstus_run_time(SP_get_dispatch_type **ppfunc, void *reserved);
+</pre>
+   <p><code>SP_load_sicstus_run_time()</code> loads a new SICStus
+runtime. 
+If a new runtime could be loaded a
+positive representation is returned and the address of the
+<code>SP_get_dispatch()</code> function of the newly loaded SICStus runtime
+is stored at the address <code>ppfunc</code>. The second argument,
+<code>phandle</code>, is reserved and should be <code>NULL</code>.
+
+   <p>As a special case, if <code>SP_load_sicstus_run_time()</code> is called from a
+SICStus runtime that has not been initialized (with
+<code>SP_initialize()</code>) and that has not previously been loaded as the
+result of calling <code>SP_load_sicstus_run_time()</code>, no new runtime
+is loaded. Instead, the <code>SP_get_dispatch()</code> of the runtime itself is
+returned. In particular, the first time <code>SP_load_sicstus_run_time()</code>
+is called on the initial SICStus runtime, and if this happens before
+the initial SICStus runtime is initialized, no new runtime is
+loaded.
+
+   <p>Calling <code>SP_load_sicstus_run_time()</code> from a particular runtime can
+be done from any thread.
+
+   <p>An application that links statically with the SICStus runtime should
+not call <code>SP_load_sicstus_run_time()</code>.
+
+   <p>You should not use prelinked foreign resources when using
+multiple SICStus runtimes in the same process.
+
+<!-- FIXME a good example should clarify this -->
+   <p>For an example of loading and using multiple SICStus runtimes, see
+<samp><span class="file">library/jasper/spnative.c</span></samp> that implements this functionality for
+the Java interface Jasper.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/MT-Multiple.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/MT-Multiple.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+<title>Widgets - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Tk.html#Tk" title="Tk">
+<link rel="next" href="Types-of-Widget.html#Types-of-Widget" title="Types of Widget">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Widgets"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Types-of-Widget.html#Types-of-Widget">Types of Widget</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Tk.html#Tk">Tk</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.37.3.1 Widgets</h5>
+
+<p>A widget is a &ldquo;window object&rdquo;. It is something that is displayed that
+has at least two parts: a state and a behavior.  An example of a widget
+is a button.  Its state is things like what color is it, what text is
+written it in, and how big it is.  Its behavior is things like what it
+does when you click on it, or what happens when the cursor is
+moved over or away from it.
+
+   <p>In Tcl/Tk there are three parts to creating a useful widget. 
+The first is creating an instance of the widget with its initial state. 
+The second is giving it a behavior by defining how the widget behaves
+when certain events happen &mdash; event handling. 
+The third is actually displaying the widget possibly in a group
+of widgets or inside another widget &mdash; geometry management. 
+In fact, after creating all the widgets for a GUI, they are not
+displayed until handled by a geometry manager, which has rules about how
+to calculate the size of the widgets and how they will appear in relation to
+each other.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Widgets.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Widgets.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

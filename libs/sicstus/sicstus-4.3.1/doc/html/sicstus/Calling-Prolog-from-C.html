@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+<title>Calling Prolog from C - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Mixing-C-and-Prolog.html#Mixing-C-and-Prolog" title="Mixing C and Prolog">
+<link rel="prev" href="Support-Functions.html#Support-Functions" title="Support Functions">
+<link rel="next" href="SICStus-Streams.html#SICStus-Streams" title="SICStus Streams">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Calling-Prolog-from-C"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="SICStus-Streams.html#SICStus-Streams">SICStus Streams</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Support-Functions.html#Support-Functions">Support Functions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Mixing-C-and-Prolog.html#Mixing-C-and-Prolog">Mixing C and Prolog</a>
+<hr>
+</div>
+
+<h3 class="section">6.5 Calling Prolog from C</h3>
+
+<p><a name="index-calling-Prolog-from-C-2305"></a>
+In development and runtime systems alike, Prolog and C code may
+call each other to arbitrary depths. 
+<!-- The ability to call Prolog from C is not available in the Muse -->
+<!-- Development System. -->
+
+   <p><a name="index-SP_005fpredicate_0028_0029-_0028C-function_0029-2306"></a>Before calling a predicate from C you must look up the
+predicate definition by module, name, and arity.  The
+function <code>SP_predicate()</code> will return a pointer to this definition
+or return <code>NULL</code> if the predicate is not visible in the
+module.  This definition can be used in more than one call to
+the same predicate.
+
+   <p><a name="index-SP_005fpred_0028_0029-_0028C-function_0029-2307"></a>The function <code>SP_pred()</code> may be used as an alternative to the
+above.  The only difference is that the name and module
+arguments are passed as Prolog atoms rather than strings,
+and the module argument is mandatory.  This saves the cost
+of looking up the two arguments in the Prolog symbol table.  This
+cost dominates the cost of the operation.
+
+<ul class="menu">
+<li><a accesskey="1" href="Finding-One-Solution-of-a-Call.html#Finding-One-Solution-of-a-Call">Finding One Solution of a Call</a>:  Finding One Solution of a Call
+<li><a accesskey="2" href="Finding-Multiple-Solutions-of-a-Call.html#Finding-Multiple-Solutions-of-a-Call">Finding Multiple Solutions of a Call</a>:  Finding Multiple Solutions of a Call
+<li><a accesskey="3" href="Calling-Prolog-Asynchronously.html#Calling-Prolog-Asynchronously">Calling Prolog Asynchronously</a>:  Calling Prolog Asynchronously
+<li><a accesskey="4" href="Exception-Handling-in-C.html#Exception-Handling-in-C">Exception Handling in C</a>:  Exception Handling in C
+<li><a accesskey="5" href="Reading-a-goal-from-a-string.html#Reading-a-goal-from-a-string">Reading a goal from a string</a>:  Reading a goal from a string
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Calling-Prolog-from-C.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Calling-Prolog-from-C.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

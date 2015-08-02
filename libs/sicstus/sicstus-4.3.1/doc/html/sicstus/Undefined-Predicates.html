@@ -1,0 +1,90 @@
+<html lang="en">
+<head>
+<title>Undefined Predicates - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Run-Intro.html#Run-Intro" title="Run Intro">
+<link rel="prev" href="Syntax-Errors.html#Syntax-Errors" title="Syntax Errors">
+<link rel="next" href="Execution.html#Execution" title="Execution">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Undefined-Predicates"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Execution.html#Execution">Execution</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Syntax-Errors.html#Syntax-Errors">Syntax Errors</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Run-Intro.html#Run-Intro">Run Intro</a>
+<hr>
+</div>
+
+<h3 class="section">3.6 Undefined Predicates</h3>
+
+<p><a name="index-undefined-predicate-296"></a><a name="index-predicate_002c-undefined-297"></a><a name="index-unknown_005fpredicate_005fhandler_002f3-_0028user_002c-hook_0029-298"></a><a name="index-unknown_005fpredicate_005fhandler_002f3-_0028user_002c-hook_0029-299"></a>
+<a name="index-user_003aunknown_005fpredicate_005fhandler_002f3-_0028hook_0029-300"></a><a name="index-user_003aunknown_005fpredicate_005fhandler_002f3-_0028hook_0029-301"></a>
+
+   <p>There is a difference between predicates that have no definition
+and predicates that have no clauses.  The latter case is
+meaningful e.g. for dynamic predicates
+(see <a href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl">ref-lod-dcl</a>) that clauses are being added to or removed
+from.  There are good reasons for treating calls to undefined
+predicates as errors, as such calls easily arise from typing
+errors.
+
+   <p>The system can optionally catch calls to predicates that have no
+definition. First, the user defined predicate
+<code>user:unknown_predicate_handler/3</code> (see <a href="ref_002dere.html#ref_002dere">ref-ere</a>) is called.  If
+undefined or if the call fails, the action is governed by the state of
+the <code>unknown</code> Prolog flag; see <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>. 
+Calls to predicates that have no clauses are not caught. 
+See <a href="mpg_002dref_002dunknown_005fpredicate_005fhandler.html#mpg_002dref_002dunknown_005fpredicate_005fhandler">mpg-ref-unknown_predicate_handler</a>. 
+Two development system predicates are handy in this context:
+<a name="index-unknown-_0028prolog-flag_0029-302"></a>
+<a name="index-unknown_002f2-_0028built_002din_0029-303"></a><a name="index-unknown_002f2-_0028built_002din_0029-304"></a>
+<pre class="example">     | ?- <kbd>unknown(X,error).</kbd>
+     % Undefined predicates will raise an exception (error)
+     X = error
+</pre>
+   <p>This sets the flag and prints a message about the new representation.
+
+   <p><a name="index-debugging_002f0-_0028built_002din_0029-305"></a><a name="index-debugging_002f0-_0028built_002din_0029-306"></a>
+<pre class="example">     | ?- <kbd>debugging.</kbd>
+     The debugger is switched off
+     Using leashing stopping at [call,exit,redo,fail,exception] ports
+     Undefined predicates will raise an exception (error)
+     There are no breakpoints
+</pre>
+   <p>This prints a message about the current representation, as well as information
+about the state of the debugger.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Undefined-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Undefined-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

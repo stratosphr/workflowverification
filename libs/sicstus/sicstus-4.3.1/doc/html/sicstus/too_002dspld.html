@@ -1,0 +1,457 @@
+<html lang="en">
+<head>
+<title>too-spld - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Command-Reference-Pages.html#Command-Reference-Pages" title="Command Reference Pages">
+<link rel="prev" href="too_002dspdet.html#too_002dspdet" title="too-spdet">
+<link rel="next" href="too_002dsplfr.html#too_002dsplfr" title="too-splfr">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="too-spld"></a>
+<a name="too_002dspld"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="too_002dsplfr.html#too_002dsplfr">too-splfr</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="too_002dspdet.html#too_002dspdet">too-spdet</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Command-Reference-Pages.html#Command-Reference-Pages">Command Reference Pages</a>
+<hr>
+</div>
+
+<h3 class="section">13.5 <samp><span class="command">spld</span></samp> &mdash; SICStus Prolog Application Builder</h3>
+
+<p><a name="index-spld_00281_0029-_0028command-line-tool_0029-5245"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     % <kbd>spld [ </kbd><var>Option</var><kbd> | </kbd><var>InputFile</var><kbd> ] ...</kbd>
+</pre>
+<h4 class="subheading">Description</h4>
+
+<p>The application builder, <samp><span class="command">spld</span></samp>, is used for creating
+stand-alone executables. See <a href="The-Application-Builder.html#The-Application-Builder">The Application Builder</a> for an overview.
+
+   <p><samp><span class="command">spld</span></samp> takes the files specified on the command line and combines
+them into an executable file, much like the UNIX <samp><span class="command">ld</span></samp> or the
+Windows <samp><span class="command">link</span></samp> commands.
+
+   <p>Note that no pathnames passed to <samp><span class="command">spld</span></samp> should contain spaces. 
+Under Windows, this can be avoided by using the short version of
+pathnames as necessary.
+
+<h4 class="subheading">Options</h4>
+
+<p>The input to <samp><span class="command">spld</span></samp> can be divided into <var>Options</var> and
+<var>Files</var>, which can be arbitrarily mixed on the command line. Anything
+not interpreted as an option will be interpreted as an input file. Do
+not use spaces in any file or option passed to <samp><span class="command">spld</span></samp>. 
+Under Windows you can use the short file name for files with space in their
+name. The following options are available:
+
+     <dl>
+<dt><samp><span class="option">-?</span></samp><dt><samp><span class="option">--help</span></samp><dd>Prints out a summary of all options. This may document more options than
+those described in this manual.
+
+     <br><dt><samp><span class="option">-v</span></samp><dt><samp><span class="option">--verbose</span></samp><dd>Print detailed information about each step in the compilation/linking
+sequence. Multiple occurrences increase verbosity.
+
+     <br><dt><samp><span class="option">-vv</span></samp><dd>Same as -v -v.
+
+     <br><dt><samp><span class="option">--version</span></samp><dd>Prints out the version number of <samp><span class="command">spld</span></samp> and exits successfully.
+
+     <br><dt><samp><span class="option">-o</span></samp><dt><samp><span class="option">--output=</span><var>filename</var></samp><dd>Specify output file name. The default depends on the linker (e.g. 
+<samp><span class="file">a.out</span></samp> on UNIX systems).
+
+     <br><dt><samp><span class="option">-E</span></samp><dt><samp><span class="option">--extended-rt</span></samp><dd>Create an extended runtime system.  In addition to the normal set
+of built-in runtime system predicates, extended runtime
+systems include the compiler.  Extended runtime systems
+require the extended runtime library, available from SICS as an
+add-on product. Extended runtime systems need access to license
+information; see <a href="Extended-Runtime-Systems.html#Extended-Runtime-Systems">Extended Runtime Systems</a>.
+
+     <br><dt><samp><span class="option">-D</span></samp><dt><samp><span class="option">--development</span></samp><dd>Create a development system (with top-level, debugger,
+compiler, etc.).  The default is to create a runtime system. 
+<!-- FIXME [PM] was there ever a time when a -D was compatible with, e.g., -->
+<!-- main=restore. It now seems a little silly to have -D and -->
+<!-- main=prolog be the same thing. -->
+Implies <samp><span class="option">--main=prolog</span></samp>.
+
+     <br><dt><samp><span class="option">--main=</span><var>type</var></samp><dd><a name="index-runtime_005fentry_002f1-_0028user_002c-hook_0029-5246"></a><a name="index-runtime_005fentry_002f1-_0028user_002c-hook_0029-5247"></a>
+<a name="index-user_003aruntime_005fentry_002f1-_0028hook_0029-5248"></a><a name="index-user_003aruntime_005fentry_002f1-_0028hook_0029-5249"></a>
+Specify what the executable should do upon startup.  The possible values are:
+
+          <dl>
+<dt><code>prolog</code><dd><a name="index-prolog-_0028_002d_002dmain-option-value_0029-5250"></a>Implies <samp><span class="option">-D</span></samp>.  The executable will start the Prolog top-level. 
+This is the default if <samp><span class="option">-D</span></samp> is specified and no
+&lsquo;<samp><span class="samp">.sav</span></samp>&rsquo;, &lsquo;<samp><span class="samp">.pl</span></samp>&rsquo;, or &lsquo;<samp><span class="samp">.po</span></samp>&rsquo; <!-- or @samp{.ql} -->
+files are specified.
+
+          <br><dt><code>user</code><dd><a name="index-user-_0028_002d_002dmain-option-value_0029-5251"></a>The user supplies his/her own main program by including C-code
+(object file or source), which defines a function <code>user_main()</code>. 
+This option is not compatible with <samp><span class="option">-D</span></samp>. See <a href="User_002ddefined-Main-Programs.html#User_002ddefined-Main-Programs">User-defined Main Programs</a>.
+
+          <br><dt><code>restore</code><dd><a name="index-restore-_0028_002d_002dmain-option-value_0029-5252"></a>The executable will restore a saved-state created by
+<code>save_program/[1,2]</code>. This is the default if a &lsquo;<samp><span class="samp">.sav</span></samp>&rsquo; file is
+found among <var>Files</var>. It is only meaningful to specify one
+&lsquo;<samp><span class="samp">.sav</span></samp>&rsquo; file.  If it was created by <code>save_program/2</code>, the given
+startup goal is run.  Then the executable will any Prolog code
+specified on the command line.  Finally, the goal
+<code>user:runtime_entry(start)</code> is run.  The executable exits with 0
+upon normal temination and with 1 on failure or exception.  Not
+compatible with <samp><span class="option">-D</span></samp>.
+
+          <br><dt><code>load</code><dd><a name="index-load-_0028_002d_002dmain-option-value_0029-5253"></a>The executable will load any Prolog code specified on the command
+line, i.e. files with extension &lsquo;<samp><span class="samp">.pl</span></samp>&rsquo; or &lsquo;<samp><span class="samp">.po</span></samp>&rsquo;. <!-- or @samp{.ql}. -->
+This is the default if there are &lsquo;<samp><span class="samp">.pl</span></samp>&rsquo; or &lsquo;<samp><span class="samp">.po</span></samp>&rsquo; <!-- or @samp{.ql} -->
+but no &lsquo;<samp><span class="samp">.sav</span></samp>&rsquo; files among <var>Files</var>.  Finally, the
+goal <code>user:runtime_entry(start)</code> is run.  The executable
+exits with 0 upon normal temination and with 1 on failure or exception. 
+Not compatible with <samp><span class="option">-D</span></samp>. Note that this is almost like
+<samp><span class="option">--main==restore</span></samp> except that no saved-state will be
+restored before loading the other files.
+
+          <br><dt><code>none</code><dd><a name="index-none-_0028_002d_002dmain-option-value_0029-5254"></a>No main function is generated. The main function must be supplied in one
+of the user supplied files. 
+Not compatible with <samp><span class="option">-D</span></samp>.
+
+     </dl>
+
+     <br><dt><samp><span class="option">--window</span></samp><dd>
+<em>Win32 only.</em> Create a windowed executable. A console window
+will be opened and connected to the Prolog standard streams. If
+<samp><span class="option">--main=user</span></samp> is specified, <code>user_main()</code> should not set the
+user-stream hooks.  C/C++ source code files specified on the
+command-line will be compiled with <samp><span class="option">-DSP_WIN=1</span></samp> if this option is
+given.
+
+     <br><dt><samp><span class="option">--moveable</span></samp><dt><samp><span class="option">--no-moveable</span></samp><dd>
+<!-- This should change, -moveable should be made the default [PM] -->
+<!-- is working on that (Update: -moveable should probably not be the -->
+<!-- default/PM since it would require a (or, link to a) complete -->
+<!-- directory structure  in the same folder as the generated exe) -->
+
+     <p>Controls whether to hardcode certain paths into the executable in order
+for it to find the SICStus libraries and bootfiles etc.
+
+     <p>Under UNIX, if <samp><span class="option">--no-moveable</span></samp> is specified, paths are hardcoded
+into executables in order for
+them to find the SICStus libraries and bootfiles. Two paths are normally
+hardcoded; the representation of <samp><span class="env">SP_PATH</span></samp> and, where possible, the runtime
+library search path using the <samp><span class="option">-R</span></samp> linker option (or
+equivalent). If the linker does not support the <samp><span class="option">-R</span></samp> option (or an
+equivalent), a wrapper script is generated instead, which sets
+<samp><span class="env">LD_LIBRARY_PATH</span></samp> (or equivalent).
+
+     <p>The <samp><span class="option">--moveable</span></samp> option turns off this behavior, so the executable
+is not dependent on SICStus being installed in a specific place. 
+On most platforms the executable can figure out where it is located and
+so can locate any files it need, e.g. using <samp><span class="env">SP_APP_DIR</span></samp> and
+<samp><span class="env">SP_RT_DIR</span></samp>. On some UNIX platforms, however, this is not possible. 
+In these cases, <samp><span class="option">--moveable</span></samp> is in effect, the executable will rely on the system properties and
+enviroment variables
+(<samp><span class="env">SP_PATH</span></samp> (see <a href="System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a>) and
+<samp><span class="env">LD_LIBRARY_PATH</span></samp> etc.) to find all relevant files.
+
+     <p>Under Windows, <samp><span class="option">--moveable</span></samp> is always on, since Windows
+applications don't need to hardcode paths in order for them to find out
+where they are installed.  On UNIX platforms, <code>--moveable</code> is the
+default (as of release 4.2) but can be turned off with
+<samp><span class="option">--no-moveable</span></samp>. See <a href="Runtime-Systems-on-Target-Machines.html#Runtime-Systems-on-Target-Machines">Runtime Systems on Target Machines</a> for
+more information on how SICStus locates its libraries and bootfiles.
+
+     <br><dt><samp><span class="option">-S</span></samp><dt><samp><span class="option">--static</span></samp><dd>Link statically with SICStus runtime and foreign resources.  When
+<samp><span class="option">--static</span></samp> is specified, a static version of the SICStus runtime
+will be used and any SICStus foreign resources specified with
+<samp><span class="option">--resources</span></samp> will be statically linked with the executable. In
+addition, <samp><span class="option">--static</span></samp> implies <samp><span class="option">--embed-rt-sav</span></samp>,
+<samp><span class="option">--embed-sav-file</span></samp> and <samp><span class="option">--resources-from-sav</span></samp>.
+
+     <!-- Prefer static linking over dynamic. When @option{-static} is specified, -->
+     <!-- @command{spld} will try to use static (not shared) versions of libraries and -->
+     <!-- object-files. This option can be used to minimize runtime dependencies -->
+     <!-- on shared libraries/object-files. -->
+     <!-- In particular, a static version of the SICStus runtime will be used and -->
+     <!-- any SICStus foreign resources specified with @option{-resources} will be -->
+     <!-- statically linked with the executable. In addition, @option{-static} -->
+     <!-- implies @option{-embed-rt-sav}. -->
+     <!-- Under UNIX, even if there is a static version of a library (such as for -->
+     <!-- example Tcl/Tk (@code{libtcl8.0.a}), @command{spld} may still use the -->
+     <!-- dynamic version (@code{libtcl8.0.so}). This is because there is no -->
+     <!-- portable way of telling the linker to @emph{prefer} static libraries -->
+     <!-- over shared, it is usually only possible to link statically @emph{or} -->
+     <!-- dynamically; the modes are usually exclusive. In this case, -->
+     <p>Even with <samp><span class="option">--static</span></samp>, <samp><span class="command">spld</span></samp> will go with the linker's
+default, which is usually dynamic. If you are in a situation where you
+would want <samp><span class="command">spld</span></samp> to use a static library instead of a dynamic
+one, you will have to hack into <samp><span class="command">spld</span></samp>'s configuration file
+<samp><span class="file">spconfig-</span><var>version</var></samp> (normally located in
+<samp><span class="file">&lt;installdir&gt;/bin</span></samp>). We recommend that you make a copy of the
+configuration file and specify the new configuration file using
+<samp><span class="option">--config=&lt;file&gt;</span></samp>. A typical modification of the configuration
+file for this purpose may look like:
+     <pre class="example">          [...]
+          TCLLIB=-Bstatic -L/usr/local/lib -ltk8.0 -ltcl8.0 -Bdynamic
+          [...]
+</pre>
+     <p>Use the new configuration file by typing
+     <pre class="example">          % <kbd>spld [...] -S --config=/home/joe/hacked_spldconfig [...]</kbd>
+</pre>
+     <p>The SICStus runtime depends on certain OS support that is only available
+in dynamically linked executables. For this reason it will probably not
+work to try to tell the linker to build a completely static executable,
+i.e. an executable that links statically also with the C library and
+that cannot load shared objects.
+
+     <br><dt><samp><span class="option">--shared</span></samp><dd>Create a shared library runtime system instead of an ordinary
+executable. Not compatible with <samp><span class="option">--static</span></samp>. Implies
+<samp><span class="option">--main=none</span></samp>.
+
+     <p>Not supported on all platforms.
+
+     <br><dt><samp><span class="option">--resources=</span><var>ResourceList</var></samp><dd><var>ResourceList</var> is a comma-separated list of resource names,
+describing which resources should be prelinked with the
+executable. Names can be either simple resource names, for example
+<code>tcltk</code>, or they can be complete paths to a foreign resource
+(with or without extensions). Example
+     <pre class="example">          % <kbd>spld [...] --resources=tcltk,clpfd,/home/joe/foobar.so</kbd>
+</pre>
+     <p>This will cause <code>library(tcltk)</code>, <code>library(clpfd)</code>, and
+<samp><span class="file">/home/joe/foobar.so</span></samp> to be prelinked with the executable. See
+also the option <samp><span class="option">--respath</span></samp> below.
+
+     <!-- FIXME more on this, synch with the examples -->
+     <p><a name="index-data-resource-5255"></a><a name="index-resource_002c-data-5256"></a>It is also possible to embed a <dfn>data resource</dfn>, that is, the
+contents of an arbitrary data file that can be accessed at runtime.
+
+     <p>It is possible to embed any kind of data, but, currently, only
+<code>restore/1</code> knows about data resources. For this reason it only
+makes sense to embed &lsquo;<samp><span class="samp">.sav</span></samp>&rsquo; files.
+
+     <!-- Data resources are added by specifying their internal name and their -->
+     <!-- location as part of the comma separated list of resources passed with -->
+     <!-- the @command{spld} option @option{-resources}. Each data resource is -->
+     <!-- specified as @var{file}=@var{name} where @var{file} is the name of the -->
+     <!-- file containing the data (it must exist during the call to @command{spld}) -->
+     <!-- and @var{name} is the name used to access the content of @var{file} -->
+     <!-- during runtime. -->
+     <!-- It is possible to embed any kind of data using this syntax, but, -->
+     <!-- currently, only @code{restore/1} knows about data resources. For this -->
+     <!-- reason it only makes sense to embed @samp{.sav} files. -->
+     <p>The primary reason to embed files within the executable is to create an
+all-in-one executable, that is, an executable file that does not depend
+on any other files and that therefore is easy to run on machines without
+SICStus installed.  See <a href="All_002din_002done-Executables.html#All_002din_002done-Executables">All-in-one Executables</a> for more information.
+
+     <!-- [PM] 3.10 -->
+     <br><dt><samp><span class="option">--resources-from-sav</span></samp><dt><samp><span class="option">--no-resources-from-sav</span></samp><dd>When embedding a saved-state as a data resource (with
+<samp><span class="option">--resources</span></samp> or <samp><span class="option">--embed-sav-file</span></samp>), this option extracts information from the
+embedded saved-state about the names of the foreign
+resources that were loaded when the saved-state was created. This
+is the default for static executables when no other resource is
+specified except the embedded saved-state. This option is only
+supported when a saved-state is embedded as a data
+resource. See <a href="All_002din_002done-Executables.html#All_002din_002done-Executables">All-in-one Executables</a> for more information.
+
+     <p>Use <samp><span class="option">--no-resources-from-sav</span></samp> to ensure that this feature is
+<em>not</em> enabled.
+
+     <br><dt><samp><span class="option">--respath=</span><var>Path</var></samp><dd>Specify additional paths used for searching for resources. <var>Path</var> is
+a list of search-paths, colon separated under UNIX, semicolon separated under
+Windows. <samp><span class="command">spld</span></samp> will always search the default library directory as
+a last resort, so if this option is not specified, only the default
+resources will be found. See also the <samp><span class="option">--resources</span></samp> option above.
+
+     <br><dt><samp><span class="option">--config=</span><var>ConfigFile</var></samp><dd>Specify another configuration file. This option is not intended for
+normal use. The file name may not contain spaces.
+
+     <br><dt><samp><span class="option">--conf </span><var>VAR</var><span class="option">=</span><var>VALUE</var><span class="option"> &nbsp;<!-- /@w --> </span><strong>since release 4.0.3</strong></samp><dd>Override values from the configuration file. Can occur multiple times. 
+For instance, &lsquo;<samp><span class="samp">--conf CC=/usr/bin/gcc</span></samp>&rsquo; would override the default C
+compiler.
+
+     <!-- FIXME -cflag and -LD is not enough, the linker may not be the same -->
+     <!-- as the compiler (so -LD is not syntactic sugar for -cflag). -->
+     <!-- Fix this when/if the various SHLD_FLAGS etc gets cleaned up. -->
+     <br><dt><samp><span class="option">--cflag=</span><var>CFlag</var></samp><dd><var>CFlag</var> is an option to pass to the C-compiler. This option can
+occur multiple times.
+
+     <p>The current behavior is that if <var>CFlag</var> contains commas then each
+comma-separated part is treated as a separate compiler option. This may
+change in the future, so instead you should use multiple occurences of
+<samp><span class="option">--cflag</span></samp>. To turn off splitting at commas and treat <var>CFlag</var> as a
+single option even it contains a comma, you can pass the option
+<samp><span class="option">--conf SPLIT_OPT_CFLAG=0</span></samp>. This can be useful with certain
+options to the <samp><span class="command">gcc</span></samp> compiler.
+
+     <br><dt><samp><span class="option">-- &nbsp;<!-- /@w --> </span><strong>since release 4.0.3</strong></samp><dt><samp><span class="option">--LD &nbsp;<!-- /@w --> </span><strong>since release 4.0.3</strong></samp><dt><samp><span class="option">-LD</span></samp><dd>Don't process the rest of the command-line, but send it directly to the
+linker step. Note that linking is often performed by the compiler. 
+<!-- [PM] 3.12.7+ bogus: -->
+<!-- Syntactic sugar for @option{-cflag}. -->
+
+     <br><dt><samp><span class="option">--sicstus=</span><var>Executable</var></samp><dd><samp><span class="command">spld</span></samp>
+relies on using SICStus during some stages of its
+execution. The default is the SICStus-executable installed with the
+distribution.  <var>Executable</var> can be used to override this, in case
+the user wants to use another SICStus executable.
+
+     <br><dt><samp><span class="option">--interactive</span></samp><dt><samp><span class="option">-i</span></samp><dd>Only applicable with <samp><span class="option">--main=load</span></samp> or <samp><span class="option">--main=restore</span></samp>. Calls
+<code>SP_force_interactive()</code> (see <a href="Initializing-the-Prolog-Engine.html#Initializing-the-Prolog-Engine">Initializing the Prolog Engine</a>)
+before initializing SICStus.
+
+     <br><dt><samp><span class="option">--userhook</span></samp><dd>This option allows you to define your own version of the
+<code>SU_initialize()</code> function. <code>SU_initialize()</code> is called by the
+main program before <code>SP_initialize()</code>. Its purpose is to call
+interface functions that must be called before <code>SP_initialize()</code>,
+such as <code>SP_set_memalloc_hooks()</code>. It is not meaningful to specify
+this option if <samp><span class="option">--main=user</span></samp> or <samp><span class="option">--main=none</span></samp> is given. 
+<a name="index-SU_005finitialize_0028_0029-_0028C-function_0029-5257"></a>
+<br><dt><samp><span class="option">--memhook</span></samp><dd>This option allows you to specify which memory manager to use. One of
+<code>default</code> or <code>malloc</code>. If specified as <code>malloc</code>,
+<code>SP_set_memalloc_hooks()</code> will be called with
+<code>SP_SET_MEMALLOC_HOOKS_HINT_USE_MALLOC</code> and the C library
+<code>malloc()</code> will be used for all allocations instead of SICStus
+default allocator. See <a href="cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks.html#cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks">cpg-ref-SP_set_memalloc_hooks</a> for more
+information.
+
+     <br><dt><samp><span class="option">--locale=</span><var>LOCALE</var><span class="option"> &nbsp;<!-- /@w --> </span><strong>since release 4.3</strong></samp><dt><samp><span class="option">--no-locale</span></samp><dd>
+By default, on UNIX platforms, the executable created by
+<samp><span class="command">spld</span></samp> sets the process locale from the environment.
+
+     <p>Setting the process locale from the environment can suppressed by
+passing the <samp><span class="option">--no-locale</span></samp> option to <samp><span class="command">spld</span></samp>. This
+corresponds to the behavior prior to release 4.3.
+
+     <p>An explicit locale that the process should set on inititialization,
+can be passed with the <samp><span class="option">--locale</span></samp> option to <samp><span class="command">spld</span></samp>.
+
+     <p>The valid locale names depends on the operating system. Typically you
+can use the <samp><span class="command">locale</span></samp> utility, with the <samp><span class="option">-a</span></samp> option, to
+list all valid locale names.
+
+     <br><dt><samp><span class="option">--with_jdk=</span><var>DIR</var></samp><dt><samp><span class="option">--with_tcltk=</span><var>DIR</var></samp><dt><samp><span class="option">--with_tcl=</span><var>DIR</var></samp><dt><samp><span class="option">--with_tk=</span><var>DIR</var></samp><dt><samp><span class="option">--with_bdb=</span><var>DIR</var></samp><dd>
+Specify the installation path for third-party software for foreign
+resources, such as <code>jasper</code>, that have special dependencies. 
+This is mostly useful under Windows. Under UNIX, the installation
+script manages this automatically.
+
+     <br><dt><samp><span class="option">--keep</span></samp><dd>Keep temporary files and interface code and rename them to
+human-readable names. Not intended for the casual user, but useful if
+you want to know exactly what code is generated.
+
+     <br><dt><samp><span class="option">--nocompile</span></samp><dd>Don't compile, just generate code. This may be useful in Makefiles, for
+example to generate the header file in a separate step. Implies
+<samp><span class="option">--keep</span></samp>.
+
+     <br><dt><samp><span class="option">--namebase=</span><var>namebase</var></samp><dd>Use <var>namebase</var> to construct the name of generated files. This
+defaults to <code>spldgen_</code> or, if <samp><span class="option">--static</span></samp> is specified, <code>spldgen_s_</code>.
+
+     <!-- [PM] 3.9b4 This option is for internal use. (assume some of the supplied -->
+     <!-- files contains the resource table. -->
+     <!-- @item -nortable -->
+     <br><dt><samp><span class="option">--embed-rt-sav</span></samp><dt><samp><span class="option">--no-embed-rt-sav</span></samp><dd><samp><span class="option">--embed-rt-sav</span></samp> will embed the SICStus runtime &lsquo;<samp><span class="samp">.sav</span></samp>&rsquo; file
+into the executable. This is off by default unless <samp><span class="option">--static</span></samp> is
+specified. It can be forced on (off) by specifying <samp><span class="option">--embed-rt-sav</span></samp>
+(<samp><span class="option">--no-embed-rt-sav</span></samp>).
+
+     <br><dt><samp><span class="option">--embed-sav-file</span></samp><dt><samp><span class="option">--no-embed-sav-file</span></samp><dd><samp><span class="option">--embed-sav-file</span></samp> will embed any &lsquo;<samp><span class="samp">.sav</span></samp>&rsquo; file passed to
+<samp><span class="command">spld</span></samp> into the executable. This is just a shorthand for
+avoiding the ugly data resource syntax of the <samp><span class="option">--resources</span></samp>
+option. This is the default when <samp><span class="option">--static</span></samp> is specified. 
+It can be forced on (off) by specifying <samp><span class="option">--embed-sav-file</span></samp>
+(<samp><span class="option">--no-embed-sav-file</span></samp>). A file <samp><span class="file">./foo/bar.sav</span></samp> will be added
+with the data resource name &lsquo;<samp><span class="samp">/bar.sav</span></samp>&rsquo;, i.e. as if
+<code>--resources=./foo/bar.sav=/bar.sav</code> had been specified.
+
+     <br><dt><samp><span class="option">--license-file=</span><var>LicenseFile</var></samp><dd>
+Specify the path to the license information needed by extended
+runtime systems.  Only relevant with
+<samp><span class="option">--extended-rt</span></samp>. See <a href="Extended-Runtime-Systems.html#Extended-Runtime-Systems">Extended Runtime Systems</a> for details.
+
+     <br><dt><samp><span class="option">--embed-license</span></samp><dt><samp><span class="option">--no-embed-license</span></samp><dd>
+Controls whether to embed the license information in the
+executable. <samp><span class="option">--no-embed-license</span></samp> is the default. Only relevant
+with <samp><span class="option">--extended-rt</span></samp>. See <a href="Extended-Runtime-Systems.html#Extended-Runtime-Systems">Extended Runtime Systems</a> for
+details.
+
+     <!-- [PM] don't document this: -->
+     <!-- cc-data-res -->
+     <!-- Force the use of the C compiler for embedding data resources. -->
+     <br><dt><samp><span class="option">--multi-sp-aware</span></samp><dd><!-- FIXME expand on this here -->
+Compile the application with support for using more than one SICStus
+runtime in the same process. Not compatible with <samp><span class="option">--static</span></samp> or
+prelinked foreign resources.  See <a href="Multiple-SICStus-Runtimes-in-C.html#Multiple-SICStus-Runtimes-in-C">Multiple SICStus Runtimes in C</a> for details.
+
+   </dl>
+
+   <p>There may be additional, undocumented, options, some of which may be
+described with the <samp><span class="option">--help</span></samp> option.
+
+<h4 class="subheading">Files</h4>
+
+<p>Arguments to <samp><span class="command">spld</span></samp> not recognized as options are assumed
+to be input-files and are handled as follows:
+
+     <dl>
+<dt>&lsquo;<samp><span class="samp">*.pro</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.pl</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.po</span></samp>&rsquo;<dd>These are interpreted as names of files containing Prolog code and will
+be passed to <code>SP_load()</code> at runtime (if <samp><span class="option">--main</span></samp> is
+<code>load</code> or <code>restore</code>. 
+<strong>Please note:</strong>
+If the intention is to make an executable that works independently of
+the working directory at run time, avoid relative file names, for they
+will be resolved at run time, not at <samp><span class="command">spld</span></samp> time. 
+Use absolute
+file names instead, <samp><span class="env">SP_APP_DIR</span></samp>, <samp><span class="env">SP_LIBRARY_DIR</span></samp>, or embed a
+&lsquo;<samp><span class="samp">.sav</span></samp>&rsquo; file as a data resource, using <samp><span class="option">--resource</span></samp>.
+
+     <br><dt>&lsquo;<samp><span class="samp">*.sav</span></samp>&rsquo;<dd>These are interpreted as names of files containing saved-states
+and will be passed to <code>SP_restore()</code> at runtime if
+<samp><span class="option">--main=restore</span></samp> is specified, subject to the above caveat about
+relative file names.
+
+     <p>It is not meaningful to give more than one &lsquo;<samp><span class="samp">.sav</span></samp>&rsquo; argument.
+
+     <br><dt>&lsquo;<samp><span class="samp">*.so</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.sl</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.s.o</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.o</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.obj</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.dll</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.lib</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.dylib</span></samp>&rsquo;<dd>These files are assumed to be input-files to the linker and will be
+passed on unmodified.
+
+     <br><dt>&lsquo;<samp><span class="samp">*.c</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.cc</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.C</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.cpp</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">*.c++</span></samp>&rsquo;<dd>These files are assumed to be C/C++ source code and will be
+compiled by the C/C++-compiler before being passed to the linker. 
+</dl>
+
+   <p>If an argument is still not recognized, it will be passed
+unmodified to the linker.
+
+<h4 class="subheading">See Also</h4>
+
+<p>See <a href="The-Application-Builder.html#The-Application-Builder">The Application Builder</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/too_002dspld.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/too_002dspld.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

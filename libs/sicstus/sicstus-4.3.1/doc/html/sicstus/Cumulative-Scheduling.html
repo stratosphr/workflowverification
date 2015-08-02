@@ -1,0 +1,99 @@
+<html lang="en">
+<head>
+<title>Cumulative Scheduling - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="CLPFD-Example-Programs.html#CLPFD-Example-Programs" title="CLPFD Example Programs">
+<link rel="prev" href="N-Queens.html#N-Queens" title="N Queens">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Cumulative-Scheduling"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="N-Queens.html#N-Queens">N Queens</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="CLPFD-Example-Programs.html#CLPFD-Example-Programs">CLPFD Example Programs</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.10.12.3 Cumulative Scheduling</h5>
+
+<p>This example is a very small scheduling problem.  We consider seven
+tasks where each task has a fixed duration and a fixed amount of used
+resource:
+
+   <p><table summary=""><tr align="left"><td valign="top"><var>Task</var>    </td><td valign="top"><var>Duration</var>        </td><td valign="top"><var>Resource</var>
+<br></td></tr><tr align="left"><td valign="top"><code>t1</code>            </td><td valign="top">16               </td><td valign="top">2
+<br></td></tr><tr align="left"><td valign="top"><code>t2</code>             </td><td valign="top">6               </td><td valign="top">9
+<br></td></tr><tr align="left"><td valign="top"><code>t3</code>            </td><td valign="top">13               </td><td valign="top">3
+<br></td></tr><tr align="left"><td valign="top"><code>t4</code>             </td><td valign="top">7               </td><td valign="top">7
+<br></td></tr><tr align="left"><td valign="top"><code>t5</code>             </td><td valign="top">5              </td><td valign="top">10
+<br></td></tr><tr align="left"><td valign="top"><code>t6</code>            </td><td valign="top">18               </td><td valign="top">1
+<br></td></tr><tr align="left"><td valign="top"><code>t7</code>             </td><td valign="top">4              </td><td valign="top">11
+   <br></td></tr></table>
+
+   <p>The goal is to find a schedule that minimizes the completion time for
+the schedule while not exceeding the capacity 13 of the resource.  The
+resource constraint is succinctly captured by a <code>cumulative/2</code>
+constraint.  Branch-and-bound search is used to find the minimal
+completion time.
+
+   <p>This example was adapted from [Beldiceanu &amp; Contejean 94].
+
+<pre class="example">     :- use_module(library(clpfd)).
+     
+     schedule(Ss, End) :-
+             Ss = [S1,S2,S3,S4,S5,S6,S7],
+             Es = [E1,E2,E3,E4,E5,E6,E7],
+             Tasks = [task(S1,16,E1, 2,0),
+                      task(S2, 6,E2, 9,0),
+                      task(S3,13,E3, 3,0),
+                      task(S4, 7,E4, 7,0),
+                      task(S5, 5,E5,10,0),
+                      task(S6,18,E6, 1,0),
+                      task(S7, 4,E7,11,0)],
+             domain(Ss, 1, 30),
+             domain(Es, 1, 50),
+             domain([End], 1, 50),
+             maximum(End, Es),
+             cumulative(Tasks, [limit(13)]),
+             append(Ss, [End], Vars),
+             labeling([minimize(End)], Vars). % label End last
+     
+     %% End of file
+     
+     | ?- <kbd>schedule(Ss, End).</kbd>
+     Ss = [1,17,10,10,5,5,1],
+     End = 23
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Cumulative-Scheduling.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Cumulative-Scheduling.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

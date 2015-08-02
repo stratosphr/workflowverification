@@ -1,0 +1,70 @@
+<html lang="en">
+<head>
+<title>Running Java from SICStus - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Getting-Started.html#Getting-Started" title="Getting Started">
+<link rel="prev" href="UNIX.html#UNIX" title="UNIX">
+<link rel="next" href="Running-SICStus-from-Java.html#Running-SICStus-from-Java" title="Running SICStus from Java">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Running-Java-from-SICStus"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Running-SICStus-from-Java.html#Running-SICStus-from-Java">Running SICStus from Java</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="UNIX.html#UNIX">UNIX</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Getting-Started.html#Getting-Started">Getting Started</a>
+<hr>
+</div>
+
+<h4 class="subsection">8.2.3 Running Java from SICStus</h4>
+
+<p>If SICStus is used as parent application, things are usually really
+simple. Just execute the query:
+
+<pre class="example">     | ?- <kbd>use_module(library(jasper)).</kbd>
+</pre>
+   <p>After that, it is possible to perform meta-calls as described in
+<a href="../sicstus/Jasper-Library-Predicates.html#Jasper-Library-Predicates">Jasper Library Predicates</a>.
+
+   <p>When Jasper is used in runtime systems, additional constraints apply as
+described in <a href="../sicstus/Runtime-Systems-on-Target-Machines.html#Runtime-Systems-on-Target-Machines">Runtime Systems on Target Machines</a>.  The Java to
+SICStus interface relies on dynamically loading the SICStus runtime
+system. For this reason, it is not possible to use
+<code>library(jasper)</code> from an executable that links statically with the
+SICStus runtime.
+
+<!-- If you are using @w{JDK 1.3} or later, you may also need the @option{-Xrs} -->
+<!-- option to sicstus, @xref{Supported Java Versions}. -->
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Running-Java-from-SICStus.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Running-Java-from-SICStus.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

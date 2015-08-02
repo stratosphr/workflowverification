@@ -1,0 +1,116 @@
+<html lang="en">
+<head>
+<title>mpg-ref-op - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002donce.html#mpg_002dref_002donce" title="mpg-ref-once">
+<link rel="next" href="mpg_002dref_002dopen.html#mpg_002dref_002dopen" title="mpg-ref-open">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-op"></a>
+<a name="mpg_002dref_002dop"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dopen.html#mpg_002dref_002dopen">mpg-ref-open</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002donce.html#mpg_002dref_002donce">mpg-ref-once</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.147 <code>op/3</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-op_002f3-_0028built_002din_002c-ref-page_0029-4747"></a><a name="index-op_002f3-_0028built_002din_002c-ref-page_0029-4748"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>op(</code><var>+Precedence</var><code>, </code><var>+Type</var><code>, </code><var>+Name</var><code>)</code>
+
+   <p>declares <var>Name</var> to be an operator of the stated
+<var>Type</var> and <var>Precedence</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Precedence</var><dd><dfn>integer</dfn>, must be nonvar and in the range 1-1200
+
+     <br><dt><var>Type</var><dd><dfn>one of </dfn><code>[xfx,xfy,yfx,fx,fy,xf,yf]</code>, must be nonvar
+
+     <br><dt><var>Name</var><dd><dfn>atom</dfn> or <dfn>list of atom</dfn>, must be ground
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>Operators are a notational convenience
+to read and write Prolog terms. You can define new operators using
+<code>op/3</code>.
+
+   <p>The <var>Precedence</var> of an operator is used to disambiguate the way
+terms are parsed. The general rule is that the operator with the
+highest precedence is the principal functor.
+
+   <p>The <var>Type</var> of an operator decides the position of an operator
+and its associativity. In the atom that represents the type
+the character &lsquo;<samp><span class="samp">f</span></samp>&rsquo; represents the position of the operator. 
+For example, a type &lsquo;<samp><span class="samp">fx</span></samp>&rsquo; says that the operator is a prefix operator. 
+The character &lsquo;<samp><span class="samp">y</span></samp>&rsquo; indicates that the operator is associative
+in that direction. For example, an operator of type
+&lsquo;<samp><span class="samp">xfy</span></samp>&rsquo; is a right-associative, infix operator.
+
+   <p>To cancel the operator properties of <var>Name</var>
+(if any) set <var>Precedence</var> to 0.
+
+   <p><strong>Please note</strong>: operators are <em>global</em>, as opposed to being
+local to the current module, Prolog text, or otherwise. 
+<a name="index-operators-4749"></a>
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd>An argument is not ground
+
+     <br><dt><code>type_error</code><dd><var>Precedence</var> is not an integer
+or <var>Type</var> is not an integer
+or an operator is not an atom
+
+     <br><dt><code>domain_error</code><dd><var>Precedence</var> is not in the range 1-1200, or <var>Type</var> is invalid,
+
+     <br><dt><code>permission_error</code><dd>Attempt to redefine the operator <code>','</code>
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>current_op/3</code>, <a href="ref_002dsyn_002dops.html#ref_002dsyn_002dops">ref-syn-ops</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dop.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dop.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

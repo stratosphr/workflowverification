@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+<title>CLPB Example 2 - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="CLPB-Examples.html#CLPB-Examples" title="CLPB Examples">
+<link rel="prev" href="CLPB-Example-1.html#CLPB-Example-1" title="CLPB Example 1">
+<link rel="next" href="CLPB-Example-3.html#CLPB-Example-3" title="CLPB Example 3">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CLPB-Example-2"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CLPB-Example-3.html#CLPB-Example-3">CLPB Example 3</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="CLPB-Example-1.html#CLPB-Example-1">CLPB Example 1</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="CLPB-Examples.html#CLPB-Examples">CLPB Examples</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.9.3.2 Example 2</h5>
+
+<pre class="example">     | ?- <kbd>taut(A =&lt; C, T).</kbd>
+     
+     no
+     | ?- <kbd>sat(A =&lt; B), sat(B =&lt; C), taut(A =&lt; C, T).</kbd>
+     
+     T = 1,
+     sat(A=:=_A*_B*C),
+     sat(B=:=_B*C)
+     
+     | ?- <kbd>taut(a, T).</kbd>
+     
+     T = 0
+     
+     | ?- <kbd>taut(~a, T).</kbd>
+     
+     T = 0
+</pre>
+<p class="noindent">illustrates the entailment predicate.  In the first query,
+the expression &ldquo;A implies C&rdquo; is neither known to be true nor false, so
+the query fails.  In the second query, the system is told
+that &ldquo;A implies B&rdquo; and &ldquo;B implies C&rdquo;, so &ldquo;A implies C&rdquo; is
+entailed.  The expressions in the third and fourth queries are to
+be read &ldquo;for each a, a is true&rdquo; and &ldquo;for each a, a is false&rdquo;,
+respectively, and so <code>T = 0</code> in both cases since both are
+unsatisfiable.  This illustrates the fact that the implicit universal
+quantifiers introduced by symbolic constants are placed in front of the
+entire expression.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPB-Example-2.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPB-Example-2.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+<title>Directives - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Queries-and-Directives.html#Queries-and-Directives" title="Queries and Directives">
+<link rel="prev" href="Queries.html#Queries" title="Queries">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Directives"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Queries.html#Queries">Queries</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Queries-and-Directives.html#Queries-and-Directives">Queries and Directives</a>
+<hr>
+</div>
+
+<h4 class="subsection">3.4.2 Directives</h4>
+
+<p><a name="index-g_t_003a_002d-_002f1_002c-directive-289"></a><a name="index-g_t_003a_002d-_002f1_002c-directive-290"></a>
+Directives start with the symbol &lsquo;<samp><span class="samp">:-</span></samp>&rsquo;.  Any required output
+must be programmed explicitly; e.g. the directive:
+
+<pre class="example">     :- memb(3, [1,2,3]), write(ok).
+</pre>
+   <p class="noindent">asks the system to check whether <code>3</code> belongs to the list
+<code>[1,2,3]</code>.  Execution of a directive terminates when all the
+goals in the directive have been successfully executed. 
+Other alternative solutions are not sought.  If no solution can be
+found, the system prints:
+
+<pre class="example">     * <var>Goal</var> - goal failed
+</pre>
+   <p class="noindent">as a warning.
+
+   <p>The principal use for directives (as opposed to queries) is
+to allow files to contain directives that call various
+predicates, but for which you don't want to have the answers
+printed out.  In such cases you only want to call the predicates
+for their effect, i.e. you don't want terminal interaction in the
+middle of consulting the file.  A useful example would be the use
+of a directive in a file that consults a whole list of
+other files, e.g.:
+
+<pre class="example">     :- consult([ bits, bobs, main, tests, data, junk ]).
+</pre>
+   <p>If a directive like this were contained in the file <samp><span class="file">myprog</span></samp>,
+typing the following at top-level would be a quick way of reading
+in your entire program:
+
+<pre class="example">     | ?- <kbd>[myprog].</kbd>
+</pre>
+   <p>When simply interacting with the top-level, this distinction between
+queries and directives is not normally very important.  At
+top-level you should just type queries normally.  In a file,
+queries are in fact treated as directives, i.e. if you
+wish to execute some goals, the directive in the file
+must be preceded by &lsquo;<samp><span class="samp">:-</span></samp>&rsquo; or &lsquo;<samp><span class="samp">?-</span></samp>&rsquo;; otherwise, it would be
+treated as a clause.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Directives.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Directives.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

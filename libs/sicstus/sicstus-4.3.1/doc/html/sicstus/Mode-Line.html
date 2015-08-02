@@ -1,0 +1,68 @@
+<html lang="en">
+<head>
+<title>Mode Line - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Emacs-Interface.html#Emacs-Interface" title="Emacs Interface">
+<link rel="prev" href="Usage.html#Usage" title="Usage">
+<link rel="next" href="Configuration.html#Configuration" title="Configuration">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Mode-Line"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Configuration.html#Configuration">Configuration</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Usage.html#Usage">Usage</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Emacs-Interface.html#Emacs-Interface">Emacs Interface</a>
+<hr>
+</div>
+
+<h4 class="subsection">3.12.4 Mode Line</h4>
+
+<p>If working with an application split into several modules, it is
+often useful to let files begin with a &ldquo;mode line&rdquo;:
+
+<pre class="example">     %%% -*- Mode: Prolog; Module: ModuleName; -*-
+</pre>
+   <p>The Emacs interface will look for the mode line and notify the SICStus
+Prolog module system that code fragments being incrementally
+reconsulted or recompiled should be imported into the module
+<var>ModuleName</var>. If the mode line is missing, the code fragment will be
+imported into the type-in module.  An additional benefit of
+the mode line is that it tells Emacs that the file contains Prolog code,
+regardless of the setting of the Emacs variable <code>auto-mode-alist</code>. 
+A mode line can be inserted by choosing <code>Insert/Module modeline</code> in
+the <code>Prolog</code> menu.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Mode-Line.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Mode-Line.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

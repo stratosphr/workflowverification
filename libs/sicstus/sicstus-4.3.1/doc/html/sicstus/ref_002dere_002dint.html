@@ -1,0 +1,105 @@
+<html lang="en">
+<head>
+<title>ref-ere-int - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dere.html#ref_002dere" title="ref-ere">
+<link rel="prev" href="ref_002dere_002dleg.html#ref_002dere_002dleg" title="ref-ere-leg">
+<link rel="next" href="ref_002dere_002dsum.html#ref_002dere_002dsum" title="ref-ere-sum">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-ere-int"></a>
+<a name="ref_002dere_002dint"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dere_002dsum.html#ref_002dere_002dsum">ref-ere-sum</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dere_002dleg.html#ref_002dere_002dleg">ref-ere-leg</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dere.html#ref_002dere">ref-ere</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.15.7 Interrupting Execution</h4>
+
+<p>There exist more drastic means of interrupting the normal control
+flow.  To invoke a recursive top-level, use:
+
+   <p><a name="index-break_002f0-_0028built_002din_0029-1758"></a><a name="index-break_002f0-_0028built_002din_0029-1759"></a>
+<pre class="example">     ?- <kbd>break.</kbd>
+</pre>
+   <p>See <a href="mpg_002dref_002dbreak.html#mpg_002dref_002dbreak">mpg-ref-break</a>.
+
+   <p><a name="index-halt_002f_005b0_002c1_005d-_0028built_002din_0029-1760"></a><a name="index-halt_002f_005b0_002c1_005d-_0028built_002din_0029-1761"></a>
+
+   <p>To exit from Prolog, use:
+
+<pre class="example">     ?- <kbd>halt.</kbd>
+</pre>
+   <p>To exit
+from Prolog
+<!-- the Prolog process -->
+with return code <var>Code</var>, use:
+
+<pre class="example">     ?- <kbd>halt(</kbd><var>Code</var><kbd>).</kbd>
+</pre>
+   <p>See <a href="mpg_002dref_002dhalt.html#mpg_002dref_002dhalt">mpg-ref-halt</a>.
+
+   <p><a name="index-abort_002f0-_0028built_002din_0029-1762"></a><a name="index-abort_002f0-_0028built_002din_0029-1763"></a>
+To abort the execution of the current query and return to the
+top-level, use:
+
+<pre class="example">     ?- <kbd>abort.</kbd>
+</pre>
+   <p>See <a href="mpg_002dref_002dabort.html#mpg_002dref_002dabort">mpg-ref-abort</a>.
+
+   <blockquote>
+<strong>Please note:</strong>
+<code>halt/[0,1]</code> and <code>abort/0</code> are implemented by throwing a reserved
+exception, which has a handler at the top-level of development systems
+and executables built with the <samp><span class="command">spld</span></samp> tool. Thus they give the
+opportunity for cleanup goals (see <code>call_cleanup/2</code>) to run. 
+<!-- and @code{undo/1} to run. -->
+
+<!-- This is not the case for @code{halt/1}, which immediately terminates -->
+<!-- the process. -->
+<!-- By default, causes an exit from the running process with exit code -->
+<!-- @var{ExitCode}. @var{ExitCode} defaults to zero which, by convention, -->
+<!-- signifies a successful exit from the process. -->
+<!-- @code{halt/1} is implemented by throwing a reserved, uncatchable, -->
+<!-- exceptions (@code{'$reserved'/1}). The default behavior for -->
+<!-- development systems and for runtime systems built with the -->
+<!-- @command{spld} tool is to deinitialize the SICStus engine and exit from -->
+<!-- the process with the exit code @code{ExitCode}. -->
+   </blockquote>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002dint.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002dint.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

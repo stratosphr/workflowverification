@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="z3">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/z3/z3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

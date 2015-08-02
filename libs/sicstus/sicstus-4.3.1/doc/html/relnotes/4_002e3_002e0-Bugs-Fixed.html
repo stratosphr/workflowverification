@@ -1,0 +1,146 @@
+<html lang="en">
+<head>
+<title>4.3.0 Bugs Fixed - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e3_002e0-Changes.html#g_t4_002e3_002e0-Changes" title="4.3.0 Changes">
+<link rel="prev" href="4_002e3_002e0-New-Features.html#g_t4_002e3_002e0-New-Features" title="4.3.0 New Features">
+<link rel="next" href="4_002e3_002e0-Standard-Conformance-Changes.html#g_t4_002e3_002e0-Standard-Conformance-Changes" title="4.3.0 Standard Conformance Changes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.3.0-Bugs-Fixed"></a>
+<a name="g_t4_002e3_002e0-Bugs-Fixed"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e3_002e0-Standard-Conformance-Changes.html#g_t4_002e3_002e0-Standard-Conformance-Changes">4.3.0 Standard Conformance Changes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="4_002e3_002e0-New-Features.html#g_t4_002e3_002e0-New-Features">4.3.0 New Features</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e3_002e0-Changes.html#g_t4_002e3_002e0-Changes">4.3.0 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.20.2 Bugs Fixed</h4>
+
+     <ul>
+<li><!-- SPRM 13995 -->
+Compiler bug, surfaced for example for <code>r(b) :- Y = b, t(X,Y).</code>. 
+<li><!-- SPRM 12848, 12853 -->
+Error handling bug in floating point overflows caused (a) spurious
+memory resource errors, (b) different interpreted and compiled behavior. 
+<!-- SPRM 13813 -->
+<li><code>SP_printf()</code> stopped working if the output exceeded 2048 bytes. 
+<li><!-- SPRM 13871, 13903 -->
+Unintended limitation, max 100 million interpreted clauses in memory, lifted. 
+<li><!-- SPRM 12852 -->
+<code>predicate_property/2</code> with nonvar second argument would lose solutions. 
+<li><!-- SPRM 12939 -->
+<code>add_breakpoint/2</code> warns if an undefined predicate is specified; it used to
+silently accept any well-formed predicate identifier. 
+<li><code>length/2</code>: used to loop if first argument cyclic or second
+argument very large. Conformance with proposed future ISO standard. 
+<li><!-- SPRM 13337 -->
+<code>when/2</code> could cause stack overflow. 
+<li><!-- SPRM 12973 -->
+Declarations are silently ignored if they would have no effect. 
+<li><code>[File|Files]</code> now uses the calling module context for the second
+(<code>Files</code>) argument, as documented. 
+<li><code>ensure_loaded/1</code> would keep reloading non-module &lsquo;<samp><span class="samp">.po</span></samp>&rsquo; files
+whose name did not correspond to an existing source file. 
+<li><code>stream_property(S,encoding(CS))</code> would succeed twice for
+bi-directional text streams. It now succeeds at most once and the
+per-direction encoding information can be obtained with the new stream
+properties <code>input_encoding/1</code> and <code>output_encoding/1</code>. 
+<li><!-- SPRM 14010 -->
+<code>call_cleanup/2</code>: memory management could cause the cleanup action to be delayed. 
+<li><!-- SPRM 12713 -->
+In trace mode, the debugger would stop at spurious calls among code in
+hidden modules, which was never intended. 
+<li>On Windows, the <code>absolute_file_name/3</code> option <code>glob/1</code> is now
+case-normalized, just like the file name. 
+<li><code>aggregate:term_variables/3</code> steadfastness bug. Note that this
+is largely made obsolecent by the new built-in <code>term_variables/2</code>. 
+<!-- SPRM 13397 -->
+<li><code>library(xref)</code> and <samp><span class="command">spxref</span></samp> would loop on cyclic import dependencies. 
+<li><code>library(gauge)</code>: logarithmic scale was broken. 
+<li><!-- SPRM 12282 -->
+<code>library(gauge)</code>: On OS X, menus had invisible text. 
+<li><code>library(process)</code>: On Windows, <code>process_create/3</code> did not
+pass empty arguments correctly. 
+<li><!-- SPRM 12879 (1) -->
+<code>library(process)</code>: Some <code>process_create/3</code> boolean options
+did not accept the representation &lsquo;<samp><span class="samp">false</span></samp>&rsquo;.
+<li>CLPFD:
+          <ul>
+<li><!-- SPRM 12958 -->
+Bad use of the global constraint API could crash SICStus. 
+<li>Critical bug in bounds-consistent <code>all_different/1</code>. 
+<li><!-- SPRM 13376 -->
+Enabling FDBG could cause missing propagation. 
+<li><code>geost/[2,3,4]</code>: memory performance bug;
+ignored the <code>lex/1</code> option in greedy assignment mode
+<li><!-- SPRM 13712, ... -->
+Bugs in flattening logical and arithmetical expressions. 
+<li><!-- SPRM 13714 -->
+<code>X #= Y</code>, with unbound <var>X</var> and <var>Y</var>, was handled by
+unification.  This failed to type <var>X</var> and <var>Y</var> as domain
+variables, and was often bad for performance.  Now, such equations are
+handled by a propagator. 
+</ul>
+     <li>ZINC:
+          <ul>
+<li>Parsing floats was broken, causing spurious errors. 
+<li>The <code>fzn_file/1</code> and <code>ozn_file/1</code> options misbehaved if used
+without explicit &lsquo;<samp><span class="samp">.fzn</span></samp>&rsquo; and &lsquo;<samp><span class="samp">.ozn</span></samp>&rsquo; extensions. 
+<li>Empty arrays caused spurious existence errors. 
+</ul>
+     <li>CHR:
+          <ul>
+<li><!-- SPRM 13328 -->
+&lsquo;<samp><span class="samp">+</span></samp>&rsquo; and &lsquo;<samp><span class="samp">-</span></samp>&rsquo; are no longer incompatibly defined as prefix operators. 
+</ul>
+     <li>In the build for 64-bit OS X 10.8, <code>library(tcltk)</code> would crash
+the process. 
+<li>The &lsquo;<samp><span class="samp">codes</span></samp>&rsquo; command specification was incorrectly documented as &lsquo;<samp><span class="samp">chars</span></samp>&rsquo;. 
+<li><!-- SPRM 13846 -->
+On Windows, <code>pillow:fetch_url/3</code> would sometimes time out for some
+web servers. 
+<li><!-- SPRM 13863 -->
+A bug in Microsoft J# caused PrologBeans.NET to transmit some data
+incorrectly from Prolog to .NET. 
+<li><!-- SPRM 12259 -->
+The <samp><span class="command">splfr</span></samp> tool now ensures that the C compiler will find
+the generated headers also when the <code>--namebase</code> option specifies
+a folder. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e3_002e0-Bugs-Fixed.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e3_002e0-Bugs-Fixed.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+<title>str-cdf - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dstructs.html#lib_002dstructs" title="lib-structs">
+<link rel="prev" href="str_002dcft.html#str_002dcft" title="str-cft">
+<link rel="next" href="str_002dafd.html#str_002dafd" title="str-afd">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="str-cdf"></a>
+<a name="str_002dcdf"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="str_002dafd.html#str_002dafd">str-afd</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="str_002dcft.html#str_002dcft">str-cft</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dstructs.html#lib_002dstructs">lib-structs</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.35.3 Creating and Destroying Foreign Terms</h4>
+
+<p><a name="index-new_002f_005b2_002c3_005d-_0028structs_0029-3900"></a><a name="index-new_002f_005b2_002c3_005d-_0028structs_0029-3901"></a>
+
+   <p><a name="index-dispose_002f1-_0028structs_0029-3902"></a><a name="index-dispose_002f1-_0028structs_0029-3903"></a>
+
+   <p>Prolog can create or destroy foreign terms using
+<pre class="example">     new(<var>+Type</var>, <var>-Datum</var>),
+     new(<var>+Type</var>, <var>+Size</var>, <var>-Datum</var>) <span class="roman">and</span>
+     dispose(<var>+Datum</var>)
+</pre>
+   <p class="noindent">where <var>Type</var> is an atom specifying what type of foreign term is to be
+allocated, and <var>Datum</var> is the foreign term. 
+<var>Type</var> should be an atomic type or a previously-defined type name. 
+The <var>Datum</var> returned by
+<code>new/[2,3]</code> is initialized to all zeroes.  <code>dispose/1</code> is a dangerous
+operation, since once the memory is disposed, it may be used for
+something else later.  If <var>Datum</var> is later accessed, the results will
+be unpredictable.  <code>new/3</code> is only used to allocate arrays whose
+size is not known beforehand, as defined by <code>array(</code><var>Type</var><code>)</code>, rather
+than <code>array(</code><var>Num</var><code>,</code><var>Type</var><code>)</code>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/str_002dcdf.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/str_002dcdf.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

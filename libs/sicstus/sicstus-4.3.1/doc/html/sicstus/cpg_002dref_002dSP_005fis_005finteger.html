@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+<title>cpg-ref-SP_is_integer - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSP_005fis_005ffloat.html#cpg_002dref_002dSP_005fis_005ffloat" title="cpg-ref-SP_is_float">
+<link rel="next" href="cpg_002dref_002dSP_005fis_005flist.html#cpg_002dref_002dSP_005fis_005flist" title="cpg-ref-SP_is_list">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-SP_is_integer"></a>
+<a name="cpg_002dref_002dSP_005fis_005finteger"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002dSP_005fis_005flist.html#cpg_002dref_002dSP_005fis_005flist">cpg-ref-SP_is_list</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSP_005fis_005ffloat.html#cpg_002dref_002dSP_005fis_005ffloat">cpg-ref-SP_is_float</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.49 <code>SP_is_integer()</code></h4>
+
+<p><a name="index-SP_005fis_005finteger_0028_0029-_0028C-function_0029-5155"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     
+     int
+     SP_is_integer(SP_term_ref term);
+</pre>
+   <p>Determines whether the representation of <code>term</code> is a Prolog integer.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>term</var><dd>The SP_term_ref to be inspected
+</dl>
+
+<h4 class="subheading">Return Value</h4>
+
+<p>1 if it is a integer and 0 otherwise.
+
+   <p><strong>Please note</strong>: <code>SP_is_integer()</code> will return true also for
+integers that are too large to be passed to
+<code>SP_get_integer()</code>. In this case you will need to use
+<code>SP_get_integer_bytes()</code> to obtain the representation.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Testing-Prolog-Terms.html#Testing-Prolog-Terms">Testing Prolog Terms</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fis_005finteger.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fis_005finteger.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

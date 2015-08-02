@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+<title>Volatile Declarations - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl" title="ref-lod-dcl">
+<link rel="prev" href="Dynamic-Declarations.html#Dynamic-Declarations" title="Dynamic Declarations">
+<link rel="next" href="Discontiguous-Declarations.html#Discontiguous-Declarations" title="Discontiguous Declarations">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Volatile-Declarations"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Discontiguous-Declarations.html#Discontiguous-Declarations">Discontiguous Declarations</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Dynamic-Declarations.html#Dynamic-Declarations">Dynamic Declarations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl">ref-lod-dcl</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.3.4.3 Volatile Declarations</h5>
+
+<p><a name="index-volatile-declaration-706"></a><a name="index-declaration_002c-volatile-707"></a><a name="index-volatile_002f1-_0028declaration_0029-708"></a><a name="index-volatile_002f1-_0028declaration_0029-709"></a>
+
+   <p>A declaration
+
+<pre class="example">     :- volatile <var>:PredSpec</var>, ..., <var>:PredSpec</var>.
+</pre>
+   <p class="noindent">where each <var>PredSpec</var> is a predicate spec, causes the
+specified predicates to become <dfn>volatile</dfn>.
+
+   <p>A predicate should be declared as volatile if it refers to
+data that cannot or should not be saved in a saved-state.  In most
+cases a volatile predicate will be dynamic, and it
+will be used to keep facts about streams or memory
+references.  When a program state is saved at runtime, the
+clauses of all volatile predicates will be left
+unsaved. The predicate definitions will be saved though, which
+means that the predicates will keep all its properties such as
+<code>volatile</code>, <code>dynamic</code> or <code>multifile</code> when the
+saved-state is restored. 
+See <a href="mpg_002dref_002dvolatile.html#mpg_002dref_002dvolatile">mpg-ref-volatile</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Volatile-Declarations.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Volatile-Declarations.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

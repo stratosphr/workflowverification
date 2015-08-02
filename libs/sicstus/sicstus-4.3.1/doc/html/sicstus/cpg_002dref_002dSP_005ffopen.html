@@ -1,0 +1,141 @@
+<html lang="en">
+<head>
+<title>cpg-ref-SP_fopen - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSP_005fflush_005foutput.html#cpg_002dref_002dSP_005fflush_005foutput" title="cpg-ref-SP_flush_output">
+<link rel="next" href="cpg_002dref_002dSP_005fforeign_005fstash.html#cpg_002dref_002dSP_005fforeign_005fstash" title="cpg-ref-SP_foreign_stash">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-SP_fopen"></a>
+<a name="cpg_002dref_002dSP_005ffopen"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002dSP_005fforeign_005fstash.html#cpg_002dref_002dSP_005fforeign_005fstash">cpg-ref-SP_foreign_stash</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSP_005fflush_005foutput.html#cpg_002dref_002dSP_005fflush_005foutput">cpg-ref-SP_flush_output</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.20 <code>SP_fopen()</code></h4>
+
+<p><a name="index-SP_005ffopen_0028_0029-_0028C-function_0029-5124"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     
+     spio_t_error_code
+     SP_fopen(
+       char const *pathname,
+       void *reserved,
+       spio_t_bits options,
+       SP_stream **pstream);
+</pre>
+   <p>Opens a file and creates a SICStus stream reading and/or writing to it.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>pathname</var><dd>The path to the file as an encoded string. 
+It is expanded by <code>SP_expand_file_name()</code> unless the option
+<code>SP_FOPEN_OPTION_NOEXPAND</code> is specified, in which case the
+path must already have been expanded by <code>SP_expand_file_name()</code>.
+
+     <br><dt><var>reserved</var><dd><!-- extended argumens, e.g., a prolog list of options. -->
+Reserved, should be <code>NULL</code>.
+
+     <br><dt><var>read_options</var><dd>The following bits can be set:
+
+          <dl>
+<dt><code>SP_FOPEN_OPTION_READ</code><dd>Open the file for reading. The file must exist.
+
+          <br><dt><code>SP_FOPEN_OPTION_WRITE</code><dd>Open the file for writing. The file is overwritten if it exists. The
+file is created if it does not exist.
+
+          <br><dt><code>SP_FOPEN_OPTION_APPEND</code><dd>Open the file for writing but start writing at the end of the file if
+it exists. The file is created if it does not exist.
+
+          <br><dt><code>SP_FOPEN_OPTION_BINARY</code><dd>Open the file as a binary (byte) stream.
+
+          <br><dt><code>SP_FOPEN_OPTION_TEXT</code><dd><!-- FIXME: Should make it possible to pass charset and eol options -->
+Open the file as a text stream. The default character encoding
+is <dfn>Latin 1</dfn> (i.e. the 8 bit subset of Unicode). The default
+end of line convention is OS specific.
+
+          <br><dt><code>SP_FOPEN_OPTION_AUTOFLUSH</code><dd>After writing to this stream, Prolog predicates will do a
+<code>flush_output/1</code>. In essence this ensures that the stream behaves
+as if it were unbuffered.
+
+          <br><dt><code>SP_FOPEN_OPTION_INTERACTIVE</code><dd>Treat this stream as an interactive stream. Implies
+SP_CREATE_STREAM_OPTION_AUTOFLUSH.
+
+          <!-- @item SP_FOPEN_OPTION_SEEK -->
+          <!-- not documented -->
+          <br><dt><code>SP_FOPEN_OPTION_NOEXPAND</code><dd>The <code>pathname</code> has already been expanded with
+<code>SP_expand_file_name()</code> or something similar. This implies that
+<code>pathname</code> is an absolute path. If this option is not
+specified, <code>pathname</code> is expanded with
+<code>SP_expand_file_name()</code> before use. 
+</dl>
+
+     <br><dt><var>pstream</var><dd>On successful return, <code>*pstream</code> will be set to the created
+stream. 
+</dl>
+
+<h4 class="subheading">Return Value</h4>
+
+<p>On success, <code>*pstream</code> will be set to the created stream and
+<code>SPIO_S_NOERR</code> or some other success code returned.
+
+   <p>On failure, some SPIO failure code will be returned. Error codes with
+special meaning for <code>SP_fopen()</code>:
+
+     <dl>
+<dt><code>SPIO_E_FILE_NOT_FOUND</code><dd>The file does not exist.
+
+     <br><dt><code>SPIO_E_FILE_ACCESS</code><dd>Insufficient permissions to open or create the file.
+
+     <br><dt><code>SPIO_E_OPEN_ERROR</code><dd>Generic error during open. 
+</dl>
+
+<p class="noindent">Other error codes may also be returned.
+
+<!-- @description -->
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Prolog-Streams.html#Prolog-Streams">Prolog Streams</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005ffopen.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005ffopen.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

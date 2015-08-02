@@ -1,0 +1,120 @@
+<html lang="en">
+<head>
+<title>mpg-ref-source_file - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dsort.html#mpg_002dref_002dsort" title="mpg-ref-sort">
+<link rel="next" href="mpg_002dref_002dspy.html#mpg_002dref_002dspy" title="mpg-ref-spy">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-source_file"></a>
+<a name="mpg_002dref_002dsource_005ffile"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dspy.html#mpg_002dref_002dspy">mpg-ref-spy</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dsort.html#mpg_002dref_002dsort">mpg-ref-sort</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.215 <code>source_file/[1,2]</code></h4>
+
+<p><a name="index-source_005ffile_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4940"></a><a name="index-source_005ffile_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4941"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>source_file(</code><var>?AbsFile</var><code>)</code>
+
+   <p><code>source_file(</code><var>?Pred</var><code>, </code><var>?AbsFile</var><code>)</code>
+
+   <p><var>AbsFile</var> is the absolute name of a loaded file, and
+<var>Pred</var> is a predicate with clauses in that file. 
+<var>AbsFile</var> will be <code>user</code> if the special file specification <code>user</code> was loaded, and
+<var>Pred</var> is a predicate with clauses from <code>user</code>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:Pred</var><dd><dfn>callable</dfn>
+
+     <p>Selected predicate specification.
+
+     <br><dt><var>AbsFile</var><dd><dfn>atom</dfn>
+
+     <p>Absolute filename. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>Loaded files include compiled, consulted, restored, PO loaded
+and pre-linked files.
+
+   <p>If <var>AbsFile</var> is bound and not the name of a loaded file, or if
+<var>Pred</var> is bound and not the name of a a loaded predicate, then
+<code>source_file(</code><var>AbsFile</var><code>)</code> simply fails.
+
+   <p>To find <em>any</em> predicates defined in a given file, use the form:
+
+<pre class="example">     source_file(M:P, File)
+</pre>
+   <h4 class="subheading">Examples</h4>
+
+<p>Suppose that the startup file <samp><span class="file">~/.sicstusrc</span></samp> defines a predicate <code>user:cd/1</code>. 
+Then upon startup:
+
+<pre class="example">     | ?- <kbd>source_file(F).</kbd>
+     F = '/src/sicstus/matsc/sicstus4/Utils/x86-linux-glibc2.3/bin/sp-4.1.0/sicstus-4.1.0/library/SU_messages.pl' ? &lt;;&gt;
+     F = '/home/matsc/.sicstusrc' ? &lt;;&gt;
+     no
+     
+     | ?- <kbd>source_file(P,F).</kbd>
+     F = '/home/matsc/.sicstusrc',
+     P = cd(_A) ? &lt;;&gt;
+     no
+     
+     | ?- <kbd>source_file('SU_messages':P,F).</kbd>
+     F = '/src/sicstus/matsc/sicstus4/Utils/x86-linux-glibc2.3/bin/sp-4.1.0/sicstus-4.1.0/library/SU_messages.pl',
+     P = query_class(_A,_B,_C,_D,_E) ? &lt;RET&gt;
+     yes
+</pre>
+   <h4 class="subheading">Exceptions</h4>
+
+<p>None.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlps_002dapf.html#ref_002dlps_002dapf">ref-lps-apf</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dsource_005ffile.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dsource_005ffile.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

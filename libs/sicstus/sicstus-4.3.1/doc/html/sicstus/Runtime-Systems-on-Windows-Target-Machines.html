@@ -1,0 +1,120 @@
+<html lang="en">
+<head>
+<title>Runtime Systems on Windows Target Machines - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Runtime-Systems-on-Target-Machines.html#Runtime-Systems-on-Target-Machines" title="Runtime Systems on Target Machines">
+<link rel="prev" href="Runtime-Systems-on-UNIX-Target-Machines.html#Runtime-Systems-on-UNIX-Target-Machines" title="Runtime Systems on UNIX Target Machines">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Runtime-Systems-on-Windows-Target-Machines"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Runtime-Systems-on-UNIX-Target-Machines.html#Runtime-Systems-on-UNIX-Target-Machines">Runtime Systems on UNIX Target Machines</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Runtime-Systems-on-Target-Machines.html#Runtime-Systems-on-Target-Machines">Runtime Systems on Target Machines</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">6.7.2.2 Runtime Systems on Windows Target Machines</h5>
+
+<p>In order to locate all relevant files, the following directory structure
+should be used:
+
+<pre class="example">     myapp.exe
+     sprt4-3-1.dll
+     sp-4.3.1\
+     +--- bin\
+     |    +--- sprt.sav
+     +--- library\
+          +--- &lt;files from %SP_PATH%\library&gt;
+</pre>
+   <p>If support for multiple SICStus instances is needed, the runtimes
+named e.g. <samp><span class="file">sprt4-3-1_instance_01_.dll</span></samp> need to be available as
+well, in the same place as <samp><span class="file">sprt4-3-1.dll</span></samp>.
+
+   <p>If the runtime system needs to be debugged then the above file system
+layout should be complemented as follows: The file <samp><span class="file">spds.sav</span></samp> from
+the development system should be copied and placed in the same folder as
+<samp><span class="file">sprt.sav</span></samp> and the license information must be made
+available. See <a href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems">Debugging Runtime Systems</a> for details.
+
+   <p><samp><span class="file">myapp.exe</span></samp> is typically created by a call to <samp><span class="command">spld</span></samp>:
+
+<pre class="example">     % <kbd>spld --main=user [...] -o ./myapp.exe</kbd>
+</pre>
+   <p>If the directory containing <samp><span class="file">sprt4-3-1.dll</span></samp> contains a directory
+called <code>sp-4.3.1</code>, SICStus assumes that it is part of a runtime system
+as described in the picture below. The (extended) runtime library,
+<samp><span class="file">sprt.sav</span></samp> (<samp><span class="file">spre.sav</span></samp>), is then looked up in the directory
+(<samp><span class="file">sp-4.3.1/bin</span></samp>), as in the picture. Furthermore, the initial
+<code>library_directory/1</code> fact will be set to the same directory with
+<code>sp-4.3.1/library</code> appended.
+
+   <p>The directory structure under <code>library/</code> should look like in a
+regularly installed SICStus, including the platform-specific subdirectory
+(<code>x86-win32-nt-4</code> in this case). If your application needs to use
+<code>library(timeout)</code> and <code>library(random)</code>, your directory
+structure may look like:
+
+<pre class="example">     myapp.exe
+     sprt4-3-1.dll
+     sp-4.3.1\
+     +--- bin\
+     |    +--- sprt.sav
+     +--- library\
+          +--- random.po
+          +--- timeout.po
+          +--- x86-win32-nt-4 \
+               +--- random.dll
+               +--- timeout.dll
+</pre>
+   <p>The <code>sp*</code> files can also be put somewhere else in order to be
+shared by several applications provided the <samp><span class="file">sprt4-3-1.dll</span></samp> can be
+located by the DLL search.
+
+   <p>Naming the files with version number enables applications using
+different SICStus versions to install the <code>sp*</code> files in the same
+directory.
+
+   <p>When a runtime system is redistributed to third parties, only the
+following files may be included in the distribution. 
+All filenames are relative to <samp><span class="file">%SP_PATH%</span></samp>:
+
+     <dl>
+<dt><samp><span class="file">bin\sprt.sav</span></samp><br><dt><samp><span class="file">bin\spre.sav</span></samp><br><dt><samp><span class="file">bin\jasper.jar</span></samp><br><dt><samp><span class="file">bin\prologbeans.jar</span></samp><br><dt><samp><span class="file">bin\*.dll</span></samp><br><dt><samp><span class="file">bin\*.po</span></samp><br><dt><samp><span class="file">library\*.{tcl,po,pl,bas}</span></samp><dd>Except <samp><span class="file">license.pl</span></samp>! 
+<br><dt><samp><span class="file">library\*\*.dll</span></samp><br><dt><samp><span class="file">library\*\*.{po,pl}</span></samp><dd></dl>
+
+   <p><strong>Please note</strong>: you can't redistribute <samp><span class="file">spds.sav</span></samp> or <samp><span class="file">license.pl</span></samp>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Runtime-Systems-on-Windows-Target-Machines.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Runtime-Systems-on-Windows-Target-Machines.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

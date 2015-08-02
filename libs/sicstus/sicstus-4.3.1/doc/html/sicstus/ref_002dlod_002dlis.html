@@ -1,0 +1,116 @@
+<html lang="en">
+<head>
+<title>ref-lod-lis - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlod.html#ref_002dlod" title="ref-lod">
+<link rel="prev" href="ref_002dlod_002dcnd.html#ref_002dlod_002dcnd" title="ref-lod-cnd">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-lod-lis"></a>
+<a name="ref_002dlod_002dlis"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dlod_002dcnd.html#ref_002dlod_002dcnd">ref-lod-cnd</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlod.html#ref_002dlod">ref-lod</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.3.7 Predicate List</h4>
+
+<p>Detailed information is found in the reference pages for the following:
+
+   <p><a name="index-loading-programs_002c-predicates-for-762"></a><a name="index-predicates-for-loading-programs-763"></a>
+     <dl>
+<dt><code>[]</code><dt><code>[</code><var>:F</var><code>|</code><var>+Fs</var><code>]</code><dd>same as <code>load_files([</code><var>F</var><code>|</code><var>Fs</var><code>])</code>
+
+     <br><dt><code>block </code><var>:P</var><code> &nbsp;<!-- /@w --> </code><strong>declaration</strong><dd>predicates specified by <var>P</var> should
+block until sufficiently instantiated
+
+     <br><dt><code>compile(</code><var>:F</var><code>)</code><dd>load compiled clauses from files <var>F</var>
+
+     <br><dt><code>consult(</code><var>:F</var><code>)</code><dt><code>reconsult(</code><var>:F</var><code>)</code><dd>load interpreted clauses from files <var>F</var>
+
+     <br><dt><code>expand_term(</code><var>+T</var><code>,</code><var>-X</var><code>) &nbsp;<!-- /@w --> </code><strong>hookable</strong><dd>term <var>T</var> expands to term <var>X</var> using <code>user:term_expansion/6</code>
+or grammar rule expansion
+
+     <br><dt><code>goal_expansion(</code><var>+Term1</var><code>, </code><var>+Layout1</var><code>, </code><var>+Module</var><code>, </code><var>-Term2</var><code>, </code><var>-Layout2</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>Defines transformations on goals while clauses are being compiled or asserted,
+and during meta-calls.
+
+     <br><dt><code>discontiguous </code><var>:P</var><code> &nbsp;<!-- /@w --> </code><strong>declaration,ISO</strong><dd>clauses of predicates <var>P</var> don't have to appear contiguously
+
+     <br><dt><code>dynamic </code><var>:P</var><code> &nbsp;<!-- /@w --> </code><strong>declaration,ISO</strong><dd>predicates specified by <var>P</var> are dynamic
+
+     <br><dt><code>elif(</code><var>:Goal</var><code> &nbsp;<!-- /@w --> </code><strong>declaration</strong><dd>Provides an alternative branch in a sequence of conditional compilation directives.
+
+     <br><dt><code>else &nbsp;<!-- /@w --> </code><strong>declaration</strong><dd>Provides an alternative branch in a sequence of conditional compilation directives.
+
+     <br><dt><code>endif &nbsp;<!-- /@w --> </code><strong>declaration</strong><dd>Terminates a sequence of conditional compilation directives.
+
+     <br><dt><code>ensure_loaded(</code><var>:F</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>load <var>F</var> if not already loaded
+
+     <br><dt><code>if(</code><var>:Goal</var><code>) &nbsp;<!-- /@w --> </code><strong>declaration</strong><dd>Starts a sequence of conditional compilation directives for
+conditionally including parts of a source file.
+
+     <br><dt><code>include(</code><var>+F</var><code>) &nbsp;<!-- /@w --> </code><strong>declaration,ISO</strong><dd>include the source file(s) <var>F</var> verbatim
+
+     <br><dt><code>initialization </code><var>:G</var><code> &nbsp;<!-- /@w --> </code><strong>declaration,ISO</strong><dd>declares <var>G</var> to be run when program is started
+
+     <br><dt><code>load_files(</code><var>:F</var><code>)</code><dt><code>load_files(</code><var>:F</var><code>,</code><var>+O</var><code>)</code><dd>load files according to options <var>O</var>
+
+     <br><dt><code>meta_predicate </code><var>:P</var><code> &nbsp;<!-- /@w --> </code><strong>declaration</strong><dd>declares predicates <var>P</var> that are dependent on
+the module from which they are called
+
+     <br><dt><code>mode </code><var>:P</var><code> &nbsp;<!-- /@w --> </code><strong>declaration</strong><dd>NO-OP: document calling modes for predicates specified by <var>P</var>
+
+     <br><dt><code>module(</code><var>+M</var><code>,</code><var>+L</var><code>) &nbsp;<!-- /@w --> </code><strong>declaration</strong><dt><code>module(</code><var>+M</var><code>,</code><var>+L</var><code>,</code><var>+O</var><code>) &nbsp;<!-- /@w --> </code><strong>declaration</strong><dd>module <var>M</var> exports predicates in <var>L</var>, options <var>O</var>
+
+     <br><dt><code>multifile </code><var>:P</var><code> &nbsp;<!-- /@w --> </code><strong>declaration,ISO</strong><dd>the clauses for <var>P</var> are in more than one file
+
+     <br><dt><code>public </code><var>:P</var><code> &nbsp;<!-- /@w --> </code><strong>declaration</strong><dd>NO-OP: declare predicates specified by <var>P</var> public
+
+     <br><dt><code>restore(</code><var>+F</var><code>)</code><dd>restore the state saved in file <var>F</var>
+
+     <br><dt><code>user:term_expansion(</code><var>+Term1</var><code>, </code><var>+Layout1</var><code>, </code><var>+Tokens1</var><code>, </code><var>-Term2</var><code>, </code><var>-Layout2</var><code>, </code><var>-Tokens2</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>Overrides or complements the standard transformations to be done by
+<code>expand_term/2</code>.
+
+     <br><dt><code>use_module(</code><var>:F</var><code>)</code><dt><code>use_module(</code><var>:F</var><code>,</code><var>+I</var><code>)</code><dd>import the procedure(s) <var>I</var> from the module-file <var>F</var>
+
+     <br><dt><code>use_module(</code><var>?M</var><code>,</code><var>:F</var><code>,</code><var>+I</var><code>)</code><dd>import <var>I</var> from module <var>M</var>, loading
+module-file <var>F</var> if necessary
+
+     <br><dt><code>volatile </code><var>:P</var><code> &nbsp;<!-- /@w --> </code><strong>declaration</strong><dd>predicates specified by <var>P</var> are not to be included in saves
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlod_002dlis.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlod_002dlis.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

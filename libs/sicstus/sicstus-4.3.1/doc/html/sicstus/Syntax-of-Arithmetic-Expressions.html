@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+<title>Syntax of Arithmetic Expressions - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Syntax-Summary.html#Syntax-Summary" title="Syntax Summary">
+<link rel="prev" href="Syntax-of-Indexicals.html#Syntax-of-Indexicals" title="Syntax of Indexicals">
+<link rel="next" href="Operator-Declarations.html#Operator-Declarations" title="Operator Declarations">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Syntax-of-Arithmetic-Expressions"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Operator-Declarations.html#Operator-Declarations">Operator Declarations</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Syntax-of-Indexicals.html#Syntax-of-Indexicals">Syntax of Indexicals</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Syntax-Summary.html#Syntax-Summary">Syntax Summary</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.10.13.2 Syntax of Arithmetic Expressions</h5>
+
+<p><strong>Please note</strong>: that the Prolog arithmetic operators <code>/</code> and
+<code>//</code> do not mean the same thing.
+
+   <p><table summary=""><tr align="left"><td valign="top" width="20%"><var>N</var> </td><td valign="top" width="40%">::= <dfn>integer</dfn>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>LinExpr</var> </td><td valign="top" width="40%">::= <var>N</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <dfn>var</dfn>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <var>N</var> <code>*</code> <dfn>var</dfn>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <var>N</var> <code>*</code> <var>N</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>-</code> <var>LinExpr</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <var>LinExpr</var> <code>+</code> <var>LinExpr</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <var>LinExpr</var> <code>-</code> <var>LinExpr</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <var>ConstraintBody</var> </td><td valign="top" width="40%"><span class="roman">{ if true then 1 else 0 }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>Expr</var> </td><td valign="top" width="40%">::= <var>LinExpr</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>-</code> <var>Expr</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <var>Expr</var> <code>+</code> <var>Expr</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <var>Expr</var> <code>-</code> <var>Expr</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <var>Expr</var> <code>*</code> <var>Expr</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <var>Expr</var> <code>/</code> <var>Expr</var> </td><td valign="top" width="40%"><span class="roman">{ truncated division }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <var>Expr</var> <code>//</code> <var>Expr</var> </td><td valign="top" width="40%"><span class="roman">{ truncated division }</span> &nbsp;<!-- /@w --> <strong>since release 4.3</strong>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <var>Expr</var> <code>div</code> <var>Expr</var> </td><td valign="top" width="40%"><span class="roman">{ floored division }</span> &nbsp;<!-- /@w --> <strong>since release 4.3</strong>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <var>Expr</var> <code>rem</code> <var>Expr</var> </td><td valign="top" width="40%"><span class="roman">{ truncated remainder }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <var>Expr</var> <code>mod</code> <var>Expr</var> </td><td valign="top" width="40%"><span class="roman">{ floored remainder }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>min(</code><var>Expr</var><code>,</code><var>Expr</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>max(</code><var>Expr</var><code>,</code><var>Expr</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>abs(</code><var>Expr</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>RelOp</var> </td><td valign="top" width="40%">::= <code>#=</code> | <code>#\=</code> | <code>#&lt;</code> | <code>#=&lt;</code> | <code>#&gt;</code> | <code>#&gt;=</code>
+   <br></td></tr></table>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Syntax-of-Arithmetic-Expressions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Syntax-of-Arithmetic-Expressions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

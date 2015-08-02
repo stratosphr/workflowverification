@@ -1,0 +1,112 @@
+<html lang="en">
+<head>
+<title>obj-exp-send - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="obj_002dexp.html#obj_002dexp" title="obj-exp">
+<link rel="next" href="obj_002dexp_002dput.html#obj_002dexp_002dput" title="obj-exp-put">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="obj-exp-send"></a>
+<a name="obj_002dexp_002dsend"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="obj_002dexp_002dput.html#obj_002dexp_002dput">obj-exp-put</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="obj_002dexp.html#obj_002dexp">obj-exp</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.22.6.1 <code>&lt;-/2</code></h5>
+
+<!-- label send#2-predpage -->
+<p><a name="index-g_t_003c_002d_002f2-_0028objects_0029-3591"></a><a name="index-g_t_003c_002d_002f2-_0028objects_0029-3592"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<!-- manheading Synopsis -->
+<p><var>+Obj</var> <code>&lt;-</code> <var>+Mesg</var>
+
+<h4 class="subheading">Arguments</h4>
+
+<!-- manheading Arguments -->
+     <dl>
+<dt><var>Obj</var><dd><dfn>object</dfn>
+
+     <br><dt><var>Mesg</var><dd><dfn>term</dfn>
+
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<!-- manheading Description -->
+<p>Sends <var>Mesg</var> to <var>Obj</var>. A send
+message. The class of <var>Obj</var> must have a method defined for this
+message.
+
+   <p>A clause with <code>&lt;-/2</code> as the principal functor of its head is a
+method definition clause. Such clauses only occur within the scope of
+a class definition. They are expanded at compile time.
+
+<h4 class="subheading">Exceptions</h4>
+
+<!-- manheading Exceptions -->
+     <dl>
+<dt><code>instantiation_error</code><dd>
+either argument is unbound.
+
+     <br><dt><code>domain_error</code><dd>
+<var>Mesg</var> is not <dfn>callable</dfn> or <var>Obj</var> is not a valid object.
+
+     <br><dt><code>existence_error</code><dd>
+<var>Mesg</var> is not a defined message for <var>Obj</var>. 
+</dl>
+
+<h4 class="subheading">Caveat</h4>
+
+<!-- manheading Caveat -->
+<p>For reasons of efficiency, an Existence Error
+will only be raised if the code that sends the message is
+compiled with debugging enabled (see <code>debug_message</code>), or if the
+message is not determined at compile-time.  In other circumstances,
+the message will simply fail.
+
+   <p>Calls to the <code>&lt;-/2</code> predicate will be compiled into
+more efficient code if the <code>obj_decl</code> module is loaded at compile time.
+
+<h4 class="subheading">See Also</h4>
+
+<!-- manheading See Also -->
+<p><code>&lt;&lt;/2</code>, <code>&gt;&gt;/2</code>, <code>direct_message/4</code>, <code>message/4</code>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dexp_002dsend.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dexp_002dsend.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

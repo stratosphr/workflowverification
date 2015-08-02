@@ -1,0 +1,105 @@
+<html lang="en">
+<head>
+<title>ref-lte-met-usu - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlte_002dmet.html#ref_002dlte_002dmet" title="ref-lte-met">
+<link rel="prev" href="ref_002dlte_002dmet_002dtyp.html#ref_002dlte_002dmet_002dtyp" title="ref-lte-met-typ">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-lte-met-usu"></a>
+<a name="ref_002dlte_002dmet_002dusu"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dlte_002dmet_002dtyp.html#ref_002dlte_002dmet_002dtyp">ref-lte-met-typ</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlte_002dmet.html#ref_002dlte_002dmet">ref-lte-met</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.8.1.2 Unification</h5>
+
+<p>The following predicates are related to unification. Unless mentioned
+otherwise, unification is performed without occurs-check
+(see <a href="ref_002dsem_002docc.html#ref_002dsem_002docc">ref-sem-occ</a>).
+
+   <p><a name="index-g_t_003d_002f2-_0028built_002din_0029-1160"></a><a name="index-g_t_003d_002f2-_0028built_002din_0029-1161"></a>
+<a name="index-unification_002c-explicit-1162"></a><a name="index-equality_002c-unification-1163"></a><a name="index-explicit-unification-1164"></a>To unify two terms, simply use:
+
+<pre class="example">     ?- <kbd>X = Y</kbd>.
+</pre>
+   <blockquote>
+<strong>Please note:</strong>
+     <ul>
+<li>Don't confuse this predicate with <code>=:=/2</code> (arithmetic
+comparison) or <code>==/2</code> (term identity). 
+<li><code>=/2</code> binds free variables in <var>X</var> and <var>Y</var> in order to
+make them identical. 
+</ul>
+</blockquote>
+
+   <p><a name="index-unify_005fwith_005foccurs_005fcheck_002f2-_0028built_002din_0029-1165"></a><a name="index-unify_005fwith_005foccurs_005fcheck_002f2-_0028built_002din_0029-1166"></a>
+To unify two terms with occurs-check, use:
+
+<pre class="example">     ?- <kbd>unify_with_occurs_check(X,Y).</kbd>
+</pre>
+   <!-- [PM] 4.2.3 Note: backslash in macro argument needs quoting with backslash. -->
+   <p><a name="index-g_t_005c_003d-_002f2-_0028built_002din_0029-1167"></a><a name="index-g_t_005c_003d-_002f2-_0028built_002din_0029-1168"></a>
+To check whether two terms don't unify, use the following, which is
+equivalent to <code>\+ (X=Y)</code>:
+
+<pre class="example">     ?- <kbd>X \= Y.</kbd>
+</pre>
+   <p><a name="index-g_t_003f_003d_002f2-_0028built_002din_0029-1169"></a><a name="index-g_t_003f_003d_002f2-_0028built_002din_0029-1170"></a>
+To check whether two terms are either strictly identical or don't
+unify, use the following. This construct is useful in the context of
+<code>when/2</code>:
+
+<pre class="example">     ?- <kbd>?=(X,Y).</kbd>
+</pre>
+   <p><a name="index-dif_002f2-_0028built_002din_0029-1171"></a><a name="index-dif_002f2-_0028built_002din_0029-1172"></a>
+To constrain two terms to not unify, use the following. It blocks
+until <code>?=(</code><var>X</var><code>,</code><var>Y</var><code>)</code> holds:
+
+<pre class="example">     ?- <kbd>dif(X,Y).</kbd>
+</pre>
+   <p><a name="index-subsumes_005fterm_002f2-_0028built_002din_0029-1173"></a><a name="index-subsumes_005fterm_002f2-_0028built_002din_0029-1174"></a>
+
+   <p>The goal:
+
+<pre class="example">     ?- <kbd>subsumes_term(General,Specific).</kbd>
+</pre>
+   <p class="noindent">is true when <var>Specific</var> is an instance of <var>General</var>.  It
+does not bind any variables.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlte_002dmet_002dusu.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlte_002dmet_002dusu.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

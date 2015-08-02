@@ -1,0 +1,117 @@
+<html lang="en">
+<head>
+<title>Init and Deinit Functions - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" title="Calling C from Prolog">
+<link rel="prev" href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker" title="The Foreign Resource Linker">
+<link rel="next" href="Creating-the-Linked-Foreign-Resource.html#Creating-the-Linked-Foreign-Resource" title="Creating the Linked Foreign Resource">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Init-and-Deinit-Functions"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Creating-the-Linked-Foreign-Resource.html#Creating-the-Linked-Foreign-Resource">Creating the Linked Foreign Resource</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker">The Foreign Resource Linker</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Calling-C-from-Prolog.html#Calling-C-from-Prolog">Calling C from Prolog</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.2.6 Init and Deinit Functions</h4>
+
+<p>An init function and/or a deinit function can be declared by
+<code>foreign_resource/2</code>. If this is the case, these functions should
+have the prototype:
+
+     <dl>
+<dt><code>void </code><var>FunctionName</var><code> (int when)</code><dd></dl>
+
+   <p>The init function is called by <code>load_foreign_resource/1</code>
+after the resource has been loaded and the interfaced predicates
+have been installed.  If the init function fails (using
+<code>SP_fail()</code>) or raises an exception (using
+<code>SP_raise_exception()</code>), the failure or exception is propagated by
+<code>load_foreign_resource/1</code> and the foreign resource is
+unloaded (without calling any deinit function). However, using
+<code>SP_fail()</code> is not recommended, and operations that may require
+<code>SP_raise_exception()</code> are probably better done in an init
+function that is called explicitly after the foreign resource has
+been loaded.
+
+   <p>The deinit function is called by <code>unload_foreign_resource/1</code>
+before the interfaced predicates have been uninstalled and the
+resource has been unloaded.  If the deinit function fails or
+raises an exception, the failure or exception is propagated by
+<code>unload_foreign_resource/1</code>, but the foreign resource is
+still unloaded. 
+<!-- [PM] FIXME: clarify this "should not", "must not" or "cannot"? -->
+However, neither <code>SP_fail()</code> nor <code>SP_raise_exception()</code> should
+be called in a deinit function. 
+Complex deinitialization should be done in an explicitly
+called deinit function instead.
+
+   <p>The init and deinit functions may use the C-interface to call
+Prolog etc.
+
+   <p>Foreign resources are unloaded
+<!-- [PM] 4.0 no longer unloads at save -->
+<!-- before saving states, and reloaded -->
+<!-- afterwards or -->
+when the saved-state is restored; see <a href="Saving.html#Saving">Saving</a>. 
+Foreign resources are also unloaded when
+<!-- FIXME when exactly is unloading done? halt/0, halt/1, SP_deinitalize? -->
+exiting Prolog execution. The parameter <code>when</code> reflects the context
+of the <code>(un)load_foreign_resource/1</code> and is set as follows for
+init functions:
+
+     <dl>
+<dt><code>SP_WHEN_EXPLICIT</code><dd><a name="index-SP_005fWHEN_005fEXPLICIT-_0028foreign-resource-context_0029-2229"></a>Explicit call to <code>load_foreign_resource/1</code>. 
+<br><dt><code>SP_WHEN_RESTORE</code><dd><a name="index-SP_005fWHEN_005fRESTORE-_0028foreign-resource-context_0029-2230"></a>Resource is reloaded after
+<!-- [PM] 4.0 no longer unload/reload at save -->
+<!-- save or -->
+restore. 
+</dl>
+
+   <p>For deinit functions:
+
+     <dl>
+<dt><code>SP_WHEN_EXPLICIT</code><dd><a name="index-SP_005fWHEN_005fEXPLICIT-_0028foreign-resource-context_0029-2231"></a>Explicit call to <code>unload_foreign_resource/1</code> or a call to
+<code>load_foreign_resource/1</code> with the name of an already loaded resource. 
+<!-- [PM] 4.0 no longer done -->
+<!-- @item SP_WHEN_SAVE -->
+<!-- Resource is unloaded before save. -->
+<br><dt><code>SP_WHEN_EXIT</code><dd><a name="index-SP_005fWHEN_005fEXIT-_0028foreign-resource-context_0029-2232"></a>Resource is unloaded before exiting Prolog. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Init-and-Deinit-Functions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Init-and-Deinit-Functions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+<title>ODBC Reading - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ODBC-Datatypes.html#ODBC-Datatypes" title="ODBC Datatypes">
+<link rel="next" href="ODBC-Writing.html#ODBC-Writing" title="ODBC Writing">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ODBC-Reading"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ODBC-Writing.html#ODBC-Writing">ODBC Writing</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ODBC-Datatypes.html#ODBC-Datatypes">ODBC Datatypes</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.23.3.1 Reading from the database</h5>
+
+<p>When reading data from the database the following datatypes are supported,
+with conversion to the corresponding prolog datatypes.
+     <dl>
+<dt><code>SQL_CHAR</code>, <code>SQL_VARCHAR</code> etc.<dd>  A list of character codes. 
+<br><dt><code>SQL_BIT</code><dd>  The integer <code>0</code> for false, or <code>1</code> for true. 
+<br><dt><code>SQL_INTEGER</code>, <code>SQL_TINYINT</code>, <code>SQL_SMALLINT</code>, etc.<dd>  An integer. 
+<br><dt><code>SQL_REAL</code>, <code>SQL_DOUBLE</code>, <code>SQL_FLOAT</code><dd>  A floating point number. 
+<br><dt><code>SQL_DATE</code><dd>  A term <code>date(Year, Month, DayOfMonth)</code>, with one-based
+  integer arguments. E.g. <code>date(2012,10,22)</code> means October
+  22, 2012. 
+<br><dt><code>SQL_TIME</code><dd>  A term <code>time(Hour, Minute, Second)</code> with one-based integer
+  arguments. E.g. <code>time(22,11,5)</code> means eleven minutes and
+  five seconds past ten pm. 
+<br><dt><code>SQL_TIMESTAMP</code><dd>  A term <code>timestamp(Year, Month, Day, Hour, Minute, Second,
+  Fraction)</code> where the arguments have the same meaning as for
+  <code>SQL_TIME</code> and <code>SQL_TIMESTAMP</code> and <var>Fraction</var>
+  means fractional nanoseconds past, as an integer. 
+<br><dt>the SQL null representation<dd> The atom <code>null</code>.
+<br><dt><code>SQL_BINARY</code> and other binary types<dt><code>SQL_INTERVAL_HOUR</code> and other interval types<dt><code>SQL_UTCTIME</code> and <code>SQL_UTCDATETIME</code><dd> Currently not supported. 
+</dl>
+   Note that atoms with names that start with an upper case letter,
+like <code>SQL_CHAR</code> must be quoted in Prolog, e.g. <code>'SQL_CHAR'</code>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ODBC-Reading.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ODBC-Reading.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

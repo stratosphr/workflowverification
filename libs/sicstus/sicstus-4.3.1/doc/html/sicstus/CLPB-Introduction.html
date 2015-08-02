@@ -1,0 +1,114 @@
+<html lang="en">
+<head>
+<title>CLPB Introduction - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dclpb.html#lib_002dclpb" title="lib-clpb">
+<link rel="next" href="CLPB-Interface.html#CLPB-Interface" title="CLPB Interface">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CLPB-Introduction"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CLPB-Interface.html#CLPB-Interface">CLPB Interface</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dclpb.html#lib_002dclpb">lib-clpb</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.9.1 Introduction</h4>
+
+<p>The clp(B) system provided by this library module is an instance
+of the general Constraint Logic Programming scheme introduced in [Jaffar
+&amp; Michaylov 87].  It is a solver for constraints over the Boolean
+domain, i.e. the values 0 and 1.  The library module is a direct port from
+SICStus Prolog 3. It is not supported by SICS in any way.
+
+   <p>The Boolean domain is particularly useful for modeling digital circuits,
+and the constraint solver can be used for verification, design,
+optimization etc. of such circuits.
+
+   <p>To load the solver, enter the query:
+
+<pre class="example">     | ?- <kbd>use_module(library(clpb)).</kbd>
+</pre>
+   <p>The solver contains predicates for checking the consistency and
+entailment of a constraint wrt. previous constraints, and for
+computing particular solutions to the set of previous constraints.
+
+   <p>The underlying representation of Boolean functions is based on Boolean
+Decision Diagrams [Bryant 86]. 
+This representation is very efficient, and allows many combinatorial
+problems to be solved with good performance.
+
+   <p>Boolean expressions are composed from the following operands: the
+constants 0 and 1 (<code>FALSE</code> and <code>TRUE</code>), logical
+variables, and symbolic constants, and from the following
+connectives.  <var>P</var> and <var>Q</var> are Boolean expressions, <var>X</var> is a
+logical variable, <var>Is</var> is a list of integers or integer
+ranges, and <var>Es</var> is a list of Boolean expressions:
+
+     <dl>
+<dt><code>~ </code><var>P</var><dd><a name="index-g_t_007e-_002f1_002c-boolean-not-2760"></a>True if <var>P</var> is false.
+
+     <br><dt><var>P</var><code> * </code><var>Q</var><dd><a name="index-g_t_002a-_002f2_002c-boolean-and-2761"></a>True if <var>P</var> and <var>Q</var> are both true.
+
+     <br><dt><var>P</var><code> + </code><var>Q</var><dd><a name="index-g_t_002b-_002f2_002c-boolean-ior-2762"></a>True if at least one of <var>P</var> and <var>Q</var> is true.
+
+     <br><dt><var>P</var><code> # </code><var>Q</var><dd><a name="index-g_t_0023-_002f2_002c-boolean-eor-2763"></a>True if exactly one of <var>P</var> and <var>Q</var> is true.
+
+     <br><dt><var>X</var><code> ^ </code><var>P</var><dd><a name="index-g_t_005e-_002f2_002c-boolean-existential-quantifier-2764"></a>True if there exists an <var>X</var> such that <var>P</var> is true.  Same as
+<var>P</var><code>[</code><var>X</var><code>/0] + </code><var>P</var><code>[</code><var>X</var><code>/1]</code>.
+
+     <br><dt><var>P</var><code> =:= </code><var>Q</var><dd><a name="index-g_t_003d_003a_003d-_002f2_002c-boolean-equal-2765"></a>Same as <code>~</code><var>P</var><code> # </code><var>Q</var>.
+
+     <br><dt><var>P</var><code> =\= </code><var>Q</var><dd><a name="index-g_t_003d_005c_003d-_002f2_002c-boolean-not-equal-2766"></a>Same as <var>P</var><code> # </code><var>Q</var>.
+
+     <br><dt><var>P</var><code> =&lt; </code><var>Q</var><dd><a name="index-g_t_003d_003c-_002f2_002c-boolean-less-or-equal-2767"></a>Same as <code>~</code><var>P</var><code> + </code><var>Q</var>.
+
+     <br><dt><var>P</var><code> &gt;= </code><var>Q</var><dd><a name="index-g_t_003e_003d-_002f2_002c-boolean-greater-or-equal-2768"></a>Same as <var>P</var><code> + ~</code><var>Q</var>.
+
+     <br><dt><var>P</var><code> &lt; </code><var>Q</var><dd><a name="index-g_t_003c-_002f2_002c-boolean-less-2769"></a>Same as <code>~</code><var>P</var><code> * </code><var>Q</var>.
+
+     <br><dt><var>P</var><code> &gt; </code><var>Q</var><dd><a name="index-g_t_003e-_002f2_002c-boolean-greater-2770"></a>Same as <var>P</var><code> * ~</code><var>Q</var>.
+
+     <br><dt><code>card(</code><var>Is</var><code>, </code><var>Es</var><code>)</code><dd><a name="index-card_002f2_002c-boolean-cardinality-2771"></a>True if the number of true expressions in <var>Es</var> is a member of the
+set denoted by <var>Is</var>. 
+</dl>
+
+   <p>Symbolic constants (Prolog atoms) denote parametric values and can
+be viewed as all-quantified variables whose quantifiers are placed
+outside the entire expression.  They are useful for forcing certain
+variables of an equation to be treated as input parameters.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPB-Introduction.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPB-Introduction.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

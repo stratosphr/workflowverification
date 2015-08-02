@@ -1,0 +1,106 @@
+<html lang="en">
+<head>
+<title>Plain Spypoint - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Debug-Intro.html#Debug-Intro" title="Debug Intro">
+<link rel="prev" href="Basic-Debug.html#Basic-Debug" title="Basic Debug">
+<link rel="next" href="Debug-Format.html#Debug-Format" title="Debug Format">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Plain-Spypoint"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Debug-Format.html#Debug-Format">Debug Format</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Basic-Debug.html#Basic-Debug">Basic Debug</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Debug-Intro.html#Debug-Intro">Debug Intro</a>
+<hr>
+</div>
+
+<h3 class="section">5.3 Plain Spypoints</h3>
+
+<p><a name="index-plain-spypoint-1892"></a><a name="index-spypoint_002c-plain-1893"></a>
+For programs of any size, it is clearly impractical to creep
+through the entire program.  Spypoints make it possible to
+stop the program whenever it gets to a particular predicate
+of interest.  Once there, one can set further spypoints in order
+to catch the control flow a bit further on, or one can start
+creeping.
+
+   <p>In this section we discuss the simplest form of spypoints, the
+<dfn>plain spypoints</dfn>. The more advanced forms, the <dfn>conditional</dfn>
+and <dfn>generic spypoints</dfn> will be discussed later; see <a href="Advanced-Debugging.html#Advanced-Debugging">Advanced Debugging</a>.
+
+   <p>Setting a plain spypoint on a predicate indicates that you
+wish to see all control flow through the various ports of its
+invocation boxes, except during skips.  When control passes
+through any port of an invocation box with a spypoint
+set on it, a message is output and the user is asked to interact.  Note
+that the current mode of leashing does not affect plain
+spypoints: user interaction is requested on <em>every</em>
+port.
+
+   <p>Spypoints are set and removed by the following built-in
+predicates.  The first two are also standard operators:
+
+     <dl>
+<dt><code>spy </code><var>:Spec</var><code> &nbsp;<!-- /@w --> </code><strong>development</strong><dd><a name="index-spy_002f_005b1_002c2_005d-_0028built_002din_0029-1894"></a><a name="index-spy_002f_005b1_002c2_005d-_0028built_002din_0029-1895"></a>
+Sets plain spypoints on all the predicates given by the
+generalized predicate spec <var>Spec</var>.
+
+     <p>Examples:
+
+     <pre class="example">          | ?- <kbd>spy [user:p, m:q/2, m:q/3].</kbd>
+          | ?- <kbd>spy m:[p/1, q/1].</kbd>
+</pre>
+     <p>If you set some spypoints when the debugger is switched off,
+it will be automatically switched on, entering zip mode. 
+See <a href="mpg_002dref_002dspy.html#mpg_002dref_002dspy">mpg-ref-spy</a>.
+
+     <br><dt><code>nospy </code><var>:Spec</var><code> &nbsp;<!-- /@w --> </code><strong>development</strong><dd><a name="index-nospy_002f1-_0028built_002din_0029-1896"></a><a name="index-nospy_002f1-_0028built_002din_0029-1897"></a>
+Similar to <code>spy </code><var>Spec</var> except that all the predicates
+given by <var>Spec</var> will have all previously set spypoints removed
+from them (including conditional spypoints; see <a href="Creating-Breakpoints.html#Creating-Breakpoints">Creating Breakpoints</a>). 
+See <a href="mpg_002dref_002dnospy.html#mpg_002dref_002dnospy">mpg-ref-nospy</a>.
+
+     <br><dt><code>nospyall &nbsp;<!-- /@w --> </code><strong>development</strong><dd><a name="index-nospyall_002f0-_0028built_002din_0029-1898"></a><a name="index-nospyall_002f0-_0028built_002din_0029-1899"></a>
+Removes all the spypoints that have been set, including the
+conditional and generic ones. 
+See <a href="mpg_002dref_002dnospyall.html#mpg_002dref_002dnospyall">mpg-ref-nospyall</a>. 
+</dl>
+
+   <p>The commands available when you arrive at a spypoint are described
+later.  See <a href="Debug-Commands.html#Debug-Commands">Debug Commands</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Plain-Spypoint.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Plain-Spypoint.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

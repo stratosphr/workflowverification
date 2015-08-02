@@ -1,0 +1,94 @@
+<html lang="en">
+<head>
+<title>mpg-ref-coverage_data - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dcopy_005fterm.html#mpg_002dref_002dcopy_005fterm" title="mpg-ref-copy_term">
+<link rel="next" href="mpg_002dref_002dcreate_005fmutable.html#mpg_002dref_002dcreate_005fmutable" title="mpg-ref-create_mutable">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-coverage_data"></a>
+<a name="mpg_002dref_002dcoverage_005fdata"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dcreate_005fmutable.html#mpg_002dref_002dcreate_005fmutable">mpg-ref-create_mutable</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dcopy_005fterm.html#mpg_002dref_002dcopy_005fterm">mpg-ref-copy_term</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.45 <code>coverage_data/1</code> &nbsp;<!-- /@w --> <dfn>[development]</dfn></h4>
+
+<p><a name="index-coverage_005fdata_002f1-_0028built_002din_002c-ref-page_0029-4518"></a><a name="index-coverage_005fdata_002f1-_0028built_002din_002c-ref-page_0029-4519"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>coverage_data(</code><var>-Data</var><code>)</code> &nbsp;<!-- /@w --> <strong>since release 4.2</strong>
+
+   <p><var>Data</var> is the coverage data accumulated so far.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Data</var><dd><dfn>list of coverage_pair</dfn>
+
+     <p>where:
+
+     <p><table summary=""><tr align="left"><td valign="top" width="25%"><var>coverage_pair</var> </td><td valign="top" width="75%">::= <code>counter(</code><var>filename</var><code>,</code><var>pred_spec</var><code>,</code><var>clauseno</var><code>,</code><var>lineno</var><code>)-</code><var>tagged_hits</var>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><var>filename</var> </td><td valign="top" width="75%">::= <var>atom</var> <span class="roman">{file containing coverage site}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><var>clauseno</var> </td><td valign="top" width="75%">::= <var>integer</var> <span class="roman">{file relative clause number containing coverage site}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><var>lineno</var> </td><td valign="top" width="75%">::= <var>integer</var> <span class="roman">{line of code containing coverage site}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><var>tagged_hits</var> </td><td valign="top" width="75%">::= <code>det(</code><var>hits</var><code>)</code> <span class="roman">{no nondet calls made from site}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%">               </td><td valign="top" width="75%">| <code>nondet(</code><var>hits</var><code>)</code> <span class="roman">{some nondet calls made from site}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><var>hits</var> </td><td valign="top" width="75%">::= <var>integer</var> <span class="roman">{number of times that coverage site was hit}</span>
+     <br></td></tr></table>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>The coverage data accumulated so far is collected into a term of type
+<dfn>list of coverage_pair</dfn> and unified with <var>Data</var>.
+
+   <p><strong>Please note</strong>: A given line of code can contain more than one coverage site.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>None.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Coverage-Analysis.html#Coverage-Analysis">Coverage Analysis</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dcoverage_005fdata.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dcoverage_005fdata.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

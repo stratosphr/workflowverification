@@ -1,0 +1,100 @@
+<html lang="en">
+<head>
+<title>ref-sem-ctr - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsem.html#ref_002dsem" title="ref-sem">
+<link rel="prev" href="ref_002dsem_002dtyp.html#ref_002dsem_002dtyp" title="ref-sem-typ">
+<link rel="next" href="ref_002dsem_002dsec.html#ref_002dsem_002dsec" title="ref-sem-sec">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-sem-ctr"></a>
+<a name="ref_002dsem_002dctr"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dsem_002dsec.html#ref_002dsem_002dsec">ref-sem-sec</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dsem_002dtyp.html#ref_002dsem_002dtyp">ref-sem-typ</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsem.html#ref_002dsem">ref-sem</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.2.3 Control Structures</h4>
+
+<p><a name="index-control-structure-588"></a><a name="index-structure_002c-control-589"></a>
+
+   <p><a name="index-conjunction-590"></a><a name="index-and-591"></a><a name="index-g_t_002c_002f2_002c-conjunction-592"></a><a name="index-g_t_002c_002f2_002c-conjunction-593"></a>
+As we have seen, the goals in the body of a sentence are linked by the
+operator &lsquo;<samp><span class="samp">,</span></samp>&rsquo;, which can be interpreted as conjunction (and).  The
+Prolog language provides a number of other operators, known as
+<dfn>control structures</dfn>, for building complex goals.  Apart from
+being built-in predicates, these control structures play a special
+role in certain language features, namely Grammar Rules
+(see <a href="ref_002dgru.html#ref_002dgru">ref-gru</a>), and when code is loaded or asserted in the context
+of modules (see <a href="ref_002dmod.html#ref_002dmod">ref-mod</a>).  The set of control structures is
+described in this section, and consists of:
+
+     <dl>
+<dt><var>:P</var><code>,</code><var>:Q</var><code>         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>prove <var>P</var> and <var>Q</var>
+
+     <br><dt><var>:P</var><code>;</code><var>:Q</var><code>         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>prove <var>P</var> or <var>Q</var>
+
+     <br><dt><var>+M</var><code>:</code><var>:P</var><code>         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>call <var>P</var> in module <var>M</var>
+
+     <br><dt><var>:P</var><code>-&gt;</code><var>:Q</var><code>;</code><var>:R</var><code>         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>if <var>P</var> succeeds, prove <var>Q</var>; if not, prove <var>R</var>
+
+     <br><dt><var>:P</var><code>-&gt;</code><var>:Q</var><code>         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>if <var>P</var> succeeds, prove <var>Q</var>; if not, fail
+
+     <br><dt><code>!         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>cut any choices taken in the current procedure
+
+     <br><dt><code>\+ </code><var>:P</var><code>         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>goal <var>P</var> is not provable
+
+     <br><dt><var>?X</var><code> ^ </code><var>:P</var><dd>there exists an <var>X</var> such that <var>P</var> is provable (used in <code>setof/3</code> and <code>bagof/3</code>)
+
+     <br><dt><var>+Iterators</var><code> do </code><var>:Body</var><dd>executes <var>Body</var> iteratively according to <var>Iterators</var>
+
+     <br><dt><code>if(</code><var>:P</var><code>,</code><var>:Q</var><code>,</code><var>:R</var><code>)</code><dd>for each solution of  <var>P</var> succeeds, prove <var>Q</var>; if none, prove <var>R</var>
+
+     <br><dt><code>once(</code><var>:P</var><code>)         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>Find the first solution, if any, of goal <var>P</var>. 
+</dl>
+
+<ul class="menu">
+<li><a accesskey="1" href="ref_002dsem_002dctr_002dcut.html#ref_002dsem_002dctr_002dcut">ref-sem-ctr-cut</a>:                          The Cut
+<li><a accesskey="2" href="ref_002dsem_002dctr_002ddis.html#ref_002dsem_002dctr_002ddis">ref-sem-ctr-dis</a>:                          Disjunctions
+<li><a accesskey="3" href="ref_002dsem_002dctr_002dite.html#ref_002dsem_002dctr_002dite">ref-sem-ctr-ite</a>:                          If-Then-Else
+<li><a accesskey="4" href="ref_002dsem_002dctr_002dnaf.html#ref_002dsem_002dctr_002dnaf">ref-sem-ctr-naf</a>:                          Negation as Failure
+<li><a accesskey="5" href="ref_002dsem_002dctr_002ddol.html#ref_002dsem_002dctr_002ddol">ref-sem-ctr-dol</a>:                          Do-Loops
+<li><a accesskey="6" href="ref_002dsem_002dctr_002doth.html#ref_002dsem_002dctr_002doth">ref-sem-ctr-oth</a>:                          Other Control Structures
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsem_002dctr.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsem_002dctr.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

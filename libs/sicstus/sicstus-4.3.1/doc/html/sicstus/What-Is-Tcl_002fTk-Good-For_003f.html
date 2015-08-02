@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+<title>What Is Tcl/Tk Good For? - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Introduction-_0028Tcl_0029.html#Introduction-_0028Tcl_0029" title="Introduction (Tcl)">
+<link rel="prev" href="What-Is-Tcl_002fTk_003f.html#What-Is-Tcl_002fTk_003f" title="What Is Tcl/Tk?">
+<link rel="next" href="What-Is-Tcl_002fTks-Relationship-to-SICStus-Prolog_003f.html#What-Is-Tcl_002fTks-Relationship-to-SICStus-Prolog_003f" title="What Is Tcl/Tks Relationship to SICStus Prolog?">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="What-Is-Tcl%2fTk-Good-For%3f"></a>
+<a name="What-Is-Tcl_002fTk-Good-For_003f"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="What-Is-Tcl_002fTks-Relationship-to-SICStus-Prolog_003f.html#What-Is-Tcl_002fTks-Relationship-to-SICStus-Prolog_003f">What Is Tcl/Tks Relationship to SICStus Prolog?</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="What-Is-Tcl_002fTk_003f.html#What-Is-Tcl_002fTk_003f">What Is Tcl/Tk?</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Introduction-_0028Tcl_0029.html#Introduction-_0028Tcl_0029">Introduction (Tcl)</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.37.1.2 What Is Tcl/Tk Good For?</h5>
+
+<p>In combination the Tcl and Tk packages (we will call the combination
+simply Tcl/Tk) are useful for creating graphical user interfaces (GUIs)
+to applications. The GUI is described in terms of instances of Tk widgets,
+created through calls in Tcl, and Tcl scripts that form the glue that
+binds together the GUI and the application. 
+(If you are a little lost at this point, all will be clear in a moment with
+ a simple example.)
+
+   <p>There are lots of systems out there for adding GUIs to applications so
+why choose Tcl/Tk? Tcl/Tk has several advantages that make it attractive
+for this kind of work.  Firstly, it is good for rapid prototyping of
+GUIs. Tcl is an interpreted scripting language. The scripts can be
+modified and executed quickly, with no compilation phase, so
+speeding up the development loop.
+
+   <p>Secondly, it is easier to use a system based on a scripting language,
+such as Tcl/Tk, than many of the conventional packages available.  For
+example, getting to grips with the X windows suite of C libraries is not
+an easy task. Tcl/Tk can produce the same thing using simple scripting
+with much less to learn.  The penalty for this is that programs
+written in an interpreted scripting language will execute more slowly
+than those written using compiled C library calls, but for many
+interfaces that don't need great speed Tcl/Tk is fast enough and its
+ease of use more than outweighs the loss of speed.  In any case, Tcl/Tk
+can easily handle hundreds of events per mouse movement without the user
+noticing.
+
+   <p>Thirdly, Tcl/Tk is good for making cross-platform GUIs. 
+The Tk toolkit has been ported to native look-and-feel widgets on
+Mac, PC (Windows), and UNIX (X windows) platforms. You can write your
+scripts once and they will execute on any of these platforms.
+
+   <p>Lastly, the software is distributed under a free software license
+and so is available in both binary and source formats free of charge.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/What-Is-Tcl_002fTk-Good-For_003f.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/What-Is-Tcl_002fTk-Good-For_003f.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+<title>Processing Breakpoints - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Advanced-Debugging.html#Advanced-Debugging" title="Advanced Debugging">
+<link rel="prev" href="Creating-Breakpoints.html#Creating-Breakpoints" title="Creating Breakpoints">
+<link rel="next" href="Breakpoint-Tests.html#Breakpoint-Tests" title="Breakpoint Tests">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Processing-Breakpoints"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Breakpoint-Tests.html#Breakpoint-Tests">Breakpoint Tests</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Creating-Breakpoints.html#Creating-Breakpoints">Creating Breakpoints</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Advanced-Debugging.html#Advanced-Debugging">Advanced Debugging</a>
+<hr>
+</div>
+
+<h4 class="subsection">5.6.2 Processing Breakpoints</h4>
+
+<p>We first give a somewhat simplified sketch of how the debugger treats
+the breakpoints. This description will be refined in the sequel.
+
+   <p>The debugger allows us to prescribe some activities to be performed at
+certain points of execution, namely at the ports of procedure
+boxes. In principle, the debugger is entered at each port of each
+procedure invocation. It then considers the current
+breakpoints one by one, most recent first. The first
+breakpoint for which the evaluation of the test part succeeds is
+then activated, and the execution continues according to its action
+part. The activated breakpoint &ldquo;hides&rdquo; the remaining (older)
+ones, i.e. those are not tried here. If none of the current
+breakpoints is activated, the debugger behaves according to the
+actual debugging mode (trace, debug or zip).
+
+   <p>Both the test and the action part can be simple or composite. Evaluating
+a simple test amounts to checking whether it holds in the current state
+of execution, e.g. <code>pred(foo/2)</code> holds if the debugger is at a
+port of predicate <code>foo/2</code>.
+
+   <p>Composite conditions can be built from simple ones by forming lists, or
+using the &lsquo;<samp><span class="samp">,</span></samp>&rsquo;, &lsquo;<samp><span class="samp">;</span></samp>&rsquo;, &lsquo;<samp><span class="samp">-&gt;</span></samp>&rsquo;, and &lsquo;<samp><span class="samp">\+</span></samp>&rsquo; operators,
+with the usual meaning of conjunction, disjunction,
+if-then-else and negation. A list of conditions is equivalent to a
+conjunction of the same conditions. For example, the condition
+<code>[pred(foo/2), \+port(fail)]</code> will hold for all ports of
+<code>foo/2</code>, except for the Fail port.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Processing-Breakpoints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Processing-Breakpoints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

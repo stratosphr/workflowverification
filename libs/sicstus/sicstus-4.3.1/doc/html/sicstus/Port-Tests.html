@@ -1,0 +1,121 @@
+<html lang="en">
+<head>
+<title>Port Tests - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Breakpoint-Conditions.html#Breakpoint-Conditions" title="Breakpoint Conditions">
+<link rel="prev" href="Source-Tests.html#Source-Tests" title="Source Tests">
+<link rel="next" href="Break-Tests.html#Break-Tests" title="Break Tests">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Port-Tests"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Break-Tests.html#Break-Tests">Break Tests</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Source-Tests.html#Source-Tests">Source Tests</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Breakpoint-Conditions.html#Breakpoint-Conditions">Breakpoint Conditions</a>
+<hr>
+</div>
+
+<h4 class="subsection">5.9.3 Tests Related to the Current Port</h4>
+
+<p>These tests can only be used inside the debugger and only when focused
+on the current invocation.  If they appear in <code>execution_state/2</code>
+or in <code>execution_state/1</code> called from outside the debugger, an
+exception will be raised.
+
+   <p><a name="index-debugger-port-2108"></a><a name="index-port_002c-debugger-2109"></a>The notion of port in breakpoint handling is more general
+than outlined earlier in <a href="Procedure-Box.html#Procedure-Box">Procedure Box</a>. Here, the following
+terms are used to describe a port:
+<a name="index-call_002f0-_0028debugger-port-value_0029-2110"></a><a name="index-exit_002f1-_0028debugger-port-value_0029-2111"></a><a name="index-redo_002f0-_0028debugger-port-value_0029-2112"></a><a name="index-fail_002f0-_0028debugger-port-value_0029-2113"></a><a name="index-exception_002f1-_0028debugger-port-value_0029-2114"></a><a name="index-block_002f0-_0028debugger-port-value_0029-2115"></a><a name="index-unblock_002f0-_0028debugger-port-value_0029-2116"></a>
+<pre class="example">     call, exit(nondet), exit(det), redo, fail,
+     exception(<var>Exception</var>), block, unblock
+</pre>
+   <p>Furthermore, the atoms <code>exit</code> and <code>exception</code> can be
+used in the <code>port</code> condition (see below), to denote either of the two
+exit ports and an arbitrary exception port, respectively.
+
+     <dl>
+<dt><code>port(</code><var>Port</var><code>)</code><dd><a name="index-port_002f1-_0028debugger-condition_0029-2117"></a>The current execution port matches <var>Port</var> in the following
+sense: either <var>Port</var> and the current port unify, or
+<var>Port</var> is the functor of the current port (e.g. 
+<code>port(exit)</code> holds for both <code>exit(det)</code> and
+<code>exit(nondet)</code> ports).
+
+     <p>As explained earlier, the port condition for a non Call port is best
+placed in the action part.  This is because the failure of the action
+part will cause the debugger to pass through the Call port silently, and
+to build a procedure box, even in zip mode. The following
+idiom is suggested for creating breakpoints at non Call ports:
+
+     <pre class="example">          add_breakpoint(<var>Tests</var>-[port(<var>Port</var>),<var>Actions</var>], BID).
+</pre>
+     <br><dt><code>bid(</code><var>BID</var><code>)</code><dd><a name="index-bid_002f1-_0028debugger-condition_0029-2118"></a>The breakpoint being examined has a breakpoint identifier
+<var>BID</var>.  (<var>BID</var> = <code>off</code> if no breakpoint was
+selected.) 
+<br><dt><code>mode(</code><var>Mode</var><code>)</code><dd><a name="index-mode_002f1-_0028debugger-condition_0029-2119"></a><var>Mode</var> is the representation of the <code>mode</code> variable, which normally
+reflects the current debugger mode. 
+<br><dt><code>command(</code><var>Command</var><code>)</code><dd><a name="index-command_002f1-_0028debugger-condition_0029-2120"></a><var>Command</var> is the representation of the <code>command</code> variable, which is the
+command to be executed by default, if the breakpoint is selected. 
+<br><dt><code>show(</code><var>Show</var><code>)</code><dd><a name="index-show_002f1-_0028debugger-condition_0029-2121"></a><var>Show</var> is the representation of the <code>show</code> variable, i.e. the default
+show method (the method for displaying the goal in the trace message). 
+</dl>
+
+   <p>The last three of the above tests access the <em>debugger action
+variables</em>. These breakpoint conditions have a different meaning
+in the action part. For example, the condition <code>mode(trace)</code>, if it
+occurs in the tests, <em>checks</em> if the current debugger mode is
+<code>trace</code>. On the other hand, if the same term occurs within
+the action part, it <em>sets</em> the debugger mode to <code>trace</code>.
+
+   <p>To support the querying of the action variables in the action part, the
+following breakpoint condition is provided:
+
+     <dl>
+<dt><code>get(</code><var>ActVar</var><code>)</code><dd><a name="index-get_002f1-_0028debugger-condition_0029-2122"></a>Equivalent to <var>ActVar</var>, where this is an action variable test,
+i.e. one of the terms <code>mode(</code><var>Mode</var><code>)</code>,
+<code>command(</code><var>Command</var><code>)</code>, <code>show(</code><var>Show</var><code>)</code>. It has this
+meaning in the action part as well. 
+</dl>
+
+   <p>For the <code>port</code>, <code>mode</code>, <code>command</code> and <code>show</code>
+conditions, the condition can be replaced by its argument, if that
+is not a variable. For example the condition <code>call</code> can be
+used instead of <code>port(call)</code>.  Conditions matching the terms
+listed above as valid port values will be converted to a
+<code>port</code> condition. Similarly, any valid representation for the three debugger
+action variables is converted to an appropriate condition. These valid
+values are described in <a href="Action-Variables.html#Action-Variables">Action Variables</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Port-Tests.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Port-Tests.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

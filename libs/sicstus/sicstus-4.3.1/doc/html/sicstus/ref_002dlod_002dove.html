@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+<title>ref-lod-ove - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlod.html#ref_002dlod" title="ref-lod">
+<link rel="next" href="ref_002dlod_002dlod.html#ref_002dlod_002dlod" title="ref-lod-lod">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-lod-ove"></a>
+<a name="ref_002dlod_002dove"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dlod_002dlod.html#ref_002dlod_002dlod">ref-lod-lod</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlod.html#ref_002dlod">ref-lod</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.3.1 Overview</h4>
+
+<p>There are two ways of loading programs into Prolog&mdash;loading source
+files and loading precompiled PO files.  Source files can be
+<dfn>compiled</dfn> into virtual machine code, as well as <dfn>consulted</dfn>
+for interpretation.  Dynamic predicates are always stored in
+interpreted form, however.
+
+   <p>Virtual machine code runs about 8 times faster than interpreted code,
+and requires less runtime storage.  Compiled code is fully debuggable,
+except certain constructs compile inline and cannot be traced. 
+Compiled code also provides better precision for execution profiling
+and coverage analysis.
+
+   <p><a name="index-JIT-compilation-677"></a><a name="index-compilation_002c-JIT-678"></a>Since release 4.3, on 32 and 64 bit x86 platforms running Windows, OS X,
+and Linux, SICStus Prolog has the ability to compile predicates from
+virtual machine code to native code.  This process, known as Just In
+Time (JIT) compilation, is controlled by a couple of system properties
+(see <a href="System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a>), but is otherwise
+automatic.  JIT compilation is seamless wrt. debugging, profiling,
+coverage analysis, etc.  JIT compiled code runs up to 4 times faster
+than virtual machine code, but takes more space.
+
+   <p>The virtual machine compiler operates in two different modes, controlled
+by the <code>compiling</code> Prolog flag.  The possible values of the flag are:
+<a name="index-compiling-_0028prolog-flag_0029-679"></a>
+     <dl>
+<dt><code>compactcode</code><dd><a name="index-compactcode-_0028compiling-flag-value_0029-680"></a>Compilation produces byte-coded abstract instructions.  The default.
+
+     <br><dt><code>debugcode</code><dd><a name="index-debugcode-_0028compiling-flag-value_0029-681"></a>Compilation produces <em>interpreted</em> code, i.e. 
+compiling is replaced by consulting. 
+</dl>
+
+   <p>This section contains references to the use of the module system. 
+These can be ignored if the module system is not being used (see
+<a href="ref_002dmod.html#ref_002dmod">ref-mod</a> for information on the module system).
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlod_002dove.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlod_002dove.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

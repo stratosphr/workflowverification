@@ -1,0 +1,555 @@
+<html lang="en">
+<head>
+<title>lib-process - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Prolog-Library.html#The-Prolog-Library" title="The Prolog Library">
+<link rel="prev" href="lib_002dplunit.html#lib_002dplunit" title="lib-plunit">
+<link rel="next" href="lib_002dprologbeans.html#lib_002dprologbeans" title="lib-prologbeans">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="lib-process"></a>
+<a name="lib_002dprocess"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="lib_002dprologbeans.html#lib_002dprologbeans">lib-prologbeans</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="lib_002dplunit.html#lib_002dplunit">lib-plunit</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Prolog-Library.html#The-Prolog-Library">The Prolog Library</a>
+<hr>
+</div>
+
+<h3 class="section">10.27 Process Utilities&mdash;<code>library(process)</code></h3>
+
+<p>This package contains utilities for process creation.
+
+   <p>A process is represented by a <dfn>process reference</dfn>, a ground
+compound term. Both SICStus and the operating system maintain a
+state for each such process reference and they must therefore be
+released, either explicitly with <code>process_release/1</code> or
+implicitly by <code>process_wait/[2,3]</code>. Process references are
+created with <code>process_create/[2,3]</code> if explicitly requested with
+the <code>process/1</code> option. Process references are required in
+order to obtain the exit status of a process
+after <code>process_create/[2,3]</code> has returned.
+
+   <p>Many of the
+predicates can accept a numeric operating system process id
+(&ldquo;PID&rdquo;) but since process ids are subject to re-use by the OS
+this is less reliable and does not work if the process has already
+exited.
+
+<h4 class="subsection">10.27.1 Examples</h4>
+
+<p>The following illustrates some common tasks. 
+The process library is portable and works on all supported platforms,
+including UNIX, Linux and Windows. 
+However, the examples are by necessity platform dependent. 
+Unless otherwise noted, the examples will work on UNIX and similar systems only.
+
+   <p>(If you are looking for something like the old SICStus 3 <code>system:system/1</code>
+and <code>system:popen/3</code>, See <a href="unsafe_005fsystem.html#unsafe_005fsystem">unsafe_system</a>.)
+
+     <ol type=1 start=1>
+<li>Run the <samp><span class="command">date</span></samp> command in the standard shell &lsquo;<samp><span class="samp">sh</span></samp>&rsquo;. 
+The output of the command is sent to the terminal:
+     <pre class="example">          | ?- <kbd>process_create(path(sh),</kbd>
+               <kbd>['-c', date]).</kbd>
+</pre>
+     <li>Run the <samp><span class="command">date</span></samp> command in the standard shell &lsquo;<samp><span class="samp">sh</span></samp>&rsquo;. 
+Wait for the command to terminate before returning to Prolog. 
+Fail if the process gets an error. 
+The output of the command is sent to the terminal:
+     <pre class="example">          | ?- <kbd>process_create(path(sh),</kbd>
+               <kbd>['-c', date], [wait(exit(0))]).</kbd>
+</pre>
+     <p class="noindent">Using <code>wait/1</code> option in this way is a convenient way to
+ensure that the command has finished before Prolog continues.
+
+     <li>Run the <samp><span class="command">date</span></samp> command in the standard shell &lsquo;<samp><span class="samp">sh</span></samp>&rsquo;. 
+The output of the command is received by Prolog:
+     <pre class="example">          | ?- <kbd>process_create(path(sh),</kbd>
+               <kbd>['-c', date], [stdout(pipe(S))]),</kbd>
+               <kbd>read_line(S,L), close(S), atom_codes(Date,L).</kbd>
+          ...,
+          Date = 'Fri Jan 24 12:59:26 CET 2014' ?
+</pre>
+     <li>Pipe the output of the <samp><span class="command">date</span></samp> command to a file:
+     <pre class="example">          | ?- <kbd>process_create(path(sh),</kbd>
+               <kbd>['-c', [date, '&gt;', file('/tmp/foo.txt')]]).</kbd>
+</pre>
+     <li>Count the number of words in an atom, using the <samp><span class="command">wc</span></samp> command:
+     <pre class="example">          | ?- <kbd>process_create(path(wc), ['-w'],</kbd>
+               <kbd>[stdin(pipe(In)), stdout(pipe(Out))]),</kbd>
+               <kbd>write(In, 'a b c\n'), close(In),</kbd>
+               <kbd>read_line(Out, L), close(Out), number_codes(N, L).</kbd>
+          ...
+          N = 3
+</pre>
+     <p class="noindent">It may be preferable to let the input or output go via a file. 
+This avoids deadlock in case the stream buffers fill up.
+
+     <li>Count the number of unique words in a file, piping the output of
+the <samp><span class="command">uniq</span></samp> command to the <samp><span class="command">wc</span></samp> command:
+     <pre class="example">          | ?- <kbd>process_create(path(sh),</kbd>
+               <kbd>['-c', ['uniq ', file('/tmp/foo.txt'), ' | wc -w']],</kbd>
+               <kbd>[stdout(pipe(Out))]),</kbd>
+               <kbd>read_line(Out, L), close(Out), number_codes(N, L).</kbd>
+          ...
+          N = 6
+</pre>
+     <p class="noindent">Note that quoting is a problem (and potential security issue),
+so <strong>never</strong> pass untrusted data,
+like file names, to the shell using <samp><span class="option">-c</span></samp> (see <a href="Quoting-and-Security.html#Quoting-and-Security">Quoting and Security</a>).
+
+     <li>Run the <samp><span class="command">make</span></samp> command with the <samp><span class="option">-n</span></samp> (dry run) option,
+discarding output, fail if it does not succeed:
+     <pre class="example">          | ?- <kbd>process_create(path(make), ['-n'],</kbd>
+               <kbd>[stdout(null), wait(Exit)]),</kbd>
+               <kbd>Exit = exit(0).</kbd>
+</pre>
+     <p class="noindent">By using the <code>wait/1</code> option, <code>process_create/3</code>
+will not return until the subprocess has exited and its exit status is available.
+
+     <li>Run <samp><span class="command">ls</span></samp> on a home directory in a subshell using the user's preferred shell:
+     <pre class="example">          | ?- <kbd>process_create('$SHELL', ['-c', [ls, ' ', file('~/') ]]).</kbd>
+</pre>
+     <li>Run a command with output piped from a file and input provided by Prolog. 
+This is similar to <code>popen('cat &gt; ./myscript.sh',write,S)</code> in SICStus 3. 
+This example also shows one way to create a shell script which is useful when
+more advanced shell interaction is needed. 
+(The created script outputs the most common line in its input. 
+It is used in the next example.)
+     <pre class="example">          | ?- <kbd>process_create(path(sh),</kbd>
+               <kbd>['-c',</kbd>
+               <kbd>'cat &gt; ./myscript.sh &amp;&amp; chmod a+x ./myscript.sh'],</kbd>
+               <kbd>[stdin(pipe(S))]),</kbd>
+               <kbd>write(S, '#! /bin/sh\n'),</kbd>
+               <kbd>write(S, 'sort | uniq -c | sort -nr | head -n 1\n'),</kbd>
+               <kbd>close(S).</kbd>
+</pre>
+     <p class="noindent">Please read <a href="Quoting-and-Security.html#Quoting-and-Security">Quoting and Security</a> for problems with this approach.
+
+     <li>Run a shell script with input piped from a file and output read by Prolog. 
+This is similar to <code>popen('./myscript.sh &lt; ./somefile.txt',read,S)</code> in SICStus 3.
+     <pre class="example">          | ?- <kbd>open('somefile.txt',write,OF),</kbd>
+               <kbd>write(OF,'hello\nworld\nhello\nhello\n'),close(OF),</kbd>
+               <kbd>process_create(path(sh),</kbd>
+               <kbd>['-c', './myscript.sh &lt; ./somefile.txt'],</kbd>
+               <kbd>read_line(S, L), atom_codes(Line, L), close(S).</kbd>
+          ...,
+          Line = '   3 hello' ?
+</pre>
+     <p class="noindent">Please read <a href="Quoting-and-Security.html#Quoting-and-Security">Quoting and Security</a> for problems with this approach.
+
+     <li>Run a goal in a SICStus subprocess (UNIX and Windows):
+     <pre class="example">          | ?- <kbd>process_create(application(sicstus),</kbd>
+               <kbd>['-f', '--noinfo', '--nologo',</kbd>
+               <kbd>'--goal', 'read(X), call(X), halt.'],</kbd>
+               <kbd>[stdin(pipe(In)), stdout(pipe(Out))]),</kbd>
+               <kbd>format(In,'~q .~n', [(length([h,e,l,l,o], Len),</kbd>
+               <kbd>                      format('~q .~n', [Len]))]),</kbd>
+               <kbd>close(In), read(Out,Answer), close(Out).</kbd>
+          ...,
+          Answer = 5
+</pre>
+     <li>Run <samp><span class="command">notepad.exe</span></samp> on a file <samp><span class="file">C:/foo.txt</span></samp> under Windows:
+     <pre class="example">          | ?- <kbd>process_create('$SYSTEMROOT/notepad.exe',</kbd>
+               <kbd>[file('C:/foo.txt')]).</kbd>
+</pre>
+     <li>Open a command shell in a separate window under Windows:
+     <pre class="example">          | ?- <kbd>process_create('$COMSPEC',[],[window(true)]).</kbd>
+</pre>
+     </ol>
+
+<h5 class="subsubsection">10.27.1.1 Microsoft Windows Shell</h5>
+
+<p>On Windows, it is not possible to pass multiple parameters to a subprocess. 
+When a subprocess is started, it receives exactly one argument and
+a quoting convention must be used to encode the parameters as the single argument
+actually passed to the process.
+
+   <p>Unfortunately, there is no such universal quoting convention, every program can
+interpret its (single) argument in any way it sees fit.
+
+   <p>Most programs use a convention established by the Microsoft C library. 
+This is the convention used by <code>process_create/[2,3]</code> and it usually works well.
+
+   <p>However, the command processor on Windows (<samp><span class="command">cmd.exe</span></samp>) does not use the common convention and,
+except for very simple cases, passing arguments to <samp><span class="command">cmd.exe</span></samp> will not work reliably.
+
+   <p><strong>Please note</strong>: Passing arguments to <samp><span class="command">cmd.exe</span></samp> suffers from the same
+security vulnerabilities as those described in <a href="Quoting-and-Security.html#Quoting-and-Security">Quoting and Security</a>, below.
+
+   <p>If you want to run commands using <samp><span class="command">cmd.exe</span></samp>, it is best to create a batch (&lsquo;<samp><span class="samp">.bat</span></samp>&rsquo;)
+file with your commands and then tell <samp><span class="command">cmd.exe</span></samp> to run the batch file.
+
+   <p>The following example illustrates how to create a Windows batch file that pipes some output to a file
+(<samp><span class="env">COMSPEC</span></samp> is an environment variable containing the path to <samp><span class="command">cmd.exe</span></samp>):
+<pre class="example">     | ?- <kbd>BatFileName='test.bat',</kbd>
+          <kbd>open(BatFileName, write, S),</kbd>
+          <kbd>write(S, 'date /T &gt; "result.txt"\n'), close(S),</kbd>
+          <kbd>process_create('$COMSPEC', ['/Q', '/C', file(BatFileName)],</kbd>
+          <kbd>[wait(exit(0))]),</kbd>
+          <kbd>open('result.txt', read, R),</kbd>
+          <kbd>read_line(R,L),close(R),atom_codes(Date,L).</kbd>
+     ...,
+     Date = '2014-01-27 ',
+     ... ?
+</pre>
+   <p>More recent versions of Windows come with a redesigned command line processor, &lsquo;<samp><span class="samp">PowerShell</span></samp>&rsquo;,
+which solves the problems associated with the traditional <samp><span class="command">cmd.exe</span></samp> command line processor. 
+In particular, it has a very general way to encode command line arguments, using &lsquo;<samp><span class="samp">base-64</span></samp>&rsquo; encoding. 
+Currently, there is no direct support for PowerShell in this library, but the following example shows
+how to get the current week day both using a plain text command and with a base-64-encoded command
+
+<pre class="example">     | ?- <kbd>Command = '(get-date).DayOfWeek',</kbd>
+          <kbd>process_create(path(powershell),</kbd>
+          <kbd>['-Command', Command],</kbd>
+          <kbd>[stdout(pipe(S))]),</kbd>
+          <kbd>read_line(S,L),atom_codes(Day,L).</kbd>
+     ...,
+     Day = 'Monday',
+     ... ?
+</pre>
+   <pre class="example">     | ?- <kbd>EncodedCommand =</kbd>
+          <kbd>  'KABnAGUAdAAtAGQAYQB0AGUAKQAuAEQAYQB5AE8AZgBXAGUAZQBrAA==',</kbd>
+          <kbd>process_create(path(powershell),</kbd>
+          <kbd>['-encodedCommand', EncodedCommand],</kbd>
+          <kbd>[stdout(pipe(S))]),</kbd>
+          <kbd>read_line(S,L),atom_codes(Day,L).</kbd>
+     ...,
+     Day = 'Monday',
+     ... ?
+</pre>
+   <p class="noindent">where the <var>EncodedCommand</var> representation was created by encoding the string
+<code>'(get-date).DayOfWeek'</code> using Base 64. See the PowerShell documentation for details.
+
+<h4 class="subsection">10.27.2 Quoting and Security</h4>
+
+<p><a name="Quoting-and-Security"></a>It easy to get undesired, and possibly harmful, effects if arbitrary data is passed without proper quoting to a shell. 
+For instance, accepting arbitrary file names and passing them as part of a command line to a subshell can cause the shell
+to execute arbitrary, possibly malicious, code.
+
+   <p>The following, vulnerable, predicates suffer from this problem. 
+They are similar to predicates that existed in SICStus 3, and their fragility is
+one of the reasons process interaction was redesigned in SICStus 4. 
+<a name="unsafe_005fsystem"></a><a name="unsafe_005fpopen"></a>
+<pre class="example">     % DO NOT USE. This code is vulnerable.
+     % Similar to system:system/1 in SICStus 3.
+     unsafe_system(Cmd) :-
+        % pass Cmd to shell, wait for exit, fail on error.
+        process_create(path(sh), ['-c', Cmd], [wait(exit(0))]).
+     
+     % DO NOT USE. This code is vulnerable.
+     % Similar to system:popen/3 in SICStus 3.
+     unsafe_popen(Cmd, Direction, Pipe) :-
+        % pass Cmd to shell, do not wait for exit,
+        % connect to stdin or stdout of subprocess.
+        ( Direction == read -&gt;
+          process_create(path(sh), ['-c', Cmd], [stdout(pipe(Pipe))])
+        ; Direction == write -&gt;
+          process_create(path(sh), ['-c', Cmd], [stdin(pipe(Pipe))])
+        ).
+</pre>
+   <p>Now consider the task of passing the contents of some file <var>File</var> to a command <samp><span class="command">mycommand</span></samp>. 
+You may think the following is a good idea (it is not!):
+
+<pre class="example">     % DO NOT USE. This code is vulnerable.
+     unsafe_command(File, S) :-
+        atom_concat('./mycommand &lt; ', File, Cmd),
+        unsafe_popen(Cmd, read, S).
+</pre>
+   <p>That works as expected if the the <code>File</code> argument is a plain
+file with no characters that has special meaning to the shell, e.g.
+<pre class="example">     <kbd>File = './somefile.txt',</kbd>
+     <kbd>unsafe_command(File, S), read_line(S,L),close(S).</kbd>
+</pre>
+   <p>However, assume that the file name was obtained from some untrusted source and consider the following example:
+<pre class="example">     <kbd>File = '$(say bohoo)',</kbd>
+     <kbd>unsafe_command(File, S), read_line(S,L),close(S).</kbd>
+</pre>
+   <p class="noindent">depending on the system this can have a quite scary effect,
+and illustrates how shell meta characters in the constructed command line can lead to potentially dangerous results.
+
+   <p>The safest way to interact with the shell is to create shell scripts and
+pass arguments to the scripts as separate arguments to the shell. E.g.
+<pre class="example">     % A safer version
+     safer_command(File, S) :-
+        % pass the file as the first argument to mycommand.
+        process_create(path(sh),
+                       ['-c', file('./mycommand'), file(File)],
+                       [stdout(pipe(S))]).
+</pre>
+   <!-- %@  The following, unsecure code, suffers from this problem -->
+<!-- (it is similar to what could be done with @code{popen/3} in some earlier releases of SICStus): -->
+<!-- @example -->
+<!-- @group -->
+<!-- % DO NOT USE. This code is insecure. -->
+<!-- unsafe_popen(File, S) :- -->
+<!-- atom_concat('./mycommand < ', File, Cmd), -->
+<!-- process_create(path(sh), ['-c', Cmd], [stdout(pipe(S))]). -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- This works as expected if the the @code{File} argument is a plain -->
+<!-- file with no characters that has special meaning to the shell, e.g.@: -->
+<!-- @example -->
+<!-- @group -->
+<!-- @kbd{File = './somefile.txt',} -->
+<!-- @kbd{unsafe_popen(File, S), read_line(S,L),close(S).} -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- However, assume the file name is obtained from some untrusted source, consider the following example: -->
+<!-- @example -->
+<!-- @group -->
+<!-- @kbd{File = '$(say bohoo)',} -->
+<!-- @kbd{unsafe_popen(File, S), read_line(S,L),close(S).} -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- @noindent depending on the system this can have a quite scary effect, -->
+<!-- and illustrates how shell meta characters in the constructed command line can lead to potentially dangerous results. -->
+<!-- The safest way to interact with the shell is to create shell scripts and -->
+<!-- pass arguments to the scripts as separate arguments to the shell. E.g.@: -->
+<!-- @example -->
+<!-- @group -->
+<!-- % A safer version -->
+<!-- safer_popen(File, S) :- -->
+<!-- % pass the file as the first argument to mycommand. -->
+<!-- process_create(path(sh), ['-c', ./mycommand, file(File)], [stdout(pipe(S))]). -->
+<!-- @end group -->
+<!-- @end example -->
+   <p>Exported predicates:
+
+     <dl>
+<dt><code>process_create(</code><var>+File</var><code>, </code><var>+Args</var><code>)</code><dt><code>process_create(</code><var>+File</var><code>, </code><var>+Args</var><code>, </code><var>:Options</var><code>)</code><dd><a name="index-process_005fcreate_002f_005b2_002c3_005d-_0028process_0029-3730"></a><a name="index-process_005fcreate_002f_005b2_002c3_005d-_0028process_0029-3731"></a>
+Start a new process running the program identified by <var>File</var>
+and the arguments specified in <var>Args</var>. The standard streams of
+the new process can be redirected to prolog streams. The exit
+status of the process can be obtained with <code>process_wait/[2,3]</code>.
+
+     <p><var>File</var>, is expanded as if by <code>absolute_file_name/2</code>
+(with arguments <code>access(execute)</code> and <code>file_type(executable)</code>) and
+is used to locate the file to execute.
+
+     <p>The predefined file search path <code>path/1</code> (see <a href="ref_002dfdi.html#ref_002dfdi">ref-fdi</a>)
+is especially useful here since it makes it easy to look up the
+names of an executable in the directories mentioned by the
+<code>PATH</code> environment variable. To run the Windows command shell
+<samp><span class="command">cmd</span></samp> you would simply specify <code>path('cmd.exe')</code> (or <code>path(cmd)</code>), to
+start the UNIX Bash shell you would specify <code>path(bash)</code>.
+
+     <p><var>Args</var> is a list of argument specifications. Each argument
+specification is either a simple argument specification, see
+below, or a non-empty list of simple argument specifications. The
+expanded representation of each element of <var>Args</var> is concatenated to
+produce a single argument to the new process. A <dfn>simple
+argument specification</dfn> can be one of:
+
+          <dl>
+<dt>an atom<dd>The atom name is used as the expanded representation. Some operating
+systems only support 7-bit ASCII characters here. Even when some
+larger subset of Unicode is used it may not work correctly
+with all programs.
+
+          <br><dt><code>file(</code><var>File</var><code>)</code><dd><var>File</var>, an atom, is treated as a file name and subject to
+an operating system specific transformation to ensure file name
+syntax and character set is appropriate for the new process. This
+is especially important under Windows where it ensures that the full
+Windows Unicode character set can be used.
+
+          <p><strong>Please note</strong>: The <var>File</var> part of
+<code>file(</code><var>File</var><code>)</code> is not subject to syntactic rewriting, the
+argument specification <code>file/1</code> only adjusts for differences
+in file name syntax and character
+encoding between SICStus and the operating system. You
+must explicitly call
+<code>absolute_file_name/[2,3]</code> if you want to expand file search
+paths etc.
+
+     </dl>
+     <var>Options</var> is a list of options:
+
+          <dl>
+<dt><code>stdin(</code><var>Spec</var><code>)</code><dt><code>stdout(</code><var>Spec</var><code>)</code><dt><code>stderr(</code><var>Spec</var><code>)</code><dd>Each <var>Spec</var> specifies how the corresponding standard stream of
+the new process should be created. <var>Spec</var> can be one of:
+               <dl>
+<dt><code>std</code><dd>The new process shares the (OS level) standard stream with the
+Prolog process. This is the default. 
+Note that, especially under Windows, the Prolog process may not have
+any OS level standard streams, or the OS streams may not be
+connected to a console or terminal. In such a case you need to use
+<code>pipe/1</code> spec, see below, and explicitly read (write) data
+from (to) the process. 
+<br><dt><code>null</code><dd>The stream is redirected to a null stream, i.e. a stream that
+discards written data and that is always at end of file when read. 
+<br><dt><code>pipe(</code><var>Stream</var><code>)</code><dd>A new Prolog (text) stream is created and connected to the
+corresponding stream of the new process. It is currently not
+possible to request binary streams or to specify a character set
+different from the OS default. 
+This stream must be closed using <code>close/[1,2]</code>, it is not
+closed automatically when the new process exits. 
+</dl>
+
+          <br><dt><code>wait(</code><var>-ExitStatus</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.3</strong><dd>The call will not return until the sub-process has terminated. 
+<var>ExitStatus</var> will be bound to the exit status of the process,
+as described for <code>process_wait/2</code>. 
+<br><dt><code>process(</code><var>Proc</var><code>)</code><dd><var>Proc</var> will be bound to a process reference that can be used
+in calls to <code>process_wait/[2,3]</code> etc.. This process reference
+must be released, either explicitly with <code>process_release/1</code> or
+implicitly by <code>process_wait/[2,3]</code>. 
+It is often easier to use the <code>wait/1</code> option if you just want to
+wait for the process to terminate.
+
+          <br><dt><code>detached(</code><var>Bool</var><code>)</code><dd><var>Bool</var> is either <code>true</code> or <code>false</code>. Specifies
+whether the new process should be &ldquo;detached&rdquo;, i.e. whether it
+should be notified of terminal events such as <kbd>^C</kbd>
+interrupts. By default a new process is created detached if none
+of the standard streams are specified, explicitly or implicitly,
+as <code>std</code>.
+
+          <br><dt><code>cwd(</code><var>CWD</var><code>)</code><dd>
+<var>CWD</var> is expanded as if by <code>absolute_file_name/2</code> and
+is used as the working directory for the new process.
+
+          <p>By default, the working directory is the same as the Prolog
+working directory.
+
+          <br><dt><code>window(</code><var>Bool</var><code>)</code><dd><var>Bool</var> is either <code>true</code> or
+<code>false</code> (the default). Specifies whether the process should
+open in its own window.
+
+          <p>Specifying <code>window(true)</code> may give unexpected results if the
+standard stream options <code>stdin/1</code>, <code>stdout/1</code> and
+<code>stderr/1</code> are specified with anything but their default
+representation <code>std</code>.
+
+          <p>Currently only implemented on Windows.
+
+          <br><dt><code>environment(</code><var>Env</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.1</strong><dd>
+<var>Env</var> is a list of <var>VAR</var><code>=</code><var>VALUE</var> for extra
+environment variables to pass to the sub-process in addition to the
+default process environment. 
+<var>VAR</var> should be an atom. 
+<var>VALUE</var> should be an argument specification, as described above. The <var>VALUE</var>
+is typically an atom but, especially on the Windows platform, it may be necessary to
+wrap file names in <code>file/1</code> to ensure file paths are converted to the native format. 
+See <a href="../sicstus/System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a>, for more information.
+
+          <!-- @item daemon(@var{Bool}) -->
+          <!-- not documented -->
+     </dl>
+     <br><dt><code>process_wait(</code><var>+Process</var><code>, </code><var>-ExitStatus</var><code>)</code><dt><code>process_wait(</code><var>+Process</var><code>, </code><var>-ExitStatus</var><code>, </code><var>+Options</var><code>)</code><dd><a name="index-process_005fwait_002f_005b2_002c3_005d-_0028process_0029-3732"></a><a name="index-process_005fwait_002f_005b2_002c3_005d-_0028process_0029-3733"></a>
+Wait for a process to exit and obtain the exit status.
+
+     <p><var>Process</var> is either a process reference obtained from
+<code>process_create/3</code> or an OS process identifier. Specifying a
+process identifier is not reliable. The process identifier may
+have been re-used by the operating system. Under Windows, it is not
+possible to obtain the exit status using a process identifier if
+the process has already exited.
+
+     <p><var>ExitStatus</var> is one of:
+          <dl>
+<dt><code>exit(</code><var>ExitCode</var><code>)</code><dd>The process has exited with exit code <var>ExitCode</var>. By
+convention processes use exit code zero to signify success and a
+(positive) non-zero representation to specify failure.
+<br><dt><code>killed(</code><var>SignalNumber</var><code>)</code><dd>UNIX only, the process was killed by signal <code>SignalNumber</code> (a
+positive integer).
+
+          <br><dt><code>timeout</code><dd>The <code>timeout/1</code> option was specified and the process did not
+exit within the specified interval. In this case the process
+reference is not released, even if the <code>release/1</code> option is
+specified. 
+</dl>
+     <var>Options</var> is a list of options:
+          <dl>
+<dt><code>timeout(</code><var>Seconds</var><code>)</code><dd>Specify a maximum time, in seconds, to wait for the process to
+terminate. <var>Seconds</var> should be an integer or floating point
+number or the atom <code>infinite</code> (the default) to specify
+infinite wait. If the specified timeout interval passes before the
+process exits, <code>process_wait/3</code> exits with <var>ExitStatus</var>
+set to <code>timeout</code> and the process reference is not released.
+
+          <p>Currently the UNIX implementation supports only timeout values
+0 (zero) and <code>infinite</code>.
+
+          <br><dt><code>release(</code><var>Bool</var><code>)</code><dd><var>Bool</var> is either <code>true</code> (the default) or
+<code>false</code>. Specifies whether the process reference should be
+released when <code>process_wait/3</code> exits successfully. 
+</dl>
+     <br><dt><code>process_id(</code><var>-PID</var><code>)</code><dd><a name="index-process_005fid_002f1-_0028process_0029-3734"></a><a name="index-process_005fid_002f1-_0028process_0029-3735"></a>
+Obtain the process identifier of the current (i.e. Prolog)
+process. 
+<br><dt><code>process_id(</code><var>+Process</var><code>, </code><var>-PID</var><code>)</code><dd><a name="index-process_005fid_002f2-_0028process_0029-3736"></a><a name="index-process_005fid_002f2-_0028process_0029-3737"></a>
+Obtain the process identifier of the process reference
+<var>Process</var>. 
+<br><dt><code>is_process(</code><var>+Thing</var><code>)</code><dd><a name="index-is_005fprocess_002f1-_0028process_0029-3738"></a><a name="index-is_005fprocess_002f1-_0028process_0029-3739"></a>
+Returns true if <var>Thing</var> is a process reference that has not
+been released. 
+<br><dt><code>process_release(</code><var>+Process</var><code>)</code><dd><a name="index-process_005frelease_002f1-_0028process_0029-3740"></a><a name="index-process_005frelease_002f1-_0028process_0029-3741"></a>
+Release a process reference <var>Process</var> that has previously been
+obtained from <code>process_create/3</code>. This ensures that Prolog
+and the operating system can reclaim any resources associated with
+the process reference.
+
+     <p>Usually you would not call this. Either do not request the process
+reference when calling <code>process_create/3</code> or let
+<code>process_wait/[2,3]</code> reclaim the process reference when the
+process terminates. 
+<br><dt><code>process_kill(</code><var>+Process</var><code>)</code><dt><code>process_kill(</code><var>+Process</var><code>, </code><var>+SignalSpec</var><code>)</code><dd><a name="index-process_005fkill_002f_005b1_002c2_005d-_0028process_0029-3742"></a><a name="index-process_005fkill_002f_005b1_002c2_005d-_0028process_0029-3743"></a>
+Send a signal to the process designated by <var>Process</var>. The
+signal can either be a non-negative integer or a signal name as an
+(all uppercase) atom.
+
+     <p>The following signal names are accepted under UNIX if the platform
+defines them: <code>SIGABRT</code>, <code>SIGALRM</code>, <code>SIGBUS</code>,
+<code>SIGCHLD</code>, <code>SIGCONT</code>, <code>SIGFPE</code>, <code>SIGHUP</code>,
+<code>SIGILL</code>, <code>SIGINT</code>, <code>SIGKILL</code> (the default),
+<code>SIGPIPE</code>, <code>SIGPOLL</code>, <code>SIGPROF</code>, <code>SIGQUIT</code>,
+<code>SIGSEGV</code>, <code>SIGSTOP</code>, <code>SIGSYS</code>, <code>SIGTERM</code>,
+<code>SIGTRAP</code>, <code>SIGTSTP</code>, <code>SIGTTIN</code>, <code>SIGTTOU</code>,
+<code>SIGURG</code>, <code>SIGUSR1</code>, <code>SIGUSR2</code>, <code>SIGVTALRM</code>,
+<code>SIGXCPU</code> and <code>SIGXFSZ</code>. However, many of these do not
+make sense to send as signals.
+
+     <p>Under Windows, which does not have the signal
+concept, the signal name <code>SIGKILL</code> (the default) is treated
+specially and terminates the process with
+<code>TerminateProcess(Process, -1)</code>. 
+<strong>Please note</strong>: Using <code>process_kill/[2,3]</code> on Windows
+is not recommended. Also, on Windows, the call may throw an error
+if the process has already exited.
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dprocess.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dprocess.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

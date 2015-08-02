@@ -1,0 +1,116 @@
+<html lang="en">
+<head>
+<title>FDBG Options - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="FDBG-Basics.html#FDBG-Basics" title="FDBG Basics">
+<link rel="next" href="FDBG-Naming-Terms.html#FDBG-Naming-Terms" title="FDBG Naming Terms">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="FDBG-Options"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="FDBG-Naming-Terms.html#FDBG-Naming-Terms">FDBG Naming Terms</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="FDBG-Basics.html#FDBG-Basics">FDBG Basics</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.14.3.1 FDBG Options</h5>
+
+<p>FDBG is switched on and off with the predicates:
+
+     
+<a name="index-fdbg_005fon_002f_005b0_002c1_005d-_0028fdbg_0029-3275"></a>
+<a name="index-fdbg_005fon_002f_005b0_002c1_005d-_0028fdbg_0029-3276"></a>
+<dl>
+<dt><code>fdbg_on</code><dt><code>fdbg_on(</code><var>:Options</var><code>)</code><dd>Turns on FDBG by putting advice-points on several predicates
+of the CLP(FD) module.  <var>Options</var> is a
+list of options; see <a href="FDBG-Options.html#FDBG-Options">FDBG Options</a>.  The empty list is
+the default representation.
+
+     <p><code>fdbg_on/[0,1]</code> can be called safely several times consecutively;
+only the first call will have an effect.
+
+     <p><a name="index-fdbg_005foff_002f0-_0028fdbg_0029-3277"></a><a name="index-fdbg_005foff_002f0-_0028fdbg_0029-3278"></a>
+<br><dt><code>fdbg_off</code><dd>Turns the debugger off by removing the previously installed
+advice-points. 
+</dl>
+
+   <p><code>fdbg_on/1</code> accepts the following options:
+
+     <dl>
+<dt><code>file(</code><var>Filename</var><code>, </code><var>Mode</var><code>)</code><dd>Tells FDBG to attach the stream alias <code>fdbg_output</code> to
+the file called <var>Filename</var> opened in mode <var>Mode</var>.  <var>Mode</var>
+can either be <code>write</code> or <code>append</code>.  The file specified is
+opened on a call to <code>fdbg_on/1</code> and is closed on a call to
+<code>fdbg_off/0</code>.
+
+     <br><dt><code>socket(</code><var>Host</var><code>, </code><var>Port</var><code>)</code><dd>Tells FDBG to attach the stream alias <code>fdbg_output</code> to
+the socket connected to <var>Host</var> on port <var>Port</var>.  The specified
+socket is created on a call to <code>fdbg_on/1</code> and is closed on a call
+to <code>fdbg_off/0</code>.
+
+     <br><dt><code>stream(</code><var>Stream</var><code>)</code><dd>Tells FDBG to attach the stream alias <code>fdbg_output</code> to
+the stream <var>Stream</var>.  The specified stream remains open
+after calling <code>fdbg_off/0</code>.
+
+     <p>If none of the above three options is used, the stream alias
+<code>fdbg_output</code> is attached to the current output stream.<br> <br>
+
+     <br><dt><code>constraint_hook(</code><var>Goal</var><code>)</code><dd>Tells FDBG to extend <var>Goal</var> with two (additional) arguments and
+call it on the exit port of the constraint dispatcher.
+
+     <br><dt><code>no_constraint_hook</code><dd>Tells FDBG not to use any constraint hook.
+
+     <p>If none of the above two options is used, the default is
+<code>constraint_hook(fdbg:fdbg_show)</code>.<br> <br>
+
+     <br><dt><code>labeling_hook(</code><var>Goal</var><code>)</code><dd>Tells FDBG to extend <var>Goal</var> with three (additional) arguments and
+call it on any of the three labeling events.
+
+     <br><dt><code>no_labeling_hook</code><dd>Tells FDBG not to use any labeling hook.
+
+     <p>If none of the above two options is used, the
+default is <code>labeling_hook(fdbg:fdbg_label_show)</code>.
+
+   </dl>
+
+   <p>For both <code>constraint_hook</code> and <code>labeling_hook</code>, <var>Goal</var>
+should be a visualizer, either built-in (see <a href="FDBG-Built_002dIn-Visualizers.html#FDBG-Built_002dIn-Visualizers">FDBG Built-In Visualizers</a>) or user defined.  More of these two options may appear in
+the option list, in which case they will be called in their order
+of occurrence.
+
+   <p>See <a href="FDBG-Writing-Visualizers.html#FDBG-Writing-Visualizers">FDBG Writing Visualizers</a> for more details on these two options.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Options.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Options.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

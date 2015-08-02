@@ -1,0 +1,121 @@
+<html lang="en">
+<head>
+<title>mpg-ref-seeing - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dsee.html#mpg_002dref_002dsee" title="mpg-ref-see">
+<link rel="next" href="mpg_002dref_002dseek.html#mpg_002dref_002dseek" title="mpg-ref-seek">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-seeing"></a>
+<a name="mpg_002dref_002dseeing"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dseek.html#mpg_002dref_002dseek">mpg-ref-seek</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dsee.html#mpg_002dref_002dsee">mpg-ref-see</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.200 <code>seeing/1</code></h4>
+
+<p><a name="index-seeing_002f1-_0028built_002din_002c-ref-page_0029-4906"></a><a name="index-seeing_002f1-_0028built_002din_002c-ref-page_0029-4907"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>seeing(</code><var>-FileOrStream</var><code>)</code>
+
+   <p>Unifies <var>FileOrStream</var> with the current input stream or file.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>FileOrStream</var><dd><dfn>file_spec</dfn> or <dfn>stream_object</dfn>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>Exactly the same as <code>current_input(</code><var>FileOrStream</var><code>)</code>, except
+that <var>FileOrStream</var> will be unified with a filename if the current
+input stream was opened by <code>see/1</code> (<a href="ref_002diou_002dsfh.html#ref_002diou_002dsfh">ref-iou-sfh</a>).
+
+   <p>Can be used to verify that <code>FileNameOrStream</code> is still the
+current input stream as follows:
+
+<pre class="example">     % nonvar(FileNameOrStream),
+     see(FileNameOrStream),
+     ...
+     seeing(FileNameOrStream)
+</pre>
+   <p>If the current input stream has not been changed (or if changed, then
+restored), the above sequence will succeed for all file names and all
+stream objects opened by <code>open/[3,4]</code>.  However, it will fail for
+all stream objects opened by <code>see/1</code> (since only filename access
+to streams opened by <code>see/1</code> is supported).  This includes the
+stream object <code>user_input</code> (since the standard input stream is
+assumed to be opened by <code>see/1</code>, and so <code>seeing/1</code> would
+return <code>user</code> in this case).
+
+   <p>If <var>FileOrStream</var> is instantiated to a representation that is not the
+identifier of the current input stream, <code>seeing(</code><var>FileOrStream</var><code>)</code>
+simply fails.
+
+   <p>Can be followed by <code>see/1</code> to ensure that a
+section of code leaves the current input unchanged:
+
+<pre class="example">     % var(OldFileNameOrStream),
+     seeing(OldFileNameOrStream),
+     ...
+     see(OldFileNameOrStream)
+</pre>
+   <p>The above is analogous to its stream-object-based counterpart,
+
+<pre class="example">     % var(OldStream),
+     current_input(OldStream),
+     ...
+     set_input(OldStream)
+</pre>
+   <p>Both of these sequences will always succeed regardless of whether the current
+input stream was opened by <code>see/1</code> or <code>open/[3,4]</code>.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>None.
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>see/1</code>, <code>open/[3,4]</code>, <code>current_input/1</code>, <a href="ref_002diou_002dsfh.html#ref_002diou_002dsfh">ref-iou-sfh</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dseeing.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dseeing.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

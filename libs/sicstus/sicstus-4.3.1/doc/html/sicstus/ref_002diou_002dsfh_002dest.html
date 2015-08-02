@@ -1,0 +1,80 @@
+<html lang="en">
+<head>
+<title>ref-iou-sfh-est - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" title="ref-iou-sfh">
+<link rel="prev" href="ref_002diou_002dsfh_002dsob.html#ref_002diou_002dsfh_002dsob" title="ref-iou-sfh-sob">
+<link rel="next" href="ref_002diou_002dsfh_002dsem.html#ref_002diou_002dsfh_002dsem" title="ref-iou-sfh-sem">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-iou-sfh-est"></a>
+<a name="ref_002diou_002dsfh_002dest"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002diou_002dsfh_002dsem.html#ref_002diou_002dsfh_002dsem">ref-iou-sfh-sem</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002diou_002dsfh_002dsob.html#ref_002diou_002dsfh_002dsob">ref-iou-sfh-sob</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002diou_002dsfh.html#ref_002diou_002dsfh">ref-iou-sfh</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.6.7.2 Exceptions Related to Streams</h5>
+
+<p>All predicates that take a stream argument will raise the following
+exceptions:
+
+   <p><a name="index-errors_002c-streams-946"></a>
+<a name="index-stream-errors-947"></a>
+<a name="index-exceptions_002c-streams-948"></a>
+<a name="index-stream-exceptions-949"></a>
+     <dl>
+<dt><code>instantiation_error</code><dd><var>Stream</var> argument is not ground
+
+     <br><dt><code>type_error</code><dd><var>Stream</var> is not an input (or output) stream type.
+
+     <br><dt><code>existence_error</code><dd><var>Stream</var> is syntactically valid but does not name an open stream.
+
+     <br><dt><code>permission_error</code><dd><var>Stream</var> names an open stream but the stream is not open for the
+required operation, or has reached the end of stream on input,
+or is binary when text is required, or vice versa, or
+there was an error in the bottom layer of write function of the stream.
+
+     <br><dt><code>system_error</code><dd>Some operating system dependent error occurred during I/O. 
+</dl>
+
+   <p>The reference page for each stream predicate will simply refer to
+these as &ldquo;Stream errors&rdquo; and will go on to detail other exceptions
+that may be raised for a particular predicate.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dsfh_002dest.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dsfh_002dest.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

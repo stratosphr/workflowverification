@@ -1,0 +1,95 @@
+<html lang="en">
+<head>
+<title>CHR Debugging Predicates - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="CHR-Debugging.html#CHR-Debugging" title="CHR Debugging">
+<link rel="prev" href="CHR-Tracing.html#CHR-Tracing" title="CHR Tracing">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CHR-Debugging-Predicates"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="CHR-Tracing.html#CHR-Tracing">CHR Tracing</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="CHR-Debugging.html#CHR-Debugging">CHR Debugging</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.8.4.3 Debugging Predicates</h5>
+
+<p>The <code>chr</code> module exports several predicates that allow
+inspecting and printing the content of the constraint store.
+
+     <dl>
+<dt><code>chr_trace/0</code><dd><a name="index-chr_005ftrace_002f0-_0028chr_0029-2747"></a><a name="index-chr_005ftrace_002f0-_0028chr_0029-2748"></a>
+Activate the CHR tracer.  By default the CHR tracer is activated and
+deactivated automatically by the Prolog predicates <code>trace/0</code> and
+<code>notrace/0</code>.
+
+     <br><dt><code>chr_notrace/0</code><dd><a name="index-chr_005fnotrace_002f0-_0028chr_0029-2749"></a><a name="index-chr_005fnotrace_002f0-_0028chr_0029-2750"></a>
+De-activate the CHR tracer.  By default the CHR tracer is activated and
+deactivated automatically by the Prolog predicates <code>trace/0</code> and
+<code>notrace/0</code>.
+
+     <br><dt><code>chr_leash(</code><var>+Spec</var><code>)</code><dd><a name="index-chr_005fleash_002f1-_0028chr_0029-2751"></a><a name="index-chr_005fleash_002f1-_0028chr_0029-2752"></a>
+Define the set of CHR ports on which the CHR tracer asks for user
+intervention (i.e. stops). <var>Spec</var> is either a list of ports as
+defined in <a href="CHR-Ports.html#CHR-Ports">CHR Ports</a> or a predefined alias.  Defined aliases
+are: <code>full</code> to stop at all ports, <code>none</code> or <code>off</code> to
+never stop, and <code>default</code> to stop at the <code>call</code>,
+<code>exit</code>, <code>fail</code>, <code>wake</code> and <code>apply</code> ports. 
+See also <code>leash/1</code>.
+
+     <br><dt><code>chr_flag(</code><var>+FlagName</var><code>, </code><var>?OldValue</var><code>, </code><var>?NewValue</var><code>)</code><dd><a name="index-chr_005fflag_002f3-_0028chr_0029-2753"></a><a name="index-chr_005fflag_002f3-_0028chr_0029-2754"></a>
+<var>OldValue</var> is the representation of the CHR flag <var>FlagName</var>,
+and the new representation of <var>FlagName</var> is set to <var>NewValue</var>.
+The valid CHR flag are the following:
+
+          <dl>
+<dt><code>toplevel_show_store</code><dd><a name="index-toplevel_005fshow_005fstore-_0028CHR-flag_0029-2755"></a>If <code>on</code> (the default), the Prolog toplevel displays the constraint store at the
+end of each query. If <code>off</code>, the toplevel does not display this.
+
+          <br><dt><code>generate_debug_info</code><dd><a name="index-generate_005fdebug_005finfo-_0028CHR-flag_0029-2756"></a>Provides the default if the <code>debug</code> option is not given. 
+The valid values are <code>true</code> and <code>false</code> (the default).
+
+          <br><dt><code>optimize</code><dd><a name="index-optimize-_0028CHR-flag_0029-2757"></a>Provides the default if the <code>optimize</code> option is not given. 
+The valid values are <code>full</code> and <code>off</code> (the default). 
+</dl>
+
+     <br><dt><code>chr_show_store(</code><var>+Mod</var><code>)</code><dd><a name="index-chr_005fshow_005fstore_002f1-_0028chr_0029-2758"></a><a name="index-chr_005fshow_005fstore_002f1-_0028chr_0029-2759"></a>
+Prints all suspended constraints of module <var>Mod</var> to the current output stream.
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CHR-Debugging-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CHR-Debugging-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

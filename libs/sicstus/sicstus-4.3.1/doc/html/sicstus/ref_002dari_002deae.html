@@ -1,0 +1,96 @@
+<html lang="en">
+<head>
+<title>ref-ari-eae - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dari.html#ref_002dari" title="ref-ari">
+<link rel="prev" href="ref_002dari_002dove.html#ref_002dari_002dove" title="ref-ari-ove">
+<link rel="next" href="ref_002dari_002dexc.html#ref_002dari_002dexc" title="ref-ari-exc">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-ari-eae"></a>
+<a name="ref_002dari_002deae"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dari_002dexc.html#ref_002dari_002dexc">ref-ari-exc</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dari_002dove.html#ref_002dari_002dove">ref-ari-ove</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dari.html#ref_002dari">ref-ari</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.7.2 Evaluating Arithmetic Expressions</h4>
+
+<!-- ISO TODO -->
+<!-- A floating point rounding function shall be implementation -->
+<!-- defined: -->
+<!-- rndF : R -> F* -->
+<!-- For all x E R, i E Z, the following axiom shall apply: -->
+<!-- rndF(-x) = -rndF(x) -->
+<!-- For all x E R, i E Z, such that |x| >= fminN and -->
+<!-- |x*ri| > fminN, the following axiom shall apply: -->
+<!-- rndF(x * ri) = rndF(x) * ri -->
+<!-- A floating point result function shall be implementation -->
+<!-- defined: -->
+<!-- resultF : R x ( R -> F* ) -->
+<!-- > F U {float_overflow, underflow} -->
+<!-- For all x E R and any rounding function round E (R + -->
+<!-- F'), the following axioms shall apply: -->
+<!-- resultF(x, round) -->
+<!-- = round(x) -->
+<!-- if x = 0 \/ fminN =< |x| =< fmax -->
+<!-- = round(x) -->
+<!-- if |x| > fmax /\ |round(x)| = fmax -->
+<!-- = float_overflow -->
+<!-- if |x| > fmax /\ |round(x)| /= fmax -->
+<!-- = round(x) or underflow -->
+<!-- if 0 < |x| < fminN /\ |round(x)| =< fminN -->
+<!-- It shall be implementation defined whether a processor -->
+<!-- chooses round(x) or underflow when 0 < |x| < fminN. -->
+<!-- A floating point approximate-addition function shall be -->
+<!-- implementation defined: -->
+<p><a name="index-evaluating-arithmetic-expressions-1063"></a><a name="index-arithmetic-expressions_002c-evaluating-1064"></a>
+The most common way to do arithmetic calculations in Prolog is to use
+the built-in predicate <code>is/2</code>.
+
+     <dl>
+<dt><var>-Term</var><code> is </code><var>+Expr</var><dd><var>Term</var> is the representation of arithmetic
+expression <var>Expr</var>. 
+</dl>
+
+   <p><var>Expr</var> must not contain any uninstantiated variables.  Don't
+confuse <code>is/2</code> with <code>=/2</code>.
+
+   <p><a name="index-is_002f2-_0028built_002din_0029-1065"></a><a name="index-is_002f2-_0028built_002din_0029-1066"></a>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dari_002deae.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dari_002deae.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

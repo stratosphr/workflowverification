@@ -1,0 +1,104 @@
+<html lang="en">
+<head>
+<title>Declaring Nondeterminacy - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Determinacy-Checker.html#The-Determinacy-Checker" title="The Determinacy Checker">
+<link rel="prev" href="Using-the-Determinacy-Checker.html#Using-the-Determinacy-Checker" title="Using the Determinacy Checker">
+<link rel="next" href="Checker-Output.html#Checker-Output" title="Checker Output">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Declaring-Nondeterminacy"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Checker-Output.html#Checker-Output">Checker Output</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Using-the-Determinacy-Checker.html#Using-the-Determinacy-Checker">Using the Determinacy Checker</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Determinacy-Checker.html#The-Determinacy-Checker">The Determinacy Checker</a>
+<hr>
+</div>
+
+<h4 class="subsection">9.7.2 Declaring Nondeterminacy</h4>
+
+<p><a name="index-nondeterminacy_002c-declaring-2446"></a><a name="index-declaring-nondeterminacy-2447"></a>
+Some predicates are intended to be nondeterminate.  By
+declaring intended nondeterminacy, you avoid warnings about
+predicates you intend to be nondeterminate.  Equally
+importantly, you also inform the determinacy checker about
+nondeterminate predicates.  It uses this information to
+identify unwanted nondeterminacy.
+
+   <p>Nondeterminacy is declared by putting a declaration of the form
+
+<pre class="example">     :- <var>name/arity</var> is nondet.
+</pre>
+   <p class="noindent">using the <code>is/2</code>-declarations introduced in SICStus
+Prolog 4.2.1,
+
+   <p>or the legacy form
+<pre class="example">     :- nondet <var>name/arity</var>.
+</pre>
+   <p class="noindent">in your source file.  This is similar to a <code>dynamic</code> or
+<code>discontiguous</code> declaration.  You may have multiple
+<code>nondet</code> declarations, and a single declaration may
+mention several predicates, separating them by commas.
+
+   <p>Similarly, a predicate <var>P/N</var> may be classified as
+nondeterminate by the checker, whereas in reality it is
+determinate.  This may happen e.g. if <var>P/N</var> calls a
+dynamic predicate that in reality never has more than one
+clause.  To prevent false alarms arising from this, you can inform
+the checker about determinate predicates by
+declarations of the form:
+
+<pre class="example">     :- <var>name/arity</var> is det.
+</pre>
+   <p class="noindent">using the <code>is/2</code>-declarations introduced in SICStus
+Prolog 4.2.1,
+
+   <p>or the legacy form
+<pre class="example">     :- det <var>name/arity</var>.
+</pre>
+   <p>If you wish to include the legacy <code>det</code> and <code>nondet</code> declarations
+in your file and you plan to use the stand-alone determinacy checker,
+you must include the line
+<pre class="example">     :- load_files(library(nondetdecl),
+                   [when(compile_time), if(changed)]).
+</pre>
+   <p class="noindent">near the top of each file that contains such declarations.  If you
+instead use
+the recommended <code>is/2</code>-declarations, or
+the integrated determinacy checker, you don't need (and should not
+have) this line.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Declaring-Nondeterminacy.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Declaring-Nondeterminacy.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

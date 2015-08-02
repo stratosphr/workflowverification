@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+<title>MT Single - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Multiple-SICStus-Runtimes-in-C.html#Multiple-SICStus-Runtimes-in-C" title="Multiple SICStus Runtimes in C">
+<link rel="next" href="MT-Multiple.html#MT-Multiple" title="MT Multiple">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="MT-Single"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="MT-Multiple.html#MT-Multiple">MT Multiple</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Multiple-SICStus-Runtimes-in-C.html#Multiple-SICStus-Runtimes-in-C">Multiple SICStus Runtimes in C</a>
+<hr>
+</div>
+
+<h4 class="subsection">8.2.1 Using a Single SICStus Runtime</h4>
+
+<p>When building an application with <samp><span class="command">spld</span></samp>, by default only one
+SICStus runtime can be loaded in the process. This is similar to
+what was the case before release 3.9. For most applications built
+with <samp><span class="command">spld</span></samp>, the changes necessary to support multiple SICStus
+runtimes should be invisible, and old code should only need to be
+rebuilt with <samp><span class="command">spld</span></samp>. 
+<!-- to work with the latest version of SICStus. -->
+
+   <p>In order to maintain backward compatibility, the global dispatch vector
+is automatically set up implicitly by <code>SP_initialize()</code> and
+explicitly by <code>SP_setup_dispatch()</code>. Other SICStus API
+functions will not set up the dispatch vector, and will therefore lead
+to memory access errors if called before
+<code>SP_initialize()</code>. Currently, hook functions such as
+<code>SP_set_memalloc_hooks()</code> also set up the dispatch vector to allow
+them to be called before <code>SP_initialize()</code>. However, only
+<code>SP_initialize()</code> and <code>SP_setup_dispatch()</code> are
+guaranteed to set up the dispatch vector. The
+hook installation functions may change to use a different
+mechanism in the future. The SICStus API functions that perform
+automatic setup of the dispatch vector are marked with
+<code>SPEXPFLAG_PREINIT</code> in <samp><span class="file">sicstus.h</span></samp>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/MT-Single.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/MT-Single.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

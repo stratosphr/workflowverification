@@ -1,0 +1,99 @@
+<html lang="en">
+<head>
+<title>obj-exp-instance_method - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="obj_002dexp.html#obj_002dexp" title="obj-exp">
+<link rel="prev" href="obj_002dexp_002dinherit.html#obj_002dexp_002dinherit" title="obj-exp-inherit">
+<link rel="next" href="obj_002dexp_002dmessage.html#obj_002dexp_002dmessage" title="obj-exp-message">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="obj-exp-instance_method"></a>
+<a name="obj_002dexp_002dinstance_005fmethod"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="obj_002dexp_002dmessage.html#obj_002dexp_002dmessage">obj-exp-message</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="obj_002dexp_002dinherit.html#obj_002dexp_002dinherit">obj-exp-inherit</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="obj_002dexp.html#obj_002dexp">obj-exp</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.22.6.19 <code>instance_method/1</code>&nbsp;<!-- /@w --> <strong>declaration</strong></h5>
+
+<!-- label instance_method#1-predpage -->
+<p><a name="index-instance_005fmethod_002f1-_0028objects_0029-3627"></a><a name="index-instance_005fmethod_002f1-_0028objects_0029-3628"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<!-- manheading Synopsis -->
+<p><code>:- instance_method </code><var>+Name</var><code>/</code><var>+Arity</var><code>.</code>
+
+<h4 class="subheading">Arguments</h4>
+
+<!-- manheading Arguments -->
+     <dl>
+<dt><var>Name</var><dd><dfn>atom</dfn>
+
+     <br><dt><var>Arity</var><dd><dfn>integer</dfn>
+
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<!-- manheading Description -->
+<p>The message <var>Name</var>/<var>Arity</var> is declared to
+support instance methods in a class. This means that instances
+of this class, and its descendants, may each define their own
+methods for this message.
+
+   <p>A method defined for this message by the class is considered
+the default method for the message. An instance that does not
+define its own method uses the default. Defining a new method
+overrides this default method; there is no need to explicitly
+remove it.
+
+   <p>An instance method is installed in an instance of the class with the
+<code>define_method/3</code> predicate. An instance method is removed from an
+instance of the class, reverting to the default method, with the
+<code>undefine_method/3</code> predicate.
+
+   <p>Must occur within the scope of the class definition. Only applies to
+send messages.
+
+<h4 class="subheading">See Also</h4>
+
+<!-- manheading See Also -->
+<p><code>class_method/1</code>, <code>define_method/3</code>, <code>undefine_method/3</code>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dexp_002dinstance_005fmethod.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dexp_002dinstance_005fmethod.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

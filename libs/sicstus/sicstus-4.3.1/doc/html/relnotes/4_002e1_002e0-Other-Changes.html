@@ -1,0 +1,133 @@
+<html lang="en">
+<head>
+<title>4.1.0 Other Changes - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e1_002e0-Changes.html#g_t4_002e1_002e0-Changes" title="4.1.0 Changes">
+<link rel="prev" href="4_002e1_002e0-Bugs-Fixed.html#g_t4_002e1_002e0-Bugs-Fixed" title="4.1.0 Bugs Fixed">
+<link rel="next" href="4_002e1_002e0-Known-Issues.html#g_t4_002e1_002e0-Known-Issues" title="4.1.0 Known Issues">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.1.0-Other-Changes"></a>
+<a name="g_t4_002e1_002e0-Other-Changes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e1_002e0-Known-Issues.html#g_t4_002e1_002e0-Known-Issues">4.1.0 Known Issues</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="4_002e1_002e0-Bugs-Fixed.html#g_t4_002e1_002e0-Bugs-Fixed">4.1.0 Bugs Fixed</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e1_002e0-Changes.html#g_t4_002e1_002e0-Changes">4.1.0 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.12.3 Other Changes</h4>
+
+<!-- [PM] NOTE: keep "core" changes before all library changes. -->
+     <ul>
+<li>The atom length restriction has been lifted.
+
+     <li><!-- SPRM 11526 -->
+The Emacs command <code>run-prolog</code> now prompts for a (Lisp) list of
+extra command line arguments, when invoked with a prefix
+argument, i.e. as <kbd>C-U M-x run-prolog</kbd>.
+
+     <li><!-- SPRM 11285 -->
+While loading clauses from a PO file, if clauses for an existing
+multifile predicate are encountered, but in a precompiled format
+different from the existing clauses, the existing clauses remain
+untouched, the multifile clauses from the PO file are simply ignored,
+the load continues, and a permission error is raised at the end. 
+Previously, the existing clauses would silently be replaced by the
+loaded ones.  This feature is mainly relevant for hook predicates such
+as <code>user:term_expansion/6</code>.
+
+     <li><!-- SPRM 11221 -->
+&ldquo;System Properties&rdquo; has been introduced as an abstraction to replace
+the direct use of environment variables. See <a href="../sicstus/System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a> for more information.
+
+     <p>The change is largely backwards compatible with the following notable
+exceptions:
+          <ul>
+<li>The environment variables <samp><span class="env">SP_APP_DIR</span></samp>, <samp><span class="env">SP_RT_DIR</span></samp>, etc. 
+are no longer set in the environment. This means that their representation can
+no longer be obtained, e.g. from C code, by using <code>getenv()</code> or
+similar functions. Instead, <code>SP_getenv()</code> can be used for a
+similar effect.
+
+          <li>For the same reason, sub-processes created with
+<code>process:process_create/[2,3]</code> will no longer see
+<samp><span class="env">SP_APP_DIR</span></samp> et al. in their inherited environment. Instead it
+is now possible to explicitly pass environment variables to the
+sub-process using the new <code>environment/1</code> option to
+<code>process:process_create/3</code>.
+
+     </ul>
+
+     <li>New automatically set system properties, <samp><span class="env">SP_APP_PATH</span></samp>, the path to
+the executable, <samp><span class="env">SP_RT_DIR</span></samp>, the path to the SICStus runtime, and
+<samp><span class="env">SP_STARTUP_DIR</span></samp> the initial working directory. See <a href="../sicstus/System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a> for more information.
+
+     <li>The initial working directory can be set with the system property
+<samp><span class="env">SP_STARTUP_DIR</span></samp>, independently from the process's working
+directory. By setting the system property <samp><span class="env">SP_ALLOW_CHDIR</span></samp> to
+&lsquo;<samp><span class="samp">no</span></samp>&rsquo;, SICStus can be told to never change the process's working
+directory. These features are especially useful when embedding SICStus.
+
+     <li>The buffer argument to <code>spio_t_simple_device_write</code> is now a
+<code>void const*</code> instead of a plain <code>void *</code>. This affects code
+that use <code>SP_create_stream()</code> to create user-defined streams.
+
+     <li><code>SP_get_list_n_bytes()</code> and <code>SP_get_list_n_codes()</code> now use
+stricter input validation.
+
+     <li>SICStus will no longer flush open streams on exit. This change is to
+prevent SICStus from hanging on exit due to some blocking I/O
+operation. All streams should be explicitly closed
+(<code>close/[1,2]</code>) or flushed (<code>flush_output/1</code>) if their
+contents is precious.
+
+     <li><code>clpfd:case/4</code>: the <code>leaves/2</code> option has been dropped,
+and the variable order must be the same on every path.
+
+     <li><code>library(system)</code>: <code>library(system)</code> no longer depends on
+any foreign code so the <code>system</code> foreign resource is gone.
+
+     <li><code>library(jasper)</code>: The SICStus (Java) working directory is now passed to
+Java (SICStus) when Java (SICStus) is started from SICStus (Java). Also,
+SICStus will not change the process's working directory when started from
+Java.
+
+     <li>The Berkeley DB library, <code>library(bdb)</code>, is now built using
+Berkeley DB 4.8.24. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e1_002e0-Other-Changes.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e1_002e0-Other-Changes.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

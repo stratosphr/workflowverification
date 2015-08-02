@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+<title>Generic Runtime Systems - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Stand_002dAlone-Executables.html#Stand_002dAlone-Executables" title="Stand-Alone Executables">
+<link rel="prev" href="User_002ddefined-Main-Programs.html#User_002ddefined-Main-Programs" title="User-defined Main Programs">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Generic-Runtime-Systems"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="User_002ddefined-Main-Programs.html#User_002ddefined-Main-Programs">User-defined Main Programs</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Stand_002dAlone-Executables.html#Stand_002dAlone-Executables">Stand-Alone Executables</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.7.5 Generic Runtime Systems</h4>
+
+<p>There are three ready-made runtime systems provided with the
+distributions, <samp><span class="file">sprt.exe</span></samp>, <samp><span class="file">sprti.exe</span></samp>, and (only on Windows)
+<samp><span class="file">sprtw.exe</span></samp>. These have been created using <samp><span class="command">spld</span></samp>:
+
+<pre class="example">     $ <kbd>spld --main=restore '$SP_APP_DIR/main.sav' -o sprt.exe</kbd>
+     $ <kbd>spld --main=restore '$SP_APP_DIR/main.sav' -i -o sprti.exe</kbd>
+     $ <kbd>spld --main=restore '$SP_APP_DIR/main.sav' --window -o sprtw.exe</kbd>
+</pre>
+   <p>These are provided for users who don't have a C-compiler available. Each
+program launches a runtime system by restoring the saved-state
+<samp><span class="file">main.sav</span></samp> (located in the same folder as the program).
+
+   <p>The saved-state is created by <code>save_program/[1,2]</code>.  If it was
+created by <code>save_program/2</code>, the given startup goal is run.  Then,
+<code>user:runtime_entry(start)</code> is run.  The program exits with 0 upon
+normal temination and with 1 on failure or exception.
+
+   <p>The program <samp><span class="command">sprti.exe</span></samp> assumes that the standard streams are
+connected to a terminal, even if they don't seem to be (useful under
+Emacs, for example). On Windows only, <samp><span class="command">sprtw.exe</span></samp> is a windowed
+executable, corresponding to <samp><span class="command">spwin.exe</span></samp>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Generic-Runtime-Systems.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Generic-Runtime-Systems.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

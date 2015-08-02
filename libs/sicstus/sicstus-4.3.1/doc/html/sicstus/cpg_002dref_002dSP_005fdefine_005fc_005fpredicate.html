@@ -1,0 +1,165 @@
+<html lang="en">
+<head>
+<title>cpg-ref-SP_define_c_predicate - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSP_005fcut_005fquery.html#cpg_002dref_002dSP_005fcut_005fquery" title="cpg-ref-SP_cut_query">
+<link rel="next" href="cpg_002dref_002dSP_005fdeinitialize.html#cpg_002dref_002dSP_005fdeinitialize" title="cpg-ref-SP_deinitialize">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-SP_define_c_predicate"></a>
+<a name="cpg_002dref_002dSP_005fdefine_005fc_005fpredicate"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002dSP_005fdeinitialize.html#cpg_002dref_002dSP_005fdeinitialize">cpg-ref-SP_deinitialize</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSP_005fcut_005fquery.html#cpg_002dref_002dSP_005fcut_005fquery">cpg-ref-SP_cut_query</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.11 <code>SP_define_c_predicate()</code></h4>
+
+<p><a name="index-SP_005fdefine_005fc_005fpredicate_0028_0029-_0028C-function_0029-5115"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     
+     typedef int
+     SP_CPredFun(SP_term_ref goal,
+                 void *stash);
+     
+     int
+     SP_define_c_predicate(char *name,
+                           int arity,
+                           char *module,
+                           SP_CPredFun *proc,
+                           void *stash);
+</pre>
+   <p>Defines a Prolog predicate such
+that when the Prolog predicate is called it will call a C function
+with a term corresponding to the Prolog goal.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>name</var><dd>The predicate name.
+
+     <br><dt><var>arity</var><dd>The predicate arity.
+
+     <br><dt><var>module</var><dd>The predicate module name.
+
+     <br><dt><var>proc</var><dd>The function.
+
+     <br><dt><var>stash</var><dd>See below. 
+</dl>
+
+<h4 class="subheading">Return Value</h4>
+
+<p>Nonzero on success, and 0 otherwise.
+
+<h4 class="subheading">Description</h4>
+
+<p>The Prolog predicate <var>module</var>:<var>name</var>/<var>arity</var> will be
+defined (the module <var>module</var> must already exist). The
+<code>stash</code> argument can be anything and is simply passed as the
+second argument to the C function <var>proc</var>.
+
+   <p>The C function should return <code>SP_SUCCESS</code> for success and
+<code>SP_FAILURE</code> for failure. The C function may also call
+<code>SP_fail()</code> or <code>SP_raise_exception()</code> in which case the return
+representation will be ignored.
+
+<h4 class="subheading">Examples</h4>
+
+<p>Here is an end-to-end example of the above:
+
+<pre class="example">
+                                <div align="right"><em>% square.pl</em>
+     </div>
+     foreign_resource(square, [init(square_init)]).
+     
+     :- load_foreign_resource(square).
+
+                                <div align="right"><em>// square.c</em>
+     </div>
+     #include &lt;sicstus/sicstus.h&gt;
+     
+     static int square_it(SP_term_ref goal, void *stash)
+     {
+       SP_WORD arg1;
+       SP_term_ref tmp = SP_new_term_ref();
+       SP_term_ref square_term = SP_new_term_ref();
+     
+       // goal will be a term like square(42,X)
+       SP_get_arg(1,goal,tmp); // extract first arg
+       if (!SP_get_integer(tmp,&amp;arg1))
+         return SP_FAILURE;   // type check first arg
+     
+       SP_put_integer(square_term, arg1*arg1);
+       SP_get_arg(2,goal,tmp); // extract second arg
+     
+       // Unify output argument.
+       // SP_put_integer(tmp,...) would *not* work!
+       return (SP_unify(tmp, square_term) ? SP_SUCCESS : SP_FAILURE);
+     }
+     
+     void square_init(int when)
+     {
+       (void)when;                   // unused
+       // Install square_it as user:square/2
+       SP_define_c_predicate("square", 2, "user", square_it, NULL);
+     }
+
+                                 <div align="right"><em># terminal</em>
+     </div>
+     % <kbd>splfr square.pl square.c</kbd>
+     % <kbd>sicstus -f -l square</kbd>
+     % compiling /home/matsc/tmp/square.pl...
+     %  loading foreign resource /home/matsc/tmp/square.so in module user
+     % compiled /home/matsc/tmp/square.pl in module user, 0 msec 816 bytes
+     SICStus 4.3.1 ...
+     Licensed to SICS
+     | ?- <kbd>square(4711, X).</kbd>
+     X = 22193521 ?
+     yes
+     | ?- <kbd>square(not_an_int, X).</kbd>
+     no
+</pre>
+   <h4 class="subheading">See Also</h4>
+
+<p>See <a href="Calling-C-from-Prolog.html#Calling-C-from-Prolog">Calling C from Prolog</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fdefine_005fc_005fpredicate.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fdefine_005fc_005fpredicate.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

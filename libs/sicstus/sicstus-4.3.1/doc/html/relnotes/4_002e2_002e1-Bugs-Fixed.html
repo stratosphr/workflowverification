@@ -1,0 +1,126 @@
+<html lang="en">
+<head>
+<title>4.2.1 Bugs Fixed - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e2_002e1-Changes.html#g_t4_002e2_002e1-Changes" title="4.2.1 Changes">
+<link rel="prev" href="4_002e2_002e1-New-Features.html#g_t4_002e2_002e1-New-Features" title="4.2.1 New Features">
+<link rel="next" href="4_002e2_002e1-Other-Changes.html#g_t4_002e2_002e1-Other-Changes" title="4.2.1 Other Changes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.2.1-Bugs-Fixed"></a>
+<a name="g_t4_002e2_002e1-Bugs-Fixed"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e2_002e1-Other-Changes.html#g_t4_002e2_002e1-Other-Changes">4.2.1 Other Changes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="4_002e2_002e1-New-Features.html#g_t4_002e2_002e1-New-Features">4.2.1 New Features</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e2_002e1-Changes.html#g_t4_002e2_002e1-Changes">4.2.1 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.17.2 Bugs Fixed</h4>
+
+     <ul>
+<li><!-- SPRM 12116 -->
+<code>restore/1</code> would behave inconsistently if invoked while loading files. 
+<li><!-- SPRM 12121 -->
+Nondet <code>user:portray/1</code> would switch off the debugger. 
+<li><!-- SPRM 12154 -->
+The prompt written to <code>user_error</code> would sometimes appear out of
+order wrt. output to other interactive streams. 
+<li><!-- SPRM 12170 -->
+Module name expansion of clauses was not robust to incorrect layout terms. 
+<li><!-- SPRM 12177 -->
+Format strings with &lsquo;<samp><span class="samp">~t</span></samp>&rsquo; not followed by tab stop would raise an
+instantiation error. 
+<li><!-- SPRM 12220 -->
+Dead code elimination could interfere with garbage collection. 
+<li>Detection of redundant declarations is more precise. 
+<li>A performance issue on the Windows platform has been fixed. 
+<li>Typo in <a href="../sicstus/Action-Variables.html#Action-Variables">The Action Variables</a>: <code>exception(</code><var>E</var><code>)</code> should read
+<code>raise(</code><var>E</var><code>)</code>. 
+<li><!-- SPRM 12240 -->
+Float to big integer conversion bug on 64-bit platforms. 
+<li>Better handling of do-loops whose iterators are not instantiated enough
+at compile time. 
+<li>The virtual clauses <code>beginning_of_file</code> and <code>end_of_file</code> are
+now seen by term expansions only for source files, but not for files
+embedded by the <code>:-include</code> directive. 
+<li><!-- SPRM 12250 -->
+<code>predicate_property/2</code> with nonvar arguments would succeed nondeterminately. 
+<li><!-- SPRM 12269 -->
+<code>=..(</code><var>+Term</var><code>,</code><var>+List</var><code>)</code> could raise spurious errors instead of merely failing. 
+<li><!-- SPRM 12274 -->
+Stack overflow issue with pending unblocked goals. 
+<li><!-- SPRM 12274 -->
+Saved-states would not preserve the attribute handler order. 
+<li>Source-info bug for huge interpreted clauses. 
+<li><!-- SPRM 12294 -->
+On Windows only, writing large amounts of data to the Windows console
+could fail with <code>SPIO_E_IO_ERROR</code>. 
+<li><code>library(between)</code>: <code>between/3</code> was not steadfast for constrained variables. 
+<li><!-- SPRM 12205 -->
+Exceptions used internally by
+<code>library(timeout)</code> can be intercepted by the debugger again.  They
+were made transparent in release 4.1.3, but that hinders debugging. 
+<li><!-- SPRM 12124 -->
+<code>library(timeout)</code> did not work consulted. 
+<li><code>library(plunit)</code> did not handle <code>:- include</code> directives correctly. 
+<li><code>library(bdb)</code>: <code>db_findall/5</code> was not declared as a meta
+predicate. Determinacy bugs. 
+<li><!-- SPRM 10770 -->
+CHR: Spurious instantiation error bug fixed. 
+<li><code>library(zinc)</code>
+          <ul>
+<li>Bug in constraint <code>all_equal</code> fixed. 
+<li>Removed <samp><span class="option">--no-output-pred-decls</span></samp> to
+<samp><span class="command">mzn2fzn</span></samp>, not supported as of release 1.3. 
+</ul>
+     <li>CLPFD:
+          <ul>
+<li><!-- SPRM 12142, 12151 -->
+Propagation phase could be preempted if domain variables had
+blocked goals or attributes. 
+<li><!-- SPRM 12241 -->
+Entailment detection bug in <code>maximum/2</code>, <code>minimum/2</code> caused memory leak. 
+<li>Bug in the <code>precedences/1</code> option to <code>cumulative/2</code>. 
+</ul>
+     <li><code>library(ugraphs)</code>, <code>library(wgraphs)</code>: determinacy bugs. 
+<li><!-- SPRM 12432, SPRM 12431 -->
+<code>library(odbc)</code>: Non-ASCII error messages from the ODBC driver
+could give an exception about misencoded string. Incorrect handling of
+<code>SQL_BIGINT</code> and related types. Improved robustness. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e2_002e1-Bugs-Fixed.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e2_002e1-Bugs-Fixed.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

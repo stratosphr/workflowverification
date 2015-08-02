@@ -1,0 +1,103 @@
+<html lang="en">
+<head>
+<title>mpg-ref-listing - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dline_005fposition.html#mpg_002dref_002dline_005fposition" title="mpg-ref-line_position">
+<link rel="next" href="mpg_002dref_002dload_005ffiles.html#mpg_002dref_002dload_005ffiles" title="mpg-ref-load_files">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-listing"></a>
+<a name="mpg_002dref_002dlisting"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dload_005ffiles.html#mpg_002dref_002dload_005ffiles">mpg-ref-load_files</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dline_005fposition.html#mpg_002dref_002dline_005fposition">mpg-ref-line_position</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.116 <code>listing/[0,1]</code></h4>
+
+<p><a name="index-listing_002f_005b0_002c1_005d-_0028built_002din_002c-ref-page_0029-4679"></a><a name="index-listing_002f_005b0_002c1_005d-_0028built_002din_002c-ref-page_0029-4680"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>listing</code>
+
+   <p><code>listing(</code><var>+PredSpecs</var><code>)</code>
+
+   <p>Prints the clauses of all the interpreted procedures currently in the
+type-in module of the Prolog database, or of <var>PredSpecs</var>, to the
+current output stream, using <code>portray_clause/1</code>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:PredSpecs</var><dd><dfn>pred_spec_tree</dfn>
+
+     <p>A predicate specification, or a list of such. 
+</dl>
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>type_error</code><dd><var>PredSpecs</var> of the wrong type. 
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<p>You could list the entire program to a file using the command
+<pre class="example">     | ?- <kbd>tell(file), listing, told.</kbd>
+</pre>
+   <p>Note that <code>listing/[0,1]</code> does not work on compiled procedures.
+
+   <p><code>listing/1</code> is dependent on the source module.  As a special case,
+<pre class="example">     | ?- <kbd>listing(mod:_).</kbd>
+</pre>
+   <p>will list all the dynamic predicates in module mod.  However,
+<code>listing/0</code> is not dependent on the source module; it refers instead
+to the type-in module.
+
+   <p>Variables may be included in predicate specifications given to
+<code>listing/1</code>.  For example, you can list clauses for <code>f</code> in any
+current module with:
+<pre class="example">     | ?- <kbd>listing(_:f).</kbd>
+</pre>
+   <h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmod.html#ref_002dmod">ref-mod</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dlisting.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dlisting.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

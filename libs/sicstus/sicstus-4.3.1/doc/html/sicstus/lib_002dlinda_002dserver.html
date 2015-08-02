@@ -1,0 +1,126 @@
+<html lang="en">
+<head>
+<title>lib-linda-server - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dlinda.html#lib_002dlinda" title="lib-linda">
+<link rel="next" href="lib_002dlinda_002dclient.html#lib_002dlinda_002dclient" title="lib-linda-client">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="lib-linda-server"></a>
+<a name="lib_002dlinda_002dserver"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="lib_002dlinda_002dclient.html#lib_002dlinda_002dclient">lib-linda-client</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dlinda.html#lib_002dlinda">lib-linda</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.19.1 Linda Server</h4>
+
+<p>The server is the process running the &ldquo;blackboard process&rdquo;.  It is an
+ordinary SICStus process, which can be run on a separate machine if
+necessary.
+
+   <p>To load the package, enter the query
+
+<pre class="example">     | ?- <kbd>use_module(library('linda/server')).</kbd>
+</pre>
+   <p class="noindent">and start the server with <code>linda/[0,1]</code>.
+
+     <dl>
+<dt><code>linda</code><dd><a name="index-linda_002f_005b0_002c1_005d-_0028linda_0029-3432"></a><a name="index-linda_002f_005b0_002c1_005d-_0028linda_0029-3433"></a>
+Starts a Linda-server in this SICStus.  The network address is written
+to the current output stream as <var>Host:PortNumber</var>.
+
+     <!-- @item linda(@var{+Hook}) -->
+     <!-- @PLindex linda/[0,1] -->
+     <!-- Starts a Linda-server in this SICStus.  When it is started, a goal passed -->
+     <!-- in @var{Hook} is evaluated. @var{Hook} must have the form -->
+     <!-- @var{Address-Goal} where @var{Address} must be unifiable with @var{Host:Port} -->
+     <!-- and @var{Goal} must be instantiated to a goal. -->
+     <!-- @b{Example}: -->
+     <!-- @example -->
+     <!-- | ?- @kbd{linda((Host:Port)-(my_module:mypred(Host,Port))).} -->
+     <!-- @end example -->
+     <!-- will call @code{mypred/2} in module @code{my_module} when the server is -->
+     <!-- started.  @code{mypred/2} could start the client-processes, save the -->
+     <!-- address for the clients etc.  Note that the module must be present in -->
+     <!-- @var{Goal}. -->
+     <br><dt><code>linda(</code><var>:Options</var><code>)</code><dd>Starts a Linda-server in this SICStus. Each option on the list
+<var>Options</var> is one of
+          <dl>
+<dt><var>Address</var><code>-</code><var>Goal</var><dd>where <var>Address</var> must be unifiable with <var>Host:Port</var>
+and <var>Goal</var> must be instantiated to a goal.
+
+          <p>When the linda server is started, <var>Host</var> and <var>Port</var> are
+bound to the server host and port respectively and the goal
+<var>Goal</var> is called. A typical use of this would be to store the
+connection information in a file so that the clients can find the server
+to connect to.
+
+          <p>For backward compatibility, if <var>Options</var> is not a list, it is
+assumed to be an option of the form <var>Address</var><code>-</code><var>Goal</var>.
+
+          <p>Before release 3.9.1, <var>Goal</var> needed an explicit module
+prefix to ensure it was called in the right module. This is no
+longer necessary since <code>linda/1</code> is now a meta-predicate.
+
+          <!-- [PM] 3.9.1 accept filtering functionality suggested by Malcolm Ryan -->
+          <br><dt><code>accept_hook(</code><var>Client</var><code>,</code><var>Stream</var><code>,</code><var>Goal</var><code>)</code><dd>When a client attempts to connects to the server <var>Client</var> and
+<var>Stream</var> will be bound to the IP address of the client and the
+socket stream connected to the client, respectively. The
+<var>Goal</var> is then called, and if it succeeds, the client is allowed to
+connect. If <var>Goal</var> fails, the server will close the stream and
+ignore the connection request. A typical use of this feature would be to
+restrict the addresses of the clients allowed to connect. If you require
+bullet proof security, you would probably need something more
+sophisticated.
+
+     </dl>
+
+     <p><b>Example</b>:
+     <pre class="example">          | ?- <kbd>linda([(Host:Port)-mypred(Host,Port), </kbd>
+                      <kbd>accept_hook(C,S,should_accept(C,S))]).</kbd>
+</pre>
+     <p class="noindent">will call <code>mypred/2</code> when the server is started.  <code>mypred/2</code>
+could start the client-processes, save the address for the clients
+etc. Whenever a client attempts to connect from a host with IP address
+<var>Addr</var>, a bi-directional socket stream <var>Stream</var> will be
+opened to the client, and <code>should_accept(</code><var>Addr</var><code>,</code><var>Stream</var><code>)</code>
+will be called to determine if the client should be allowed to connect.
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dlinda_002dserver.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dlinda_002dserver.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

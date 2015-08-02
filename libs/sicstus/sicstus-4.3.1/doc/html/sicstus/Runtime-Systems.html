@@ -1,0 +1,100 @@
+<html lang="en">
+<head>
+<title>Runtime Systems - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Stand_002dAlone-Executables.html#Stand_002dAlone-Executables" title="Stand-Alone Executables">
+<link rel="next" href="Runtime-Systems-on-Target-Machines.html#Runtime-Systems-on-Target-Machines" title="Runtime Systems on Target Machines">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Runtime-Systems"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Runtime-Systems-on-Target-Machines.html#Runtime-Systems-on-Target-Machines">Runtime Systems on Target Machines</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Stand_002dAlone-Executables.html#Stand_002dAlone-Executables">Stand-Alone Executables</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.7.1 Runtime Systems</h4>
+
+<p>Stand-alone applications containing debugged Prolog code and destined
+for end-users are typically packaged as runtime systems.  No
+SICStus license is needed by a runtime system.  A runtime
+system has the following limitations:
+
+     <ul>
+<li>No top-level.  The executable will restore a saved-state and/or
+load code, and call <code>user:runtime_entry(start)</code>. 
+Alternatively, you may supply a main program and explicitly
+initialize the Prolog engine with <code>SP_initialize()</code>. 
+<code>break/0</code> and <code>require/1</code> are unavailable.
+
+     <li>No debugger. 
+<code>debugging</code>, <code>debug</code> and <code>debugger_print_options</code> have no
+effect.  Predicates annotated as <dfn>[development]</dfn> in the reference
+pages are unavailable. 
+<!-- The predicates -->
+<!-- @code{debugging/0}, @code{debug/0}, @code{nodebug/0}, @code{trace/0}, @code{notrace/0}, -->
+<!-- @code{zip/0}, @code{nozip/0}, @code{unknown/2}, @code{leash/1}, -->
+<!-- @code{spy/[1,2]}, @code{nospy/1}, @code{nospyall/0}, -->
+<!-- @code{add_breakpoints/2}, @code{remove_breakpoints/1}, -->
+<!-- @code{current_breakpoint/5}, @code{disable_breakpoints/1}, -->
+<!-- @code{enable_breakpoints/1}, and @code{execution_state/[1,2]} are -->
+<!-- unavailable. -->
+<a name="index-debugging-_0028prolog-flag_0029-2374"></a><a name="index-debug-_0028prolog-flag_0029-2375"></a><a name="index-debugger_005fprint_005foptions-_0028prolog-flag_0029-2376"></a>
+<li>Except in extended runtime systems: no compiler;
+compiling is replaced by consulting. 
+Extended runtime systems do provide the compiler.
+
+     <li>The <code>discontiguous_warnings</code>, <code>single_var_warnings</code>,
+<code>redefine_warnings</code>, and <code>informational</code> Prolog flags are off
+by default, suppressing warnings about clauses not being together,
+singleton variables, queries and warnings about name clashes and
+redefinitions, and informational messages.  Note that they can be
+switched on though, to enable such warnings, queries and messages. 
+<a name="index-discontiguous_005fwarnings-_0028prolog-flag_0029-2377"></a><a name="index-single_005fvar_005fwarnings-_0028prolog-flag_0029-2378"></a><a name="index-redefine_005fwarnings-_0028prolog-flag_0029-2379"></a><a name="index-informational-_0028prolog-flag_0029-2380"></a>
+<li>No profiler or coverage analysis.  The predicates
+<code>profile_reset/0</code>, <code>profile_data/1</code>,
+<code>print_profile/[0,1]</code> <code>coverage_data/1</code>, and
+<code>print_coverage/[0,1]</code> are unavailable.  The Prolog flag
+<code>profiling</code> is unavailable. 
+<a name="index-profiling-_0028prolog-flag_0029-2381"></a>
+<li>No signal handling except as installed by <code>SP_signal()</code>. 
+</ul>
+
+   <p>It is possible to tell a runtime system to start a development system
+instead, for debugging purposes. See <a href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems">Debugging Runtime Systems</a> for
+details.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Runtime-Systems.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Runtime-Systems.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,103 @@
+<html lang="en">
+<head>
+<title>mpg-ref-dynamic - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002ddo.html#mpg_002dref_002ddo" title="mpg-ref-do">
+<link rel="next" href="mpg_002dref_002denable_005fbreakpoints.html#mpg_002dref_002denable_005fbreakpoints" title="mpg-ref-enable_breakpoints">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-dynamic"></a>
+<a name="mpg_002dref_002ddynamic"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002denable_005fbreakpoints.html#mpg_002dref_002denable_005fbreakpoints">mpg-ref-enable_breakpoints</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002ddo.html#mpg_002dref_002ddo">mpg-ref-do</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.68 <code>dynamic/1</code> &nbsp;<!-- /@w --> <dfn>[ISO,declaration]</dfn></h4>
+
+<p><a name="index-dynamic_002f1-_0028built_002din_002c-ref-page_0029-4577"></a><a name="index-dynamic_002f1-_0028built_002din_002c-ref-page_0029-4578"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- dynamic </code><var>+PredSpecs</var>
+
+   <p>Declares the clauses of the predicates defined by <var>PredSpecs</var> to be
+dynamic.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:PredSpecs</var><dd><dfn>pred_spec_forest</dfn>, must be ground
+
+     <p>A predicate specification, or a list of such,
+or a sequence of such separated by commas. 
+</dl>
+
+<h4 class="subheading">Comments</h4>
+
+<p><code>dynamic</code> is not an ISO predefined prefix operator.
+
+   <p>To declare a grammar rule <var>gram/n</var> dynamic, the
+arity of <var>PredSpecs</var> must be <var>n</var>+2.
+
+   <p>Exceptions in the context of loading code are printed as error messages.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Exceptions in the context of loading code are printed as error messages.
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>PredSpecs</var> not ground.
+
+     <br><dt><code>type_error</code><dd><var>PredSpecs</var> not a valid <dfn>pred_spec_forest</dfn>.
+
+     <br><dt><code>domain_error</code><dd>Some arity is an integer &lt; 0.
+
+     <br><dt><code>representation_error</code><dd>Some arity is an integer &gt; 255.
+
+     <br><dt><code>context_error</code><dd>Declaration appeared in a goal.
+
+     <br><dt><code>permission_error</code><dd>Declaration appeared as a clause. 
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Dynamic-Declarations.html#Dynamic-Declarations">Dynamic Declarations</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002ddynamic.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002ddynamic.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

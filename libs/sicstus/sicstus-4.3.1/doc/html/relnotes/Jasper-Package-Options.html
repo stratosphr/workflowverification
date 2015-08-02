@@ -1,0 +1,148 @@
+<html lang="en">
+<head>
+<title>Jasper Package Options - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Jasper-Notes.html#Jasper-Notes" title="Jasper Notes">
+<link rel="prev" href="Getting-Started.html#Getting-Started" title="Getting Started">
+<link rel="next" href="Multi-Threading.html#Multi-Threading" title="Multi Threading">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Jasper-Package-Options"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Multi-Threading.html#Multi-Threading">Multi Threading</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Getting-Started.html#Getting-Started">Getting Started</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Jasper-Notes.html#Jasper-Notes">Jasper Notes</a>
+<hr>
+</div>
+
+<h3 class="section">8.3 Jasper Package Options</h3>
+
+<p>The following Java system properties can be set to control some features of the Jasper package:
+     <dl>
+<!-- [PM] 4.1.0 no longer document this -->
+<!-- @item se.sics.jasper.SICStus.checkSPTermAge -->
+<!-- @strong{This flag is unsupported}. -->
+<!-- A boolean, @emph{true} by default. If @code{true}, runtime checks are -->
+<!-- performed that attempt to detect potentially dangerous use of the -->
+<!-- @code{SPTerm.putXXX} family of functions. The representation of this flag can be -->
+<!-- set and read with @code{SICStus.setShouldCheckAge()} and -->
+<!-- @code{SICStus.shouldCheckAge()}. This flag was @emph{false} by default -->
+<!-- in SICStus 3.8. -->
+<!-- The runtime checks throw an @code{IllegalTermException} when there is -->
+<!-- risk that a @code{SPTerm} is set to point to a Prolog term -->
+<!-- @emph{strictly newer} than the @code{SPTerm}. In this context -->
+<!-- @emph{strictly newer} means that there exists an open query that was -->
+<!-- opened after the @code{SPTerm} object was created but before the Prolog -->
+<!-- term. @xref{SPTerm and Memory, , SPTerm and Memory, sicstus, the SICStus -->
+<!-- Prolog Manual}: -->
+<!-- @example -->
+<!-- @group -->
+<!-- % @kbd{java -Dse.sics.jasper.SICStus.checkSPTermAge=true @dots{}} -->
+<!-- @end group -->
+<!-- @end example -->
+<!-- @noindent -->
+<!-- or, from Prolog: -->
+<!-- @example -->
+<!-- @group -->
+<!-- jasper_initialize( -->
+<!-- ['-Dse.sics.jasper.SICStus.checkSPTermAge=true'], -->
+<!-- JVM) -->
+<!-- @end group -->
+<!-- @end example -->
+
+     <!-- [PM] 4.1.0 no longer document this -->
+     <!-- @item se.sics.jasper.SICStus.reuseTermRefs -->
+     <!-- @strong{This flag is unsupported}. -->
+     <!-- @c  You probably should not use it in -->
+     <!-- @c  production code. It will probably be on by default in future -->
+     <!-- @c  releases. We strongly recommend that you use this flag during -->
+     <!-- @c  development and report any good or bad experiences to -->
+     <!-- @c  @email{sicstus-support@@sics.se}. -->
+     <!-- @c A boolean, off by default. If @code{true}, @code{SPTerm.delete()} -->
+     <!-- @c will not only invalidate the @code{SPTerm} object, but will also make -->
+     <!-- @c the Prolog side term-ref available for re-use.  The representation of this flag can be -->
+     <!-- @c set and read with @code{SICStus.setReuseTermRefs()} and -->
+     <!-- @c @code{SICStus.reuseTermRefs()}. -->
+     <!-- A boolean, @emph{on} by default. If @code{false}, -->
+     <!-- @code{SPTerm.delete()} will only invalidate the @code{SPTerm} object, it -->
+     <!-- will @emph{not} make the Prolog side SP_term_ref available for re-use.  The -->
+     <!-- representation of this flag can be set and read with -->
+     <!-- @code{SICStus.setReuseTermRefs()} and -->
+     <!-- @code{SICStus.reuseTermRefs()}. There should be no reason to turn it -->
+     <!-- @emph{off}. -->
+     <!-- @c The user manual advocates re-using @code{SPTerm} object to avoid space -->
+     <!-- @c leaks in Prolog (and Java). However, using @code{SPTerm.delete()} -->
+     <!-- @c together with the @code{reuseTermRefs} flag makes it possible to use a -->
+     <!-- @c more natural programming style. -->
+     <!-- @c Even if you don't turn on @code{reuseTermRefs}, you can use -->
+     <!-- @c @code{SPTerm.delete()} to avoid accidentally using a @code{SPTerm} -->
+     <!-- @c object. -->
+     <!-- To set this flag do: -->
+     <!-- @example -->
+     <!-- @group -->
+     <!-- % @kbd{java -Dse.sics.jasper.SICStus.reuseTermRefs=true @dots{}} -->
+     <!-- @end group -->
+     <!-- @end example -->
+     <!-- @noindent -->
+     <!-- or, from Prolog: -->
+     <!-- @example -->
+     <!-- @group -->
+     <!-- jasper_initialize( -->
+     <!-- ['-Dse.sics.jasper.SICStus.reuseTermRefs=true'], -->
+     <!-- JVM) -->
+     <!-- @end group -->
+     <!-- @end example -->
+     <dt><code>se.sics.jasper.SICStus.debugLevel</code><dd><strong>This flag is unsupported</strong>.
+
+     <p>You probably should not use it in production code. It may be removed or
+change meaning in future releases.
+
+     <p>An integer, zero by default. If larger than zero, some debug info is
+output to <code>System.out</code>. Larger values produce more
+info.  The representation of this flag can be
+set and read with <code>SICStus.setDebugLevel()</code> and
+<code>SICStus.debugLevel()</code>:
+
+     <pre class="example">          % <kbd>java -Dse.sics.jasper.SICStus.debugLevel=1 ...</kbd>
+</pre>
+     <p class="noindent">or, from Prolog:
+     <pre class="example">          jasper_initialize(
+             ['-Dse.sics.jasper.SICStus.debugLevel=1'],
+             JVM)
+</pre>
+     </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Jasper-Package-Options.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Jasper-Package-Options.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

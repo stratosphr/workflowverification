@@ -1,0 +1,123 @@
+<html lang="en">
+<head>
+<title>ref-syn-cpt - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsyn.html#ref_002dsyn" title="ref-syn">
+<link rel="prev" href="ref_002dsyn_002dtrm.html#ref_002dsyn_002dtrm" title="ref-syn-trm">
+<link rel="next" href="ref_002dsyn_002dces.html#ref_002dsyn_002dces" title="ref-syn-ces">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-syn-cpt"></a>
+<a name="ref_002dsyn_002dcpt"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dsyn_002dces.html#ref_002dsyn_002dces">ref-syn-ces</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dsyn_002dtrm.html#ref_002dsyn_002dtrm">ref-syn-trm</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsyn.html#ref_002dsyn">ref-syn</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.1.3 Compound Terms</h4>
+
+<ul class="menu">
+<li><a accesskey="1" href="ref_002dsyn_002dcpt_002dlis.html#ref_002dsyn_002dcpt_002dlis">ref-syn-cpt-lis</a>:                      Lists
+<li><a accesskey="2" href="ref_002dsyn_002dcpt_002dsli.html#ref_002dsyn_002dcpt_002dsli">ref-syn-cpt-sli</a>:                      Strings As Lists
+</ul>
+
+<p><a name="index-compound_002c-terms-479"></a>
+<a name="index-terms_002c-compound-480"></a>
+<a name="index-syntax_002c-of-compound-terms-481"></a>
+<a name="index-functors-482"></a>
+<a name="index-functor_002c-principal-_0028definition_0029-483"></a>
+<a name="index-name_002c-of-a-functor-484"></a>
+<a name="index-arity_002c-of-a-functor-485"></a>
+
+   <p><a name="index-principal-functor-_0028definition_0029-486"></a>
+<a name="index-argument-_0028definition_0029-487"></a>
+The structured data objects of Prolog are compound terms.  A
+compound term comprises a <dfn>functor</dfn> (called the <dfn>principal functor</dfn>
+of the term) and a sequence of one or more terms called <dfn>arguments</dfn>. 
+A functor is characterized by its <dfn>name</dfn>, which is
+an atom, and its <dfn>arity</dfn> or number of arguments. 
+For example, the compound term whose principal functor is &lsquo;<samp><span class="samp">point</span></samp>&rsquo; of
+arity 3, and which has arguments X, Y, and Z, is written
+<pre class="example">     point(X, Y, Z)
+</pre>
+   <p>When we need to refer explicitly to a functor we will normally denote it
+by the form <var>Name</var>/<var>Arity</var>. 
+Thus, the functor &lsquo;<samp><span class="samp">point</span></samp>&rsquo; of arity 3 is denoted
+<pre class="example">     point/3
+</pre>
+   <p>Note that a functor of arity 0 is represented as an atom.
+
+   <p>Functors are generally  analogous  to  common  nouns  in  natural
+language.   One  may  think  of  a  functor  as  a record type and the
+arguments of a compound term as the  fields  of  a  record.   Compound
+terms are usefully pictured as trees.  For example, the (compound) term
+<pre class="example">     s(np(john), vp(v(likes), np(mary)))
+</pre>
+   <p class="noindent">would be pictured as the following tree:
+
+<pre class="example">                       s
+                     /   \
+                  np       vp
+                  |       /  \
+                john     v     np
+                         |     |
+                       likes  mary
+</pre>
+   <p>The principal functor of this term is <code>s/2</code>.  Its arguments are also compound
+terms.  In illustration, the principal functor of the first argument is <code>np/1</code>.
+
+   <p>Sometimes it is convenient to write certain functors as <dfn>operators</dfn>;
+binary functors (that is, functors of two arguments)  may be declared as
+<dfn>infix</dfn> operators, and unary functors (that is, functors of one argument)
+may be declared as either
+<dfn>prefix</dfn> or <dfn>postfix</dfn> operators.  Thus it is possible to write
+<a name="index-infix-operators-488"></a>
+<a name="index-prefix-operators-489"></a>
+<a name="index-postfix-operators-490"></a>
+<a name="index-operators_002c-prefix-491"></a>
+<a name="index-operators_002c-postfix-492"></a>
+<a name="index-operators_002c-infix-493"></a>
+
+<pre class="example">     X+Y     P;Q     X&lt;Y      +X     P;
+</pre>
+   <p class="noindent">as optional alternatives to
+<pre class="example">     +(X,Y)   ;(P,Q)   &lt;(X,Y)   +(X)   ;(P)
+</pre>
+   <p>The use of operators is described fully in <a href="ref_002dsyn_002dops.html#ref_002dsyn_002dops">ref-syn-ops</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dcpt.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dcpt.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

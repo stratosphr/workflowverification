@@ -1,0 +1,88 @@
+<html lang="en">
+<head>
+<title>ref-lte-met-typ - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlte_002dmet.html#ref_002dlte_002dmet" title="ref-lte-met">
+<link rel="next" href="ref_002dlte_002dmet_002dusu.html#ref_002dlte_002dmet_002dusu" title="ref-lte-met-usu">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-lte-met-typ"></a>
+<a name="ref_002dlte_002dmet_002dtyp"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dlte_002dmet_002dusu.html#ref_002dlte_002dmet_002dusu">ref-lte-met-usu</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlte_002dmet.html#ref_002dlte_002dmet">ref-lte-met</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.8.1.1 Type Checking</h5>
+
+<p><a name="index-type-tests_002c-predicates-for-1156"></a><a name="index-predicates-for-type-tests-1157"></a>
+The following predicates take a term as their argument. They are
+provided to check the type of that term.  The reference pages for
+these predicates include examples of their use.
+
+   <p><a name="index-type-tests_002c-predicates-for-1158"></a><a name="index-predicates-for-type-tests-1159"></a>
+     <dl>
+<dt><code>atom(</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>term <var>T</var> is an atom
+
+     <br><dt><code>atomic(</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>term <var>T</var> is an atom or a number
+
+     <br><dt><code>callable(</code><var>+T</var><code>)</code><dd><var>T</var> is an atom or a compound term
+
+     <br><dt><code>compound(</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>T</var> is a compound term
+
+     <br><dt><code>db_reference(</code><var>+X</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.1</strong><dd><var>X</var> is a db_reference
+
+     <br><dt><code>float(</code><var>+N</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>N</var> is a floating-point number
+
+     <br><dt><code>ground(</code><var>+T</var><code>)</code><dd>term <var>T</var> is a nonvar, and all substructures are nonvar
+
+     <br><dt><code>integer(</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>term <var>T</var> is an integer
+
+     <br><dt><code>mutable(</code><var>+X</var><code>)</code><dd><var>X</var> is a mutable term
+
+     <br><dt><code>nonvar(</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>term <var>T</var> is one of atom, number, compound
+(that is, <var>T</var> is instantiated)
+
+     <br><dt><code>number(</code><var>+N</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>N</var> is an integer or a float
+
+     <br><dt><code>simple(</code><var>+T</var><code>)</code><dd><var>T</var> is not a compound term; it is either atomic or a var
+
+     <br><dt><code>var(</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>term <var>T</var> is a variable (that is, <var>T</var> is uninstantiated)
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlte_002dmet_002dtyp.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlte_002dmet_002dtyp.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

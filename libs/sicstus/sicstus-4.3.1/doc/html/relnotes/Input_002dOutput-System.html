@@ -1,0 +1,105 @@
+<html lang="en">
+<head>
+<title>Input-Output System - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="What-Is-New-In-Release-4.html#What-Is-New-In-Release-4" title="What Is New In Release 4">
+<link rel="prev" href="Library-Modules.html#Library-Modules" title="Library Modules">
+<link rel="next" href="Foreign-Language-APIs.html#Foreign-Language-APIs" title="Foreign Language APIs">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Input-Output-System"></a>
+<a name="Input_002dOutput-System"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Foreign-Language-APIs.html#Foreign-Language-APIs">Foreign Language APIs</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Library-Modules.html#Library-Modules">Library Modules</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="What-Is-New-In-Release-4.html#What-Is-New-In-Release-4">What Is New In Release 4</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.1.4 Input-Output System</h4>
+
+<p>The internals of the I/O subsystem have been completely
+redesigned. The new version should be faster while at the same time
+providing more functionality and more consistent behavior between
+operating systems and between stream types.
+
+   <p>The semantics of character codes has been fixed as (a superset of)
+Unicode. Redefining the meaning of character codes is no longer
+supported.
+
+   <p>New features and changes to the SICStus streams (<code>SP_stream</code>)
+include:
+
+     <ul>
+<li>Streams are binary or text also at the lowest level, e.g. in the C
+API, and there are separate operations for performing I/O of bytes and
+characters.
+
+     <li>Streams have a layered design. This makes it possible to add character
+set translation and other transformations (compression, encryption,
+automatic character set detection, <small class="dots">...</small>) to any stream.
+
+     <li>All streams provide non-blocking operations and are interruptible,
+e.g. with <kbd>^C</kbd> (&lsquo;<samp><span class="samp">SIGINT</span></samp>&rsquo;). This is also true for file
+streams and under Windows.
+
+     <li>Subject to OS limitations, file names can use Unicode and be of
+arbitrary length. In particular, under Windows, the Unicode API is used
+for all operations.
+
+     <li>Limits on file size, file time stamps etc have been removed.
+
+     <li>Error handling has been simplified and made more consistent. In the C
+API all I/O operations return an error code from a rich set of error
+codes. Errors during write and close operations are no longer ignored.
+
+     <li>It is possible to wait for I/O ready (both for read and write) on any
+type of stream. This works for all platforms, including
+Windows. Select operations wait for the appropriate item type, e.g. 
+until a whole (possibly multi-byte) character can be transferred on a
+text stream. 
+</ul>
+
+   <p>Other minor changes:
+
+     <ul>
+<li>Now <code>byte_count/2</code> can be called only on binary streams. 
+<li><code>at_end_of_stream/[0,1]</code> never blocks. Instead it will fail, i.e. 
+behave as if the stream is not at its end, if the operation would
+otherwise block. See <a href="../sicstus/mpg_002dref_002dat_005fend_005fof_005fstream.html#mpg_002dref_002dat_005fend_005fof_005fstream"><code>at_end_of_stream/[0,1]</code></a>. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Input_002dOutput-System.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Input_002dOutput-System.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

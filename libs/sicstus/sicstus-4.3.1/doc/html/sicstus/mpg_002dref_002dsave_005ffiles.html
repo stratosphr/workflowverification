@@ -1,0 +1,107 @@
+<html lang="en">
+<head>
+<title>mpg-ref-save_files - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dretractall.html#mpg_002dref_002dretractall" title="mpg-ref-retractall">
+<link rel="next" href="mpg_002dref_002dsave_005fmodules.html#mpg_002dref_002dsave_005fmodules" title="mpg-ref-save_modules">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-save_files"></a>
+<a name="mpg_002dref_002dsave_005ffiles"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dsave_005fmodules.html#mpg_002dref_002dsave_005fmodules">mpg-ref-save_modules</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dretractall.html#mpg_002dref_002dretractall">mpg-ref-retractall</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.195 <code>save_files/2</code></h4>
+
+<p><a name="index-save_005ffiles_002f2-_0028built_002din_002c-ref-page_0029-4895"></a><a name="index-save_005ffiles_002f2-_0028built_002din_002c-ref-page_0029-4896"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>save_files(</code><var>+SourceFiles</var><code>, </code><var>+File</var><code>)</code>
+
+   <p>Any code loaded from <var>SourceFiles</var>,
+as well as from any file included by them,
+is saved into <var>File</var> in PO format.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>SourceFiles</var><dd><dfn>file_spec</dfn> or <dfn>list of file_spec</dfn>, must be ground
+
+     <p>A file specification or a list of file specifications;
+extensions optional.
+
+     <br><dt><var>File</var><dd><dfn>file_spec</dfn>, must be ground
+
+     <p>A file specification, &lsquo;<samp><span class="samp">.po</span></samp>&rsquo; extension optional. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>Any module declarations, predicates, multifile
+clauses, or directives encountered in <var>SourceFiles</var>,
+as well as from any file included by them,
+are saved in object format into the file denoted by <var>File</var>.  Source
+file information as provided by <code>source_file/[1,2]</code> for the
+relevant predicates and modules is also saved.
+
+   <p><var>File</var> can later be loaded by <code>load_files/[1,2]</code>, at which
+time any saved directives will be re-executed.  If any of the
+<var>SourceFiles</var> declares a module, <var>FileSpec</var> too will behave as
+a module-file and export the predicates listed in the first module
+declaration encountered in <var>SourceFiles</var>.  See <a href="ref_002dsls.html#ref_002dsls">ref-sls</a>.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>SourceFiles</var> or <var>File</var> is not bound.
+
+     <br><dt><code>type_error</code><dd><var>SourceFiles</var> or <var>File</var> is not a valid file specification.
+
+     <br><dt><code>permission_error</code><dd><var>File</var> is not writable. 
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>load_files/[1,2]</code>, <a href="Saving.html#Saving">Saving</a>,
+<a href="ref_002dsls.html#ref_002dsls">ref-sls</a>, <a href="ref_002dsls_002dssl.html#ref_002dsls_002dssl">ref-sls-ssl</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dsave_005ffiles.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dsave_005ffiles.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

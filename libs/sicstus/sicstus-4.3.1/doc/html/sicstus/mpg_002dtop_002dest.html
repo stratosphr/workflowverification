@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+<title>mpg-top-est - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dtop.html#mpg_002dtop" title="mpg-top">
+<link rel="prev" href="mpg_002dtop_002ddeb.html#mpg_002dtop_002ddeb" title="mpg-top-deb">
+<link rel="next" href="mpg_002dtop_002dfnm.html#mpg_002dtop_002dfnm" title="mpg-top-fnm">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-top-est"></a>
+<a name="mpg_002dtop_002dest"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dtop_002dfnm.html#mpg_002dtop_002dfnm">mpg-top-fnm</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dtop_002ddeb.html#mpg_002dtop_002ddeb">mpg-top-deb</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dtop.html#mpg_002dtop">mpg-top</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.2.7 Errors and Exceptions</h4>
+
+<p><a name="index-execution-state_002c-predicates-for-4350"></a><a name="index-predicates-for-execution-state-4351"></a>
+     <dl>
+<dt><code>abort</code><dd>abort execution of the program; return to current break level
+
+     <br><dt><code>break</code><dd>start a new break-level to interpret commands from the user
+
+     <br><dt><code>catch(</code><var>:P</var><code>,</code><var>?E</var><code>,</code><var>:H</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>specify a handler <var>H</var> for any exception <var>E</var> arising in the
+execution of the goal <var>P</var>
+
+     <br><dt><code>user:error_exception(</code><var>+Exception</var><code>) &nbsp;<!-- /@w --> </code><strong>hook,development</strong><dd><var>Exception</var> is an exception that traps to the debugger if it is
+switched on.
+
+     <br><dt><code>goal_source_info(</code><var>+AGoal</var><code>, </code><var>-Goal</var><code>, </code><var>-SourceInfo</var><code>)</code><dd>Decomposes the annotated goal <var>AGoal</var> into a <var>Goal</var> proper
+and the <var>SourceInfo</var> descriptor term, indicating the source
+position of the goal.
+
+     <br><dt><code>halt &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>halt(C) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>exit from Prolog with exit code <var>C</var>
+
+     <br><dt><code>on_exception(</code><var>?E</var><code>,</code><var>:P</var><code>,</code><var>:H</var><code>)</code><dd>specify a handler <var>H</var> for any exception <var>E</var> arising in the
+execution of the goal <var>P</var>
+
+     <br><dt><code>raise_exception(</code><var>+E</var><code>)</code><dd>raise exception <var>E</var>
+
+     <br><dt><code>throw(</code><var>+E</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>raise exception <var>E</var>
+
+     <br><dt><code>unknown(</code><var>?OldValue</var><code>, </code><var>?NewValue</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dd>access the <code>unknown</code> Prolog flag and print a message
+
+     <br><dt><code>user:unknown_predicate_handler(</code><var>+Goal</var><code>, </code><var>+Module</var><code>, </code><var>-NewGoal</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>tell Prolog to call <var>Module</var><code>:</code><var>NewGoal</var> if <var>Module</var><code>:</code><var>Goal</var>
+is undefined
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dtop_002dest.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dtop_002dest.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

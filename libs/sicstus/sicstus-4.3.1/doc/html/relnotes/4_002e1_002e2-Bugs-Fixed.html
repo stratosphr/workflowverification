@@ -1,0 +1,95 @@
+<html lang="en">
+<head>
+<title>4.1.2 Bugs Fixed - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e1_002e2-Changes.html#g_t4_002e1_002e2-Changes" title="4.1.2 Changes">
+<link rel="next" href="4_002e1_002e2-Other-Changes.html#g_t4_002e1_002e2-Other-Changes" title="4.1.2 Other Changes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.1.2-Bugs-Fixed"></a>
+<a name="g_t4_002e1_002e2-Bugs-Fixed"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e1_002e2-Other-Changes.html#g_t4_002e1_002e2-Other-Changes">4.1.2 Other Changes</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e1_002e2-Changes.html#g_t4_002e1_002e2-Changes">4.1.2 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.14.1 Bugs Fixed</h4>
+
+     <ul>
+<li><!-- SPRM 10428 -->
+Term comparison now runs in constant C stack space. 
+<li><!-- SPRM 11716, 11748 -->
+Virtual machine bugs. 
+<li>PO file compatibility bug. 
+<li><!-- SPRM 11732, 11733, 11760 -->
+Memory management bugs. 
+<li><!-- SPRM 11822 -->
+Memory and stack corruption on UNIX-like systems with large file
+number limit and many open files (systems with <code>ulimit -n</code> larger
+than <code>FD_SETSIZE</code>, i.e. larger than 1024). 
+<li><!-- SPRM 11731 -->
+<var>pred_spec_tree</var> parse error. 
+<li><!-- SPRM 11792 -->
+Module expansion of args shadowed by do iterators. 
+<li><!-- SPRM 11814 -->
+Command line arguments with certain non-ASCII characters would prevent
+SICStus from initializing. 
+<li><code>ceiling/1</code>, <code>floor/1</code>, <code>round/1</code>, <code>truncate/1</code>
+now accept integers in addition to floats. 
+<li><code>statistics(garbage_collection,_)</code> did not report the correct byte count. 
+<li><!-- SPRM 11714 -->
+PrologBeans: one hook predicate was incorrectly declared dynamic. 
+<li><code>library(bdb)</code>: determinacy bugs. 
+<li>CLPFD:
+          <ul>
+<li><code>table/[2,3]</code>: bugs with <code>inf</code>/<code>sup</code>, <code>copy_term</code>/2. 
+<li><code>geost/[2,3,4]</code>: polymorphism with rules; <code>volume/1</code> option. 
+</ul>
+     <li><!-- SPRM 11384 -->
+<code>library(linda)</code>: The Linda server is now more robust against
+misbehaving clients. Especially on Windows the server would get a
+connection reset error if the client crashed. 
+<li><!-- SPRM 11738 -->
+<code>library(sockets)</code>: <code>socket_select/7</code> would sometimes return with nothing selected even
+though it was called with infinite timeout (UNIX-like platforms only). 
+<li><!-- SPRM SPRM 11845, SPRM 11819 -->
+Prolog Beans clients (both Java and .NET) would sometimes get an array
+index out of bounds error when more than ten concurrent sessions were
+active. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e1_002e2-Bugs-Fixed.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e1_002e2-Bugs-Fixed.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

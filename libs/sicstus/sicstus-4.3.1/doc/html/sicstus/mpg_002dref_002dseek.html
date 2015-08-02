@@ -1,0 +1,180 @@
+<html lang="en">
+<head>
+<title>mpg-ref-seek - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dseeing.html#mpg_002dref_002dseeing" title="mpg-ref-seeing">
+<link rel="next" href="mpg_002dref_002dseen.html#mpg_002dref_002dseen" title="mpg-ref-seen">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-seek"></a>
+<a name="mpg_002dref_002dseek"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dseen.html#mpg_002dref_002dseen">mpg-ref-seen</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dseeing.html#mpg_002dref_002dseeing">mpg-ref-seeing</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.201 <code>seek/4</code></h4>
+
+<p><a name="index-seek_002f4-_0028built_002din_002c-ref-page_0029-4908"></a><a name="index-seek_002f4-_0028built_002din_002c-ref-page_0029-4909"></a>
+<!-- fixed: SPIO (this doc were not right to begin with/PM) -->
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>seek(</code><var>+Stream</var><code>, </code><var>+Offset</var><code>, </code><var>+Method</var><code>, </code><var>-NewLocation</var><code>)</code>
+
+   <p>Seeks to an arbitrary position in <var>Stream</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Stream</var><dd><dfn>stream_object</dfn>, must be ground
+
+     <p>A valid Prolog stream.
+
+     <br><dt><var>Offset</var><dd><dfn>integer</dfn>, must be nonvar
+
+     <p>The offset, in <em>items</em>, to seek relative to the specified <var>Method</var>. 
+Items are bytes for binary streams, characters for text streams.
+
+     <br><dt><var>Method</var><dd><dfn>one of </dfn><code>[bof,current,eof]</code>, must be nonvar
+
+     <p>Where start seeking, one of the following:
+
+          <dl>
+<dt><code>bof</code><dd><a name="index-bof-_0028seek_002f4-method_0029-4910"></a>Seek from beginning of the file stream.
+
+          <br><dt><code>current</code><dd><a name="index-current-_0028seek_002f4-method_0029-4911"></a>Seek from current position of the file stream.
+
+          <br><dt><code>eof</code><dd><a name="index-eof-_0028seek_002f4-method_0029-4912"></a>Seek from end of the file stream. 
+</dl>
+
+     <br><dt><var>NewLocation</var><dd><dfn>integer</dfn>
+
+     <p>The offset from beginning of the file after
+seeking operation. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>Sets the current position
+of the file stream <var>Stream</var> to a new position according to
+<var>Offset</var> and <var>Method</var>.  If <var>Method</var> is:
+
+     <dl>
+<dt><code>bof</code><dd>the new position is set to <var>Offset</var> <em>items</em> from
+beginning of the file stream.
+
+     <br><dt><code>current</code><dd>the new position is <var>Offset</var> plus the
+current position of <var>Stream</var>.
+
+     <br><dt><code>eof</code><dd>the new position is <var>Offset</var>,
+<!-- [PM] 4.0 should always have been "non-positive" but that too is not true anymore. -->
+<!-- a negative integer, -->
+plus the current size of the stream.
+
+     <p>Avoid using this <var>Method</var>. Determining the size of the stream may
+be expensive or unsupported for some streams.
+
+   </dl>
+
+<!-- [PM] 4.0 Use char_count/2 or byte_count/2 directly. -->
+<!-- If @var{Method} is @code{current} and @var{Offset} is 0, @code{seek/4} -->
+<!-- returns the current position from the beginning of @var{Stream} and -->
+<!-- sets the position to the same location. -->
+<!-- [PM] 4.0 -->
+<!-- If @var{Stream} is an output stream permitting flushing output, -->
+<!-- the bytes in the buffer of the stream are flushed before seek is -->
+<!-- performed.  If the output stream @var{Stream} does not permit flushing -->
+<!-- output and there are characters remaining in the buffer, -->
+<!-- then a permission error is raised. -->
+<!-- If @var{Stream} is an input stream, the characters in the input -->
+<!-- buffer of the stream are discarded before seek is performed.  The -->
+<!-- input buffer is empty when the @code{seek/4} call returns. -->
+   <p>Positions and offsets are measured in <em>items</em>, bytes for binary
+streams and characters for text streams. Note that there may not be
+any simple relationship between the number of characters read and the
+byte offset of a text file.
+
+<!-- [PM] 4.0 char and byte counts are not undefined anymore -->
+   <p>After applying
+this operation on a text stream, the
+<!-- byte, character, and -->
+line counts and line position
+aspects of the stream position of <var>Stream</var> will be undefined.
+
+   <p>The term &ldquo;file&rdquo; above is used even though the stream may be
+connected to other seekable objects that are not files, e.g. an
+in-memory buffer.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Stream errors (see <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>), plus:
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>Offset</var> or <var>Method</var> is not instantiated.
+
+     <br><dt><code>type_error</code><dd>
+<var>Stream</var> is not a stream object, or
+<var>Offset</var> is not an integer, or
+<var>Method</var> is not an atom.
+
+     <br><dt><code>domain_error</code><dd><var>Method</var> is not one of <code>bof</code>, <code>current</code> or <code>eof</code>, or
+the resulting position would refer to an unsupported location. 
+<!-- @var{Offset} is a negative value and @var{Method} is @code{bof}, or -->
+<!-- @var{Offset} is a positive value and @var{Method} is @code{eof}. -->
+Some streams supports setting the position past the current end of the
+stream, in this case the stream is padded with zero bytes or
+characters as soon as an item is written to the new location.
+
+     <br><dt><code>permission_error</code><dd>Seeking was not possible. Common reasons include: the stream has not
+been opened with <code>reposition(true)</code>, the stream is a text stream
+that does not implement seeking, or an I/O error happened during seek.
+
+     <!-- @var{Stream} names an open stream connected to a device that is not seekable, or -->
+     <!-- an error occurred while seeking in the file stream, or -->
+     <!-- flushing attempted but not permitted. -->
+   </dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>stream_position/2</code>, <code>set_stream_position/2</code>,
+<code>open/[3,4]</code>, <code>byte_count/2</code>, <code>character_count/2</code>,
+<code>line_count/2</code>, <code>line_position/2</code>, <a href="ref_002diou_002dsfh.html#ref_002diou_002dsfh">ref-iou-sfh</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dseek.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dseek.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

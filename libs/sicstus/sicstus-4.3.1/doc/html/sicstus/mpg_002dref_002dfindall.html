@@ -1,0 +1,168 @@
+<html lang="en">
+<head>
+<title>mpg-ref-findall - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dfile_005fsearch_005fpath.html#mpg_002dref_002dfile_005fsearch_005fpath" title="mpg-ref-file_search_path">
+<link rel="next" href="mpg_002dref_002dfloat.html#mpg_002dref_002dfloat" title="mpg-ref-float">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-findall"></a>
+<a name="mpg_002dref_002dfindall"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dfloat.html#mpg_002dref_002dfloat">mpg-ref-float</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dfile_005fsearch_005fpath.html#mpg_002dref_002dfile_005fsearch_005fpath">mpg-ref-file_search_path</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.80 <code>findall/[3,4]</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-findall_002f_005b3_002c4_005d-_0028built_002din_002c-ref-page_0029-4603"></a><a name="index-findall_002f_005b3_002c4_005d-_0028built_002din_002c-ref-page_0029-4604"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>findall(</code><var>+Template</var><code>, </code><var>+Generator</var><code>, </code><var>-List</var><code>)</code>
+
+   <p><code>findall(</code><var>+Template</var><code>, </code><var>+Generator</var><code>, </code><var>-List</var><code>, </code><var>+Remainder</var><code>)</code>
+
+   <p><var>List</var> is the list of all the instances of <var>Template</var> for
+which the goal <var>Generator</var> succeeds, appended to <var>Remainder</var>. 
+<var>Remainder</var> defaults to the empty list.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Template</var><dd><dfn>term</dfn>
+
+     <br><dt><var>:Generator</var><dd><dfn>callable</dfn>, must be nonvar
+
+     <p>A goal to be proved as if by <code>call/1</code>.
+
+     <br><dt><var>List</var><dd><dfn>list of term</dfn>
+
+     <br><dt><var>Remainder</var><dd><dfn>list of term</dfn>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>A special case of <code>bagof/3</code>, where all free variables in the
+generator are taken to be existentially quantified, as if by means of
+the &lsquo;<samp><span class="samp">^</span></samp>&rsquo; operator. Contrary to <code>bagof/3</code> and <code>setof/3</code>,
+if there are no instances of <var>Template</var> such that
+<var>Generator</var> succeeds, then <var>List</var> = <var>Remainder</var>.
+
+   <p>Because <code>findall/[3,4]</code> avoids the relatively expensive variable
+analysis done by <code>bagof/3</code>, using <code>findall/[3,4]</code> where
+appropriate rather than <code>bagof/3</code> can be considerably more
+efficient.
+
+   <p><strong>Please note</strong>: If the instances being gathered contain
+attributed variables (see <a href="lib_002datts.html#lib_002datts">lib-atts</a>) or suspended goals
+(see <a href="ref_002dsem_002dsec.html#ref_002dsem_002dsec">ref-sem-sec</a>), those variables are replaced by brand new
+variables, without attributes, in <var>List</var>.  To retain the
+attributes, you can use <code>copy_term/3</code> (see <a href="ref_002dlte_002dcpt.html#ref_002dlte_002dcpt">ref-lte-cpt</a>).
+
+<h4 class="subheading">Backtracking</h4>
+
+<p><code>bagof/3</code> can succeed nondeterminately, generating alternative
+values for <var>Set</var> corresponding to different instantiations of the
+free variables of <var>Generator</var>.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Call errors (see <a href="ref_002dsem_002dexc.html#ref_002dsem_002dexc">ref-sem-exc</a>).
+
+<h4 class="subheading">Examples</h4>
+
+<p>To illustrate the differences among
+<code>findall/3</code>, <code>setof/3</code>, and <code>bagof/3</code>:
+<pre class="example">     | ?- <kbd>[user].</kbd>
+     | <kbd>foo(1,2).</kbd>
+     | <kbd>foo(1,2).</kbd>
+     | <kbd>foo(2,3).</kbd>
+     |
+     % user compiled in module user, 0.100 sec 352 bytes
+     
+     yes
+     | ?- <kbd>bagof(X, foo(X,Y), L).</kbd>
+     
+     Y = 2,
+     L = [1,1] ? <kbd>;</kbd>
+     
+     Y = 3,
+     L = [2] ? <kbd>;</kbd>
+     
+     no
+</pre>
+   <pre class="example">     | ?- <kbd>bagof(X, Y^foo(X,Y), L).</kbd>
+     
+     L = [1,1,2] ? <kbd>;</kbd>
+     
+     no
+</pre>
+   <pre class="example">     | ?- <kbd>findall(X, foo(X,Y), L).</kbd>
+     
+     L = [1,1,2] ? <kbd>;</kbd>
+     
+     no
+     | ?- <kbd>findall(X, foo(X,Y), L, S).</kbd>
+     
+     L = [1,1,2|S] ? <kbd>;</kbd>
+     
+     no
+</pre>
+   <pre class="example">     | ?- <kbd>setof(X, foo(X,Y), L).</kbd>
+     
+     X = _3342,
+     Y = 2,
+     L = [1] <kbd>;</kbd>
+     
+     X = _3342,
+     Y = 3,
+     L = [2] <kbd>;</kbd>
+     
+     no
+</pre>
+   <h4 class="subheading">Comments</h4>
+
+<p><code>findall/3</code> is part of the ISO Prolog standard; <code>findall/4</code> is not.
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>bagof/3</code>, <code>setof/3</code>, <code>^/2</code>, <a href="ref_002dall.html#ref_002dall">ref-all</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dfindall.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dfindall.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

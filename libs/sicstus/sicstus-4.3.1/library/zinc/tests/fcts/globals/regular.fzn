@@ -1,0 +1,12 @@
+%-----------------------------------------------------------------------------%
+% The sequence of values in array 'x' (which must all be in the range 1..S)
+% is accepted by the DFA of 'Q' states with input 1..S and transition
+% function 'd' (which maps (1..Q, 1..S) -> 0..Q)) and initial state 'q0'
+% (which must be in 1..Q) and accepting states 'F' (which all must be in
+% 1..Q).  We reserve state 0 to be an always failing state.
+%-----------------------------------------------------------------------------%
+array[1 .. 5] of var 1..2: x :: output_array([1..5]);
+
+constraint regular_sicstus(x, 2, 2, [1,2,1,1], 1, {2});
+
+solve satisfy;

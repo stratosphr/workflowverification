@@ -1,0 +1,111 @@
+<html lang="en">
+<head>
+<title>Jasper Overview - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002djasper.html#lib_002djasper" title="lib-jasper">
+<link rel="next" href="Getting-Started.html#Getting-Started" title="Getting Started">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Jasper-Overview"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Getting-Started.html#Getting-Started">Getting Started</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002djasper.html#lib_002djasper">lib-jasper</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.18.1 Jasper Overview</h4>
+
+<p>Jasper is a bi-directional interface between Java and
+SICStus. The Java-side of the interface consists of a Java package
+(<code>se.sics.jasper</code>) containing classes representing the SICStus
+runtime system (<code>SICStus</code>, <code>SPTerm</code>, etc).  The Prolog part
+is designed as a library module (<code>library(jasper)</code>). 
+<!-- [PM] 3.9b4 and an extension to the foreign language interface. -->
+
+   <p><a name="index-JVM-3375"></a><a name="index-Java-Virtual-Machine-3376"></a>The library module <code>library(jasper)</code> (see <a href="The-Jasper-Library.html#The-Jasper-Library">The Jasper Library</a>)
+provides functionality for controlling the loading and unloading the JVM
+(Java Virtual Machine), method call functionality
+(<code>jasper_call/4</code>), and predicates for managing object
+references. 
+<!-- [PM] 3.9b4 These are -->
+<!-- provided in order to make it easy to call Java methods on-the-fly from -->
+<!-- Prolog without having to create a foreign resource first. -->
+
+<!-- [PM] 3.9b4 -->
+<!-- The foreign language interface extensions enables Java-methods to be -->
+<!-- called as Prolog @use{predicates} using @code{foreign/3} declarations, much -->
+<!-- like the C-Prolog facilities described in @ref{Mixing C and -->
+<!-- Prolog}. Note that, as of SICStus 3.8.5 all functionality of the foreign -->
+<!-- language interface is available through the use of the @use{meta-call} -->
+<!-- facility in @code{library(jasper)}. The recommended way to call a -->
+<!-- Java-method from Prolog is through the @use{meta-call} facility (@pxref{Jasper -->
+<!-- Meta-Call Example}). Foreign declarations for Java-methods may be -->
+<!-- unsupported in future versions of SICStus. -->
+   <p>Jasper can be used in two modes, depending on which system acts as
+<dfn>Parent Application</dfn>. If Java is the parent application, the SICStus
+runtime kernel will be loaded into the JVM using the
+<code>System.loadLibrary()</code> method (this is done indirectly when
+instantiating a <code>SICStus</code> object). In this mode, SICStus is loaded
+as a runtime system (see <a href="Runtime-Systems.html#Runtime-Systems">Runtime Systems</a>).
+
+<!-- [PD] 3.9b4 multi threaded mode -->
+   <p>As of release 3.9, it is possible to use Jasper in multi threaded
+mode. This means that several Java threads can call SICStus runtime
+via a server thread. The communication between the client threads and
+the server thread is hidden from the programmer, and the API is based
+on Java <code>Interfaces</code>, which are implemented both by the multi thread
+capable classes and the pre-3.9 classes, which are restricted to single
+threaded mode. The decision whether to run in single thread mode or in
+multi threaded mode can thus be left until runtime.
+
+   <p>If SICStus is the parent application, Java will be loaded as a
+foreign resource using the query
+<code>use_module(library(jasper))</code>. The Java engine is initialized using
+<code>jasper_initialize/[1,2]</code>.
+
+     <ul>
+<li>Some of the information in this chapter is a recapitulation of the
+information in <a href="Mixing-C-and-Prolog.html#Mixing-C-and-Prolog">Mixing C and Prolog</a>. The intention is
+that this chapter should be possible to read fairly independently. 
+<li>Before proceeding,
+please read
+<a href="../relnotes/Jasper-Notes.html#Jasper-Notes">Jasper Notes</a>. 
+It contains important information about requirements,
+availability, installation tips, limitations, and how to access other
+(online) Jasper/Java resources. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Jasper-Overview.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Jasper-Overview.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

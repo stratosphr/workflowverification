@@ -1,0 +1,137 @@
+<html lang="en">
+<head>
+<title>4.3.0 New Features - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e3_002e0-Changes.html#g_t4_002e3_002e0-Changes" title="4.3.0 Changes">
+<link rel="next" href="4_002e3_002e0-Bugs-Fixed.html#g_t4_002e3_002e0-Bugs-Fixed" title="4.3.0 Bugs Fixed">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.3.0-New-Features"></a>
+<a name="g_t4_002e3_002e0-New-Features"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e3_002e0-Bugs-Fixed.html#g_t4_002e3_002e0-Bugs-Fixed">4.3.0 Bugs Fixed</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e3_002e0-Changes.html#g_t4_002e3_002e0-Changes">4.3.0 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.20.1 New Features</h4>
+
+     <ul>
+<li>On some platforms, SICStus Prolog now has the ability to compile
+predicates just in time (JIT) to native code.  In this release, those
+platforms are the x86 ones, 32 and 64 bit, running Windows, OS X, and
+Linux.  This happens automatically by default, but can be switched off
+with the option:
+
+     <pre class="display">          <code>-DSP_JIT=disabled</code>
+</pre>
+     <p>The following mutually exclusive predicate properties have also been added:
+
+          <dl>
+<dt><code>jittable</code><dd>The predicate is amenable to JIT compilation. 
+<br><dt><code>jitted</code><dd>The predicate has been JIT compiled. 
+</dl>
+
+     <li>New stream properties <code>input_encoding/1</code> and <code>output_encoding/1</code>. 
+<li>CLPFD:
+          <ul>
+<li><code>solve/2</code> generalizes <code>labeling/2</code> and can perform
+optimization over multiple sets of domain variables, with different
+search heuristics per set. 
+<li><code>labeling/2</code> with the option <code>minimize/1</code> or <code>maximize/1</code>
+can either enumerate every solution that improves the objective
+function, or only the optimal one after optimality has been proved,
+under the control of the new options <code>best</code> and <code>all</code>.  The
+same options are available to the predicates <code>minimize/3</code> and
+<code>maximize/3</code>. 
+<li><code>labeling/2</code> with the option <code>minimize/1</code> or <code>maximize/1</code>
+can be told which optimization method to use with the new options
+<code>bab</code> and <code>restart</code>. 
+<li>More labeling options, inspired by MiniZinc: <code>input_order</code>,
+<code>smallest</code>, <code>largest</code>, <code>first_fail</code>,
+<code>anti_first_fail</code>, <code>occurrence</code>, <code>most_constrained</code>,
+<code>max_regret</code>, <code>median</code>, <code>middle</code>. 
+<li>New constraints: <code>bool_and/2</code>, <code>bool_or/2</code>, <code>bool_xor/2</code>,
+<code>bool_channel/4</code>. 
+<li><code>all_different/2</code> and <code>all_distinct/2</code> take a new
+side-constraint option <var>L #= R</var>, where <var>L</var> is a sum, a product,
+or a sum of squares of the variables, and <var>R</var> is an integer. 
+<li><code>div</code>, floored division, is a new binary arithmetic operator. 
+Corresponds to the new Prolog arithmetic operator with the same name. 
+<li><code>//</code>, truncated division, is a new alias for the existing binary
+operator <code>/</code>.  Please note that the Prolog arithmetic operators
+<code>/</code> and <code>//</code> do <strong>not</strong> mean the same thing. 
+</ul>
+     <li>ZINC:
+          <ul>
+<li>The limitation that search annotations must include all variables or be
+absent has been lifted. 
+<li>The limitation that <code>solutions(all)</code> had no effect on optimization
+problems has been lifted. 
+<li><code>search(bab)</code> and <code>search(restart)</code> are new options for
+choosing optimization method. 
+<li><samp><span class="command">mzn-sicstus</span></samp> is a shortcut for <samp><span class="command">minizinc</span></samp> with the
+proper defaults for using SICStus as back-end. 
+<li><samp><span class="command">spfz</span></samp> is a small FlatZinc interpreter command-line tool
+for use from the shell.  Invoked by <samp><span class="command">mzn-sicstus</span></samp>. 
+</ul>
+     <li><code>library(structs)</code>, <code>library(objects)</code>:
+The types <code>integer_64</code> and <code>unsigned_64</code> have been added for all platforms. 
+<li>PROCESS:
+          <ul>
+<li>A new option <code>wait(Status)</code> to <code>process:process_create/3</code>
+that simplifies waiting for a started process to terminate. 
+<li><code>process:process_create/[2,3]</code> now uses
+<code>file_type(executable)</code> when resolving the path to the
+executable. This affects the Windows platform where &lsquo;<samp><span class="samp">.exe</span></samp>&rsquo; will
+be added automatically, if needed. 
+<li><code>process:process_create/3</code> now allows a general argument
+specification when specifying the values of environment variables
+passed to the subprocess. 
+<li><!-- SPRM 12879 (2) -->
+On Windows, when starting a console application with
+<code>process:process_create/[2,3]</code>, a console window is not created
+unless the option <code>window(true)</code> is specified. 
+</ul>
+     <li><!-- SPRM 12206 -->
+Executables created by the <samp><span class="command">spld</span></samp> tool now set the process
+locale from the environment (UNIX-like platforms only). The locale can
+also be passed as an argument to <samp><span class="command">spld</span></samp>. 
+<li><samp><span class="option">--objects</span></samp> is a new <samp><span class="command">splfr</span></samp> option, which you must use
+if the Prolog source code uses <code>library(objects)</code>. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e3_002e0-New-Features.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e3_002e0-New-Features.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

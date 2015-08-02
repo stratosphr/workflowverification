@@ -1,0 +1,128 @@
+<html lang="en">
+<head>
+<title>ref-lod-exp - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlod.html#ref_002dlod" title="ref-lod">
+<link rel="prev" href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl" title="ref-lod-dcl">
+<link rel="next" href="ref_002dlod_002dcnd.html#ref_002dlod_002dcnd" title="ref-lod-cnd">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-lod-exp"></a>
+<a name="ref_002dlod_002dexp"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dlod_002dcnd.html#ref_002dlod_002dcnd">ref-lod-cnd</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl">ref-lod-dcl</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlod.html#ref_002dlod">ref-lod</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.3.5 Term and Goal Expansion</h4>
+
+<p>During loading of source code, all terms being read in are subject to
+term expansion.  Grammar rules is a special, built-in case of this
+mechanism.  By defining the hook predicates
+<code>user:term_expansion/6</code> and <code>goal_expansion/5</code>, you can
+specify any desired transformation to be done as clauses are loaded.
+
+   <p><a name="index-term_005fexpansion_002f6-_0028user_002c-hook_0029-744"></a><a name="index-term_005fexpansion_002f6-_0028user_002c-hook_0029-745"></a>
+<a name="index-user_003aterm_005fexpansion_002f6-_0028hook_0029-746"></a><a name="index-user_003aterm_005fexpansion_002f6-_0028hook_0029-747"></a>
+Term expansions are added by defining clauses for the following hook
+predicate.  Such clauses should follow the pattern:
+
+<pre class="example">     :- multifile user:term_expansion/6.
+     user:term_expansion(Term1, Layout1, Ids, Term2, Layout2, [<var>token</var>|Ids]) :- ...
+             nonmember(<var>token</var>, Ids),
+             <var>token_expansion</var>(Term1, Layout1, Term2, Layout2), !.
+</pre>
+   <p class="noindent">where <var>token_expansion/4</var> should be a predicate defining how to
+transform a given <var>Term1</var> into <var>Term2</var>.  The hook is called for every
+<var>Term1</var> read, including at end of file, represented as the
+term <code>end_of_file</code>.  If it succeeds, <var>Term2</var> is used
+for further processing; otherwise, the default grammar rule expansion
+is attempted.  It is often useful to let a term expand to a list of
+directives and clauses, which will then be processed sequentially.
+
+   <p>A key idea here is <var>Ids</var>, which is used to look up what
+expansions have already been applied.  The argument is supposed to be
+a list of tokens, each token uniquely identifying an expansion. The
+tokens are arbitrary atoms, and are simply added to the input
+list, before expansions recursively are applied. This token list is
+used to avoid cyclic expansions.
+
+   <p>The other arguments are for supporting source-linked debugging; see
+the reference page for details. 
+See <a href="mpg_002dref_002dterm_005fexpansion.html#mpg_002dref_002dterm_005fexpansion">mpg-ref-term_expansion</a>.
+
+<!-- SPRM 13792 got bitten by library(obj_decl) because of this issue: -->
+   <p><strong>Please note</strong>: term expansions are global, i.e. they affect
+all code that are compiled or consulted. In particular a term expansion
+is not affected by module imports. Care should be taken so that a term
+expansion does not unintentionally affect some unrelated source
+code. <code>goal_expansion/5</code> provides a more robust, and module
+aware, way to transform individual goals.
+
+   <p><a name="index-goal_005fexpansion_002f5-_0028Module_002c-hook_0029-748"></a><a name="index-goal_005fexpansion_002f5-_0028Module_002c-hook_0029-749"></a>
+Goal expansions are added by defining the hook predicate:
+
+<pre class="example">     <var>M</var>:goal_expansion(<var>Goal1</var>, <var>Layout1</var>, <var>Module</var>, <var>Goal2</var>, <var>Layout2</var>) :- ...
+</pre>
+   <p class="noindent">which should define how to transform a given <var>Goal1</var> into
+<var>Goal2</var>.  Expansions are per module and should be defined in the
+module <var>M</var> in which <var>Goal1</var> is locally defined. 
+It is called for every goal occurring in a clause being
+loaded, asserted, or meta-called.  If it
+succeeds, <var>Goal2</var> is used for further processing, and may be
+arbitrarily complex.
+
+<!-- SPRM 12531 -->
+   <p><strong>Please note</strong>: In general, the goal expansion can happen both
+at compile time and at runtime (and sometimes both, even for the same
+goal). For this reason the code that implements goal expansion should
+be present both at compile time and at runtime.
+
+   <p>The other arguments are for supporting source-linked debugging and
+passing the source module; see the reference page for details.
+
+   <p><a name="index-expand_005fterm_002f2-_0028built_002din_0029-750"></a><a name="index-expand_005fterm_002f2-_0028built_002din_0029-751"></a>
+To invoke term expansion from a program, use:
+
+<pre class="example">     ?- <kbd>expand_term(</kbd><var>Term1</var><kbd>, </kbd><var>Term2</var><kbd>).</kbd>
+</pre>
+   <p class="noindent">which transforms <var>Term1</var> into <var>Term2</var> using the built-in (for
+grammar rules) as well as user-defined term expansion rules. 
+See <a href="mpg_002dref_002dgoal_005fexpansion.html#mpg_002dref_002dgoal_005fexpansion">mpg-ref-goal_expansion</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlod_002dexp.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlod_002dexp.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,110 @@
+<html lang="en">
+<head>
+<title>Debug Intro - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="prev" href="Prolog-Intro.html#Prolog-Intro" title="Prolog Intro">
+<link rel="next" href="Mixing-C-and-Prolog.html#Mixing-C-and-Prolog" title="Mixing C and Prolog">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Debug-Intro"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Mixing-C-and-Prolog.html#Mixing-C-and-Prolog">Mixing C and Prolog</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Prolog-Intro.html#Prolog-Intro">Prolog Intro</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+<hr>
+</div>
+
+<h2 class="chapter">5 Debugging</h2>
+
+<p><a name="index-debugging-1860"></a>
+This chapter describes the debugging facilities that are available in
+development systems.  The purpose of these facilities is to
+provide information concerning the control flow of your program.
+
+   <p>The main features of the debugging package are as follows:
+
+     <ul>
+<li>The <dfn>Procedure Box</dfn> model of Prolog execution, which provides a
+simple way of visualizing control flow, especially during
+backtracking.  Control flow is viewed at the predicate
+level, rather than at the level of individual clauses.
+
+     <li><a name="index-spypoint-1861"></a>The ability to exhaustively trace your program or to selectively
+set <dfn>spypoints</dfn>.  Spypoints allow you to nominate interesting
+predicates at which, for example, the program is to pause so
+that you can interact.
+
+     <li>The ability to set advice-points. An advice-point allows you
+to carry out some actions at certain points of execution, independently
+of the tracing activity. Advice-points can be used, e.g. for
+checking certain program invariants (cf. the assert facility of
+the C programming language), or for gathering profiling or branch
+coverage information.  Spypoints and advice-points are
+collectively called breakpoints.
+
+     <li>The wide choice of control and information options available during
+debugging. 
+</ul>
+
+   <p>The Procedure Box model of execution is also called the Byrd Box
+model after its inventor, Lawrence Byrd.
+
+   <p>Much of the information in this chapter is also in Chapter eight of
+[Clocksin &amp; Mellish 81], which is recommended as an introduction.
+
+   <p>Unless otherwise stated, the debugger prints goals using
+<code>write_term/3</code> with the representation of the Prolog flag
+<code>debugger_print_options</code>. 
+<a name="index-debugger_005fprint_005foptions-_0028prolog-flag_0029-1862"></a>
+The debugger is not available in runtime systems and the
+predicates defined in this chapter are undefined; see <a href="Runtime-Systems.html#Runtime-Systems">Runtime Systems</a>.
+
+<ul class="menu">
+<li><a accesskey="1" href="Procedure-Box.html#Procedure-Box">Procedure Box</a>:  The Procedure Box Control Flow Model
+<li><a accesskey="2" href="Basic-Debug.html#Basic-Debug">Basic Debug</a>:  Basic Debugging Predicates
+<li><a accesskey="3" href="Plain-Spypoint.html#Plain-Spypoint">Plain Spypoint</a>:  Plain Spypoints
+<li><a accesskey="4" href="Debug-Format.html#Debug-Format">Debug Format</a>:  Format of Debugging Messages
+<li><a accesskey="5" href="Debug-Commands.html#Debug-Commands">Debug Commands</a>:  Commands Available during Debugging
+<li><a accesskey="6" href="Advanced-Debugging.html#Advanced-Debugging">Advanced Debugging</a>:  Advanced Debugging --- an Introduction
+<li><a accesskey="7" href="Breakpoint-Predicates.html#Breakpoint-Predicates">Breakpoint Predicates</a>:  Breakpoint Handling Predicates
+<li><a accesskey="8" href="Breakpoint-Processing.html#Breakpoint-Processing">Breakpoint Processing</a>:  The Processing of Breakpoints
+<li><a accesskey="9" href="Breakpoint-Conditions.html#Breakpoint-Conditions">Breakpoint Conditions</a>:  Breakpoint Conditions
+<li><a href="Consult.html#Consult">Consult</a>:  Consulting during Debugging
+<li><a href="Exceptions-Debug.html#Exceptions-Debug">Exceptions Debug</a>:  Catching Exceptions
+<li><a href="Debug-Summary.html#Debug-Summary">Debug Summary</a>:  Predicate Summary
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Debug-Intro.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Debug-Intro.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

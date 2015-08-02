@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+<title>ref-lte-act - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlte.html#ref_002dlte" title="ref-lte">
+<link rel="prev" href="ref_002dlte_002dmet.html#ref_002dlte_002dmet" title="ref-lte-met">
+<link rel="next" href="ref_002dlte_002dacl.html#ref_002dlte_002dacl" title="ref-lte-acl">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-lte-act"></a>
+<a name="ref_002dlte_002dact"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dlte_002dacl.html#ref_002dlte_002dacl">ref-lte-acl</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dlte_002dmet.html#ref_002dlte_002dmet">ref-lte-met</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlte.html#ref_002dlte">ref-lte</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.8.2 Analyzing and Constructing Terms</h4>
+
+<p><a name="index-functor_002f3-_0028built_002din_0029-1175"></a><a name="index-functor_002f3-_0028built_002din_0029-1176"></a>
+
+   <p><a name="index-principal-functor-1177"></a><a name="index-functor_002c-principal-1178"></a>
+The built-in predicate <code>functor/3</code>:
+     <ul>
+<li>decomposes a given term into its name and arity, or
+<li>given a name and arity, constructs the corresponding compound term
+creating new uninstantiated variables for its arguments. 
+</ul>
+
+   <p><a name="index-arg_002f3-_0028built_002din_0029-1179"></a><a name="index-arg_002f3-_0028built_002din_0029-1180"></a>
+
+   <p><a name="index-terms_002c-arguments-of-1181"></a><a name="index-arguments-of-terms-1182"></a>
+
+   <p>The built-in predicate <code>arg/3</code>
+unifies a term with a specified argument of another term.
+
+   <p><a name="index-g_t_003d_002e_002e_002f2-_0028built_002din_0029-1183"></a><a name="index-g_t_003d_002e_002e_002f2-_0028built_002din_0029-1184"></a>
+
+   <p>The built-in predicate <var>Term</var> <code>=..</code> <var>List</var>
+unifies <var>List</var> with a list whose head is the atom corresponding
+to the principal functor of <var>Term</var> and whose tail is a list of
+the arguments of <var>Term</var>.
+
+   <p><a name="index-acyclic_005fterm_002f2-_0028built_002din_0029-1185"></a><a name="index-acyclic_005fterm_002f2-_0028built_002din_0029-1186"></a>
+
+   <p>The built-in predicate <code>acyclic_term/2(</code><var>Term</var><code>)</code>
+succeeds if and only if <var>Term</var> is finite (acyclic).
+
+   <p><a name="index-term_005fvariables_002f2-_0028built_002din_0029-1187"></a><a name="index-term_005fvariables_002f2-_0028built_002din_0029-1188"></a>
+
+   <p>The built-in predicate <code>term_variables(</code><var>Term</var><code>,</code><var>Variables</var><code>)</code>
+unifies <var>Variables</var> with the set of variables that occur in <var>Term</var>,
+sorted in standard order.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlte_002dact.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlte_002dact.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

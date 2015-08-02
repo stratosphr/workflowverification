@@ -1,0 +1,172 @@
+<html lang="en">
+<head>
+<title>mpg-ref-predicate_property - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dportray_005fmessage.html#mpg_002dref_002dportray_005fmessage" title="mpg-ref-portray_message">
+<link rel="next" href="mpg_002dref_002dprint.html#mpg_002dref_002dprint" title="mpg-ref-print">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-predicate_property"></a>
+<a name="mpg_002dref_002dpredicate_005fproperty"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dprint.html#mpg_002dref_002dprint">mpg-ref-print</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dportray_005fmessage.html#mpg_002dref_002dportray_005fmessage">mpg-ref-portray_message</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.159 <code>predicate_property/2</code></h4>
+
+<p><a name="index-predicate_005fproperty_002f2-_0028built_002din_002c-ref-page_0029-4793"></a><a name="index-predicate_005fproperty_002f2-_0028built_002din_002c-ref-page_0029-4794"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>predicate_property(</code><var>?Callable</var><code>, </code><var>?PredProperty</var><code>)</code>
+
+   <p>Unifies <var>PredProperty</var> with a predicate property of an existing
+predicate, and <var>Callable</var> with the most general term that corresponds
+to that predicate.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:Callable</var><dd><dfn>callable</dfn>
+
+     <p>The skeletal specification of a loaded predicate.
+
+     <br><dt><var>PredProperty</var><dd><dfn>term</dfn>
+
+     <p>The various properties associated with
+<var>Callable</var>.    Each loaded predicate will have one
+or more of the properties:
+
+          <ul>
+<li><a name="index-built_005fin-_0028predicate-property_0029-4795"></a><a name="index-compiled-_0028predicate-property_0029-4796"></a><a name="index-interpreted-_0028predicate-property_0029-4797"></a><a name="index-fd_005fconstraint-_0028predicate-property_0029-4798"></a>one of the atoms <code>built_in</code> (for built-in predicates)
+or <code>compiled</code> or <code>interpreted</code> (for user defined
+predicates) or <code>fd_constraint</code> for FD predicates
+see <a href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints">Defining Primitive Constraints</a>.
+
+          <li><a name="index-dynamic-_0028predicate-property_0029-4799"></a>the atom <code>dynamic</code> for predicates that have been
+declared dynamic (see <a href="Dynamic-Declarations.html#Dynamic-Declarations">Dynamic Declarations</a>),
+
+          <li><a name="index-multifile-_0028predicate-property_0029-4800"></a>the atom <code>multifile</code> for predicates that have been
+declared multifile (see <a href="Multifile-Declarations.html#Multifile-Declarations">Multifile Declarations</a>),
+
+          <li><a name="index-volatile-_0028predicate-property_0029-4801"></a>the atom <code>volatile</code> for predicates that have been
+declared volatile (see <a href="Volatile-Declarations.html#Volatile-Declarations">Volatile Declarations</a>),
+
+          <li><a name="index-jittable-_0028predicate-property_0029-4802"></a>the atom <code>jittable</code> for predicates that are amenable to JIT compilation,
+
+          <li><a name="index-jitted-_0028predicate-property_0029-4803"></a>the atom <code>jitted</code> for predicates that have been JIT compiled,
+
+          <li><a name="index-block-_0028predicate-property_0029-4804"></a>one or more terms <code>(block </code><var>Term</var><code>)</code> for predicates
+that have block declarations (see <a href="Block-Declarations.html#Block-Declarations">Block Declarations</a>),
+
+          <li><a name="index-exported-_0028predicate-property_0029-4805"></a><a name="index-imported_005ffrom-_0028predicate-property_0029-4806"></a>the atom <code>exported</code> or terms
+<code>imported_from(</code><var>ModuleFrom</var><code>)</code> for predicates
+exported or imported from modules (see <a href="ref_002dmod.html#ref_002dmod">ref-mod</a>),
+
+          <li><a name="index-meta_005fpredicate-_0028predicate-property_0029-4807"></a>the term <code>(meta_predicate </code><var>Term</var><code>)</code> for predicates
+that have meta-predicate declarations (see <a href="ref_002dmod_002dmet.html#ref_002dmod_002dmet">ref-mod-met</a>). 
+</ul>
+     </dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>If <var>Callable</var>
+is instantiated then
+<code>predicate_property/2</code> successively unifies <var>PredProperty</var> with
+the various properties associated with <var>Callable</var>.
+
+   <p>If <var>PredProperty</var> is bound to a valid predicate property, then
+<code>predicate_property/2</code> successively unifies <var>Callable</var> with the
+skeletal specifications of all loaded predicates having
+<var>PredProperty</var>.
+
+   <p>If <var>Callable</var> is not a loaded predicate or
+<var>PredProperty</var> is not a valid predicate property, the call fails.
+
+   <p>If both arguments are unbound, then <code>predicate_property/2</code> can be
+used to backtrack through all currently defined predicates and their
+corresponding properties.
+
+<h4 class="subheading">Examples</h4>
+
+     <ul>
+<li>Predicates acquire properties when they are defined:
+
+     <pre class="example">          | ?- <kbd>[user].</kbd>
+          | <kbd>:- dynamic p/1.</kbd>
+          | <kbd>p(a).</kbd>
+          | <kbd>end_of_file.</kbd>
+          % user compiled 0.117 sec 296 bytes
+          
+          yes
+          | ?- <kbd>predicate_property(p(_), Property).</kbd>
+          
+          Property = dynamic <kbd>;</kbd>
+          
+          Property = interpreted <kbd>;</kbd>
+</pre>
+     <li>To backtrack through all the predicates <code>P</code> imported into module <code>m</code>
+from any module:
+     <pre class="example">          | ?- <kbd>predicate_property(m:P, imported_from(_)).</kbd>
+</pre>
+     <li>To backtrack through all the predicates <code>P</code> imported into module <code>m1</code>
+from module <code>m2</code>:
+     <pre class="example">          | ?- <kbd>predicate_property(m1:P, imported_from(m2)).</kbd>
+</pre>
+     <li>To backtrack through all the predicates <code>P</code> exported by module <code>m</code>:
+     <pre class="example">          | ?- <kbd>predicate_property(m:P, exported).</kbd>
+</pre>
+     <li>A variable can also be used in place of a module atom to find
+the names of modules having a predicate and property association:
+
+     <pre class="example">          | ?- <kbd>predicate_property(M:f, imported_from(m1))</kbd>.
+</pre>
+     <p>will return all modules <code>M</code> that import <code>f/0</code> from <code>m1</code>. 
+</ul>
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>None.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlps_002dove.html#ref_002dlps_002dove">ref-lps-ove</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dpredicate_005fproperty.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dpredicate_005fproperty.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

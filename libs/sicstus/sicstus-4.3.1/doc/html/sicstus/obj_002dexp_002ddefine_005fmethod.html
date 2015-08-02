@@ -1,0 +1,108 @@
+<html lang="en">
+<head>
+<title>obj-exp-define_method - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="obj_002dexp.html#obj_002dexp" title="obj-exp">
+<link rel="prev" href="obj_002dexp_002ddebug_005fmessage.html#obj_002dexp_002ddebug_005fmessage" title="obj-exp-debug_message">
+<link rel="next" href="obj_002dexp_002ddescendant_005fof.html#obj_002dexp_002ddescendant_005fof" title="obj-exp-descendant_of">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="obj-exp-define_method"></a>
+<a name="obj_002dexp_002ddefine_005fmethod"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="obj_002dexp_002ddescendant_005fof.html#obj_002dexp_002ddescendant_005fof">obj-exp-descendant_of</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="obj_002dexp_002ddebug_005fmessage.html#obj_002dexp_002ddebug_005fmessage">obj-exp-debug_message</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="obj_002dexp.html#obj_002dexp">obj-exp</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.22.6.12 <code>define_method/3</code></h5>
+
+<!-- label define_method#3-predpage -->
+<p><a name="index-define_005fmethod_002f3-_0028objects_0029-3613"></a><a name="index-define_005fmethod_002f3-_0028objects_0029-3614"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<!-- manheading Synopsis -->
+<p><code>define_method(</code><var>+Obj</var><code>, </code><var>+Message</var><code>, </code><var>+Body</var><code>)</code>
+
+<h4 class="subheading">Arguments</h4>
+
+<!-- manheading Arguments -->
+     <dl>
+<dt><var>Obj</var><dd><dfn>object</dfn>
+
+     <br><dt><var>Message</var><dd><dfn>term</dfn>
+
+     <br><dt><var>Body</var><dd><dfn>callable</dfn>
+
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<!-- manheading Description -->
+<p>Installs <var>Body</var> as the method for <var>Message</var>
+in the instance <var>Obj</var>.  Following the execution of this goal,
+sending <var>Message</var> to <var>Obj</var> will execute <var>Body</var>, rather than the
+default method or a method previously defined with
+<code>define_method/3</code>.
+
+   <p><var>Message</var> must have been declared to be an instance method for
+the class of <var>Obj</var>.
+
+<h4 class="subheading">Exceptions</h4>
+
+<!-- manheading Exceptions -->
+     <dl>
+<dt><code>instantiation_error</code><dd>
+any argument is unbound.
+
+     <br><dt><code>type_error</code><dd>
+<var>Obj</var> is not a compound term, or <var>Message</var> or <var>Body</var> is not
+<dfn>callable</dfn>.
+
+     <br><dt><code>domain_error</code><dd>
+<var>Message</var> does not specify an instance method for the class of
+<var>Obj</var>, or <var>Body</var> include a goal to fetch or store a non-existent
+slot. 
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<!-- manheading See Also -->
+<p><code>instance_method/1</code>, <code>undefine_method/3</code>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dexp_002ddefine_005fmethod.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dexp_002ddefine_005fmethod.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

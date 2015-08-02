@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+<title>ref-ere-hex - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dere.html#ref_002dere" title="ref-ere">
+<link rel="prev" href="ref_002dere_002drex.html#ref_002dere_002drex" title="ref-ere-rex">
+<link rel="next" href="ref_002dere_002derr.html#ref_002dere_002derr" title="ref-ere-err">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-ere-hex"></a>
+<a name="ref_002dere_002dhex"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dere_002derr.html#ref_002dere_002derr">ref-ere-err</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dere_002drex.html#ref_002dere_002drex">ref-ere-rex</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dere.html#ref_002dere">ref-ere</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.15.3 Handling Exceptions</h4>
+
+<ul class="menu">
+<li><a accesskey="1" href="ref_002dere_002dhex_002dpgo.html#ref_002dere_002dhex_002dpgo">ref-ere-hex-pgo</a>:                      Protecting a Particular Goal
+<li><a accesskey="2" href="ref_002dere_002dhex_002dhup.html#ref_002dere_002dhex_002dhup">ref-ere-hex-hup</a>:                      Handling Unknown Predicates
+</ul>
+
+<p>It is possible to protect a part of a program against abrupt termination
+in the event of an exception.  There are several ways to do this:
+
+     <ul>
+<li>Trap exceptions to a particular goal by calling <code>catch/3</code> as
+described in <a href="ref_002dere_002dhex_002dpgo.html#ref_002dere_002dhex_002dpgo">ref-ere-hex-pgo</a>.
+
+     <li>Handle undefined predicates or subsets of them through the hook
+predicate <code>user:unknown_predicate_handler/3</code>;
+see <a href="ref_002dere_002dhex_002dhup.html#ref_002dere_002dhex_002dhup">ref-ere-hex-hup</a>.
+
+     <li>Trap exceptions matching <var>Exception</var> to the debugger by defining
+the following hook predicate:
+
+     <p><a name="index-error_005fexception_002f1-_0028user_002c-hook_0029-1677"></a><a name="index-error_005fexception_002f1-_0028user_002c-hook_0029-1678"></a>
+<a name="index-user_003aerror_005fexception_002f1-_0028hook_0029-1679"></a><a name="index-user_003aerror_005fexception_002f1-_0028hook_0029-1680"></a>
+          <dl>
+<dt><code>user:error_exception(</code><var>+Exception</var><code>) &nbsp;<!-- /@w --> </code><strong>hook,development</strong><dd>See <a href="mpg_002dref_002derror_005fexception.html#mpg_002dref_002derror_005fexception">mpg-ref-error_exception</a>. 
+</dl>
+
+     <li>Control syntax errors with the <code>syntax_errors</code> Prolog flag or with
+the same option to <code>read_term/[2,3]</code>; see <a href="ref_002dere_002derr_002dsyn.html#ref_002dere_002derr_002dsyn">ref-ere-err-syn</a>.
+
+     <li>Control existence and permission errors in the context of opening files
+with the <code>fileerrors</code> Prolog flag or with the same option to
+<code>absolute_file_name/3</code>; see <a href="ref_002dere_002derr_002dexi.html#ref_002dere_002derr_002dexi">ref-ere-err-exi</a> and
+<a href="ref_002dere_002derr_002dper.html#ref_002dere_002derr_002dper">ref-ere-err-per</a>.
+
+   </ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002dhex.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002dhex.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

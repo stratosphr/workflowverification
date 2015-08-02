@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+<title>mpg-ref-halt - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dground.html#mpg_002dref_002dground" title="mpg-ref-ground">
+<link rel="next" href="mpg_002dref_002dif.html#mpg_002dref_002dif" title="mpg-ref-if">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-halt"></a>
+<a name="mpg_002dref_002dhalt"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dif.html#mpg_002dref_002dif">mpg-ref-if</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dground.html#mpg_002dref_002dground">mpg-ref-ground</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.101 <code>halt/[0,1]</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-halt_002f_005b0_002c1_005d-_0028built_002din_002c-ref-page_0029-4649"></a><a name="index-halt_002f_005b0_002c1_005d-_0028built_002din_002c-ref-page_0029-4650"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>halt</code>
+
+<!-- Abandons the current execution and terminates the enclosing query. -->
+<!-- In the development system, causes an exit from Prolog. -->
+   <p><code>halt(</code><var>+ExitCode</var><code>)</code>
+
+   <p>Causes an exit from the running process.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>ExitCode</var><dd><dfn>integer</dfn>, must be nonvar
+
+     <p>Exit status code. Only the lower 8 bits of this representation is used.
+
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>Causes an exit from the running process with exit code
+<var>ExitCode</var>. <var>ExitCode</var> defaults to zero which, by convention,
+signifies a successful exit from the process.
+
+<!-- @code{halt/1} is implemented by throwing a reserved, uncatchable, -->
+<!-- exceptions (@code{'$reserved'/1}). The default behavior for -->
+<!-- development systems and for runtime systems built with the -->
+<!-- @code{spld} tool is to deinitialize the SICStus engine and exit from -->
+<!-- the process with the exit code @code{ExitCode}. -->
+   <p><code>halt/[0,1]</code> is implemented by raising a reserved exception, which is handled
+at the top level; see <a href="ref_002dere_002dint.html#ref_002dere_002dint">ref-ere-int</a>.
+
+<!-- @code{halt/1} causes an immediate exit with status given by @var{ExitCode}. -->
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>ExitCode</var> is uninstantiated.
+
+     <br><dt><code>type_error</code><dd><var>ExitCode</var> is not an integer. 
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>abort/0</code>, <code>break/0</code>, <code>runtime_entry/1</code>, <a href="ref_002dere_002dint.html#ref_002dere_002dint">ref-ere-int</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dhalt.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dhalt.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

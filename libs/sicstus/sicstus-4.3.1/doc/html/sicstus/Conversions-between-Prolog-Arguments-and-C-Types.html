@@ -1,0 +1,144 @@
+<html lang="en">
+<head>
+<title>Conversions between Prolog Arguments and C Types - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" title="Calling C from Prolog">
+<link rel="prev" href="Conversion-Declarations.html#Conversion-Declarations" title="Conversion Declarations">
+<link rel="next" href="Interface-Predicates.html#Interface-Predicates" title="Interface Predicates">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Conversions-between-Prolog-Arguments-and-C-Types"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Interface-Predicates.html#Interface-Predicates">Interface Predicates</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Conversion-Declarations.html#Conversion-Declarations">Conversion Declarations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Calling-C-from-Prolog.html#Calling-C-from-Prolog">Calling C from Prolog</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.2.3 Conversions between Prolog Arguments and C Types</h4>
+
+<p>The following table lists the possible values for the arguments in
+the predicate specification of <code>foreign/[2,3]</code>. The representation
+declares which conversion between corresponding Prolog argument
+and C type will take place. 
+<!-- FIXME can codes be code-list when used for converting -->
+<!-- from Prolog to C? -->
+
+     <dl>
+<dt><code>Prolog: +integer</code><dt><code>C:      SP_integer</code><dd>The argument should be a number.  It is converted to a C
+<code>SP_integer</code> and passed to the C function. 
+<br><dt><code>Prolog: +float</code><dt><code>C:      double</code><dd>The argument should be a number.  It is converted to a C <code>double</code> and
+passed to the C function. 
+<br><dt><code>Prolog: +atom</code><dt><code>C:      SP_atom</code><dd>The argument should be an atom. 
+Its canonical representation is passed to the C function.
+
+     <br><dt><code>Prolog: +codes</code><dt><code>C:      char const *</code><dd>The argument should be a code-list.  The C function will be
+passed the address of an array with the encoded string
+representation of these characters.  The array is subject to reuse by
+other support functions, so if the representation is going to be used on a more
+than temporary basis, it must be moved elsewhere.
+
+     <br><dt><code>Prolog: +string</code><dt><code>C:      char const *</code><dd>The argument should be an atom.  The C function will be
+passed the address of an encoded string representing the
+characters of the atom.  <strong>Please note</strong>: The C function must not
+overwrite the string. 
+<br><dt><code>Prolog: +address</code><dt><code>C:      void *</code><dd><!-- The argument should be an aligned pointer. -->
+The representation passed will be a <code>void *</code> pointer.
+
+     <br><dt><code>Prolog: +address(</code><var>TypeName</var><code>)</code><dt><code>C:      </code><var>TypeName</var><code> *</code><dd><!-- The argument should be an aligned pointer. -->
+The representation passed will be a <var>TypeName</var><code> *</code> pointer.
+<br><dt><code>Prolog: +term</code><dt><code>C:      SP_term_ref</code><dd>The argument could be any term. The representation passed will be the internal
+representation of the term.
+<br><dt><code>Prolog: -integer</code><dt><code>C:      SP_integer *</code><dd>The C function is passed a reference to an uninitialized <code>SP_integer</code>. 
+The representation returned will be converted to a Prolog integer.
+<br><dt><code>Prolog: -float</code><dt><code>C:      double *</code><dd>The C function is passed a reference to an uninitialized <code>double</code>. 
+The representation returned will be converted to a Prolog float.
+<br><dt><code>Prolog: -atom</code><dt><code>C:      SP_atom *</code><dd>The C function is passed a reference to an uninitialized <code>SP_atom</code>. 
+The representation returned should be the canonical representation of a
+Prolog atom. 
+<br><dt><code>Prolog: -codes</code><dt><code>C:      char const **</code><dd>The C function is passed the address of an uninitialized <code>char *</code>. 
+The returned encoded string will be converted to a Prolog code-list. 
+<br><dt><code>Prolog: -string</code><dt><code>C:      char const **</code><dd>The C function is passed the address of an uninitialized <code>char *</code>. 
+The returned encoded string will be converted to a Prolog atom.  Prolog
+will copy the string to a safe place, so the memory occupied by the
+returned string may be reused during subsequent calls to foreign
+code. 
+<!-- @item Prolog: -string(@var{N}) -->
+<!-- @item C:      char * -->
+<!-- The C function is passed a reference to a character buffer large enough -->
+<!-- to store @var{N} bytes.  The C function is expected to fill the -->
+<!-- buffer with an encoded string of @var{N} bytes (not -->
+<!-- NULL-terminated). This encoded string will be stripped of trailing -->
+<!-- blanks and converted to a Prolog atom. -->
+
+     <br><dt><code>Prolog: -address</code><dt><code>C:      void **</code><dd>The C function is passed the address of an uninitialized <code>void *</code>. 
+<!-- The returned representation should be an aligned pointer. -->
+
+     <br><dt><code>Prolog: -address(</code><var>TypeName</var><code>)</code><dt><code>C:      </code><var>TypeName</var><code> **</code><dd>The C function is passed the address of an uninitialized
+<var>TypeName</var><code> *</code>. 
+<!-- The returned representation should be an aligned pointer. -->
+
+     <br><dt><code>Prolog: -term</code><dt><code>C:      SP_term_ref</code><dd>The C function is passed a new SP_term_ref, and is expected to set
+its representation to a suitable Prolog term.  Prolog will try to
+unify the representation with the actual argument.
+<br><dt><code>Prolog: [-integer]</code><dt><code>C:      SP_integer </code><var>F</var><code>()</code><dd>The C function should return an <code>SP_integer</code>.  The representation returned will be
+converted to a Prolog integer. 
+<br><dt><code>Prolog: [-float]</code><dt><code>C:      double </code><var>F</var><code>()</code><dd>The C function should return a <code>double</code>.  The representation returned will
+be converted to a Prolog float. 
+<br><dt><code>Prolog: [-atom]</code><dt><code>C:      SP_atom </code><var>F</var><code>()</code><dd>The C function should return an <code>SP_atom</code>.  The representation
+returned must be the canonical representation of a Prolog atom.
+<br><dt><code>Prolog: [-codes]</code><dt><code>C:      char const *</code><var>F</var><code>()</code><dd>The C function should return a <code>char *</code>.  The returned encoded
+string will be converted to a Prolog code-list. 
+<br><dt><code>Prolog: [-string]</code><dt><code>C:      char const *</code><var>F</var><code>()</code><dd>The C function should return a <code>char *</code>.  The returned encoded
+string will be converted to a Prolog atom.  Prolog will copy the string
+to a safe place, so the memory occupied by the returned string may be
+reused during subsequent calls to foreign code. 
+<!-- @item Prolog: [-string(@var{N})] -->
+<!-- @item C:      char *@var{F}() -->
+<!-- The C function should return a @code{char *}.  The first @var{N} bytes -->
+<!-- of the encoded string (not necessarily NULL-terminated) will be copied -->
+<!-- and the copied string will be stripped of trailing blanks.  The stripped -->
+<!-- string will be converted to a Prolog atom. C may reuse or destroy the -->
+<!-- string buffer during later calls. -->
+<br><dt><code>Prolog: [-address]</code><dt><code>C:      void *</code><var>F</var><code>()</code><dd>The C function should return a <code>void *</code>, which will be converted to a Prolog integer. 
+<br><dt><code>Prolog: [-address(</code><var>TypeName</var><code>)]</code><dt><code>C:      </code><var>TypeName</var><code> *</code><var>F</var><code>()</code><dd>The C function should return a <var>TypeName</var><code> *</code>. 
+<!-- The returned representation should be an aligned pointer. -->
+
+     <br><dt><code>Prolog: [-term]</code><dt><code>C:      SP_term_ref </code><var>F</var><code>()</code><dd>The C function should return an SP_term_ref.  Prolog will try to
+unify its representation with the actual argument.
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Conversions-between-Prolog-Arguments-and-C-Types.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Conversions-between-Prolog-Arguments-and-C-Types.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

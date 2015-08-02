@@ -1,0 +1,77 @@
+<html lang="en">
+<head>
+<title>Nested - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Run-Intro.html#Run-Intro" title="Run Intro">
+<link rel="prev" href="Exiting.html#Exiting" title="Exiting">
+<link rel="next" href="Saving.html#Saving" title="Saving">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Nested"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Saving.html#Saving">Saving</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Exiting.html#Exiting">Exiting</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Run-Intro.html#Run-Intro">Run Intro</a>
+<hr>
+</div>
+
+<h3 class="section">3.9 Nested Executions&mdash;Break</h3>
+
+<p><a name="index-nested-execution-318"></a><a name="index-execution_002c-nested-319"></a><a name="index-break-320"></a><a name="index-break_002f0-_0028built_002din_0029-321"></a><a name="index-break_002f0-_0028built_002din_0029-322"></a>
+
+   <p>The Prolog system provides a way to suspend the execution of your
+program and to enter a new incarnation of the top-level where you
+can issue queries to solve goals etc.  This is achieved by
+issuing the query (see <a href="Execution.html#Execution">Execution</a>):
+
+<pre class="example">     | ?- <kbd>break.</kbd>
+</pre>
+   <p>This invokes a recursive top-level, indicated by the message:
+
+<pre class="example">     % Break level 1
+</pre>
+   <p>You can now type queries just as if you were at top-level.
+
+   <p>If another call of <code>break/0</code> is encountered, it moves up to level
+2, and so on.  To close the break and resume the execution that was
+suspended, type <kbd>^D</kbd>.  The debugger state and current input and
+output streams will be restored, and execution will be resumed at
+the predicate call where it had been suspended after printing the
+message:
+
+<pre class="example">     % End break
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Nested.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Nested.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,70 @@
+<html lang="en">
+<head>
+<title>Queries and Directives - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Run-Intro.html#Run-Intro" title="Run Intro">
+<link rel="prev" href="Inserting-Clauses.html#Inserting-Clauses" title="Inserting Clauses">
+<link rel="next" href="Syntax-Errors.html#Syntax-Errors" title="Syntax Errors">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Queries-and-Directives"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Syntax-Errors.html#Syntax-Errors">Syntax Errors</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Inserting-Clauses.html#Inserting-Clauses">Inserting Clauses</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Run-Intro.html#Run-Intro">Run Intro</a>
+<hr>
+</div>
+
+<h3 class="section">3.4 Queries and Directives</h3>
+
+<p><a name="index-query-265"></a><a name="index-directive-266"></a>
+Queries and directives are ways of directing the system to
+execute some goal or goals.
+
+   <p>In the following, suppose that list membership has been defined by
+loading the following clauses from a file:
+
+<pre class="example">     memb(X, [X|_]).
+     memb(X, [_|L]) :- memb(X, L).
+</pre>
+   <p class="noindent">(Notice the use of anonymous variables written &lsquo;<samp><span class="samp">_</span></samp>&rsquo;.)
+
+<ul class="menu">
+<li><a accesskey="1" href="Queries.html#Queries">Queries</a>:  Queries
+<li><a accesskey="2" href="Directives.html#Directives">Directives</a>:  Directives
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Queries-and-Directives.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Queries-and-Directives.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

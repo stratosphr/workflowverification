@@ -1,0 +1,136 @@
+<html lang="en">
+<head>
+<title>ref-fdi-fsp-def - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dfdi_002dfsp.html#ref_002dfdi_002dfsp" title="ref-fdi-fsp">
+<link rel="next" href="ref_002dfdi_002dfsp_002dffs.html#ref_002dfdi_002dfsp_002dffs" title="ref-fdi-fsp-ffs">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-fdi-fsp-def"></a>
+<a name="ref_002dfdi_002dfsp_002ddef"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dfdi_002dfsp_002dffs.html#ref_002dfdi_002dfsp_002dffs">ref-fdi-fsp-ffs</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dfdi_002dfsp.html#ref_002dfdi_002dfsp">ref-fdi-fsp</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.5.1.1 Defining File Search Paths</h5>
+
+<p><a name="index-file_005fsearch_005fpath_002f2-_0028user_002c-hook_0029-798"></a><a name="index-file_005fsearch_005fpath_002f2-_0028user_002c-hook_0029-799"></a>
+<a name="index-user_003afile_005fsearch_005fpath_002f2-_0028hook_0029-800"></a><a name="index-user_003afile_005fsearch_005fpath_002f2-_0028hook_0029-801"></a>
+
+   <p>The information about which directories to search when an alias is
+encountered is extended by clauses for the hook predicate
+<code>user:file_search_path/2</code>, of the following form:
+
+<pre class="example">     user:file_search_path(<var>PathAlias</var>, <var>DirectorySpec</var>).
+</pre>
+     <dl>
+<dt><var>PathAlias</var><dd>must be an atom. It can be used as an alias for
+<var>DirectorySpec</var>.
+
+     <br><dt><var>DirectorySpec</var><dd>Can either be an atom, spelling out the name of
+a directory, or a compound term using other path aliases to define the location
+of the directory. 
+</dl>
+
+   <p>The directory path may be absolute, as in (A) or relative as in (B),
+which defines a path relative to the current working directory.
+
+   <p>Then, files may be referred to by using file specifications of the
+form similar to <code>library(</code><var>file</var><code>)</code>.  For example, (C), names the file
+<samp><span class="file">/usr/jackson/.login</span></samp>, while (D) specifies the path <samp><span class="file">etc/demo/my_demo</span></samp>
+relative to the current working directory.
+
+<pre class="example">     user:file_search_path(home, '/usr/jackson').&nbsp;<!-- /@w --> (A)
+     
+     user:file_search_path(demo, 'etc/demo').&nbsp;<!-- /@w --> (B)
+     
+     home('.login')&nbsp;<!-- /@w --> (C)
+     
+     demo(my_demo)&nbsp;<!-- /@w --> (D)
+</pre>
+   <p>As mentioned above, it is also possible to have multiple definitions
+for the same alias. If clauses (E) and (F) define the <code>home</code> alias,
+to locate the file specified by (G) each <code>home</code> directory is
+searched in sequence for the file <samp><span class="file">.login</span></samp>.  If <samp><span class="file">/usr/jackson/.login</span></samp>
+exists, it is used.  Otherwise, <samp><span class="file">/u/jackson/.login</span></samp> is used if it
+exists.
+
+<pre class="example">     user:file_search_path(home, '/usr/jackson').&nbsp;<!-- /@w --> (E)
+     user:file_search_path(home, '/u/jackson').&nbsp;<!-- /@w --> (F)
+     
+     home('.login')&nbsp;<!-- /@w --> (G)
+</pre>
+   <p>The directory specification may also be a term of arity 1, in which
+case it specifies that the argument of the term is relative to the
+<code>user:file_search_path/2</code> defined by its functor.  For example, (H)
+defines a directory relative to the directory given by the <code>home</code>
+alias.  Therefore, the alias <code>sp_directory</code> represents the search
+path <samp><span class="file">/usr/jackson/prolog/sp</span></samp> followed by <samp><span class="file">/u/jackson/prolog/sp</span></samp>.  Then,
+the file specification (I) refers to the file (J), if it exists. 
+Otherwise, it refers to the file (K), if it exists.
+
+<pre class="example">     user:file_search_path(sp_directory, home('prolog/sp')).&nbsp;<!-- /@w --> (H)
+     
+     sp_directory(test)&nbsp;<!-- /@w --> (I)
+     
+     /usr/jackson/prolog/sp/test&nbsp;<!-- /@w --> (J)
+     
+     /u/jackson/prolog/sp/test&nbsp;<!-- /@w --> (K)
+</pre>
+   <p>Aliases such as <code>home</code> or <code>sp_directory</code> are useful
+because even if the <code>home</code> directory changes, or the
+<code>sp_directory</code> is moved to a different location, only the
+appropriate <code>user:file_search_path/2</code> facts need to be changed. 
+Programs relying on these paths are not affected by the change of
+directories because they make use of file specifications of the form
+<code>home(</code><var>file</var><code>)</code> and <code>sp_directory(</code><var>file</var><code>)</code>.
+
+   <p>All built-in predicates that take file specification arguments allow
+these specifications to include path aliases defined by
+<code>user:file_search_path/2</code> facts. 
+The main predicate for expanding file specifications is <code>absolute_file_name/[2,3]</code>. 
+See <a href="mpg_002dref_002dfile_005fsearch_005fpath.html#mpg_002dref_002dfile_005fsearch_005fpath">mpg-ref-file_search_path</a>.
+
+   <p><strong>Please note:</strong>
+The <code>user:file_search_path/2</code> database may contain directories that do
+not exist or are syntactically invalid (as far as the operating system
+is concerned).  If an invalid directory is part of the database, the
+system will fail to find any files in it, and the directory will
+effectively be ignored.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dfdi_002dfsp_002ddef.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dfdi_002dfsp_002ddef.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

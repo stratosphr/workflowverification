@@ -1,0 +1,107 @@
+<html lang="en">
+<head>
+<title>mpg-ref-restore - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002drepeat.html#mpg_002dref_002drepeat" title="mpg-ref-repeat">
+<link rel="next" href="mpg_002dref_002dretract.html#mpg_002dref_002dretract" title="mpg-ref-retract">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-restore"></a>
+<a name="mpg_002dref_002drestore"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dretract.html#mpg_002dref_002dretract">mpg-ref-retract</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002drepeat.html#mpg_002dref_002drepeat">mpg-ref-repeat</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.192 <code>restore/1</code></h4>
+
+<p><a name="index-restore_002f1-_0028built_002din_002c-ref-page_0029-4888"></a><a name="index-restore_002f1-_0028built_002din_002c-ref-page_0029-4889"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>restore(</code><var>+FileSpec</var><code>)</code>
+
+   <p>Restores a saved-state.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>FileSpec</var><dd><dfn>file_spec</dfn>, must be ground
+
+     <p>The name of a saved state, &lsquo;<samp><span class="samp">.sav</span></samp>&rsquo; extension optional. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>The system is returned to the program state previously saved to
+the file denoted by <var>FileSpec</var> with start-up goal <var>Goal</var>. 
+<code>restore/1</code> may succeed, fail or raise an exception depending on
+<var>Goal</var>.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dt><code>type_error</code><dd>In <var>FileSpec</var>.
+
+     <br><dt><code>existence_error</code><dd>The specified file does not exist.  If the <code>fileerrors</code> Prolog
+flag is <code>off</code>, the predicate fails instead of raising this
+exception.
+
+     <br><dt><code>permission_error</code><dd>A specified file is not readable.  If the <code>fileerrors</code> Prolog flag
+is <code>off</code>, the predicate fails instead of raising this exception. 
+<a name="index-fileerrors-_0028prolog-flag_0029-4890"></a></dl>
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     | ?- <kbd>save_program(state, format('Restored!\n',[])).</kbd>
+     % /home/matsc/sicstus4/Bips/state.sav created in 0 msec
+     yes
+     
+     | ?- <kbd>restore(state).</kbd>
+     % restoring /home/matsc/sicstus4/Bips/state.sav...
+     % /home/matsc/sicstus4/Bips/state.sav restored in 10 msec 16 bytes
+     Restored!
+     yes
+</pre>
+<h4 class="subheading">See Also</h4>
+
+<p><code>save_program/[1,2]</code>, <a href="Saving.html#Saving">Saving</a>,
+<a href="ref_002dsls.html#ref_002dsls">ref-sls</a>, <a href="ref_002dsls_002dsst.html#ref_002dsls_002dsst">ref-sls-sst</a>, <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002drestore.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002drestore.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

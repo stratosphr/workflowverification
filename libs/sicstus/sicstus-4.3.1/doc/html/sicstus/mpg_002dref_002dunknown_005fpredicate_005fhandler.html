@@ -1,0 +1,119 @@
+<html lang="en">
+<head>
+<title>mpg-ref-unknown_predicate_handler - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dunknown.html#mpg_002dref_002dunknown" title="mpg-ref-unknown">
+<link rel="next" href="mpg_002dref_002dunload_005fforeign_005fresource.html#mpg_002dref_002dunload_005fforeign_005fresource" title="mpg-ref-unload_foreign_resource">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-unknown_predicate_handler"></a>
+<a name="mpg_002dref_002dunknown_005fpredicate_005fhandler"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dunload_005fforeign_005fresource.html#mpg_002dref_002dunload_005fforeign_005fresource">mpg-ref-unload_foreign_resource</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dunknown.html#mpg_002dref_002dunknown">mpg-ref-unknown</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.244 <code>unknown_predicate_handler/3</code> &nbsp;<!-- /@w --> <dfn>[hook]</dfn></h4>
+
+<p><a name="index-unknown_005fpredicate_005fhandler_002f3-_0028hook_002c-ref-page_0029-5021"></a><a name="index-unknown_005fpredicate_005fhandler_002f3-_0028hook_002c-ref-page_0029-5022"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- multifile user:unknown_predicate_handler/3.</code>
+
+   <p><code>user:unknown_predicate_handler(</code><var>+Goal</var><code>, </code><var>+Module</var><code>, </code><var>-NewGoal</var><code>)</code>
+
+   <p>User definable hook to trap calls to unknown predicates.
+
+   <p><a name="index-undefined-predicate-5023"></a><a name="index-predicate_002c-undefined-5024"></a>
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Goal</var><dd><dfn>callable</dfn>
+
+     <p>The goal to trap.
+
+     <br><dt><var>Module</var><dd><dfn>atom</dfn>
+
+     <p>Any atom that is a current module
+
+     <br><dt><var>NewGoal</var><dd><dfn>callable</dfn>
+
+     <p>The goal to call instead. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>When Prolog comes across a call to an unknown predicate, Prolog makes
+a call to <code>user:unknown_predicate_handler/3</code> with the first two
+arguments bound. <var>Goal</var> is bound to the call to the undefined
+predicate and <var>Module</var> is the module in which that predicate is
+supposed to be defined. If the call to
+<code>user:unknown_predicate_handler/3</code> succeeds, then Prolog replaces
+the call to the undefined predicate with the call to
+<var>Module:NewGoal</var>. Otherwise, the action taken is governed by the
+<code>unknown</code> Prolog flag. 
+<a name="index-unknown-_0028prolog-flag_0029-5025"></a>
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Exceptions are treated as failures, except an error message is printed.
+
+<h4 class="subheading">Examples</h4>
+
+<p>The following clause gives the
+same behavior as setting <code>unknown(_,fail)</code>:
+
+<pre class="example">     unknown_predicate_handler(_, _, fail).
+</pre>
+   <p>The following clause causes calls to undefined predicates whose names
+begin with &lsquo;<samp><span class="samp">xyz_</span></samp>&rsquo; in module <code>m</code> to be trapped to
+<code>my_handler/1</code> in module <code>n</code>.  Predicates with names not
+beginning with this character sequence are not affected.
+
+<pre class="example">     unknown_predicate_handler(G, m, n:my_handler(G)) :-
+         functor(G,N,_),
+         atom_concat(xyz_, _, N).
+</pre>
+   <h4 class="subheading">See Also</h4>
+
+<p><a href="Undefined-Predicates.html#Undefined-Predicates">Undefined Predicates</a>, <a href="ref_002dere.html#ref_002dere">ref-ere</a>, <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dunknown_005fpredicate_005fhandler.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dunknown_005fpredicate_005fhandler.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

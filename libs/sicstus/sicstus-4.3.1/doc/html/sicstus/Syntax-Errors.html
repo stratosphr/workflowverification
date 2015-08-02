@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+<title>Syntax Errors - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Run-Intro.html#Run-Intro" title="Run Intro">
+<link rel="prev" href="Queries-and-Directives.html#Queries-and-Directives" title="Queries and Directives">
+<link rel="next" href="Undefined-Predicates.html#Undefined-Predicates" title="Undefined Predicates">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Syntax-Errors"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Undefined-Predicates.html#Undefined-Predicates">Undefined Predicates</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Queries-and-Directives.html#Queries-and-Directives">Queries and Directives</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Run-Intro.html#Run-Intro">Run Intro</a>
+<hr>
+</div>
+
+<h3 class="section">3.5 Syntax Errors</h3>
+
+<p><a name="index-syntax-error-291"></a><a name="index-error_002c-syntax-292"></a>
+Syntax errors are detected during reading.  Each clause,
+directive or, in general, any term read in by the
+built-in predicate <code>read/1</code> that fails to comply with
+syntax requirements is displayed on the standard error
+stream as soon as it is read, along with its position in the input
+stream and a mark indicating the point in the string of symbols
+where the parser has failed to continue analysis, e.g.:
+
+<pre class="example">     | memb(X, X$L).
+     ! Syntax error
+     ! , or ) expected in arguments
+     ! in line 5
+     ! memb ( X , X
+     ! &lt;&lt;here&gt;&gt;
+     ! $ L ) .
+</pre>
+   <p class="noindent">if &lsquo;<samp><span class="samp">$</span></samp>&rsquo; has not been declared as an infix operator.
+
+   <p>Note that any comments in the faulty line are not displayed with the
+error message.  If you are in doubt about which clause was wrong
+you can use the <code>listing/1</code> predicate to list all the
+clauses that were successfully read in, e.g.:
+
+   <p><a name="index-listing_002f_005b0_002c1_005d-_0028built_002din_0029-293"></a><a name="index-listing_002f_005b0_002c1_005d-_0028built_002din_0029-294"></a>
+<pre class="example">     | ?- <kbd>listing(memb/2).</kbd>
+</pre>
+   <blockquote>
+<strong>Please note</strong>: The built-in predicates <code>read/[1,2]</code> normally raise an
+exception on syntax errors (see <a href="ref_002dere.html#ref_002dere">ref-ere</a>). The behavior is
+controlled by the Prolog flag <code>syntax_errors</code>. 
+<a name="index-syntax_005ferrors-_0028prolog-flag_0029-295"></a></blockquote>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Syntax-Errors.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Syntax-Errors.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

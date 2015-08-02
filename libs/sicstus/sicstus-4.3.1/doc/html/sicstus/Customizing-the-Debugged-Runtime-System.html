@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+<title>Customizing the Debugged Runtime System - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems" title="Debugging Runtime Systems">
+<link rel="prev" href="Locating-the-License-Information.html#Locating-the-License-Information" title="Locating the License Information">
+<link rel="next" href="Examples-of-Debugging-Runtime-Systems.html#Examples-of-Debugging-Runtime-Systems" title="Examples of Debugging Runtime Systems">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Customizing-the-Debugged-Runtime-System"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Examples-of-Debugging-Runtime-Systems.html#Examples-of-Debugging-Runtime-Systems">Examples of Debugging Runtime Systems</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Locating-the-License-Information.html#Locating-the-License-Information">Locating the License Information</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems">Debugging Runtime Systems</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.9.2 Customizing the Debugged Runtime System</h4>
+
+<p>It is possible to fine-tune the behavior of the debugged runtime system
+in various ways, both at compile time (setting C preprocessor symbols
+and passing system properties to <code>SP_initialize()</code>) and at runtime
+(passing system properties as environment variables).
+
+   <p>The system properties and environment variables that affect the debugged
+runtime system are:
+
+     <dl>
+<dt><code>SP_USE_DEVSYS</code><dd><a name="index-SP_005fUSE_005fDEVSYS-_0028system-property_0029-2399"></a>if set to <code>yes</code>, the runtime system will try to start a development
+system, as described above. 
+<br><dt><code>SP_ATTACH_SPIDER</code><dd><a name="index-SP_005fATTACH_005fSPIDER-_0028system-property_0029-2400"></a>if set to <code>yes</code>, has the same effect as <code>SP_USE_DEVSYS=yes</code>
+and in addition tries to attach to the SICStus Prolog IDE (SPIDER). You
+have to tell SPIDER to &lsquo;<samp><span class="samp">Attach to Prolog Process</span></samp>&rsquo;, i.e. listen for
+an incoming connection. This command is available from the SICStus
+top-level view menu in SPIDER. 
+<br><dt><code>SP_DEVSYS_NO_TRACE</code><dd><a name="index-SP_005fDEVSYS_005fNO_005fTRACE-_0028system-property_0029-2401"></a>if set to <code>yes</code>, will prevent the runtime system from calling
+<code>trace/0</code> at initialization. This is useful if you prefer to manually
+enable the debugger later from your C or Prolog code. 
+<br><dt><code>SP_ALLOW_DEVSYS</code><dd><a name="index-SP_005fALLOW_005fDEVSYS-_0028system-property_0029-2402"></a>if set to <code>no</code>, will prevent the runtime system from starting as a
+development system. This may be useful in order to prevent inheriting
+<code>SP_USE_DEVSYS</code> or <code>SP_ATTACH_SPIDER</code> from the
+environment. The same effect can be obtained by passing the option
+<samp><span class="option">--no-allow-devsys</span></samp> to <samp><span class="command">spld</span></samp> when building the runtime system. 
+<br><dt><code>SP_LICENSE_FILE</code><dd><a name="index-SP_005fLICENSE_005fFILE-_0028system-property_0029-2403"></a><dt><code>SP_LICENSE_SITE</code><dd><a name="index-SP_005fLICENSE_005fSITE-_0028system-property_0029-2404"></a><dt><code>SP_LICENSE_CODE</code><dd><a name="index-SP_005fLICENSE_005fCODE-_0028system-property_0029-2405"></a><dt><code>SP_LICENSE_EXPIRATION</code><dd><a name="index-SP_005fLICENSE_005fEXPIRATION-_0028system-property_0029-2406"></a>These are described in <a href="Locating-the-License-Information.html#Locating-the-License-Information">Locating the License Information</a>, above. 
+</dl>
+
+   <p>If your C code calls <code>SP_initialize()</code> you can pass these system
+properties in the call to <code>SP_initialize()</code>
+(see <a href="cpg_002dref_002dSP_005finitialize.html#cpg_002dref_002dSP_005finitialize">SP_initialize</a>). You can also pass
+these options to <code>SP_initialize()</code> by setting the <code>SPLD_DSP</code> C
+macro. See the definition of <code>SP_initialize()</code> in the header file
+<samp><span class="file">sictus/sicstus.h</span></samp> for details.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Customizing-the-Debugged-Runtime-System.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Customizing-the-Debugged-Runtime-System.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

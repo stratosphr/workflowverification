@@ -1,0 +1,115 @@
+<html lang="en">
+<head>
+<title>mpg-ref-numbervars - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dnumber_005fcodes.html#mpg_002dref_002dnumber_005fcodes" title="mpg-ref-number_codes">
+<link rel="next" href="mpg_002dref_002don_005fexception.html#mpg_002dref_002don_005fexception" title="mpg-ref-on_exception">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-numbervars"></a>
+<a name="mpg_002dref_002dnumbervars"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002don_005fexception.html#mpg_002dref_002don_005fexception">mpg-ref-on_exception</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dnumber_005fcodes.html#mpg_002dref_002dnumber_005fcodes">mpg-ref-number_codes</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.144 <code>numbervars/3</code> &nbsp;<!-- /@w --> <dfn>[meta_logic]</dfn></h4>
+
+<p><a name="index-numbervars_002f3-_0028built_002din_002c-ref-page_0029-4741"></a><a name="index-numbervars_002f3-_0028built_002din_002c-ref-page_0029-4742"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>numbervars(</code><var>+Term</var><code>, </code><var>+FirstVar</var><code>, </code><var>-LastVar</var><code>)</code>
+
+   <p>instantiates  each of the variables in <var>Term</var> to a term of the form
+<code>'$VAR'(</code><var>N</var><code>)</code>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Term</var><dd><dfn>term</dfn>
+
+     <br><dt><var>FirstVar</var><dd><dfn>integer</dfn>, must be nonvar
+
+     <br><dt><var>LastVar</var><dd><dfn>integer</dfn>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p><var>FirstVar</var> is used as the representation of <var>N</var> for the first variable
+in <var>Term</var> (starting from the left).  The second distinct variable
+in <var>Term</var> is given a representation of <var>N</var> satisfying &ldquo;<var>N</var> is
+<var>FirstVar</var>+1&rdquo;; the third distinct variable gets the representation
+<var>FirstVar</var>+2, and so on.  The last variable in <var>Term</var> has the
+representation <var>LastVar</var>-1.
+
+   <p>Notice that in the example below, <code>write_canonical/1</code> is used rather than
+<code>writeq/1</code>.  This is because <code>writeq/1</code> treats terms of the
+form <code>'$VAR'(</code><var>N</var><code>)</code> specially; it writes &lsquo;<samp><span class="samp">A</span></samp>&rsquo; if
+<var>N</var>=0, &lsquo;<samp><span class="samp">B</span></samp>&rsquo; if <var>N</var>=1, <small class="dots">...</small>&lsquo;<samp><span class="samp">Z</span></samp>&rsquo; if <var>N</var>=25,
+&lsquo;<samp><span class="samp">A1</span></samp>&rsquo; if <var>N</var>=26, etc.  That is why, if you type the goal in
+the example below, the variable bindings will also be printed out as
+follows:
+
+<pre class="example">     Term = foo(W,W,X),
+     A = W,
+     B = X
+</pre>
+   <h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>FirstVar</var> is uninstantiated
+
+     <br><dt><code>type_error</code><dd><var>FirstVar</var> is not an integer
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     | ?- <kbd>Term = foo(A, A, B), numbervars(Term, 22, _), write_canonical(Term).</kbd>
+     foo('$VAR'(22),'$VAR'(22),'$VAR'(23))
+</pre>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlte_002danv.html#ref_002dlte_002danv">ref-lte-anv</a>,
+<!-- [PM] 4.3 Why would listing be relevant (except for the old bug that -->
+<!-- it wrote '$VAR'(N) as a variable)? -->
+<!-- @code{listing/[0,1]}, -->
+<code>write_term/[2,3]</code>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dnumbervars.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dnumbervars.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

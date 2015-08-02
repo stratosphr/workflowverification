@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+<title>lib-trees - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Prolog-Library.html#The-Prolog-Library" title="The Prolog Library">
+<link rel="prev" href="lib_002dtimeout.html#lib_002dtimeout" title="lib-timeout">
+<link rel="next" href="lib_002dtypes.html#lib_002dtypes" title="lib-types">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="lib-trees"></a>
+<a name="lib_002dtrees"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="lib_002dtypes.html#lib_002dtypes">lib-types</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="lib_002dtimeout.html#lib_002dtimeout">lib-timeout</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Prolog-Library.html#The-Prolog-Library">The Prolog Library</a>
+<hr>
+</div>
+
+<h3 class="section">10.40 Updatable Binary Trees&mdash;<code>library(trees)</code></h3>
+
+<p>This libary module provides updatable binary trees with logarithmic access time. 
+Exported predicates:
+
+     <dl>
+<dt><code>gen_label(</code><var>?Index</var><code>, </code><var>+Tree</var><code>, </code><var>?Value</var><code>)</code><dd><a name="index-gen_005flabel_002f3-_0028trees_0029-4105"></a><a name="index-gen_005flabel_002f3-_0028trees_0029-4106"></a>
+assumes that Tree is a proper binary tree, and is true when <var>Value</var>
+is the <var>Index-th</var> element in <var>Tree</var>.  Can be used to enumerate
+all <var>Values</var> by ascending <var>Index</var>. 
+<br><dt><code>get_label(</code><var>+Index</var><code>, </code><var>+Tree</var><code>, </code><var>-Label</var><code>)</code><dd><a name="index-get_005flabel_002f3-_0028trees_0029-4107"></a><a name="index-get_005flabel_002f3-_0028trees_0029-4108"></a>
+treats the tree as an array of <var>N</var> elements and returns the <var>Index-th</var>. 
+If <var>Index &lt; 1</var> or <var>&gt; N</var> it simply fails, there is no such element.  As
+Tree need not be fully instantiated, and is potentially unbounded,
+we cannot enumerate <var>Indices</var>. 
+<br><dt><code>list_to_tree(</code><var>+List</var><code>, </code><var>-Tree</var><code>)</code><dd><a name="index-list_005fto_005ftree_002f2-_0028trees_0029-4109"></a><a name="index-list_005fto_005ftree_002f2-_0028trees_0029-4110"></a>
+takes a given <var>List</var> of <var>N</var> elements and constructs a binary <var>Tree</var>
+where <code>get_label(</code><var>K</var><code>, </code><var>Tree</var><code>, </code><var>Lab</var><code>)</code> &lt;=&gt; <var>Lab</var> is the <var>Kth</var> element of <var>List</var>. 
+<br><dt><code>map_tree(</code><var>:Pred</var><code>, </code><var>+OldTree</var><code>, </code><var>?NewTree</var><code>)</code><dd><a name="index-map_005ftree_002f3-_0028trees_0029-4111"></a><a name="index-map_005ftree_002f3-_0028trees_0029-4112"></a>
+is true when <var>OldTree</var> and <var>NewTree</var> are binary trees of the same shape
+and <var>Pred(Old,New)</var> is true for corresponding elements of the two trees. 
+<br><dt><code>put_label(</code><var>+Index</var><code>, </code><var>+OldTree</var><code>, </code><var>-Label</var><code>, </code><var>-NewTree</var><code>)</code><dd><a name="index-put_005flabel_002f_005b4_002c5_005d-_0028trees_0029-4113"></a><a name="index-put_005flabel_002f_005b4_002c5_005d-_0028trees_0029-4114"></a>
+constructs a new tree the same shape as the old which moreover has the
+same elements except that the <var>Index-th</var> one is <var>Label</var>.  Unlike the
+"arrays" of <code>library(arrays)</code>, <var>OldTree</var> is not modified and you can hang on to
+it as long as you please.  Note that <var>O(lg N)</var> new space is needed. 
+<br><dt><code>put_label(</code><var>+Index</var><code>, </code><var>+OldTree</var><code>, </code><var>-OldLabel</var><code>, </code><var>-NewTree</var><code>, </code><var>+NewLabel</var><code>)</code><dd>is true when <var>OldTree</var> and <var>NewTree</var> are trees of the same shape having
+the same elements except that the <var>Index-th</var> element of <var>OldTree</var> is
+<var>OldLabel</var> and the <var>Index-th</var> element of <var>NewTree</var> is <var>NewLabel</var>.  You can
+swap the <var>&lt;Tree,Label&gt;</var> argument pairs if you like, it makes no difference. 
+<br><dt><code>tree_size(</code><var>+Tree</var><code>, </code><var>-Size</var><code>)</code><dd><a name="index-tree_005fsize_002f2-_0028trees_0029-4115"></a><a name="index-tree_005fsize_002f2-_0028trees_0029-4116"></a>
+calculates the number of elements in the <var>Tree</var>.  All trees made by
+<code>list_to_tree/2</code> that are the same size have the same shape. 
+<br><dt><code>tree_to_list(</code><var>+Tree</var><code>, </code><var>-List</var><code>)</code><dd><a name="index-tree_005fto_005flist_002f2-_0028trees_0029-4117"></a><a name="index-tree_005fto_005flist_002f2-_0028trees_0029-4118"></a>
+is the converse operation to <code>list_to_tree/2</code>.  Any mapping or checking
+operation can be done by converting the tree to a list, mapping or
+checking the list, and converting the result, if any, back to a tree. 
+It is also easier for a human to read a list than a tree, as the
+order in the tree goes all over the place. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dtrees.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dtrees.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

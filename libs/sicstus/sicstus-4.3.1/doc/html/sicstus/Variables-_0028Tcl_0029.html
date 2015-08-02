@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+<title>Variables (Tcl) - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Tcl.html#Tcl" title="Tcl">
+<link rel="prev" href="Syntax-_0028Tcl_0029.html#Syntax-_0028Tcl_0029" title="Syntax (Tcl)">
+<link rel="next" href="Commands.html#Commands" title="Commands">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Variables-(Tcl)"></a>
+<a name="Variables-_0028Tcl_0029"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Commands.html#Commands">Commands</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Syntax-_0028Tcl_0029.html#Syntax-_0028Tcl_0029">Syntax (Tcl)</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Tcl.html#Tcl">Tcl</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.37.2.2 Variables</h5>
+
+<p>This has been dealt with implicitly above. 
+A variable has a name and a representation.
+A name can be any string whatsoever, as can its representation.
+
+   <p>For example,
+
+<pre class="example">     set "Old King Cole" "merry soul"
+</pre>
+   <p class="noindent">sets the representation of the variable named <code>Old King Cole</code> to the representation
+<code>merry soul</code>. Variable names can also be numbers:
+
+<pre class="example">     set 123 "one two three"
+</pre>
+   <p class="noindent">sets the variable with name <code>123</code> to the representation <code>one two
+three</code>.  In general, it is better to use the usual conventions &mdash; start
+with a letter then follow with a combination of letters, digits, and
+underscores &mdash; when giving variables names to avoid confusion.
+
+   <p>Array variables are also available in Tcl. These are denoted by
+an array name followed by an array index enclosed in round brackets. 
+As an example:
+
+<pre class="example">     set fred(one) 1
+     set fred(two) 2
+</pre>
+   <p class="noindent">will set the variable <code>fred(one)</code> to the representation <code>1</code> and
+<code>fred(two)</code> to the representation <code>2</code>.
+
+   <p>Tcl arrays are associative arrays in that both the array name and the
+array index can be arbitrary strings. This also makes multidimensional arrays
+possible if the index contains a comma:
+
+<pre class="example">     set fred(one,two) 12
+</pre>
+   <p>It is cheating in that the array is not stored as a multidimensional array
+with a pair of indices, but as a linear array with a single index that happens
+to contain a comma.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Variables-_0028Tcl_0029.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Variables-_0028Tcl_0029.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,131 @@
+<html lang="en">
+<head>
+<title>mpg-ref-module - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dmode.html#mpg_002dref_002dmode" title="mpg-ref-mode">
+<link rel="next" href="mpg_002dref_002dmultifile.html#mpg_002dref_002dmultifile" title="mpg-ref-multifile">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-module"></a>
+<a name="mpg_002dref_002dmodule"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dmultifile.html#mpg_002dref_002dmultifile">mpg-ref-multifile</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dmode.html#mpg_002dref_002dmode">mpg-ref-mode</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.124 <code>module/[2,3]</code> &nbsp;<!-- /@w --> <dfn>[declaration]</dfn></h4>
+
+<p><a name="index-module_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029-4700"></a><a name="index-module_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029-4701"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- module(</code><var>+ModuleName</var><code>, </code><var>+PublicPred</var><code>)</code>.
+
+   <p><code>:- module(</code><var>+ModuleName</var><code>, </code><var>+PublicPred</var><code>, </code><var>+Options</var><code>)</code>.
+
+   <p>Declares the file in which the declaration appears to be a
+module-file named <var>ModuleName</var>, with public predicates
+<var>PublicPred</var>. Must appear as the first term in the file.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>ModuleName</var><dd><dfn>atom</dfn>, must be nonvar
+
+     <br><dt><var>PublicPred</var><dd><dfn>list of simple_pred_spec</dfn>, must be ground
+
+     <p>List of predicate specifications of the form <var>Name/Arity</var>.
+
+     <br><dt><var>Options</var><dd><dfn>list of term</dfn>, must be ground
+
+     <p>A list of zero or more options of the form:
+
+          
+<a name="index-hidden_002f1-_0028module_002f3-option_0029-4702"></a>
+<dl><dt><code>hidden(</code><var>Boolean</var><code>)</code><dd><var>Boolean</var> is <code>false</code> (the default) or <code>true</code>.  In the
+latter case, tracing of the predicates of the module is
+disabled (although spypoints can be set), and no source
+information is generated at compile time. 
+</dl>
+     </dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>The definition of a module is not limited to a single file, because a
+module-file may contain commands to load other files.  If <samp><span class="file">myfile</span></samp>,
+a module-file for <var>ModuleName</var>, contains an embedded command to
+load <samp><span class="file">yourfile</span></samp> and if <samp><span class="file">yourfile</span></samp> is not itself a module-file, then
+all the predicates in <samp><span class="file">yourfile</span></samp> are loaded into module
+<var>ModuleName</var>.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Exceptions in the context of loading code are printed as error messages.
+
+     <dl>
+<dt><code>instantiation_error</code><dd>Declaration not ground.
+
+     <br><dt><code>type_error</code><dd>An argument has the wrong type.
+
+     <br><dt><code>domain_error</code><dd>Some arity is an integer &lt; 0, or invalid option given.
+
+     <br><dt><code>representation_error</code><dd>Some arity is an integer &gt; 255.
+
+     <br><dt><code>context_error</code><dd>Declaration appeared in a goal, or not first in the file being loaded.
+
+     <br><dt><code>permission_error</code><dd>Declaration appeared as a clause. 
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<p>A module declaration from the Prolog library:
+
+<pre class="example">     :- module(varnumbers, [
+     	numbervars/1,
+     	varnumbers/2,
+     	varnumbers/3
+        ],[
+     	hidden(true)
+        ]).
+</pre>
+   <h4 class="subheading">See Also</h4>
+
+<p><a href="Module-Declarations.html#Module-Declarations">Module Declarations</a>, <a href="ref_002dmod.html#ref_002dmod">ref-mod</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dmodule.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dmodule.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+<title>Threads - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Multiple-SICStus-Runtimes.html#Multiple-SICStus-Runtimes" title="Multiple SICStus Runtimes">
+<link rel="prev" href="Foreign-Resources-and-Multiple-SICStus-Runtimes.html#Foreign-Resources-and-Multiple-SICStus-Runtimes" title="Foreign Resources and Multiple SICStus Runtimes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Threads"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Foreign-Resources-and-Multiple-SICStus-Runtimes.html#Foreign-Resources-and-Multiple-SICStus-Runtimes">Foreign Resources and Multiple SICStus Runtimes</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Multiple-SICStus-Runtimes.html#Multiple-SICStus-Runtimes">Multiple SICStus Runtimes</a>
+<hr>
+</div>
+
+<h3 class="section">8.4 Multiple Runtimes and Threads</h3>
+
+<p>Perhaps the primary reason to use more than one SICStus runtime in a
+process is to have each runtime running in a separate thread. To this
+end, a few mutual exclusion primitives are available. See <a href="Operating-System-Services.html#Operating-System-Services">Operating System Services</a> for details on mutual exclusion locks.
+
+   <blockquote>
+<strong>Please note</strong>: the SICStus runtime is not thread safe in
+general. See <a href="Calling-Prolog-Asynchronously.html#Calling-Prolog-Asynchronously">Calling Prolog Asynchronously</a> for ways to safely
+interact with a running SICStus from arbitrary threads. 
+</blockquote>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Threads.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Threads.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

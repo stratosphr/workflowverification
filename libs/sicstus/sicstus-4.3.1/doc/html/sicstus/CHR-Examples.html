@@ -1,0 +1,143 @@
+<html lang="en">
+<head>
+<title>CHR Examples - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dchr.html#lib_002dchr" title="lib-chr">
+<link rel="prev" href="CHR-Debugging.html#CHR-Debugging" title="CHR Debugging">
+<link rel="next" href="CHR-Guidelines.html#CHR-Guidelines" title="CHR Guidelines">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CHR-Examples"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CHR-Guidelines.html#CHR-Guidelines">CHR Guidelines</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="CHR-Debugging.html#CHR-Debugging">CHR Debugging</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dchr.html#lib_002dchr">lib-chr</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.8.5 Examples</h4>
+
+<p>Here are two example constraint solvers written in CHR.
+
+     <ol type=1 start=1>
+<li>The program below defines a solver with one constraint,
+<code>leq/2</code>, which is a less-than-or-equal constraint, also known as
+a partial order constraint.
+
+     <pre class="example">          :- module(leq,[leq/2]).
+          :- use_module(library(chr)).
+          
+          :- chr_constraint leq/2.
+          reflexivity   leq(X,X) &lt;=&gt; true.
+          antisymmetry  leq(X,Y), leq(Y,X) &lt;=&gt; X = Y.
+          idempotence   leq(X,Y) \ leq(X,Y) &lt;=&gt; true.
+          transitivity  leq(X,Y), leq(Y,Z) ==&gt; leq(X,Z).
+</pre>
+     <p>When the above program is loaded, you can call the <code>leq/2</code> constraint in a query, e.g.:
+
+     <pre class="example">          | ?- <kbd>leq(X,Y), leq(Y,Z).</kbd>
+          leq(X,Y),
+          leq(X,Z),
+          leq(Y,Z) ?
+</pre>
+     <!-- When the query succeeds, the SWI-Prolog top-level prints the content -->
+     <!-- of the CHR constraint store and displays the bindings generate during -->
+     <!-- the query. Some of the query variables may have been bound to -->
+     <!-- attributed variables, as you see in the above example. -->
+     <li>The program below implements a simple finite domain
+constraint solver.
+
+     <pre class="example">          :- module(dom,[dom/2]).
+          :- use_module(library(chr)).
+          :- use_module(library(sets), [intersection/3]).
+          
+          :- chr_constraint dom(?int,+list(int)).
+          :- chr_type list(T) ---&gt; [] ; [T|list(T)].
+          
+          dom(X,[]) &lt;=&gt; fail.
+          dom(X,[Y]) &lt;=&gt; X = Y.
+          dom(X,L) &lt;=&gt; nonvar(X) | memberchk(X,L).
+          dom(X,L1), dom(X,L2) &lt;=&gt; intersection(L1,L2,L3), dom(X,L3).
+</pre>
+     <p>When the above program is loaded, you can call the <code>dom/2</code> constraint in a query, e.g.:
+
+     <pre class="example">          | ?- <kbd>dom(A,[1,2,3]), dom(A,[3,4,5]).</kbd>
+          A = 3
+</pre>
+     </ol>
+
+   <p>Finally, Martin Keser's WebCHR package at
+<a href="http://chr.informatik.uni-ulm.de/~webchr/">http://chr.informatik.uni-ulm.de/~webchr/</a> contains more
+than 40 example programs for SICStus 4, complete with documentation
+and example queries.
+
+<!-- @node CHR Backwards Compatibility -->
+<!-- @subsection Backwards Compatibility -->
+<!-- There are small differences between the current K.U.Leuven CHR system -->
+<!-- in SWI-Prolog, older versions of the same system and SICStus' CHR system. -->
+<!-- The current system maps old syntactic elements onto new ones and ignores a -->
+<!-- number of no longer required elements. However, for each a {\em deprecated} -->
+<!-- warning is issued. You are strongly urged to replace or remove deprecated -->
+<!-- features. -->
+<!-- Besides differences in available options and pragmas, the following differences -->
+<!-- should be noted: -->
+<!-- \begin{itemlist} -->
+<!-- \item [The \predref{constraints}{1} declaration] -->
+<!-- This declaration is deprecated. It has been replaced with the -->
+<!-- \predref{chr_constraint}{1} declaration. -->
+<!-- \item [The \predref{option}{2} declaration] -->
+<!-- This declaration is deprecated. It has been replaced with the -->
+<!-- \predref{chr_option}{2} declaration. -->
+<!-- \item [The \predref{handler}{1} declaration] -->
+<!-- In SICStus every CHR module requires a \predref{handler}{1} -->
+<!-- declaration declaring a unique handler name. This declaration is valid -->
+<!-- syntax in SWI-Prolog, but will have no effect. A warning will be given -->
+<!-- during compilation. -->
+<!-- \item [The \predref{rules}{1} declaration] -->
+<!-- In SICStus, for every CHR module it is possible to only enable a subset -->
+<!-- of the available rules through the \predref{rules}{1} declaration. The -->
+<!-- declaration is valid syntax in SWI-Prolog, but has no effect. A -->
+<!-- warning is given during compilation. -->
+<!-- \item [Guard bindings] -->
+<!-- The @code{check_guard_bindings} option only turns invalid calls to -->
+<!-- unification into failure. In SICStus this option does more: it intercepts -->
+<!-- instantiation errors from Prolog built-ins such as \predref{is}{2} and -->
+<!-- turns them into failure. In SWI-Prolog, we don't go this far, as we like -->
+<!-- to separate concerns more. The CHR comiler is aware of the CHR code, the Prolog -->
+<!-- system and programmer should be aware of the appropriate meaning of the -->
+<!-- Prolog goals used in guards and bodies of CHR rules. -->
+<!-- \end{itemlist} -->
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CHR-Examples.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CHR-Examples.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

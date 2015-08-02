@@ -1,0 +1,105 @@
+<html lang="en">
+<head>
+<title>lib-varnumbers - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Prolog-Library.html#The-Prolog-Library" title="The Prolog Library">
+<link rel="prev" href="lib_002dugraphs.html#lib_002dugraphs" title="lib-ugraphs">
+<link rel="next" href="lib_002dwgraphs.html#lib_002dwgraphs" title="lib-wgraphs">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="lib-varnumbers"></a>
+<a name="lib_002dvarnumbers"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="lib_002dwgraphs.html#lib_002dwgraphs">lib-wgraphs</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="lib_002dugraphs.html#lib_002dugraphs">lib-ugraphs</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Prolog-Library.html#The-Prolog-Library">The Prolog Library</a>
+<hr>
+</div>
+
+<h3 class="section">10.43 An Inverse of numbervars/3&mdash;<code>library(varnumbers)</code></h3>
+
+<p><a name="index-numbervars-4169"></a>The built-in predicate <code>numbervars/3</code> makes a term
+ground by binding the variables in it to subterms of the form <code>'$VAR'(</code><var>N</var><code>)</code>
+where <var>N</var> is an integer.  Most of the calls to <code>numbervars/3</code> look like
+<pre class="example">         numbervars(Term, 0, _)
+</pre>
+   <p>which can be abbreviated to
+<pre class="example">         numbervars(Term)
+</pre>
+   <p>if you use this package.
+
+   <p><code>varnumbers/3</code> is a partial inverse to <code>numbervars/3</code>:
+<pre class="example">         varnumbers(Term, N0, Copy)
+</pre>
+   <p>unifies <var>Copy</var> with a copy of <var>Term</var> in which subterms of the form
+<code>'$VAR'(</code><var>N</var><code>)</code> where <var>N</var> is an integer not less than <var>N0</var> (that is, subterms
+which might have been introduced by <code>numbervars/3</code> with second argument
+<var>N0</var>) have been consistently replaced by new variables.  Since 0 is the
+usual second argument of <code>numbervars/3</code>, there is also
+<pre class="example">         varnumbers(Term, Copy)
+</pre>
+   <p>This provides a facility whereby a Prolog-like data base can be
+kept as a term.  For example, we might represent <code>append/3</code> thus:
+<pre class="example">         Clauses = [
+             (append([], '$VAR'(0), '$VAR'(0)) :- true),
+             (append(['$VAR'(0)|'$VAR'(1), '$VAR'(2), ['$VAR'(0)|'$VAR(3)]) :-
+                 append('$VAR'(1), '$VAR'(2), '$VAR'(3)))
+         ]
+</pre>
+   <p>and we might access clauses from it by doing
+<pre class="example">         prove(Goal, Clauses) :-
+                 member(Clause, Clauses),
+                 varnumbers(Clause, (Goal:-Body)),
+                 prove(Goal).
+</pre>
+   <!-- I'm afraid this has been thrown together in an hour.  More work needs -->
+<!-- to be done to make it easy to follow.  It has, however, been tested. -->
+   <p>Exported predicates:
+
+     <dl>
+<dt><code>numbervars(</code><var>+Term</var><code>)</code><dd><a name="index-numbervars_002f1-_0028varnumbers_0029-4170"></a><a name="index-numbervars_002f1-_0028varnumbers_0029-4171"></a>
+makes <var>Term</var> ground by binding variables to subterms <code>'$VAR'(</code><var>N</var><code>)</code> with
+values of <var>N</var> ranging from 0 up. 
+<br><dt><code>varnumbers(</code><var>+Term</var><code>, </code><var>-Copy</var><code>)</code><dd><a name="index-varnumbers_002f_005b2_002c3_005d-_0028varnumbers_0029-4172"></a><a name="index-varnumbers_002f_005b2_002c3_005d-_0028varnumbers_0029-4173"></a>xo
+succeeds when <var>Term</var> was a term producing by calling <code>numbervars(</code><var>Term</var><code>)</code>
+and <var>Copy</var> is a copy of <var>Term</var> with such subterms replaced by variables. 
+<br><dt><code>varnumbers(</code><var>+Term</var><code>, </code><var>+N0</var><code>, </code><var>-Copy</var><code>)</code><dd>succeeds when <var>Term</var> was a term produced by calling
+  <code>numbervars(</code><var>Term</var><code>, </code><var>N0</var><code>, </code><var>N</var><code>)</code>
+(so that all subterms <code>'$VAR'(</code><var>X</var><code>)</code> have <code>integer(</code><var>X</var><code>)</code>, <var>X</var><code> &gt;= </code><var>N0</var>)
+and <var>Copy</var> is a copy of <var>Term</var> with such subterms replaced by variables. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dvarnumbers.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dvarnumbers.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

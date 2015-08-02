@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+<title>mpg-ref-aty-ety - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dref_002daty.html#mpg_002dref_002daty" title="mpg-ref-aty">
+<link rel="prev" href="mpg_002dref_002daty_002dsim.html#mpg_002dref_002daty_002dsim" title="mpg-ref-aty-sim">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-aty-ety"></a>
+<a name="mpg_002dref_002daty_002dety"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002daty_002dsim.html#mpg_002dref_002daty_002dsim">mpg-ref-aty-sim</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dref_002daty.html#mpg_002dref_002daty">mpg-ref-aty</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">11.1.4.2 Extended Types</h5>
+
+<p>Following is a list of argument types that are defined in terms of
+the simple argument types. This is a formal description of the
+types/domains used in the Arguments sections of the reference pages
+for the built-ins. The rules are given in BNF (Backus-Naur form).
+
+   <p><table summary=""><tr align="left"><td valign="top" width="25%"><a name="index-stream_005fobject-_0028argument-type_0029-4315"></a><var>stream_object</var> </td><td valign="top" width="75%">::= <var>term</var> <span class="roman">{as defined in <a href="ref_002diou_002dsfh_002dsob.html#ref_002diou_002dsfh_002dsob">ref-iou-sfh-sob</a>}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-term-_0028argument-type_0029-4316"></a><var>term</var> </td><td valign="top" width="75%">::= <span class="roman">{any Prolog term}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-list-of-Type-_0028argument-type_0029-4317"></a><var>list of Type</var> </td><td valign="top" width="75%">::= <code>[]</code> | <code>[</code><var>Type</var><code>|</code><var>list of Type</var><code>]</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-var-or-Type-_0028argument-type_0029-4318"></a><var>var or Type</var> </td><td valign="top" width="75%">::= <var>var</var> | <var>Type</var>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-one-of-List-_0028argument-type_0029-4319"></a><var>one of [Element|Rest]</var> </td><td valign="top" width="75%">::= <var>Element</var> | <var>one of Rest</var>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-arity-_0028argument-type_0029-4320"></a><var>arity</var> </td><td valign="top" width="75%">::= <span class="roman">{an </span><var>integer</var> <var>X</var><span class="roman"> in the range 0..255}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-byte-_0028argument-type_0029-4321"></a><var>byte</var> </td><td valign="top" width="75%">::= <span class="roman">{an </span><var>integer</var> <var>X</var><span class="roman"> in the range 0..255}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-char-_0028argument-type_0029-4322"></a><var>char</var> </td><td valign="top" width="75%">::= <span class="roman">{an </span><var>atom</var><span class="roman"> consisting of a single character}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-chars-_0028argument-type_0029-4323"></a><var>chars</var> </td><td valign="top" width="75%">::= <var>list of char</var>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-code-_0028argument-type_0029-4324"></a><var>code</var> </td><td valign="top" width="75%">::= <span class="roman">{an </span><var>integer</var> <var>X</var><span class="roman"> &gt;= 0}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-codes-_0028argument-type_0029-4325"></a><var>codes</var> </td><td valign="top" width="75%">::= <var>list of code</var>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-order-_0028argument-type_0029-4326"></a><var>order</var> </td><td valign="top" width="75%">::= <span class="roman">{an </span><var>atom</var><span class="roman">, one of </span><code>[&lt;,=,&gt;]</code><span class="roman">}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-pair-_0028argument-type_0029-4327"></a><var>pair</var> </td><td valign="top" width="75%">::= <var>term</var><code>-</code><var>term</var>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-simple_005fpred_005fspec-_0028argument-type_0029-4328"></a><var>simple_pred_spec</var> </td><td valign="top" width="75%">::= <var>atom</var><code>/</code><var>arity</var>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-pred_005fspec-_0028argument-type_0029-4329"></a><var>pred_spec</var> </td><td valign="top" width="75%">::= <var>simple_pred_spec</var> | <var>atom</var><code>:</code><var>pred_spec</var>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-pred_005fspec_005fforest-_0028argument-type_0029-4330"></a><var>pred_spec_forest</var> </td><td valign="top" width="75%">::= <code>[]</code> | <var>pred_spec</var>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>[</code><var>pred_spec_forest</var><code>|</code><var>pred_spec_forest</var><code>]</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <var>pred_spec_forest</var><code>,</code><var>pred_spec_forest</var>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-pred_005fspec_005ftree-_0028argument-type_0029-4331"></a><var>pred_spec_tree</var> </td><td valign="top" width="75%">::= <var>pred_spec</var> | <var>list of pred_spec</var>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-foreign_005fspec-_0028argument-type_0029-4332"></a><var>foreign_spec</var> </td><td valign="top" width="75%">::= <var>callable</var> <span class="roman">{all arguments being </span><var>foreign_arg</var><span class="roman">}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-foreign_005farg-_0028argument-type_0029-4333"></a><var>foreign_arg</var> </td><td valign="top" width="75%">::= <code>+</code><var>interf_arg_type</var> | <code>-</code><var>interf_arg_type</var> | <code>[-</code><var>interf_arg_type</var><code>]</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-interf_005farg_005ftype-_0028argument-type_0029-4334"></a><var>interf_arg_type</var> </td><td valign="top" width="75%">::= <code>integer</code> | <code>float</code> | <code>atom</code>
+<!-- [PM] had @code{string(@var{integer})} | -->
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>term</code> | <code>codes</code> | <code>string</code> | <code>address</code> | <code>address(</code><var>atom</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%"><span class="roman">{see the description in <a href="Conversions-between-Prolog-Arguments-and-C-Types.html#Conversions-between-Prolog-Arguments-and-C-Types">Conversions between Prolog Arguments and C Types</a>}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-file_005fspec-_0028argument-type_0029-4335"></a><var>file_spec</var> </td><td valign="top" width="75%">::= <var>atom</var> | <var>atom</var><code>(</code><var>file_spec</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><a name="index-expr-_0028argument-type_0029-4336"></a><var>expr</var> </td><td valign="top" width="75%">::= <span class="roman">{everything that is accepted as second argument to </span><code>is/2</code><span class="roman">;</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%"><span class="roman">see the description of arithmetic expressions in <a href="ref_002dari_002daex.html#ref_002dari_002daex">ref-ari-aex</a>.}</span>
+   <br></td></tr></table>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002daty_002dety.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002daty_002dety.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

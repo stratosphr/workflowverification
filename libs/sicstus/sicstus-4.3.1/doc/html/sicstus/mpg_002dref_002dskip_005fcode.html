@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+<title>mpg-ref-skip_code - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dskip_005fchar.html#mpg_002dref_002dskip_005fchar" title="mpg-ref-skip_char">
+<link rel="next" href="mpg_002dref_002dskip_005fline.html#mpg_002dref_002dskip_005fline" title="mpg-ref-skip_line">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-skip_code"></a>
+<a name="mpg_002dref_002dskip_005fcode"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dskip_005fline.html#mpg_002dref_002dskip_005fline">mpg-ref-skip_line</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dskip_005fchar.html#mpg_002dref_002dskip_005fchar">mpg-ref-skip_char</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.212 <code>skip_code/[1,2]</code></h4>
+
+<p><a name="index-skip_005fcode_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4934"></a><a name="index-skip_005fcode_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4935"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>skip_code(</code><var>+Code</var><code>)</code>
+
+   <p><code>skip_code(</code><var>+Stream</var><code>, </code><var>+Code</var><code>)</code>
+
+   <p>read up to and including the first occurrence of <var>Code</var> on the
+current input stream or on the input stream <var>Stream</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Stream</var><dd><dfn>stream_object</dfn>, must be ground
+
+     <p>A valid input <em>text</em> stream, defaults to the current input stream.
+
+     <br><dt><var>Code</var><dd><dfn>code</dfn>
+</dl>
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Stream errors (see <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>), plus:
+
+     <dl>
+<dt><code>permission_error</code><dd>Trying to read beyond end of <var>Stream</var>
+
+     <br><dt><code>representation_error</code><dd><var>Code</var> is not a <dfn>code</dfn>
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002diou_002dcin.html#ref_002diou_002dcin">ref-iou-cin</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dskip_005fcode.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dskip_005fcode.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

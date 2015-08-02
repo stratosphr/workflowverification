@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+<title>Customizing spld - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Application-Builder.html#The-Application-Builder" title="The Application Builder">
+<link rel="next" href="All_002din_002done-Executables.html#All_002din_002done-Executables" title="All-in-one Executables">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Customizing-spld"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="All_002din_002done-Executables.html#All_002din_002done-Executables">All-in-one Executables</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Application-Builder.html#The-Application-Builder">The Application Builder</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">6.7.3.1 Customizing <samp><span class="command">spld</span></samp></h5>
+
+<p>The <samp><span class="command">spld</span></samp> tool reads a configuration file at start-up that
+contains default values for many configurable parameters. It is
+sometimes useful to modify these in order to adapt to local variations.
+
+   <p>The following methods can be used also with the <samp><span class="command">splfr</span></samp> command,
+<a href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker">The Foreign Resource Linker</a>.
+
+   <p>There are two methods
+     <ul>
+<li>Override some parameters with <samp><span class="option">--conf</span></samp>
+<var>VAR</var>=<var>VALUE</var>.
+
+     <p>This is useful when only a few parameters need to be changed, e.g. the
+C compiler. You can override multiple parameters by specified
+<samp><span class="option">--conf</span></samp> more than once.
+
+     <p>For instance, to use a non-default C compiler you can pass
+<samp><span class="command">--conf CC=/home/joe/bin/mycc</span></samp>.
+
+     <p>The option <samp><span class="option">--conf</span></samp> was introduced in release 4.0.3.
+
+     <li>Use a modified configuration file with <samp><span class="option">--config</span></samp>=<var>File</var>.
+
+     <p>It may sometimes be convenient to use a separate, possibly modified,
+configuration file. This should seldom be needed, use <samp><span class="option">--conf</span></samp>
+instead.
+
+     <!-- The @command{spld} tool is implemented as a Perl script and can be -->
+     <!-- customized in order to adapt to local variations. @emph{Don't attempt -->
+     <!-- this unless you know what you are doing}.  Customization is done by -->
+     <!-- editing their common configuration file -->
+     <!-- @code{spconfig-@var{version}}. Follow these instructions: -->
+     <p>To use a modified configuration file, follow these instructions:
+
+          <ol type=1 start=1>
+<li>Locate the configuration file <code>spconfig-</code><var>version</var>. It should
+be located in the same directory as <samp><span class="command">spld</span></samp>. 
+<li>Make a copy for <code>spconfig-</code><var>version</var>; let's call it
+<code>hacked_spld.config</code>. Don't edit the original file. 
+<li>The configuration file contains lines on the form <code>CFLAGS=-g
+-O2</code>. Edit these according to your needs. Don't add or remove any
+options. 
+<li>You may now use the modified <code>spconfig-</code><var>version</var> together with
+<samp><span class="command">spld</span></samp> like this:
+          <pre class="example">               % <kbd>spld [...] --config=/path/to/hacked_spld.config</kbd>
+</pre>
+          <li>Replace <samp><span class="file">/path/to</span></samp> with the actual path to the hacked configuration
+file.
+          </ol>
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Customizing-spld.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Customizing-spld.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

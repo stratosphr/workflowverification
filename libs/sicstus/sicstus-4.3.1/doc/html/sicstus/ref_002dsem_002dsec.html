@@ -1,0 +1,233 @@
+<html lang="en">
+<head>
+<title>ref-sem-sec - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsem.html#ref_002dsem" title="ref-sem">
+<link rel="prev" href="ref_002dsem_002dctr.html#ref_002dsem_002dctr" title="ref-sem-ctr">
+<link rel="next" href="ref_002dsem_002dcal.html#ref_002dsem_002dcal" title="ref-sem-cal">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-sem-sec"></a>
+<a name="ref_002dsem_002dsec"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dsem_002dcal.html#ref_002dsem_002dcal">ref-sem-cal</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dsem_002dctr.html#ref_002dsem_002dctr">ref-sem-ctr</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsem.html#ref_002dsem">ref-sem</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.2.4 Declarative and Procedural Semantics</h4>
+
+<p><a name="index-interpretation-of-clauses_002c-declarative-637"></a>
+<a name="index-clauses_002c-declarative-interpretation-of-638"></a>
+<a name="index-interpretation-of-clauses_002c-procedural-639"></a>
+<a name="index-clauses_002c-procedural-interpretation-of-640"></a>
+<a name="index-declarative-semantics-641"></a><a name="index-semantics_002c-declarative-642"></a>
+<a name="index-procedural-semantics-643"></a><a name="index-semantics_002c-procedural-644"></a>
+<a name="index-full_002dstop-645"></a>
+
+   <p>The semantics of definite clauses should be fairly clear from the
+informal  interpretations already given.  However, it is useful to have
+a precise definition.  The <dfn>declarative semantics</dfn> of  definite  clauses
+tells  us  which  goals  can  be  considered true according to a given
+program, and is defined recursively as follows:
+
+   <p><a name="index-clause_002c-instance-of-646"></a><a name="index-instance-of-clause-647"></a>
+
+   <blockquote>
+
+   <p>A goal is <dfn>true</dfn> if it is the head of some clause instance and
+     each  of  the  goals  (if  any)  in  the body of that clause
+     instance is true, where an <dfn>instance</dfn>
+     of a clause (or term) is
+     obtained  by  substituting,  for each of zero or more of its
+     variables, a new term for all occurrences of the variable. 
+</blockquote>
+
+   <p>For example, if a program contains the procedure for <code>concatenate/3</code>,
+declared in <a href="ref_002dsem_002dpro.html#ref_002dsem_002dpro">ref-sem-pro</a>, the declarative semantics tells us that
+(A) is true, because this goal is the head of a certain instance of
+the second clause (K) for <code>concatenate/3</code>, namely (B), and we
+know that the only goal in the body of this clause instance is true,
+because it is an instance of the unit clause that is the first clause
+for <code>concatenate/3</code>.
+<pre class="example">     concatenate([a], [b], [a,b])
+</pre>
+   <pre class="example">     concatenate([a], [b], [a,b]):-
+        concatenate([], [b], [b]).
+</pre>
+   <p><a name="index-procedural-semantics-648"></a><a name="index-semantics_002c-procedural-649"></a>
+Note that the declarative semantics makes  no  reference  to  the
+sequencing of goals within the body of a clause, nor to the sequencing
+of clauses within a program.  This sequencing information is, however,
+very  relevant  for  the  <dfn>procedural semantics</dfn> that Prolog gives to
+definite clauses.  The procedural semantics defines  exactly  how  the
+Prolog  system  will execute a goal, and the sequencing information is
+the means by which the Prolog programmer directs the system to execute
+his  program  in a sensible way.  The effect of executing a goal is to
+enumerate, one by one, its true instances.  Here is  an  informal
+definition of the procedural semantics.
+
+   <p><a name="index-backtracking-650"></a>
+<a name="index-unification-651"></a>
+
+   <blockquote>
+
+   <p>To <dfn>execute</dfn> a goal, the system searches forwards from the
+beginning of the program for the first clause whose head <dfn>matches</dfn>
+or <dfn>unifies</dfn> with the goal.  The <dfn>unification</dfn> process
+[Robinson 65] finds the most general common instance of the two terms,
+which is unique if it exists.  If a match is found, the matching
+clause instance is then <dfn>activated</dfn> by executing in turn, from
+left to right, each of the goals (if any) in its body.  If at any time
+the system fails to find a match for a goal, it <dfn>backtracks</dfn>; that
+is, it rejects the most recently activated clause, undoing any
+substitutions made by the match with the head of the clause.  Next it
+reconsiders the original goal that activated the rejected clause, and
+tries to find a subsequent clause that also matches the goal. 
+</blockquote>
+
+   <p>For example, if we execute the goal expressed by the query (A) we find
+that it matches the head of the second clause for <code>concatenate/3</code>, with
+<code>X</code> instantiated to <code>[a|X1]</code>. The new variable <code>X1</code> is constrained by the
+new goal produced, which is the recursive procedure call (B) and this
+goal matches the second clause, instantiating <code>X1</code> to <code>[b|X2]</code>, and
+yielding the new goal (C).
+<pre class="example">     | ?- <kbd>concatenate(X, Y, [a,b]).</kbd>&nbsp;<!-- /@w --> (A)
+</pre>
+   <pre class="example">     concatenate(X1, Y, [b])&nbsp;<!-- /@w --> (B)
+</pre>
+   <pre class="example">     concatenate(X2, Y, [])&nbsp;<!-- /@w --> (C)
+</pre>
+   <p>Now this goal will only match the first clause, instantiating both <code>X2</code>
+and <code>Y</code> to <code>[]</code>. Since there are no further goals to be executed, we have
+a solution
+<pre class="example">     X = [a,b]
+     Y = []
+</pre>
+   <p>That is, the following is a true instance of the original goal:
+<pre class="example">     concatenate([a,b], [], [a,b])
+</pre>
+   <p>If this solution is rejected, backtracking will generate  the  further
+solutions
+<pre class="example">     X = [a]
+     Y = [b]
+     
+     X = []
+     Y = [a,b]
+</pre>
+   <p class="noindent">in  that  order,  by  re-matching goals already solved once using the first
+clause of <code>concatenate/3</code>, against the second clause.
+
+   <p>Thus, in the procedural semantics, the set of clauses
+
+<pre class="example">     <var>H</var> :- <var>B1</var>, ..., <var>Bm</var>.
+     <var>H'</var> :- <var>B1'</var>, ..., <var>Bm'</var>.
+     ...
+</pre>
+   <p class="noindent"><a name="index-procedure-definition-652"></a><a name="index-definition_002c-procedure-653"></a>are regarded as a <dfn>procedure definition</dfn> for some predicate
+<var>H</var>, and in a query
+
+<pre class="example">     ?- <var>G1</var>, ..., <var>Gn</var>.
+</pre>
+   <p class="noindent"><a name="index-procedure-call-654"></a><a name="index-call_002c-procedure-655"></a><a name="index-computation-rule-656"></a><a name="index-rule_002c-computation-657"></a><a name="index-search-rule-658"></a><a name="index-rule_002c-search-659"></a><a name="index-unification-660"></a><a name="index-most-general-unifier-661"></a><a name="index-unifier_002c-most-general-662"></a>each <var>Gi</var> is regarded as a <dfn>procedure call</dfn>.  To execute a
+query, the system selects by its <dfn>computation rule</dfn> a
+goal, <var>Gj</var> say, and searches by its <dfn>search rule</dfn> a
+clause whose head matches <var>Gj</var>.  Matching is done by the
+<dfn>unification</dfn> algorithm (see [Robinson 65]), which computes the most
+general unifier, <dfn>mgu</dfn>, of <var>Gj</var> and <var>H</var>).  The
+<var>mgu</var> is unique if it exists.  If a match is found, the current
+query is <dfn>reduced</dfn> to a new query
+
+<pre class="example">     ?- (<var>G1</var>, ..., <var>Gj-1</var>, <var>B1</var>, ..., <var>Bm</var>, <var>Gj+1</var>, ..., <var>Gn</var>)<var>mgu</var>.
+</pre>
+   <p class="noindent">and a new cycle is started.  The execution terminates when the empty
+query has been produced.
+
+   <p><a name="index-backtracking-663"></a>If there is no matching head for a goal, the execution
+backtracks to the most recent successful match in an attempt to
+find an alternative match.  If such a match is found, an alternative new
+query is produced, and a new cycle is started.
+
+   <p>In SICStus Prolog, as in other Prolog systems, the search rule is
+simple: &ldquo;search forward from the beginning of the program&rdquo;.
+
+   <p>The computation rule in traditional Prolog systems is also simple:
+&ldquo;pick the leftmost goal of the current query&rdquo;.  However,
+SICStus Prolog and other modern implementations have a somewhat more
+complex computation rule &ldquo;pick the leftmost unblocked goal
+of the current query&rdquo;.
+
+   <p>A goal can be blocked on one ore more uninstantiated
+variables, and a variable may block several
+goals.  Thus binding a variable can cause
+blocked goals to become unblocked, and
+backtracking can cause currently unblocked goals to
+become blocked again.  Moreover, if the current query is
+
+<pre class="example">     ?- <var>G1</var>, ..., <var>Gj-1</var>, <var>Gj</var>, <var>Gj+1</var>, ..., <var>Gn</var>.
+</pre>
+   <p class="noindent">where <var>Gj</var> is the first unblocked goal, and matching
+<var>Gj</var> against a clause head causes several blocked
+goals in <var>G1</var>, <small class="dots">...</small>, <var>Gj-1</var> to become unblocked,
+these goals may become reordered.  The internal order of any
+two goals that were blocked on the <em>same</em>
+variable is retained, however.
+
+   <p><a name="index-floundering-664"></a>Another consequence is that a query may be derived consisting
+entirely of blocked goals.  Such a query is said to
+have <dfn>floundered</dfn>.  The top-level checks for this condition.  If
+detected, the outstanding blocked subgoals are printed on the
+standard error stream along with the answer substitution, to
+notify the user that the answer (s)he has got is really a speculative
+one, since it is only valid if the blocked goals can be
+satisfied.
+
+   <p>A goal is blocked if certain arguments are
+uninstantiated and its predicate definition is annotated
+with a matching block declaration (see <a href="Block-Declarations.html#Block-Declarations">Block Declarations</a>).  Goals of certain built-in predicates may
+also be blocked if their arguments are not sufficiently
+instantiated.
+
+   <p>When this mechanism is used, the control structure resembles that of
+coroutines, suspending and resuming different threads of control.  When
+a computation has left blocked goals behind, the situation
+is analogous to spawning a new suspended thread.  When a blocked
+goal becomes unblocked, the situation is analogous to
+temporarily suspending the current thread and resuming the thread to
+which the blocked goal belongs.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsem_002dsec.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsem_002dsec.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

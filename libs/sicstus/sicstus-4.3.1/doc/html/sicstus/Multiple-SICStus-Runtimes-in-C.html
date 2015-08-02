@@ -1,0 +1,80 @@
+<html lang="en">
+<head>
+<title>Multiple SICStus Runtimes in C - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Multiple-SICStus-Runtimes.html#Multiple-SICStus-Runtimes" title="Multiple SICStus Runtimes">
+<link rel="prev" href="Multiple-SICStus-Runtimes-in-Java.html#Multiple-SICStus-Runtimes-in-Java" title="Multiple SICStus Runtimes in Java">
+<link rel="next" href="Foreign-Resources-and-Multiple-SICStus-Runtimes.html#Foreign-Resources-and-Multiple-SICStus-Runtimes" title="Foreign Resources and Multiple SICStus Runtimes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Multiple-SICStus-Runtimes-in-C"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Foreign-Resources-and-Multiple-SICStus-Runtimes.html#Foreign-Resources-and-Multiple-SICStus-Runtimes">Foreign Resources and Multiple SICStus Runtimes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Multiple-SICStus-Runtimes-in-Java.html#Multiple-SICStus-Runtimes-in-Java">Multiple SICStus Runtimes in Java</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Multiple-SICStus-Runtimes.html#Multiple-SICStus-Runtimes">Multiple SICStus Runtimes</a>
+<hr>
+</div>
+
+<h3 class="section">8.2 Multiple SICStus Runtimes in C</h3>
+
+<!-- FIXME [PM] Wait to see if anyone is interested before expanding on -->
+<!-- the C aspects of multi sp. -->
+<!-- @strong{TO BE COMPLETED} -->
+<p>Unless otherwise noted, this section documents the behavior when using
+dynamic linking to access a SICStus runtime.
+
+   <p>The key implementation feature that makes it possible to use multiple
+runtimes is that all calls from C to the SICStus API
+(<code>SP_query()</code>, etc.) go through a dispatch vector. Two runtimes
+can be loaded at the same time since their APIs are accessed
+through different dispatch vectors.
+
+   <p>By default, there will be a single dispatch vector, referenced from a
+global variable (<code>sp_GlobalSICStus</code>). A SICStus API functions, such
+as <code>SP_query()</code>, is then defined as a macro that expands to something
+similar to <code>sp_GlobalSICStus-&gt;SP_query_pointer</code>. 
+<!-- (this is a simplification, the actual expansion is different). -->
+The name of the global dispatch vector is subject to change without
+notice; it should not be referenced directly. If you need to access the
+dispatch vector, use the C macro <code>SICStusDISPATCHVAR</code> instead; see
+below.
+
+<ul class="menu">
+<li><a accesskey="1" href="MT-Single.html#MT-Single">MT Single</a>:  Using a Single SICStus Runtime
+<li><a accesskey="2" href="MT-Multiple.html#MT-Multiple">MT Multiple</a>:  Using More than One SICStus Runtime
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Multiple-SICStus-Runtimes-in-C.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Multiple-SICStus-Runtimes-in-C.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

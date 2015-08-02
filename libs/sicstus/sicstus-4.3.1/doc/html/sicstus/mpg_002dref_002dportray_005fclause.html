@@ -1,0 +1,135 @@
+<html lang="en">
+<head>
+<title>mpg-ref-portray_clause - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dportray.html#mpg_002dref_002dportray" title="mpg-ref-portray">
+<link rel="next" href="mpg_002dref_002dportray_005fmessage.html#mpg_002dref_002dportray_005fmessage" title="mpg-ref-portray_message">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-portray_clause"></a>
+<a name="mpg_002dref_002dportray_005fclause"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dportray_005fmessage.html#mpg_002dref_002dportray_005fmessage">mpg-ref-portray_message</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dportray.html#mpg_002dref_002dportray">mpg-ref-portray</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.157 <code>portray_clause/[1,2]</code></h4>
+
+<p><a name="index-portray_005fclause_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4789"></a><a name="index-portray_005fclause_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4790"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>portray_clause(</code><var>+Clause</var><code>)</code>
+
+   <p><code>portray_clause(</code><var>+Stream</var><code>, </code><var>+Clause</var><code>)</code>
+
+   <p>Writes <var>Clause</var> to the current output stream. Used by
+<code>listing/[0,1]</code>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Stream</var><dd><dfn>stream_object</dfn>, must be ground
+
+     <p>A valid open Prolog stream, defaults to the current output stream.
+
+     <br><dt><var>Clause</var><dd><dfn>term</dfn>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>The operation used by <code>listing/[0,1]</code>.  <var>Clause</var> is written
+to <var>Stream</var>, in exactly the format in which <code>listing/[0,1]</code>
+would have written it, including a terminating full-stop.
+
+   <p>If you want to print a clause, this is almost certainly the
+command you want.  By design, none of the other term output
+commands puts a full-stop after the written term. 
+If you are writing a file of facts to be loaded by
+the Load Predicates, use <code>portray_clause/[1,2]</code>, which attempts
+to ensure that the clauses it writes out can be read in again as clauses.
+
+   <p>The output format used by <code>portray_clause/[1,2]</code> and <code>listing/[0,1]</code> has
+been carefully designed to be clear.  We recommend that you use a
+similar style.  In particular, never put a semicolon
+(disjunction symbol) at the end of a line in Prolog.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Stream errors (see <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>).
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     | ?- <kbd>portray_clause((X:- a -&gt; b ; c)).</kbd>
+     _ :-
+             (   a -&gt;
+                 b
+             ;   c
+             ).
+</pre>
+<pre class="example">     | ?- <kbd>portray_clause((X:- a -&gt; (b -&gt; c ; d ; e); f)).</kbd>
+     _ :-
+             (   a -&gt;
+                 (   b -&gt;
+                     c
+                 ;   d
+                 ;   e
+                 )
+             ;   f
+             ).
+</pre>
+   <pre class="example">     | ?- <kbd>portray_clause((a:-b)).</kbd>
+     a :-
+             b.
+</pre>
+   <pre class="example">     | ?- <kbd>portray_clause((a:-b,c)).</kbd>
+     a :-
+             b,
+             c.
+</pre>
+   <pre class="example">     | ?- <kbd>portray_clause((a:-(b,!,c))).</kbd>
+     a :-
+             b, !,
+             c.
+</pre>
+   <h4 class="subheading">See Also</h4>
+
+<p><code>listing/[0,1]</code>, <a href="ref_002diou_002dtou.html#ref_002diou_002dtou">ref-iou-tou</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dportray_005fclause.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dportray_005fclause.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

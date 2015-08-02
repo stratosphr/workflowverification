@@ -1,0 +1,106 @@
+<html lang="en">
+<head>
+<title>Query Hooks - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Query-Processing.html#Query-Processing" title="Query Processing">
+<link rel="prev" href="Query-Phases.html#Query-Phases" title="Query Phases">
+<link rel="next" href="Default-Input-Methods.html#Default-Input-Methods" title="Default Input Methods">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Query-Hooks"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Default-Input-Methods.html#Default-Input-Methods">Default Input Methods</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Query-Phases.html#Query-Phases">Query Phases</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Query-Processing.html#Query-Processing">Query Processing</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.16.3.3 Hooks in Query Processing</h5>
+
+<p>As explained above, the major parts of query processing are implemented
+in the <code>'SU_messages'</code> module in the file
+<samp><span class="file">library('SU_messages')</span></samp> through the following extendible
+predicates:
+     <ul>
+<li><code>'SU_messages':query_class(</code><var>+QueryClass</var><code>, </code><var>-Prompt</var><code>,
+</code><var>-InputMethod</var><code>, </code><var>-MapMethod</var><code>, </code><var>-FailureMode</var><code>)</code>
+
+     <li><code>'SU_messages':query_input(</code><var>+InputMethod</var><code>, </code><var>+Prompt</var><code>,
+</code><var>-RawInput</var><code>)</code>
+
+     <li><code>'SU_messages':query_map(</code><var>+MapMethod</var><code>, </code><var>+RawInput</var><code>,
+</code><var>-Result</var><code>, </code><var>-Answer</var><code>)</code>
+</ul>
+
+   <p>This is to enable the user to change the language used, the processing
+done, etc., simply by changing or replacing the
+<samp><span class="file">library('SU_messages')</span></samp> file.
+
+   <p>To give more control to the user and to make the system more robust (for
+example if the <code>'SU_messages'</code> module is corrupt) the
+so-called <em>four step procedure</em> is used in the above three
+cases&mdash;obtaining the query class parameters, performing the query input
+and performing the mapping.  The four steps of this procedure, described
+below, are tried in the given order until the first one that succeeds. 
+Note that if an exception is raised within the first three steps, a
+warning is printed and the step is considered to have failed.
+
+     <ul>
+<li>First, a hook predicate is tried.  The name of the hook is derived
+from the name of the appropriate predicate by appending
+&lsquo;<samp><span class="samp">_hook</span></samp>&rsquo; to it, e.g. <code>user:query_class_hook/5</code> in case of the
+query class.  If this hook predicate exists and succeeds, it
+is assumed to have done all necessary processing, and the following
+steps are skipped.
+
+     <li>Second, the predicate in the <code>'SU_messages'</code> module is called
+(this is the default case, these are the predicates listed above). 
+Normally this should succeed, unless the module is corrupt, or an
+unknown query-class/input-method/map-method is encountered.  These
+predicates are extendible, so new classes and methods can be added
+easily by the user.
+
+     <li>Third, as a fall-back, a built-in minimal version of the predicates in the
+original <code>'SU_messages'</code> is called.  This is necessary because the
+<samp><span class="file">library('SU_messages')</span></samp> file is modifiable by the user, therefore
+vital parts of the Prolog system (e.g. the toplevel query) could be
+damaged.
+
+     <li>If all the above steps fail, nothing more can be done, and
+an exception is raised. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Query-Hooks.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Query-Hooks.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

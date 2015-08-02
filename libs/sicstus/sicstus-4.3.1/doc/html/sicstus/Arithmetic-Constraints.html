@@ -1,0 +1,147 @@
+<html lang="en">
+<head>
+<title>Arithmetic Constraints - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Available-Constraints.html#Available-Constraints" title="Available Constraints">
+<link rel="next" href="Membership-Constraints.html#Membership-Constraints" title="Membership Constraints">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Arithmetic-Constraints"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Membership-Constraints.html#Membership-Constraints">Membership Constraints</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Available-Constraints.html#Available-Constraints">Available Constraints</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.10.4.1 Arithmetic Constraints</h5>
+
+     <dl>
+<dt><var>?Expr</var> <var>RelOp</var> <var>?Expr</var><code> &nbsp;<!-- /@w --> </code><strong>reifiable</strong><dd><a name="index-g_t_0023_003d-_002f2-_0028clpfd_0029-2794"></a><a name="index-g_t_0023_003d-_002f2-_0028clpfd_0029-2795"></a>
+<a name="index-g_t_0023_003c-_002f2-_0028clpfd_0029-2796"></a><a name="index-g_t_0023_003c-_002f2-_0028clpfd_0029-2797"></a>
+<a name="index-g_t_0023_003e-_002f2-_0028clpfd_0029-2798"></a><a name="index-g_t_0023_003e-_002f2-_0028clpfd_0029-2799"></a>
+
+     <!-- [PM] 4.2.3 Note: backslash in macro argument needs quoting -->
+     <!-- with backslash. But, there is a bug in the tex/pdf output -->
+     <!-- where the backslash gets printed twice (apparently hard to -->
+     <!-- fix in texinfo, see -->
+     <!-- http://comments.gmane.org/gmane.comp.tex.texinfo.bugs/5058). -->
+     <!-- So, we use two different calls to PLXindex. -->
+     <p><a name="index-g_t_0023_005c_003d-_002f2-_0028clpfd_0029-2800"></a><a name="index-g_t_0023_005c_003d-_002f2-_0028clpfd_0029-2801"></a>
+
+     <p><a name="index-g_t_0023_003d_003c-_002f2-_0028clpfd_0029-2802"></a><a name="index-g_t_0023_003d_003c-_002f2-_0028clpfd_0029-2803"></a>
+<a name="index-g_t_0023_003e_003d-_002f2-_0028clpfd_0029-2804"></a><a name="index-g_t_0023_003e_003d-_002f2-_0028clpfd_0029-2805"></a>
+defines an arithmetic constraint.  The syntax for <var>Expr</var> and
+<var>RelOp</var> is defined by a grammar (see <a href="Syntax-of-Arithmetic-Expressions.html#Syntax-of-Arithmetic-Expressions">Syntax of Arithmetic Expressions</a>).  Note that the expressions are not restricted to being
+linear.  Constraints over nonlinear expressions, however, will usually
+yield less constraint propagation than constraints over linear
+expressions.
+
+     <p>Arithmetic constraints can be reified as e.g.:
+
+     <pre class="example">          | ?- <kbd>X in 1..2, Y in 3..5, X#=&lt;Y #&lt;=&gt; B.</kbd>
+          B = 1,
+          X in 1..2,
+          Y in 3..5
+</pre>
+     </dl>
+
+   <p>Linear arithmetic constraints, except equalities, maintain
+bounds-consistency.  Their reified versions detect bounds-entailment and
+-disentailment.
+
+   <p>The following constraints are among the library constraints that general
+arithmetic constraints compile to.  They express a relation between a
+sum or a scalar product and a representation, using a dedicated algorithm, which
+avoids creating any temporary variables holding intermediate values.  If
+you are computing a sum or a scalar product, it can be much more
+efficient to compute lists of coefficients and variables and post a
+single sum or scalar product constraint than to post a sequence of
+elementary constraints.
+
+     <dl>
+<dt><code>sum(</code><var>+Xs</var><code>, </code><var>+RelOp</var><code>, </code><var>?Value</var><code>)</code><dd><a name="index-sum_002f3-_0028clpfd_0029-2806"></a><a name="index-sum_002f3-_0028clpfd_0029-2807"></a>
+where <var>Xs</var> is a list of integers or domain variables, <var>RelOp</var> is
+a relational symbol as above, and <var>Value</var> is an integer or a domain
+variable.  True if <code>sum(</code><var>Xs</var><code>) </code><var>RelOp</var> <var>Value</var>. 
+Corresponds roughly to <code>sumlist/2</code> in <code>library(lists)</code>.
+
+     <br><dt><code>scalar_product(</code><var>+Coeffs</var><code>, </code><var>+Xs</var><code>, </code><var>+RelOp</var><code>, </code><var>?Value</var><code>)</code><dt><code>scalar_product(</code><var>+Coeffs</var><code>, </code><var>+Xs</var><code>, </code><var>+RelOp</var><code>, </code><var>?Value</var><code>, </code><var>+Options</var><code>)</code><dd><a name="index-scalar_005fproduct_002f_005b4_002c5_005d-_0028clpfd_0029-2808"></a><a name="index-scalar_005fproduct_002f_005b4_002c5_005d-_0028clpfd_0029-2809"></a>
+where <var>Coeffs</var> is a list of length <var>n</var> of integers,
+<var>Xs</var> is a list of length <var>n</var> of integers or domain
+variables, <var>RelOp</var> is a relational symbol as above, and
+<var>Value</var> is an integer or a domain variable.  True if
+<code>sum(</code><var>Coeffs*Xs</var><code>) </code><var>RelOp</var> <var>Value</var>.
+
+     <p><var>Options</var> is a list that may include the following options:
+
+          <dl>
+<dt><code>among(</code><var>Least</var><code>,</code><var>Most</var><code>,</code><var>Range</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.3.1</strong><dd><a name="index-among_002f3-_0028scalar_005fproduct_002f5-option_0029-2810"></a>If given, <var>Least</var> and <var>Most</var> should be integers and <var>Range</var>
+should be a <var>ConstantRange</var> (see <a href="Syntax-of-Indexicals.html#Syntax-of-Indexicals">Syntax of Indexicals</a>).  This
+option imposes the additional constraint on <var>Xs</var> that at least
+<var>Least</var> and at most <var>Most</var> elements belong to <var>Range</var>.  This
+side-constraint invokes the algorithm of [Razakarison, Carlsson,
+Beldiceanu &amp; Simonis 13].
+
+          <br><dt><code>consistency(</code><var>Cons</var><code>)</code><dd><a name="index-consistency_002f1-_0028scalar_005fproduct_002f5-option_0029-2811"></a>This can be used to control the level of consistency used by the constraint. 
+The representation is one of the following:
+               <dl>
+<dt><code>domain</code><dd><a name="index-domain-_0028scalar_005fproduct_002f5-consistency_002f1-value_0029-2812"></a>The constraint maintains domain-consistency. 
+<strong>Please note</strong>: This option is only meaningful if <var>RelOp</var> is
+<code>#=</code>, and requires that any domain variables have finite bounds. 
+<br><dt><code>bounds</code><dt><code>representation</code><dd><a name="index-bounds-_0028scalar_005fproduct_002f5-consistency_002f1-value_0029-2813"></a><a name="index-representation-_0028scalar_005fproduct_002f5-consistency_002f1-value_0029-2814"></a>The constraint tries to maintain bounds-consistency (the default).
+</dl>
+          </dl>
+     </dl>
+
+   <p>The following constraints constrain a representation to be the minimum (maximum)
+of a given list of values.
+
+     <dl>
+<dt><code>minimum(</code><var>?Value</var><code>, </code><var>+Xs</var><code>)</code><dd><a name="index-minimum_002f2-_0028clpfd_0029-2815"></a><a name="index-minimum_002f2-_0028clpfd_0029-2816"></a>
+where <var>Xs</var> is a list of integers or domain variables, and
+<var>Value</var> is an integer or a domain variable.  True if <var>Value</var> is
+the minimum of <var>Xs</var>.  Corresponds to <code>min_member/2</code> in
+<code>library(lists)</code> and to <code>minimum/2</code> in MiniZinc<!-- /@w -->.
+
+     <br><dt><code>maximum(</code><var>?Value</var><code>, </code><var>+Xs</var><code>)</code><dd><a name="index-maximum_002f2-_0028clpfd_0029-2817"></a><a name="index-maximum_002f2-_0028clpfd_0029-2818"></a>
+where <var>Xs</var> is a list of integers or domain variables, and
+<var>Value</var> is an integer or a domain variable.  True if <var>Value</var> is
+the maximum of <var>Xs</var>.  Corresponds to <code>max_member/2</code> in
+<code>library(lists)</code> and to <code>maximum/2</code> in MiniZinc<!-- /@w -->.
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Arithmetic-Constraints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Arithmetic-Constraints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

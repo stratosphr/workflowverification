@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+<title>lib-samsort - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Prolog-Library.html#The-Prolog-Library" title="The Prolog Library">
+<link rel="prev" href="lib_002drem.html#lib_002drem" title="lib-rem">
+<link rel="next" href="lib_002dsets.html#lib_002dsets" title="lib-sets">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="lib-samsort"></a>
+<a name="lib_002dsamsort"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="lib_002dsets.html#lib_002dsets">lib-sets</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="lib_002drem.html#lib_002drem">lib-rem</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Prolog-Library.html#The-Prolog-Library">The Prolog Library</a>
+<hr>
+</div>
+
+<h3 class="section">10.32 Generic Sorting&mdash;<code>library(samsort)</code></h3>
+
+<p>This library module provides generic sorting. 
+Exported predicates:
+
+     <dl>
+<dt><code>samsort(</code><var>+RawList</var><code>, </code><var>-Sorted</var><code>)</code><dd><a name="index-samsort_002f_005b2_002c3_005d-_0028samsort_0029-3835"></a><a name="index-samsort_002f_005b2_002c3_005d-_0028samsort_0029-3836"></a>
+is given a proper list <var>RawList</var> and unifies <var>Sorted</var> with a list
+having exactly the same elements as <var>RawList</var> but in ascending
+order according to the standard order on terms. 
+<br><dt><code>merge(</code><var>+List1</var><code>, </code><var>+List2</var><code>, </code><var>-Merged</var><code>)</code><dd><a name="index-merge_002f_005b3_002c4_005d-_0028samsort_0029-3837"></a><a name="index-merge_002f_005b3_002c4_005d-_0028samsort_0029-3838"></a>
+is true when <var>Merged</var> is the stable merge of the two given lists. 
+If the two lists are not ordered, the merge doesn't mean a great
+deal.  Merging is perfectly well defined when the inputs contain
+duplicates, and all copies of an element are preserved in the
+output, e.g. merge("122357", "34568", "12233455678"). 
+<br><dt><code>samsort(</code><var>:Order</var><code>, </code><var>+RawList</var><code>, </code><var>-SortedList</var><code>)</code><dd>is given a proper list <var>RawList</var> and a binary predicate <var>Order</var>
+(note that it may be an <var>N-ary</var> predicate with the first <var>N-2</var>
+arguments already filled in) and unifies <var>SortedList</var> with a
+sorted version of <var>RawList</var>. 
+This is only supposed to work when Orderis transitive. 
+<br><dt><code>merge(</code><var>:Order</var><code>, </code><var>+List1</var><code>, </code><var>+List2</var><code>, </code><var>-Merged</var><code>)</code><dd>is like <code>merge/3</code> except that it takes an <var>Order</var> predicate as its
+first arguments, like all the generalised ordering routines. 
+<br><dt><code>samkeysort(</code><var>+RawList</var><code>, </code><var>-Sorted</var><code>)</code><dd><a name="index-samkeysort_002f2-_0028samsort_0029-3839"></a><a name="index-samkeysort_002f2-_0028samsort_0029-3840"></a>
+is given a proper list <var>RawList</var> of <var>Key-Value</var> pairs, and unifies
+<var>Sorted</var> with a list having exactly the same elements as <var>RawList</var>
+but in ascending order according to the standard order on the keys. 
+<code>samkeysort/2</code> is stable in the sense that the relative position of
+elements with the same key is maintained. 
+<br><dt><code>keymerge(</code><var>+List1</var><code>, </code><var>+List2</var><code>, </code><var>-Merged</var><code>)</code><dd><a name="index-keymerge_002f3-_0028samsort_0029-3841"></a><a name="index-keymerge_002f3-_0028samsort_0029-3842"></a>
+is like <code>merge/3</code> except that it compares only the keys of its input
+lists.  Note that it will not work properly when <var>Merged</var> is already
+instantiated. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dsamsort.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dsamsort.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

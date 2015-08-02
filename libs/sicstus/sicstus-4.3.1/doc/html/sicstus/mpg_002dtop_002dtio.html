@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+<title>mpg-top-tio - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dtop.html#mpg_002dtop" title="mpg-top">
+<link rel="prev" href="mpg_002dtop_002dtha.html#mpg_002dtop_002dtha" title="mpg-top-tha">
+<link rel="next" href="mpg_002dtop_002dtyp.html#mpg_002dtop_002dtyp" title="mpg-top-typ">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-top-tio"></a>
+<a name="mpg_002dtop_002dtio"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dtop_002dtyp.html#mpg_002dtop_002dtyp">mpg-top-typ</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dtop_002dtha.html#mpg_002dtop_002dtha">mpg-top-tha</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dtop.html#mpg_002dtop">mpg-top</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.2.22 Term I/O</h4>
+
+<p><a name="index-term-I_002fO_002c-predicates-for-4380"></a><a name="index-predicates-for-term-I_002fO-4381"></a>
+
+     <dl>
+<dt><code>char_conversion(</code><var>+InChar</var><code>, </code><var>+OutChar</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>The mapping of <var>InChar</var> to <var>OutChar</var> is added to the
+character-conversion mapping.
+
+     <br><dt><code>current_char_conversion(</code><var>?InChar</var><code>, </code><var>?OutChar</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>InChar</var> is mapped to <var>OutChar</var> in the current
+character-conversion mapping.
+
+     <br><dt><code>current_op(</code><var>?P</var><code>,</code><var>?T</var><code>,</code><var>?A</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>atom <var>A</var> is an operator of type <var>T</var> with precedence <var>P</var>
+
+     <br><dt><code>display(</code><var>+T</var><code>)</code><dd>write term <var>T</var> to the user output stream in prefix notation
+
+     <br><dt><code>format(</code><var>+C</var><code>,</code><var>:A</var><code>)</code><dt><code>format(</code><var>+S</var><code>,</code><var>+C</var><code>,</code><var>:A</var><code>)</code><dd>write arguments <var>A</var> on stream <var>S</var> according to control
+string <var>C</var>
+
+     <br><dt><code>op(</code><var>+P</var><code>,</code><var>+T</var><code>,</code><var>+A</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>make atom <var>A</var> an operator of type <var>T</var> with precedence <var>P</var>
+
+     <br><dt><code>user:portray(</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><strong>hook</strong><dd>tell <code>print/[1,2]</code> and <code>write_term/[2,3]</code> what to do
+
+     <br><dt><code>portray_clause(</code><var>+C</var><code>)</code><dt><code>portray_clause(</code><var>+S</var><code>,</code><var>+C</var><code>)</code><dd>write clause <var>C</var> to the stream <var>S</var>
+
+     <br><dt><code>print(</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><strong>hookable</strong><dt><code>print(</code><var>+S</var><code>,</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><strong>hookable</strong><dd>display the term <var>T</var> on stream <var>S</var>
+using <code>user:portray/1</code> or <code>write/2</code>
+
+     <br><dt><code>read(</code><var>-T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>read(</code><var>+S</var><code>,</code><var>-T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>read term <var>T</var> from stream <var>S</var>
+
+     <br><dt><code>read_term(</code><var>-T</var><code>,</code><var>+O</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>read_term(</code><var>+S</var><code>,</code><var>-T</var><code>,</code><var>+O</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>read <var>T</var> from stream <var>S</var> according to options <var>O</var>
+
+     <br><dt><code>write(</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>write(</code><var>+S</var><code>,</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>write term <var>T</var> on stream <var>S</var>
+
+     <br><dt><code>write_canonical(</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>write_canonical(</code><var>+S</var><code>,</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>write term <var>T</var> on stream <var>S</var> so that it can be read
+back by <code>read/[1,2]</code>
+
+     <br><dt><code>writeq(</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>writeq(</code><var>+S</var><code>,</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>write term <var>T</var> on stream <var>S</var>, quoting atoms where necessary
+
+     <br><dt><code>write_term(</code><var>+T</var><code>,</code><var>+O</var><code>) &nbsp;<!-- /@w --> </code><strong>ISO,hookable</strong><dt><code>write_term(</code><var>+S</var><code>,</code><var>+T</var><code>,</code><var>+O</var><code>) &nbsp;<!-- /@w --> </code><strong>ISO,hookable</strong><dd>writes <var>T</var> to <var>S</var> according to options <var>O</var>
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dtop_002dtio.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dtop_002dtio.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

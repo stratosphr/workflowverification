@@ -1,0 +1,106 @@
+<html lang="en">
+<head>
+<title>mpg-ref-profile_data - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dprint_005fprofile.html#mpg_002dref_002dprint_005fprofile" title="mpg-ref-print_profile">
+<link rel="next" href="mpg_002dref_002dprofile_005freset.html#mpg_002dref_002dprofile_005freset" title="mpg-ref-profile_reset">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-profile_data"></a>
+<a name="mpg_002dref_002dprofile_005fdata"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dprofile_005freset.html#mpg_002dref_002dprofile_005freset">mpg-ref-profile_reset</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dprint_005fprofile.html#mpg_002dref_002dprint_005fprofile">mpg-ref-print_profile</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.165 <code>profile_data/1</code> &nbsp;<!-- /@w --> <dfn>[development]</dfn></h4>
+
+<p><a name="index-profile_005fdata_002f1-_0028built_002din_002c-ref-page_0029-4818"></a><a name="index-profile_005fdata_002f1-_0028built_002din_002c-ref-page_0029-4819"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>profile_data(</code><var>-Data</var><code>)</code> &nbsp;<!-- /@w --> <strong>since release 4.2</strong>
+
+   <p><var>Data</var> is the profiling data accumulated so far.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Data</var><dd><dfn>list of profile_pair</dfn>
+
+     <p>where:
+
+     <p><table summary=""><tr align="left"><td valign="top" width="25%"><var>profile_pair</var> </td><td valign="top" width="75%">::= <var>caller</var><code>-</code><var>profile_info</var>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><var>profile_info</var> </td><td valign="top" width="75%">::= <code>counter(</code><var>list of callee_pair</var><code>,</code><var>insns</var><code>,</code><var>chpts</var><code>,</code><var>tagged_calls</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><var>insns</var> </td><td valign="top" width="75%">::= <var>integer</var> <span class="roman">{virtual instructions executed}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><var>chpts</var> </td><td valign="top" width="75%">::= <var>integer</var> <span class="roman">{choicepoints accessed}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><var>callee_pair</var> </td><td valign="top" width="75%">::= <var>callee</var><code>-</code><var>tagged_calls</var>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><var>tagged_calls</var> </td><td valign="top" width="75%">::= <code>det(</code><var>calls</var><code>)</code> <span class="roman">{all calls were determinate}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%">               </td><td valign="top" width="75%">| <code>nondet(</code><var>calls</var><code>)</code> <span class="roman">{not all calls were determinate}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><var>calls</var> </td><td valign="top" width="75%">::= <var>integer</var> <span class="roman">{number of calls}</span>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><var>caller</var> </td><td valign="top" width="75%">::= <var>pred_spec</var>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><var>callee</var> </td><td valign="top" width="75%">::= <var>pred_spec</var>
+     <br></td></tr></table>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>The profiling data accumulated so far is collected into a term of type
+<dfn>list of profile_pair</dfn> and unified with <var>Data</var>.
+
+   <p><strong>Please note</strong>: The number of instructions and choicepoints are not counted
+for interpreted code, so <var>insns</var> and <var>chpts</var> will be 0 for such predicates.
+
+   <p><strong>Please note</strong>: In a <var>list of callee_pair</var>, <var>callee</var> is not necessarily
+unique.  This happens if the given <var>caller</var> code contains more than one call to
+<var>callee</var>.
+
+   <p><strong>Please note</strong>: The <var>calls</var> of a <var>profile_info</var> can be greater than the
+total <var>calls</var> of its <var>list of callee_pair</var>.  This happens e.g. if <var>caller</var>
+occurred in a metacall context.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>None.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Execution-Profiling.html#Execution-Profiling">Execution Profiling</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dprofile_005fdata.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dprofile_005fdata.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

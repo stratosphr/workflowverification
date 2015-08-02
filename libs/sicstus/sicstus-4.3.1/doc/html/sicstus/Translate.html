@@ -1,0 +1,99 @@
+<html lang="en">
+<head>
+<title>Translate - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Programming-Examples.html#Programming-Examples" title="Programming Examples">
+<link rel="prev" href="Interpreter.html#Interpreter" title="Interpreter">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Translate"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Interpreter.html#Interpreter">Interpreter</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Programming-Examples.html#Programming-Examples">Programming Examples</a>
+<hr>
+</div>
+
+<h4 class="subsection">9.11.7 Translating English Sentences into Logic Formulae</h4>
+
+<p>The following example of a definite clause grammar defines in a formal way
+the traditional mapping of simple English sentences into formulae of
+classical logic.  By way of illustration, if the sentence
+
+   <blockquote>
+Every man that lives loves a woman. 
+</blockquote>
+
+<p class="noindent">is parsed as a sentence by the call
+
+<pre class="example">     | ?- <kbd>phrase(sentence(</kbd><var>P</var><kbd>), [every,man,that,lives,loves,a,woman]).</kbd>
+</pre>
+   <p class="noindent"><var>P</var> will get instantiated to
+
+<pre class="example">     all(X):(man(X)&amp;lives(X) =&gt; exists(Y):(woman(Y)&amp;loves(X,Y)))
+</pre>
+   <p class="noindent">where <code>:</code>, <code>&amp;</code> and <code>=&gt;</code> are infix operators defined
+by
+
+<pre class="example">     :- op(900, xfx, =&gt;).
+     :- op(800, xfy, &amp;).
+     :- op(550, xfy, :). /* predefined */
+</pre>
+   <p>The grammar follows:
+
+<pre class="example">     sentence(P) --&gt; noun_phrase(X, P1, P), verb_phrase(X, P1).
+     
+     noun_phrase(X, P1, P) --&gt;
+             determiner(X, P2, P1, P), noun(X, P3), rel_clause(X, P3, P2).
+     noun_phrase(X, P, P) --&gt; name(X).
+     
+     verb_phrase(X, P) --&gt; trans_verb(X, Y, P1), noun_phrase(Y, P1, P).
+     verb_phrase(X, P) --&gt; intrans_verb(X, P).
+     
+     rel_clause(X, P1, P1&amp;P2) --&gt; [that], verb_phrase(X, P2).
+     rel_clause(_, P, P) --&gt; [].
+     
+     determiner(X, P1, P2, all(X):(P1=&gt;P2)) --&gt; [every].
+     determiner(X, P1, P2, exists(X):(P1&amp;P2)) --&gt; [a].
+     
+     noun(X, man(X)) --&gt; [man].
+     noun(X, woman(X)) --&gt; [woman].
+     
+     name(john) --&gt; [john].
+     
+     trans_verb(X, Y, loves(X,Y)) --&gt; [loves].
+     intrans_verb(X, lives(X)) --&gt; [lives].
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Translate.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Translate.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

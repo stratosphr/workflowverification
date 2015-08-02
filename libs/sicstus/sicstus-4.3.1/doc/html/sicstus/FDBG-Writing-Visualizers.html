@@ -1,0 +1,141 @@
+<html lang="en">
+<head>
+<title>FDBG Writing Visualizers - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="FDBG-Advanced-Usage.html#FDBG-Advanced-Usage" title="FDBG Advanced Usage">
+<link rel="prev" href="FDBG-Customizing-Output.html#FDBG-Customizing-Output" title="FDBG Customizing Output">
+<link rel="next" href="FDBG-Writing-Legend-Printers.html#FDBG-Writing-Legend-Printers" title="FDBG Writing Legend Printers">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="FDBG-Writing-Visualizers"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="FDBG-Writing-Legend-Printers.html#FDBG-Writing-Legend-Printers">FDBG Writing Legend Printers</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="FDBG-Customizing-Output.html#FDBG-Customizing-Output">FDBG Customizing Output</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="FDBG-Advanced-Usage.html#FDBG-Advanced-Usage">FDBG Advanced Usage</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.14.4.2 Writing Visualizers</h5>
+
+<p>For more complicated problems you might want to change the output more
+drastically.  In this case you have to write and use your own
+visualizers, which could naturally be problem specific, not like
+<code>fdbg_show/2</code> and <code>fdbg_label_show/3</code>.  As we described
+earlier, currently there are two types of visualizers:
+
+     <dl>
+<dt><dfn>constraint visualizer</dfn><dd>
+     <pre class="example">          <var>MyGlobalVisualizer</var>([<var>+Arg1</var>, <var>+Arg2</var>, ...] <var>+Constraint</var>, <var>+Actions</var>)
+</pre>
+     <p>This visualizer is passed in the <code>constraint_hook</code> option.  It must
+take at least two arguments, the last two of which being:
+
+          <dl>
+<dt><var>Constraint</var><dd>the constraint that was handled by the dispatcher
+<br><dt><var>Actions</var><dd>the action list returned by the dispatcher
+</dl>
+
+     <p>Other arguments can be used for any purpose, for example to select
+the verbosity level of the visualizer.  This way you don't have to
+modify your code if you would like to see less or more information. 
+Note however, that the two obligatory arguments must appear at the
+<em>end</em> of the argument list.
+
+     <p>When passing as an option to <code>fdbg_on/1</code>, only the optional
+arguments have to be specified; the two mandatory arguments
+should be omitted.  See <a href="FDBG-Debugging-Global-Constraints.html#FDBG-Debugging-Global-Constraints">FDBG Debugging Global Constraints</a> for an
+example.
+
+     <br><dt><dfn>labeling visualizer</dfn><dd>
+     <pre class="example">          <var>MyLabelingVisualizer</var>([<var>+Arg1</var>, <var>+Arg2</var>, ...] <var>+Event</var>, <var>+ID</var>, <var>+Var</var>)
+</pre>
+     <p>This visualizer is passed in the <code>labeling_hook</code> option.  It must
+have at least three arguments, the last three of which being:
+
+          <dl>
+<dt><var>Event</var><dd>a term representing the labeling event, can be one of the
+following:
+
+               <dl>
+<dt>start<dd>labeling has just started for a variable
+<br><dt>fail<dd>labeling has just failed for a variable
+<br><dt>step(<var>Step</var>)<dd>variable has been constrained in a labeling step described by the
+compound term <var>Step</var>, which is either created by <code>library(clpfd)</code>'s labeling
+predicates (in this case, simply print it&mdash;FDBG will know how to
+handle it) or by you; see <a href="FDBG-Annotation.html#FDBG-Annotation">FDBG Annotation</a>. 
+</dl>
+
+          <br><dt><var>ID</var><dd>identifies the labeling session, i.e. binds step and fail events
+to the corresponding start event
+<br><dt><var>Var</var><dd>the variable being the subject of labeling
+</dl>
+
+   </dl>
+
+   <p>The failure of a visualizer is ignored and multiple choices are
+cut by FDBG.  Exceptions, on the other hand, are not caught.
+
+   <p>FDBG provides several predicates to ease the work of the
+visualizer writers.  These predicates are the following:
+
+     
+<a name="index-fdbg_005fannotate_002f_005b3_002c4_005d-_0028fdbg_0029-3306"></a>
+<a name="index-fdbg_005fannotate_002f_005b3_002c4_005d-_0028fdbg_0029-3307"></a>
+<dl>
+<dt><code>fdbg_annotate(</code><var>+Term0</var><code>, </code><var>-Term</var><code>, </code><var>-Variables</var><code>)</code><br><dt><code>fdbg_annotate(</code><var>+Term0</var><code>, </code><var>+Actions</var><code>, </code><var>-Term</var><code>, </code><var>-Variables</var><code>)</code><dd>Replaces each constraint variable in <var>Term0</var> by a
+compound term describing it and returns the result in <var>Term</var>. 
+Also, collects these compound terms into the list
+<var>Variables</var>.  These compound terms have the following form:
+
+     <pre class="example">          fdvar(<var>Name</var>, <var>Var</var>, <var>FDSet</var>)
+</pre>
+          <dl>
+<dt><var>Name</var><dd>is the name of the variable (auto-generated, if necessary;
+see <a href="FDBG-Name-Auto_002dGeneration.html#FDBG-Name-Auto_002dGeneration">FDBG Name Auto-Generation</a>)
+<br><dt><var>Var</var><dd>is the variable itself
+<br><dt><var>FDSet</var><dd>is the domain of the variable <em>after</em> narrowing with <var>Actions</var>,
+if specified; otherwise, it is the <em>current</em> domain of the variable
+</dl>
+
+     <p><a name="index-fdbg_005flegend_002f_005b1_002c2_005d-_0028fdbg_0029-3308"></a><a name="index-fdbg_005flegend_002f_005b1_002c2_005d-_0028fdbg_0029-3309"></a>
+<br><dt><code>fdbg_legend(</code><var>+Vars</var><code>)</code><dd>Prints a legend of <var>Vars</var>, which is a list of <code>fdvar/3</code>
+compound terms returned by <code>fdbg_annotate/[3,4]</code>.
+
+     <br><dt><code>fdbg_legend(</code><var>+Vars</var><code>, </code><var>+Actions</var><code>)</code><dd>Prints a legend of <var>Vars</var> followed by some conclusions regarding the
+constraint (exiting, failing, etc.) based on <var>Actions</var>. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Writing-Visualizers.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Writing-Visualizers.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

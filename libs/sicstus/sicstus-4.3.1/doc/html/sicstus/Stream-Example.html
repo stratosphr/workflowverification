@@ -1,0 +1,64 @@
+<html lang="en">
+<head>
+<title>Stream Example - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Mixing-C-and-Prolog-Examples.html#Mixing-C-and-Prolog-Examples" title="Mixing C and Prolog Examples">
+<link rel="prev" href="Exceptions-from-C.html#Exceptions-from-C" title="Exceptions from C">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Stream-Example"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Exceptions-from-C.html#Exceptions-from-C">Exceptions from C</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Mixing-C-and-Prolog-Examples.html#Mixing-C-and-Prolog-Examples">Mixing C and Prolog Examples</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.8.4 Stream Example</h4>
+
+<!-- FIXED: SPIO -->
+<p>See <a href="Defining-a-New-Stream.html#Defining-a-New-Stream">Defining a New Stream</a> for a simple example of defining a stream
+that reads from a C <code>FILE</code> stream.
+
+   <p>For a more realistic example, <code>library(codesio)</code> implements a
+stream that can return a list of
+all characters written to it. The source code for this library is
+located in <samp><span class="file">library/codesio.pl</span></samp> and <samp><span class="file">library/codesio.c</span></samp> and
+can serve as a useful sample for user defined streams both for input
+and output. That code also illustrates other important features of
+user defined streams, for instance ensuring that all the streams have
+been closed when the foreign resource is unloaded.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Stream-Example.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Stream-Example.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

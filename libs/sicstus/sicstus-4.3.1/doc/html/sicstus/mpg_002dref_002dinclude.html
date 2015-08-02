@@ -1,0 +1,109 @@
+<html lang="en">
+<head>
+<title>mpg-ref-include - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dif.html#mpg_002dref_002dif" title="mpg-ref-if">
+<link rel="next" href="mpg_002dref_002dinitialization.html#mpg_002dref_002dinitialization" title="mpg-ref-initialization">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-include"></a>
+<a name="mpg_002dref_002dinclude"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dinitialization.html#mpg_002dref_002dinitialization">mpg-ref-initialization</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dif.html#mpg_002dref_002dif">mpg-ref-if</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.104 <code>include/1</code> &nbsp;<!-- /@w --> <dfn>[ISO,declaration]</dfn></h4>
+
+<p><a name="index-include_002f1-_0028built_002din_002c-ref-page_0029-4655"></a><a name="index-include_002f1-_0028built_002din_002c-ref-page_0029-4656"></a>
+<!-- FIXED: SPIO -->
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- include </code><var>+Files</var>
+
+   <p>Literally embed the Prolog clauses and
+directives in <var>Files</var> into the file being loaded. 
+The file or files will be opened with default options.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:Files</var><dd><dfn>file_spec</dfn> or <dfn>list of file_spec</dfn>, must be ground
+
+     <p>A file specification or a list of file specifications;
+extension optional. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>The effect is such as if the declaration itself was replaced by the
+text in the <var>Files</var>. Including some files is thus different from
+loading them in several respects:
+
+     <ul>
+<li>The embedding file counts as the source file of the predicates
+loaded, e.g. with respect to the built-in predicate
+<code>source_file/2</code>; see <a href="ref_002dlps_002dapf.html#ref_002dlps_002dapf">ref-lps-apf</a>. 
+<li>Some clauses of a predicate can come from the embedding file, and some
+from included files. 
+<li>When including a file twice, all the clauses in it will be entered twice
+into the program (although this is not very meaningful). 
+</ul>
+
+<h4 class="subheading">Comments</h4>
+
+<p><code>include</code> is not an ISO predefined prefix operator.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Exceptions in the context of loading code are printed as error messages. 
+See also <code>load_files/[2,3]</code>.
+
+     <dl>
+<dt><code>context_error</code><dd>Declaration appeared in a goal.
+
+     <br><dt><code>permission_error</code><dd>Declaration appeared as a clause. 
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Include-Declarations.html#Include-Declarations">Include Declarations</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dinclude.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dinclude.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

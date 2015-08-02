@@ -1,0 +1,285 @@
+<html lang="en">
+<head>
+<title>ref-sem-ctr-dol - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsem_002dctr.html#ref_002dsem_002dctr" title="ref-sem-ctr">
+<link rel="prev" href="ref_002dsem_002dctr_002dnaf.html#ref_002dsem_002dctr_002dnaf" title="ref-sem-ctr-naf">
+<link rel="next" href="ref_002dsem_002dctr_002doth.html#ref_002dsem_002dctr_002doth" title="ref-sem-ctr-oth">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-sem-ctr-dol"></a>
+<a name="ref_002dsem_002dctr_002ddol"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dsem_002dctr_002doth.html#ref_002dsem_002dctr_002doth">ref-sem-ctr-oth</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dsem_002dctr_002dnaf.html#ref_002dsem_002dctr_002dnaf">ref-sem-ctr-naf</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsem_002dctr.html#ref_002dsem_002dctr">ref-sem-ctr</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.2.3.5 Do-Loops &nbsp;<!-- /@w --> <strong>since release 4.1</strong></h5>
+
+<p><a name="index-do_002f2_002c-do_002dloop-620"></a><a name="index-do_002f2_002c-do_002dloop-621"></a>
+<a name="index-do_002dloop-622"></a><a name="index-logical-loop-623"></a><a name="index-loop_002c-logical-624"></a>
+Proposed in [Schimpf 2002], the control structure
+<pre class="display">     <code>(</code><var>Iterators</var><code> do </code><var>Body</var><code>)</code>
+</pre>
+   <p class="noindent">often eliminates the need to write an auxiliary predicate to perform some simple
+iteration.  A do-loop is substituted by a goal:
+
+<pre class="display">     <var>PreCallGoals</var><code>, </code><var>aux</var><code>(</code><var>CallArgs)</var><code>.</code>
+</pre>
+   <p class="noindent">where <var>aux</var> is a new, unique predicate symbol, <var>CallArgs</var> is
+its initial arguments, and <var>PreCallGoals</var> is a sequence of goals to be
+executed before calling <var>aux</var>.  In addition, a definition for
+<var>aux</var> is defined, and is always of the form:
+
+<pre class="display">     <var>aux</var><code>(</code><var>BaseArgs</var><code>) :- !.</code>
+     <var>aux</var><code>(</code><var>HeadArgs</var><code>) :- </code><var>PreBodyGoals</var><code>, </code><var>Body</var><code>, </code><var>aux</var><code>(</code><var>RecArgs</var><code>).</code>
+</pre>
+   <p class="noindent">where <var>BaseArgs</var>, <var>HeadArgs</var> and <var>RecArgs</var> are sequence of
+arguments and <var>PreBodyGoals</var> a sequence of goals.
+
+   <p>The &lsquo;<samp><span class="samp">do</span></samp>&rsquo; operator is an infix operator of the same priority as &lsquo;<samp><span class="samp">;</span></samp>&rsquo;. 
+It is recommended to always enclose a do-loop in parentheses.
+
+   <p><var>Iterators</var> is a comma-separated sequence of iterators.  Before
+giving the full list of available iterators, we first show some simple
+examples.
+
+   <p>The iterator <code>foreach(</code><var>Var</var><code>,</code><var>List</var><code>)</code> provides iteration
+over a list:
+
+<pre class="example">     | ?- <kbd>(foreach(X,[1,2,3]) do write(X), nl).</kbd>
+     1
+     2
+     3
+     yes
+</pre>
+   <p>The same iterator can be used to construct a list:
+
+<pre class="example">     | ?- <kbd>(foreach(X,[1,2,3]), foreach(Y,List) do Y is X+3).</kbd>
+     List = [4, 5, 6]
+</pre>
+   <p>The iterator <code>fromto(</code><var>First</var><code>,</code><var>In</var><code>,</code><var>Out</var><code>,</code><var>Last</var><code>)</code>
+can be used to express an accumulator with initial representation <var>First</var>,
+final representation <var>Last</var>, with <var>In</var> and <var>Out</var> being local
+variables in <var>Body</var>:
+
+<pre class="example">     | ?- <kbd>(foreach(X,[1,2,3]), fromto(0,In,Out,Sum) do Out is In+X).</kbd>
+     Sum = 6
+</pre>
+   <p>The iterator <code>for(</code><var>Var</var><code>,</code><var>Min</var><code>,</code><var>Max</var><code>)</code> will
+iterate <var>Body</var> with <var>Var</var> ranging over integers <var>Min</var>
+thru <var>Max</var>, which can be expressions:
+
+<pre class="example">     | ?- <kbd>(for(I,1,5), foreach(I,List) do true).</kbd>
+     List = [1,2,3,4,5]
+</pre>
+   <p>The iterator <code>count(</code><var>Var</var><code>,</code><var>Min</var><code>,</code><var>Max</var><code>)</code> will
+iterate <var>Body</var> with <var>Var</var> ranging over ascending integers from
+<var>Min</var>, unifying <var>Max</var> with the final representation.  Its main use
+is to count the number of iterations:
+
+<pre class="example">     | ?- <kbd>(foreach(X,[a,b,c,d,e]), count(I,1,N), foreach(I-X,Pairs) do true).</kbd>
+     N = 5,
+     Pairs = [1-a,2-b,3-c,4-d,5-e]
+</pre>
+   <p>The iterator <code>foreacharg(</code><var>Var</var><code>,</code><var>Struct</var><code>)</code> provides iteration
+over the arguments of a structure.  The variant <code>foreacharg(</code><var>Var</var><code>,</code><var>Struct</var><code>,</code><var>I</var><code>)</code>
+also exists, with <var>I</var> ranging over the argument number, 1-based:
+
+<pre class="example">     | ?- <kbd>(foreacharg(A,f(1,2,3)), foreach(A,List) do true).</kbd>
+     List = [1,2,3]
+     
+     | ?- <kbd>(foreacharg(A,f(a,b,c,d,e),I), foreach(I-A,List) do true).</kbd>
+     List = [1-a,2-b,3-c,4-d,5-e]
+</pre>
+   <p>Do-loops have special variable scoping rules, which sometimes
+contradict the default rule that the scope of a variable is the clause
+in which it occurs: the scope of variables occurring in <var>Body</var> as
+well as variables quantified by iterators is one loop iteration.  The
+exact scope of variables is given in the table below. 
+To override the scoping rule, i.e. to enable a variable to be passed
+to all loop iterations, use the <code>param(</code><var>Var</var><code>)</code> declaration:
+
+<pre class="example">     | ?- <kbd>(for(I,1,5), foreach(X,List), param(X) do true).</kbd>
+     List = [X,X,X,X,X]
+</pre>
+   <p>An omitted <code>param(</code><var>Var</var><code>)</code> iterator is often spotted by the compiler,
+which issues a warning.  Suppose that we want to define a predicate
+that removes all occurrences of the element <code>Kill</code> from the list
+<var>List</var> giving <var>Residue</var>.  A do-loop formulation is given
+below, along with a buggy version where <code>param(Kill)</code> is missing:
+
+<pre class="example">
+                                    <div align="right"><em>% do.pl</em>
+     </div>
+     delete1(List, Kill, Residue) :- % correct
+             (   foreach(X,List),
+                 fromto(Residue,S0,S,[]),
+                 param(Kill)
+             do  (X = Kill -&gt; S0 = S ; S0 = [X|S])
+             ).
+     
+     
+     delete2(List, Kill, Residue) :- % wrong
+             (   foreach(X,List),
+                 fromto(Residue,S0,S,[])
+             do  (X = Kill -&gt; S0 = S ; S0 = [X|S])
+             ).
+</pre>
+   <p>The compiler warns about the missing <code>param(Kill)</code>, and for a
+good reason: the first version works as intended, but the second does not:
+
+<pre class="example">     | ?- <kbd>[do].</kbd>
+     % compiling /home/matsc/sicstus4/do.pl...
+     * [Kill] treated as local in do-loop but also used outside
+     * suggest renaming or adding param([Kill])
+     * Approximate lines: 8-15, file: '/home/matsc/sicstus4/do.pl'
+     % compiled /home/matsc/sicstus4/do.pl in module user, 10 msec 192 bytes
+     | ?- <kbd>delete1([1,2,3,4,5], 3, R).</kbd>
+     R = [1,2,4,5]
+     
+     | ?- <kbd>delete2([1,2,3,4,5], 3, R).</kbd>
+     R = []
+</pre>
+   <p>Finally, do-loops can be used as a control structure in grammar rules
+as well.  A do-loop in a grammar rule context will generate (or parse)
+the concatenation of the lists of symbols generated (or parsed) by
+each loop iteration.  For example, suppose that you are representing
+three-dimensional points as lists <code>[</code><var>x</var><code>,</code><var>y</var><code>,</code><var>z</var><code>]</code>. 
+Suppose that you need to generate a list of all such points for <var>x</var>
+between 1 and <var>Length</var>, <var>y</var> between 1 and <var>Width</var>, and
+<var>z</var> between 1 and <var>Height</var>.  A generator of such lists can be
+written as a grammar rule with nested do-loops as follows.
+
+<pre class="example">     | ?- <kbd>compile(user).</kbd>
+     | <kbd>points3d(Length, Width, Height) --&gt;</kbd>
+     | <kbd>        (   for(X,1,Length),</kbd>
+     | <kbd>            param(Width,Height)</kbd>
+     | <kbd>        do  (   for(Y,1,Width),</kbd>
+     | <kbd>                param(X,Height)</kbd>
+     | <kbd>            do  (   for(Z,1,Height),</kbd>
+     | <kbd>                    param(X,Y)</kbd>
+     | <kbd>                do  [[X,Y,Z]]</kbd>
+     | <kbd>                )</kbd>
+     | <kbd>            )</kbd>
+     | <kbd>        ).</kbd>
+     | ?- <kbd>^D</kbd>
+     % compiled user in module user, 0 msec 1024 bytes
+     | ?- <kbd>phrase(points3d(3,2,4), S).</kbd>
+     S = [[1,1,1],[1,1,2],[1,1,3],[1,1,4],
+          [1,2,1],[1,2,2],[1,2,3],[1,2,4],
+          [2,1,1],[2,1,2],[2,1,3],[2,1,4],
+          [2,2,1],[2,2,2],[2,2,3],[2,2,4],
+          [3,1,1],[3,1,2],[3,1,3],[3,1,4],
+          [3,2,1],[3,2,2],[3,2,3],[3,2,4]]
+</pre>
+   <p>We now summarize the available iterators.  In this table, the phrase
+&ldquo;<var>var</var> is a local variable&rdquo; means that <var>var</var> is a brand new
+variable in each iteration.  All other variables have <em>global</em>
+scope, i.e. the scope is the clause containing the do-loop.
+
+     
+<a name="index-fromto_002f4-_0028iterator_0029-625"></a>
+<dl><dt><code>fromto(</code><var>First</var><code>,</code><var>In</var><code>,</code><var>Out</var><code>,</code><var>Last</var><code>)</code><dd>Iterate <var>Body</var> starting with <var>In</var>=<var>First</var> until
+<var>Out</var>=<var>Last</var>. <var>In</var> and <var>Out</var> are local variables. For
+all but the first iteration, the representation of <var>In</var> is the same as the
+representation of <var>Out</var> in the previous iteration.
+
+     <p><a name="index-foreach_002f2-_0028iterator_0029-626"></a><br><dt><code>foreach(</code><var>X</var><code>,</code><var>List</var><code>)</code><dd>Iterate <var>Body</var> with <var>X</var> ranging over all elements of
+<var>List</var>. <var>X</var> is a local variable. Can also be used for
+constructing a list.
+
+     <p><a name="index-foreacharg_002f2-_0028iterator_0029-627"></a><br><dt><code>foreacharg(</code><var>X</var><code>,</code><var>Struct</var><code>)</code><dd>Iterate <var>Body</var> with <var>X</var> ranging over all arguments of
+<var>Struct</var>. <var>X</var> is a local variable. Cannot be used for
+constructing a term.
+
+     <p><a name="index-foreacharg_002f3-_0028iterator_0029-628"></a><br><dt><code>foreacharg(</code><var>X</var><code>,</code><var>Struct</var><code>,</code><var>Idx</var><code>)</code><dd>Same as before, but <var>Idx</var> is set to the argument position of
+<var>X</var> in <var>Struct</var>, i.e. <code>arg(</code><var>Idx</var><code>, </code><var>Struct</var><code>,
+</code><var>X</var><code>)</code> is true. <var>X</var> and <var>Idx</var> are local variables.
+
+     <p><a name="index-for_002f3-_0028iterator_0029-629"></a><br><dt><code>for(</code><var>I</var><code>,</code><var>MinExpr</var><code>,</code><var>MaxExpr</var><code>)</code><dd>Iterate <var>Body</var> with <var>I</var> ranging over integers from
+<var>MinExpr</var> to <var>MaxExpr</var>. <var>I</var> is a local
+variable. <var>MinExpr</var> and <var>MaxExpr</var> can be arithmetic
+expressions. Can be used only for controlling iteration, i.e. 
+<var>MaxExpr</var> cannot be uninstantiated.
+
+     <p><a name="index-count_002f3-_0028iterator_0029-630"></a><br><dt><code>count(</code><var>I</var><code>,</code><var>Min</var><code>,</code><var>Max</var><code>)</code><dd>Iterate <var>Body</var> with <var>I</var> ranging over integers from <var>Min</var>
+up to <var>Max</var>. <var>I</var> is a local variable. Can be used for
+controlling iteration as well as counting, i.e. <var>Max</var> can be a
+uninstantiated.
+
+     <p><a name="index-param_002f1-_0028iterator_0029-631"></a><br><dt><code>param(</code><var>Var</var><code>)</code><dd>For declaring variables global, i.e. shared with the context, even
+if they are quantified by some other iterator of this table. 
+<var>Var</var> can be a single variable or a list of variables. 
+<strong>Please note</strong>: By default, variables in <var>Body</var> have local
+scope.
+
+     <p><a name="index-g_t_002c_002f2-_0028iterator_0029-632"></a><br><dt><code>IterSpec1, IterSpec2</code><dd>The specifiers are iterated synchronously; that is, they all take
+their first representation for the first execution of <var>Body</var>, their second
+representation for the second execution of <var>Body</var>, etc. The order in which
+they are written does not matter, and the set of local variables in
+<var>Body</var> is the union of those of <var>IterSpec1</var> and
+<var>IterSpec2</var>.  When multiple iteration specifiers are given in this
+way, typically not all of them will impose a termination condition on
+the loop (e.g. <code>foreach</code> with an uninstantiated list and
+<code>count</code> with an uninstantiated maximum doesn't impose a
+termination condition), but at least one of them should do so. If
+several specifiers impose termination conditions, then these
+conditions must coincide, i.e. specify the same number of
+iterations. 
+</dl>
+
+   <p>Finally, we present a translation scheme for the iterators in terms of
+<var>PreCallGoals</var>, <var>CallArgs</var>, <var>BaseArgs</var>, <var>HeadArgs</var>,
+<var>PreBodyGoals</var> and <var>RecArgs</var>, as previously introduced:
+
+   <p><table summary=""><tr align="left"><td valign="top" width="20%"><var>iterator</var> </td><td valign="top" width="20%"><var>PreCallGoals</var> </td><td valign="top" width="10%"><var>CallArgs</var> </td><td valign="top" width="10%"><var>BaseArgs</var> </td><td valign="top" width="10%"><var>HeadArgs</var> </td><td valign="top" width="20%"><var>PreBodyGoals</var> </td><td valign="top" width="10%"><var>RecArgs</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><code>fromto(</code><var>F</var><code>,</code><var>I0</var><code>,</code><var>I1</var><code>,</code><var>T</var><code>)</code> </td><td valign="top" width="20%"><code>true</code> </td><td valign="top" width="10%"><var>F,T</var> </td><td valign="top" width="10%"><code>L0,L0</code> </td><td valign="top" width="10%"><var>I0</var><code>,L1</code> </td><td valign="top" width="20%"><code>true</code> </td><td valign="top" width="10%"><var>I1</var><code>,L1</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><code>foreach(</code><var>X</var><code>,</code><var>L</var><code>)</code> </td><td valign="top" width="20%"><code>true</code> </td><td valign="top" width="10%"><var>L</var> </td><td valign="top" width="10%"><code>[]</code> </td><td valign="top" width="10%"><code>[</code><var>X</var><code>|T]</code> </td><td valign="top" width="20%"><code>true</code> </td><td valign="top" width="10%"><code>T</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><code>foreacharg(</code><var>A</var><code>,</code><var>S</var><code>)</code> </td><td valign="top" width="20%"><code>functor(</code><var>S</var><code>,_,N),</code> </td><td valign="top" width="10%"><var>S</var><code>,1,N1</code> </td><td valign="top" width="10%"><code>_,I0,I0</code> </td><td valign="top" width="10%"><var>S</var><code>,I0,I2</code> </td><td valign="top" width="20%"><code>I1 is I0+1,</code> </td><td valign="top" width="10%"><var>S</var><code>,I1,I2</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="20%"><code>N1 is N+1</code>             </td><td valign="top" width="10%"></td><td valign="top" width="10%"></td><td valign="top" width="10%"></td><td valign="top" width="20%"><code>arg(I0,</code><var>S</var><code>,</code><var>A</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><code>foreacharg(</code><var>A</var><code>,</code><var>S</var><code>,</code><var>I1</var><code>)</code> </td><td valign="top" width="20%"><code>functor(</code><var>S</var><code>,_,N),</code> </td><td valign="top" width="10%"><var>S</var><code>,1,N1</code> </td><td valign="top" width="10%"><code>_,I0,I0</code> </td><td valign="top" width="10%"><var>S</var><code>,I0,I2</code> </td><td valign="top" width="20%"><var>I1</var><code> is I0+1,</code> </td><td valign="top" width="10%"><var>S</var><code>,</code><var>I1</var><code>,I2</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="20%"><code>N1 is N+1</code>             </td><td valign="top" width="10%"></td><td valign="top" width="10%"></td><td valign="top" width="10%"></td><td valign="top" width="20%"><code>arg(I0,</code><var>S</var><code>,</code><var>A</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><code>count(</code><var>I</var><code>,</code><var>FE</var><code>,</code><var>T</var><code>)</code> </td><td valign="top" width="20%"><code>F is </code><var>FE</var><code>-1</code> </td><td valign="top" width="10%"><code>F,</code><var>T</var> </td><td valign="top" width="10%"><code>L0,L0</code> </td><td valign="top" width="10%"><code>I0,L1</code> </td><td valign="top" width="20%"><var>I</var><code> is I0+1</code> </td><td valign="top" width="10%"><var>I</var><code>,L1</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><code>for(</code><var>I</var><code>,</code><var>FE</var><code>,</code><var>TE</var><code>)</code> </td><td valign="top" width="20%"><code>F is </code><var>FE</var> </td><td valign="top" width="10%"><code>F,S</code> </td><td valign="top" width="10%"><code>L0,L0</code> </td><td valign="top" width="10%"><var>I</var><code>,L1</code> </td><td valign="top" width="20%"><code>I1 is </code><var>I</var><code>+1</code> </td><td valign="top" width="10%"><code>I1,L1</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="20%"><code>S is max(F,</code><var>TE</var><code>+1)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><code>param(</code><var>P</var><code>)</code> </td><td valign="top" width="20%"><code>true</code> </td><td valign="top" width="10%"><var>P</var> </td><td valign="top" width="10%"><var>P</var> </td><td valign="top" width="10%"><var>P</var> </td><td valign="top" width="20%"><code>true</code> </td><td valign="top" width="10%"><var>P</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%">
+   <br></td></tr></table>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsem_002dctr_002ddol.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsem_002dctr_002ddol.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

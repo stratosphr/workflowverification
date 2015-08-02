@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+<title>str-tip - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dstructs.html#lib_002dstructs" title="lib-structs">
+<link rel="prev" href="str_002detr.html#str_002detr" title="str-etr">
+<link rel="next" href="str_002dexa.html#str_002dexa" title="str-exa">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="str-tip"></a>
+<a name="str_002dtip"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="str_002dexa.html#str_002dexa">str-exa</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="str_002detr.html#str_002detr">str-etr</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dstructs.html#lib_002dstructs">lib-structs</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.35.9 Tips</h4>
+
+     <ol type=1 start=1>
+
+     <li>Most important tip: don't subvert the <code>structs</code> type
+system by looking inside foreign terms to get the address, or use
+<code>functor/3</code> to get the type.  This has two negative effects: firstly, if
+the <code>structs</code> package should change its representation of foreign terms,
+your code will not work.  But more importantly, you are more likely to
+get type mismatches, and likely to get unwrapped terms or even doubly
+wrapped terms where you expect wrapped ones. 
+<li>Remember that a foreign term <code>fred(123456)</code> is not of type <code>fred</code>, but a
+pointer to <code>fred</code>.  Looked at another way, what resides in memory at
+address 123456 is of type <code>fred</code>. 
+<li>The wrapper put on a foreign term signifies the type of that foreign
+term.  If you declare a type to be <code>pointer(opaque)</code> because you want to
+view that pointer to be opaque, when you get something of this
+type, it will be printed as <code>opaque(456123)</code>.  This is not very
+informative.  It is better to declare
+     <pre class="example">          fred = opaque,
+          thing = struct([...,
+                      part:pointer(fred),
+                      ...
+                  ]).
+</pre>
+     <p class="noindent">so that when you get the contents of the <code>part</code> member of a <code>thing</code>, it is
+wrapped as <code>fred(456123)</code>.
+     </ol>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/str_002dtip.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/str_002dtip.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

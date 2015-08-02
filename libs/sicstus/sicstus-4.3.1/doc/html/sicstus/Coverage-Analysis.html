@@ -1,0 +1,95 @@
+<html lang="en">
+<head>
+<title>Coverage Analysis - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" title="Writing Efficient Programs">
+<link rel="prev" href="Execution-Profiling.html#Execution-Profiling" title="Execution Profiling">
+<link rel="next" href="The-Cut.html#The-Cut" title="The Cut">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Coverage-Analysis"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="The-Cut.html#The-Cut">The Cut</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Execution-Profiling.html#Execution-Profiling">Execution Profiling</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Writing-Efficient-Programs.html#Writing-Efficient-Programs">Writing Efficient Programs</a>
+<hr>
+</div>
+
+<h3 class="section">9.3 Coverage Analysis</h3>
+
+<p><a name="index-coverage-analysis-2418"></a><a name="index-analysis_002c-coverage-2419"></a><a name="index-coverage-site-2420"></a><a name="index-site_002c-coverage-2421"></a>Coverage analysis is the gathering of information about which points in
+the code, or <em>coverage sites</em>, were executed, and how many times,
+during a particular run if the program.  It is available as of release
+4.2, for compiled as well as interpred code, provided that such code was
+loaded with the <code>source_info</code> Prolog flag switched on.  In fact, it
+uses the same underlying support as execution profiling: while the
+program is running with execution profiling switched on, the data
+accumulated can be used for both purposes.  Roughly, coverage sites
+correspond to points in the code at which the debugger would stop in
+<code>trace</code> mode, plus one site at entry to every clause.  A typical
+query pattern is:
+
+<pre class="example">     | ?- <var>[Load some code.]</var>
+     | ?- <kbd>prolog_flag(profiling,_,on).</kbd>
+     | ?- <var>[Run some queries.]</var>
+     | ?- <kbd>prolog_flag(profiling,_,off).</kbd>
+     | ?- <kbd>print_coverage.</kbd>
+</pre>
+   <p>The predicate <code>coverage_data/1</code> makes the accumulated data
+available as a Prolog term.  The predicate <code>print_coverage/0</code>
+prints the execution coverage in a hierarchical format.  It can also be
+given an argument which should be of the same type as the output of
+<code>coverage_data/1</code>. The Emacs interface has commands for
+code coverage highlighting of source code buffers (see <a href="Usage.html#Usage">Usage</a>). 
+For the details, see the respective reference page.
+
+     <dl>
+<dt><code>profile_reset &nbsp;<!-- /@w --> </code><strong>since release 4.2,development</strong><dd><a name="index-profile_005freset_002f0-_0028built_002din_0029-2422"></a><a name="index-profile_005freset_002f0-_0028built_002din_0029-2423"></a>
+Resets all profiling and coverage data. 
+See <a href="mpg_002dref_002dprofile_005freset.html#mpg_002dref_002dprofile_005freset">mpg-ref-profile_reset</a>.
+
+     <br><dt><code>coverage_data(</code><var>-Data</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.2,development</strong><dd><a name="index-coverage_005fdata_002f1-_0028built_002din_0029-2424"></a><a name="index-coverage_005fdata_002f1-_0028built_002din_0029-2425"></a>
+<var>Data</var> is the coverage data accumulated so far. 
+See <a href="mpg_002dref_002dcoverage_005fdata.html#mpg_002dref_002dcoverage_005fdata">mpg-ref-coverage_data</a>.
+
+     <br><dt><code>print_coverage &nbsp;<!-- /@w --> </code><strong>since release 4.2,development</strong><dt><code>print_coverage(</code><var>+Data</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.2,development</strong><dd><a name="index-print_005fcoverage_002f_005b0_002c1_005d-_0028built_002din_0029-2426"></a><a name="index-print_005fcoverage_002f_005b0_002c1_005d-_0028built_002din_0029-2427"></a>
+The coverage data <var>Data</var> is displayed in a hierarchical format. 
+<var>Data</var> defaults to the profiling data accumulated so far. 
+See <a href="mpg_002dref_002dprint_005fcoverage.html#mpg_002dref_002dprint_005fcoverage">mpg-ref-print_coverage</a>.
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Coverage-Analysis.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Coverage-Analysis.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

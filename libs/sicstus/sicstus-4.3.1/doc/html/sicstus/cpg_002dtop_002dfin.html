@@ -1,0 +1,152 @@
+<html lang="en">
+<head>
+<title>cpg-top-fin - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dtop.html#cpg_002dtop" title="cpg-top">
+<link rel="prev" href="cpg_002dtop_002dfst.html#cpg_002dtop_002dfst" title="cpg-top-fst">
+<link rel="next" href="cpg_002dtop_002dmain.html#cpg_002dtop_002dmain" title="cpg-top-main">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-top-fin"></a>
+<a name="cpg_002dtop_002dfin"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dtop_002dmain.html#cpg_002dtop_002dmain">cpg-top-main</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dtop_002dfst.html#cpg_002dtop_002dfst">cpg-top-fst</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dtop.html#cpg_002dtop">cpg-top</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.2.5 Foreign Interface</h4>
+
+<p><a name="index-Foreign-Interface_002c-C-functions-for-5087"></a><a name="index-C-functions-for-Foreign-Interface-5088"></a>
+
+     <dl>
+<dt><code>SP_atom_from_string()</code><dd>returns the encoded string representing a Prolog atom
+
+     <br><dt><code>SP_atom_length()</code><dd>returns the length of the encoded string representing a Prolog atom
+
+     <br><dt><code>SP_close_query()</code><dd>closes a Prolog query opened from C by <code>SP_open_query()</code>
+
+     <br><dt><code>SP_cons_functor()</code><dt><code>SP_cons_functor_array()</code><dd>creates a Prolog compound term from C
+
+     <br><dt><code>SP_cons_list()</code><dd>creates a Prolog list from C
+
+     <br><dt><code>SP_cut_query()</code><dd>terminates a nondeterminate Prolog query opened from C
+
+     <br><dt><code>SP_define_c_predicate()</code><dd>defines a Prolog predicate linked to a C function
+
+     <br><dt><code>SP_exception_term()</code><dd>returns the Prolog term to C corresponding to the
+most recent Prolog error
+
+     <br><dt><code>SP_get_address()</code><dd>fetches an integer representing a pointer in an SP_term_ref
+
+     <br><dt><code>SP_get_arg()</code><dd>fetches a specified argument of a compound term in
+an SP_term_ref
+
+     <br><dt><code>SP_get_atom()</code><dd>fetches an atom from an SP_term_ref
+
+     <br><dt><code>SP_get_current_dir()</code><dd>obtain name of current working directory
+
+     <br><dt><code>SP_get_float()</code><dd>fetches a floating point number from an SP_term_ref
+
+     <br><dt><code>SP_get_functor()</code><dd>fetches the name and arity of a term in an SP_term_ref
+
+     <br><dt><code>SP_get_integer()</code><dd>fetches an integer in an SP_term_ref
+
+     <br><dt><code>SP_get_integer()</code><dd>fetches an arbitrarily sized integer in an SP_term_ref
+
+     <br><dt><code>SP_get_list()</code><dd>fetches the head and tail of a list in an SP_term_ref
+
+     <br><dt><code>SP_get_list_codes()</code><dd>fetches a code-list in an SP_term_ref
+
+     <br><dt><code>SP_get_list_n_codes()</code><dd>fetches the first part of a code-list in an SP_term_ref
+
+     <br><dt><code>SP_get_list_n_bytes()</code><dd>fetches the first part of a byte-list in an SP_term_ref
+
+     <br><dt><code>SP_get_number_codes()</code><dd>fetches a number encoded as a code-list in an SP_term_ref
+
+     <br><dt><code>SP_get_string()</code><dd>fetches the encoded string representing a Prolog atom in an SP_term_ref
+
+     <br><dt><code>SP_next_solution()</code><dd>gets the next solution, if any, to an open
+Prolog query
+
+     <br><dt><code>SP_open_query()</code><dd>opens a Prolog query from C
+
+     <br><dt><code>SP_pred()</code><dd>fetches an identifier for a Prolog predicate
+
+     <br><dt><code>SP_predicate()</code><dd>fetches an identifier a Prolog predicate
+
+     <br><dt><code>SP_put_address()</code><dd>assigns a pointer to an SP_term_ref
+
+     <br><dt><code>SP_put_atom()</code><dd>assigns an atom to an SP_term_ref
+
+     <br><dt><code>SP_put_float()</code><dd>assigns a floating point number to an SP_term_ref
+
+     <br><dt><code>SP_put_functor()</code><dd>assigns a new compound term to an SP_term_ref
+
+     <br><dt><code>SP_put_integer()</code><dd>assigns an integer to an SP_term_ref
+
+     <br><dt><code>SP_put_integer_bytes()</code><dd>assigns an arbitrarily sized integer to an SP_term_ref
+
+     <br><dt><code>SP_put_list()</code><dd>assigns a new list to an SP_term_ref
+
+     <br><dt><code>SP_put_list_codes()</code><dd>assigns a code-list to an SP_term_ref
+
+     <br><dt><code>SP_put_list_n_codes()</code><dd>assigns the first part of a code-list to an SP_term_ref
+
+     <br><dt><code>SP_put_list_n_bytes()</code><dd>assigns the first part of a byte-list to an SP_term_ref
+
+     <br><dt><code>SP_put_number_codes()</code><dd>assigns a number encoded as a code-list to an SP_term_ref
+
+     <br><dt><code>SP_put_string()</code><dd>assigns the atom represented by an encoded string to an SP_term_ref
+
+     <br><dt><code>SP_put_term()</code><dd>assigns the representation of an SP_term_ref to another SP_term_ref
+
+     <br><dt><code>SP_put_variable()</code><dd>assigns a Prolog variable to an SP_term_ref
+
+     <br><dt><code>SP_query()</code><dd>makes a determinate query to a Prolog predicate, committing to the solution
+
+     <br><dt><code>SP_query_cut_fail()</code><dd>makes a determinate query to a Prolog predicate for side-effects only
+
+     <br><dt><code>SP_read_from_string()</code><dd>assigns a Prolog term read from a string to an SP_term_ref
+
+     <br><dt><code>SP_set_current_dir()</code><dd>set name of current working directory
+
+     <br><dt><code>SP_string_from_atom()</code><dd>returns a null-terminated string corresponding
+to a Prolog atom
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dtop_002dfin.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dtop_002dfin.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

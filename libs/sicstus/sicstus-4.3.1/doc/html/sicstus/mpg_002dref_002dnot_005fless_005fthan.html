@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+<title>mpg-ref-not_less_than - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dgreater_005fthan.html#mpg_002dref_002dgreater_005fthan" title="mpg-ref-greater_than">
+<link rel="next" href="mpg_002dref_002dterm_005funify_005fdecided.html#mpg_002dref_002dterm_005funify_005fdecided" title="mpg-ref-term_unify_decided">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-not_less_than"></a>
+<a name="mpg_002dref_002dnot_005fless_005fthan"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dterm_005funify_005fdecided.html#mpg_002dref_002dterm_005funify_005fdecided">mpg-ref-term_unify_decided</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dgreater_005fthan.html#mpg_002dref_002dgreater_005fthan">mpg-ref-greater_than</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.136 <code>&gt;=/2</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-g_t_003e_003d_002f2-_0028built_002din_002c-ref-page_0029-4725"></a><a name="index-g_t_003e_003d_002f2-_0028built_002din_002c-ref-page_0029-4726"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><var>+Expr1</var> <code>&gt;=</code> <var>+Expr2</var>
+
+   <p>Succeeds if the results of evaluating <var>Expr1</var> and
+<var>Expr2</var> <em>are equal</em>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Expr1</var><dd><dfn>expr</dfn>, must be ground
+<br><dt><var>Expr2</var><dd><dfn>expr</dfn>, must be ground
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>Succeeds if the result of evaluating <var>Expr1</var> is <em>greater
+than or equal to</em> the result of evaluating <var>Expr2</var>.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Arithmetic errors (see <a href="ref_002dari_002dexc.html#ref_002dari_002dexc">ref-ari-exc</a>).
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     | ?- <kbd>42 &gt;= 42.</kbd>
+     
+     yes
+</pre>
+<pre class="example">     | ?- <kbd>"b" &gt;= "a".</kbd>
+     
+     yes
+</pre>
+   <h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dari.html#ref_002dari">ref-ari</a>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dnot_005fless_005fthan.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dnot_005fless_005fthan.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

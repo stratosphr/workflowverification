@@ -1,0 +1,128 @@
+<html lang="en">
+<head>
+<title>Basic Functions - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Tcl_002fTk-Prolog-Library.html#The-Tcl_002fTk-Prolog-Library" title="The Tcl/Tk Prolog Library">
+<link rel="prev" href="How-it-Works-_002d-An-Overview.html#How-it-Works-_002d-An-Overview" title="How it Works - An Overview">
+<link rel="next" href="Evaluation-Functions.html#Evaluation-Functions" title="Evaluation Functions">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Basic-Functions"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Evaluation-Functions.html#Evaluation-Functions">Evaluation Functions</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="How-it-Works-_002d-An-Overview.html#How-it-Works-_002d-An-Overview">How it Works - An Overview</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Tcl_002fTk-Prolog-Library.html#The-Tcl_002fTk-Prolog-Library">The Tcl/Tk Prolog Library</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.37.4.2 Basic Functions</h5>
+
+<p>The heart of the system is the ability to create an embedded Tcl
+interpreter with which the Prolog system can interact. 
+A Tcl interpreter is created within Prolog through a call to
+<code>tcl_new/1</code>:
+
+   <p><a name="index-tcl_005fnew_002f1-_0028tcltk_0029-4000"></a><a name="index-tcl_005fnew_002f1-_0028tcltk_0029-4001"></a>
+<pre class="example">     tcl_new(<var>-TclInterpreter</var>)
+</pre>
+   <p class="noindent">which creates a new interpreter, initializes it, and returns a reference
+to it in the variable <var>TclInterpreter</var>. The reference can then be
+used in subsequent calls to manipulate the interpreter. More than one
+Tcl interpreter object can be active in the Prolog system at any one
+time.
+
+   <p>To start a Tcl interpreter extended with Tk, the <code>tk_new/2</code>
+predicate is called from Prolog. It has the following form:
+
+   <p><a name="index-tk_005fnew_002f2-_0028tcltk_0029-4002"></a><a name="index-tk_005fnew_002f2-_0028tcltk_0029-4003"></a>
+<pre class="example">     tk_new(<var>+Options</var>, <var>-TclInterpreter</var>)
+</pre>
+   <p class="noindent">which returns through the variable <var>TclInterpreter</var> a handle to the
+underlying Tcl interpreter. The usual Tcl/Tk window pops up after this
+call is made and it is with reference to that window that subsequent
+widgets are created.  As with the <code>tcl_new/1</code> predicate, many
+Tcl/Tk interpreters may be created from Prolog at the same time through
+calls to <code>tk_new/2</code>.
+
+   <p>The <var>Options</var> part of the call is a list of some (or none) of the following elements:
+
+     <dl>
+<dt><code>top_level_events</code><dd><a name="index-top_005flevel_005fevents_002f0-_0028tk_005fnew_002f2-option_0029-4004"></a>This allows Tk events to be handled while Prolog is waiting
+for terminal input; for example, while the Prolog system is waiting
+for input at the top-level prompt. Without this option, Tk events
+are not serviced while the Prolog system is waiting for terminal
+input. (For information on Tk events; see <a href="Event-Handling.html#Event-Handling">Event Handling</a>).
+
+     <!-- [PM] 4.0 now works under Windows -->
+     <!-- @quotation -->
+     <!-- @strong{Please note}: This option is not currently supported under Windows. -->
+     <!-- @end quotation -->
+     <br><dt><code>name(</code><var>+ApplicationName</var><code>)</code><dd><a name="index-name_002f1-_0028tk_005fnew_002f2-option_0029-4005"></a>This gives the main window a title <var>ApplicationName</var>. 
+This name is also used for communicating between Tcl/Tk applications
+via the Tcl  <code>send</code> command. 
+(<code>send</code> is not covered in this document. Please refer to the
+Tcl/Tk documentation.)
+
+     <br><dt><code>display(</code><var>+Display</var><code>)</code><dd><a name="index-display_002f1-_0028tk_005fnew_002f2-option_0029-4006"></a>(This is X windows specific.) Gives the name of the screen on which
+to create the main window. If this is not given, the default
+display is determined by the <samp><span class="env">DISPLAY</span></samp> environment variable. 
+</dl>
+
+   <p>An example of using <code>tk_new/2</code>:
+
+<pre class="example">     | ?- <kbd>tk_new([top_level_events, name('My SICStus/Tk App')], Tcl).</kbd>
+</pre>
+   <p class="noindent">which creates a Tcl/Tk interpreter, returns a handle to it in the
+variable <code>Tcl</code> and Tk events are serviced while Prolog is waiting
+at the top-level prompt.  The window that pops up will have the title
+<code>My SICStus/Tk App</code>.
+
+   <p>The reference to a Tcl interpreter returned by a call to <code>tk_new/2</code>
+is used in the same way and in the same places as a reference returned
+by a call to <code>tcl_new/1</code>. They are both references to Tcl interpreters.
+
+   <p>To remove a Tcl interpreter from the system, use the <code>tcl_delete/1</code>
+predicate:
+
+   <p><a name="index-tcl_005fdelete_002f1-_0028tcltk_0029-4007"></a><a name="index-tcl_005fdelete_002f1-_0028tcltk_0029-4008"></a>
+<pre class="example">     tcl_delete(<var>+TclInterpreter</var>)
+</pre>
+   <p class="noindent">which given a reference to a Tcl interpreter, closes down
+the interpreter and removes it. The reference can be for a
+plain Tcl interpreter or for a Tk enhanced one; <code>tcl_delete/1</code>
+removes both kinds.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Basic-Functions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Basic-Functions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,141 @@
+<html lang="en">
+<head>
+<title>mpg-ref-prolog_flag - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dprofile_005freset.html#mpg_002dref_002dprofile_005freset" title="mpg-ref-profile_reset">
+<link rel="next" href="mpg_002dref_002dprolog_005fload_005fcontext.html#mpg_002dref_002dprolog_005fload_005fcontext" title="mpg-ref-prolog_load_context">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-prolog_flag"></a>
+<a name="mpg_002dref_002dprolog_005fflag"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dprolog_005fload_005fcontext.html#mpg_002dref_002dprolog_005fload_005fcontext">mpg-ref-prolog_load_context</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dprofile_005freset.html#mpg_002dref_002dprofile_005freset">mpg-ref-profile_reset</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.167 <code>prolog_flag/[2,3]</code></h4>
+
+<p><a name="index-prolog_005fflag_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029-4822"></a><a name="index-prolog_005fflag_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029-4823"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>prolog_flag(</code><var>?FlagName</var><code>, </code><var>?Value</var><code>)</code>
+
+   <p><var>FlagName</var> is a flag, which currently is set to <var>Value</var>.
+
+   <p><code>prolog_flag(</code><var>+FlagName</var><code>, </code><var>-OldValue</var><code>, </code><var>+NewValue</var><code>)</code>
+
+   <p>Unifies the current representation of <var>FlagName</var> with <var>OldValue</var>
+and then sets the representation of the flag to <var>NewValue</var>.
+The available Prolog flags are listed in <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>FlagName</var><dd><dfn>atom</dfn>, must be nonvar and a legal flag in <code>prolog_flag/3</code>
+
+     <br><dt><var>Value</var><dd><dfn>term</dfn>
+
+     <br><dt><var>OldValue</var><dd><dfn>term</dfn>
+
+     <br><dt><var>NewValue</var><dd><dfn>term</dfn>, must be nonvar and belong to proper type/domain
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>To inspect the representation of a
+flag without changing it, use <code>prolog_flag/2</code> or the following
+idiom, where <var>FlagName</var> is bound to one of the valid flags above.
+<pre class="example">      | ?- <kbd>prolog_flag(FlagName, Value, Value).</kbd>
+</pre>
+   <p>Use <code>prolog_flag/2</code> to query and <code>set_prolog_flag/2</code> or
+<code>prolog_flag/3</code> to set values.
+
+   <p><code>prolog_flag/3</code> can be used to save flag values so that one can
+return a flag to its previous state. 
+For example:
+<pre class="example">     ...
+     prolog_flag(debugging,Old,on), % Save in Old and set
+     ...
+     prolog_flag(debugging,_,Old),  % Restore from Old
+     ...
+</pre>
+   <h4 class="subheading">Backtracking</h4>
+
+<p><code>prolog_flag/2</code> enumerates all valid
+flagnames of a given current representation, or all pairs of flags and their
+current values.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd>In <code>prolog_flag/3</code>, <var>FlagName</var> unbound, <em>or</em>
+<var>NewValue</var> unbound and not identical to <var>OldValue</var>.
+
+     <br><dt><code>type_error</code><dd><var>FlagName</var> is not an atom.
+
+     <br><dt><code>domain_error</code><dd>In <code>prolog_flag/3</code>, <var>FlagName</var> bound to an atom that does not
+represent a supported flag, <em>or</em>
+<var>NewValue</var> bound to a term that does not represent a valid representation
+for <var>FlagName</var>.
+
+     <br><dt><code>permission_error</code><dd>In <code>prolog_flag/3</code>,
+<var>NewValue</var> not identical to <var>OldValue</var> for a read-only flag. 
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     | ?- <kbd>prolog_flag(X,Y).</kbd>
+     X = bounded,
+     Y = false ? &lt;RET&gt;
+     yes
+     
+     | ?- <kbd>prolog_flag(X,Y,Y).</kbd>
+     ! Instantiation error in argument 1 of prolog_flag/3
+     ! goal:  prolog_flag(_94,_95,_95)
+     
+     | ?- <kbd>prolog_flag(source_info,X,X).</kbd>
+     X = on ? &lt;RET&gt;
+     yes
+</pre>
+<h4 class="subheading">See Also</h4>
+
+<p><code>current_prolog_flag/2</code>, <code>set_prolog_flag/2</code>, <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dprolog_005fflag.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dprolog_005fflag.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,109 @@
+<html lang="en">
+<head>
+<title>CLPQR Projection - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dclpqr.html#lib_002dclpqr" title="lib-clpqr">
+<link rel="prev" href="CLPQR-Numerical-Precision.html#CLPQR-Numerical-Precision" title="CLPQR Numerical Precision">
+<link rel="next" href="CLPQR-Why-Disequations.html#CLPQR-Why-Disequations" title="CLPQR Why Disequations">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CLPQR-Projection"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CLPQR-Why-Disequations.html#CLPQR-Why-Disequations">CLPQR Why Disequations</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="CLPQR-Numerical-Precision.html#CLPQR-Numerical-Precision">CLPQR Numerical Precision</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dclpqr.html#lib_002dclpqr">lib-clpqr</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.11.5 Projection and Redundancy Elimination</h4>
+
+<p>Once a derivation succeeds, the Prolog system presents the
+bindings for the variables in the query. In a CLP
+system, the set of answer constraints is presented in analogy. A
+complication in the CLP context are variables and associated
+constraints that were not mentioned in the query. A motivating
+example is the familiar <code>mortgage</code> relation:
+<pre class="example">
+             <div align="right"><em>% library('clpqr/examples/mg')</em>
+     </div>
+     mg(P,T,I,B,MP):-
+       {
+          T = 1,
+          B + MP = P * (1 + I)
+       }.
+     mg(P,T,I,B,MP):-
+       {
+          T &gt; 1,
+          P1 = P * (1 + I) - MP,
+          T1 = T - 1
+       },
+       mg(P1, T1, I, B, MP).
+</pre>
+   <p>A sample query yields:
+<pre class="example">     clp(r) ?- <kbd>[library('clpqr/examples/mg')].</kbd>
+     clp(r) ?- <kbd>mg(P,12,0.01,B,Mp).</kbd>
+     
+     {B=1.1268250301319698*P-12.682503013196973*Mp}
+</pre>
+   <p>Without projection of the answer constraints onto the query
+variables we would observe the following interaction:
+<pre class="example">     clp(r) ?- <kbd>mg(P,12,0.01,B,Mp).</kbd>
+     
+     {B=12.682503013196973*_A-11.682503013196971*P},
+     {Mp= -(_A)+1.01*P},
+     {_B=2.01*_A-1.01*P},
+     {_C=3.0301*_A-2.0301*P},
+     {_D=4.060401000000001*_A-3.0604009999999997*P},
+     {_E=5.101005010000001*_A-4.10100501*P},
+     {_F=6.152015060100001*_A-5.152015060099999*P},
+     {_G=7.213535210701001*_A-6.213535210700999*P},
+     {_H=8.285670562808011*_A-7.285670562808009*P},
+     {_I=9.368527268436091*_A-8.36852726843609*P},
+     {_J=10.462212541120453*_A-9.46221254112045*P},
+     {_K=11.566834666531657*_A-10.566834666531655*P}
+</pre>
+   <p>The variables <var>_A</var> <small class="dots">...</small> <var>_K</var> are not part of the
+query, they originate from the mortgage program
+proper. Although the latter answer is equivalent to the former in terms
+of linear algebra, most users would prefer the former.
+
+<ul class="menu">
+<li><a accesskey="1" href="CLPQR-Variable-Ordering.html#CLPQR-Variable-Ordering">CLPQR Variable Ordering</a>:  Variable Ordering
+<li><a accesskey="2" href="CLPQR-Turning-Answers-into-Terms.html#CLPQR-Turning-Answers-into-Terms">CLPQR Turning Answers into Terms</a>:  Turning Answers into Terms
+<li><a accesskey="3" href="CLPQR-Projecting-Inequalities.html#CLPQR-Projecting-Inequalities">CLPQR Projecting Inequalities</a>:  Projecting Inequalities
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-Projection.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-Projection.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

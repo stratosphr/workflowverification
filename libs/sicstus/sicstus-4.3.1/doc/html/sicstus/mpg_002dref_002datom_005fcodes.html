@@ -1,0 +1,109 @@
+<html lang="en">
+<head>
+<title>mpg-ref-atom_codes - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002datom_005fchars.html#mpg_002dref_002datom_005fchars" title="mpg-ref-atom_chars">
+<link rel="next" href="mpg_002dref_002datom_005fconcat.html#mpg_002dref_002datom_005fconcat" title="mpg-ref-atom_concat">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-atom_codes"></a>
+<a name="mpg_002dref_002datom_005fcodes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002datom_005fconcat.html#mpg_002dref_002datom_005fconcat">mpg-ref-atom_concat</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002datom_005fchars.html#mpg_002dref_002datom_005fchars">mpg-ref-atom_chars</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.17 <code>atom_codes/2</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-atom_005fcodes_002f2-_0028built_002din_002c-ref-page_0029-4458"></a><a name="index-atom_005fcodes_002f2-_0028built_002din_002c-ref-page_0029-4459"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>atom_codes(</code><var>+Atom</var><code>, </code><var>-Codes</var><code>)</code>
+
+   <p><code>atom_codes(</code><var>-Atom</var><code>, </code><var>+Codes</var><code>)</code>
+
+   <p><var>Codes</var> is the <dfn>codes</dfn> comprising the printed
+representation of <var>Atom</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Codes</var><dd><dfn>codes</dfn>
+
+     <p>The <dfn>codes</dfn>
+comprising the printed representation of <var>Atom</var>.
+
+     <br><dt><var>Atom</var><dd><dfn>atom</dfn>
+
+     <p>The atom containing
+exactly those characters, even if the characters look like the printed
+representation of a number.
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>Initially, either <var>Atom</var> must be instantiated to an atom, or
+<var>Codes</var> must be instantiated to a proper <dfn>codes</dfn>.
+
+   <p>Any atom that can be read or written by Prolog can be constructed
+or decomposed by <code>atom_codes/2</code>.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>Atom</var> is uninstantiated and <var>Codes</var> is not instantiated enough
+
+     <br><dt><code>type_error</code><dd><var>Atom</var> is not an atom or
+<var>Codes</var> cannot be unified with a list of integers
+
+     <br><dt><code>representation_error</code><dd>An element of <var>Codes</var> is an invalid character code, or
+<var>Codes</var> is a list corresponding to an atom that can't be represented
+</dl>
+
+   <p>The check of <var>Codes</var> when <var>Atom</var> is instantiated was added in
+release 4.3 for alignment with the ISO Prolog standard. Previous
+releases simply failed in this case instead of reporting an error for
+malformed <var>Codes</var>.
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>atom_chars/2</code>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002datom_005fcodes.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002datom_005fcodes.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

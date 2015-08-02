@@ -1,0 +1,166 @@
+<html lang="en">
+<head>
+<title>lib-types - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Prolog-Library.html#The-Prolog-Library" title="The Prolog Library">
+<link rel="prev" href="lib_002dtrees.html#lib_002dtrees" title="lib-trees">
+<link rel="next" href="lib_002dugraphs.html#lib_002dugraphs" title="lib-ugraphs">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="lib-types"></a>
+<a name="lib_002dtypes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="lib_002dugraphs.html#lib_002dugraphs">lib-ugraphs</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="lib_002dtrees.html#lib_002dtrees">lib-trees</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Prolog-Library.html#The-Prolog-Library">The Prolog Library</a>
+<hr>
+</div>
+
+<h3 class="section">10.41 Type Checking&mdash;<code>library(types)</code></h3>
+
+<p>This library module provides more and better type tests. 
+For the purposes of this library, we first define an abstract type
+<var>typeterm</var>, as follows:
+
+   <p><table summary=""><tr align="left"><td valign="top" width="25%"><var>typeterm</var> </td><td valign="top" width="75%">::= <code>atom</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>atomic</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>callable</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>character</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>character_code</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>compound</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>db_reference</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>float</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>float(</code><var>rangeterm</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>ground</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>integer</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>integer(</code><var>rangeterm</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>list</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>list(</code><var>Type</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>mutable</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>nonvar</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>number</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>number(</code><var>rangeterm</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>oneof(</code><var>L</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>order</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>pair</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>pred_spec</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>pred_spec_tree</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>proper_list</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>proper_list(</code><var>Type</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>simple</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>term</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>var</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>var_or(</code><var>Type</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"><br></td></tr><tr align="left"><td valign="top" width="25%"><var>rangeterm</var> </td><td valign="top" width="75%">::= <code>between(L,U)</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>&gt;=(L)</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>&gt;(L)</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>&lt;(L)</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>=&lt;(L)</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>=:=(L)</code>
+<br></td></tr><tr align="left"><td valign="top" width="25%"></td><td valign="top" width="75%">| <code>=\=(L)</code>
+   <br></td></tr></table>
+
+   <p>Culprit information:
+
+   <p>These predicates takes arguments that are used when reporting the reason and location of errors. 
+The arguments are:
+     <dl>
+<dt><var>Goal</var><dd><!-- [PM] 4.3 document that Goal should lack module wrapping, even though we nowadays -->
+<!-- unwrap it. It did not always use to work and it is bad style, especially for illarg/3. -->
+ must be a callable term, without <code>(:)/2</code> module wrapping, with arity at least <var>ArgNo</var>. 
+<br><dt><var>ArgNo</var><dd> must be a non-negative integer, where zero means no specific argument postition. 
+<br><dt><var>Culprit</var><dd> the term that has the offending representation.
+</dl>
+
+   <p>Exported predicates:
+
+     <dl>
+<dt><code>must_be(</code><var>+Term</var><code>, </code><var>+Type</var><code>, </code><var>+Goal</var><code>, </code><var>+ArgNo</var><code>)</code><dd><a name="index-must_005fbe_002f4-_0028types_0029-4119"></a><a name="index-must_005fbe_002f4-_0028types_0029-4120"></a>
+checks whether the <var>Term</var> belongs to the indicated <var>Type</var>,
+which should be a <var>typeterm</var>.  If it doesn't, several different
+error exceptions can be thrown: the <var>Term</var> may not be instantiated
+enough to tell yet (Instantiation Error); it may be instantiated when
+an unbound variable was expected (Uninstantiation Error); it may be
+definitely not of the right type (Type Error); it may be of the right
+type but not representable (Representation Error); or it may be of the
+right type but in the wrong domain (Domain Error).  If an error
+exception is thrown, it will include <var>Goal</var> and <var>ArgNo</var> and,
+if possible, the line of code in the scope of which the error
+occurred.  See <a href="ref_002dere_002derr.html#ref_002dere_002derr">ref-ere-err</a>.
+
+     <br><dt><code>illarg(</code><var>+ErrorTerm</var><code>, </code><var>+Goal</var><code>, </code><var>+ArgNo</var><code>)</code><dt><code>illarg(</code><var>+ErrorTerm</var><code>, </code><var>+Goal</var><code>, </code><var>+ArgNo</var><code>, </code><var>+Culprit</var><code>)</code><dd><a name="index-illarg_002f_005b3_002c4_005d-_0028types_0029-4121"></a><a name="index-illarg_002f_005b3_002c4_005d-_0028types_0029-4122"></a>
+is the way to raise an error exception, if you
+would like the exception to pinpoint the line of code in the scope of
+which the error occurs.  This is especially useful in the context of
+source-linked debugging. <var>Culprit</var> defaults to argument number
+<var>ArgNo</var> of <var>Goal</var>. These three arguments are passed to the
+exception being raised, if appropriate. <var>ErrorTerm</var> should be one
+of the following.  See <a href="ref_002dere_002derr.html#ref_002dere_002derr">ref-ere-err</a>.
+
+          <dl>
+<dt><code>var</code><dd>An Instantiation error is raised.
+
+          <br><dt><code>type(</code><var>ErrorType</var><code>)</code><dd>Same as <code>must_be(</code><var>Culprit</var><code>, </code><var>ErrorType</var><code>, </code><var>Goal</var><code>, </code><var>ArgNo</var><code>)</code>.
+
+          <br><dt><code>domain(</code><var>ErrorType</var><code>,</code><var>ErrorDomain</var><code>)</code><dd>First, the type is checked by <code>must_be(</code><var>Culprit</var><code>, </code><var>ErrorType</var><code>, </code><var>Goal</var><code>, </code><var>ArgNo</var><code>)</code>. 
+If the type is valid, a
+Domain Error is raised with the expected domain being
+<var>ErrorDomain</var>.
+
+          <br><dt><code>force_type(</code><var>ExpType</var><code>)</code><dd>A Type Error is raised.
+
+          <br><dt><code>context(</code><var>ContextType</var><code>,</code><var>CommandType</var><code>)</code><dd>A Context Error is raised.
+
+          <br><dt><code>existence(</code><var>ObjType</var><code>,</code><var>Culprit</var><code>,</code><var>Message</var><code>)</code><dd>An Existence Error is raised.
+
+          <br><dt><code>permission(</code><var>Operation</var><code>,</code><var>ObjType</var><code>,</code><var>Message</var><code>)</code><dd>A Permission Error is raised.
+
+          <br><dt><code>representation(</code><var>ErrorType</var><code>)</code><dd>A Representation Error is raised.
+
+          <br><dt><code>evaluation(</code><var>ErrorType</var><code>)</code><dd>An Evaluation Error is raised.
+
+          <br><dt><code>consistency(</code><var>Culprit1</var><code>,</code><var>Culprit2</var><code>,</code><var>Message</var><code>)</code><dd>A Consistency Error is raised.
+
+          <br><dt><code>syntax(</code><var>Pos</var><code>,</code><var>Msg</var><code>,</code><var>Tokens</var><code>,</code><var>AfterError</var><code>)</code><dd>A Syntax Error is raised.
+
+          <br><dt><code>resource(</code><var>Resource</var><code>)</code><dd>A Resource Error is raised.
+
+          <br><dt><code>system(</code><var>Message</var><code>)</code><dd>A System Error is raised.
+
+     </dl>
+     </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dtypes.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dtypes.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

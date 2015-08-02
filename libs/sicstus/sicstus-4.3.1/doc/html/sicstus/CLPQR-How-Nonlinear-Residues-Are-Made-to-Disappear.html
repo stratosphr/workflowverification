@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+<title>CLPQR How Nonlinear Residues Are Made to Disappear - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="CLPQR-Linearity.html#CLPQR-Linearity" title="CLPQR Linearity">
+<link rel="next" href="CLPQR-Isolation-Axioms.html#CLPQR-Isolation-Axioms" title="CLPQR Isolation Axioms">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CLPQR-How-Nonlinear-Residues-Are-Made-to-Disappear"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CLPQR-Isolation-Axioms.html#CLPQR-Isolation-Axioms">CLPQR Isolation Axioms</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="CLPQR-Linearity.html#CLPQR-Linearity">CLPQR Linearity</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.11.3.1 How Nonlinear Residues Are Made to Disappear</h5>
+
+<p>Binding variables that appear in nonlinear residues will
+reduce the complexity of the nonlinear expressions and eventually
+results in linear expressions:
+<pre class="example">     clp(q) ?- <kbd>{exp(X+Y+1,2) = 3*X*X+Y*Y}.</kbd>
+     
+     clpq:{Y*2-X^2*2+Y*X*2+X*2+1=0}
+</pre>
+   <p class="noindent">Equating <var>X</var> and <var>Y</var> collapses the expression completely and
+even determines the values of the two variables:
+<pre class="example">     clp(q) ?- <kbd>{exp(X+Y+1,2) = 3*X*X+Y*Y}, X=Y.</kbd>
+     
+     X = -1/4,
+     Y = -1/4
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-How-Nonlinear-Residues-Are-Made-to-Disappear.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-How-Nonlinear-Residues-Are-Made-to-Disappear.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

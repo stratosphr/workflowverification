@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+<title>ref-lod-dcl - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlod.html#ref_002dlod" title="ref-lod">
+<link rel="prev" href="ref_002dlod_002drpx.html#ref_002dlod_002drpx" title="ref-lod-rpx">
+<link rel="next" href="ref_002dlod_002dexp.html#ref_002dlod_002dexp" title="ref-lod-exp">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-lod-dcl"></a>
+<a name="ref_002dlod_002ddcl"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dlod_002dexp.html#ref_002dlod_002dexp">ref-lod-exp</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dlod_002drpx.html#ref_002dlod_002drpx">ref-lod-rpx</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlod.html#ref_002dlod">ref-lod</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.3.4 Declarations and Initializations</h4>
+
+<p><a name="index-predicate-declaration-692"></a><a name="index-declaration_002c-predicate-693"></a>When a program is to be loaded, it is sometimes necessary to
+tell the system to treat some of the predicates specially.  This
+information is supplied by including <dfn>declarations</dfn> about such
+predicates in the source file, preceding any clauses for the
+predicates that they concern.  A declaration is written just
+as a directive is, beginning with &lsquo;<samp><span class="samp">:-</span></samp>&rsquo;.  A declaration is
+effective from its occurrence through the end of file.
+
+   <p>Although declarations that affect more than one predicate
+may be collapsed into a single declaration, the recommended style
+is to write the declarations for a predicate immediately
+before its first clause.
+
+   <p><a name="index-operator-declaration-694"></a><a name="index-declaration_002c-operator-695"></a>Operator declarations are not declarations proper, but
+rather directives that modify the global table of syntax
+operators.  Operator declarations are executed as they
+are encountered while loading programs.
+
+   <p>The rest of this section details the available forms of predicate
+declarations.
+
+<ul class="menu">
+<li><a accesskey="1" href="Multifile-Declarations.html#Multifile-Declarations">Multifile Declarations</a>:  Multifile Declarations
+<li><a accesskey="2" href="Dynamic-Declarations.html#Dynamic-Declarations">Dynamic Declarations</a>:  Dynamic Declarations
+<li><a accesskey="3" href="Volatile-Declarations.html#Volatile-Declarations">Volatile Declarations</a>:  Volatile Declarations
+<li><a accesskey="4" href="Discontiguous-Declarations.html#Discontiguous-Declarations">Discontiguous Declarations</a>:  Discontiguous Declarations
+<li><a accesskey="5" href="Block-Declarations.html#Block-Declarations">Block Declarations</a>:  Block Declarations
+<li><a accesskey="6" href="Meta_002dPredicate-Declarations.html#Meta_002dPredicate-Declarations">Meta-Predicate Declarations</a>:  Meta-Predicate Declarations
+<li><a accesskey="7" href="Module-Declarations.html#Module-Declarations">Module Declarations</a>:  Module Declarations
+<li><a accesskey="8" href="Public-Declarations.html#Public-Declarations">Public Declarations</a>:  Public Declarations
+<li><a accesskey="9" href="Mode-Declarations.html#Mode-Declarations">Mode Declarations</a>:  Mode Declarations
+<li><a href="Include-Declarations.html#Include-Declarations">Include Declarations</a>:  Include Declarations
+<li><a href="Initializations.html#Initializations">Initializations</a>:  Initializations
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlod_002ddcl.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlod_002ddcl.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

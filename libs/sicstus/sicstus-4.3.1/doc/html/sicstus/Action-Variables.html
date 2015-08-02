@@ -1,0 +1,160 @@
+<html lang="en">
+<head>
+<title>Action Variables - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Breakpoint-Conditions.html#Breakpoint-Conditions" title="Breakpoint Conditions">
+<link rel="prev" href="Condition-Macros.html#Condition-Macros" title="Condition Macros">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Action-Variables"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Condition-Macros.html#Condition-Macros">Condition Macros</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Breakpoint-Conditions.html#Breakpoint-Conditions">Breakpoint Conditions</a>
+<hr>
+</div>
+
+<h4 class="subsection">5.9.9 The Action Variables</h4>
+
+<p><a name="index-debugger-action-variables-2146"></a><a name="index-action-variables_002c-debugger-2147"></a>
+In this section we list the possible values of the debugger action
+variables, and their meaning.
+
+   <p>Note that the Prolog terms, supplied as values, are copied when a
+variable is set. This is relevant primarily in the case of the
+<code>proceed/2</code> and <code>flit/2</code> values.
+
+   <p>Values allowed in the <code>show</code> condition:
+
+     <dl>
+<dt><code>print</code><dd><a name="index-print_002f0-_0028debugger-show-control_0029-2148"></a>Write using options stored in the <code>debugger_print_options</code> Prolog flag. 
+<a name="index-debugger_005fprint_005foptions-_0028prolog-flag_0029-2149"></a><br><dt><code>silent</code><dd><a name="index-silent_002f0-_0028debugger-show-control_0029-2150"></a>Display nothing. 
+<br><dt><code>display</code><dd><a name="index-display_002f0-_0028debugger-show-control_0029-2151"></a>Write using <code>display</code>. 
+<br><dt><code>write</code><dd><a name="index-write_002f0-_0028debugger-show-control_0029-2152"></a>Write using <code>writeq</code>. 
+<br><dt><code>write_term(</code><var>Options</var><code>)</code><dd><a name="index-write_005fterm_002f1-_0028debugger-show-control_0029-2153"></a>Write using options <var>Options</var>. 
+<br><dt><var>Method</var><code>-</code><var>Sel</var><dd><a name="index-g_t_002d_002f2-_0028debugger-show-control_0029-2154"></a>Display only the subterm selected by <var>Sel</var>, using
+<var>Method</var>. Here, <var>Method</var> is one of the methods above, and
+<var>Sel</var> is a subterm selector. 
+</dl>
+
+   <p>Values allowed in the <code>command</code> condition:
+
+     <dl>
+<dt><code>ask</code><dd><a name="index-ask_002f0-_0028debugger-command-control_0029-2155"></a>Ask the user what to do next. 
+<br><dt><code>proceed</code><dd><a name="index-proceed_002f0-_0028debugger-command-control_0029-2156"></a>Continue the execution without interacting with the user (cf. 
+unleashing). 
+<br><dt><code>flit</code><dd><a name="index-flit_002f0-_0028debugger-command-control_0029-2157"></a>Continue the execution without building a procedure box for the current goal
+(and consequently not encountering any other ports for this invocation). 
+Only meaningful at Call ports, at other ports it is equivalent to
+<code>proceed</code>. 
+<br><dt><code>proceed(</code><var>Goal</var><code>,</code><var>New</var><code>)</code><dd><a name="index-proceed_002f2-_0028debugger-command-control_0029-2158"></a>Unless at call port, first go back to the call port (retry the current
+invocation; see the <code>retry(</code><var>Inv</var><code>)</code> command representation below). Next,
+unify the current goal with <var>Goal</var> and execute the goal <var>New</var> in
+its place. Create (or keep) a procedure box for the current goal.
+
+     <p>This construct is used by the &lsquo;<samp><span class="samp">u</span></samp>&rsquo; (unify) interactive
+debugger command.
+
+     <p>Both the <var>Goal</var> and <var>New</var> arguments are module name
+expanded when the breakpoint is added: the module of
+<var>Goal</var> defaults to the module of the current goal, while
+that of <var>New</var> to the module name of the breakpoint
+spec. If the command representation is created during run time, the
+module name of both arguments defaults to the module
+of the current goal.
+
+     <p>The term <code>proceed(</code><var>Goal</var><code>,</code><var>New</var><code>)</code> will be copied when
+the <code>command</code> action variable is set. Therefore breakpoint
+specs of form
+     <pre class="example">          Tests - [goal(foo(X)),...,proceed(_,bar(X))]
+</pre>
+     <p class="noindent">should be avoided, and
+
+     <pre class="example">          Tests - [goal(foo(X)),...,proceed(foo(Y),bar(Y))
+</pre>
+     <p class="noindent">should be used instead. The first variant will not work as expected if
+<code>X</code> is non-ground, as the variables in the <code>bar/1</code>
+call will be detached from the original ones in <code>foo/1</code>. Even if
+<code>X</code> is ground, the first variant may be much less efficient,
+as it will copy the possibly huge term <code>X</code>.
+
+     <br><dt><code>flit(</code><var>Goal</var><code>,</code><var>New</var><code>)</code><dd><a name="index-flit_002f2-_0028debugger-command-control_0029-2159"></a>
+Same as <code>proceed(</code><var>Goal</var><code>,</code><var>New</var><code>)</code>, but don't create (or
+discard) a procedure box for the current goal. (Consequently
+no other ports will be encountered for this invocation.)
+
+     <p>Notes for <code>proceed/2</code>, on module name expansion and copying,
+also apply to <code>flit/2</code>.
+
+     <br><dt><code>raise(</code><var>E</var><code>)</code><dd><a name="index-raise_002f1-_0028debugger-command-control_0029-2160"></a>Raise the exception <var>E</var>. 
+<br><dt><code>abort</code><dd><a name="index-abort_002f0-_0028debugger-command-control_0029-2161"></a>Abort the execution. 
+<br><dt><code>retry(</code><var>Inv</var><code>)</code><dd><a name="index-retry_002f1-_0028debugger-command-control_0029-2162"></a>Retry the most recent goal in the backtrace with an
+invocation number less or equal to <var>Inv</var> (go back to the Call
+port of the goal). This is used by the interactive debugger
+command &lsquo;<samp><span class="samp">r</span></samp>&rsquo;, retry; see <a href="Debug-Commands.html#Debug-Commands">Debug Commands</a>. 
+<br><dt><code>reexit(</code><var>Inv</var><code>)</code><dd><a name="index-reexit_002f1-_0028debugger-command-control_0029-2163"></a>Re-exit the invocation with number <var>Inv</var> (go back to the Exit
+port of the goal).  <var>Inv</var> must be an exact reference to an exited
+invocation present in the backtrace (exited nondeterminately, or
+currently being exited). This is used by the
+interactive debugger command &lsquo;<samp><span class="samp">je</span></samp>&rsquo;, jump to Exit port; see <a href="Debug-Commands.html#Debug-Commands">Debug Commands</a>. 
+<br><dt><code>redo(</code><var>Inv</var><code>)</code><dd><a name="index-redo_002f1-_0028debugger-command-control_0029-2164"></a>Redo the invocation with number <var>Inv</var> (go back to the Redo port
+of the goal).  <var>Inv</var> must be an exact reference to an exited
+invocation present in the backtrace. This is used by the
+interactive debugger command &lsquo;<samp><span class="samp">jr</span></samp>&rsquo;, jump to Redo port; see <a href="Debug-Commands.html#Debug-Commands">Debug Commands</a>. 
+<br><dt><code>fail(</code><var>Inv</var><code>)</code><dd><a name="index-fail_002f1-_0028debugger-command-control_0029-2165"></a>Fail the most recent goal in the backtrace with an invocation number
+less or equal to <var>Inv</var> (transfer control back to the Fail port of
+the goal). This is used by the interactive debugger command &lsquo;<samp><span class="samp">f</span></samp>&rsquo;,
+fail; see <a href="Debug-Commands.html#Debug-Commands">Debug Commands</a>. 
+</dl>
+
+   <p>Values allowed in the <code>mode</code> condition:
+
+     <dl>
+<dt><code>qskip(</code><var>Inv</var><code>)</code><dd><a name="index-qskip_002f1-_0028debugger-mode-control_0029-2166"></a>Quasi-skip until the first port with invocation number less or
+equal to <var>Inv</var> is reached.  Having reached that point, <code>mode</code>
+is set to <code>trace</code>. Valid only if \Inv \geq 1 and furthermore
+\Inv \leq \CurrInv for entry ports (Call, Redo), and
+\Inv &lt; \CurrInv for all other ports, where <var>CurrInv</var> is
+the invocation number of the current port. 
+<br><dt><code>skip(</code><var>Inv</var><code>)</code><dd><a name="index-skip_002f1-_0028debugger-mode-control_0029-2167"></a>Skip until the first port with invocation number less or equal to
+<var>Inv</var> is reached, and set <code>mode</code> to <code>trace</code> there. 
+<var>Inv</var> should obey the same rules as for <code>qskip</code>. 
+<br><dt><code>trace</code><dd><a name="index-trace_002f0-_0028debugger-mode-control_0029-2168"></a>Creep. 
+<br><dt><code>debug</code><dd><a name="index-debug_002f0-_0028debugger-mode-control_0029-2169"></a>Leap. 
+<br><dt><code>zip</code><dd><a name="index-zip_002f0-_0028debugger-mode-control_0029-2170"></a>Zip. 
+<br><dt><code>off</code><dd><a name="index-off_002f0-_0028debugger-mode-control_0029-2171"></a>Continue without debugging. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Action-Variables.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Action-Variables.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

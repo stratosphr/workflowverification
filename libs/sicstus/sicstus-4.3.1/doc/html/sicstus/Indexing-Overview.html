@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+<title>Indexing Overview - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Indexing.html#Indexing" title="Indexing">
+<link rel="next" href="Data-Tables.html#Data-Tables" title="Data Tables">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Indexing-Overview"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Data-Tables.html#Data-Tables">Data Tables</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Indexing.html#Indexing">Indexing</a>
+<hr>
+</div>
+
+<h4 class="subsection">9.5.1 Overview</h4>
+
+<p>In SICStus Prolog, predicates are indexed on their first
+arguments.  This means that when a predicate is called with
+an instantiated first argument, a hash table is used to gain
+fast access to only those clauses having a first argument
+with the same primary functor as the one in the predicate
+call.  If the first argument is atomic, only clauses
+with a matching first argument are accessed.  Indexes are
+maintained automatically by the built-in predicates manipulating
+the Prolog database (for example, <code>assert/1</code>,
+<code>retract/1</code>, and <code>compile/1</code>.
+
+   <p>Keeping this feature in mind when writing programs can help speed
+their execution.  Some hints for program structuring that will
+best use the indexing facility are given below.  Note that
+dynamic predicates as well as static predicates
+are indexed.  The programming hints given in this section apply
+equally to static and dynamic code.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Indexing-Overview.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Indexing-Overview.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

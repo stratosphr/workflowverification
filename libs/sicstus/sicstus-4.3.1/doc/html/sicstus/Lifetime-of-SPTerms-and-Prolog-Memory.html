@@ -1,0 +1,137 @@
+<html lang="en">
+<head>
+<title>Lifetime of SPTerms and Prolog Memory - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="SPTerm-and-Memory.html#SPTerm-and-Memory" title="SPTerm and Memory">
+<link rel="next" href="Preventing-SPTerm-Memory-Leaks.html#Preventing-SPTerm-Memory-Leaks" title="Preventing SPTerm Memory Leaks">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Lifetime-of-SPTerms-and-Prolog-Memory"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Preventing-SPTerm-Memory-Leaks.html#Preventing-SPTerm-Memory-Leaks">Preventing SPTerm Memory Leaks</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="SPTerm-and-Memory.html#SPTerm-and-Memory">SPTerm and Memory</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.18.6.1 Lifetime of SPTerms and Prolog Memory</h5>
+
+<p>There are three separate memory areas involved when manipulating Prolog
+terms from Java using <code>SPTerm</code> objects. These areas have
+largely independent life times.
+
+     <ol type=1 start=1>
+<li>The <code>SPTerm</code> object itself. 
+<li>Creating <code>SPTerm</code> object also tells Prolog to allocate an
+SP_term_ref.  SP_term_refs have a life-time that is
+independent of the lifetime of the corresponding SPTerm object. 
+<li>Any Prolog terms allocated on the Prolog heap. An <code>SPTerm</code>
+refer to a Prolog term indirectly via a SP_term_ref.
+        </ol>
+
+   <p>A SP_term_ref <var>ref</var> (created as a side-effect of
+creating a <code>SPTerm</code> object) will be reclaimed if either:
+     <ul>
+<li>Java returns to Prolog. This may never happen, especially if Java is the
+top-level application. 
+<li>Assume there exists a still open query <var>q</var> that was opened
+before the SP_term_ref <var>ref</var> was created. The
+SP_term_ref <var>ref</var> will be reclaimed if the query <var>q</var>
+is closed (using <var>q</var><code>.close()</code> or <var>q</var><code>.cut()</code>) or if
+<var>q</var><code>.nextSolution()</code> is called. 
+</ul>
+
+   <p>An <code>SPTerm</code> object will be invalidated (and eventually reclaimed by
+the garbage collector) if the corresponding SP_term_ref is
+reclaimed as above.  If passed an invalidated SP_term_ref, most
+methods will throw an <code>IllegalTermException</code> exception.
+
+   <p>A Prolog term (allocated on the Prolog heap) will be deallocated
+when:
+     <ul>
+<li>Assume there exists a still open query <var>q</var> that was openend before the term
+was created. The memory of the term will be reclaimed if the query <var>q</var>
+is closed using <var>q</var><code>.close()</code> or if
+<var>q</var><code>.nextSolution()</code> is called. The memory is not reclaimed if
+the query is closed with <var>q</var><code>.cut()</code>.
+
+   </ul>
+
+   <blockquote>
+<!-- [PM] 3.9b4 the checkSPTermAge is on by default in 3.9 -->
+<strong>Please note</strong>: it is possible to get a <code>SPTerm</code> object and its
+SP_term_ref to refer to deallocated Prolog terms, in effect
+creating &ldquo;dangling&rdquo; pointers in cases where the <code>SPTerm</code> would
+ordinarily still be valid. This will be detected and invalidate the
+<code>SPTerm</code>:
+<pre class="example">     {
+       SPTerm old = new SPTerm(sp);
+       SPQuery q;
+     
+       q = sp.openQuery(....);
+       ...
+       old.consFunctor(...);  // allocate a Prolog term <em>newer</em> than q
+       ...
+       q.nextSolution(); // or q.close()
+       // <strong>error:</strong>
+       // The SP_term_ref in q refers to an invalid part of the Prolog heap
+       // the SPTerm old will be invalidated by q.nextSolution()
+     }
+</pre>
+   </blockquote>
+
+<!-- @strong{Please note}: it is possible to get a @code{SPTerm} object to refer to -->
+<!-- deallocated Prolog terms, in effect creating "dangling" pointers. This -->
+<!-- will currently @emph{not} be detected and can cause erratic behavior, -->
+<!-- including crashes. -->
+<!-- @example -->
+<!-- @{ -->
+<!-- SPTerm old = new SPTerm(sp); -->
+<!-- SPQuery q; -->
+<!-- q = sp.openQuery(@dots{}.); -->
+<!-- @dots{} -->
+<!-- old.consFunctor(@dots{});  // allocate a Prolog term @emph{newer} than q -->
+<!-- @dots{} -->
+<!-- q.nextSolution(); // or q.close() -->
+<!-- // @strong{error:} -->
+<!-- // The SP_term_ref in q refers to an invalid part of the Prolog heap -->
+<!-- @} -->
+<!-- @end example -->
+<!-- @xref{Jasper Package Options, , Jasper Package Options, relnotes, SICStus Prolog Release -->
+<!-- Notes} for more on this, including flags that may help detect this -->
+<!-- kind of problem. -->
+<!-- @noindent -->
+<!-- @xref{SPQuery and Threads} for another way this problem may occur. -->
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Lifetime-of-SPTerms-and-Prolog-Memory.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Lifetime-of-SPTerms-and-Prolog-Memory.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

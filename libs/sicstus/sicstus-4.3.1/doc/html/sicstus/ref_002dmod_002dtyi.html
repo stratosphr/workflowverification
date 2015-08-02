@@ -1,0 +1,97 @@
+<html lang="en">
+<head>
+<title>ref-mod-tyi - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmod.html#ref_002dmod" title="ref-mod">
+<link rel="prev" href="ref_002dmod_002dsom.html#ref_002dmod_002dsom" title="ref-mod-som">
+<link rel="next" href="ref_002dmod_002ddmo.html#ref_002dmod_002ddmo" title="ref-mod-dmo">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-mod-tyi"></a>
+<a name="ref_002dmod_002dtyi"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dmod_002ddmo.html#ref_002dmod_002ddmo">ref-mod-dmo</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dmod_002dsom.html#ref_002dmod_002dsom">ref-mod-som</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmod.html#ref_002dmod">ref-mod</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.11.8 The Type-in Module</h4>
+
+<p><a name="index-type_002din-module_002c-changing-1526"></a><a name="index-changing-type_002din-module-1527"></a>
+
+   <p>The <dfn>type-in</dfn> module is the module that is taken as the source
+module for goals typed in by the user.  The name of the default
+type-in module is <code>user</code>.  That is, the predicates that are available
+to be called directly by the user are those that are visible in the
+module <code>user</code>.
+
+   <p>When debugging, it is often useful to call, directly from the top-level,
+predicates that are private to a module, or predicates that are public but
+that are not imported into <code>user</code>.  This can be done by prefixing each
+goal with the module name, as described in <a href="ref_002dmod_002dvis.html#ref_002dmod_002dvis">ref-mod-vis</a>;
+but rather than doing this extensively, it may be more convenient to make this module the
+type-in module.
+
+   <p>The type-in module can be changed using the built-in predicate
+<code>set_module/1</code>; for example,
+<pre class="example">     | ?- <kbd>set_module(mod).</kbd>
+</pre>
+   <p><a name="index-set_005fmodule_002f1-_0028built_002din_0029-1528"></a><a name="index-set_005fmodule_002f1-_0028built_002din_0029-1529"></a>
+
+   <p>This command will cause subsequent goals typed at the top-level to be
+executed with <code>mod</code> as their source module.
+
+   <p>The name of the type-in module is always displayed, except when it
+is <code>user</code>.  If you are running Prolog under the editor interface,
+the type-in
+module is displayed in the status line of the Prolog window.  If you are
+running Prolog without the editor interface, the type-in module is displayed
+before each top-level prompt.
+
+   <p>For example, if you are running Prolog without the editor:
+<pre class="example">     | ?- <kbd>set_module(foo).</kbd>
+     
+     yes
+     [foo]
+     | ?-
+</pre>
+   <p>It should be noted that it is unlikely to be useful to change the type-in
+module via a directive embedded in a file to be loaded, because this will
+have no effect on the load&mdash;it will only change the type-in module
+for commands subsequently entered by the user.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dtyi.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dtyi.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

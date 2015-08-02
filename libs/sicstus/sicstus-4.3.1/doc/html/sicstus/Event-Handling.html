@@ -1,0 +1,193 @@
+<html lang="en">
+<head>
+<title>Event Handling - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Tk.html#Tk" title="Tk">
+<link rel="prev" href="Geometry-Managers.html#Geometry-Managers" title="Geometry Managers">
+<link rel="next" href="Miscellaneous.html#Miscellaneous" title="Miscellaneous">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Event-Handling"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Miscellaneous.html#Miscellaneous">Miscellaneous</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Geometry-Managers.html#Geometry-Managers">Geometry Managers</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Tk.html#Tk">Tk</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.37.3.6 Event Handling</h5>
+
+<p>So far we have covered the widgets types, how instances of them
+are created, how their attributes can be set and queried,
+and how they can be managed for display using geometry managers. 
+What we have not touched on is how to give each widget a behavior.
+
+   <p>This is done through event handlers.  Each widget instance can be given
+a window event handler for each kind of window event.  A window event is
+something like the cursor moving into or out of the widget, a key
+press happening while the widget is active (in focus), or the widget
+being destroyed.
+
+   <p>Event handlers are specified through the <code>bind</code> command:
+
+<pre class="example">     bind <var>widgetName</var> <var>eventSequence</var> <var>command</var>
+</pre>
+   <p class="noindent">where <var>widgetName</var> is the name or class of the widget to which the event
+handler should be attached, <var>eventSqueuence</var> is a description of the
+event that this event handler will handle, and <var>command</var> is a script
+that is invoked when the event happens (i.e. it is the event handler).
+
+   <p>Common event types are
+
+     <dl>
+<dt><code>Key</code><dd><a name="index-Key-_0028Tk-event-type_0029-3991"></a><dt><code>KeyPress</code><dd><a name="index-KeyPress-_0028Tk-event-type_0029-3992"></a>when a key was pressed
+
+     <br><dt><code>KeyRelease</code><dd><a name="index-KeyRelease-_0028Tk-event-type_0029-3993"></a>when a key was released
+
+     <br><dt><code>Button</code><dd><a name="index-Button-_0028Tk-event-type_0029-3994"></a><dt><code>ButtonPress</code><dd><a name="index-ButtonPress-_0028Tk-event-type_0029-3995"></a>when a mouse button was pressed
+
+     <br><dt><code>ButtonRelease</code><dd><a name="index-ButtonRelease-_0028Tk-event-type_0029-3996"></a>when a mouse button was released
+
+     <br><dt><code>Enter</code><dd><a name="index-Enter-_0028Tk-event-type_0029-3997"></a>when the cursor moves into a widget
+
+     <br><dt><code>Leave</code><dd><a name="index-Leave-_0028Tk-event-type_0029-3998"></a>when the cursor moved our of a widget
+
+     <br><dt><code>Motion</code><dd><a name="index-Motion-_0028Tk-event-type_0029-3999"></a>when the cursor moves within a widget
+</dl>
+
+   <p>There are other event types. Please refer to the Tk documentation for
+a complete list.
+
+   <p>The <var>eventSequence</var> part of a <code>bind</code> command is a list of one or more of
+these events, each event surrounded by angled brackets. (Mostly, an
+event sequence consists of handling a single event. Later we will show
+more complicated event sequences.)
+
+   <p>An example is the following:
+
+<pre class="example">     button .b -text "click me"
+     pack .b
+     bind .b &lt;Enter&gt; { puts "entering .b" }
+</pre>
+   <p class="noindent">makes a button <code>.b</code> displaying text &lsquo;<samp><span class="samp">click me</span></samp>&rsquo; and displays it
+in the root window using the packing geometry manager. The <code>bind</code>
+command specifies that when the cursor enters (i.e. goes onto)
+the widget, then the text <code>entering .b</code> is printed at the terminal.
+
+   <p>We can make the button change color as the cursor enters or leaves
+it like this:
+
+<pre class="example">     button .b -text "click me" -background red
+     pack .b
+     bind .b &lt;Enter&gt; { .b config -background blue }
+     bind .b &lt;Leave&gt; { .b config -background red }
+</pre>
+   <p class="noindent">which causes the background color of the button to change to blue when
+the cursor enters it and to change back to red when the
+cursor leaves.
+
+   <p>An action can be appended to an event handler by prefixing the action with
+a <code>+</code> sign. An example is:
+
+<pre class="example">     bind .b &lt;Enter&gt; {+puts "entering .b"}
+</pre>
+   <p class="noindent">which, when added to the example above, would not only change the color
+of the button to red when the cursor enters it, but would also
+print <code>entering .b</code> to the terminal.
+
+   <p>A binding can be revoked simply by binding the empty command to it:
+
+<pre class="example">     bind .b &lt;Enter&gt; {}
+</pre>
+   <p>A list of events that are bound can be found by querying the widget
+thus:
+
+<pre class="example">     bind .b
+</pre>
+   <p class="noindent">which will return a list of bound events.
+
+   <p>To get the current command(s) bound to an event on a widget, invoke
+<code>bind</code> with the widget name and the event. An example is:
+
+<pre class="example">     bind .b &lt;Enter&gt;
+</pre>
+   <p class="noindent">which will return a list of the commands bound to the event &lt;Enter&gt;
+on widget <code>.b</code>.
+
+   <p>Binding can be generalized to sequences of events. 
+For example, we can create an entry widget that
+prints <code>spells rob</code> each time the key sequence <code>ESC r o b</code> happens:
+
+<pre class="example">     entry .e
+     pack .e
+     bind .e &lt;Escape&gt;rob {puts "spells rob"}
+</pre>
+   <p>(A letter on its own in an event sequence stands for that key being
+ pressed when the corresponding widget is in focus.)
+
+   <p>Events can also be bound for entire classes of widgets. 
+For example, if we wanted to perform the same trick for
+ALL entry widgets we could use the following command:
+
+<pre class="example">     bind entry &lt;Escape&gt;rob {puts "spells rob"}
+</pre>
+   <p>In fact, we can bind events over all widgets using <code>all</code> as
+the widget class specifier.
+
+   <p>The event script can have substitutions specified in it.  Certain
+textual substitutions are then made at the time the event is
+processed. For example, <code>%x</code> in a script gets the x coordinate of
+the mouse substituted for it. Similarly, <code>%y</code> becomes the y
+coordinate, <code>%W</code> the dot path of the window on which the event
+happened, <code>%K</code> the keysym of the button that was pressed, and so
+on.  For a complete list, see the manual.
+
+   <p>In this way it is possible to execute the event script in the context
+of the event.
+
+   <p>A clever example of using the <code>all</code> widget specifier and text
+substitutions is given in John Ousterhout's book on Tcl/Tk (see <a href="Resources.html#Resources">Resources</a>):
+
+<pre class="example">     bind all &lt;Enter&gt; {puts "Entering %W at (%x, %y)"}
+     bind all &lt;Leave&gt; {puts "Leaving %W at (%x, %y)"}
+     bind all &lt;Motion&gt; {puts "Pointer at (%x, %y)"}
+</pre>
+   <p class="noindent">which implements a mouse tracker for all the widgets in a Tcl/Tk application. 
+The widget's name and x and y coordinates are printed at the terminal
+when the mouse enters or leaves any widget, and also the x and y coordinates
+are printed when the mouse moves within a widget.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Event-Handling.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Event-Handling.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

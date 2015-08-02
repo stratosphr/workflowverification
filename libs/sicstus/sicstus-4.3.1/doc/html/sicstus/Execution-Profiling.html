@@ -1,0 +1,109 @@
+<html lang="en">
+<head>
+<title>Execution Profiling - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" title="Writing Efficient Programs">
+<link rel="prev" href="Eff-Overview.html#Eff-Overview" title="Eff Overview">
+<link rel="next" href="Coverage-Analysis.html#Coverage-Analysis" title="Coverage Analysis">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Execution-Profiling"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Coverage-Analysis.html#Coverage-Analysis">Coverage Analysis</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Eff-Overview.html#Eff-Overview">Eff Overview</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Writing-Efficient-Programs.html#Writing-Efficient-Programs">Writing Efficient Programs</a>
+<hr>
+</div>
+
+<h3 class="section">9.2 Execution Profiling</h3>
+
+<p><a name="index-execution-profiling-2409"></a><a name="index-profiling_002c-execution-2410"></a><a name="index-counter-2411"></a>Execution profiling is a common aid for improving software performance. 
+As of release 4.2, execution profiling is available for compiled as well
+as interpreted code.  Execution profiling requires no recompilation with
+instrumentation.  Execution profiling is either globally <em>on</em> or
+globally <em>off</em> for all compiled code.  This is reflected by the
+<code>profiling</code> Prolog flag.  When the flag is on, the information
+gathered depends on the execution mode:
+
+     <dl>
+<dt>compiled code<dd>Execution profiling counts the number of calls per caller-callee pair,
+the number of instructions executed, and the number of choicepoint
+accesses per predicate.  Calls that succeed nondeterminately are
+detected.  Compiled codes runs 2-10 times slower with execution
+profiling than without.
+
+     <br><dt>interpreted code<dd>Execution profiling counts the number of calls per caller-callee pair if
+the <code>source_info</code> Prolog flag was on when the code was loaded;
+otherwise, the number of calls per predicate.  Calls that succeed
+nondeterminately are detected. 
+</dl>
+
+   <p>A typical query pattern is:
+
+<pre class="example">     | ?- <var>[Load some code.]</var>
+     | ?- <kbd>prolog_flag(profiling,_,on).</kbd>
+     | ?- <var>[Run some queries.]</var>
+     | ?- <kbd>prolog_flag(profiling,_,off).</kbd>
+     | ?- <kbd>print_profile.</kbd>
+</pre>
+   <p>The predicate <code>profile_data/1</code> makes the accumulated data available
+as a Prolog term.  The predicate <code>print_profile/0</code> prints the
+execution profile in a format similar to <samp><span class="command">gprof(1)</span></samp>.  It can
+also be given an argument which should be of the same type as the output
+of <code>profile_data/1</code>. The predicate <code>profile_reset/0</code> clears
+all profiling data.  For the details, see the respective reference page. 
+See also the Gauge graphical user interface for inspecting execution
+profiles (see <a href="lib_002dgauge.html#lib_002dgauge">lib-gauge</a>)
+and the SICStus Prolog IDE (see <a href="SPIDER.html#SPIDER">SICStus Prolog IDE</a>)
+which both can visualize the profiling information.
+
+     <dl>
+<dt><code>profile_reset &nbsp;<!-- /@w --> </code><strong>since release 4.2, development</strong><dd><a name="index-profile_005freset_002f0-_0028built_002din_0029-2412"></a><a name="index-profile_005freset_002f0-_0028built_002din_0029-2413"></a>
+Resets all profiling data. 
+See <a href="mpg_002dref_002dprofile_005freset.html#mpg_002dref_002dprofile_005freset">mpg-ref-profile_reset</a>.
+
+     <br><dt><code>profile_data(</code><var>-Data</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.2,development</strong><dd><a name="index-profile_005fdata_002f1-_0028built_002din_0029-2414"></a><a name="index-profile_005fdata_002f1-_0028built_002din_0029-2415"></a>
+<var>Data</var> is the profiling data accumulated so far. 
+See <a href="mpg_002dref_002dprofile_005fdata.html#mpg_002dref_002dprofile_005fdata">mpg-ref-profile_data</a>.
+
+     <br><dt><code>print_profile &nbsp;<!-- /@w --> </code><strong>since release 4.2,development</strong><dt><code>print_profile(</code><var>+Data</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.2,development</strong><dd><a name="index-print_005fprofile_002f_005b0_002c1_005d-_0028built_002din_0029-2416"></a><a name="index-print_005fprofile_002f_005b0_002c1_005d-_0028built_002din_0029-2417"></a>
+The profiling data <var>Data</var> is displayed in a format similar
+to <samp><span class="command">gprof(1)</span></samp>.  <var>Data</var> defaults to the profiling data accumulated so far. 
+See <a href="mpg_002dref_002dprint_005fprofile.html#mpg_002dref_002dprint_005fprofile">mpg-ref-print_profile</a>.
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Execution-Profiling.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Execution-Profiling.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

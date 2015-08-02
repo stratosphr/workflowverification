@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+<title>ODBC on Mac OS X - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ODBC-Notes.html#ODBC-Notes" title="ODBC Notes">
+<link rel="prev" href="ODBC-on-MS-Windows.html#ODBC-on-MS-Windows" title="ODBC on MS Windows">
+<link rel="next" href="ODBC-on-Linux.html#ODBC-on-Linux" title="ODBC on Linux">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ODBC-on-Mac-OS-X"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ODBC-on-Linux.html#ODBC-on-Linux">ODBC on Linux</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ODBC-on-MS-Windows.html#ODBC-on-MS-Windows">ODBC on MS Windows</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ODBC-Notes.html#ODBC-Notes">ODBC Notes</a>
+<hr>
+</div>
+
+<h3 class="section">10.2 ODBC on Mac OS X</h3>
+
+<p>ODBC is a standard component of Mac OS X. You only need to install
+the DBMS specific ODBC drivers. Please refer to the ODBC documentation
+for Mac OS X, and the ODBC documentation of your DBMS vendor.
+
+<!-- [PM] 4.2 See http://www.openoffice.org/issues/show_bug.cgi?id=88823 -->
+   <p>The ODBC library, <code>library(odbc)</code>, crashes on Mac OS X 10.5. The
+underlying cause seems to be bugs in the ODBC software (iODBC
+3.52.5<!-- /@w -->) that comes with Mac OS X 10.5. The version of ODBC (iODBC
+3.52.6<!-- /@w -->) that comes with Mac OS X 10.6 does not seem to have this
+problem. It may be possible to obtain a newer version of the ODBC
+software at <a href="http://www.iodbc.org/">http://www.iodbc.org/</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/ODBC-on-Mac-OS-X.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/ODBC-on-Mac-OS-X.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

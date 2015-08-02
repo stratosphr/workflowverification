@@ -1,0 +1,112 @@
+<html lang="en">
+<head>
+<title>COM Client Examples - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dcomclient.html#lib_002dcomclient" title="lib-comclient">
+<link rel="prev" href="COM-Client-Predicates.html#COM-Client-Predicates" title="COM Client Predicates">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="COM-Client-Examples"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="COM-Client-Predicates.html#COM-Client-Predicates">COM Client Predicates</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dcomclient.html#lib_002dcomclient">lib-comclient</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.13.4 Examples</h4>
+
+<p>The following example launches <i>Microsoft Excel</i>, adds a new worksheet,
+fill in some fields and finally clears the worksheet and quits <em>Excel</em>
+<pre class="example">     :- use_module(library(comclient)).
+     :- use_module(library(lists)).
+     
+     test :-
+        test('Excel.Application').
+     
+     test(ProgID) :-
+        comclient_create_instance(ProgID, App),
+        %% Visuall Basic: app.visible = 1
+        comclient_invoke_put(App, visible, 1),
+        %% VB: app.workbooks.add
+        comclient_invoke_method_proc(App, [workbooks, add]),
+        %% VB: with app.activesheet
+        comclient_invoke_method_fun(App, activesheet, ActiveSheet),
+     
+        Rows = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+        Cols = Rows,
+        %% VB: .cells i,j . representation = i+j/100
+        (
+          member(I, Rows),
+          member(J, Cols),
+          ValIJ is I+J/100,
+     
+          comclient_invoke_put(ActiveSheet, [cells(I,J),representation], ValIJ),
+          fail
+        ; true
+        ),
+        (
+          member(I, Rows),
+          member(J, Cols),
+          %% retrieve cell values
+          comclient_invoke_method_fun(ActiveSheet, [cells(I,J), representation],CellValue),
+          format(user_error, '~nCell(~w,~w) = ~w', [I,J,CellValue]),
+          fail
+        ; true
+        ),
+     
+        Range = 'A1:O15',
+        format(user_error, '~Npress return to clear range (~w)', [Range]),
+        flush_output(user_error),
+        get_code(_),
+     
+        %% VB: .range A1:O15 .Clear
+        comclient_invoke_method_proc(ActiveSheet, [range(Range),clear]),
+     
+        %% Avoid Excel query "do you want to save..."
+        %%  VB: app.activeworkbook.saved = 1
+        comclient_invoke_put(App, [activeworkbook,saved], 1),
+     
+        format(user_error, '~Npress return to quit \'~w\'', [ProgID]),
+        flush_output(user_error),
+        get_code(_),
+     
+        %% VB: app.quit
+        comclient_invoke_method_proc(App, quit),
+     
+        comclient_release(ActiveSheet),
+        comclient_release(App).
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/COM-Client-Examples.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/COM-Client-Examples.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,281 @@
+<html lang="en">
+<head>
+<title>ref-ari-aex - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dari.html#ref_002dari" title="ref-ari">
+<link rel="prev" href="ref_002dari_002dacm.html#ref_002dari_002dacm" title="ref-ari-acm">
+<link rel="next" href="ref_002dari_002dsum.html#ref_002dari_002dsum" title="ref-ari-sum">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-ari-aex"></a>
+<a name="ref_002dari_002daex"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dari_002dsum.html#ref_002dari_002dsum">ref-ari-sum</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dari_002dacm.html#ref_002dari_002dacm">ref-ari-acm</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dari.html#ref_002dari">ref-ari</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.7.5 Arithmetic Expressions</h4>
+
+<p><a name="index-arithmetic-expression-1083"></a><a name="index-expression_002c-arithmetic-1084"></a>
+Arithmetic evaluation and testing is performed by predicates that take
+arithmetic expressions as arguments.  An <dfn>arithmetic expression</dfn>
+is a term built from numbers, variables, and functors that represent
+arithmetic functions.  These expressions are evaluated to yield an
+arithmetic result, which may be either an integer or a float; the type
+is determined by the rules described below.
+
+   <p>At the time of evaluation, each variable in an arithmetic expression
+must be bound to a number or another arithmetic expression. If the
+expression is not sufficiently bound or if it is bound to terms of the
+wrong type, Prolog raises exceptions of the appropriate type (see
+<a href="ref_002dere_002dhex.html#ref_002dere_002dhex">ref-ere-hex</a>). Some arithmetic operations can also detect
+overflows.  They also raise exceptions, e.g. division by zero
+results in an evaluation error being raised.
+
+   <p><a name="index-arithmetic-functors-1085"></a><a name="index-functors_002c-arithmetic-1086"></a>
+Only certain functors are permitted in arithmetic expressions.  These
+are listed below, together with a description of their arithmetic
+meanings.  For the rest of the section, <var>X</var> and <var>Y</var> are
+considered to be arithmetic expressions.  Unless stated otherwise, the arguments of an
+expression may be any numbers and its representation is a float if any of its
+arguments is a float; otherwise, the representation is an integer.  Any
+implicit coercions are performed with the <code>integer/1</code> and
+<code>float/1</code> functions.  All trigonometric and
+transcendental functions take float arguments and deliver float
+values.  The trigonometric functions take arguments or deliver
+values in radians.
+
+   <p>Integers can for all practical purposes be considered to be of infinite size. 
+Negative integers can be considered to be infinitely sign extended.
+
+   <p>The arithmetic functors are annotated with <em>ISO</em>, with the same
+meaning as for the built-in predicates; see <a href="ISO-Compliance.html#ISO-Compliance">ISO Compliance</a>.
+
+     <dl>
+<dt><code>+</code><var>X</var><code>        &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-g_t_002b-_002f1_002c-identity-_0028evaluable_0029-1087"></a>The representation is <var>X</var>.
+
+     <br><dt><code>-</code><var>X</var><code>        &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-g_t_002d-_002f1_002c-negation-_0028evaluable_0029-1088"></a>The representation is the negative of <var>X</var>.
+
+     <br><dt><var>X</var><code>+</code><var>Y</var><code>        &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-g_t_002b-_002f2_002c-addition-_0028evaluable_0029-1089"></a>The representation is the sum of <var>X</var> and <var>Y</var>.
+
+     <br><dt><var>X</var><code>-</code><var>Y</var><code>        &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-g_t_002d-_002f2_002c-subtraction-_0028evaluable_0029-1090"></a>The representation is the difference between <var>X</var> and <var>Y</var>.
+
+     <br><dt><var>X</var><code>*</code><var>Y</var><code>        &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-g_t_002a-_002f2_002c-multiplication-_0028evaluable_0029-1091"></a>The representation is the product of <var>X</var> and <var>Y</var>.
+
+     <br><dt><var>X</var><code>/</code><var>Y</var><code>        &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-g_t_002f-_002f2_002c-floating-division-_0028evaluable_0029-1092"></a>The representation is the <em>float</em> quotient of <var>X</var> and <var>Y</var>.
+
+     <br><dt><var>X</var><code>//</code><var>Y</var><code>     &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-g_t_002f_002f-_002f2_002c-integer-truncated-division-_0028evaluable_0029-1093"></a>The representation is the <em>integer</em> quotient of <var>X</var> and <var>Y</var>,
+truncated towards zero. 
+<var>X</var> and <var>Y</var> have to be integers.
+
+     <br><dt><var>X</var><code> div </code><var>Y</var><code> &nbsp;<!-- /@w --> </code><strong>since release 4.3, ISO</strong><dd><a name="index-div_002f2_002c-integer-floored-division-_0028evaluable_0029-1094"></a>The representation is the <em>integer</em> quotient of <var>X</var> and <var>Y</var>,
+rounded downwards to the nearest integer. 
+<var>X</var> and <var>Y</var> have to be integers.
+
+     <br><dt><var>X</var><code> rem </code><var>Y</var><code>       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-rem_002f2_002c-integer-truncated-remainder-_0028evaluable_0029-1095"></a>The representation is the <em>integer</em> remainder after truncated division of <var>X</var> by
+<var>Y</var>, i.e. 
+<var>X</var><code>-</code><var>Y</var><code>*(</code><var>X</var><code>//</code><var>Y</var><code>)</code>. 
+The sign of a nonzero remainder will thus be the same as that of the
+dividend.  <var>X</var> and <var>Y</var> have to be integers.
+
+     <br><dt><var>X</var><code> mod </code><var>Y</var><code>         &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-mod_002f2_002c-integer-floored-remainder-_0028evaluable_0029-1096"></a>The representation is the <em>integer</em> remainder after floored division of <var>X</var> by
+<var>Y</var>, i.e. 
+<var>X</var><code>-</code><var>Y</var><code>*(</code><var>X</var><code> div </code><var>Y</var><code>)</code>. 
+The sign of a nonzero remainder will thus be the same as that of the
+divisor.  <var>X</var> and <var>Y</var> have to be integers.
+
+     <br><dt><code>integer(</code><var>X</var><code>)</code><dd><a name="index-integer_002f1_002c-coercion-_0028evaluable_0029-1097"></a>The representation is the closest integer between <var>X</var> and 0,
+if <var>X</var> is a float; otherwise, <var>X</var> itself.
+
+     <br><dt><code>float_integer_part(</code><var>X</var><code>)       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-float_005finteger_005fpart_002f1_002c-coercion-_0028evaluable_0029-1098"></a>The same as <code>float(integer(</code><var>X</var><code>))</code>. 
+<var>X</var> has to be a float.
+
+     <br><dt><code>float_fractional_part(</code><var>X</var><code>)       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-float_005ffractional_005fpart_002f1_002c-fractional-part-_0028evaluable_0029-1099"></a>The representation is the fractional part of <var>X</var>, i.e. <var>X</var><code> -
+float_integer_part(</code><var>X</var><code>)</code>. 
+<var>X</var> has to be a float.
+
+     <br><dt><code>float(</code><var>X</var><code>)       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-float_002f1_002c-coercion-_0028evaluable_0029-1100"></a>The representation is the float equivalent of <var>X</var>, if <var>X</var> is an
+integer; otherwise, <var>X</var> itself.
+
+     <br><dt><var>X</var><code>/\</code><var>Y</var><code>       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-g_t_002f_005c-_002f2_002c-bitwise-conjunction-_0028evaluable_0029-1101"></a>The representation is the bitwise conjunction of the integers <var>X</var> and <var>Y</var>.
+<var>X</var> and <var>Y</var> have to be integers, treating negative integers as
+infinitely sign extended.
+
+     <br><dt><var>X</var><code>\/</code><var>Y</var><code>       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-g_t_005c_002f-_002f2_002c-bitwise-disjunction-_0028evaluable_0029-1102"></a>The representation is the bitwise disjunction of the integers <var>X</var> and <var>Y</var>.
+<var>X</var> and <var>Y</var> have to be integers, treating negative integers as
+infinitely sign extended.
+
+     <br><dt><code>xor(</code><var>X</var><code>,</code><var>Y</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.3, ISO</strong><dt><var>X</var><code>\</code><var>Y</var><dd><a name="index-xor_002f2_002c-bitwise-exclusive-or-_0028evaluable_0029-1103"></a><a name="index-g_t_005c-_002f2_002c-bitwise-exclusive-or-_0028evaluable_0029-1104"></a>The representation is the bitwise exclusive or of the integers <var>X</var> and <var>Y</var>.
+<var>X</var> and <var>Y</var> have to be integers, treating negative integers as
+infinitely sign extended.
+
+     <br><dt><code>\(</code><var>X</var><code>)       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-g_t_005c-_002f1_002c-bitwise-negation-_0028evaluable_0029-1105"></a>The representation is the bitwise negation of the integer <var>X</var>.  <var>X</var> has
+to be an integer, treating negative integers as infinitely sign
+extended.
+
+     <br><dt><var>X</var><code>&lt;&lt;</code><var>Y</var><code>       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-g_t_003c_003c-_002f2_002c-left-shift-_0028evaluable_0029-1106"></a>The representation is the integer <var>X</var> shifted arithmetically left by <var>Y</var> places.
+i.e. filling with a copy of the sign bit. 
+<var>X</var> and <var>Y</var> have to be integers, and <var>Y</var> can be negative, in
+which case the shift is right.
+
+     <br><dt><var>X</var><code>&gt;&gt;</code><var>Y</var><code>       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-g_t_003e_003e-_002f2_002c-right-shift-_0028evaluable_0029-1107"></a>The representation is the integer <var>X</var> shifted arithmetically right by <var>Y</var> places,
+i.e. filling with a copy of the sign bit. 
+<var>X</var> and <var>Y</var> have to be integers, and <var>Y</var> can be negative, in
+which case the shift is left.
+
+     <br><dt><code>[</code><var>X</var><code>]</code><dd><a name="index-g_t_002e-_002f2_002c-identity-_0028evaluable_0029-1108"></a>A list of just one number <var>X</var> evaluates to <var>X</var>.  Since a
+quoted string is just a list of integers, this allows a
+quoted character to be used in place of its character code; e.g. 
+<code>"A"</code> behaves within arithmetic expressions as the integer 65.
+
+     <br><dt><code>abs(</code><var>X</var><code>)        &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-abs_002f1_002c-absolute-representation-_0028evaluable_0029-1109"></a>The representation is the absolute representation of <var>X</var>.
+
+     <br><dt><code>sign(</code><var>X</var><code>)        &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-sign_002f1-_0028evaluable_0029-1110"></a>The representation is the sign of <var>X</var>, i.e. -1, if <var>X</var> is negative, 0, if
+<var>X</var> is zero, and 1, if <var>X</var> is positive, coerced into the same
+type as <var>X</var> (i.e. the result is an integer, if and only if <var>X</var> is an
+integer).
+
+     <br><dt><code>gcd(</code><var>X</var><code>,</code><var>Y</var><code>)</code><dd><a name="index-gcd_002f2_002c-greatest-common-divisor-_0028evaluable_0029-1111"></a>The representation is the greatest common divisor of the two integers <var>X</var>
+and <var>Y</var>. 
+<var>X</var> and <var>Y</var> have to be integers.
+
+     <br><dt><code>min(</code><var>X</var><code>,</code><var>Y</var><code>)        &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-min_002f2_002c-minimum-representation-_0028evaluable_0029-1112"></a>The representation is the lesser representation of <var>X</var> and <var>Y</var>.
+
+     <br><dt><code>max(</code><var>X</var><code>,</code><var>Y</var><code>)        &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-max_002f2_002c-maximum-representation-_0028evaluable_0029-1113"></a>The representation is the greater representation of <var>X</var> and <var>Y</var>.
+
+     <br><dt><code>msb(</code><var>X</var><code>)</code><dd><a name="index-msb_002f1_002c-most-significant-bit-_0028evaluable_0029-1114"></a>The representation is the position of the most significant nonzero bit of the integer <var>X</var>,
+counting bit positions from zero. 
+It is equivalent to, but more efficient than, <code>integer(log(2,X))</code>. 
+<var>X</var> must be greater than zero, and
+<var>X</var> has to be an integer.
+
+     <br><dt><code>round(</code><var>X</var><code>)       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-round_002f1-_0028evaluable_0029-1115"></a>The representation is the closest integer to <var>X</var>.  If <var>X</var> is exactly
+half-way between two integers, it is rounded up (i.e. the representation is the
+least integer greater than <var>X</var>).
+
+     <br><dt><code>truncate(</code><var>X</var><code>)       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-truncate_002f1-_0028evaluable_0029-1116"></a>The representation is the closest integer between <var>X</var> and 0.
+
+     <br><dt><code>floor(</code><var>X</var><code>)       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-floor_002f1-_0028evaluable_0029-1117"></a>The representation is the greatest integer less or equal to
+<var>X</var>.
+
+     <br><dt><code>ceiling(</code><var>X</var><code>)       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-ceiling_002f1-_0028evaluable_0029-1118"></a>The representation is the least integer greater or equal to
+<var>X</var>.
+
+     <br><dt><code>sin(</code><var>X</var><code>)       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-sin_002f1-_0028evaluable_0029-1119"></a>The representation is the sine of <var>X</var>.
+
+     <br><dt><code>cos(</code><var>X</var><code>)       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-cos_002f1-_0028evaluable_0029-1120"></a>The representation is the cosine of <var>X</var>.
+
+     <br><dt><code>tan(</code><var>X</var><code>)       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-tan_002f1-_0028evaluable_0029-1121"></a>The representation is the tangent of <var>X</var>.
+
+     <br><dt><code>cot(</code><var>X</var><code>)</code><dd><a name="index-cot_002f1-_0028evaluable_0029-1122"></a>The representation is the cotangent of <var>X</var>.
+
+     <br><dt><code>sinh(</code><var>X</var><code>)</code><dd><a name="index-sinh_002f1-_0028evaluable_0029-1123"></a>The representation is the hyperbolic sine of <var>X</var>.
+
+     <br><dt><code>cosh(</code><var>X</var><code>)</code><dd><a name="index-cosh_002f1-_0028evaluable_0029-1124"></a>The representation is the hyperbolic cosine of <var>X</var>.
+
+     <br><dt><code>tanh(</code><var>X</var><code>)</code><dd><a name="index-tanh_002f1-_0028evaluable_0029-1125"></a>The representation is the hyperbolic tangent of <var>X</var>.
+
+     <br><dt><code>coth(</code><var>X</var><code>)</code><dd><a name="index-coth_002f1-_0028evaluable_0029-1126"></a>The representation is the hyperbolic cotangent of <var>X</var>.
+
+     <br><dt><code>asin(</code><var>X</var><code>)       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-asin_002f1-_0028evaluable_0029-1127"></a>The representation is the arc sine of <var>X</var>.
+
+     <br><dt><code>acos(</code><var>X</var><code>)       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-acos_002f1-_0028evaluable_0029-1128"></a>The representation is the arc cosine of <var>X</var>.
+
+     <br><dt><code>atan(</code><var>X</var><code>)       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-atan_002f1-_0028evaluable_0029-1129"></a>The representation is the arc tangent of <var>X</var>.
+
+     <br><dt><code>atan2(</code><var>X</var><code>,</code><var>Y</var><code>)       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-atan2_002f2-_0028evaluable_0029-1130"></a>The representation is the four-quadrant arc tangent of <var>X</var> and <var>Y</var>.
+
+     <br><dt><code>acot(</code><var>X</var><code>)</code><dd><a name="index-acot_002f1-_0028evaluable_0029-1131"></a>The representation is the arc cotangent of <var>X</var>.
+
+     <br><dt><code>acot2(</code><var>X</var><code>,</code><var>Y</var><code>)</code><dd><a name="index-acot2_002f2-_0028evaluable_0029-1132"></a>The representation is the four-quadrant arc cotangent of <var>X</var> and <var>Y</var>.
+
+     <br><dt><code>asinh(</code><var>X</var><code>)</code><dd><a name="index-asinh_002f1-_0028evaluable_0029-1133"></a>The representation is the hyperbolic arc sine of <var>X</var>.
+
+     <br><dt><code>acosh(</code><var>X</var><code>)</code><dd><a name="index-acosh_002f1-_0028evaluable_0029-1134"></a>The representation is the hyperbolic arc cosine of <var>X</var>.
+
+     <br><dt><code>atanh(</code><var>X</var><code>)</code><dd><a name="index-atanh_002f1-_0028evaluable_0029-1135"></a>The representation is the hyperbolic arc tangent of <var>X</var>.
+
+     <br><dt><code>acoth(</code><var>X</var><code>)</code><dd><a name="index-acoth_002f1-_0028evaluable_0029-1136"></a>The representation is the hyperbolic arc cotangent of <var>X</var>.
+
+     <br><dt><code>sqrt(</code><var>X</var><code>)       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-sqrt_002f1_002c-square-root-_0028evaluable_0029-1137"></a>The representation is the square root of <var>X</var>.
+
+     <br><dt><code>log(</code><var>X</var><code>)       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-log_002f1_002c-logarithm-_0028evaluable_0029-1138"></a>The representation is the natural logarithm of <var>X</var>.
+
+     <br><dt><code>log(</code><var>Base</var><code>,</code><var>X</var><code>)</code><dd><a name="index-log_002f2_002c-logarithm-_0028evaluable_0029-1139"></a>The representation is the logarithm of <var>X</var> in the base <var>Base</var>.
+
+     <br><dt><code>exp(</code><var>X</var><code>)       &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><a name="index-exp_002f1_002c-exponent-_0028evaluable_0029-1140"></a>The representation is the natural exponent of <var>X</var>.
+
+     <br><dt><var>X</var><code> ** </code><var>Y</var><code>        &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>exp(</code><var>X</var><code>,</code><var>Y</var><code>)</code><dd><a name="index-g_t_002a_002a-_002f2_002c-float-power-_0028evaluable_0029-1141"></a><a name="index-exp_002f2_002c-float-power-_0028evaluable_0029-1142"></a>The representation is <var>X</var> raised to the power of <var>Y</var>, represented as a float.
+In particular, the representation of <code>0.0 ** 0.0</code> is <code>1.0</code>.
+
+     <br><dt><var>X</var><code> ^ </code><var>Y</var><code> &nbsp;<!-- /@w --> </code><strong>since release 4.3, ISO</strong><dd><a name="index-g_t_005e-_002f2_002c-generic-power-_0028evaluable_0029-1143"></a>The representation is <var>X</var> raised to the power of <var>Y</var>, represented as a float
+if any of <var>X</var> and <var>Y</var> is a float; otherwise, as an integer. 
+In particular, the representation of <code>0^0</code> is <code>1</code>.
+
+     <br><dt><code>pi &nbsp;<!-- /@w --> </code><strong>since release 4.3, ISO</strong><dd><a name="index-pi_002f0_002c-pi-_0028evaluable_0029-1144"></a>The representation is approximately 3.14159.
+
+   </dl>
+
+   <p><a name="index-character-codes_002c-arithmetic-and-1145"></a><a name="index-arithmetic-and-character-codes-1146"></a>
+
+   <p>The following operation is included in order to allow integer arithmetic on
+character codes. 
+<a name="index-X_002c-identity-for-numbers-1147"></a>
+     
+<a name="index-characters_002c-conversion-to-integers-1148"></a>
+<dl>
+<dt><code>[</code><var>X</var><code>]</code><dd>Evaluates to <var>X</var> for numeric <var>X</var>.  This is
+relevant because character strings in Prolog are lists of character
+codes, that is, integers.  Thus, for those integers that correspond
+to character codes, the user can write a string of one character in
+place of that integer in an arithmetic expression.  For example, the
+expression (A) is equivalent to (B), which in turn becomes (C) in
+which case <var>X</var> is unified with 2:
+
+     <pre class="example">          X is "c" - "a"&nbsp;<!-- /@w --> (A)
+</pre>
+     <pre class="example">          X is [99] - [97]&nbsp;<!-- /@w --> (B)
+</pre>
+     <pre class="example">          X is 99 - 97&nbsp;<!-- /@w --> (C)
+</pre>
+     <p>A cleaner way to do the same thing is
+     <pre class="example">          X is 0'c - 0'a
+</pre>
+     </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dari_002daex.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dari_002daex.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

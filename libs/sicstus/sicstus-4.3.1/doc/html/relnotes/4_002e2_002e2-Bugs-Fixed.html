@@ -1,0 +1,76 @@
+<html lang="en">
+<head>
+<title>4.2.2 Bugs Fixed - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e2_002e2-Changes.html#g_t4_002e2_002e2-Changes" title="4.2.2 Changes">
+<link rel="prev" href="4_002e2_002e2-New-Features.html#g_t4_002e2_002e2-New-Features" title="4.2.2 New Features">
+<link rel="next" href="4_002e2_002e2-Other-Changes.html#g_t4_002e2_002e2-Other-Changes" title="4.2.2 Other Changes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.2.2-Bugs-Fixed"></a>
+<a name="g_t4_002e2_002e2-Bugs-Fixed"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e2_002e2-Other-Changes.html#g_t4_002e2_002e2-Other-Changes">4.2.2 Other Changes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="4_002e2_002e2-New-Features.html#g_t4_002e2_002e2-New-Features">4.2.2 New Features</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e2_002e2-Changes.html#g_t4_002e2_002e2-Changes">4.2.2 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.18.2 Bugs Fixed</h4>
+
+     <ul>
+<li><!-- A workaround would be to let SPIDER send a patch for -->
+<!-- prolog:needs_quoting/3 i Bips/spider.pl -->
+Terms containing a hash mark (&lsquo;<samp><span class="samp">#</span></samp>&rsquo;) was not transmitted correctly to
+the SICStus Prolog IDE (SPIDER). This affected the SPIDER debugger view,
+among other things. 
+<li>Several built-in predicates did not handle constrained &ldquo;output&rdquo;
+variables correctly, e.g. <code>atom_length/2</code>, <code>char_code/2</code>,
+<code>atom_concat/3</code>, <code>sub_atom/5</code>
+<li>Fix variable binding display bug when inside disjunctions and do-loops
+<li>Prevent state corruption upon out-of-memory exception in certain contexts
+<li><code>library(random)</code>: <code>random(L,L,X)</code> would succeed with <code>X = L</code>
+instead of failing
+<li><!-- SPRM 12585 -->
+<code>queues:singleton_queue/2</code> returned the wrong term
+<li>CLPFD:
+          <ul>
+<li>Performance bug in special cases of <code>case/[3,4]</code>
+<li><code>table/[2,3]</code>: bug with <code>inf/sup</code> in binary relations
+</ul>
+     </ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e2_002e2-Bugs-Fixed.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e2_002e2-Bugs-Fixed.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

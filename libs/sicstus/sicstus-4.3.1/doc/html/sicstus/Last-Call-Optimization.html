@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+<title>Last Call Optimization - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" title="Writing Efficient Programs">
+<link rel="prev" href="The-Determinacy-Checker.html#The-Determinacy-Checker" title="The Determinacy Checker">
+<link rel="next" href="Building-and-Dismantling-Terms.html#Building-and-Dismantling-Terms" title="Building and Dismantling Terms">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Last-Call-Optimization"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Building-and-Dismantling-Terms.html#Building-and-Dismantling-Terms">Building and Dismantling Terms</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="The-Determinacy-Checker.html#The-Determinacy-Checker">The Determinacy Checker</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Writing-Efficient-Programs.html#Writing-Efficient-Programs">Writing Efficient Programs</a>
+<hr>
+</div>
+
+<h3 class="section">9.8 Last Call Optimization</h3>
+
+<p><a name="index-last-call-optimization-2448"></a><a name="index-optimization_002c-last-call-2449"></a>
+Another important efficiency feature of SICStus Prolog is last call
+optimization.  This is a space optimization
+technique, which applies when a
+predicate is determinate at the point where it is about to
+call the last goal in the body of a clause.  For
+example,
+<pre class="example">     % for(Int, Lower, Upper)
+     % Lower and Upper should be integers such that Lower =&lt; Upper.
+     % Int should be uninstantiated; it will be bound successively on
+     % backtracking to Lower, Lower+1, ... Upper.
+     
+     for(Int, Int, _Upper).
+     for(Int, Lower, Upper) :-
+             Lower &lt; Upper,
+             Next is Lower + 1,
+             for(Int, Next, Upper).
+</pre>
+   <p>This predicate is determinate at the point where the
+recursive call is about to be made, since this is the last clause
+and the preceding goals <code>(&lt;)/2</code> and <code>is/2</code>) are
+determinate.  Thus last call optimization can be applied;
+effectively, the stack space being used for the current predicate
+call is reclaimed before the recursive call is made.  This means that
+this predicate uses only a constant amount of space, no matter how
+deep the recursion.
+
+<ul class="menu">
+<li><a accesskey="1" href="Accumulating-Parameters.html#Accumulating-Parameters">Accumulating Parameters</a>:  Accumulating Parameters
+<li><a accesskey="2" href="Accumulating-Lists.html#Accumulating-Lists">Accumulating Lists</a>:  Accumulating Lists
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Last-Call-Optimization.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Last-Call-Optimization.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

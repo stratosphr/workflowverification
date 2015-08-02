@@ -1,0 +1,121 @@
+<html lang="en">
+<head>
+<title>mpg-ref-read - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002draise_005fexception.html#mpg_002dref_002draise_005fexception" title="mpg-ref-raise_exception">
+<link rel="next" href="mpg_002dref_002dread_005fline.html#mpg_002dref_002dread_005fline" title="mpg-ref-read_line">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-read"></a>
+<a name="mpg_002dref_002dread"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dread_005fline.html#mpg_002dref_002dread_005fline">mpg-ref-read_line</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002draise_005fexception.html#mpg_002dref_002draise_005fexception">mpg-ref-raise_exception</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.183 <code>read/[1,2]</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-read_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4854"></a><a name="index-read_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4855"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>read(</code><var>-Term</var><code>)</code>
+
+   <p><code>read(</code><var>+Stream</var><code>, </code><var>-Term</var><code>)</code>
+
+   <p>Reads the next term from <var>Stream</var> and unifies it with <var>Term</var>. 
+Same as:
+
+   <p><code>read_term(</code><var>Term</var><code>, [])</code>
+
+   <p><code>read_term(</code><var>Stream</var><code>, </code><var>Term</var><code>, [])</code>
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Stream</var><dd><dfn>stream_object</dfn>, must be ground
+
+     <p>A valid Prolog input stream.
+
+     <br><dt><var>Term</var><dd><dfn>term</dfn>
+
+     <p>The term to be read. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>Term must be followed by a full-stop.  The full-stop is removed from
+the input stream and is not a part of the term that is read. 
+The term is read with respect to current operator declarations.
+
+   <p><a name="index-full_002dstop_002c-use-of-4856"></a>
+Does not finish until the full-stop
+is encountered.  Thus, if you type at top level
+<pre class="example">     | ?- <kbd>read(X)</kbd>
+</pre>
+   <p>you will keep getting prompts (first &lsquo;<samp><span class="samp">|: </span></samp>&rsquo;, and five spaces thereafter)
+every time you type &lt;RET&gt;,
+but nothing else will happen, whatever you type, until you
+type a full-stop.
+
+   <p><a name="index-syntax_005ferrors-_0028prolog-flag_0029-4857"></a>If a syntax error is encountered, the action taken depends on the
+current representation of the <code>syntax_errors</code> Prolog flag.
+
+   <p><a name="index-end_005fof_005ffile-atom-4858"></a>If the end of the current input stream has been reached, then
+<var>Term</var> will be unified with the atom <code>end_of_file</code>.  Further
+calls to <code>read/[1,2]</code> for the same stream will then raise an
+exception, unless the stream is connected to the terminal. The
+characters read are subject to character-conversion.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Stream errors (see <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>), plus:
+
+     <dl>
+<dt><code>syntax_error</code><dd>A syntax error was found. 
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>read_term/[2,3]</code>, <code>char_conversion/2</code>, <a href="ref_002diou_002dtin_002dtrm.html#ref_002diou_002dtin_002dtrm">ref-iou-tin-trm</a>,
+<a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dread.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dread.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

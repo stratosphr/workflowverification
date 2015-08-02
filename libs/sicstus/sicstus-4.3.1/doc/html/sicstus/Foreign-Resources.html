@@ -1,0 +1,110 @@
+<html lang="en">
+<head>
+<title>Foreign Resources - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" title="Calling C from Prolog">
+<link rel="next" href="Conversion-Declarations.html#Conversion-Declarations" title="Conversion Declarations">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Foreign-Resources"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Conversion-Declarations.html#Conversion-Declarations">Conversion Declarations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Calling-C-from-Prolog.html#Calling-C-from-Prolog">Calling C from Prolog</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.2.1 Foreign Resources</h4>
+
+<p><a name="index-foreign-resource-2204"></a><a name="index-resource_002c-foreign-2205"></a><a name="index-linked-foreign-resource-2206"></a><a name="index-foreign-resource_002c-linked-2207"></a>A <dfn>foreign resource</dfn> is a set of C functions, defined in one or more
+files, installed as an atomic operation.  The name of a foreign
+resource, the <dfn>resource name</dfn>, is an atom, which should
+uniquely identify the resource.  Thus, two foreign resources with
+the same name cannot be installed at the same time, even if they
+correspond to different files.
+
+   <p>The resource name of a foreign resource is derived from its file
+name by deleting any leading path and the suffix. Therefore the resource
+name is not the same as the absolute file name.  For example, the
+resource name of both <samp><span class="file">~john/foo/bar.so</span></samp> and
+<samp><span class="file">~ringo/blip/bar.so</span></samp> is <code>bar</code>. If
+<code>load_foreign_resource('~john/foo/bar')</code> has been done
+<samp><span class="file">~john/foo/bar.so</span></samp> will be unloaded if either
+<code>load_foreign_resource('~john/foo/bar')</code> or
+<code>load_foreign_resource('~ringo/blip/bar')</code> is subsequently called.
+
+<!-- [PM] 3.9b5 Used to allow all kinds of strange characters. splfr now -->
+<!-- does the same quoting as flids.pl and foreign.c in its version of -->
+<!-- sp_ensure_c_nam, but there may be other uses of the resource name -->
+<!-- where funny chars (e.g.@: file-system special characters such as '/') -->
+<!-- will not do the right thing. -->
+   <p>It is recommended that a resource name be all lowercase, starting with
+&lsquo;<samp><span class="samp">a</span></samp>&rsquo; to &lsquo;<samp><span class="samp">z</span></samp>&rsquo; followed by a sequence consisting of &lsquo;<samp><span class="samp">a</span></samp>&rsquo; to
+&lsquo;<samp><span class="samp">z</span></samp>&rsquo;, underscore (&lsquo;<samp><span class="samp">_</span></samp>&rsquo;), and digits.  The resource name is used
+to construct the file name containing the foreign resource.
+
+   <p>For each foreign resource, a <code>foreign_resource/2</code> fact
+is used to declare the interfaced functions. For each of these
+functions, a <code>foreign/[2,3]</code> fact is used to specify
+conversions between predicate arguments and C-types.  These
+conversion declarations are used for creating the necessary interface
+between Prolog and C.
+
+   <p><a name="index-dynamic-resource-2208"></a><a name="index-resource_002c-dynamic-2209"></a><a name="index-static-resource-2210"></a><a name="index-resource_002c-static-2211"></a>The functions making up the foreign resource, the automatically
+generated glue code, and any libraries, are compiled and linked,
+using the <samp><span class="command">splfr</span></samp> tool (see <a href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker">The Foreign Resource Linker</a>),
+to form a
+<dfn>linked foreign resource</dfn>. A linked foreign resource can be either
+<dfn>static</dfn> or <dfn>dynamic</dfn>. A static resource is
+simply a relocatable object file containing the foreign code. A dynamic
+resource is a shared library (&lsquo;<samp><span class="samp">.so</span></samp>&rsquo; under most UNIX dialects,
+&lsquo;<samp><span class="samp">.dll</span></samp>&rsquo; under Windows), which is loaded into the Prolog executable at
+runtime.
+
+   <p><a name="index-resource_002c-prelinked-2212"></a><a name="index-prelinked-resource-2213"></a>Foreign resources can be linked into the Prolog executable either
+when the executable is built (<dfn>prelinked</dfn>), or at runtime. 
+Prelinking can only be done using static resources. 
+<!-- [PM] 4.0.3+ In fact dynamic resources can be prelinked on most -->
+<!-- platforms but this is a pointless mistake inherited from SP3 -->
+Runtime-linking can only be done using dynamic resources. Dynamic
+resources can also be unlinked.
+
+   <p>In all cases, the declared predicates are installed by the
+built-in predicate <code>load_foreign_resource/1</code>. 
+If the resource was prelinked, only the predicate
+names are bound; otherwise, runtime-linking is attempted (using
+<code>dlopen()</code>, <code>LoadLibrary()</code>, or similar).
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Foreign-Resources.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Foreign-Resources.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

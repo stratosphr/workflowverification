@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+<title>An Example Session - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dbdb.html#lib_002dbdb" title="lib-bdb">
+<link rel="prev" href="Predicates.html#Predicates" title="Predicates">
+<link rel="next" href="The-DB_002dSpec.html#The-DB_002dSpec" title="The DB-Spec">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="An-Example-Session"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="The-DB_002dSpec.html#The-DB_002dSpec">The DB-Spec</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Predicates.html#Predicates">Predicates</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dbdb.html#lib_002dbdb">lib-bdb</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.6.6 An Example Session</h4>
+
+<pre class="example">     | ?- <kbd>db_open(tempdb, update, [a(+,-)], DBRef), assert(tempdb(DBRef)).</kbd>
+     DBRef = '$db'(1077241400)
+     
+     | ?- <kbd>tempdb(DBRef), db_store(DBRef, a(b,1), _).</kbd>
+     DBRef = '$db'(1077241400)
+     
+     | ?- <kbd>tempdb(DBRef), db_store(DBRef, a(c,2), _).</kbd>
+     DBRef = '$db'(1077241400)
+     
+     | ?- <kbd>tempdb(DBRef), db_fetch(DBRef, a(b,X), _).</kbd>
+     X = 1,
+     DBRef = '$db'(1077241400) ? <kbd>;</kbd>
+     no
+     
+     | ?- <kbd>tempdb(DBRef), db_enumerate(DBRef, X, _).</kbd>
+     X = a(b,1),
+     DBRef = '$db'(1077241400) ? <kbd>;</kbd>
+     X = a(c,2),
+     DBRef = '$db'(1077241400) ? <kbd>;</kbd>
+     no
+     
+     | ?- <kbd>db_current(DBName, Mode, Spec, EnvRef, DBRef).</kbd>
+     Mode = update,
+     Spec = [a(+,-)],
+     DBRef = '$db'(1077241400),
+     DBName = tempdb,
+     EnvRef = none ? <kbd>;</kbd>
+     no
+     
+     | ?- <kbd>tempdb(DBRef), db_close(DBRef).</kbd>
+     DBRef = '$db'(1077241400)
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/An-Example-Session.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/An-Example-Session.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

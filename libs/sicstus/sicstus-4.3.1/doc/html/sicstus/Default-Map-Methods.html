@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+<title>Default Map Methods - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Query-Processing.html#Query-Processing" title="Query Processing">
+<link rel="prev" href="Default-Input-Methods.html#Default-Input-Methods" title="Default Input Methods">
+<link rel="next" href="Default-Query-Classes.html#Default-Query-Classes" title="Default Query Classes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Default-Map-Methods"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Default-Query-Classes.html#Default-Query-Classes">Default Query Classes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Default-Input-Methods.html#Default-Input-Methods">Default Input Methods</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Query-Processing.html#Query-Processing">Query Processing</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.16.3.5 Default Map Methods</h5>
+
+<p>The following <var>MapMethod</var> types are known to
+<code>'SU_messages':query_map(</code><var>MapMethod</var><code>, </code><var>RawInput</var><code>,
+</code><var>Result</var><code>, </code><var>Answer</var><code>)</code> and to the built-in fall-back mapping:
+
+     <dl>
+<dt><code>char(</code><var>Pairs</var><code>)</code><dd><a name="index-char_002f1-_0028map-method_0029-1793"></a>In this map method <var>RawInput</var> is assumed to be a code-list.
+
+     <p><var>Pairs</var> is a list of <var>Name</var><code>-</code><var>Abbreviations</var>
+pairs, where <var>Name</var> is a ground term, and
+<var>Abbreviations</var> is a code-list.  The first non-whitespace
+character of <var>RawInput</var> is used for finding the corresponding name
+as the answer, by looking it up in the abbreviation lists.  If the
+character is found, <var>Result</var> is <code>success</code>, and
+<var>Answer</var> is set to the <var>Name</var> found; otherwise, <var>Result</var> is
+<code>failure</code>.
+
+     <br><dt><code>=</code><dd><a name="index-g_t_003d_002f0-_0028map-method_0029-1794"></a>No conversion is done, <var>Answer</var> is equal to <var>RawInput</var> and
+<var>Result</var> is <code>success</code>.
+
+     <br><dt><code>debugger</code><dd><a name="index-debugger_002f0-_0028map-method_0029-1795"></a>This map method is used when reading a single line debugger command.  It
+parses the debugger command and returns the corresponding abstract
+command term.  If the parse is unsuccessful, the answer
+<code>unknown(Line,Warning)</code> is returned.  This is to allow the user to
+extend the debugger command language via <code>debugger_command_hook/2</code>,
+see <a href="Debug-Commands.html#Debug-Commands">Debug Commands</a>.
+
+     <p>The details of this mapping can be obtained from the
+<samp><span class="file">library('SU_messages')</span></samp> file.
+
+     <p>Note that the fall-back version of this mapping is simplified, it only
+accepts parameterless debugger commands. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Default-Map-Methods.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Default-Map-Methods.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

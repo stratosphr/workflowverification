@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+<title>mpg-top-sta - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dtop.html#mpg_002dtop" title="mpg-top">
+<link rel="prev" href="mpg_002dtop_002dmod.html#mpg_002dtop_002dmod" title="mpg-top-mod">
+<link rel="next" href="mpg_002dtop_002deqs.html#mpg_002dtop_002deqs" title="mpg-top-eqs">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-top-sta"></a>
+<a name="mpg_002dtop_002dsta"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dtop_002deqs.html#mpg_002dtop_002deqs">mpg-top-eqs</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dtop_002dmod.html#mpg_002dtop_002dmod">mpg-top-mod</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dtop.html#mpg_002dtop">mpg-top</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.2.18 Program State</h4>
+
+<p><a name="index-program-state_002c-predicates-for-4372"></a><a name="index-predicates-for-program-state-4373"></a>
+     <dl>
+<dt><code>current_atom(</code><var>?A</var><code>)</code><dd>backtrack through all atoms
+
+     <br><dt><code>current_module(</code><var>?M</var><code>)</code><dd><var>M</var> is the name of a current module
+
+     <br><dt><code>current_module(</code><var>?M</var><code>,</code><var>?F</var><code>)</code><dd><var>F</var> is the name of the file in which <var>M</var>'s module
+declaration appears
+
+     <br><dt><code>current_predicate(</code><var>:A</var><code>/</code><var>?N</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>current_predicate(</code><var>?A</var><code>,</code><var>:P</var><code>)</code><dd><var>A</var> is the name of a predicate with most general goal <var>P</var>
+and arity <var>N</var>
+
+     <br><dt><code>current_prolog_flag(</code><var>?F</var><code>,</code><var>?V</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>V</var> is the current representation of Prolog flag <var>F</var>
+
+     <br><dt><code>listing</code><dd>list all dynamic procedures in the type-in module
+
+     <br><dt><code>listing(</code><var>:P</var><code>)</code><dd>list the dynamic procedure(s) specified by <var>P</var>
+
+     <br><dt><code>predicate_property(</code><var>:P</var><code>,</code><var>?Prop</var><code>)</code><dd><var>Prop</var> is a property of the loaded predicate <var>P</var>
+
+     <br><dt><code>prolog_flag(</code><var>?F</var><code>,</code><var>?V</var><code>)</code><dd><var>V</var> is the current representation of Prolog flag <var>F</var>
+
+     <br><dt><code>prolog_flag(</code><var>+F</var><code>,</code><var>=O</var><code>,</code><var>+N</var><code>)</code><dd><var>O</var> is the old representation of Prolog flag <var>F</var>; <var>N</var> is the new
+representation
+
+     <br><dt><code>prolog_load_context(</code><var>?K</var><code>,</code><var>?V</var><code>)</code><dd>find out the context of the current load
+
+     <br><dt><code>set_module(</code><var>+M</var><code>)</code><dd>make <var>M</var> the type-in module
+
+     <br><dt><code>set_prolog_flag(</code><var>+F</var><code>,</code><var>+N</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>N</var> is the new representation of Prolog flag <var>F</var>
+
+     <br><dt><code>source_file(</code><var>?F</var><code>)</code><dd><var>F</var> is a source file that has been loaded into the database
+
+     <br><dt><code>source_file(</code><var>:P</var><code>,</code><var>?F</var><code>)</code><dd><var>P</var> is a predicate defined in the loaded file <var>F</var>
+
+     <br><dt><code>unknown(</code><var>-O</var><code>,</code><var>+N</var><code>) &nbsp;<!-- /@w --> </code><strong>development</strong><dd>Changes action on undefined predicates from <var>O</var> to <var>N</var>.
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dtop_002dsta.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dtop_002dsta.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

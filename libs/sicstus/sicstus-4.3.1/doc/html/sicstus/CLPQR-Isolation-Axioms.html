@@ -1,0 +1,95 @@
+<html lang="en">
+<head>
+<title>CLPQR Isolation Axioms - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="CLPQR-Linearity.html#CLPQR-Linearity" title="CLPQR Linearity">
+<link rel="prev" href="CLPQR-How-Nonlinear-Residues-Are-Made-to-Disappear.html#CLPQR-How-Nonlinear-Residues-Are-Made-to-Disappear" title="CLPQR How Nonlinear Residues Are Made to Disappear">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CLPQR-Isolation-Axioms"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="CLPQR-How-Nonlinear-Residues-Are-Made-to-Disappear.html#CLPQR-How-Nonlinear-Residues-Are-Made-to-Disappear">CLPQR How Nonlinear Residues Are Made to Disappear</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="CLPQR-Linearity.html#CLPQR-Linearity">CLPQR Linearity</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.11.3.2 Isolation Axioms</h5>
+
+<p>These axioms are used to rewrite equations such that the variable
+to be solved for is moved to the left hand side and the result of the
+evaluation of the right hand side can be assigned to the
+variable. This allows, for example, to use the exponentiation
+operator for the computation of roots and logarithms; see below.
+     <dl>
+<dt><code>A = B * C</code><dd>Residuates unless <var>B</var> or <var>C</var> is ground or <var>A</var> and <var>B</var> or <var>C</var>
+are ground.
+
+     <br><dt><code>A = B / C</code><dd>Residuates unless <var>C</var> is ground or <var>A</var> and <var>B</var> are
+ground.
+
+     <br><dt><code>X = min(Y,Z)</code><dd>Residuates unless <var>Y</var> and <var>Z</var> are ground.
+
+     <br><dt><code>X = max(Y,Z)</code><dd>Residuates unless <var>Y</var> and <var>Z</var> are ground.
+
+     <br><dt><code>X = abs(Y)</code><dd>Residuates unless <var>Y</var> is ground.
+
+     <br><dt><code>X = pow(Y,Z), X = exp(Y,Z)</code><dd>Residuates unless any pair of two of the three variables is
+ground.  Example:
+     <pre class="example">          
+          clp(r) ?- <kbd>{ 12=pow(2,X) }.</kbd>
+          
+          X = 3.5849625007211565
+          
+          clp(r) ?- <kbd>{ 12=pow(X,3.585) }.</kbd>
+          
+          X = 1.9999854993443926
+          
+          clp(r) ?- <kbd>{ X=pow(2,3.585) }.</kbd>
+          
+          X = 12.000311914286545
+</pre>
+     <br><dt><code>X = sin(Y)</code><dd>Residuates unless <var>X</var> or <var>Y</var> is ground. Example:
+     <pre class="example">          
+          clp(r) ?- <kbd>{ 1/2 = sin(X) }.</kbd>
+          
+          X = 0.5235987755982989
+</pre>
+     <br><dt><code>X = cos(Y)</code><dd>Residuates unless <var>X</var> or <var>Y</var> is ground.
+
+     <br><dt><code>X = tan(Y)</code><dd>Residuates unless <var>X</var> or <var>Y</var> is ground. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-Isolation-Axioms.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-Isolation-Axioms.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+<title>Foreign Resources and Multiple SICStus Runtimes - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Multiple-SICStus-Runtimes.html#Multiple-SICStus-Runtimes" title="Multiple SICStus Runtimes">
+<link rel="prev" href="Multiple-SICStus-Runtimes-in-C.html#Multiple-SICStus-Runtimes-in-C" title="Multiple SICStus Runtimes in C">
+<link rel="next" href="Threads.html#Threads" title="Threads">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Foreign-Resources-and-Multiple-SICStus-Runtimes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Threads.html#Threads">Threads</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Multiple-SICStus-Runtimes-in-C.html#Multiple-SICStus-Runtimes-in-C">Multiple SICStus Runtimes in C</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Multiple-SICStus-Runtimes.html#Multiple-SICStus-Runtimes">Multiple SICStus Runtimes</a>
+<hr>
+</div>
+
+<h3 class="section">8.3 Foreign Resources and Multiple SICStus Runtimes</h3>
+
+<p>Foreign resources access the SICStus C API in the same way as an
+embedding application, that is, through a dispatch vector. As for
+applications, the default and backward compatible mode is to only
+support a single SICStus runtime.  An alternative mode makes it
+possible for a foreign resource to be shared between several
+SICStus runtimes in the same process.
+
+   <p>Unless otherwise noted, this section documents the behavior when using
+dynamically linked foreign resources. That is, shared objects
+(e.g.: .so-files) under UNIX, dynamic libraries (DLLs) under Windows.
+
+<ul class="menu">
+<li><a accesskey="1" href="MT-Foreign-Single.html#MT-Foreign-Single">MT Foreign Single</a>:  Foreign Resources Supporting Only One SICStus Runtime
+<li><a accesskey="2" href="MT-Foreign-Multiple.html#MT-Foreign-Multiple">MT Foreign Multiple</a>:  Foreign Resources Supporting Multiple SICStus Runtimes
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Foreign-Resources-and-Multiple-SICStus-Runtimes.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Foreign-Resources-and-Multiple-SICStus-Runtimes.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

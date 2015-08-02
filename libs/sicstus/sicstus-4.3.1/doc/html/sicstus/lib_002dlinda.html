@@ -1,0 +1,131 @@
+<html lang="en">
+<head>
+<title>lib-linda - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Prolog-Library.html#The-Prolog-Library" title="The Prolog Library">
+<link rel="prev" href="lib_002djasper.html#lib_002djasper" title="lib-jasper">
+<link rel="next" href="lib_002dlists.html#lib_002dlists" title="lib-lists">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="lib-linda"></a>
+<a name="lib_002dlinda"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="lib_002dlists.html#lib_002dlists">lib-lists</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="lib_002djasper.html#lib_002djasper">lib-jasper</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Prolog-Library.html#The-Prolog-Library">The Prolog Library</a>
+<hr>
+</div>
+
+<h3 class="section">10.19 Process Communication&mdash;<code>library(linda/[server,client])</code></h3>
+
+<p><a name="index-Linda-3428"></a><a name="index-process-communication-3429"></a><a name="index-communication_002c-process-3430"></a><a name="index-synchronization-3431"></a>Linda is a concept for process communication.
+
+   <p>For an introduction and a deeper description, see [Carreiro &amp; Gelernter
+89a] or [Carreiro &amp; Gelernter 89b], respectively.
+
+   <p>One process is running as a server and one or more processes are running
+as clients.  The processes are communicating with sockets and
+supports networks.
+
+   <p>The server is in principle a blackboard on which the clients can write
+(<code>out/1</code>), read (<code>rd/1</code>) and remove (<code>in/1</code>) data.  If
+the data is not present on the blackboard, the predicates suspend
+the process until they are available.
+
+   <p>There are some more predicates besides the basic <code>out/1</code>,
+<code>rd/1</code> and <code>in/1</code>.  The <code>in_noblock/1</code> and
+<code>rd_noblock/1</code> does not suspend if the data is not available&mdash;they
+fail instead.  A blocking fetch of a conjunction of data can be done
+with <code>in/2</code> or <code>rd/2</code>.
+
+   <p><b>Example</b>: A simple producer-consumer.  In client 1:
+<pre class="example">     producer :-
+            produce(X),
+            out(p(X)),
+            producer.
+     
+     produce(X) :- .....
+</pre>
+   <p>In client 2:
+
+<pre class="example">     consumer :-
+            in(p(A)),
+            consume(A),
+            consumer.
+     
+     consume(A) :- .....
+</pre>
+   <p><b>Example</b>: Synchronization
+
+<pre class="example">            ...,
+            in(ready),  %Waits here until someone does out(ready)
+            ...,
+</pre>
+   <p><b>Example</b>: A critical region
+
+<pre class="example">            ...,
+            in(region_free),  % wait for region to be free
+            critical_part,
+            out(region_free), % let next one in
+            ...,
+</pre>
+   <p><b>Example</b>: Reading global data
+
+<pre class="example">            ...,
+            rd(data(Data)),
+            ...,
+     
+     or, without blocking:
+            ...,
+            rd_noblock(data(Data)) -&gt;
+                  do_something(Data)
+            ;     write('Data not available!'),nl
+            ),
+            ...,
+</pre>
+   <p><b>Example</b>: Waiting for one of several events
+
+<pre class="example">            ...,
+            in([e(1),e(2),...,e(n)], E),
+     %  Here is E instantiated to the first tuple that became available
+            ...,
+</pre>
+   <ul class="menu">
+<li><a accesskey="1" href="lib_002dlinda_002dserver.html#lib_002dlinda_002dserver">lib-linda-server</a>:  Linda Server
+<li><a accesskey="2" href="lib_002dlinda_002dclient.html#lib_002dlinda_002dclient">lib-linda-client</a>:  Linda Client
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dlinda.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dlinda.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+<title>Past States - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Breakpoint-Conditions.html#Breakpoint-Conditions" title="Breakpoint Conditions">
+<link rel="prev" href="Action-Conditions.html#Action-Conditions" title="Action Conditions">
+<link rel="next" href="Condition-Macros.html#Condition-Macros" title="Condition Macros">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Past-States"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Condition-Macros.html#Condition-Macros">Condition Macros</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Action-Conditions.html#Action-Conditions">Action Conditions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Breakpoint-Conditions.html#Breakpoint-Conditions">Breakpoint Conditions</a>
+<hr>
+</div>
+
+<h4 class="subsection">5.9.7 Options for Focusing on a Past State</h4>
+
+<p>The following ground terms can be used in the first
+argument of <code>execution_state/2</code> (see <a href="Breakpoint-Predicates.html#Breakpoint-Predicates">Breakpoint Predicates</a>). Alternatively, a list containing such terms
+can be used. If a given condition occurs multiple times, only the last
+one is considered. The order of conditions within the list does
+not matter.
+
+     <dl>
+<dt><code>break_level(</code><var>BL</var><code>)</code><dd><a name="index-break_005flevel_002f1-_0028debugger-condition_0029-2137"></a>Focus on the current invocation of break level <var>BL</var>. <var>BL</var> is the
+break level number, the top-level being <code>break_level(0)</code>. 
+For past break levels, the current invocation is the one from
+which the next break level was entered.
+
+     <br><dt><code>inv(</code><var>Inv</var><code>)</code><dd><a name="index-inv_002f1-_0028debugger-condition_0029-2138"></a>Focus on the invocation number <var>Inv</var> of the currently focused break
+level. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Past-States.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Past-States.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

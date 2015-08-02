@@ -1,0 +1,146 @@
+<html lang="en">
+<head>
+<title>CHR Semantics - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="CHR-Syntax-and-Semantics.html#CHR-Syntax-and-Semantics" title="CHR Syntax and Semantics">
+<link rel="prev" href="CHR-Syntax.html#CHR-Syntax" title="CHR Syntax">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CHR-Semantics"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="CHR-Syntax.html#CHR-Syntax">CHR Syntax</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="CHR-Syntax-and-Semantics.html#CHR-Syntax-and-Semantics">CHR Syntax and Semantics</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.8.2.2 Semantics</h5>
+
+<p>In this subsubsection the operational semantics of CHR in Prolog are presented
+informally. They don't differ essentially from other CHR systems.
+
+   <p>When a constraint is called, it is considered an active constraint and
+the system will try to apply the rules to it. Rules are tried and executed
+sequentially in the order they are written.
+
+   <p>A rule is conceptually tried for an active constraint in the following
+way. The active constraint is matched with a constraint in the head of
+the rule. If more constraints appear in the head they are looked for
+among the suspended constraints, which are called passive constraints in
+this context. If the necessary passive constraints can be found and all
+match with the head of the rule and the guard of the rule succeeds,
+the rule is committed and the body of the rule executed. If not all the
+necessary passive constraint can be found, the matching fails or the
+guard fails, the body is not executed and the process of trying and
+executing simply continues with the following rules. If for a rule,
+there are multiple constraints in the head, the active constraint will
+try the rule sequentially multiple times, each time trying to match with
+another constraint.
+
+   <p>This process ends either when the active constraint disappears, i.e. it
+is removed by some rule, or after the last rule has been processed. In
+the latter case the active constraint becomes suspended.
+
+   <p>A suspended constraint is eligible as a passive constraint for an active
+constraint. The other way it may interact again with the rules, is when
+a variable appearing in the constraint becomes bound to either a non-variable
+or another variable involved in one or more constraints. In that case the
+constraint is triggered, i.e. it becomes an active constraint and all
+the rules are tried.
+
+   <p><b>Rule Types.</b>
+There are three different kinds of rules, each with their specific semantics:
+
+     <dl>
+<dt><dfn>simplification</dfn><dd>The simplification rule removes the constraints in its head and calls its body.
+
+     <br><dt><dfn>propagation</dfn><dd>The propagation rule calls its body exactly once for the constraints in
+its head.
+
+     <br><dt><dfn>simpagation</dfn><dd>The simpagation rule removes the constraints in its head after the
+<code>\</code> and then calls its body. It is an optimization of
+simplification rules of the form:
+
+     <pre class="example">          <var>constraints_1</var>, <var>constraints_2</var> &lt;=&gt; <var>constraints_1</var>, <var>body</var>
+</pre>
+     <p class="noindent">namely, in the simpagation form:
+
+     <pre class="example">          <var>constraints_1</var> \ <var>constraints_2</var> &lt;=&gt; <var>body</var>
+</pre>
+     <p class="noindent">the <var>constraints_1</var> constraints are not called in the body. 
+</dl>
+
+   <p><b>Rule Names.</b>
+Naming a rule is optional and has no semantical meaning. It only functions
+as documentation for the programmer.
+
+   <p><b>Pragmas.</b>
+The semantics of the pragmas are:
+
+     <dl>
+<dt><code>passive(</code><var>Identifier</var><code>)</code><dd><a name="index-passive_002f1-_0028CHR-pragma_0029-2713"></a>The constraint in the head of a rule <var>Identifier</var> can only match a
+passive constraint in that rule. 
+</dl>
+
+   <p>Additional pragmas may be released in the future.
+
+   <p><b>Options.</b>
+<a name="index-chr_005foption_002f2-_0028CHR-declaration_0029-2714"></a><a name="index-chr_005foption_002f2-_0028CHR-declaration_0029-2715"></a>
+It is possible to specify options that apply to all the CHR rules in the module. 
+Options are specified with the <code>chr_option/2</code> declaration:
+
+<pre class="example">     :- chr_option(Option,Value).
+</pre>
+   <p class="noindent">and may appear in the file anywhere after the first constraints declaration.
+
+   <p>Available options are:
+     <dl>
+<dt><code>check_guard_bindings</code><dd><a name="index-check_005fguard_005fbindings-_0028CHR-option_0029-2716"></a>This option controls whether guards should be checked for (illegal) variable
+bindings or not. Possible values for this option are <code>on</code>, to enable
+the checks, and <code>off</code>, to disable the checks. If this option is on,
+any guard fails when it binds a variable that appears in the head of the rule. 
+When the option is off, the behavior of a binding in the guard is undefined.
+
+     <br><dt><code>optimize</code><dd><a name="index-optimize-_0028CHR-option_0029-2717"></a>This option controls the degree of optimization. 
+Possible values are <code>full</code>, to enable all available
+optimizations, and <code>off</code> (the default), to disable all optimizations. 
+If optimization is enabled, debugging must be disabled.
+
+     <br><dt><code>debug</code><dd><a name="index-debug-_0028CHR-option_0029-2718"></a>This options enables or disables the possibility to debug the CHR code. 
+Possible values are <code>on</code> (the default) and <code>off</code>. See
+<a href="CHR-Debugging.html#CHR-Debugging">CHR Debugging</a> for more details on debugging. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CHR-Semantics.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CHR-Semantics.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

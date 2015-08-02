@@ -1,0 +1,119 @@
+<html lang="en">
+<head>
+<title>lib-structs - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Prolog-Library.html#The-Prolog-Library" title="The Prolog Library">
+<link rel="prev" href="lib_002dsockets.html#lib_002dsockets" title="lib-sockets">
+<link rel="next" href="lib_002dsystem.html#lib_002dsystem" title="lib-system">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="lib-structs"></a>
+<a name="lib_002dstructs"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="lib_002dsystem.html#lib_002dsystem">lib-system</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="lib_002dsockets.html#lib_002dsockets">lib-sockets</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Prolog-Library.html#The-Prolog-Library">The Prolog Library</a>
+<hr>
+</div>
+
+<h3 class="section">10.35 The Structs Package&mdash;<code>library(structs)</code></h3>
+
+<ul class="menu">
+<li><a accesskey="1" href="str_002dfty.html#str_002dfty">str-fty</a>:                              Foreign Types
+<li><a accesskey="2" href="str_002dcft.html#str_002dcft">str-cft</a>:                              Checking Foreign Term Types
+<li><a accesskey="3" href="str_002dcdf.html#str_002dcdf">str-cdf</a>:                              Creating and Destroying Foreign Terms
+<li><a accesskey="4" href="str_002dafd.html#str_002dafd">str-afd</a>:                              Accessing and Modifying Foreign Term Contents
+<li><a accesskey="5" href="str_002dcas.html#str_002dcas">str-cas</a>:                              Casting
+<li><a accesskey="6" href="str_002dnul.html#str_002dnul">str-nul</a>:                              Null Foreign Terms
+<li><a accesskey="7" href="str_002difc.html#str_002difc">str-ifc</a>:                              Interfacing with Foreign Code
+<li><a accesskey="8" href="str_002detr.html#str_002detr">str-etr</a>:                              Examining Type Definitions at Runtime
+<li><a accesskey="9" href="str_002dtip.html#str_002dtip">str-tip</a>:                              Tips
+<li><a href="str_002dexa.html#str_002dexa">str-exa</a>:                              Example
+</ul>
+
+<!-- label structs-package -->
+<p><a name="index-structs-_0028library-package_0029-3894"></a>
+<a name="index-foreign-data-types-3895"></a>
+<a name="index-data-types_002c-foreign-3896"></a>
+
+   <p>The <code>structs</code> package allows Prolog to hold pointers to C data structures,
+and to access and store into fields in those data structures. 
+Currently, the only representation for a pointer supported by SICStus
+Prolog is an integer, so it isn't possible to guarantee that Prolog
+can't confuse a pointer with an ordinary Prolog term.  What this package
+does is to represent such a pointer as a term with the type of the
+structure or array as its functor and the integer that is the address
+of the actual data as its only argument.  We will refer such terms as
+<dfn>foreign terms</dfn>. 
+<a name="index-foreign-terms-_0028definition_0029-3897"></a>
+
+   <p>The package consists of two modules, <code>str_decl</code> and <code>structs</code>. The
+<code>str_decl</code> module is used at compile time to translate the
+structs-related constructs.  Any file that defines or accesses structs
+should include the command:
+
+<pre class="example">     :- load_files(library(str_decl),
+                   [when(compile_time), if(changed)]).
+</pre>
+   <p>The <code>structs</code> module provides runtime support for structs.  A
+file that accesses structs should include the command:
+
+<pre class="example">     :- use_module(library(structs)).
+</pre>
+   <p>You will probably include both in most files that define and access structs.
+
+   <p><strong>Please note:</strong> A file that loads <code>library(str_decl)</code> currently cannot
+recursively load another file that loads <code>library(str_decl)</code>, because that would
+confuse the internal database being used by the package.
+
+   <blockquote>
+
+   <p><strong>Important caveats:</strong>
+
+   <p>You should not count on future versions of the structs package to
+continue to represent foreign terms as compound Prolog terms.  In
+particular, you should never explicitly take apart a foreign term using
+unification or <code>functor/3</code> and <code>arg/3</code>.  You may use the predicate
+<code>foreign_type/2</code> to find the type of a foreign term, and <code>cast/3</code> (casting
+a foreign term to address) to get the address part of a foreign term. 
+You may also use <code>cast/3</code> to cast an address back to a foreign term.  You
+should use <code>null_foreign_term/2</code> to check if a foreign term is null, or
+to create a null foreign term of some type.
+
+   <p>It should never be necessary to explicitly take apart foreign terms. 
+</blockquote>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dstructs.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dstructs.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

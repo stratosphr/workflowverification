@@ -1,0 +1,117 @@
+<html lang="en">
+<head>
+<title>mpg-ref-or - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dif_005fthen.html#mpg_002dref_002dif_005fthen" title="mpg-ref-if_then">
+<link rel="next" href="mpg_002dref_002dless_005fthan.html#mpg_002dref_002dless_005fthan" title="mpg-ref-less_than">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-or"></a>
+<a name="mpg_002dref_002dor"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dless_005fthan.html#mpg_002dref_002dless_005fthan">mpg-ref-less_than</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dif_005fthen.html#mpg_002dref_002dif_005fthen">mpg-ref-if_then</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.150 <code>;/2</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-g_t_003b_002f2-_0028built_002din_002c-ref-page_0029-4771"></a><a name="index-g_t_003b_002f2-_0028built_002din_002c-ref-page_0029-4772"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><var>+P</var> <code>;</code> <var>+Q</var>
+
+   <p>Disjunction: Succeeds if <var>P</var> succeeds <em>or</em> <var>Q</var> succeeds.
+
+   <p><var>+P</var> <code>-&gt;</code> <var>+Q</var> <code>;</code> <var>+R</var>
+
+   <p><em>If</em> <var>P</var> <em>then</em> <var>Q</var> <em>else</em> <var>R</var>, using first solution of
+<var>P</var> only.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:P</var><dd><dfn>callable</dfn>, must be nonvar
+<br><dt><var>:Q</var><dd><dfn>callable</dfn>, must be nonvar
+<br><dt><var>:R</var><dd><dfn>callable</dfn>, must be nonvar
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>These are normally regarded as part of the syntax of the language, but
+they are like a built-in predicate in that you can write
+<code>call((</code><var>P</var><code> ; </code><var>Q</var><code>))</code> or <code>call((</code><var>P</var><code> -&gt;
+</code><var>Q</var><code> ; </code><var>R</var><code>))</code>.
+
+   <p>By default, the character &lsquo;<samp><span class="samp">|</span></samp>&rsquo; (vertical bar) can be used as an alternative to
+the infix operator &lsquo;<samp><span class="samp">;</span></samp>&rsquo;. 
+This equivalence does not hold when &lsquo;<samp><span class="samp">|</span></samp>&rsquo; has been declared as an operator.
+
+   <p>Using &lsquo;<samp><span class="samp">|</span></samp>&rsquo; as an alternative to the infix operator &lsquo;<samp><span class="samp">;</span></samp>&rsquo; is not
+recommended. A future version of the ISO Prolog standard is likely to
+define &lsquo;<samp><span class="samp">|</span></samp>&rsquo; as an operator and with such an operator definition
+the &lsquo;<samp><span class="samp">|</span></samp>&rsquo; will no longer be equivalent to &lsquo;<samp><span class="samp">;</span></samp>&rsquo;.
+
+   <p>The operator precedences of the &lsquo;<samp><span class="samp">;</span></samp>&rsquo; and &lsquo;<samp><span class="samp">-&gt;</span></samp>&rsquo; are
+both greater than 1000, so that they dominate commas.
+
+   <p>Cuts in <var>P</var> do not make sense, but are allowed, their scope
+being the goal <var>P</var>.  The scope of cuts in <var>Q</var> and <var>R</var>
+extends to the containing clause.
+
+<h4 class="subheading">Backtracking</h4>
+
+<p>For the if-then-else construct:
+if <var>P</var> succeeds and <var>Q</var>
+then fails, backtracking into <var>P</var> does not occur.  A cut in <var>P</var>
+does not make sense.  &lsquo;<samp><span class="samp">-&gt;</span></samp>&rsquo; acts like a cut except that its range
+is restricted to within the disjunction: it cuts away <var>R</var> and any
+choice points within <var>P</var>.  &lsquo;<samp><span class="samp">-&gt;</span></samp>&rsquo; may be thought of as a
+&ldquo;local cut&rdquo;. 
+<a name="index-local-cut-4773"></a>
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Call errors (see <a href="ref_002dsem_002dexc.html#ref_002dsem_002dexc">ref-sem-exc</a>).
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dsem.html#ref_002dsem">ref-sem</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dor.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dor.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

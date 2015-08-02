@@ -1,0 +1,189 @@
+<html lang="en">
+<head>
+<title>ref-lte-sum - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlte.html#ref_002dlte" title="ref-lte">
+<link rel="prev" href="ref_002dlte_002dmut.html#ref_002dlte_002dmut" title="ref-lte-mut">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-lte-sum"></a>
+<a name="ref_002dlte_002dsum"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dlte_002dmut.html#ref_002dlte_002dmut">ref-lte-mut</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlte.html#ref_002dlte">ref-lte</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.8.10 Summary of Predicates</h4>
+
+<p><a name="index-type-tests_002c-predicates-for-1268"></a><a name="index-predicates-for-type-tests-1269"></a>
+     <dl>
+<dt><code>atom(</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>term <var>T</var> is an atom
+
+     <br><dt><code>atomic(</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>term <var>T</var> is an atom or a number
+
+     <br><dt><code>callable(</code><var>+T</var><code>)</code><dd><var>T</var> is an atom or a compound term
+
+     <br><dt><code>compound(</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>T</var> is a compound term
+
+     <br><dt><code>db_reference(</code><var>+X</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.1</strong><dd><var>X</var> is a db_reference
+
+     <br><dt><code>float(</code><var>+N</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>N</var> is a floating-point number
+
+     <br><dt><code>ground(</code><var>+T</var><code>)</code><dd>term <var>T</var> is a nonvar, and all substructures are nonvar
+
+     <br><dt><code>integer(</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>term <var>T</var> is an integer
+
+     <br><dt><code>mutable(</code><var>+X</var><code>)</code><dd><var>X</var> is a mutable term
+
+     <br><dt><code>nonvar(</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>term <var>T</var> is one of atom, number, compound
+(that is, <var>T</var> is instantiated)
+
+     <br><dt><code>number(</code><var>+N</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>N</var> is an integer or a float
+
+     <br><dt><code>simple(</code><var>+T</var><code>)</code><dd><var>T</var> is not a compound term; it is either atomic or a var
+
+     <br><dt><code>var(</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>term <var>T</var> is a variable (that is, <var>T</var> is uninstantiated)
+
+   </dl>
+
+   <p><a name="index-term-comparison_002c-predicates-for-1270"></a><a name="index-predicates-for-term-comparison-1271"></a>
+     <dl>
+<dt><code>compare(</code><var>-C</var><code>,</code><var>+X</var><code>,</code><var>+Y</var><code>)</code><dd>C is the result of comparing terms <var>X</var> and <var>Y</var>
+
+     <br><dt><var>+X</var><code> == </code><var>+Y</var><code> &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>terms <var>X</var> and <var>Y</var> are strictly identical
+
+     <br><dt><var>+X</var><code> \== </code><var>+Y</var><code> &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>terms <var>X</var> and <var>Y</var> are not strictly identical
+
+     <br><dt><var>+X</var><code> @&lt; </code><var>+Y</var><code> &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>term <var>X</var> precedes term <var>Y</var> in standard order for terms
+
+     <br><dt><var>+X</var><code> @&gt;= </code><var>+Y</var><code> &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>term <var>X</var> follows or is identical to term <var>Y</var> in standard order for terms
+
+     <br><dt><var>+X</var><code> @&gt; </code><var>+Y</var><code> &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>term <var>X</var> follows term <var>Y</var> in standard order for terms
+
+     <br><dt><var>+X</var><code> @=&lt; </code><var>+Y</var><code> &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>term <var>X</var> precedes or is identical to term <var>Y</var> in standard order for terms
+
+   </dl>
+
+   <p><a name="index-term-handling_002c-predicates-for-1272"></a><a name="index-predicates-for-term-handling-1273"></a>
+     <dl>
+<dt><var>?T</var><code> =.. </code><var>?L</var><code> &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>the functor and arguments of term <var>T</var> comprise the list <var>L</var>
+
+     <br><dt><var>?X</var><code> = </code><var>?Y</var><code> &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>terms <var>X</var> and <var>Y</var> are unified
+
+     <br><dt><var>+X</var><code> \= </code><var>+Y</var><code> &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>terms <var>X</var> and <var>Y</var> no not unify
+
+     <br><dt><code>?=(</code><var>+X</var><code>,</code><var>+Y</var><code>)</code><dd><var>X</var> and <var>Y</var> are either strictly identical or
+don't unify
+
+     <br><dt><code>acyclic_term(</code><var>+T</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.3, ISO</strong><dd>term <var>T</var> is a finite (acyclic) term
+
+     <br><dt><code>arg(</code><var>+N</var><code>,</code><var>+T</var><code>,</code><var>-A</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>the <var>N</var>th argument of term <var>T</var> is <var>A</var>
+
+     <br><dt><code>atom_chars(</code><var>?A</var><code>,</code><var>?L</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>A</var> is the atom containing the character atoms in list <var>L</var>
+
+     <br><dt><code>atom_codes(</code><var>?A</var><code>,</code><var>?L</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>A</var> is the atom containing the characters in code-list <var>L</var>
+
+     <br><dt><code>atom_concat(</code><var>?Atom1</var><code>,</code><var>?Atom2</var><code>,</code><var>?Atom12</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>Atom <var>Atom1</var> concatenated with <var>Atom2</var> gives <var>Atom12</var>.
+
+     <br><dt><code>atom_length(</code><var>+Atom</var><code>,</code><var>-Length</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>Length</var> is the number of characters of the atom <var>Atom</var>.
+
+     <br><dt><code>char_code(</code><var>?Char</var><code>,</code><var>?Code</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>Code</var> is the character code of the one-char atom <var>Char</var>.
+
+     <br><dt><code>copy_term(</code><var>+T</var><code>,</code><var>-C</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>C</var> is a copy of <var>T</var> in which all variables have been
+replaced by new variables
+
+     <br><dt><code>copy_term(</code><var>+T</var><code>,</code><var>-C</var><code>,</code><var>-G</var><code>)</code><dd><var>C</var> is a copy of <var>T</var> in which all variables have been
+replaced by new variables, and <var>G</var> is a goal for reinstating
+any attributes in <var>C</var>
+
+     <br><dt><code>create_mutable(</code><var>+Datum</var><code>,</code><var>-Mutable</var><code>)</code><dd><var>Mutable</var> is a new mutable term with current representation
+<var>Datum</var>.
+
+     <br><dt><code>dif(</code><var>+X</var><code>,</code><var>+Y</var><code>)</code><dd><var>X</var> and <var>Y</var> are constrained to be different.
+
+     <br><dt><code>frozen(</code><var>+Var</var><code>,</code><var>-Goal</var><code>)</code><dd>The goal <var>Goal</var> is blocked on the variable
+<var>Var</var>.
+
+     <br><dt><code>functor(</code><var>?T</var><code>,</code><var>?F</var><code>,</code><var>?N</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>the principal functor of term <var>T</var> has name <var>F</var> and arity <var>N</var>
+
+     <br><dt><code>get_mutable(</code><var>-Datum</var><code>,</code><var>+Mutable</var><code>)</code><dd>The current representation of the mutable term <var>Mutable</var> is
+<var>Datum</var>.
+
+     <br><dt><code>name(</code><var>?A</var><code>,</code><var>?L</var><code>)</code><dd>the code-list of atom or number <var>A</var> is <var>L</var>
+
+     <br><dt><code>number_chars(</code><var>?N</var><code>,</code><var>?L</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>N</var> is the numeric representation of list of
+character atoms <var>L</var>
+
+     <br><dt><code>number_codes(</code><var>?N</var><code>,</code><var>?L</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd><var>N</var> is the numeric representation of code-list <var>L</var>
+
+     <br><dt><code>numbervars(</code><var>+T</var><code>,</code><var>+M</var><code>,</code><var>-N</var><code>)</code><dd>number the variables in term <var>T</var> from <var>M</var> to <var>N</var>-1
+
+     <br><dt><code>sub_atom(</code><var>+Atom</var><code>,</code><var>?Before</var><code>,</code><var>?Length</var><code>,</code><var>?After</var><code>,</code><var>?SubAtom</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>The characters of <var>SubAtom</var> form a sublist of the characters of
+<var>Atom</var>, such that the number of characters preceding <var>SubAtom</var>
+is <var>Before</var>, the number of characters after <var>SubAtom</var> is
+<var>After</var>, and the length of <var>SubAtom</var> is <var>Length</var>.
+
+     <br><dt><code>subsumes_term(General,Specific) &nbsp;<!-- /@w --> </code><strong>since release 4.3, ISO</strong><dd><var>Specific</var> is an instance of <var>General</var>
+
+     <br><dt><code>term_variables(</code><var>+Term</var><code>,</code><var>-Variables</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.3, ISO</strong><dd><var>Variables</var> is the set of variables that occur in <var>Term</var>
+
+     <br><dt><code>unify_with_occurs_check(</code><var>?X</var><code>,</code><var>?Y</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>True if <var>X</var> and <var>Y</var> unify to a finite (acyclic) term.
+
+   </dl>
+
+   <p><a name="index-list-processing_002c-predicates-for-1274"></a><a name="index-predicates-for-list-processing-1275"></a>
+
+     <dl>
+<dt><var>?T</var><code> =.. </code><var>?L</var><code> &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dd>the functor and arguments of term <var>T</var> comprise the list <var>L</var>
+
+     <br><dt><code>append(</code><var>?A</var><code>,</code><var>?B</var><code>,</code><var>?C</var><code>)</code><dd>the list <var>C</var> is the concatenation of lists <var>A</var> and <var>B</var>
+
+     <br><dt><code>keysort(</code><var>+L</var><code>,</code><var>-S</var><code>)</code><dd>the list <var>L</var> sorted by key yields <var>S</var>
+
+     <br><dt><code>length(</code><var>?L</var><code>,</code><var>?N</var><code>)</code><dd>the length of list <var>L</var> is <var>N</var>
+
+     <br><dt><code>member(</code><var>?X</var><code>,</code><var>?L</var><code>)</code><dd><var>X</var> is a member of <var>L</var>
+
+     <br><dt><code>memberchk(</code><var>+X</var><code>,</code><var>+L</var><code>)</code><dd><var>X</var> is a member of <var>L</var>
+
+     <br><dt><code>nonmember(</code><var>+X</var><code>,</code><var>+L</var><code>)</code><dd><var>X</var> is not a member of <var>L</var>
+
+     <br><dt><code>sort(</code><var>+L</var><code>,</code><var>-S</var><code>)</code><dd>sorting the list <var>L</var> into order yields <var>S</var>
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlte_002dsum.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlte_002dsum.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

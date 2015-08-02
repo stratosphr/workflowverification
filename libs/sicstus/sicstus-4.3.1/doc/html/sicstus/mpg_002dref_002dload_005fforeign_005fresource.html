@@ -1,0 +1,161 @@
+<html lang="en">
+<head>
+<title>mpg-ref-load_foreign_resource - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dload_005ffiles.html#mpg_002dref_002dload_005ffiles" title="mpg-ref-load_files">
+<link rel="next" href="mpg_002dref_002dmember.html#mpg_002dref_002dmember" title="mpg-ref-member">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-load_foreign_resource"></a>
+<a name="mpg_002dref_002dload_005fforeign_005fresource"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dmember.html#mpg_002dref_002dmember">mpg-ref-member</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dload_005ffiles.html#mpg_002dref_002dload_005ffiles">mpg-ref-load_files</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.118 <code>load_foreign_resource/1</code> &nbsp;<!-- /@w --> <dfn>[hookable]</dfn></h4>
+
+<p><a name="index-load_005fforeign_005fresource_002f1-_0028built_002din_002c-ref-page_0029-4688"></a><a name="index-load_005fforeign_005fresource_002f1-_0028built_002din_002c-ref-page_0029-4689"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>load_foreign_resource(</code><var>:Resource</var><code>)</code>
+
+   <p>Load the foreign resource <var>Resource</var> into Prolog.  Relies on the
+hook predicates <code>foreign_resource/2</code> and <code>foreign/[2,3]</code>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:Resource</var><dd><dfn>file_spec</dfn>, must be ground
+
+     <p>The foreign resource to be loaded. The file extension can be omitted. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p><code>load_foreign_resource/1</code> takes a foreign resource and loads it
+into Prolog.
+
+   <p>The extension can be omitted from the filename given
+in the <var>Resource</var> argument.
+
+   <p>Uses the <code>foreign/[2,3]</code> and <code>foreign_resource/2</code> facts defined by the
+user to make the connection between a Prolog procedure and the foreign
+function. In this context,
+the <dfn>resource name</dfn> is derived from <var>Resource</var>
+name by deleting any leading path and extension
+from the absolute file name of <var>Resource</var>.
+
+   <p>When loading the foreign resource, it looks for a
+<code>foreign_resource/2</code> fact for the resource name.  For each symbol
+in that fact, it looks for a <code>foreign/[2,3]</code> fact that gives the name
+of the Prolog procedure associated with the foreign symbol and the
+argument specification.
+
+   <p>Contrary to most hook predicates which reside in the <code>user</code>
+module, <code>load_foreign_resource/1</code> will look for
+<code>foreign_resource/2</code> and <code>foreign/[2,3]</code> facts defined in its source
+module.
+
+   <p>Foreign resources are created with the <samp><span class="command">splfr</span></samp> tool
+(see <a href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker">The Foreign Resource Linker</a>).
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Errors in the specification of <code>foreign/[2,3]</code> and
+<code>foreign_resource/2</code> will all be reported when
+<code>load_foreign_resource/1</code> is called.
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>Resource</var> not ground.
+
+     <br><dt><code>type_error</code><dd><var>Resource</var> not an atom, or argument of a declared fact of the wrong type.
+
+     <br><dt><code>domain_error</code><dd>Invalid argument of <code>foreign/[2,3]</code> fact.
+
+     <br><dt><code>existence_error</code><dd><var>Resource</var> does not exist as a foreign resource, or
+<var>Resource</var> does not have a <code>foreign_resource/2</code> fact, or
+declared function does not exist, or
+declared function does not have a <code>foreign/[2,3]</code> fact.
+
+     <br><dt><code>domain_error</code><dd>Invalid option to <code>foreign_resource/2</code>.
+
+     <br><dt><code>consistency_error</code><dd>Function declared twice with clashing declarations.
+
+     <br><dt><code>permission_error</code><dd>Attempt to redefine built-in predicate.
+
+   </dl>
+
+<h4 class="subheading">Examples</h4>
+
+<p><code>library(codesio)</code> contains a foreign resource consisting of
+three foreign functions, one init function, and one deinit function. 
+The Prolog source file contains the following lines of code:
+
+<pre class="example">     :- dynamic foreign/2, foreign_resource/2.
+     
+     foreign(codes_to_stream, '$codes_to_stream'(+codes,-address('SP_stream'))).
+     foreign(open_buf_stream, '$open_buf_stream'(-address('SP_stream'))).
+     foreign(stream_to_codes, '$stream_to_codes'(+address('SP_stream'),-term,-term)).
+     
+     foreign_resource(codesio, [
+             init(codesio_init),
+             deinit(codesio_deinit),
+             codes_to_stream,
+             open_buf_stream,
+             stream_to_codes
+                               ]).
+     
+     :- load_foreign_resource(library(system(codesio))).
+</pre>
+   <h4 class="subheading">Comments</h4>
+
+<p>Note that the foreign declarations are needed by other operations as well
+and should <strong>not</strong> be abolished after loading the foreign resource.
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>unload_foreign_resource/1</code>,
+<code>foreign_resource/2</code>,
+<code>foreign/[2,3]</code>,
+<a href="Foreign-Resources.html#Foreign-Resources">Foreign Resources</a>,
+<a href="Calling-C-from-Prolog.html#Calling-C-from-Prolog">Calling C from Prolog</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dload_005fforeign_005fresource.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dload_005fforeign_005fresource.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

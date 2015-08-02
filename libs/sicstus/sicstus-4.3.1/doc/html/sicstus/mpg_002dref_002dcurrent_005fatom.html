@@ -1,0 +1,90 @@
+<html lang="en">
+<head>
+<title>mpg-ref-current_atom - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dcreate_005fmutable.html#mpg_002dref_002dcreate_005fmutable" title="mpg-ref-create_mutable">
+<link rel="next" href="mpg_002dref_002dcurrent_005fbreakpoint.html#mpg_002dref_002dcurrent_005fbreakpoint" title="mpg-ref-current_breakpoint">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-current_atom"></a>
+<a name="mpg_002dref_002dcurrent_005fatom"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dcurrent_005fbreakpoint.html#mpg_002dref_002dcurrent_005fbreakpoint">mpg-ref-current_breakpoint</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dcreate_005fmutable.html#mpg_002dref_002dcreate_005fmutable">mpg-ref-create_mutable</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.47 <code>current_atom/1</code></h4>
+
+<p><a name="index-current_005fatom_002f1-_0028built_002din_002c-ref-page_0029-4522"></a><a name="index-current_005fatom_002f1-_0028built_002din_002c-ref-page_0029-4523"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>current_atom(</code><var>?Atom</var><code>)</code>
+
+   <p><var>Atom</var> is a currently existing atom.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Atom</var><dd><dfn>atom</dfn>
+</dl>
+
+<h4 class="subheading">Backtracking</h4>
+
+<p>If <var>Atom</var> is uninstantiated,
+<code>current_atom/1</code> can be used to enumerate all known atoms. 
+The order in which atoms are bound to <var>Atom</var> on backtracking
+corresponds to the times of their creation.
+
+<h4 class="subheading">Comments</h4>
+
+<p>Note that the predicate
+<code>atom/1</code> is recommended for determining whether a term is an atom,
+as <code>current_atom/1</code> will succeed if <var>Atom</var> is uninstantiated
+as well.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>None.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmdb_002didb.html#ref_002dmdb_002didb">ref-mdb-idb</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dcurrent_005fatom.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dcurrent_005fatom.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,79 @@
+<html lang="en">
+<head>
+<title>CLPB Interface - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dclpb.html#lib_002dclpb" title="lib-clpb">
+<link rel="prev" href="CLPB-Introduction.html#CLPB-Introduction" title="CLPB Introduction">
+<link rel="next" href="CLPB-Examples.html#CLPB-Examples" title="CLPB Examples">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CLPB-Interface"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CLPB-Examples.html#CLPB-Examples">CLPB Examples</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="CLPB-Introduction.html#CLPB-Introduction">CLPB Introduction</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dclpb.html#lib_002dclpb">lib-clpb</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.9.2 Solver Interface</h4>
+
+<p>The following predicates are defined:
+
+     <dl>
+<dt><code>sat(</code><var>+Expression</var><code>)</code><dd><a name="index-sat_002f1-_0028clpb_0029-2772"></a><a name="index-sat_002f1-_0028clpb_0029-2773"></a>
+<var>Expression</var> is a Boolean expression.  This checks the consistency
+of the expression wrt. the accumulated constraints, and, if the check
+succeeds, <em>tells</em> the constraint that the expression be true.
+
+     <p>If a variable <var>X</var>, occurring in the expression, is
+subsequently unified with some term <var>T</var>, this is treated
+as a shorthand for the constraint
+     <pre class="example">          | ?- <kbd>sat(X=:=T).</kbd>
+</pre>
+     <br><dt><code>taut(</code><var>+Expression</var><code>, </code><var>?Truth</var><code>)</code><dd><a name="index-taut_002f2-_0028clpb_0029-2774"></a><a name="index-taut_002f2-_0028clpb_0029-2775"></a>
+<var>Expression</var> is a Boolean expression.  This <em>asks</em> whether the
+expression is now entailed by the accumulated constraints
+(<var>Truth</var>=1), or whether its negation is entailed by the accumulated
+constraints (<var>Truth</var>=0).  Otherwise, it fails.
+
+     <br><dt><code>labeling(</code><var>+Variables</var><code>)</code><dd><a name="index-labeling_002f1-_0028clpb_0029-2776"></a><a name="index-labeling_002f1-_0028clpb_0029-2777"></a>
+<var>Variables</var> is a list of variables.  The variables
+are instantiated to a list of 0s and 1s, in a way that
+satisfies any accumulated constraints.  Enumerates all solutions by
+backtracking, but creates choicepoints only if necessary. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPB-Interface.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPB-Interface.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

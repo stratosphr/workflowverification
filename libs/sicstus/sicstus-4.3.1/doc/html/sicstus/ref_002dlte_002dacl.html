@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+<title>ref-lte-acl - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlte.html#ref_002dlte" title="ref-lte">
+<link rel="prev" href="ref_002dlte_002dact.html#ref_002dlte_002dact" title="ref-lte-act">
+<link rel="next" href="ref_002dlte_002dc2t.html#ref_002dlte_002dc2t" title="ref-lte-c2t">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-lte-acl"></a>
+<a name="ref_002dlte_002dacl"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dlte_002dc2t.html#ref_002dlte_002dc2t">ref-lte-c2t</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dlte_002dact.html#ref_002dlte_002dact">ref-lte-act</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlte.html#ref_002dlte">ref-lte</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.8.3 Analyzing and Constructing Lists</h4>
+
+<p><a name="index-lists_002c-predicates-for-processing-1189"></a><a name="index-predicates-for-processing-lists-1190"></a>
+
+   <p><a name="index-append_002f3-_0028built_002din_0029-1191"></a><a name="index-append_002f3-_0028built_002din_0029-1192"></a>
+
+   <p>To combine two lists to form a third list, use
+<code>append(</code><var>Head</var><code>, </code><var>Tail</var><code>, </code><var>List</var><code>)</code>.
+
+   <p>To analyze a list into its component lists in various ways, use
+<code>append/3</code> with <var>List</var> instantiated to a proper list.  The
+reference page for <code>append/3</code> includes examples of its usage,
+including backtracking.
+
+   <p><a name="index-length_002f2-_0028built_002din_0029-1193"></a><a name="index-length_002f2-_0028built_002din_0029-1194"></a>
+
+   <p>To check the length of a list call <code>length(</code><var>List</var><code>, </code><var>Length</var><code>)</code>.
+
+   <p>To produce a list of a certain length, use <code>length/2</code> with
+<var>Length</var> instantiated and <var>List</var> uninstantiated or
+instantiated to a list whose tail is a variable.
+
+   <p><a name="index-memberchk_002f2-_0028built_002din_0029-1195"></a><a name="index-memberchk_002f2-_0028built_002din_0029-1196"></a>
+
+   <p>To check if a term is the element of a list, use <code>memberchk(</code><var>Element</var><code>, </code><var>List</var><code>)</code>.
+
+   <p><a name="index-member_002f2-_0028built_002din_0029-1197"></a><a name="index-member_002f2-_0028built_002din_0029-1198"></a>
+
+   <p>To enumerate the elements of a list via backtracking, use <code>member(</code><var>Element</var><code>, </code><var>List</var><code>)</code>.
+
+   <p><a name="index-nonmember_002f2-_0028built_002din_0029-1199"></a><a name="index-nonmember_002f2-_0028built_002din_0029-1200"></a>
+
+   <p>To check that a term is NOT the element of a list, use <code>nonmember(</code><var>Element</var><code>, </code><var>List</var><code>)</code>,
+which is equivalent to <code>\+member(</code><var>Element</var><code>, </code><var>List</var><code>)</code>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlte_002dacl.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlte_002dacl.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

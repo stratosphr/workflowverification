@@ -1,0 +1,77 @@
+<html lang="en">
+<head>
+<title>Family Example - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Programming-Examples.html#Programming-Examples" title="Programming Examples">
+<link rel="prev" href="Simple-List.html#Simple-List" title="Simple List">
+<link rel="next" href="Association-Lists.html#Association-Lists" title="Association Lists">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Family-Example"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Association-Lists.html#Association-Lists">Association Lists</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Simple-List.html#Simple-List">Simple List</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Programming-Examples.html#Programming-Examples">Programming Examples</a>
+<hr>
+</div>
+
+<h4 class="subsection">9.11.2 Family Example (descendants)</h4>
+
+<p>The goal <code>descendant(</code><var>X</var><code>,</code><var>Y</var><code>)</code> is true if <var>Y</var> is
+a descendant of <var>X</var>.
+
+<pre class="example">     descendant(X, Y) :- offspring(X, Y).
+     descendant(X, Z) :- offspring(X, Y), descendant(Y, Z).
+     
+     offspring(abraham, ishmael).
+     offspring(abraham, isaac).
+     offspring(isaac, esau).
+     offspring(isaac, jacob).
+</pre>
+   <p>If for example the query
+
+<pre class="example">     | ?- <kbd>descendant(abraham, X).</kbd>
+</pre>
+   <p class="noindent">is executed, Prolog's backtracking results in different
+descendants of Abraham being returned as successive instances of the
+variable <var>X</var>, i.e.
+
+<pre class="example">     X = ishmael
+     X = isaac
+     X = esau
+     X = jacob
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Family-Example.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Family-Example.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

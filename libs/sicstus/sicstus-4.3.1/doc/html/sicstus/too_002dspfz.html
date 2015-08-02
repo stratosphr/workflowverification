@@ -1,0 +1,83 @@
+<html lang="en">
+<head>
+<title>too-spfz - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Command-Reference-Pages.html#Command-Reference-Pages" title="Command Reference Pages">
+<link rel="prev" href="too_002dmzn_002dsicstus.html#too_002dmzn_002dsicstus" title="too-mzn-sicstus">
+<link rel="next" href="too_002dspdet.html#too_002dspdet" title="too-spdet">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="too-spfz"></a>
+<a name="too_002dspfz"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="too_002dspdet.html#too_002dspdet">too-spdet</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="too_002dmzn_002dsicstus.html#too_002dmzn_002dsicstus">too-mzn-sicstus</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Command-Reference-Pages.html#Command-Reference-Pages">Command Reference Pages</a>
+<hr>
+</div>
+
+<h3 class="section">13.3 <samp><span class="command">spfz</span></samp> &mdash; FlatZinc Interpreter</h3>
+
+<p><a name="index-spfz_00281_0029-_0028command-line-tool_0029-5243"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     % <kbd>spfz [-help | --help | -?] [-n </kbd><var>N</var><kbd> | -a] [-search </kbd><var>S</var><kbd>] [-time </kbd><var>T</var><kbd>] [-r </kbd><var>R</var><kbd>] [-s] [-o </kbd><var>ofile</var><kbd>]</kbd> <var>fznfile</var>
+</pre>
+<h4 class="subheading">Description</h4>
+
+<p>This tool interprets the FlatZinc (&lsquo;<samp><span class="samp">.fzn</span></samp>&rsquo;) file <var>fznfile</var> with
+options taken from the command line.
+
+<h4 class="subheading">Options</h4>
+
+     <dl>
+<dt><samp><span class="option">-help, --help, -?</span></samp><dd>Print a help message explaining the options. 
+<br><dt><samp><span class="option">-n </span><var>N</var></samp><dd>Number of solutions. The default is 1; 0 means all solutions. 
+<br><dt><samp><span class="option">-a</span></samp><dd>All solutions.  The same as <samp><span class="option">-n 0</span></samp>. 
+<br><dt><samp><span class="option">-search </span><var>S</var></samp><dd>Optimization method is <var>S</var>, one of <code>bab</code> (the default) and <code>restart</code>. 
+<br><dt><samp><span class="option">-time </span><var>T</var></samp><dd>Time cutoff after <var>T</var> ms. 
+<br><dt><samp><span class="option">-r </span><var>R</var></samp><dd>Set the random seed to <var>R</var> first. 
+The default is to use the same random seed every run. 
+<br><dt><samp><span class="option">-s</span></samp><dd>Emit post-execution statistics. 
+<br><dt><samp><span class="option">-o </span><var>ofile</var></samp><dd>Redirect the output to file <var>ofile</var>. 
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="lib_002dzinc.html#lib_002dzinc">lib-zinc</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/too_002dspfz.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/too_002dspfz.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

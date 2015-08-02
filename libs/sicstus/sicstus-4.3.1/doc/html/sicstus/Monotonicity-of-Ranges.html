@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+<title>Monotonicity of Ranges - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints" title="Defining Primitive Constraints">
+<link rel="prev" href="Term-Expressions.html#Term-Expressions" title="Term Expressions">
+<link rel="next" href="FD-Predicates.html#FD-Predicates" title="FD Predicates">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Monotonicity-of-Ranges"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="FD-Predicates.html#FD-Predicates">FD Predicates</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Term-Expressions.html#Term-Expressions">Term Expressions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints">Defining Primitive Constraints</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.10.10.6 Monotonicity of Ranges</h5>
+
+<p>A range <var>R</var> is <dfn>monotone in </dfn><var>S</var> iff the representation of <var>R</var> in
+<var>S'</var> is contained in the representation of <var>R</var> in <var>S</var>, for every
+extension <var>S'</var> of <var>S</var>.  A range <var>R</var> is <dfn>anti-monotone in
+</dfn><var>S</var> iff the representation of <var>R</var> in <var>S</var> is contained in the representation
+of <var>R</var> in <var>S'</var>, for every extension <var>S'</var> of <var>S</var>.  By
+abuse of notation, we will say that <var>X</var><code> in </code><var>R</var> is
+(anti-)monotone iff <var>R</var> is (anti-)monotone.
+
+   <p>The consistency or entailment of a constraint <var>C</var> expressed as
+indexicals <var>X</var><code> in </code><var>R</var> in a store <var>S</var> is checked by
+considering the relationship between <var>D(X,S)</var> and <var>S(R)</var>,
+together with the (anti-)monotonicity of <var>R</var> in <var>S</var>.  The
+details are given in <a href="Execution-of-Propagating-Indexicals.html#Execution-of-Propagating-Indexicals">Execution of Propagating Indexicals</a> and
+<a href="Execution-of-Checking-Indexicals.html#Execution-of-Checking-Indexicals">Execution of Checking Indexicals</a>.
+
+   <p>The solver checks (anti-)monotonicity by requiring that certain
+variables occurring in the indexical be ground.  This sufficient
+condition can sometimes be false for an (anti-)monotone indexical, but
+such situations are rare in practice.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Monotonicity-of-Ranges.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Monotonicity-of-Ranges.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

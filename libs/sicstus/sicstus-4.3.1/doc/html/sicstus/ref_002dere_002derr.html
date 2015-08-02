@@ -1,0 +1,213 @@
+<html lang="en">
+<head>
+<title>ref-ere-err - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dere.html#ref_002dere" title="ref-ere">
+<link rel="prev" href="ref_002dere_002dhex.html#ref_002dere_002dhex" title="ref-ere-hex">
+<link rel="next" href="ref_002dere_002dexa.html#ref_002dere_002dexa" title="ref-ere-exa">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-ere-err"></a>
+<a name="ref_002dere_002derr"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dere_002dexa.html#ref_002dere_002dexa">ref-ere-exa</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dere_002dhex.html#ref_002dere_002dhex">ref-ere-hex</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dere.html#ref_002dere">ref-ere</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.15.4 Error Classes</h4>
+
+<ul class="menu">
+<li><a accesskey="1" href="ref_002dere_002derr_002dins.html#ref_002dere_002derr_002dins">ref-ere-err-ins</a>:                      Instantiation Errors
+<li><a accesskey="2" href="ref_002dere_002derr_002duns.html#ref_002dere_002derr_002duns">ref-ere-err-uns</a>:                      Uninstantiation Errors
+<li><a accesskey="3" href="ref_002dere_002derr_002dtyp.html#ref_002dere_002derr_002dtyp">ref-ere-err-typ</a>:                      Type Errors
+<li><a accesskey="4" href="ref_002dere_002derr_002ddom.html#ref_002dere_002derr_002ddom">ref-ere-err-dom</a>:                      Domain Errors
+<li><a accesskey="5" href="ref_002dere_002derr_002deva.html#ref_002dere_002derr_002deva">ref-ere-err-eva</a>:                      Evaluation Errors
+<li><a accesskey="6" href="ref_002dere_002derr_002drep.html#ref_002dere_002derr_002drep">ref-ere-err-rep</a>:                      Representation Errors
+<li><a accesskey="7" href="ref_002dere_002derr_002dexi.html#ref_002dere_002derr_002dexi">ref-ere-err-exi</a>:                      Existence Errors
+<li><a accesskey="8" href="ref_002dere_002derr_002dper.html#ref_002dere_002derr_002dper">ref-ere-err-per</a>:                      Permission Errors
+<li><a accesskey="9" href="ref_002dere_002derr_002dcon.html#ref_002dere_002derr_002dcon">ref-ere-err-con</a>:                      Context Errors
+<li><a href="ref_002dere_002derr_002dcns.html#ref_002dere_002derr_002dcns">ref-ere-err-cns</a>:                      Consistency Errors
+<li><a href="ref_002dere_002derr_002dsyn.html#ref_002dere_002derr_002dsyn">ref-ere-err-syn</a>:                      Syntax Errors
+<li><a href="ref_002dere_002derr_002dres.html#ref_002dere_002derr_002dres">ref-ere-err-res</a>:                      Resource Errors
+<li><a href="ref_002dere_002derr_002dsys.html#ref_002dere_002derr_002dsys">ref-ere-err-sys</a>:                      System Errors
+</ul>
+
+<p><a name="index-error-classes-1696"></a><a name="index-classes_002c-error-1697"></a>
+Exceptions thrown by the Prolog system are called errors.
+
+   <p>Error terms have the form:
+
+<pre class="example">     error(<var>ISO_Error</var>, <var>SICStus_Error</var>)
+</pre>
+   <p class="noindent">where the principal functor of <var>ISO_Error</var> (resp. 
+<var>SICStus_Error</var>) indicates the error class (see <a href="ref_002dere_002derr.html#ref_002dere_002derr">ref-ere-err</a>). 
+The classification always coincides.
+
+<!-- [PM] 4.3 Some users expected throw(error(type_error(list,1),_)) to -->
+<!-- work, e.g <http://www.complang.tuwien.ac.at/ulrich/sicstus-prolog/#31> -->
+   <p><strong>Please note:</strong>
+Don't throw error terms except when you re-throw a previously caught
+error term. They correspond to the exceptions thrown by the built-in
+predicates. Throwing such forged error terms can lead to unexpected
+results.
+
+   <p>See <a href="lib_002dtypes.html#lib_002dtypes">lib-types</a> for an alternative interface to throwing error
+exceptions, which tries to include line number information for source-linked
+debugging.
+
+   <p>Error messages like the one shown earlier are printed using the built-in
+predicate <code>print_message/2</code>.  One of the arguments to
+<code>print_message/2</code> is the exception term.  <code>print_message/2</code>
+can be customized, as described in <a href="ref_002dmsg.html#ref_002dmsg">ref-msg</a>.
+
+   <p>The set of error classes used by the system has been kept small:
+
+     <dl>
+<dt>Instantiation Error &nbsp;<!-- /@w --> <dfn>ISO</dfn><dd>An input argument is insufficiently instantiated.
+
+     <br><dt>Uninstantiation Error &nbsp;<!-- /@w --> <dfn>ISO</dfn><dd>An input argument is too instantiated.
+
+     <br><dt>Type Error &nbsp;<!-- /@w --> <dfn>ISO</dfn><dd>An input argument is of the wrong type.
+
+     <br><dt>Domain Error &nbsp;<!-- /@w --> <dfn>ISO</dfn><dd>An input argument is illegal but of the right type.
+
+     <br><dt>Evaluation Error &nbsp;<!-- /@w --> <dfn>ISO</dfn><dd>An incorrect arithmetic expression was evaluated.
+
+     <br><dt>Representation Error &nbsp;<!-- /@w --> <dfn>ISO</dfn><dd>A computed representation cannot be represented.
+
+     <br><dt>Existence Error &nbsp;<!-- /@w --> <dfn>ISO</dfn><dd>Something does not exist.
+
+     <br><dt>Permission Error &nbsp;<!-- /@w --> <dfn>ISO</dfn><dd>Specified operation is not permitted.
+
+     <br><dt>Context Error<dd>Specified operation is not permitted in this context.
+
+     <br><dt>Consistency Error<dd>Two otherwise correct values are inconsistent with
+each other.
+
+     <br><dt>Syntax Error &nbsp;<!-- /@w --> <dfn>ISO</dfn><dd>Error in reading a term.
+
+     <br><dt>Resource Error &nbsp;<!-- /@w --> <dfn>ISO</dfn><dd>Some resource limit has been exceeded.
+
+     <br><dt>System Error &nbsp;<!-- /@w --> <dfn>ISO</dfn><dd>An error detected by the operating system.
+
+   </dl>
+
+   <p>The format of the exception thrown by the built-in predicates is:
+
+<pre class="example">     error(<var>ISO_Error</var>, <var>SICStus_Error</var>)
+</pre>
+   <p class="noindent">where <var>ISO_Error</var> is the error term prescribed by the ISO Prolog
+standard, while <var>SICStus_Error</var> is the part defined by the standard
+to be implementation defined. This so called SICStus error term has the
+same principal functor as <var>ISO_Error</var> but more arguments containing
+additional information, such as the goal and the argument number causing
+the error.  Arguments are numbered from 1 upwards.  An argument number
+given as zero means that an unspecific argument caused the error.
+
+   <p>The list below itemizes the error terms, showing the <var>ISO_Error</var> and
+<var>SICStus_Error</var> form of each one, in that order.  The SICStus and
+ISO error terms always belong to the same error class, but note that the
+Context and Consistency error classes are extensions to the ISO Prolog
+standard.
+
+   <p>The goal part of the error term may optionally have the form
+<code>$@(</code><var>Callable</var><code>,</code><var>PC</var><code>)</code> where <var>PC</var> is an internal
+encoding of the line of code containing the culprit goal or one
+of its ancestors.  To decompose an annotated goal <var>AGoal</var> into a <var>Goal</var> proper
+and a <var>SourceInfo</var> descriptor term, indicating the source
+position of the goal, use:
+
+<pre class="example">     ?- <kbd>goal_source_info(</kbd><var>AGoal</var><kbd>, </kbd><var>Goal</var><kbd>, </kbd><var>SourceInfo</var><kbd>).</kbd>
+</pre>
+   <p><a name="index-goal_005fsource_005finfo_002f3-_0028built_002din_0029-1698"></a><a name="index-goal_005fsource_005finfo_002f3-_0028built_002din_0029-1699"></a>
+The reference page gives details about the <var>SourceInfo</var> format. 
+See <a href="mpg_002dref_002dgoal_005fsource_005finfo.html#mpg_002dref_002dgoal_005fsource_005finfo">mpg-ref-goal_source_info</a>.
+
+     <dl>
+<dt><code>instantiation_error &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>instantiation_error(</code><var>Goal</var><code>,</code><var>ArgNo</var><code>)</code><dd><a name="index-instantiation_005ferror_002f_005b0_002c2_005d-_0028error-class_0029-1700"></a><var>Goal</var> was called with insufficiently instantiated arguments.
+
+     <br><dt><code>uninstantiation_error(</code><var>Culprit</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>uninstantiation_error(</code><var>Goal</var><code>,</code><var>ArgNo</var><code>,</code><var>Culprit</var><code>)</code><dd><a name="index-uninstantiation_005ferror_002f_005b1_002c3_005d-_0028error-class_0029-1701"></a><var>Goal</var> was called with too instantiated arguments, expecting
+<var>Culprit</var> to be uninstantiated.
+
+     <br><dt><code>type_error(</code><var>TypeName</var><code>,</code><var>Culprit</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>type_error(</code><var>Goal</var><code>,</code><var>ArgNo</var><code>,</code><var>TypeName</var><code>,</code><var>Culprit</var><code>)</code><dd><a name="index-type_005ferror_002f_005b2_002c4_005d-_0028error-class_0029-1702"></a><var>Goal</var> was called with the wrong type of argument(s). 
+<var>TypeName</var> is the expected type and <var>Culprit</var> what was actually
+found.
+
+     <br><dt><code>domain_error(</code><var>Domain</var><code>,</code><var>Culprit</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>domain_error(</code><var>Goal</var><code>,</code><var>ArgNo</var><code>,</code><var>Domain</var><code>,</code><var>Culprit</var><code>)</code><dd><a name="index-domain_005ferror_002f_005b2_002c4_005d-_0028error-class_0029-1703"></a><var>Goal</var> was called with argument(s) of the right type but with
+illegal representation(s).  <var>Domain</var> is the expected domain and <var>Culprit</var>
+what was actually found.
+
+     <br><dt><code>existence_error(</code><var>ObjectType</var><code>,</code><var>Culprit</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>existence_error(</code><var>Goal</var><code>,</code><var>ArgNo</var><code>,</code><var>ObjectType</var><code>,</code><var>Culprit</var><code>,</code><var>Reserved</var><code>)</code><dd><a name="index-existence_005ferror_002f_005b2_002c5_005d-_0028error-class_0029-1704"></a>Something does not exist as indicated by the arguments. 
+See <a href="ref_002dere_002derr_002dexi.html#ref_002dere_002derr_002dexi">ref-ere-err-exi</a> for ways of controlling this behavior.
+
+     <br><dt><code>permission_error(</code><var>Operation</var><code>,</code><var>ObjectType</var><code>,</code><var>Culprit</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>permission_error(</code><var>Goal</var><code>,</code><var>Operation</var><code>,</code><var>ObjectType</var><code>,</code><var>Culprit</var><code>,</code><var>Reserved</var><code>)</code><dd><a name="index-permission_005ferror_002f_005b3_002c5_005d-_0028error-class_0029-1705"></a>The <var>Operation</var> is not permitted on <var>Culprit</var> of the <var>ObjectType</var>. 
+See <a href="ref_002dere_002derr_002dper.html#ref_002dere_002derr_002dper">ref-ere-err-per</a> for ways of controlling this behavior.
+
+     <br><dt><code>context_error(</code><var>ContextType</var><code>,</code><var>CommandType</var><code>)</code><dt><code>context_error(</code><var>Goal</var><code>,</code><var>ContextType</var><code>,</code><var>CommandType</var><code>)</code><dd><a name="index-context_005ferror_002f_005b2_002c3_005d-_0028error-class_0029-1706"></a>The <var>CommandType</var> is not permitted in <var>ContextType</var>.
+
+     <br><dt><code>syntax_error(</code><var>Message</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>syntax_error(</code><var>Goal</var><code>,</code><var>Position</var><code>,</code><var>Message</var><code>,</code><var>Tokens</var><code>,</code><var>AfterError</var><code>)</code><dd><a name="index-syntax_005ferror_002f_005b1_002c5_005d-_0028error-class_0029-1707"></a>A syntax error was found when reading a term with <code>read/[1,2]</code> or
+assembling a number from its characters with <code>number_chars/2</code> or
+<code>number_codes/2</code>. See <a href="ref_002dere_002derr_002dsyn.html#ref_002dere_002derr_002dsyn">ref-ere-err-syn</a> for ways of controlling
+this behavior.
+
+     <br><dt><code>evaluation_error(</code><var>ErrorType</var><code>,</code><var>Culprit</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>evaluation_error(</code><var>Goal</var><code>,</code><var>ArgNo</var><code>,</code><var>ErrorType</var><code>,</code><var>Culprit</var><code>)</code><dd><a name="index-evaluation_005ferror_002f_005b2_002c4_005d-_0028error-class_0029-1708"></a>An incorrect arithmetic expression was evaluated.
+
+     <br><dt><code>representation_error(</code><var>ErrorType</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>representation_error(</code><var>Goal</var><code>,</code><var>ArgNo</var><code>,</code><var>ErrorType</var><code>)</code><dd><a name="index-representation_005ferror_002f_005b1_002c3_005d-_0028error-class_0029-1709"></a>A representation error occurs when the program tries to compute
+some well-defined representation that cannot be represented, such as a
+compound term with arity &gt; 255.
+
+     <br><dt><code>consistency_error(</code><var>Culprit1</var><code>,</code><var>Culprit2</var><code>,</code><var>Message</var><code>)</code><dt><code>consistency_error(</code><var>Goal</var><code>,</code><var>Culprit1</var><code>,</code><var>Culprit2</var><code>,</code><var>Message</var><code>)</code><dd><a name="index-consistency_005ferror_002f_005b3_002c4_005d-_0028error-class_0029-1710"></a>A consistency error occurs when two otherwise valid values or operations have
+been specified that are inconsistent with each other.
+
+     <br><dt><code>resource_error(</code><var>ResourceType</var><code>) &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>resource_error(</code><var>Goal</var><code>,</code><var>ResourceType</var><code>)</code><dd><a name="index-resource_005ferror_002f_005b1_002c2_005d-_0028error-class_0029-1711"></a>A resource error occurs when SICStus Prolog has insufficient resources
+to complete execution.  The only representation for <var>ResourceType</var> that is
+currently in use is <code>memory</code>.
+
+     <br><dt><code>system_error &nbsp;<!-- /@w --> </code><dfn>ISO</dfn><dt><code>system_error(</code><var>Message</var><code>)</code><dd><a name="index-system_005ferror_002f_005b0_002c1_005d-_0028error-class_0029-1712"></a>An error occurred while dealing with the operating system. 
+</dl>
+
+   <p>Most exception terms include a copy of the <var>Goal</var> that threw the
+exception.
+
+   <p>In general, built-in predicates that cause side-effects, such as the opening
+of a stream or asserting a clause into the Prolog database, attempt to do all
+error checking before the side-effect is performed.  Unless otherwise indicated
+in the documentation for a particular predicate or error class, it should be
+assumed that goals that throw exceptions have not performed any side-effect.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002derr.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002derr.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

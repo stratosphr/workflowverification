@@ -1,0 +1,91 @@
+<html lang="en">
+<head>
+<title>ref-ere-err-per - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dere_002derr.html#ref_002dere_002derr" title="ref-ere-err">
+<link rel="prev" href="ref_002dere_002derr_002dexi.html#ref_002dere_002derr_002dexi" title="ref-ere-err-exi">
+<link rel="next" href="ref_002dere_002derr_002dcon.html#ref_002dere_002derr_002dcon" title="ref-ere-err-con">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-ere-err-per"></a>
+<a name="ref_002dere_002derr_002dper"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dere_002derr_002dcon.html#ref_002dere_002derr_002dcon">ref-ere-err-con</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dere_002derr_002dexi.html#ref_002dere_002derr_002dexi">ref-ere-err-exi</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dere_002derr.html#ref_002dere_002derr">ref-ere-err</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.15.4.8 Permission Errors</h5>
+
+<p><a name="index-permission-errors-1734"></a>
+<a name="index-errors_002c-permission-1735"></a>
+
+   <p>A permission error occurs when an operation is attempted that is among the
+kinds of operation that the system is in general capable of performing, and
+among the kinds that you are in general allowed to request, but this
+particular time it isn't permitted.  Usually, the reason for a permission error
+is that the <dfn>owner</dfn> of one of the objects has requested that the object be
+protected.
+
+   <p>For example, an attempts to assert or retract clauses for a predicate that
+has not been declared <code>:-dynamic</code> is rejected with a permission error.
+
+   <p>File system protection is another major source of such errors.
+
+   <p>The <var>SICStus_Error</var> term associated with a permission error is
+<pre class="example">     permission_error(<var>Goal, Operation, ObjectType, Culprit, Message</var>)
+</pre>
+     <dl>
+<dt><var>Operation</var><dd>operation attempted; <var>Operation</var> exists but is
+not permitted with <var>Culprit</var>.
+
+     <br><dt><var>ObjectType</var><dd><var>Culprit</var>'s type.
+
+     <br><dt><var>Culprit</var><dd>name of protected object.
+
+     <br><dt><var>Message</var><dd>provides such operating-system-specific additional
+information as may be available.  A message of <code>0</code> or <code>''</code>
+provides no further information. 
+</dl>
+
+   <p><a name="index-fileerrors-_0028prolog-flag_0029-1736"></a><a name="index-fileerrors_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029-1737"></a>A permission error does not necessarily cause an exception to be thrown. 
+For I/O predicates, the behavior can be controlled with the
+<code>fileerrors</code> Prolog flag (see <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>) or with the
+<code>fileerrors/1</code> alias <code>file_errors/1</code> option to
+<code>absolute_file_name/3</code>, exactly as for existence errors.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002derr_002dper.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002derr_002dper.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

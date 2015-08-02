@@ -1,0 +1,158 @@
+<html lang="en">
+<head>
+<title>mpg-ref-copy_term - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dconsult.html#mpg_002dref_002dconsult" title="mpg-ref-consult">
+<link rel="next" href="mpg_002dref_002dcoverage_005fdata.html#mpg_002dref_002dcoverage_005fdata" title="mpg-ref-coverage_data">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-copy_term"></a>
+<a name="mpg_002dref_002dcopy_005fterm"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dcoverage_005fdata.html#mpg_002dref_002dcoverage_005fdata">mpg-ref-coverage_data</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dconsult.html#mpg_002dref_002dconsult">mpg-ref-consult</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.44 <code>copy_term/[2,3]</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-copy_005fterm_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029-4516"></a><a name="index-copy_005fterm_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029-4517"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>copy_term(</code><var>+Term</var><code>, </code><var>-Copy</var><code>)</code>
+
+   <p>Unifies <var>Copy</var> with a copy of <var>Term</var>
+in which all variables have been replaced by brand new variables,
+and all mutables by brand new mutables.
+
+   <p><code>copy_term(</code><var>+Term</var><code>, </code><var>-Copy</var><code>, </code><var>-Body</var><code>)</code>
+
+   <p>Furthermore, if <var>Term</var> contains variables with goals blocked on
+them, or variables with attributes that can be interpreted as a goal
+(see <a href="lib_002datts.html#lib_002datts">lib-atts</a>), then <var>Body</var> is unified with the conjunction of
+such goals.  If no such goals are present, <var>Body</var> is unified with
+the atom <code>true</code>.  The idea is that executing <var>Body</var>
+will reinstate blocked goals and attributes on the variables in <var>Copy</var>
+equivalent to those on the variables in <var>Term</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Term</var><dd><dfn>term</dfn>
+
+     <br><dt><var>Copy</var><dd><dfn>term</dfn>
+
+     <br><dt><var>Body</var><dd><dfn>callable</dfn>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>Independent copies are substituted for any mutable terms in
+<var>term</var>.  It behaves as if defined by:
+
+<pre class="example">     copy_term(X, Y) :-
+             assert('copy of'(X)),
+             retract('copy of'(Y)).
+</pre>
+   <p>The implementation of <code>copy_term/2</code> endeavors to conserve space
+by not copying ground subterms.
+
+   <p>When you call <code>clause/[2,3]</code> or <code>instance/2</code>, you get a new copy
+of the term stored in the database, in precisely
+the same sense that <code>copy_term/2</code> gives you a new copy.
+
+<h4 class="subheading">Examples</h4>
+
+     <ul>
+<li>A naive way to attempt to find out whether one term is a copy of another:
+
+     <pre class="example">          identical_but_for_variables(X, Y) :-
+             \+ \+ (
+                numbervars(X, 0, N),
+                numbervars(Y, 0, N),
+                X = Y
+             ).
+</pre>
+     <p>This solution is sometimes sufficient, but will not work if the two
+terms have any variables in common.
+
+     <li>If you want the test to succeed even when the two terms do have
+some variables in common, you need to copy one of them; for example,
+     <pre class="example">          identical_but_for_variables(X, Y) :-
+             \+ \+ (
+                copy_term(X, Z),
+                numbervars(Z, 0, N),
+                numbervars(Y, 0, N),
+                Z = Y
+             ).
+</pre>
+     <li>An example of <code>copy_term/3</code>.  Suppose that you want to make <code>copy_term/3</code>
+aware of the attribute <code>tfs/1</code> in some module.  Then with the module-file:
+
+     <pre class="example">          :- module(foo, []).
+          
+          :- use_module(library(atts)).
+          :- attribute tfs/1.
+          
+          attribute_goal(X, put_atts(X,tfs(Y))) :-
+              get_atts(X, tfs(Y)).
+</pre>
+     <p class="noindent">the following query works:
+
+     <pre class="example">          | ?- <kbd>foo:put_atts(X, tfs(ind)), copy_term(f(X), Copy, Body).</kbd>
+          Body = foo:put_atts(_A,tfs(ind)),
+          Copy = f(_A),
+          put_atts(X,tfs(ind)) ? &lt;RET&gt;
+          yes
+</pre>
+     </ul>
+
+<h4 class="subheading">Comments</h4>
+
+<p><code>copy_term/2</code> is part of the ISO Prolog standard; <code>copy_term/3</code> is not.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>None.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlte_002dcpt.html#ref_002dlte_002dcpt">ref-lte-cpt</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dcopy_005fterm.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dcopy_005fterm.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

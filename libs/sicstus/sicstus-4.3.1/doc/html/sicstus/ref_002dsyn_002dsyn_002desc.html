@@ -1,0 +1,105 @@
+<html lang="en">
+<head>
+<title>ref-syn-syn-esc - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsyn_002dsyn.html#ref_002dsyn_002dsyn" title="ref-syn-syn">
+<link rel="prev" href="ref_002dsyn_002dsyn_002dtok.html#ref_002dsyn_002dsyn_002dtok" title="ref-syn-syn-tok">
+<link rel="next" href="ref_002dsyn_002dsyn_002dnte.html#ref_002dsyn_002dsyn_002dnte" title="ref-syn-syn-nte">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-syn-syn-esc"></a>
+<a name="ref_002dsyn_002dsyn_002desc"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dsyn_002dsyn_002dnte.html#ref_002dsyn_002dsyn_002dnte">ref-syn-syn-nte</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dsyn_002dsyn_002dtok.html#ref_002dsyn_002dsyn_002dtok">ref-syn-syn-tok</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsyn_002dsyn.html#ref_002dsyn_002dsyn">ref-syn-syn</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.1.7.6 Escape Sequences</h5>
+
+<p><a name="index-escape-sequence-551"></a><a name="index-sequence_002c-escape-552"></a>
+A backslash occurring inside integers in &lsquo;<samp><span class="samp">0'</span></samp>&rsquo; notation or inside
+quoted atoms or strings has special meaning, and indicates the
+start of an escape sequence.  The following escape sequences
+exist:
+
+     <dl>
+<dt><code>\b</code><dd><a name="index-g_t_005cb-_0028escape-sequence_0029-553"></a>backspace (character code 8)
+
+     <br><dt><code>\t</code><dd><a name="index-g_t_005ct-_0028escape-sequence_0029-554"></a>horizontal tab (character code 9)
+
+     <br><dt><code>\n</code><dd><a name="index-g_t_005cn-_0028escape-sequence_0029-555"></a>newline (character code 10)
+
+     <br><dt><code>\v</code><dd><a name="index-g_t_005cv-_0028escape-sequence_0029-556"></a>vertical tab (character code 11)
+
+     <br><dt><code>\f</code><dd><a name="index-g_t_005cf-_0028escape-sequence_0029-557"></a>form feed (character code 12)
+
+     <br><dt><code>\r</code><dd><a name="index-g_t_005cr-_0028escape-sequence_0029-558"></a>carriage return (character code 13)
+
+     <br><dt><code>\e</code><dd><a name="index-g_t_005ce-_0028escape-sequence_0029-559"></a>escape (character code 27)
+
+     <br><dt><code>\d</code><dd><a name="index-g_t_005cd-_0028escape-sequence_0029-560"></a><!-- @itemx \^?  @value{sphfill} @strong{SICStus only} -->
+<!-- @findex \^? (escape sequence) -->
+delete (character code 127)
+
+     <br><dt><code>\a</code><dd><a name="index-g_t_005ca-_0028escape-sequence_0029-561"></a>alarm (character code 7)
+
+     <br><dt><code>\x</code><var>hex-digit<small class="dots">...</small></var><code>\</code><dd><a name="index-g_t_005cx_0040var_007bhex_002ddigit_0040dots_007b_007d_007d_005c-_0028escape-sequence_0029-562"></a><!-- @itemx \x@var{hex-digit}@var{hex-digit}  @value{sphfill} @strong{SICStus only} -->
+the character code represented by the hexadecimal digits
+
+     <br><dt><code>\</code><var>octal-digit<small class="dots">...</small></var><code>\</code><dd><a name="index-g_t_005c_0040var_007boctal_002ddigit_0040dots_007b_007d_007d_005c-_0028escape-sequence_0029-563"></a><!-- @itemx \@var{octal-digit}@var{?octal-digit}@var{?octal-digit} @value{sphfill} @strong{SICStus only} -->
+the character code represented by the octal digits.
+
+     <!-- @item \^@var{char} @value{sphfill} @strong{SICStus only} -->
+     <!-- the character code @code{@var{char} mod 32}, where @var{char} is a -->
+     <!-- letter. -->
+     <br><dt><code>\&lt;LFD&gt;</code><dd><a name="index-g_t_005c_0040key_007bLFD_007d-_0028escape-sequence_0029-564"></a>A backslash followed by a single newline character is ignored. 
+The purpose of this is to allow a <var>string</var> or <var>quoted-name</var> to
+be spread over multiple lines.
+
+     <!-- @item \@var{whitespace-char} @value{sphfill} @strong{SICStus only} -->
+     <!-- A single @var{whitespace-char}, for example a newline, is ignored. -->
+     <!-- @item \c @value{sphfill} @strong{SICStus only} -->
+     <!-- All characters up to, but not including, the next non-whitespace character -->
+     <!-- are ignored. -->
+     <br><dt><code>\\, \', \", \`</code><dd><a name="index-g_t_005c_005c-_0028escape-sequence_0029-565"></a><a name="index-g_t_005c_0027-_0028escape-sequence_0029-566"></a><a name="index-g_t_005c_0022-_0028escape-sequence_0029-567"></a><a name="index-g_t_005c_0060-_0028escape-sequence_0029-568"></a>Stand for the character following the &lsquo;<samp><span class="samp">\</span></samp>&rsquo;.
+
+     <!-- @item \@var{other} @value{sphfill} @strong{SICStus only} -->
+     <!-- A character not mentioned in this table stands for itself. -->
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dsyn_002desc.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dsyn_002desc.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

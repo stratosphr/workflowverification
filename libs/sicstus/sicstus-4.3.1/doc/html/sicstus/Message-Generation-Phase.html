@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+<title>Message Generation Phase - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Message-Processing.html#Message-Processing" title="Message Processing">
+<link rel="prev" href="Message-Phases.html#Message-Phases" title="Message Phases">
+<link rel="next" href="Message-Printing-Phase.html#Message-Printing-Phase" title="Message Printing Phase">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Message-Generation-Phase"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Message-Printing-Phase.html#Message-Printing-Phase">Message Printing Phase</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Message-Phases.html#Message-Phases">Message Phases</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Message-Processing.html#Message-Processing">Message Processing</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.16.1.2 Message Generation Phase</h5>
+
+<p>The default message generation predicates are located in the
+<samp><span class="file">library('SU_messages')</span></samp> file, in the <code>'SU_messages'</code>
+module, together with other message and query related
+predicates.  This is advantageous when these predicates have
+to be changed as a whole (for example when translating all messages to
+another language), because this can be done simply by replacing the file
+<samp><span class="file">library('SU_messages')</span></samp> by a new one.
+
+   <p>In the message generation phase three alternative methods are tried:
+
+     <ul>
+<li>First the hook predicate <code>generate_message_hook/3</code> is
+executed, if it succeeds, it is assumed to deliver the output of this
+phase.
+
+     <li>Next the default message generation is invoked via
+<code>'SU_messages':generate_message/3</code>.
+
+     <li>In the case that neither of the above methods succeed, a built-in
+fall-back message generation method is used. 
+</ul>
+
+   <p>The hook predicate <code>generate_message_hook/3</code> can be used to
+override the default behavior, or to handle new messages defined by the
+programmer that don't fit the default message generation schemes. 
+The latter can also be achieved by adding new clauses to the
+extendible <code>'SU_messages':generate_message/3</code> predicate.
+
+   <p>If both the hook and the default method refuses to handle the
+message, the following simple format-command list is
+generated from the abstract message term <var>Message</var>:
+<pre class="example">     ['~q'-[<var>Message</var>],nl]
+</pre>
+   <p>This will result in displaying the abstract message term itself, as if
+printed by <code>writeq/1</code>.
+
+   <p>For messages of the severity <code>silent</code> the message generation phase
+is skipped, and the <code>[]</code> format-command list is returned as
+the output.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Message-Generation-Phase.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Message-Generation-Phase.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

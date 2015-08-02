@@ -1,0 +1,68 @@
+<html lang="en">
+<head>
+<title>Meta-Predicate Declarations - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl" title="ref-lod-dcl">
+<link rel="prev" href="Block-Declarations.html#Block-Declarations" title="Block Declarations">
+<link rel="next" href="Module-Declarations.html#Module-Declarations" title="Module Declarations">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Meta-Predicate-Declarations"></a>
+<a name="Meta_002dPredicate-Declarations"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Module-Declarations.html#Module-Declarations">Module Declarations</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Block-Declarations.html#Block-Declarations">Block Declarations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl">ref-lod-dcl</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.3.4.6 Meta-Predicate Declarations</h5>
+
+<p><a name="index-meta_002dpredicate-declaration-719"></a><a name="index-declaration_002c-meta_002dpredicate-720"></a><a name="index-meta_005fpredicate_002f1-_0028declaration_0029-721"></a><a name="index-meta_005fpredicate_002f1-_0028declaration_0029-722"></a>
+
+   <p>To ensure correct semantics in the context of multiple modules, some
+predicates are subject to module name expansion.  Clauses or
+directives containing goals for such predicates need to have certain
+arguments annotated by a module prefix.  A declaration:
+
+<pre class="example">     :- meta_predicate <var>:MetaPredSpec</var>, ..., <var>:MetaPredSpec</var>.
+</pre>
+   <p class="noindent">where each <var>MetaPredSpec</var> is a skeletal goal, informs the
+compiler which predicates and which of its arguments should be subject
+to such annotations.  See <a href="ref_002dmod_002dmet.html#ref_002dmod_002dmet">ref-mod-met</a> and <a href="ref_002dmod_002dmne.html#ref_002dmod_002dmne">ref-mod-mne</a> for details. 
+<a name="index-module-name-expansion-723"></a><a name="index-expansion_002c-module-name-724"></a>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Meta_002dPredicate-Declarations.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Meta_002dPredicate-Declarations.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

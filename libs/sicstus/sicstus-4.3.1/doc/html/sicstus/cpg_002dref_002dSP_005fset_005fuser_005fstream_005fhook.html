@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+<title>cpg-ref-SP_set_user_stream_hook - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks.html#cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks" title="cpg-ref-SP_set_memalloc_hooks">
+<link rel="next" href="cpg_002dref_002dSP_005fset_005fuser_005fstream_005fpost_005fhook.html#cpg_002dref_002dSP_005fset_005fuser_005fstream_005fpost_005fhook" title="cpg-ref-SP_set_user_stream_post_hook">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-SP_set_user_stream_hook"></a>
+<a name="cpg_002dref_002dSP_005fset_005fuser_005fstream_005fhook"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002dSP_005fset_005fuser_005fstream_005fpost_005fhook.html#cpg_002dref_002dSP_005fset_005fuser_005fstream_005fpost_005fhook">cpg-ref-SP_set_user_stream_post_hook</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks.html#cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks">cpg-ref-SP_set_memalloc_hooks</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.94 <code>SP_set_user_stream_hook()</code> &nbsp;<!-- /@w --> <dfn>[preinit]</dfn></h4>
+
+<p><a name="index-SP_005fset_005fuser_005fstream_005fhook_0028_0029-_0028C-function_0029-5210"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     
+     typedef SP_stream *
+     SP_UserStreamHook(void *user_data, int which);
+     
+     SP_UserStreamHook *
+     SP_set_user_stream_hook(SP_UserStreamHook *hook, void *user_data);
+</pre>
+   <p>Sets the user-stream hook to <code>hook</code>. 
+Must be called <em>before</em> <code>SP_initialize()</code>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>hook</var><dd>It is called three times, one for each stream. The <code>which</code>
+argument indicates which stream it is called for. The representation
+of <code>which</code> is one of:
+
+          <dl>
+<dt><code>SP_STREAMHOOK_STDIN</code><dd>Create stream for standard input. 
+<br><dt><code>SP_STREAMHOOK_STDOUT</code><dd>Create stream for standard output. 
+<br><dt><code>SP_STREAMHOOK_STDERR</code><dd>Create stream for standard error. 
+</dl>
+
+     <p>The hook should return a standard SICStus text I/O stream, as
+described in <a href="Defining-a-New-Stream.html#Defining-a-New-Stream">Defining a New Stream</a>.
+
+     <br><dt><var>user_data</var><dd>An arbitrary pointer that will be passed to the <code>hook</code>. 
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Hookable-Standard-Streams.html#Hookable-Standard-Streams">Hookable Standard Streams</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fset_005fuser_005fstream_005fhook.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fset_005fuser_005fstream_005fhook.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

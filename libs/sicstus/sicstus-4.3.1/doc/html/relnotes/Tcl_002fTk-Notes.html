@@ -1,0 +1,116 @@
+<html lang="en">
+<head>
+<title>Tcl/Tk Notes - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="prev" href="REX.html#REX" title="REX">
+<link rel="next" href="Jasper-Notes.html#Jasper-Notes" title="Jasper Notes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Tcl%2fTk-Notes"></a>
+<a name="Tcl_002fTk-Notes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Jasper-Notes.html#Jasper-Notes">Jasper Notes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="REX.html#REX">REX</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+<hr>
+</div>
+
+<h2 class="chapter">7 Tcl/Tk Notes</h2>
+
+<p>Tcl/Tk itself is not included in the SICStus distribution. It must be
+installed in order to use the interface. Many operating systems have
+build-in support for Tcl/Tk, either preinstalled or available via
+some software update utility. If a default version is not available,
+Tcl/Tk can be downloaded from the Tcl/Tk primary website:
+
+<!-- [PM] 4.3 checked URL -->
+<pre class="display">     <a href="http://tcl.sourceforge.net">http://tcl.sourceforge.net</a>
+</pre>
+   <p>A better alternative may be to use one of the free installers
+available from:
+
+<pre class="display">     <a href="http://www.activestate.com">http://www.activestate.com</a>
+</pre>
+   <p>SICStus for Mac OS X uses the Tcl/Tk that comes with Mac OS X. Some
+versions of Tcl/Tk provided by Apple have bugs that may cause SICStus
+Prolog to crash when using <code>library(tcltk)</code>. If this happens you
+can try to update to a newer version of Tcl/Tk from
+<a href="http://www.activestate.com">http://www.activestate.com</a>.
+
+   <p>The Tcl/Tk interface module included in
+SICStus Prolog 4.3.1
+(<code>library(tcltk)</code>) is verified to work with Tcl/Tk 8.4, and with
+Tcl/Tk 8.5 for some platforms. See the SICStus download web page,
+<a href="http://sicstus.sics.se/download4.html">http://sicstus.sics.se/download4.html</a>, for details.
+
+<!-- [PD] 4.0.5 Customers who want to use old versions of Tcl/Tk will -->
+<!-- have to talk to SICStus Support in case they have to -->
+<!-- rebuild library(tcltk). -->
+<!-- The current -->
+<!-- version of the interface is expected to work with version 8.1 and newer. -->
+   <p>Under UNIX, the installation program automatically detects the Tcl/Tk
+version (if the user does not specify it explicitly). 
+<!-- [PM] 4.3 The version information varies. Refer to web page (most -->
+<!-- 8.5 these dayse). -->
+<!-- Except as noted above, the distributed files are compiled for Tcl/Tk 8.4. -->
+<!-- Under Windows, the binary distribution is compiled against Tcl/Tk -->
+<!-- 8.4. -->
+
+<!-- [PD] 4.0.5 We cannot refer to the FAQ until it has been cleaned up. -->
+<!-- If you need to use another version of Tcl/Tk, you have to recompile -->
+<!-- @code{library(tcltk)}; @pxref{Configuring the Tcl/Tk library module -->
+<!-- under Windows, , Configuring the Tcl/Tk library module under Windows, -->
+<!-- faq, the SICStus Prolog FAQ}. -->
+   <blockquote>
+<strong>Please note</strong>: On Windows, you need to have the Tcl/Tk binaries accessible
+from your <samp><span class="env">PATH</span></samp> environment variable, e.g. 
+<samp><span class="file">C:\Program&nbsp;Files\Tcl\bin</span></samp><!-- /@w -->. 
+</blockquote>
+
+   <p>The GUI version of SICStus, <samp><span class="command">spwin</span></samp>, like all Windows non-console
+applications, lacks the C standard streams
+(<code>stdin</code>, <code>stdout</code>, <code>stderr</code>) and the Tcl command
+<code>puts</code> and others that use these streams will therefore give
+errors. The solution is to use <samp><span class="command">sicstus</span></samp> instead of
+<samp><span class="command">spwin</span></samp> if the standard streams are required.
+
+<!-- [PM] 4.3 revivied -->
+<!-- @ifset TCLTKTERMINALSUPPORTED -->
+<ul class="menu">
+<li><a accesskey="1" href="The-Tcl_002fTk-Terminal.html#The-Tcl_002fTk-Terminal">The Tcl/Tk Terminal</a>:          The Tcl/Tk Terminal Window
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Tcl_002fTk-Notes.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Tcl_002fTk-Notes.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

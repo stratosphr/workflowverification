@@ -1,0 +1,91 @@
+<html lang="en">
+<head>
+<title>ref-syn-syn-trm - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsyn_002dsyn.html#ref_002dsyn_002dsyn" title="ref-syn-syn">
+<link rel="prev" href="ref_002dsyn_002dsyn_002dsen.html#ref_002dsyn_002dsyn_002dsen" title="ref-syn-syn-sen">
+<link rel="next" href="ref_002dsyn_002dsyn_002dtok.html#ref_002dsyn_002dsyn_002dtok" title="ref-syn-syn-tok">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-syn-syn-trm"></a>
+<a name="ref_002dsyn_002dsyn_002dtrm"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dsyn_002dsyn_002dtok.html#ref_002dsyn_002dsyn_002dtok">ref-syn-syn-tok</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dsyn_002dsyn_002dsen.html#ref_002dsyn_002dsyn_002dsen">ref-syn-syn-sen</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsyn_002dsyn.html#ref_002dsyn_002dsyn">ref-syn-syn</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.1.7.4 Syntax of Terms as Tokens</h5>
+
+<p><a name="index-syntax_002c-of-terms-as-tokens-546"></a>
+   <p><table summary=""><tr align="left"><td valign="top" width="20%"><var>term-read-in</var> </td><td valign="top" width="40%">::= <var>subterm(1200)</var> <var>full-stop</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>subterm(N)</var> </td><td valign="top" width="40%">::= <var>term(M)</var> </td><td valign="top" width="40%"><span class="roman">{ where </span><var>M</var><span class="roman"> is less than or equal to </span><var>N</var><span class="roman"> }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>term(N)</var> </td><td valign="top" width="40%">::= <var>op(N,fx)</var> <var>subterm(N-1)</var> </td><td valign="top" width="40%"><span class="roman">{ except in the case of a </span><var>number</var><span class="roman"> if </span><var>subterm</var><span class="roman"> starts with a &lsquo;</span><samp><span class="samp">(</span></samp><span class="roman">&rsquo;, </span><var>op</var><span class="roman"> must be followed by </span><var>whitespace-text</var><span class="roman"> }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>op(N,fy)</var> <var>subterm(N)</var> </td><td valign="top" width="40%"><span class="roman">{ if </span><var>subterm</var><span class="roman"> starts with a &lsquo;</span><samp><span class="samp">(</span></samp><span class="roman">&rsquo;, </span><var>op</var><span class="roman"> must be followed by </span><var>whitespace-text</var><span class="roman"> }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>subterm(N-1)</var> <var>op(N,xfx)</var> <var>subterm(N-1)</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>subterm(N-1)</var> <var>op(N,xfy)</var> <var>subterm(N)</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>subterm(N)</var> <var>op(N,yfx)</var> <var>subterm(N-1)</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>subterm(N-1)</var> <var>op(N,xf)</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>subterm(N)</var> <var>op(N,yf)</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>term(1100)</var> </td><td valign="top" width="40%">::= <var>subterm(1099)</var> <code>|</code> <var>subterm(1100)</var> </td><td valign="top" width="40%"><span class="roman">{ term with functor </span><code>;/2</code><span class="roman"> unless </span><code>|</code><span class="roman"> is declared infix }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><var>term(1000)</var> </td><td valign="top" width="40%">::= <var>subterm(999)</var> <code>,</code> <var>subterm(1000)</var> </td><td valign="top" width="40%"><span class="roman">{ term with functor </span><code>','/2</code><span class="roman"> }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>term(0)</var> </td><td valign="top" width="40%">::= <var>functor</var> <code>(</code> <var>arguments</var> <code>)</code> </td><td valign="top" width="40%"><span class="roman">{ provided there is no </span><var>whitespace-text</var><span class="roman"> between the </span><var>functor</var><span class="roman"> and the &lsquo;</span><samp><span class="samp">(</span></samp><span class="roman">&rsquo; }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>(</code> <var>subterm(1200)</var> <code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>{</code> <var>subterm(1200)</var> <code>}</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>list</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>string</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>constant</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>variable</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>op(N,T)</var> </td><td valign="top" width="40%">::= <var>name</var> </td><td valign="top" width="40%"><span class="roman">{ where </span><var>name</var><span class="roman"> has been declared as an operator of type </span><var>T</var><span class="roman"> and precedence </span><var>N</var><span class="roman"> }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>arguments</var> </td><td valign="top" width="40%">::= <var>subterm(999)</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>subterm(999)</var> <code>,</code> <var>arguments</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>list</var> </td><td valign="top" width="40%">::= <code>[]</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <code>[</code> <var>listexpr</var> <code>]</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>listexpr</var> </td><td valign="top" width="40%">::= <var>subterm(999)</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>subterm(999)</var> <code>,</code> <var>listexpr</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>subterm(999)</var> <code>|</code> <var>subterm(999)</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>constant</var> </td><td valign="top" width="40%">::= <var>atom</var> | <var>number</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>number</var> </td><td valign="top" width="40%">::= <var>unsigned-number</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>sign</var> <var>unsigned-number</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>sign</var> <code>inf</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|  <var>sign</var> <code>nan</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>unsigned-number</var> </td><td valign="top" width="40%">::= <var>natural-number</var> | <var>unsigned-float</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>atom</var> </td><td valign="top" width="40%">::= <var>name</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>functor</var> </td><td valign="top" width="40%">::= <var>name</var>
+   <br></td></tr></table>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dsyn_002dtrm.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dsyn_002dtrm.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

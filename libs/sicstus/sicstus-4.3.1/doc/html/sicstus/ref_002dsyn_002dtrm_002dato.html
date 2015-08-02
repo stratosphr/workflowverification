@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+<title>ref-syn-trm-ato - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsyn_002dtrm.html#ref_002dsyn_002dtrm" title="ref-syn-trm">
+<link rel="prev" href="ref_002dsyn_002dtrm_002dflo.html#ref_002dsyn_002dtrm_002dflo" title="ref-syn-trm-flo">
+<link rel="next" href="ref_002dsyn_002dtrm_002dvar.html#ref_002dsyn_002dtrm_002dvar" title="ref-syn-trm-var">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-syn-trm-ato"></a>
+<a name="ref_002dsyn_002dtrm_002dato"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dsyn_002dtrm_002dvar.html#ref_002dsyn_002dtrm_002dvar">ref-syn-trm-var</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dsyn_002dtrm_002dflo.html#ref_002dsyn_002dtrm_002dflo">ref-syn-trm-flo</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsyn_002dtrm.html#ref_002dsyn_002dtrm">ref-syn-trm</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.1.2.4 Atoms</h5>
+
+<p><a name="index-atoms-470"></a>
+<a name="index-syntax_002c-of-atoms-471"></a>
+An atom is identified by its name, which is a sequence characters, and
+can be written in any of the following forms:
+
+     <ul>
+<li>Any sequence of alphanumeric characters (including &lsquo;<samp><span class="samp">_</span></samp>&rsquo;),
+starting with a lowercase letter.  Note that an atom may not begin with
+an underscore. 
+The characters that are allowed to occur in such an unquoted atom are
+restricted to a subset of Unicode; see <a href="ref_002dsyn_002dsyn_002dtok.html#ref_002dsyn_002dsyn_002dtok">ref-syn-syn-tok</a>.
+
+     <li>Any sequence from the following set
+of characters (except &lsquo;<samp><span class="samp">/*</span></samp>&rsquo;, which begins a comment):
+     <pre class="example">          + - * / \ ^ &lt; &gt; = ~ : . ? @ # $ &amp;
+</pre>
+     <p><a name="index-quote-characters_002c-in-atoms-472"></a><li>Any sequence of characters delimited by single quotes.  Backslashes in
+the sequence denote escape sequences (see <a href="ref_002dsyn_002dsyn_002desc.html#ref_002dsyn_002dsyn_002desc">ref-syn-syn-esc</a>), and if
+the single quote character is included in the sequence it must be
+escaped, e.g. <code>'can\'t'</code>. 
+The characters that are allowed to occur in such a quoted atom are
+restricted to a subset of Unicode; see <a href="ref_002dsyn_002dsyn_002dtok.html#ref_002dsyn_002dsyn_002dtok">ref-syn-syn-tok</a>. 
+Backquotes are allowed as an alternative to quotes.
+
+     <li>Any of:
+     <pre class="example">          ! ; [] {}
+</pre>
+     <p>Note that the bracket pairs are special: &lsquo;<samp><span class="samp">[]</span></samp>&rsquo; and &lsquo;<samp><span class="samp">{}</span></samp>&rsquo; are
+atoms but &lsquo;<samp><span class="samp">[</span></samp>&rsquo;, &lsquo;<samp><span class="samp">]</span></samp>&rsquo;, &lsquo;<samp><span class="samp">{</span></samp>&rsquo;, and &lsquo;<samp><span class="samp">}</span></samp>&rsquo; are not.  The
+form <code>[</code><var>X</var><code>]</code> is a special notation for lists (see
+<a href="ref_002dsyn_002dcpt_002dlis.html#ref_002dsyn_002dcpt_002dlis">ref-syn-cpt-lis</a>) as an alternative to <code>.(</code><var>X</var><code>,[])</code>, and
+the form <code>{</code><var>X</var><code>}</code> is allowed as an alternative to
+<code>{}(</code><var>X</var><code>)</code>. 
+</ul>
+
+   <p><a name="index-g_t_002c-atom-473"></a>
+Examples of atoms are:
+<pre class="example">     a   void   =   :=   'Anything in quotes'   []
+</pre>
+   <blockquote>
+
+   <p><strong>Please note:</strong> It is recommended that you don't invent atoms beginning with
+the character &lsquo;<samp><span class="samp">$</span></samp>&rsquo;, since it is possible that such names may
+conflict with the names of atoms having special significance for
+certain built-in predicates. 
+</blockquote>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dtrm_002dato.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dtrm_002dato.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,120 @@
+<html lang="en">
+<head>
+<title>cpg-ref-SP_set_argv - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSP_005frestore.html#cpg_002dref_002dSP_005frestore" title="cpg-ref-SP_restore">
+<link rel="next" href="cpg_002dref_002dSP_005fset_005fcurrent_005fdir.html#cpg_002dref_002dSP_005fset_005fcurrent_005fdir" title="cpg-ref-SP_set_current_dir">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-SP_set_argv"></a>
+<a name="cpg_002dref_002dSP_005fset_005fargv"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002dSP_005fset_005fcurrent_005fdir.html#cpg_002dref_002dSP_005fset_005fcurrent_005fdir">cpg-ref-SP_set_current_dir</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSP_005frestore.html#cpg_002dref_002dSP_005frestore">cpg-ref-SP_restore</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.91 <code>SP_set_argv()</code></h4>
+
+<p><a name="index-SP_005fset_005fargv_0028_0029-_0028C-function_0029-5203"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p>&nbsp;<!-- /@w --> <strong>since release 4.0.3</strong>
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     
+     int
+     SP_set_argv(int argc,
+     	    char **argv,
+     	    spio_t_bits options);
+</pre>
+   <p>Initializes the <code>argv</code> prolog flag.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>argc</var><dd>The number of elements of the <code>argv</code> vector.
+
+     <br><dt><var>argv</var><dd>A vector of strings that can be accessed by <code>prolog_flag(argv,X)</code>. 
+This argument is copied by <code>SP_set_argv()</code> so it can be discarded
+by the caller. May be passed as <code>NULL</code> if <code>argc</code> is zero.
+
+     <p>The encoding used when converting the entries to atoms is determined
+by the <code>options</code> argument.
+
+     <br><dt><var>options</var><dd>
+If <code>options</code> is zero then each entry in <code>argv</code> is assumed to
+be an encoded string, i.e. encoded using &lsquo;<samp><span class="samp">UTF-8</span></samp>&rsquo;. This is
+the same as passing <code>argc</code> and <code>argv</code> to
+<code>SP_initialize()</code> except that <code>SP_initialize()</code> will not
+report failure even if the <code>argv</code> entries are not suitable as
+atom names. Note that UTF-8 may not be the encoding used by the
+operating system when invoking <code>main()</code>.
+
+     <p>If <code>options</code> is <code>SP_SET_ARGV_OPTION_SYSTEM_ENCODING</code> then
+each entry in <code>argv</code> is assumed to be encoded using some system
+encoding. This is only useful on Unix-like systems since it is
+preferable, and trivial, to obtain and pass a UTF-8 <code>argv</code> vector
+on Windows.
+
+     <p>The system encoding used by <code>SP_set_argv()</code> will be the first
+character encoding specified by the following environment variables:
+
+          <dl>
+<dt><code>SP_CTYPE</code><br><dt><code>LC_ALL (only on Unix)</code><br><dt><code>LC_CTYPE (only on Unix)</code><br><dt><code>LANG (only on Unix)</code><dd></dl>
+     if none of these are set then the operating system will be
+queried in some platform specific way.
+
+     <p><strong>Please note</strong>: For best results on Unix-like platforms you
+should use a locale based on UTF-8.
+
+</dl>
+
+<h4 class="subheading">Return Value</h4>
+
+<p>Zero if the argument entries cannot be converted to atoms, and a
+nonzero representation otherwise.
+
+<h4 class="subheading">Description</h4>
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Initializing-the-Prolog-Engine.html#Initializing-the-Prolog-Engine">Initializing the Prolog Engine</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fset_005fargv.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fset_005fargv.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

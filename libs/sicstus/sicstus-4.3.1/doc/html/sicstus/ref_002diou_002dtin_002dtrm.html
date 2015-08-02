@@ -1,0 +1,103 @@
+<html lang="en">
+<head>
+<title>ref-iou-tin-trm - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002diou_002dtin.html#ref_002diou_002dtin" title="ref-iou-tin">
+<link rel="next" href="ref_002diou_002dtin_002dcpr.html#ref_002diou_002dtin_002dcpr" title="ref-iou-tin-cpr">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-iou-tin-trm"></a>
+<a name="ref_002diou_002dtin_002dtrm"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002diou_002dtin_002dcpr.html#ref_002diou_002dtin_002dcpr">ref-iou-tin-cpr</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002diou_002dtin.html#ref_002diou_002dtin">ref-iou-tin</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.6.3.1 Reading Terms: The "Read" Predicates</h5>
+
+<p><a name="index-read-predicates-840"></a><a name="index-predicates_002c-read-841"></a>
+<a name="index-read_002f_005b1_002c2_005d-_0028built_002din_0029-842"></a><a name="index-read_002f_005b1_002c2_005d-_0028built_002din_0029-843"></a>
+
+   <p><a name="index-read_005fterm_002f_005b2_002c3_005d-_0028built_002din_0029-844"></a><a name="index-read_005fterm_002f_005b2_002c3_005d-_0028built_002din_0029-845"></a>
+
+   <p>The &ldquo;Read&rdquo; predicates are
+     <ul>
+<li><code>read(</code><var>-Term</var><code>)</code>
+<li><code>read(</code><var>+Stream</var><code>, </code><var>-Term</var><code>)</code>
+<li><code>read_term(</code><var>-Term</var><code>, </code><var>+Options</var><code>)</code>
+<li><code>read_term(</code><var>+Stream</var><code>, </code><var>-Term</var><code>, </code><var>+Options</var><code>)</code>
+</ul>
+
+   <p><code>read_term/[2,3]</code> offers many options to return extra information about the
+term. 
+See <a href="mpg_002dref_002dread_005fterm.html#mpg_002dref_002dread_005fterm">mpg-ref-read_term</a>.
+
+   <p>When Prolog reads a term from the current input stream the following
+conditions must hold:
+
+     <ul>
+<li>The term must be followed by a full-stop.  See
+<a href="ref_002dsyn_002dsyn_002dove.html#ref_002dsyn_002dsyn_002dove">ref-syn-syn-ove</a>.  The full-stop is removed from the input stream but
+is not a part of the term that is read.
+
+     <p><a name="index-full_002dstop_002c-use-of-846"></a><a name="index-use-of-full_002dstop-847"></a>
+
+     <p><code>read/[1,2]</code> does not terminate until the full-stop
+is encountered.  Thus, if you type at top-level
+     <pre class="example">          | ?- <kbd>read(X)</kbd>
+</pre>
+     <p class="noindent">you will keep getting prompts (first &lsquo;<samp><span class="samp">|: </span></samp>&rsquo;, and five spaces
+thereafter) every time you type &lt;RET&gt;, but nothing else will
+happen, whatever you type, until you type a full-stop. 
+<li>The term is read with respect to current operator declarations.  See
+<a href="ref_002dsyn_002dops.html#ref_002dsyn_002dops">ref-syn-ops</a> for a discussion of operators. 
+<li>When a syntax error is encountered, an error message is printed and then
+the &ldquo;read&rdquo; predicate tries again, starting immediately after the
+full-stop that terminated the
+erroneous <code>term</code>.  That is, it does not fail on a syntax error,
+but perseveres until it eventually manages to read a term. This behavior
+can be changed with <code>prolog_flag/3</code> or using <code>read_term/[2,3]</code>. 
+See <a href="mpg_002dref_002dprolog_005fflag.html#mpg_002dref_002dprolog_005fflag">mpg-ref-prolog_flag</a>. 
+<a name="index-prolog_005fflag_002f_005b2_002c3_005d-_0028built_002din_0029-848"></a><a name="index-prolog_005fflag_002f_005b2_002c3_005d-_0028built_002din_0029-849"></a>
+
+     <li>If the end of the current input stream has been reached,
+<code>read(</code><var>X</var><code>)</code> will cause <var>X</var> to be unified with the atom
+<code>end_of_file</code>. 
+<a name="index-end_005fof_005ffile-850"></a>
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dtin_002dtrm.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dtin_002dtrm.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

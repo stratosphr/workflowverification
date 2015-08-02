@@ -1,0 +1,96 @@
+<html lang="en">
+<head>
+<title>ref-iou-sfh-cos - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" title="ref-iou-sfh">
+<link rel="prev" href="ref_002diou_002dsfh_002dcis.html#ref_002diou_002dsfh_002dcis" title="ref-iou-sfh-cis">
+<link rel="next" href="ref_002diou_002dsfh_002dbos.html#ref_002diou_002dsfh_002dbos" title="ref-iou-sfh-bos">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-iou-sfh-cos"></a>
+<a name="ref_002diou_002dsfh_002dcos"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002diou_002dsfh_002dbos.html#ref_002diou_002dsfh_002dbos">ref-iou-sfh-bos</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002diou_002dsfh_002dcis.html#ref_002diou_002dsfh_002dcis">ref-iou-sfh-cis</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002diou_002dsfh.html#ref_002diou_002dsfh">ref-iou-sfh</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.6.7.7 Finding the Current Output Stream</h5>
+
+     <ul>
+<li><code>current_output(</code><var>Stream</var><code>)</code> unifies <var>Stream</var> with the current output
+<a name="index-current_005foutput_002f1-_0028built_002din_0029-999"></a><a name="index-current_005foutput_002f1-_0028built_002din_0029-1000"></a>
+
+     <p><a name="index-current-input-streams-1001"></a><a name="index-streams_002c-current-input-1002"></a><a name="index-current-output-streams-1003"></a><a name="index-streams_002c-current-output-1004"></a>
+stream. 
+<li>If the current output stream is <code>user_output</code>,
+<code>telling(</code><var>S</var><code>)</code> unifies <var>S</var> with <code>user</code>.  Otherwise,
+if the current output stream was opened by <code>tell(</code><var>F</var><code>)</code>,
+<code>telling(</code><var>S</var><code>)</code> unifies <var>S</var> with <var>F</var>.  Otherwise, if
+the current output stream was opened by <code>open/[3,4]</code>,
+<code>telling(</code><var>S</var><code>)</code> unifies <var>S</var> with the corresponding stream
+object. 
+<a name="index-telling_002f1-_0028built_002din_0029-1005"></a><a name="index-telling_002f1-_0028built_002din_0029-1006"></a>
+
+     <p><code>telling/1</code> can be used to verify that a section of code leaves
+the current output stream unchanged as follows:
+     <pre class="example">          /* nonvar(FileNameOrStream), */
+          tell(FileNameOrStream),
+          ...
+          telling(FileNameOrStream)
+</pre>
+     <blockquote>
+<em>WARNING</em>:  The sequence
+     <pre class="example">          telling(File),
+          ...
+          set_output(File),
+</pre>
+     <p class="noindent">will signal an error if the current output stream was opened by <code>tell/1</code>. 
+The only sequences that are guaranteed to succeed are
+     <pre class="example">          telling(FileOrStream),
+          ...
+          tell(FileOrStream)
+</pre>
+     <p class="noindent">and
+     <pre class="example">          current_output(Stream),
+          ...
+          set_output(Stream)
+</pre>
+     </blockquote>
+     </ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dsfh_002dcos.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dsfh_002dcos.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

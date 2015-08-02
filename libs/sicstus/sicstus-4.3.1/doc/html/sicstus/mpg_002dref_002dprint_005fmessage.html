@@ -1,0 +1,144 @@
+<html lang="en">
+<head>
+<title>mpg-ref-print_message - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dprint_005fcoverage.html#mpg_002dref_002dprint_005fcoverage" title="mpg-ref-print_coverage">
+<link rel="next" href="mpg_002dref_002dprint_005fmessage_005flines.html#mpg_002dref_002dprint_005fmessage_005flines" title="mpg-ref-print_message_lines">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-print_message"></a>
+<a name="mpg_002dref_002dprint_005fmessage"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dprint_005fmessage_005flines.html#mpg_002dref_002dprint_005fmessage_005flines">mpg-ref-print_message_lines</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dprint_005fcoverage.html#mpg_002dref_002dprint_005fcoverage">mpg-ref-print_coverage</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.162 <code>print_message/2</code> &nbsp;<!-- /@w --> <dfn>[hookable]</dfn></h4>
+
+<p><a name="index-print_005fmessage_002f2-_0028built_002din_002c-ref-page_0029-4812"></a><a name="index-print_005fmessage_002f2-_0028built_002din_002c-ref-page_0029-4813"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>print_message(</code><var>+Severity</var><code>, </code><var>+MessageTerm</var><code>)</code>
+
+   <p>Print a <var>Message</var> of a given <var>Severity</var>. The behavior can be
+customized using the hooks <code>user:portray_message/2</code>,
+<code>user:generate_message_hook/3</code> and <code>user:message_hook/3</code>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Severity</var><dd><dfn>atom</dfn>, must be nonvar
+
+     <p>Unless the default system portrayal is overidden with
+<code>user:message_hook/3</code>, <var>Severity</var> must be one of:
+
+          <dl>
+<dt><b>Value</b><dd><b>Prefix</b>
+
+          <br><dt><code>informational</code><dd>&lsquo;<samp><span class="samp">% </span></samp>&rsquo;
+
+          <br><dt><code>warning</code><dd>&lsquo;<samp><span class="samp">* </span></samp>&rsquo;
+
+          <br><dt><code>error</code><dd>&lsquo;<samp><span class="samp">! </span></samp>&rsquo;
+
+          <br><dt><code>help</code><dt><code>query</code><dt><code>silent</code><dd>no prefix
+</dl>
+
+     <br><dt><var>MessageTerm</var><dd><dfn>term</dfn>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>First <code>print_message/2</code> calls <code>user:portray_message/2</code> with
+the same arguments.  If this does not succeed, the message is
+processed in the following phases:
+
+     <ul>
+<li>Message generation phase: the abstract message term <var>Message</var> is
+formatted, i.e. converted to a format-command list.  First the hook
+predicate <code>user:generate_message_hook/3</code> is tried, then if it
+does not succeed, <code>'SU_messages':generate_message/3</code> is called. 
+The latter predicate is defined in terms of definite clause grammars
+in <code>library('SU_messages')</code>.  If that also does not succeed, then
+the built-in default conversion is used, which gives the following
+result:
+
+     <pre class="example">          ['~q'-[<var>Message</var>],nl]
+</pre>
+     <li>Line splitting transformation: the format-command list is
+converted to format-command lines&mdash;the list is broken up
+into a list of lists, each list containing
+format-commands for one line.
+
+     <li>Message printing phase: The text of the message (format-command
+lines generated in the previous stage) is printed.  First the hook
+predicate <code>user:message_hook/3</code> is tried, then, if it does not
+succeed, the built-in predicate <code>print_message_lines/3</code> is
+called for the <code>user_error</code> stream. 
+</ul>
+
+   <p>An unhandled exception message <var>E</var> calls
+<code>print_message(error, </code><var>E</var><code>)</code> before returning to the top
+level.  The convention is that an error message is the result of an
+unhandled exception.  Thus, an error message should only be printed if
+<code>raise_exception/1</code> does not find a handler and unwinds to the
+top-level.
+
+   <p>All messages from the system are printed using this predicate.  Means of
+intercepting these messages before they are printed are provided.
+
+   <p><code>print_message/2</code> always prints to <code>user_error</code>. Messages can be
+redirected to other streams using <code>user:message_hook/3</code> and
+<code>print_message_lines/3</code>
+
+   <p>Silent messages do not get translated or printed, but they can be
+intercepted with <code>user:portray_message/2</code> and <code>user:message_hook/3</code>.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dt><code>type_error</code><dt><code>domain_error</code><dd>in <var>Severity</var>
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmsg.html#ref_002dmsg">ref-msg</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dprint_005fmessage.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dprint_005fmessage.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

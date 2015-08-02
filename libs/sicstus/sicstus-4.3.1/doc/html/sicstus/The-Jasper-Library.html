@@ -1,0 +1,99 @@
+<html lang="en">
+<head>
+<title>The Jasper Library - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002djasper.html#lib_002djasper" title="lib-jasper">
+<link rel="prev" href="Java-Threads.html#Java-Threads" title="Java Threads">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="The-Jasper-Library"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Java-Threads.html#Java-Threads">Java Threads</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002djasper.html#lib_002djasper">lib-jasper</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.18.8 The Jasper Library</h4>
+
+<p>The Jasper library module is the Prolog interface to the Java
+VM. It corresponds to the <code>se.sics.jasper</code> package in Java. It is
+loaded by executing the query:
+
+<pre class="example">     | ?- <kbd>use_module(library(jasper)).</kbd>
+</pre>
+   <!-- [PD] 3.11.3 'Mixing ...' has been merged into this chapter. -->
+<!-- It is recommended that the reader first read @ref{Mixing -->
+<!-- Java and Prolog}, as that chapter contains important information on how -->
+<!-- to use Java and Prolog together. -->
+   <p>The Jasper library fully supports multiple SICStus runtimes in a
+process.
+
+   <p>Jasper cannot be used when the SICStus runtime is statically linked to
+the executable, such as when using <code>spld --static</code>.
+
+   <p>The following functionality is provided:
+
+     <ul>
+<li>Initializing the Java VM using the <em>JNI Invocation API</em>
+(<code>jasper_initialize/[1,2]</code>, <code>jasper_deinitialize/1</code>). 
+<li>Creating and deleting Java objects directly from Prolog
+(<code>jasper_new_object/5</code>). 
+<li>Method calls (<code>jasper_call/4</code>).
+
+     <!-- [PM] 3.9b4 -->
+     <!-- As of SICStus 3.8.5 this provides the -->
+     <!-- same functionality as the techniques described in @ref{Mixing Java and -->
+     <!-- Prolog}. Since @use{meta-calls} are more flexible and don't require a -->
+     <!-- C-compiler it is often the preferred way to call Java methods. -->
+     <li>Global and local (object) reference management
+(<code>jasper_create_global_ref/3</code>, <code>jasper_delete_global_ref/2</code>,
+<code>jasper_delete_local_ref/2</code>). Global references are used to prevent
+the JVM from garbage collecting a Java object referenced from
+Prolog. 
+<li>There is also a sub-directory containing example programs
+(<code>library('jasper/examples')</code>). 
+</ul>
+
+<ul class="menu">
+<li><a accesskey="1" href="Jasper-Method-Call-Example.html#Jasper-Method-Call-Example">Jasper Method Call Example</a>:  Jasper Method Call Example
+<li><a accesskey="2" href="Jasper-Library-Predicates.html#Jasper-Library-Predicates">Jasper Library Predicates</a>:  Jasper Library Predicates
+<li><a accesskey="3" href="Conversion-between-Prolog-Arguments-and-Java-Types.html#Conversion-between-Prolog-Arguments-and-Java-Types">Conversion between Prolog Arguments and Java Types</a>:  Conversion between Prolog Arguments and Java Types
+<li><a accesskey="4" href="Global-vs_002e-Local-References.html#Global-vs_002e-Local-References">Global vs. Local References</a>:  Global vs. Local References
+<li><a accesskey="5" href="Handling-Java-Exceptions.html#Handling-Java-Exceptions">Handling Java Exceptions</a>:  Handling Java Exceptions
+<li><a accesskey="6" href="Deprecated-Jasper-API.html#Deprecated-Jasper-API">Deprecated Jasper API</a>:  Deprecated Jasper API
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/The-Jasper-Library.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/The-Jasper-Library.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

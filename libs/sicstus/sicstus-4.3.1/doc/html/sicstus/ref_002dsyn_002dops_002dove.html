@@ -1,0 +1,203 @@
+<html lang="en">
+<head>
+<title>ref-syn-ops-ove - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsyn_002dops.html#ref_002dsyn_002dops" title="ref-syn-ops">
+<link rel="next" href="ref_002dsyn_002dops_002dops.html#ref_002dsyn_002dops_002dops" title="ref-syn-ops-ops">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-syn-ops-ove"></a>
+<a name="ref_002dsyn_002dops_002dove"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dsyn_002dops_002dops.html#ref_002dsyn_002dops_002dops">ref-syn-ops-ops</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsyn_002dops.html#ref_002dsyn_002dops">ref-syn-ops</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.1.5.1 Overview</h5>
+
+<p>Operators in Prolog are simply a notational convenience. 
+For example, &lsquo;<samp><span class="samp">+</span></samp>&rsquo; is an infix operator, so
+<pre class="example">     2 + 1
+</pre>
+   <p class="noindent">is an alternative way of writing the term <code>+(2, 1)</code>. 
+That is, <code>2 + 1</code> represents the data structure
+<pre class="example">                +
+              /   \
+             2     1
+</pre>
+   <p class="noindent">and <em>not</em> the number 3. 
+(The addition would only be performed if the structure were passed as an
+argument to an appropriate procedure, such as <code>is/2</code>; see <a href="ref_002dari_002deae.html#ref_002dari_002deae">ref-ari-eae</a>.)
+
+   <p>Prolog syntax allows operators of three kinds: <dfn>infix</dfn>,
+<dfn>prefix</dfn>, and <dfn>postfix</dfn>.  An infix operator appears between
+its two arguments, while a prefix operator precedes its single
+argument and a postfix operator follows its single argument.
+
+   <p><a name="index-infix-operators-509"></a>
+<a name="index-prefix-operators-510"></a>
+<a name="index-postfix-operators-511"></a>
+<a name="index-operators_002c-prefix-512"></a>
+<a name="index-operators_002c-postfix-513"></a>
+<a name="index-operators_002c-infix-514"></a>
+<a name="index-operators_002c-precedence-of-515"></a>
+<a name="index-precedence_002c-of-operators-516"></a>
+
+   <p>Each operator has a <dfn>precedence</dfn>, which is a
+number from  1  to  1200.  The  precedence  is  used  to  disambiguate
+expressions  in which  the  structure  of  the  term  denoted is not made
+explicit through the  use  of  parentheses.   The  general  rule
+is that the operator with the
+<em>highest</em> precedence is the principal functor.  Thus if &lsquo;<samp><span class="samp">+</span></samp>&rsquo;  has  a
+higher precedence than &lsquo;<samp><span class="samp">/</span></samp>&rsquo;, then
+<pre class="example">     a+b/c     a+(b/c)
+</pre>
+   <p class="noindent">are equivalent, and denote the term <code>+(a,/(b,c))</code>. Note that the  infix
+form of the term <code>/(+(a,b),c)</code> must be written with explicit parentheses:
+<pre class="example">     (a+b)/c
+</pre>
+   <p><a name="index-operators_002c-associativity-of-517"></a>
+<a name="index-operators_002c-type-of-518"></a>
+<a name="index-associativity-of-operators-519"></a><a name="index-type-of-operators-520"></a>
+
+   <p>If there are two operators in the expression having  the  same highest
+precedence,  the ambiguity must be resolved from the <dfn>types</dfn> of the
+operators.  The possible types for an infix operator are
+     <ul>
+<li><code>xfx</code>
+<li><code>xfy</code>
+<li><code>yfx</code>
+</ul>
+
+   <p>Operators of type &lsquo;<samp><span class="samp">xfx</span></samp>&rsquo; are not associative:  it is required that
+both of the arguments of the operator be subexpressions of
+<em>lower</em> precedence than the operator itself; that is, the principal
+functor of each subexpression must be of lower precedence, unless the
+subexpression is
+written in parentheses (which gives it zero precedence).
+
+   <p>Operators of type &lsquo;<samp><span class="samp">xfy</span></samp>&rsquo; are right-associative:
+only the first (left-hand) subexpression must
+be of lower precedence;  the right-hand subexpression
+can be of the <em>same</em>  precedence  as the main operator. 
+Left-associative operators (type &lsquo;<samp><span class="samp">yfx</span></samp>&rsquo;) are the other way around.
+
+   <p>An atom named <var>Name</var> is  declared  as  an
+operator of type <var>Type</var> and precedence <var>Precedence</var> by the command
+<pre class="example">     :-op(<var>Precedence, Type, Name</var>).
+</pre>
+   <p>An operator declaration can be cancelled by redeclaring the <var>Name</var>
+with the same <var>Type</var>, but <var>Precedence</var> 0.
+
+   <p>The argument <var>Name</var> can also be a list of names of operators of the same
+type and precedence.
+
+   <p>It is possible to have more than one operator of the  same  name,
+so long as they are of different kinds:  infix, prefix, or postfix. 
+Note that the ISO Prolog standard contains the restriction that there
+should be no infix and postfix operators with the same name,
+however, SICStus Prolog lifts this restriction.
+
+   <p>An operator of any kind may be redefined by a new declaration  of  the
+same  kind. This applies equally to
+operators that are provided as standard, except for the <code>','</code>
+operator. 
+Declarations for all these <dfn>built-in operators</dfn> can be found in
+<a href="ref_002dsyn_002dops_002dbop.html#ref_002dsyn_002dops_002dbop">ref-syn-ops-bop</a>. 
+<a name="index-built_002din-operators-521"></a>
+<a name="index-operators_002c-built_002din-522"></a>
+For example, the built-in operators &lsquo;<samp><span class="samp">+</span></samp>&rsquo; and &lsquo;<samp><span class="samp">-</span></samp>&rsquo; are as if they
+had been declared by (A) so that (B) is valid syntax, and means (C) or pictorially (D).
+<pre class="example">     :-op(500, yfx, [+,-]).&nbsp;<!-- /@w --> (A)
+</pre>
+   <pre class="example">     a-b+c&nbsp;<!-- /@w --> (B)
+</pre>
+   <pre class="example">     (a-b)+c&nbsp;<!-- /@w --> (C)
+</pre>
+   <pre class="example">                  +
+                /   \
+               -     c
+              / \
+             a   b&nbsp;<!-- /@w --> (D)
+</pre>
+   <p>The list functor <code>./2</code> is not a standard operator, but we could declare it
+to be (E) and then (F) would represent the structure (G).
+<pre class="example">     :-op(600, xfy, .).&nbsp;<!-- /@w --> (E)
+</pre>
+   <pre class="example">     a.b.c&nbsp;<!-- /@w --> (F)
+</pre>
+   <pre class="example">                .
+               / \
+              a   .
+                 / \
+                b   c&nbsp;<!-- /@w --> (G)
+</pre>
+   <p>Contrasting this with the diagram above for a-b+c shows the difference
+between &lsquo;<samp><span class="samp">yfx</span></samp>&rsquo; operators where the tree grows to the left, and &lsquo;<samp><span class="samp">xfy</span></samp>&rsquo;
+operators where it grows to the right.  The tree cannot grow at all for
+&lsquo;<samp><span class="samp">xfx</span></samp>&rsquo; operators; it is simply illegal to combine &lsquo;<samp><span class="samp">xfx</span></samp>&rsquo; operators having
+equal precedences in this way.
+
+   <p>The possible types for a prefix operator are:
+     <ul>
+<li><code>fx</code>
+<li><code>fy</code>
+</ul>
+
+   <p>and for a postfix operator they are:
+     <ul>
+<li><code>xf</code>
+<li><code>yf</code>
+</ul>
+
+   <p>The meaning of the types should be clear by analogy with those for infix
+operators.  As an example, if <code>not</code> were declared as a prefix
+operator of type <code>fy</code>, then
+
+<pre class="example">     not not P
+</pre>
+   <p class="noindent">would be a permissible way to write <code>not(not(P))</code>.  If the type
+were <code>fx</code>, the preceding expression would not be legal, although
+
+<pre class="example">     not P
+</pre>
+   <p class="noindent">would still be a permissible form for <code>not(P)</code>.
+
+   <p>If these precedence and associativity rules seem rather complex,
+remember that you can always use parentheses when in any doubt.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dops_002dove.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dops_002dove.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

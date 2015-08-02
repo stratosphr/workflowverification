@@ -1,0 +1,437 @@
+<html lang="en">
+<head>
+<title>FlatZinc Exported Predicates - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="FlatZinc.html#FlatZinc" title="FlatZinc">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="FlatZinc-Exported-Predicates"></a>
+<p>
+Up:&nbsp;<a rel="up" accesskey="u" href="FlatZinc.html#FlatZinc">FlatZinc</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.46.2.1 Exported Predicates</h5>
+
+<p>The predicates described here operate on a data structure <var>FznState</var>
+representing a FlatZinc<!-- /@w --> program and consisting of the following members:
+
+     <ul>
+<li>A table that maps identifiers of the FlatZinc<!-- /@w --> program to Prolog terms. 
+<li>A list containing all domain variables of the FlatZinc<!-- /@w --> program,
+except those with a <code>var_is_introduced</code> annotation. 
+<li>A list containing all domain variables of the FlatZinc<!-- /@w --> program that
+may be written on the current output stream. 
+<li>A goal representing the constraint part of the FlatZinc<!-- /@w --> program. 
+<li>A goal representing the solve part of the FlatZinc<!-- /@w --> program. 
+<li>A counter denoting the number of solutions found by the FlatZinc<!-- /@w -->
+program.
+
+   </ul>
+
+   <p>This data structure can be constructed from a FlatZinc<!-- /@w --> program by the
+predicates <code>fzn_load_stream/2</code> and <code>fzn_load_file/2</code> described
+next, or directly from a MiniZinc<!-- /@w --> program (see <a href="MiniZinc.html#MiniZinc">MiniZinc</a>).
+
+     <dl>
+<dt><code>fzn_load_stream(</code><var>+FznStream</var><code>, </code><var>-FznState</var><code>)</code><dd><a name="index-fzn_005fload_005fstream_002f2-_0028zinc_0029-4231"></a><a name="index-fzn_005fload_005fstream_002f2-_0028zinc_0029-4232"></a>
+<var>FznStream</var> is a FlatZinc<!-- /@w --> input stream. <var>FznState</var> is a FlatZinc<!-- /@w -->
+state which is initialized with respect to <var>FznStream</var>.
+
+     <p><em>Exceptions:</em> Exceptions regarding errors in <var>FznStream</var>
+(see <a href="Zinc-Errors.html#Zinc-Errors">Zinc Errors</a>).
+
+     <br><dt><code>fzn_load_file(</code><var>+FznFile</var><code>, </code><var>-FznState</var><code>)</code><dd><a name="index-fzn_005fload_005ffile_002f2-_0028zinc_0029-4233"></a><a name="index-fzn_005fload_005ffile_002f2-_0028zinc_0029-4234"></a>
+<var>FznFile</var> is a FlatZinc<!-- /@w --> file (extension defaults to <samp><span class="file">.fzn</span></samp>). 
+<var>FznState</var> is a FlatZinc<!-- /@w --> state which is initialized with respect to
+<var>FznFile</var>. This predicate is just a wrapper around
+<code>fzn_load_stream/2</code> handling stream opening and closing.
+
+     <p><em>Exceptions:</em>
+          <ul>
+<li>Exceptions related to the opening of <var>FznFile</var> for reading.
+
+          <li>Exceptions regarding errors in <var>FznFile</var> (see <a href="Zinc-Errors.html#Zinc-Errors">Zinc Errors</a>).
+
+     </ul>
+
+   </dl>
+
+   <p>Consider the following FlatZinc<!-- /@w --> program for solving the 4 Queens problem
+located in <code>library('zinc/examples/queen4.fzn')</code>. <em>(Note that
+FlatZinc<!-- /@w --> programs are not intended to be written (or read) by humans,
+but rather to be automatically generated. One method to generate
+FlatZinc<!-- /@w --> programs is described in <a href="MiniZinc.html#MiniZinc">MiniZinc</a>.)</em>
+
+<pre class="example">
+                               <div align="right"><em>% queen4.fzn</em>
+     </div>
+     int: n = 4;
+     
+     array[1 .. 4] of var 1 .. 4: q::output_array([ 1 .. 4 ]);
+     
+     constraint int_lin_ne([ 1, -1 ], [ q[1], q[2] ], 1);
+     
+     constraint int_ne(q[1], q[2]);
+     
+     constraint int_lin_ne([ 1, -1 ], [ q[1], q[2] ], -1);
+     
+     constraint int_lin_ne([ 1, -1 ], [ q[1], q[3] ], 2);
+     
+     constraint int_ne(q[1], q[3]);
+     
+     constraint int_lin_ne([ 1, -1 ], [ q[1], q[3] ], -2);
+     
+     constraint int_lin_ne([ 1, -1 ], [ q[1], q[4] ], 3);
+     
+     constraint int_ne(q[1], q[4]);
+     
+     constraint int_lin_ne([ 1, -1 ], [ q[1], q[4] ], -3);
+     
+     constraint int_lin_ne([ 1, -1 ], [ q[2], q[3] ], 1);
+     
+     constraint int_ne(q[2], q[3]);
+     
+     constraint int_lin_ne([ 1, -1 ], [ q[2], q[3] ], -1);
+     
+     constraint int_lin_ne([ 1, -1 ], [ q[2], q[4] ], 2);
+     
+     constraint int_ne(q[2], q[4]);
+     
+     constraint int_lin_ne([ 1, -1 ], [ q[2], q[4] ], -2);
+     
+     constraint int_lin_ne([ 1, -1 ], [ q[3], q[4] ], 1);
+     
+     constraint int_ne(q[3], q[4]);
+     
+     constraint int_lin_ne([ 1, -1 ], [ q[3], q[4] ], -1);
+     
+     solve satisfy;
+</pre>
+   <p>A FlatZinc<!-- /@w --> state <code>Queen4State</code> representing the program above can be
+constructed by typing:
+
+<pre class="example">     | ?- <kbd>fzn_load_file(library('zinc/examples/queen4'), Queen4State).</kbd>
+</pre>
+   <p>The predicates presented next are used to query an already initialized
+FlatZinc<!-- /@w --> state.
+
+     <dl>
+<dt><code>fzn_post(</code><var>+FznState</var><code>)</code><dd><a name="index-fzn_005fpost_002f1-_0028zinc_0029-4235"></a><a name="index-fzn_005fpost_002f1-_0028zinc_0029-4236"></a>
+Posts the constraints of the FlatZinc<!-- /@w --> program represented by
+<var>FznState</var>. May fail if the constraints are inconsistent.
+
+     <br><dt><code>fzn_solve(</code><var>+FznState</var><code>)</code><dd><a name="index-fzn_005fsolve_002f1-_0028zinc_0029-4237"></a><a name="index-fzn_005fsolve_002f1-_0028zinc_0029-4238"></a>
+Runs the solve part of the FlatZinc<!-- /@w --> program represented by
+<var>FznState</var> to find an (optimal) solution. Fails if the constraints
+of the FlatZinc<!-- /@w --> program are inconsistent. Generates the next solution
+upon backtracking.
+
+     <br><dt><code>fzn_output(</code><var>+FznState</var><code>)</code><dd><a name="index-fzn_005foutput_002f1-_0028zinc_0029-4239"></a><a name="index-fzn_005foutput_002f1-_0028zinc_0029-4240"></a>
+Outputs the values of the variables in <var>FznState</var> that have been
+annotated with <code>output_var/0</code> or <code>output_array/1</code>.
+
+     <p><em>Exceptions:</em> An <em>instatiation error</em> if the output variables
+ are not instantiated.
+
+   </dl>
+
+   <p>Consider again the FlatZinc<!-- /@w --> program <code>queen4.fzn</code> described above
+and the following goal at the Prolog top level:
+
+<pre class="example">     | ?- <kbd>fzn_load_file(library('zinc/examples/queen4'), Queen4State),</kbd>
+          <kbd>fzn_post(Queen4State),</kbd>
+          <kbd>fzn_solve(Queen4State),</kbd>
+          <kbd>fzn_output(Queen4State).</kbd>
+</pre>
+   <p>The first line initializes <code>Queen4State</code> with respect to
+<code>queen4.fzn</code>. The second and third line posts the constraints of
+<code>queen4.fzn</code> and runs the solve part of <code>queen4.fzn</code>,
+respectively. Finally, the fourth line runs the output part of
+<code>queen4.fzn</code> which means that the following is written on the
+current output stream:
+
+<pre class="example">     q = array1d(1..4, [2, 4, 1, 3]);
+     ----------
+</pre>
+   <p>Upon backtracking the solve and output parts of <code>Queen4State</code> are
+rerun, which means that the following is written on the current output
+stream:
+
+<pre class="example">     q = array1d(1..4, [3, 1, 4, 2]);
+     ----------
+</pre>
+     <dl>
+<dt><code>fzn_identifier(</code><var>+FznState</var><code>, </code><var>+Id</var><code>, </code><var>-Value</var><code>)</code><dd><a name="index-fzn_005fidentifier_002f3-_0028zinc_0029-4241"></a><a name="index-fzn_005fidentifier_002f3-_0028zinc_0029-4242"></a>
+<var>FznState</var> is a FlatZinc<!-- /@w --> state initialized with respect to some
+FlatZinc<!-- /@w --> program and <var>Id</var> is an identifier of the FlatZinc<!-- /@w -->
+program. Unifies the FlatZinc<!-- /@w --> representation of <var>Id</var> with <var>Value</var>
+according to the following translation scheme:
+
+          <ul>
+<li>A <code>bool</code> is translated into a Prolog integer:
+<code>false</code> is translated into <code>0</code> and <code>true</code> is translated
+into <code>1</code>. 
+<li>An <code>int</code> is translated into a Prolog integer. 
+<li>A <code>float</code> is translated into a Prolog float. 
+<li>An integer range or an integer set is translated into a
+<code>library(clpfd)</code> FD set term (see <a href="FD-Set-Operations.html#FD-Set-Operations">FD Set Operations</a>). 
+<li>A non-integer set is translated into a sorted Prolog list containing the
+(translated) elements of the set. 
+<li>An array is translated into a Prolog list containing the (translated)
+elements of the array. Ordering is preserved such that the <em>n</em>th element
+of the array is the <em>n</em>th element of the list. 
+<li>A <code>var int</code> is translated into a <code>library(clpfd)</code> domain
+variable (see <a href="CLPFD-Interface.html#CLPFD-Interface">CLPFD Interface</a>). 
+<li>A <code>var bool</code> is translated into a <code>library(clpfd)</code> domain
+variable with the domain <code>0..1</code> (see <a href="CLPFD-Interface.html#CLPFD-Interface">CLPFD Interface</a>). 
+</ul>
+
+     <p><em>Exceptions:</em> An <em>existence error</em> if <var>Id</var> is not an
+identifier of <var>FznState</var>.
+
+     <br><dt><code>fzn_objective(</code><var>+FznState</var><code>, </code><var>-Objective</var><code>)</code><dd><a name="index-fzn_005fobjective_002f2-_0028zinc_0029-4243"></a><a name="index-fzn_005fobjective_002f2-_0028zinc_0029-4244"></a>
+<var>FznState</var> is a FlatZinc<!-- /@w --> state initialized with respect to some
+FlatZinc<!-- /@w --> program. Unifies <var>Objective</var> with a domain variable
+representing the FlatZinc<!-- /@w --> objective.
+
+     <p><em>Exceptions:</em> An <em>existence error</em> if there is no objective in
+<var>FznState</var>.
+
+   </dl>
+
+   <p>A possible use of <code>fzn_identifier/3</code> is to post additional
+<code>library(clpfd)</code> constraints or to apply a Prolog labeling
+predicate on the FlatZinc<!-- /@w --> variables. For example, given the 4 Queens
+problem in <code>queen4.fzn</code> described above, the following goal labels
+the variables to find all solutions:
+<pre class="example">     | ?- <kbd>fzn_load_file(library('zinc/examples/queen4'), Queen4State),</kbd>
+          <kbd>fzn_post(Queen4State),</kbd>
+          <kbd>fzn_identifier(Queen4State, q, Q),</kbd>
+          <kbd>findall(_, (labeling([], Q), fzn_output(Queen4State)), _).</kbd>
+</pre>
+   <p>Given this goal, the following is written on the current output stream:
+<pre class="example">     q = array1d(1..4, [2, 4, 1, 3]);
+     ----------
+     q = array1d(1..4, [3, 1, 4, 2]);
+     ----------
+</pre>
+   <p>To avoid symmetric solutions where the chess board is rotated 180
+degrees, the following goal posts an additional symmetry breaking
+constraint on the first two queens:
+<pre class="example">     | ?- <kbd>fzn_load_file(library('zinc/examples/queen4'), Queen4State),</kbd>
+          <kbd>fzn_post(Queen4State),</kbd>
+          <kbd>fzn_identifier(Queen4State, q, Q),</kbd>
+          <kbd>Q = [Q1, Q2|_],</kbd> <kbd>Q1 #&lt; Q2,</kbd>
+          <kbd>findall(_, (labeling([], Q), fzn_output(Queen4State)), _).</kbd>
+</pre>
+   <p>Given this goal, the following is written on the current output stream:
+<pre class="example">     q = array1d(1..4, [2, 4, 1, 3]);
+     ----------
+</pre>
+   <p>Note that, now, only the first one of the previous two solutions is
+displayed.
+
+   <p>The following two predicates can be used to run a FlatZinc<!-- /@w --> program in
+one go. They both take as optional argument a list <var>Options</var> which
+can be used to change the default behavior of the execution. This list
+may contain zero or more of the following:
+
+     <dl>
+<dt><code>search(</code><var>Method</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.3</strong><dd><a name="index-search_002f1-_0028zinc-option_0029-4245"></a>where <var>Method</var> must be one of the atoms <code>bab</code> and
+<code>restart</code>. Tells the solver which optimization algorithm to use:
+branch-and-bound (the default), or to restart the search each time a new
+solution is found.  The corresponding <samp><span class="command">spfz</span></samp> option is
+<samp><span class="option">-search </span><var>Method</var></samp>.
+
+     <br><dt><code>solutions(</code><var>NumberOfSolutions</var><code>)</code><dd><a name="index-solutions_002f1-_0028zinc-option_0029-4246"></a>where <var>NumberOfSolutions</var> must be an integer greater than zero or
+the atom <code>all</code>. Describes the number of solutions to search
+for; the default is 1.  The corresponding <samp><span class="command">spfz</span></samp> options are
+<samp><span class="option">-n </span><var>N</var></samp> and <samp><span class="option">-a</span></samp>.
+
+     <br><dt><code>output(</code><var>File</var><code>)</code><dd><a name="index-output_002f1-_0028zinc-option_0029-4247"></a>where <var>File</var> must be the name of a writable file. Causes any output
+written on the current output stream to be directed to <var>File</var>. 
+The corresponding <samp><span class="command">spfz</span></samp> option is <samp><span class="option">-o </span><var>File</var></samp>.
+
+     <br><dt><code>ozn_file(</code><var>File</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.2.3</strong><dd><a name="index-ozn_005ffile_002f1-_0028zinc-option_0029-4248"></a>where <var>File</var> must be the name of an existing file, containing the
+MiniZinc<!-- /@w --> output commands that the solution printer
+<samp><span class="command">solns2out</span></samp> should use.  If not given, the solution printer will
+not be used, and the solutions will be printed unformatted.
+
+     <br><dt><code>statistics(</code><var>Boolean</var><code>)</code><dd><a name="index-statistics_002f1-_0028zinc-option_0029-4249"></a>where <var>Boolean</var> must be <code>true</code> or <code>false</code> (default). 
+The corresponding <samp><span class="command">spfz</span></samp> option is <samp><span class="option">-s</span></samp>. 
+If <code>true</code>, the following statistics are written on the current output
+stream (see the built-in <code>statistics/[0,2]</code> and
+<code>fd_statistics/[0,2]</code> of <code>library(clpfd)</code> for more detailed
+information on their meaning):
+
+          <dl>
+<dt><code>runtime</code><dd><a name="index-runtime-_0028zinc-option-value_0029-4250"></a>Total running time (milliseconds), including parsing the FlatZinc<!-- /@w -->
+program.
+
+          <br><dt><code>solvetime</code><dd><a name="index-solvetime-_0028zinc-option-value_0029-4251"></a>Running time (milliseconds) for posting the constraints and performing
+the search.
+
+          <br><dt><code>solutions</code><dd><a name="index-solutions-_0028zinc-option-value_0029-4252"></a>The number of solutions found.
+
+          <br><dt><code>constraints</code><dd><a name="index-constraints-_0028zinc-option_0029-4253"></a>The number of constraints created.
+
+          <br><dt><code>backtracks</code><dd><a name="index-backtracks-_0028zinc-option-value_0029-4254"></a>The number of times a contradiction was found by a domain being wiped
+out, or by a global constraint signalling failure.
+
+          <br><dt><code>prunings</code><dd><a name="index-prunings-_0028zinc-option-value_0029-4255"></a>The number of times a domain was pruned. 
+</dl>
+
+     <br><dt><code>timeout(</code><var>Time</var><code>)</code><dd><a name="index-timeout_002f1-_0028zinc-option_0029-4256"></a>where <var>Time</var> must be an integer between (not including) 0 and
+2147483647. Stops the computation if it has not finished before
+<var>Time</var> milliseconds has elapsed. 
+The corresponding <samp><span class="command">spfz</span></samp> option is <samp><span class="option">-time </span><var>Time</var></samp>. 
+</dl>
+
+     <dl>
+<dt><code>fzn_run_stream(</code><var>+FznStream</var><code>)</code><dt><code>fzn_run_stream(</code><var>+FznStream</var><code>, </code><var>+Options</var><code>)</code><dd><a name="index-fzn_005frun_005fstream_002f_005b1_002c2_005d-_0028zinc_0029-4257"></a><a name="index-fzn_005frun_005fstream_002f_005b1_002c2_005d-_0028zinc_0029-4258"></a>
+<var>FznStream</var> is a FlatZinc<!-- /@w --> input stream and <var>Options</var> is a
+list of options as described above. Performs the following steps:
+
+          <ol type=1 start=1>
+<li>Loads the FlatZinc<!-- /@w --> program (<code>fzn_load_stream/2</code>), initializing a
+FlatZinc<!-- /@w --> state. 
+<li>Posts the constraints of the FlatZinc<!-- /@w --> program (<code>fzn_post/1</code>). 
+<li>Runs the solve part of the FlatZinc<!-- /@w --> program (<code>fzn_solve/1</code>). 
+<li>Outputs the values of the variables that have been annotated with
+<code>output_var/0</code> or <code>output_array/1</code>.
+          </ol>
+
+     <p>The two final steps are repeated until the number of solutions as
+specified in <var>Options</var> have been found or until no more solutions can
+be found. At this point, if the whole search space have been explored
+ten consecutive equal signs are output on a separate line.
+
+     <p><em>Exceptions:</em>
+          <ul>
+<li>A <em>type error</em> if the number of solutions to search for is not
+greater than zero nor the atom <code>all</code>.
+
+          <li>Exceptions regarding errors in <var>FznStream</var> (see <a href="Zinc-Errors.html#Zinc-Errors">Zinc Errors</a>).
+
+     </ul>
+
+     <br><dt><code>fzn_run_file(</code><var>+FznFile</var><code>)</code><dt><code>fzn_run_file(</code><var>+FznFile</var><code>, </code><var>+Options</var><code>)</code><dd><a name="index-fzn_005frun_005ffile_002f_005b1_002c2_005d-_0028zinc_0029-4259"></a><a name="index-fzn_005frun_005ffile_002f_005b1_002c2_005d-_0028zinc_0029-4260"></a>
+<var>FznFile</var> is a FlatZinc<!-- /@w --> program file (extension defaults to <samp><span class="file">.fzn</span></samp>)
+and <var>Options</var> is a list of options as described above. This
+predicate is just a wrapper around <code>fzn_run_stream/[1,2]</code> handling
+stream opening and closing.
+
+     <p><em>Exceptions:</em>
+          <ul>
+<li>Exceptions related to the opening of <var>FznFile</var> for reading.
+
+          <li>A <em>type error</em> if the number of solutions to search for is not
+greater than zero nor the atom <code>all</code>.
+
+          <li>Exceptions regarding errors in <var>FznFile</var> (see <a href="Zinc-Errors.html#Zinc-Errors">Zinc Errors</a>).
+
+     </ul>
+
+   </dl>
+
+   <p>The next predicate can be used to write the constraints of a FlatZinc<!-- /@w -->
+program to a file, in the format of <code>library(clpfd)</code>.
+
+     <dl>
+<dt><code>fzn_dump(</code><var>+FznState</var><code>, </code><var>+File</var><code>)</code><dt><code>fzn_dump(</code><var>+FznState</var><code>, </code><var>+Options</var><code>, </code><var>+File</var><code>)</code><dd><a name="index-fzn_005fdump_002f_005b2_002c3_005d-_0028zinc_0029-4261"></a><a name="index-fzn_005fdump_002f_005b2_002c3_005d-_0028zinc_0029-4262"></a>
+<var>FznState</var> is a FlatZinc<!-- /@w --> state initialized with respect to some
+FlatZinc<!-- /@w --> program and <var>File</var> is a writable file (extension
+defaults to <samp><span class="file">.pl</span></samp>).  Writes the constraints of <var>FznState</var> to
+<var>File</var> in the format of <code>library(clpfd)</code>.
+
+     <p><var>Options</var> is a list containing zero or more of the following
+(currently, this is the only available option):
+
+          <dl>
+<dt><code>variables(</code><var>ListOfVarDef</var><code>)</code><dd><a name="index-variables_002f1-_0028zinc-option_0029-4263"></a>where <var>ListOfVarDef</var> is a list of elements of the form
+<var>Id</var>=<var>Var</var> where <var>Id</var> is a FlatZinc<!-- /@w --> identifier and
+<var>Var</var> is a Prolog variable. Means that <var>Var</var> is unified with the
+representation of <var>Id</var> after the FlatZinc<!-- /@w --> program is loaded and that
+<var>Id</var>=<var>Var</var> is included in a list of arguments to <code>query/1</code>
+that is written to <var>File</var>. Default is
+<var>ListOfVarDef</var>=<code>[vars=Vars]</code>, with the meaning that <var>Vars</var>
+is a list containing all variables of the FlatZinc<!-- /@w --> state, in the order
+they were introduced.
+
+     </dl>
+
+     <p><em>Exceptions:</em> Exceptions related to the opening of <var>File</var>
+for writing.
+
+   </dl>
+
+   <p>Consider again the FlatZinc<!-- /@w --> program <code>queen4.fzn</code> described above
+and the following goal at the Prolog top level:
+
+<pre class="example">     | ?- <kbd>fzn_load_file(library('zinc/examples/queen4'), Queen4State),</kbd>
+          <kbd>fzn_dump(Queen4State, [variables([q=Q])], queen4).</kbd>
+</pre>
+   <p>The file <code>queen4.pl</code> then contains the following:
+
+<pre class="example">
+                                  <div align="right"><em>queen4.pl</em>
+     </div>
+     :- use_module(library(clpfd)).
+     
+     query([q=[A,B,C,D]]) :-
+             true,
+             domain([A,B,C,D], 1, 4),
+             scalar_product([1,-1], [A,B], #\=, -1),
+             scalar_product([1,-1], [A,B], #\=, 1),
+             scalar_product([1,-1], [A,C], #\=, -2),
+             scalar_product([1,-1], [A,C], #\=, 2),
+             scalar_product([1,-1], [A,D], #\=, -3),
+             scalar_product([1,-1], [A,D], #\=, 3),
+             scalar_product([1,-1], [B,C], #\=, -1),
+             scalar_product([1,-1], [B,C], #\=, 1),
+             scalar_product([1,-1], [B,D], #\=, -2),
+             scalar_product([1,-1], [B,D], #\=, 2),
+             scalar_product([1,-1], [C,D], #\=, -1),
+             scalar_product([1,-1], [C,D], #\=, 1),
+             A#\=B,
+             A#\=C,
+             A#\=D,
+             B#\=C,
+             B#\=D,
+             C#\=D.
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FlatZinc-Exported-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FlatZinc-Exported-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

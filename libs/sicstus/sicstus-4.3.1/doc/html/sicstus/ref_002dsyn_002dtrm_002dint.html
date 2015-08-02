@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+<title>ref-syn-trm-int - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsyn_002dtrm.html#ref_002dsyn_002dtrm" title="ref-syn-trm">
+<link rel="prev" href="ref_002dsyn_002dtrm_002dove.html#ref_002dsyn_002dtrm_002dove" title="ref-syn-trm-ove">
+<link rel="next" href="ref_002dsyn_002dtrm_002dflo.html#ref_002dsyn_002dtrm_002dflo" title="ref-syn-trm-flo">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-syn-trm-int"></a>
+<a name="ref_002dsyn_002dtrm_002dint"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dsyn_002dtrm_002dflo.html#ref_002dsyn_002dtrm_002dflo">ref-syn-trm-flo</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dsyn_002dtrm_002dove.html#ref_002dsyn_002dtrm_002dove">ref-syn-trm-ove</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsyn_002dtrm.html#ref_002dsyn_002dtrm">ref-syn-trm</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.1.2.2 Integers</h5>
+
+<p><a name="index-integers_002c-syntax-of-463"></a>
+<a name="index-syntax_002c-of-integers-464"></a>
+
+   <p>The printed form of an integer consists of a sequence of digits
+optionally preceded by a minus sign (&lsquo;<samp><span class="samp">-</span></samp>&rsquo;).  These are normally
+interpreted as base 10 integers.  It is also possible to enter
+integers in base 2 (binary), 8 (octal), and 16 (hexadecimal); this is
+done by preceding the digit string by the string &lsquo;<samp><span class="samp">0b</span></samp>&rsquo;, &lsquo;<samp><span class="samp">0o</span></samp>&rsquo;,
+or &lsquo;<samp><span class="samp">0x</span></samp>&rsquo; respectively.  The characters A-F or a-f stand for digits
+greater than 9. 
+For example, the following tokens all represent the integer fifteen:
+<pre class="example">     15   0b1111   0o17  0xf
+</pre>
+   <p>Note that
+<pre class="example">     +525
+</pre>
+   <p class="noindent">is not a valid integer.
+
+   <p><a name="index-g_t0_0027-notation-for-character-conversion-465"></a>
+<a name="index-zero_002dquote-notation-for-character-conversion-466"></a>
+<a name="index-characters_002c-conversion-to-character-code-467"></a>
+There is also a special notation for character constants.  E.g.:
+
+<pre class="example">     0'A   0'\x41\   0'\101\
+</pre>
+   <p class="noindent">are all equivalent to <code>65</code> (the character code for &lsquo;<samp><span class="samp">A</span></samp>&rsquo;). 
+&lsquo;<samp><span class="samp">0'</span></samp>&rsquo; followed by any character except &lsquo;<samp><span class="samp">\</span></samp>&rsquo; (backslash) is
+thus read as an integer.  If &lsquo;<samp><span class="samp">0'</span></samp>&rsquo; is followed by &lsquo;<samp><span class="samp">\</span></samp>&rsquo;, the
+&lsquo;<samp><span class="samp">\</span></samp>&rsquo; denotes the start of an escape sequence with special meaning
+(see <a href="ref_002dsyn_002dsyn_002desc.html#ref_002dsyn_002dsyn_002desc">ref-syn-syn-esc</a>).
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dtrm_002dint.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dtrm_002dint.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

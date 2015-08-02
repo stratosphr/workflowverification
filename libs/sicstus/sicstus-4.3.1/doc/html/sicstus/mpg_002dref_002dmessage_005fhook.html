@@ -1,0 +1,104 @@
+<html lang="en">
+<head>
+<title>mpg-ref-message_hook - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dmemberchk.html#mpg_002dref_002dmemberchk" title="mpg-ref-memberchk">
+<link rel="next" href="mpg_002dref_002dmeta_005fpredicate.html#mpg_002dref_002dmeta_005fpredicate" title="mpg-ref-meta_predicate">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-message_hook"></a>
+<a name="mpg_002dref_002dmessage_005fhook"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dmeta_005fpredicate.html#mpg_002dref_002dmeta_005fpredicate">mpg-ref-meta_predicate</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dmemberchk.html#mpg_002dref_002dmemberchk">mpg-ref-memberchk</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.121 <code>message_hook/3</code> &nbsp;<!-- /@w --> <dfn>[hook]</dfn></h4>
+
+<p><a name="index-message_005fhook_002f3-_0028hook_002c-ref-page_0029-4694"></a><a name="index-message_005fhook_002f3-_0028hook_002c-ref-page_0029-4695"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- multifile user:message_hook/3.</code>
+
+   <p><code>user:message_hook(</code><var>+Severity</var><code>, </code><var>+MessageTerm</var><code>, </code><var>+Lines</var><code>)</code>
+
+   <p>Overrides the call to <code>print_message_lines/3</code> in <code>print_message/2</code>. 
+A way for the user to intercept the <var>Message</var> of type
+<var>Severity</var>, whose translations is <var>Lines</var>, before it is
+actually printed.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Severity</var><dd><dfn>one of </dfn><code>[informational,warning,error,help,silent]</code>
+
+     <br><dt><var>MessageTerm</var><dd><dfn>term</dfn>
+
+     <br><dt><var>Lines</var><dd><dfn>list of list of pair</dfn>
+
+     <p>Is of the form <code>[</code><var>Line1</var><code>, </code><var>Line2</var><code>, ...]</code>, where each
+<var>Linei</var> is of the form
+<code>[</code><var>Control_1-Args_1</var><code>,</code><var>Control_2-Args_2</var><code>, ...]</code>. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>After a message is parsed, but before the message is
+written, <code>print_message/2</code> calls
+
+<pre class="example">     user:message_hook(+Severity,+MsgTerm,+Lines)
+</pre>
+   <p>If the call to <code>user:message_hook/3</code> succeeds, <code>print_message/2</code>
+succeeds without further processing.  Otherwise the built-in message
+portrayal is used.  It is often useful to have a message hook that
+performs some action and then fails, allowing other message hooks to
+run, and eventually allowing the message to be printed as usual.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>An exception raised by this predicate causes
+an error message to be printed and then the original message is
+printed using the default message text and formatting.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmsg.html#ref_002dmsg">ref-msg</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dmessage_005fhook.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dmessage_005fhook.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,77 @@
+<html lang="en">
+<head>
+<title>obj-tcl - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dobjects.html#lib_002dobjects" title="lib-objects">
+<link rel="prev" href="obj_002dinh.html#obj_002dinh" title="obj-inh">
+<link rel="next" href="obj_002dtech.html#obj_002dtech" title="obj-tech">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="obj-tcl"></a>
+<a name="obj_002dtcl"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="obj_002dtech.html#obj_002dtech">obj-tech</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="obj_002dinh.html#obj_002dinh">obj-inh</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dobjects.html#lib_002dobjects">lib-objects</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.22.4 Term Classes</h4>
+
+<ul class="menu">
+<li><a accesskey="1" href="obj_002dtcl_002dstcl.html#obj_002dtcl_002dstcl">obj-tcl-stcl</a>:                         Simple Term Classes
+<li><a accesskey="2" href="obj_002dtcl_002drtrm.html#obj_002dtcl_002drtrm">obj-tcl-rtrm</a>:                         Restricted Term Classes
+<li><a accesskey="3" href="obj_002dtcl_002dtce.html#obj_002dtcl_002dtce">obj-tcl-tce</a>:                          Specifying a Term Class Essence
+</ul>
+
+<!-- label termclasses -->
+<p>Sometimes it is convenient to be able to send messages to ordinary
+Prolog terms as if they were objects.  Prolog terms are easier to
+create than objects, and unlike objects, they are automatically
+garbage collected (see <a href="obj_002dtech_002dlim.html#obj_002dtech_002dlim">obj-tech-lim</a>).  Of course,
+unlike objects, Prolog terms cannot be modified.  However,
+when a particular class of objects never needs to be dynamically
+modified, and doesn't need to be subclassed, it may be appropriate to
+define it as a <dfn>term class</dfn>.
+
+   <p>A term class is defined much like an ordinary class:  it begins with a
+&lsquo;<samp><span class="samp">:- class</span></samp>&rsquo; directive defining the class and its slots, follows with
+clauses defining the methods for this class, and ends with an &lsquo;<samp><span class="samp">:-
+end_class</span></samp>&rsquo; directive, the end of the file, or another &lsquo;<samp><span class="samp">:- class</span></samp>&rsquo;
+directive.  The only difference is in the form of the &lsquo;<samp><span class="samp">:- class</span></samp>&rsquo;
+directive introducing a term class definition.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dtcl.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dtcl.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,97 @@
+<html lang="en">
+<head>
+<title>mpg-ref-peek_byte - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dotherwise.html#mpg_002dref_002dotherwise" title="mpg-ref-otherwise">
+<link rel="next" href="mpg_002dref_002dpeek_005fchar.html#mpg_002dref_002dpeek_005fchar" title="mpg-ref-peek_char">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-peek_byte"></a>
+<a name="mpg_002dref_002dpeek_005fbyte"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dpeek_005fchar.html#mpg_002dref_002dpeek_005fchar">mpg-ref-peek_char</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dotherwise.html#mpg_002dref_002dotherwise">mpg-ref-otherwise</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.152 <code>peek_byte/[1,2]</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-peek_005fbyte_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4776"></a><a name="index-peek_005fbyte_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4777"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>peek_byte(</code><var>-Byte</var><code>)</code>
+
+   <p><code>peek_byte(</code><var>+Stream</var><code>, </code><var>-Byte</var><code>)</code>
+
+   <p>looks ahead for next input byte on the input stream <var>Stream</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Stream</var><dd><dfn>stream_object</dfn>, must be ground
+
+     <p>A valid input <em>binary</em> stream, defaults to the current input stream.
+
+     <br><dt><var>Byte</var><dd><dfn>byte</dfn> or -1
+
+     <p>The resulting next input byte available on the stream. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p><code>peek_byte/[1,2]</code> looks ahead of the next input byte of the
+specified input stream and unifies the <dfn>byte</dfn> with <var>Byte</var>. 
+The peeked byte is still available for subsequent input on the
+stream.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Stream errors (see <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>), plus:
+
+     <dl>
+<dt><code>type_error</code><dd><var>Byte</var> is an invalid byte.
+
+     <br><dt><code>permission_error</code><dd>Trying to read beyond end of <var>Stream</var>
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002diou_002dcin.html#ref_002diou_002dcin">ref-iou-cin</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dpeek_005fbyte.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dpeek_005fbyte.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,122 @@
+<html lang="en">
+<head>
+<title>Terminology - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dcomclient.html#lib_002dcomclient" title="lib-comclient">
+<link rel="prev" href="Preliminaries.html#Preliminaries" title="Preliminaries">
+<link rel="next" href="COM-Client-Predicates.html#COM-Client-Predicates" title="COM Client Predicates">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Terminology"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="COM-Client-Predicates.html#COM-Client-Predicates">COM Client Predicates</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Preliminaries.html#Preliminaries">Preliminaries</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dcomclient.html#lib_002dcomclient">lib-comclient</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.13.2 Terminology</h4>
+
+     <dl>
+<dt><dfn>ProgID</dfn><dd><a name="index-ProgID-3205"></a>A human readable name for an object class, typically as an atom,
+e.g. <code>'Excel.Application'</code>.
+
+     <br><dt><dfn>CLSID </dfn><span class="roman">(Class Identifier)</span><dd><a name="index-CLSID-3206"></a>A globally unique identifier of a class, typically as an atom,
+e.g. <code>'{00024500-0000-0000-C000-000000000046}'</code>.
+
+     <p>Where it makes sense a <var>ProgID</var> can be used instead of the
+corresponding <var>CLSID</var>.
+
+     <br><dt><dfn>IID </dfn><span class="roman">(Interface Identifier)</span><dd><a name="index-IID-3207"></a>A globally unique identifier of an
+interface. Currently only the <code>'IDispatch'</code> interface is used so you
+do not have to care about this.
+
+     <br><dt><dfn>IName </dfn><span class="roman">(Interface Name)</span><dd><a name="index-IName-3208"></a>The human readable name of an interface, e.g. 
+<code>'IDispatch'</code>.
+
+     <p>Where it makes sense an <var>IName</var> can be used instead of the
+corresponding <var>IID</var>.
+
+     <br><dt><dfn>Object</dfn><dd><a name="index-Object-3209"></a>A COM-object (or rather a pointer to an interface).
+
+     <br><dt><dfn>ComValue</dfn><dd><a name="index-ComValue-3210"></a>A representation that can be passed from COM to SICStus Prolog. Currently numeric types,
+booleans (treated as 1 for <code>true</code>, 0 for <code>false</code>), strings,
+and COM objects.
+
+     <br><dt><dfn>ComInArg</dfn><dd><a name="index-ComInArg-3211"></a>A representation that can be passed as an input argument to COM, currently
+one of:
+          <dl>
+<dt>atom<dd>  Passed as a string (BSTR)
+<br><dt>numeric<dd>  Passed as the corresponding number
+<br><dt>list<dd>  A code-list is treated as a string. 
+<br><dt>COM object<dd>A compound term referring to a COM object. 
+<br><dt>compound<dd> Other compound terms are presently illegal but  will be used to extend
+the permitted types. 
+</dl>
+
+     <!-- [PM] 3.10.1b1 restriction lifted (or rather, comclient_is_object fixed(!)). -->
+     <!-- It is, at present, not possible to pass an object as an -->
+     <!-- argument. This restriction will be lifted. -->
+     <br><dt><dfn>SimpleCallSpec</dfn><dd><a name="index-SimpleCallSpec-3212"></a>Denotes a single method and its arguments. As an example, to call
+the method named <code>foo</code> with the arguments <code>42</code> and the
+string <code>"bar"</code> the <var>SimpleCallSpec</var> would be the compound
+term <code>foo(42,'bar')</code> or, as an alternative, <code>foo(42,"bar")</code>.
+
+     <p>The arguments of the compound term are treated as follows:
+          <dl>
+<dt><dfn>ComInArg</dfn><dd><a name="index-ComInArg-3213"></a>See above
+<br><dt><dfn>variable</dfn><dd><a name="index-variable-3214"></a>The argument is assumed to be output. The variable is bound to
+the resulting representation when the method returns.
+
+          <br><dt><dfn>mutable</dfn><dd><a name="index-mutable-3215"></a>The argument is assumed to be input/output. The representation of the
+mutable is passed to the method and when the method returns the
+mutable is updated with the corresponding return representation.
+</dl>
+
+     <br><dt><dfn>CallSpec</dfn><dd><a name="index-CallSpec-3216"></a>Either a SimpleCallSpec or a list of CallSpecs. If it is a
+list then all but the last SimpleCallSpec are assumed to denote
+method calls that return a COM-object. So for instance the VB statement
+<code>app.workbooks.add</code> can be expressed either as:
+     <pre class="example">          comclient_invoke_method_proc(App, [workbooks, add])
+</pre>
+     <p class="noindent">or as
+     <pre class="example">          comclient_invoke_method_fun(App, workbooks, WorkBooks),
+          comclient_invoke_method_proc(WorkBooks, add),
+          comclient_release(WorkBooks)
+</pre>
+     </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Terminology.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Terminology.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

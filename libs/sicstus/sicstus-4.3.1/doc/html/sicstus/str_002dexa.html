@@ -1,0 +1,152 @@
+<html lang="en">
+<head>
+<title>str-exa - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dstructs.html#lib_002dstructs" title="lib-structs">
+<link rel="prev" href="str_002dtip.html#str_002dtip" title="str-tip">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="str-exa"></a>
+<a name="str_002dexa"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="str_002dtip.html#str_002dtip">str-tip</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dstructs.html#lib_002dstructs">lib-structs</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.35.10 Example</h4>
+
+<p>The following example shows how to use <code>library(structs)</code> in a
+simple package for handling integer arrays.  We define a module
+<code>minivec</code> with exported predicates for creating and disposing
+arrays, accessing its elements, and computing their sum.  The summing
+operation is implemented in C and the rest in Prolog.  Arrays are
+created using the <code>array(</code><var>Type</var><code>)</code> foreign type.
+
+   <p>Note that the type declaration <code>int32</code> does not have to be given
+in the C source code, as it appears in the automatically generated
+header file <samp><span class="file">minivec_glue.h</span></samp>. 
+Note also how the foreign type specification <code>+pointer(int_array)</code>
+corresponds to the C type declaration <code>int32 *</code>.
+
+<pre class="example">
+                               <div align="right"><em>% minivec.pl</em>
+     </div>
+     :- module(minivec, [
+             new_array/2,
+             get_array/3,
+             put_array/3,
+             dispose_array/1,
+             sum_array/2
+             ]).
+     
+     :- load_files(library(str_decl), [when(compile_time)]).
+     :- use_module(library(structs)).
+     
+     :- foreign_type
+             int32           = integer_32,
+             int_array       = array(int32).
+     
+     foreign(c_sum_array, c_sum_array(+integer,
+                                      +pointer(int_array),
+                                      [-integer])).
+     
+     foreign_resource(minivec, [c_sum_array]).
+     
+     :- load_foreign_resource(minivec).
+     
+     new_array(Size, array(Size,Mem)) :-
+             new(int_array, Size, Mem).
+     
+     get_array(Index, array(_,Mem), Value) :-
+             get_contents(Mem, Index, Value).
+     
+     put_array(Index, array(_,Mem), Value) :-
+             put_contents(Mem, Index, Value).
+     
+     dispose_array(array(_,Mem)) :-
+             dispose(Mem).
+     
+     sum_array(array(Size,Mem), Sum) :-
+             c_sum_array(Size, Mem, Sum).
+</pre>
+   <pre class="example">
+                            <div align="right"><em>/* minivec.c */</em>
+     </div>
+     #include "minivec_glue.h"
+     
+     SP_integer c_sum_array(SP_integer cnt, int32 *mem)
+     {
+       int i;
+       SP_integer sum = 0;
+     
+       for (i=0; i&lt;cnt; i++)
+         sum += mem[i];
+       return sum;
+     }
+</pre>
+   <pre class="example">
+                                  <div align="right"><em># session</em>
+     </div>
+     % <kbd>splfr --struct minivec.pl minivec.c</kbd>
+     % <kbd>sicstus -l minivec</kbd>
+     % compiling /home/matsc/sicstus4/Suite/minivec.pl...
+     % [...]
+     % compiled /home/matsc/sicstus4/Suite/minivec.pl in module minivec, 30 msec 68388 bytes
+     SICStus 4.3.1 ...
+     Licensed to SICS
+     | ?- <kbd>new_array(4, A),</kbd>
+          <kbd>put_array(0,A,1),</kbd>
+          <kbd>put_array(1,A,10),</kbd>
+          <kbd>put_array(2,A,100),</kbd>
+          <kbd>put_array(3,A,1000),</kbd>
+          <kbd>sum_array(A,S),</kbd>
+          <kbd>dispose_array(A).</kbd>
+     A = array(4,int_array(1264224)),
+     S = 1111
+</pre>
+   <p>A fragment from the generated header file:
+
+<pre class="example">
+                       <div align="right"><em>/* minivec_glue.h */</em>
+     </div>
+     #include &lt;sicstus/sicstus.h&gt;
+     #include &lt;stdlib.h&gt;
+     typedef int int32;
+     typedef int32 *(int_array)/* really an unknown-size array */;
+     extern SP_integer c_sum_array( SP_integer, int32 *);
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/str_002dexa.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/str_002dexa.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

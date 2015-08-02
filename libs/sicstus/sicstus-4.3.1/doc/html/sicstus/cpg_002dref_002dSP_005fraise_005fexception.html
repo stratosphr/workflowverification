@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+<title>cpg-ref-SP_raise_exception - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSP_005fquery_005fcut_005ffail.html#cpg_002dref_002dSP_005fquery_005fcut_005ffail" title="cpg-ref-SP_query_cut_fail">
+<link rel="next" href="cpg_002dref_002dSP_005fread_005ffrom_005fstring.html#cpg_002dref_002dSP_005fread_005ffrom_005fstring" title="cpg-ref-SP_read_from_string">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-SP_raise_exception"></a>
+<a name="cpg_002dref_002dSP_005fraise_005fexception"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002dSP_005fread_005ffrom_005fstring.html#cpg_002dref_002dSP_005fread_005ffrom_005fstring">cpg-ref-SP_read_from_string</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSP_005fquery_005fcut_005ffail.html#cpg_002dref_002dSP_005fquery_005fcut_005ffail">cpg-ref-SP_query_cut_fail</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.86 <code>SP_raise_exception()</code></h4>
+
+<p><a name="index-SP_005fraise_005fexception_0028_0029-_0028C-function_0029-5197"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     
+     void
+     SP_raise_exception(SP_term_ref term);
+</pre>
+   <p>Raises an exception in the scope of Prolog calling C.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>term</var><dd>The SP_term_ref whose representation will be the exception term.
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>The exception will be stored as pending.  This function is normally
+used in the context of a call from Prolog to C, and will cause the
+exception to be propagated to Prolog on return from the call. 
+The effect is as if <code>raise_exception/1</code> was called with the term as argument.
+
+   <p><strong>Please note</strong>: this should only be called right before
+returning to Prolog.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Exception-Handling-in-C.html#Exception-Handling-in-C">Exception Handling in C</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fraise_005fexception.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fraise_005fexception.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

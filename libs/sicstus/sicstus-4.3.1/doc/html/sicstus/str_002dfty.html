@@ -1,0 +1,146 @@
+<html lang="en">
+<head>
+<title>str-fty - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dstructs.html#lib_002dstructs" title="lib-structs">
+<link rel="next" href="str_002dcft.html#str_002dcft" title="str-cft">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="str-fty"></a>
+<a name="str_002dfty"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="str_002dcft.html#str_002dcft">str-cft</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dstructs.html#lib_002dstructs">lib-structs</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.35.1 Foreign Types</h4>
+
+<ul class="menu">
+<li><a accesskey="1" href="str_002dfty_002ddty.html#str_002dfty_002ddty">str-fty-dty</a>:                          Declaring Types
+</ul>
+
+<!-- label foreign types -->
+<p>There are two sorts of objects that Prolog may want to handle:
+<dfn>atomic</dfn> and <dfn>compound</dfn>.  <dfn>Atomic</dfn> objects include numbers and
+atoms, and <dfn>compound</dfn> objects include data structures and arrays. 
+To be more precise about it, an atomic type is defined by one of the
+following:
+
+     <dl>
+<dt><code>integer</code><dd>signed integer, large enough to hold a pointer.
+
+     <br><dt><code>integer_64 &nbsp;<!-- /@w --> </code><strong>since release 4.3</strong><dd>64 bit signed integer.
+
+     <br><dt><code>integer_32</code><dd>32 bit signed integer.
+
+     <br><dt><code>integer_16</code><dd>16 bit signed integer.
+
+     <br><dt><code>integer_8</code><dd>8 bit signed integer.
+
+     <br><dt><code>unsigned</code><dd>unsigned integer, large enough to hold a pointer.
+
+     <br><dt><code>unsigned_64 &nbsp;<!-- /@w --> </code><strong>since release 4.3</strong><dd>64 bit unsigned integer.
+
+     <br><dt><code>unsigned_32</code><dd>32 bit unsigned integer.
+
+     <br><dt><code>unsigned_16</code><dd>16 bit unsigned integer.
+
+     <br><dt><code>unsigned_8</code><dd>8 bit unsigned integer.
+
+     <br><dt><code>float</code><dd>64 bit floating-point number.
+
+     <br><dt><code>float_32</code><dd>32 bit floating-point number.
+
+     <br><dt><code>atom</code><dd>32 bit Prolog atom number.  Unique for different atoms, but not
+consistent across Prolog sessions.  The atom is made non garbage
+collectable. See <a href="Atoms-in-C.html#Atoms-in-C">Atoms in C</a>.
+
+     <br><dt><code>string</code><dd>A pointer to an encoded string.  Represented as an atom in Prolog. 
+<strong>Please note</strong>: This string must not be overwritten, as it
+constitutes the print name of an atom.  Also, the atom and
+string are made non garbage collectable. See <a href="Atoms-in-C.html#Atoms-in-C">Atoms in C</a>.
+
+     <br><dt><code>address</code><dd>An untyped pointer.  Like <code>pointer(_)</code>, but <code>library(structs)</code>
+does no type checking for you. Represented as a Prolog integer.
+
+     <br><dt><code>opaque</code><dd>Unknown type.  Cannot be represented in Prolog.  A pointer to
+an opaque object may be manipulated. 
+</dl>
+
+   <p>Compound types are defined by one of the following:
+
+     <dl>
+<dt><code>pointer(</code><var>Type</var><code>)</code><dd>a pointer to a thing of type <var>Type</var>.
+
+     <br><dt><code>array(</code><var>Num</var><code>,</code><var>Type</var><code>)</code><dd>A chunk of memory holding <var>Num</var> (an integer) things of type
+<var>Type</var>.
+
+     <br><dt><code>array(</code><var>Type</var><code>)</code><dd>A chunk of memory holding some number of things of
+type <var>Type</var>.  This type does not allow bounds checking, so it
+should be used with great care.  It is also not possible to use this
+sort of array as an element in an array, or in a struct or union.
+
+     <br><dt><code>struct(</code><var>Fields</var><code>)</code><dd>A compound structure.  <var>Fields</var> is a list
+of <var>Field</var>_name:<var>Type</var> pairs.  Each <var>Field</var>_name is an
+atom, and each <var>Type</var> is any valid type.
+
+     <br><dt><code>union(</code><var>Members</var><code>)</code><dd>A union as in C.  <var>Members</var> is a list of
+<var>Member</var>_name:<var>Type</var> pairs. Each <var>Member</var>_name is an
+atom, and each <var>Type</var> is any valid type.  The space allocated for
+one of these is the maximum of the spaces needed for each member.  It
+is not permitted to store into a union (you must get a member of the
+union to store into, as in C). 
+</dl>
+
+   <p>C programmers will recognize that the kinds of data supported by
+this package were designed for the C language.  They should also
+work for other languages, but programmers must determine the proper
+type declarations in those languages.  The table above makes clear
+the storage requirements and interpretation of each type.
+
+   <p>Note that there is one important difference between the <code>structs</code> package
+and C:  the <code>structs</code> package permits declarations of pointers to arrays. 
+A pointer to an array is distinguished from a pointer to a single
+element.  For example
+<pre class="example">     pointer(array(integer_8))
+</pre>
+   <p class="noindent">is probably a more appropriate declaration of a C string type than
+<pre class="example">     pointer(integer_8)
+</pre>
+   <p class="noindent">which is the orthodox way to declare a string in C.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/str_002dfty.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/str_002dfty.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

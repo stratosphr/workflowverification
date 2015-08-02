@@ -1,0 +1,107 @@
+<html lang="en">
+<head>
+<title>Zinc Notes - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dzinc.html#lib_002dzinc" title="lib-zinc">
+<link rel="next" href="FlatZinc.html#FlatZinc" title="FlatZinc">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Zinc-Notes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="FlatZinc.html#FlatZinc">FlatZinc</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dzinc.html#lib_002dzinc">lib-zinc</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.46.1 Notes</h4>
+
+     <dl>
+<dt><em>Domain variables</em><dd>Only variables with finite integer domains are supported. This includes
+boolean variables which are considered finite integer domain variables
+with the domain <code>0..1</code>. Domain variables declared to be of type
+<code>var int</code> are initially given the finite integer domain
+<code>inf..sup</code>, and are given maximally wide bounded domains before any
+search is performed on them, as well as before certain constraints that
+demand bounded domains are posted on them.
+
+     <br><dt><em>Ground set values</em><dd>Although set <dfn>variables</dfn> are not supported, ground set <dfn>values</dfn>
+are. For example, the MiniZinc<!-- /@w --> global constraint <code>sum_pred/4</code>
+takes as second argument an array of such ground set values.
+
+     <br><dt><em>Solve annotations</em><dd>
+          <ul>
+<li>The solve annotations currently recognized are <code>bool_search</code>,
+<code>int_search</code>, <code>labelling_ff</code>, and <code>seq_search</code>.
+
+          <li>The FlatZinc<!-- /@w --> specification describes several <em>exploration
+strategies</em>. Currently, the only recognized exploration strategies are
+<code>complete</code> and <code>fail</code>.
+
+          <li>Variables not included in any solve or <code>var_is_introduced</code>
+annotation are labeled with a default first-fail domain splitting
+heuristic.  This corresponds to <code>labeling/2</code> of
+<code>library(clpfd)</code> with the option list <code>[ff,bisect]</code>.
+
+          <li>The choice method <code>indomain_random</code> as described in the
+FlatZinc<!-- /@w --> specification uses <code>random_member/2</code> of
+<code>library(random)</code>. The random generator of SICStus is initialized
+using the same seed on each start up, meaning that the same sequence
+will be tried for <code>indomain_random</code> on each start up. This
+behavior can be changed by setting a different random seed using
+<code>setrand/1</code> of <code>library(random)</code>.
+
+     </ul>
+
+     <br><dt><em>Constraint annotations</em><dd>Constraint annotations of the form <code>domain</code>, <code>bounds</code>, and
+<code>representation</code> are recognized in relevant
+FlatZinc<!-- /@w -->-to-<code>library(clpfd)</code> constraint translations. Any other
+constraint annotation is ignored.
+
+     <br><dt><em>Variable annotations</em><dd>The following variable annotations are recognized. 
+Any other variable annotation is ignored:
+
+          <dl>
+<dt><code>output_var &nbsp;<!-- /@w --> </code><strong>since release 4.2</strong><dd>the variable may be written on the current output stream.
+
+          <br><dt><code>output_array &nbsp;<!-- /@w --> </code><strong>since release 4.2</strong><dd>the variable array may be written on the current output stream.
+
+          <br><dt><code>var_is_introduced</code><dd>the variable will not be considered in any
+default labeling (such as when the search annotations don't include all variables)
+
+     </dl>
+     </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Zinc-Notes.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Zinc-Notes.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,127 @@
+<html lang="en">
+<head>
+<title>mpg-ref-retract - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002drestore.html#mpg_002dref_002drestore" title="mpg-ref-restore">
+<link rel="next" href="mpg_002dref_002dretractall.html#mpg_002dref_002dretractall" title="mpg-ref-retractall">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-retract"></a>
+<a name="mpg_002dref_002dretract"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dretractall.html#mpg_002dref_002dretractall">mpg-ref-retractall</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002drestore.html#mpg_002dref_002drestore">mpg-ref-restore</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.193 <code>retract/1</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-retract_002f1-_0028built_002din_002c-ref-page_0029-4891"></a><a name="index-retract_002f1-_0028built_002din_002c-ref-page_0029-4892"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>retract(</code><var>+Clause</var><code>)</code>
+
+   <p>Removes the first occurrence of dynamic clause <var>Clause</var> from
+module <var>M</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:Clause</var><dd><dfn>callable</dfn>, must be nonvar
+
+     <p>A valid Prolog clause. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p><code>retract/1</code> erases the first clause in the database that matches
+<var>Clause</var>.  <var>Clause</var> is retracted in module <var>M</var> if
+specified.  Otherwise, <var>Clause</var> is retracted in the source module.
+
+   <p><code>retract/1</code> is nondeterminate. 
+If control backtracks into
+the call to <code>retract/1</code>, successive clauses matching <var>Clause</var> are
+erased.  If and when no clauses match, the call to <code>retract/1</code> fails.
+
+   <p>If the predicate did not previously exist, then
+it is created as a dynamic predicate and <code>retract/1</code> fails.
+
+   <p><var>Clause</var> must be of one of the forms:
+
+     <ul>
+<li><var>Head</var>
+<li><var>Head</var><code> :- </code><var>Body</var>
+<li><var>Module</var><code>:</code><var>Clause</var>
+</ul>
+
+   <p>where <var>Head</var> is of type callable and the principal functor of <var>Head</var> is the
+name of a dynamic procedure.  If specified, <var>Module</var> must be an atom.
+
+   <p><code>retract(</code><var>Head</var><code>)</code> means retract the unit-clause <var>Head</var>.  The exact
+same effect can be achieved by <code>retract((</code><var>Head</var><code> :- true))</code>.
+
+   <p><var>Body</var> may be uninstantiated, in which case it will match any body.  In
+the case of a unit-clause it will be bound to <code>true</code>.  Thus, for
+example,
+
+<pre class="example">     | ?- <kbd>retract((foo(X) :- Body)), fail.</kbd>
+</pre>
+   <p>is guaranteed to retract all the clauses for <code>foo/1</code>, including any
+unit-clauses, providing of course that <code>foo/1</code> is dynamic.
+
+<h4 class="subheading">Backtracking</h4>
+
+<p>Can be used to retract all matching clauses through backtracking.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>Head</var> (in <var>Clause</var>) or <var>M</var> is uninstantiated.
+
+     <br><dt><code>type_error</code><dd><var>Head</var> is not a callable, or <var>M</var> is
+not an atom, or <var>Body</var> is not a valid clause body.
+
+     <br><dt><code>permission_error</code><dd>the procedure corresponding to <var>Head</var> is not dynamic
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>retractall/1</code>, <a href="ref_002dmdb_002drcd.html#ref_002dmdb_002drcd">ref-mdb-rcd</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dretract.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dretract.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

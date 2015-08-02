@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+<title>CLPQR Variable Ordering - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="CLPQR-Projection.html#CLPQR-Projection" title="CLPQR Projection">
+<link rel="next" href="CLPQR-Turning-Answers-into-Terms.html#CLPQR-Turning-Answers-into-Terms" title="CLPQR Turning Answers into Terms">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CLPQR-Variable-Ordering"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CLPQR-Turning-Answers-into-Terms.html#CLPQR-Turning-Answers-into-Terms">CLPQR Turning Answers into Terms</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="CLPQR-Projection.html#CLPQR-Projection">CLPQR Projection</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.11.5.1 Variable Ordering</h5>
+
+<p><a name="index-ordering_002f1-_0028clpqr_0029-3185"></a><a name="index-ordering_002f1-_0028clpqr_0029-3186"></a>
+In general, there are many ways to express the same linear relationship
+between variables. clp(Q,R) does not care to distinguish between
+them, but the user might. The predicate
+<code>ordering(</code><var>+Spec</var><code>)</code> gives you some control over the
+variable ordering. Suppose that instead of <var>B</var>, you want
+<var>Mp</var> to be the defined variable:
+<pre class="example">     clp(r) ?- <kbd>mg(P,12,0.01,B,Mp).</kbd>
+     
+     {B=1.1268250301319698*P-12.682503013196973*Mp}
+</pre>
+   <p>This is achieved with:
+<pre class="example">     clp(r) ?- <kbd>mg(P,12,0.01,B,Mp), ordering([Mp]).</kbd>
+     
+     {Mp= -0.0788487886783417*B+0.08884878867834171*P}
+</pre>
+   <p>One could go one step further and require <var>P</var> to appear before
+(to the left of) <var>B</var> in an addition:
+<pre class="example">     clp(r) ?- <kbd>mg(P,12,0.01,B,Mp), ordering([Mp,P]).</kbd>
+     
+     {Mp=0.08884878867834171*P-0.0788487886783417*B}
+</pre>
+   <p><var>Spec</var> in <code>ordering(</code><var>+Spec</var><code>)</code> is either a list of
+variables with the intended ordering, or of the form
+<var>A</var><code>&lt;</code><var>B</var>.  The latter form means that <var>A</var> goes to the
+left of <var>B</var>.  In fact, <code>ordering([A,B,C,D])</code> is shorthand for:
+<pre class="example">     ordering(A &lt; B), ordering(A &lt; C), ordering(A &lt; D),
+     ordering(B &lt; C), ordering(B &lt; D),
+     ordering(C &lt; D)
+</pre>
+   <p>The ordering specification only affects the final presentation of the
+constraints. For all other operations of clp(Q,R), the ordering is immaterial. 
+Note that <code>ordering/1</code> acts like a constraint: you can put it anywhere
+in the computation, and you can submit multiple specifications.
+<pre class="example">     clp(r) ?- <kbd>ordering(B &lt; Mp), mg(P,12,0.01,B,Mp).</kbd>
+     
+     {B= -12.682503013196973*Mp+1.1268250301319698*P}
+     
+     clp(r) ?- <kbd>ordering(B &lt; Mp), mg(P,12,0.01,B,Mp), ordering(P &lt; Mp).</kbd>
+     
+     {P=0.8874492252651537*B+11.255077473484631*Mp}
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-Variable-Ordering.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-Variable-Ordering.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

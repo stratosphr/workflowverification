@@ -1,0 +1,91 @@
+<html lang="en">
+<head>
+<title>Execution - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Run-Intro.html#Run-Intro" title="Run Intro">
+<link rel="prev" href="Undefined-Predicates.html#Undefined-Predicates" title="Undefined Predicates">
+<link rel="next" href="Exiting.html#Exiting" title="Exiting">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Execution"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Exiting.html#Exiting">Exiting</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Undefined-Predicates.html#Undefined-Predicates">Undefined Predicates</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Run-Intro.html#Run-Intro">Run Intro</a>
+<hr>
+</div>
+
+<h3 class="section">3.7 Program Execution And Interruption</h3>
+
+<p><a name="index-execution-307"></a>
+Execution of a program is started by giving the system a
+query that contains a call to one of the program's
+predicates.
+
+   <p>Only when execution of one query is complete does the system
+become ready for another query.  However, one may interrupt the
+normal execution of a query by typing <kbd>^C</kbd>.  This <kbd>^C</kbd>
+interruption has the effect of suspending the execution, and the
+following message is displayed:
+
+<pre class="example">     Prolog interruption (h or ? for help) ?
+</pre>
+   <p>At this point, the development system accepts one-letter commands
+corresponding to certain actions.  To execute an action simply type the
+corresponding character (lower or upper case) followed by &lt;RET&gt;. 
+The available commands in development systems are:
+
+     
+<a name="index-a-_0028interruption-command_0029-308"></a>
+<dl><dt><kbd>a</kbd><dd>aborts the current computation.
+
+     <p><a name="index-c-_0028interruption-command_0029-309"></a><br><dt><kbd>c</kbd><dd>continues the execution.
+
+     <p><a name="index-e-_0028interruption-command_0029-310"></a><br><dt><kbd>e</kbd><dd>exits from SICStus Prolog, closing all files.
+
+     <p><a name="index-h-_0028interruption-command_0029-311"></a><br><dt><kbd>h</kbd><dd><a name="index-g_t_003f-_0028interruption-command_0029-312"></a><dt><kbd>?</kbd><dd>lists available commands.
+
+     <p><a name="index-b-_0028interruption-command_0029-313"></a><br><dt><kbd>b</kbd><dd>invokes a recursive top-level.
+
+     <p><a name="index-d-_0028interruption-command_0029-314"></a><br><dt><kbd>d</kbd><dd><a name="index-z-_0028interruption-command_0029-315"></a><dt><kbd>z</kbd><dd><a name="index-t-_0028interruption-command_0029-316"></a><dt><kbd>t</kbd><dd>switch on the debugger.  See <a href="Debug-Intro.html#Debug-Intro">Debug Intro</a>. 
+</dl>
+
+   <p>If the standard input stream is not connected to the terminal,
+e.g. by redirecting standard input to a file or a pipe, the above
+<kbd>^C</kbd> interrupt options are not available.  Instead, typing <kbd>^C</kbd>
+causes SICStus Prolog to exit, and no terminal prompts are printed.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Execution.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Execution.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,224 @@
+<html lang="en">
+<head>
+<title>obj-scl-slt - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="obj_002dscl.html#obj_002dscl" title="obj-scl">
+<link rel="prev" href="obj_002dscl_002dscp.html#obj_002dscl_002dscp" title="obj-scl-scp">
+<link rel="next" href="obj_002dscl_002dmeth.html#obj_002dscl_002dmeth" title="obj-scl-meth">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="obj-scl-slt"></a>
+<a name="obj_002dscl_002dslt"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="obj_002dscl_002dmeth.html#obj_002dscl_002dmeth">obj-scl-meth</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="obj_002dscl_002dscp.html#obj_002dscl_002dscp">obj-scl-scp</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="obj_002dscl.html#obj_002dscl">obj-scl</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.22.2.2 Slots</h5>
+
+<p>A slot description has the form
+
+<pre class="example">     <var>Visibility</var> <var>SlotName</var>:<var>SlotType</var> = <var>InitialValue</var>
+</pre>
+   <p class="noindent">where <var>Visibility</var> and &lsquo;<samp><span class="samp">= </span><var>InitialValue</var></samp>&rsquo; are optional. Each slot
+of a class must have a distinct name, given by the atom
+<var>SlotName</var>. The <var>Visibility</var>, <var>SlotType</var> and <var>InitialValue</var>
+parts of the slot description are described separately.
+
+<h4 class="subheading">Visibility</h4>
+
+<p>A slot's visibility is either private, protected, or public. If its visibility
+is not specified, the slot is private. The following example shows
+all four possibilities:
+
+<pre class="example">     :- class example = [w:integer,
+                         private   x:integer,
+                         protected y:integer,
+                         public    z:integer]
+</pre>
+   <p>Slot <code>z</code> is public, <code>y</code> is protected, and both <code>x</code> and <code>w</code> are
+private.
+
+   <p>Direct access to private slots is strictly limited to the methods of
+the class.  Any other access to such slots must be accomplished
+through these methods.  Making slots private will allow you
+later to change how you represent your class, adding and removing
+slots, without having to change any code that uses your class.  You
+need only modify the methods of the class to accomodate that change. 
+This is known as <dfn>information hiding</dfn>.
+
+   <p>Protected slots are much like private slots, except that they can also
+be directly accessed by subclasses.  This means that if you wish to
+modify the representation of your class, you will need to examine not
+only the class itself, but also its subclasses.
+
+   <p>Public slots, in contrast, can be accessed from anywhere.  This is
+accomplished through automatically generated get and put methods named
+for the slot and taking one argument.  In the example above, our
+<code>example</code> class would automatically support a get and put method
+named <code>z/1</code>.  Note, however, that unlike other object oriented
+programming languages that support them, public slots in SICStus
+Objects don't violate information hiding.  This is because you may
+easily replace a public slot with your own get and put methods of the
+same name.  In this sense, a public slot is really only a protected
+slot with automatically generated methods to fetch and store its
+contents.
+
+   <p>Within a method clause, any of the class's slots can be accessed via
+the <code>fetch_slot/2</code> and <code>store_slot/2</code> predicates. These are the
+only way to access private and protected slots. They may be used to
+define get and put methods for the class, which provide controlled
+access to the protected slots. But, they can only be used within the
+method clauses for the class, and they can only refer to slots of the
+current class and protected and public slots of superclasses.
+
+   <p>In the slot description, <code>public</code>, <code>protected</code> and <code>private</code> are
+used as prefix operators. The <code>obj_decl</code> module redefines the prefix
+operator <code>public</code>, as follows:
+
+<pre class="example">     :- op(600, fy, [public]).
+</pre>
+   <p>Unless you use the obsolete <code>public/1</code> directive in your Prolog
+programs, this should cause no problems.
+
+<h4 class="subheading">Types</h4>
+
+<!-- label types -->
+<p>A slot's type restricts the kinds of values it may contain. The slot
+is specified in the slot description by one of the following Prolog
+terms with the corresponding meaning.  Most of these will be
+familiar, but the last four, <code>address</code>, <code>term</code>, <var>Class</var> and
+<code>pointer(</code><var>Type</var><code>)</code>, require some additional explanation:
+
+     <dl>
+<dt><code>integer</code><dd>signed integer, large enough to hold a pointer
+
+     <br><dt><code>integer_64 &nbsp;<!-- /@w --> </code><strong>since release 4.3</strong><dd>64-bit signed integer
+
+     <br><dt><code>integer_32</code><dd>32-bit signed integer
+
+     <br><dt><code>integer_16</code><dd>16-bit signed integer
+
+     <br><dt><code>integer_8</code><dd>8-bit signed integer
+
+     <br><dt><code>unsigned</code><dd>unsigned integer, large enough to hold a pointer
+
+     <br><dt><code>unsigned_64 &nbsp;<!-- /@w --> </code><strong>since release 4.3</strong><dd>64-bit unsigned integer
+
+     <br><dt><code>unsigned_32</code><dd>32-bit unsigned integer
+
+     <br><dt><code>unsigned_16</code><dd>16-bit unsigned integer
+
+     <br><dt><code>unsigned_8</code><dd>8-bit unsigned integer
+
+     <br><dt><code>float</code><dd>64-bit floating point number
+
+     <br><dt><code>float_32</code><dd>32-bit floating point number
+
+     <br><dt><code>atom</code><dd>Prolog atom
+
+     <br><dt><code>address</code><dd>Pointer. 
+The <code>address</code> type is intended for use with foreign code. 
+A slot of this type might store an address returned from
+a foreign function. That address might, in turn, be used
+in calling another foreign function. Hence, most Prolog programmers can
+safely ignore this type.
+
+     <br><dt><code>term</code><dd>Prolog term. 
+The <code>term</code> type is for general Prolog terms. Such a slot
+can hold any of the other types. However, if you know
+a slot will be used to hold only values of a particular
+type, it is more efficient to specify that type in the class
+definition.
+
+     <p>Storing a term containing free variables is similar to
+asserting a clause containing free variables into the
+Prolog database. The free variables in the term are replaced
+with new variables in the stored copy. And, when you
+fetch the term from the slot, you are really fetching a
+copy of the term, again with new variables.
+
+     <br><dt><var>Class</var><dd>where <var>Class</var> is the name of a defined class. 
+The class type is for any object in a class defined with
+SICStus Objects. Such a slot holds an object of its class
+or one of that class's descendants, or the <code>null</code> object.
+
+     <br><dt><code>pointer(</code><var>Type</var><code>)</code><dd>where <var>Type</var> is an atom. 
+The pointer type is intended for use with the Structs Package.  It is
+similar to the <code>address</code> type, except that access to this slot
+yields, and update to this slot expects, a term of arity 1 whose
+functor is <var>Type</var> and whose argument is the address. Again, most Prolog
+programmers can safely ignore this type.
+
+   </dl>
+
+<h4 class="subheading">Initial Values</h4>
+
+<p>A slot description may optionally specify an initial representation for the
+slot. The initial representation is the representation of the slot in every instance of
+the class, when the object is first created. The initial representation must be
+a constant of the correct type for the slot.
+
+   <p>If an initial representation is not specified, a slot is initialized to a representation
+that depends on its type. All numbers are initialized to 0, of the
+appropriate type. Atom and term slots are initialized to the
+empty atom
+(<code>''</code>). Addresses and pointers are initialized to null pointers. And,
+objects are initialized to the <code>null</code> object.
+
+   <p>More complicated initialization&mdash;not the same constant for every
+instance of the class&mdash;must be performed by create methods, which are
+described later.
+
+<h4 class="subheading">The <code>null</code> object</h4>
+
+<!-- label null-object -->
+<p>The <code>null</code> object is a special object that is not an instance of any
+class, but that can be stored in a slot intended for any class of
+object.  This is very much like the <code>NULL</code> pointer in C.  This is
+useful when you don't yet have an object to store in a particular
+slot.
+
+   <p>In Prolog, the <code>null</code> is represented by the atom <code>null</code>.
+
+   <p>Note that because the <code>null</code> object is not really an object of any
+class, you cannot determine its class with <code>class_of/2</code>.  Unless
+noted otherwise, when we write of an <dfn>object</dfn> in this document, we
+don't include the <code>null</code> object.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dscl_002dslt.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dscl_002dslt.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

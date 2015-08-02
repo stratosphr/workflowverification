@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+<title>ref-lps-lco - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlps.html#ref_002dlps" title="ref-lps">
+<link rel="prev" href="ref_002dlps_002dflg.html#ref_002dlps_002dflg" title="ref-lps-flg">
+<link rel="next" href="ref_002dlps_002dsum.html#ref_002dlps_002dsum" title="ref-lps-sum">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-lps-lco"></a>
+<a name="ref_002dlps_002dlco"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dlps_002dsum.html#ref_002dlps_002dsum">ref-lps-sum</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlps.html#ref_002dlps">ref-lps</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.9.5 Load Context</h4>
+
+<p><a name="index-load-context-1372"></a><a name="index-context_002c-load-1373"></a>
+When a Prolog source file is being read in, some aspects of the load
+context can be accessed by the built-in predicate
+<code>prolog_load_context/2</code>, which accesses the representation of a given
+key. The available keys are:
+
+     <dl>
+<dt><code>source</code><dd><a name="index-source-_0028load-context-key_0029-1374"></a>The absolute path name of the file being loaded. During loading of a
+PO file, the corresponding source file name is returned.
+
+     <br><dt><code>file</code><dd><a name="index-file-_0028load-context-key_0029-1375"></a>Outside included files (see <a href="Include-Declarations.html#Include-Declarations">Include Declarations</a>) this is the same
+as the <code>source</code> key. In included files this is the absolute path
+name of the file being included.
+
+     <br><dt><code>directory</code><dd><a name="index-directory-_0028load-context-key_0029-1376"></a>The absolute path name of the directory of the file being
+loaded.  In included files this is the directory of the
+file being included.
+
+     <br><dt><code>module</code><dd><a name="index-module-_0028load-context-key_0029-1377"></a>The source module (see <a href="ref_002dmod_002dmne.html#ref_002dmod_002dmne">ref-mod-mne</a>).  This is useful for example
+if you are defining clauses for <code>user:term_expansion/6</code>
+and need to access the source module at compile time.
+
+     <br><dt><code>stream</code><dd><a name="index-stream-_0028load-context-key_0029-1378"></a>The stream being loaded. 
+This key is not available during loading of a PO file.
+
+     <br><dt><code>term_position</code><dd><a name="index-term_005fposition-_0028load-context-key_0029-1379"></a>A term representing the stream position of the last
+clause read. 
+This key is not available during loading of a PO file. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlps_002dlco.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlps_002dlco.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

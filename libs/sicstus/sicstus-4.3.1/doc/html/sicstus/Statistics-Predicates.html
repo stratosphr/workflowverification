@@ -1,0 +1,83 @@
+<html lang="en">
+<head>
+<title>Statistics Predicates - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dclpfd.html#lib_002dclpfd" title="lib-clpfd">
+<link rel="prev" href="Enumeration-Predicates.html#Enumeration-Predicates" title="Enumeration Predicates">
+<link rel="next" href="Answer-Constraints.html#Answer-Constraints" title="Answer Constraints">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Statistics-Predicates"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Answer-Constraints.html#Answer-Constraints">Answer Constraints</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Enumeration-Predicates.html#Enumeration-Predicates">Enumeration Predicates</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dclpfd.html#lib_002dclpfd">lib-clpfd</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.10.6 Statistics Predicates</h4>
+
+<p>The following predicates can be used to access execution statistics.
+
+     <dl>
+<dt><code>fd_statistics</code><dt><code>fd_statistics(</code><var>?Key</var><code>, </code><var>?Value</var><code>)</code><dd><a name="index-fd_005fstatistics_002f_005b0_002c2_005d-_0028clpfd_0029-3044"></a><a name="index-fd_005fstatistics_002f_005b0_002c2_005d-_0028clpfd_0029-3045"></a>
+This allows a program to access execution statistics specific to this
+solver.  General statistics about CPU time and memory consumption etc. 
+is available from the built-in predicate <code>statistics/2</code>.
+
+     <p>Without arguments, displays on the standard error stream a summary of
+the following statistics, and zeroes all counters.  With arguments, for
+each of the possible keys <var>Key</var>, <var>Value</var> is unified with the
+current representation of a counter, which is simultaneously zeroed.  The
+following counters are maintained:
+
+          <dl>
+<dt><code>resumptions</code><dd><a name="index-resumptions-_0028fd_005fstatistics_002f2-option_0029-3046"></a>The number of times a constraint was resumed.
+
+          <br><dt><code>entailments</code><dd><a name="index-entailments-_0028fd_005fstatistics_002f2-option_0029-3047"></a>The number of times a (dis)entailment was detected by a constraint.
+
+          <br><dt><code>prunings</code><dd><a name="index-prunings-_0028fd_005fstatistics_002f2-option_0029-3048"></a>The number of times a domain was pruned.
+
+          <br><dt><code>backtracks</code><dd><a name="index-backtracks-_0028fd_005fstatistics_002f2-option_0029-3049"></a>The number of times a contradiction was found by a domain being wiped
+out, or by a global constraint signalling failure.  Other causes of
+backtracking, such as failed Prolog tests, are not covered by this
+counter.
+
+          <br><dt><code>constraints</code><dd><a name="index-constraints-_0028fd_005fstatistics_002f2-option_0029-3050"></a>The number of propagators created. 
+</dl>
+     </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Statistics-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Statistics-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

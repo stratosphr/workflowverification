@@ -1,0 +1,105 @@
+<html lang="en">
+<head>
+<title>ref-mod-mpc - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmod.html#ref_002dmod" title="ref-mod">
+<link rel="prev" href="ref_002dmod_002ddmo.html#ref_002dmod_002ddmo" title="ref-mod-dmo">
+<link rel="next" href="ref_002dmod_002dcim.html#ref_002dmod_002dcim" title="ref-mod-cim">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-mod-mpc"></a>
+<a name="ref_002dmod_002dmpc"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dmod_002dcim.html#ref_002dmod_002dcim">ref-mod-cim</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dmod_002ddmo.html#ref_002dmod_002ddmo">ref-mod-dmo</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmod.html#ref_002dmod">ref-mod</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.11.10 Module Prefixes on Clauses</h4>
+
+<ul class="menu">
+<li><a accesskey="1" href="ref_002dmod_002dmpc_002dcmo.html#ref_002dmod_002dmpc_002dcmo">ref-mod-mpc-cmo</a>:                      Current Modules
+</ul>
+
+<p><a name="index-module-prefixes-on-clauses-1532"></a>
+
+   <p>Every clause in a Prolog file has a source module implicitly associated with
+it.  If the file is a module-file, the module named in the module
+declaration at the top of the file is the source module for all the clauses. 
+If the file is not a module-file, the relevant module
+is the source module for the command that caused this file to be
+loaded.
+
+   <p>The source module of a predicate decides in which module it is defined
+(the module of the head), and in which module the goals in the body are
+going to be called (the module of the body). It is possible to override
+the implicit source module, both for head and body, of clauses and
+directives, by using prefixes. For example, consider the module-file:
+<pre class="example">     :- module(a, []).
+     
+     :- dynamic m:a/1.
+     b(1).
+     m:c([]).
+     m:d([H|T]) :- q(H), r(T).
+     m:(e(X) :- s(X), t(X)).
+     f(X) :- m:(u(X), v(X)).
+</pre>
+   <p>In the previous example, the following modules apply:
+     <ol type=1 start=1>
+
+     <li><code>a/1</code> is declared dynamic in the module <code>m</code>. 
+<li><code>b/1</code> is defined in module <code>a</code> (the module of the file). 
+<li><code>c/1</code> is defined in module <code>m</code>. 
+<li><code>d/1</code> is defined in module <code>m</code>, but <code>q/1</code> and <code>r/1</code> are called in module
+<code>a</code> (and must therefore be defined in module <code>a</code>). 
+<li><code>e/1</code> is defined in module <code>m</code>, and <code>s/1</code> and <code>t/1</code> are called in module
+<code>m</code>. 
+<li><code>f/1</code> is defined in module <code>a</code>, but <code>u/1</code> and <code>v/1</code> are called in module
+<code>m</code>.
+        </ol>
+
+   <p>Module prefixing is especially useful when the module prefix is <code>user</code>.  There
+are several predicates that have to be defined in module <code>user</code> but
+that you may want to define (or extend) in a program that is otherwise
+entirely defined in some other module or modules;
+see <a href="mpg_002dtop_002dhok.html#mpg_002dtop_002dhok">mpg-top-hok</a>.
+
+   <p>Note that if clauses for one of these predicates are to be spread
+across multiple files, it will be necessary to declare that predicate
+to be multifile by putting a multifile declaration in each of the files.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dmpc.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dmpc.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+<title>Posting Constraints - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="CLPFD-Interface.html#CLPFD-Interface" title="CLPFD Interface">
+<link rel="next" href="A-Constraint-Satisfaction-Problem.html#A-Constraint-Satisfaction-Problem" title="A Constraint Satisfaction Problem">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Posting-Constraints"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="A-Constraint-Satisfaction-Problem.html#A-Constraint-Satisfaction-Problem">A Constraint Satisfaction Problem</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="CLPFD-Interface.html#CLPFD-Interface">CLPFD Interface</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.10.3.1 Posting Constraints</h5>
+
+<p><a name="index-posting-constraints-2787"></a><a name="index-constraints_002c-posting-2788"></a>A constraint is called as any other Prolog predicate.  When called, the
+constraint is <dfn>posted</dfn> to the store.  For example:
+
+<pre class="example">     | ?- <kbd>X in 1..5, Y in 2..8, X+Y #= T.</kbd>
+     X in 1..5,
+     Y in 2..8,
+     T in 3..13
+     
+     | ?- <kbd>X in 1..5, T in 3..13, X+Y #= T.</kbd>
+     X in 1..5,
+     T in 3..13,
+     Y in -2..12
+</pre>
+   <p>Note that the answer constraint shows the domains of nonground query
+variables, but does not show any constraints that may be attached to
+them.
+
+   <p>Normally, after posting a constraint, propagation to fixpoint is
+performed, which can be an overkill.  The following provides a means of
+posting a set of constraints in one batch, suspending all propagation
+until the whole set has been posted.  Suspending propagation can
+significantly reduce posting overhead.
+
+     <dl>
+<dt><code>fd_batch(</code><var>+Constraints</var><code>) &nbsp;<!-- /@w --> </code><strong>since release 4.2.1</strong><dd><a name="index-fd_005fbatch_002f1-_0028clpfd_0029-2789"></a><a name="index-fd_005fbatch_002f1-_0028clpfd_0029-2790"></a>
+where <var>Constraints</var> should be a list of constraints, user-defined or
+exported by <code>library(clpfd)</code>.  General Prolog goals among the
+constraints will have undefined behavior. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Posting-Constraints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Posting-Constraints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

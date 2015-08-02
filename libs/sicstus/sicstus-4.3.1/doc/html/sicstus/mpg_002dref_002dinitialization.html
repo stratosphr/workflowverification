@@ -1,0 +1,109 @@
+<html lang="en">
+<head>
+<title>mpg-ref-initialization - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dinclude.html#mpg_002dref_002dinclude" title="mpg-ref-include">
+<link rel="next" href="mpg_002dref_002dinstance.html#mpg_002dref_002dinstance" title="mpg-ref-instance">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-initialization"></a>
+<a name="mpg_002dref_002dinitialization"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dinstance.html#mpg_002dref_002dinstance">mpg-ref-instance</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dinclude.html#mpg_002dref_002dinclude">mpg-ref-include</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.105 <code>initialization/1</code> &nbsp;<!-- /@w --> <dfn>[ISO,declaration]</dfn></h4>
+
+<p><a name="index-initialization_002f1-_0028built_002din_002c-ref-page_0029-4657"></a><a name="index-initialization_002f1-_0028built_002din_002c-ref-page_0029-4658"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- initialization </code><var>+Goal</var>
+
+   <p>Declares that <var>Goal</var> is to be run when the file in which the
+declaration appears is loaded into a running system, or when a
+stand-alone program or runtime system that contains the file is started
+up.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:Goal</var><dd><dfn>callable</dfn>, must be nonvar
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>Callable at any point during loading of a file. That is, it can be
+used as a directive, or as part of a goal called at load time.  The
+initialization goal will be run as soon as the loading of the file is
+completed. That is at the end of the load, and notably after all other
+directives appearing in the file have been run.
+
+   <p><code>save_program/[1,2]</code> saves initialization goals in the saved
+state, so that they will run when the saved state is restored.  When
+they run, they have access to the load context
+(<code>prolog_load_context/2</code>), just like other goals appearing in
+directives.
+
+   <p><var>Goal</var> is associated with the file loaded and a module.  When a
+file, or module, is going to be reloaded, all goals earlier installed
+by that file or in that module, are removed.  This is done before the
+actual load, thus allowing a new initialization <var>Goal</var> to be
+specified, without creating duplicates.
+
+<h4 class="subheading">Comments</h4>
+
+<p><code>initialization</code> is not an ISO predefined prefix operator.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd>The argument <var>Goal</var> is not instantiated.
+
+     <br><dt><code>context_error</code><dd>Initialization appeared in a goal.
+
+     <br><dt><code>permission_error</code><dd>Initialization appeared as a clause. 
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Initializations.html#Initializations">Initializations</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dinitialization.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dinitialization.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

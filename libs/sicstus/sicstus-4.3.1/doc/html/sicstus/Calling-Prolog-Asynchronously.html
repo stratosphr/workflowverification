@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+<title>Calling Prolog Asynchronously - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Calling-Prolog-from-C.html#Calling-Prolog-from-C" title="Calling Prolog from C">
+<link rel="prev" href="Finding-Multiple-Solutions-of-a-Call.html#Finding-Multiple-Solutions-of-a-Call" title="Finding Multiple Solutions of a Call">
+<link rel="next" href="Exception-Handling-in-C.html#Exception-Handling-in-C" title="Exception Handling in C">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Calling-Prolog-Asynchronously"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Exception-Handling-in-C.html#Exception-Handling-in-C">Exception Handling in C</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Finding-Multiple-Solutions-of-a-Call.html#Finding-Multiple-Solutions-of-a-Call">Finding Multiple Solutions of a Call</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Calling-Prolog-from-C.html#Calling-Prolog-from-C">Calling Prolog from C</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.5.3 Calling Prolog Asynchronously</h4>
+
+<ul class="menu">
+<li><a accesskey="1" href="Signal-Handling.html#Signal-Handling">Signal Handling</a>:  Signal Handling
+</ul>
+
+<!-- @ifset THREADSAFEEVENTS -->
+<!-- [PM] the 3.9 version -->
+<p><a name="index-calling-Prolog-asynchronously-2314"></a><a name="index-asynchronously_002c-calling-Prolog-2315"></a><a name="index-signal-handling-2316"></a><a name="index-handling_002c-signal-2317"></a><a name="index-interrupt-handling-2318"></a><a name="index-handling_002c-interrupt-2319"></a><a name="index-threads_002c-calling-Prolog-from-2320"></a><a name="index-main-thread-2321"></a><a name="index-thread_002c-main-2322"></a>If you wish to call Prolog back from a signal handler or a thread other
+than the thread that called <code>SP_initialize()</code>, that is, the
+<dfn>main thread</dfn>, you cannot use <code>SP_query()</code> etc. directly. 
+The call to Prolog has to be delayed until such time that the Prolog
+execution can accept an interrupt and the call has to be performed from
+the main thread (the Prolog execution thread).  The function
+<code>SP_event()</code> serves this purpose, and installs the function
+<code>func</code> to be called from Prolog (in the main thread) when the
+execution can accept a callback.
+
+   <p>A queue of functions, with corresponding arguments, is maintained;
+that is, if several calls to <code>SP_event()</code> occur before Prolog can
+accept an interrupt, the functions are queued and executed in turn at
+the next possible opportunity. A <code>func</code> installed with
+<code>SP_event()</code> will not be called until SICStus is actually
+running. One way of ensuring that all pending functions installed with
+<code>SP_event()</code> are run is to call, from the main thread, some dummy
+goal, such as,
+<code>SP_query_cut_fail(SP_predicate("true",0,"user"))</code>.
+
+   <p>While <code>SP_event()</code> is safe to call from any thread, it is not safe
+to call from arbitrary signal handlers. If you want to call
+<code>SP_event()</code> when a signal is delivered, you need to install your
+signal handler with <code>SP_signal()</code> (see below).
+
+   <p>Note that <code>SP_event()</code> is one of the <em>very</em> few functions in
+the SICStus API that can safely be called from another thread than the
+main thread. 
+<a name="index-SP_005fevent_0028_0029-_0028C-function_0029-2323"></a>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Calling-Prolog-Asynchronously.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Calling-Prolog-Asynchronously.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

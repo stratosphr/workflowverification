@@ -1,0 +1,8 @@
+<!ELEMENT specification (transition|conjunction|disjunction|negation)>
+<!ATTLIST specification name CDATA #REQUIRED>
+<!ATTLIST specification type (may|must) #REQUIRED>
+<!ELEMENT transition EMPTY>
+<!ATTLIST transition name CDATA #REQUIRED>
+<!ELEMENT conjunction (transition|conjunction|disjunction|negation)+>
+<!ELEMENT disjunction (transition|conjunction|disjunction|negation)+>
+<!ELEMENT negation (transition|conjunction|disjunction|negation)>

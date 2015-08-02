@@ -1,0 +1,117 @@
+<html lang="en">
+<head>
+<title>mpg-ref-query_hook - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dquery_005fclass_005fhook.html#mpg_002dref_002dquery_005fclass_005fhook" title="mpg-ref-query_class_hook">
+<link rel="next" href="mpg_002dref_002dquery_005finput.html#mpg_002dref_002dquery_005finput" title="mpg-ref-query_input">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-query_hook"></a>
+<a name="mpg_002dref_002dquery_005fhook"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dquery_005finput.html#mpg_002dref_002dquery_005finput">mpg-ref-query_input</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dquery_005fclass_005fhook.html#mpg_002dref_002dquery_005fclass_005fhook">mpg-ref-query_class_hook</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.177 <code>query_hook/6</code> &nbsp;<!-- /@w --> <dfn>[hook]</dfn></h4>
+
+<p><a name="index-query_005fhook_002f6-_0028hook_002c-ref-page_0029-4842"></a><a name="index-query_005fhook_002f6-_0028hook_002c-ref-page_0029-4843"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- multifile 'SU_messages':query_hook/6.</code>
+
+   <p><code>'SU_messages':query_hook(</code><var>+QueryClass</var><code>, </code><var>+Prompt</var><code>, </code><var>+PromptLines</var><code>, </code><var>+Help</var><code>, </code><var>+HelpLines</var><code>, </code><var>-Answer</var><code>)</code>
+
+   <p>Provides a method of overriding Prolog's default keyboard based
+input requests.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>QueryClass</var><dd><dfn>term</dfn>
+
+     <p>Determines the allowed values for the atom <var>Answer</var>.
+
+     <br><dt><var>Prompt</var><dd><dfn>term</dfn>
+
+     <p>A message term.
+
+     <br><dt><var>PromptLines</var><dd><dfn>list of pair</dfn>
+
+     <p>The message generated from the <var>Prompt</var> message term.
+
+     <br><dt><var>Help</var><dd><dfn>term</dfn>
+
+     <p>A message term.
+
+     <br><dt><var>HelpLines</var><dd><dfn>list of pair</dfn>
+
+     <p>The message generated from the <var>Help</var> message term.
+
+     <br><dt><var>Answer</var><dd><dfn>term</dfn>
+
+     <p>See <var>QueryClass</var>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>This provides a way of overriding Prolog's
+default method of interaction.  If this predicate fails, Prolog's
+default method of interaction is invoked.
+
+   <p>The default method first prints out the prompt, then if the response
+from the user is not one of the allowed values, the help message is
+printed.
+
+   <p>It is useful to compare this predicate to <code>user:message_hook/3</code>, since
+this explains how you might use the <var>Prompt</var>, <var>PromptLines</var>,
+<var>Help</var>, <var>HelpLines</var>.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>An exception raised by this predicate causes an error
+message to be printed and then the default method of interation is invoked.  In
+other words, exceptions are treated as failures.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Query-Processing.html#Query-Processing">Query Processing</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dquery_005fhook.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dquery_005fhook.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

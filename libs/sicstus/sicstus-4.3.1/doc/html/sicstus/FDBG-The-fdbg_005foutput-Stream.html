@@ -1,0 +1,75 @@
+<html lang="en">
+<head>
+<title>FDBG The fdbg_output Stream - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="FDBG-Concepts.html#FDBG-Concepts" title="FDBG Concepts">
+<link rel="prev" href="FDBG-Legend.html#FDBG-Legend" title="FDBG Legend">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="FDBG-The-fdbg_output-Stream"></a>
+<a name="FDBG-The-fdbg_005foutput-Stream"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="FDBG-Legend.html#FDBG-Legend">FDBG Legend</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="FDBG-Concepts.html#FDBG-Concepts">FDBG Concepts</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.14.2.8 The <code>fdbg_output</code> Stream</h5>
+
+<p><a name="index-fdbg_005foutput-3273"></a><a name="index-FDBG-output-stream-3274"></a>
+The <code>fdbg_output</code> is a stream alias created when FDBG
+is switched on and removed when it is switched off.  All built-in
+visualizers write to this stream, and the user defined visualizers
+should do the same.
+
+<!-- @subsection Private allocation -->
+<!-- @cindex Private allocation -->
+<!-- @cindex Allocation of private fields -->
+<!-- In this subsection, we suggest a convention to be introduced generally in -->
+<!-- Prolog programming.  This convention concerns the usage of goal private -->
+<!-- and global private fields.  Accepting it enables FDBG and several other -->
+<!-- user written Prolog programs to coexist without conflicting during the -->
+<!-- usage of these shared resources. -->
+<!-- The private field (either global or goal private) is shared among the -->
+<!-- modules accessing it.  If a module decides to use it exclusively, -->
+<!-- i.e.@: by storing a single value in it, this storage area becomes -->
+<!-- unavailable for others.  To avoid this, we suggest that private fields -->
+<!-- should always contain an open ended list.  The members of this list -->
+<!-- should be compound terms, with the functors identifying their contents. -->
+<!-- This content can be any Prolog term in turn.  In our case, this compound -->
+<!-- term is @code{fdbg(@var{NameListMut})}, where @var{NameListMut} is a -->
+<!-- mutable storing the list of assigned names (@pxref{FDBG Term naming}). -->
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-The-fdbg_005foutput-Stream.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-The-fdbg_005foutput-Stream.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

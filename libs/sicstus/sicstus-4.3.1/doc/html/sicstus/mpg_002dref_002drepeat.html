@@ -1,0 +1,134 @@
+<html lang="en">
+<head>
+<title>mpg-ref-repeat - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dremove_005fbreakpoints.html#mpg_002dref_002dremove_005fbreakpoints" title="mpg-ref-remove_breakpoints">
+<link rel="next" href="mpg_002dref_002drestore.html#mpg_002dref_002drestore" title="mpg-ref-restore">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-repeat"></a>
+<a name="mpg_002dref_002drepeat"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002drestore.html#mpg_002dref_002drestore">mpg-ref-restore</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dremove_005fbreakpoints.html#mpg_002dref_002dremove_005fbreakpoints">mpg-ref-remove_breakpoints</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.191 <code>repeat/0</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-repeat_002f0-_0028built_002din_002c-ref-page_0029-4885"></a><a name="index-repeat_002f0-_0028built_002din_002c-ref-page_0029-4886"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>repeat</code>
+
+   <p>Succeeds immediately when called and whenever reentered by
+backtracking.
+
+<h4 class="subheading">Description</h4>
+
+<p>Generally used to simulate the looping constructs
+found in traditional procedural languages.
+
+   <p>Generates an infinite sequence of backtracking choices.  In
+sensible code, <code>repeat/0</code> is hardly ever used except in
+<em>repeat loops</em>.  A repeat loop has the structure
+
+<pre class="example">     <var>Head</var> :-
+             ...
+             <var>save_state</var>(OldState),
+             repeat,
+               <var>generate</var>(Datum),
+               <var>action</var>(Datum),
+               <var>test</var>(Datum),
+             !,
+             <var>restore_state</var>(OldState),
+             ...
+</pre>
+   <p>The purpose is to repeatedly perform some <var>action</var> on elements that
+are somehow <var>generate</var>d, e.g. by reading them from a stream,
+until some <var>test</var> becomes true.  Usually, <var>generate</var>,
+<var>action</var>, and <var>test</var> are all determinate.  Repeat loops
+cannot contribute to the logic of the program.  They are only
+meaningful if the <var>action</var> involves side-effects.
+
+   <p><a name="index-side_002deffects_002c-in-repeat-loops-4887"></a>
+The easiest way to understand the effect of <code>repeat/0</code> is to think of
+failures as &ldquo;bouncing&rdquo; back off them causing re-execution of the later
+goals.
+
+   <p>Repeat loops are not often needed; usually recursive procedure calls
+will lead to code that is easier to understand as well as more
+efficient.  There are certain circumstances, however, in which
+<code>repeat/0</code> will lead to greater efficiency.  An important
+property of SICStus Prolog is that all runtime data is stored in
+stacks so that any storage that has been allocated during a proof of a
+goal is recovered immediately on backtracking through that goal. 
+Thus, in the above example, any space allocated by any of the
+<var>actions</var> is very efficiently reclaimed.  When an iterative
+construct is implemented using recursion, storage reclamation will
+only be done by the garbage collector.
+
+<h4 class="subheading">Tips</h4>
+
+<p>In the most common use of repeat loops, each of the calls succeeds
+determinately. 
+It can be confusing if calls sometimes fail, so that
+backtracking starts before the test is reached, or if calls are
+nondeterminate, so that backtracking does not always go right back to
+<code>repeat/0</code>.
+
+   <p>Note that the repeat loop can only be useful if one or more of the
+<var>actions</var> involves a side-effect &mdash; either a change to the data
+base (such as an assertion) or an I/O operation.  Otherwise you would do
+the same thing each time around the loop (which would never terminate).
+
+<h4 class="subheading">Backtracking</h4>
+
+<p>Succeeds repeatedly until backtracking is terminated by a cut or
+an exception.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>None.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dsem.html#ref_002dsem">ref-sem</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002drepeat.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002drepeat.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

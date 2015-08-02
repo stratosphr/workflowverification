@@ -1,0 +1,141 @@
+<html lang="en">
+<head>
+<title>Summary - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Tcl_002fTk-Prolog-Library.html#The-Tcl_002fTk-Prolog-Library" title="The Tcl/Tk Prolog Library">
+<link rel="prev" href="Housekeeping.html#Housekeeping" title="Housekeeping">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Summary"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Housekeeping.html#Housekeeping">Housekeeping</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Tcl_002fTk-Prolog-Library.html#The-Tcl_002fTk-Prolog-Library">The Tcl/Tk Prolog Library</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.37.4.8 Summary</h5>
+
+<p>The functions provided by the SICStus Prolog Tcl/Tk library can be grouped
+in two ways: by function, and by package.
+
+   <p>By function, we can group them like this:
+
+     <ul>
+<li>basic functions
+          <dl>
+<dt><code>tcl_new/1</code><dd>create a Tcl interpreter
+<br><dt><code>tcl_delete/1</code><dd>remove a Tcl interpreter
+<br><dt><code>tk_new/2</code><dd>create a Tcl interpreter with Tk extensions
+</dl>
+
+     <li>evaluation functions
+          <dl>
+<dt><code>tcl_eval/3</code><dd>evaluate a Tcl expression from Prolog
+<br><dt><code>prolog</code><dd>evaluate a Prolog expression from Tcl
+</dl>
+
+     <li>Prolog event queue functions
+          <dl>
+<dt><code>tcl_event/3</code><dd>evaluate a Tcl expression and return a Prolog queue event list
+<br><dt><code>tk_next_event/[2,3]</code><dd>pass control to Tk until a Prolog queue event happens and return
+the head of the queue
+<br><dt><code>prolog_event</code><dd>place a Prolog term on the Prolog event queue from Tcl
+</dl>
+
+     <li>servicing Tcl and Tk events
+          <dl>
+<dt><code>tk_do_one_event/[0,1]</code><dd>pass control to Tk until one Tk event is serviced
+<br><dt><code>tk_next_event/[2,3]</code><dd>also services Tk events but returns when a Prolog
+queue event happens and returns the head of the queue
+</dl>
+
+     <li>passing control completely to Tk
+          <dl>
+<dt><code>tk_main_loop/0</code><dd>control passed to Tk until all windows in all Tcl/Tk
+interpreters are gone
+</dl>
+
+     <li>housekeeping
+          <dl>
+<dt><code>tk_main_window/2</code><dd>return reference to main in of a Tcl/Tk interpreter
+<br><dt><code>tk_destroy_window/1</code><dd>destroy a window or widget
+<br><dt><code>tk_make_window_exist/1</code><dd>force display of a window or widget
+<br><dt><code>tk_num_main_windows/1</code><dd>return a count of the total number of Tk main windows
+existing in the system
+</dl>
+     </ul>
+
+   <p>By package, we can group them like this:
+
+     <ul>
+<li>predicates for Prolog to interact with Tcl interpreters
+          <dl>
+<dt><code>tcl_new/1</code><dd>create a Tcl interpreter
+<br><dt><code>tcl_delete/1</code><dd>remove a Tcl interpreter
+<br><dt><code>tcl_eval/3</code><dd>evaluate a Tcl expression from Prolog
+<br><dt><code>tcl_event/3</code><dd>evaluate a Tcl expression and return a Prolog event list
+</dl>
+
+     <li>predicates for Prolog to interact with Tcl interpreters with Tk
+extensions
+          <dl>
+<dt><code>tk_new/2</code><dd>create a Tcl interpreter with Tk extensions
+<br><dt><code>tk_do_one_event/[0,1]</code><dd>pass control to Tk until one Tk event is serviced
+<br><dt><code>tk_next_event/[2,3]</code><dd>also services Tk events but returns when a Prolog
+queue event happens and returns the head of the queue
+<br><dt><code>tk_main_loop/0</code><dd>control passed to Tk until all windows in all Tcl/Tk
+interpreters are gone
+<br><dt><code>tk_main_window/2</code><dd>return reference to main in of a Tcl/Tk interpreter
+<br><dt><code>tk_destroy_window/1</code><dd>destroy a window or widget
+<br><dt><code>tk_make_window_exist/1</code><dd>force display of a window or widget
+<br><dt><code>tk_num_main_windows/1</code><dd>return a count of the total number of Tk main windows
+existing in the system
+</dl>
+
+     <li>commands for the Tcl interpreters to interact with the Prolog system
+          <dl>
+<dt><code>prolog</code><dd>evaluate a Prolog expression from Tcl
+<br><dt><code>prolog_event</code><dd>place a Prolog term on the Prolog event queue from Tcl
+</dl>
+     </ul>
+
+   <p>In the next section we will discuss how to use the
+<code>tcltk</code> library to build graphical user interfaces to Prolog applications. 
+More specifically we will discuss the ways in which cooperation
+between Prolog and Tcl/Tk can be arranged: how to achieve them,
+and their benefits.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Summary.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Summary.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

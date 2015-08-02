@@ -1,0 +1,75 @@
+<html lang="en">
+<head>
+<title>Xref Introduction - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Cross_002dReferencer.html#The-Cross_002dReferencer" title="The Cross-Referencer">
+<link rel="next" href="Xref-Practice-and-Experience.html#Xref-Practice-and-Experience" title="Xref Practice and Experience">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Xref-Introduction"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Xref-Practice-and-Experience.html#Xref-Practice-and-Experience">Xref Practice and Experience</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Cross_002dReferencer.html#The-Cross_002dReferencer">The Cross-Referencer</a>
+<hr>
+</div>
+
+<h4 class="subsection">9.12.1 Introduction</h4>
+
+<p><a name="index-unreachable-code-2458"></a><a name="index-code_002c-unreachable-2459"></a><a name="index-cross_002dreferencer-2460"></a><a name="index-spxref-2461"></a>
+<strong>Please note:</strong> the Cross-References tool is mostly superseeded
+by the SICStus Prolog IDE, SPIDER (see <a href="SPIDER.html#SPIDER">SICStus Prolog IDE</a>). SPIDER will analyze the source code fully automatically and
+will annotate the edited source code to highlight unused and
+undefined predicates. The cross-reference analysis performed by SPIDER
+is more precise than the analysis implemented by the cross-referencer
+described below.
+
+   <p>The main purpose of the cross-referencer, <samp><span class="command">spxref</span></samp>, is to find
+undefined predicates and unreachable code.  To this end, it begins
+by looking for initializations, hooks and <code>public</code>
+directives to start tracing the reachable code from.  If an entire
+application is being checked, it also traces from
+<code>user:runtime_entry/1</code>.  If individual module-files are being
+checked, it also traces from their export lists.
+
+   <p>A second function of <samp><span class="command">spxref</span></samp> is to aid in the formation of
+module statements.  <samp><span class="command">spxref</span></samp> can list all of the required
+<code>module/2</code> and <code>use_module/2</code> statements by file.
+
+   <p>The cross-referencer is called <samp><span class="command">spxref</span></samp>, and is run
+from the shell prompt, specifying the names of the Prolog source files
+you wish to check.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Xref-Introduction.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Xref-Introduction.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

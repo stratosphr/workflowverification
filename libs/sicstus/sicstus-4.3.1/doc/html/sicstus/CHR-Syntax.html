@@ -1,0 +1,104 @@
+<html lang="en">
+<head>
+<title>CHR Syntax - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="CHR-Syntax-and-Semantics.html#CHR-Syntax-and-Semantics" title="CHR Syntax and Semantics">
+<link rel="next" href="CHR-Semantics.html#CHR-Semantics" title="CHR Semantics">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CHR-Syntax"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CHR-Semantics.html#CHR-Semantics">CHR Semantics</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="CHR-Syntax-and-Semantics.html#CHR-Syntax-and-Semantics">CHR Syntax and Semantics</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.8.2.1 Syntax</h5>
+
+<p>The syntax of CHR rules is the following:
+
+   <p><table summary=""><tr align="left"><td valign="top" width="20%"><var>rules</var> </td><td valign="top" width="80%">::= <var>rule</var> <var>rules</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><var>rules</var> </td><td valign="top" width="80%">::= <var>empty</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>rule</var> </td><td valign="top" width="80%">::= <var>name</var> <var>actual_rule</var> <var>pragma</var> <code>.</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>name</var> </td><td valign="top" width="80%">::= <var>atom</var> <code>@</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><var>name</var> </td><td valign="top" width="80%">::= <var>empty</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>actual_rule</var> </td><td valign="top" width="80%">::= <var>simplification_rule</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><var>actual_rule</var> </td><td valign="top" width="80%">::= <var>propagation_rule</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><var>actual_rule</var> </td><td valign="top" width="80%">::= <var>simpagation_rule</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>simplification_rule</var> </td><td valign="top" width="80%">::= <var>head</var> <code>&lt;=&gt;</code> <var>guard</var> <var>body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><var>propagation_rule</var> </td><td valign="top" width="80%">::= <var>head</var> <code>==&gt;</code> <var>guard</var> <var>body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><var>simpagation_rule</var> </td><td valign="top" width="80%">::= <var>head</var> <code>\</code> <var>head</var> <code>&lt;=&gt;</code> <var>guard</var> <var>body</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>head</var> </td><td valign="top" width="80%">::= <var>constraints</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>constraints</var> </td><td valign="top" width="80%">::= <var>constraint</var> <var>constraint_id</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><var>constraints</var> </td><td valign="top" width="80%">::= <var>constraint</var> <var>constraint_id</var> <code>,</code> <var>constraints</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>constraint</var> </td><td valign="top" width="80%">::= <var>compound_term</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>constraint_id</var> </td><td valign="top" width="80%">::= <var>empty</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><var>constraint_id</var> </td><td valign="top" width="80%">::= <code>#</code> <var>variable</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>guard</var> </td><td valign="top" width="80%">::= <var>empty</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><var>guard</var> </td><td valign="top" width="80%">::= <var>goal</var> <var>disj</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>body</var> </td><td valign="top" width="80%">::= <var>goal</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>pragma</var> </td><td valign="top" width="80%">::= <var>empty</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><var>pragma</var> </td><td valign="top" width="80%">::= <code>pragma</code> <var>actual_pragmas</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>actual_pragmas</var> </td><td valign="top" width="80%">::= <var>actual_pragma</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><var>actual_pragmas</var> </td><td valign="top" width="80%">::= <var>actual_pragma</var> <code>,</code> <var>actual_pragmas</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>actual_pragma</var> </td><td valign="top" width="80%">::= <code>passive(</code><var>variable</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>disj</var> </td><td valign="top" width="80%">::= <code>;</code> | <code>|</code> <span class="roman">{ read as </span><code>;</code><span class="roman"> unless </span><code>|</code><span class="roman"> is declared infix }</span>
+   <br></td></tr></table>
+
+<!-- ISO TODO -->
+   <p>Note that the guard of a rule may not contain any goal that binds a variable
+in the head of the rule with a non-variable or with another variable in the
+head of the rule. It may however bind variables that don't appear in the
+head of the rule, e.g. an auxiliary variable introduced in the guard.
+
+   <p>Note also that, unless <code>|</code> has been declared as an operator,
+<code>|</code> and <code>;</code> are indistinguishable as infix
+operators&mdash;both are read as <code>;</code> (see <a href="ref_002dsyn_002dsyn_002dsen.html#ref_002dsyn_002dsyn_002dsen">ref-syn-syn-sen</a>). So if
+e.g. a simplification rule is given as:
+
+<pre class="display">     <var>head</var> <code>&lt;=&gt;</code> <code>(</code><var>P</var><code> ; </code><var>Q</var><code>)</code>
+</pre>
+   <p class="noindent">CHR will break the ambiguity by treating <var>P</var> as the guard and <var>Q</var> as
+the body, which is probably not what you want. To get the intended interpretation,
+you must supply a dummy guard &lsquo;<samp><span class="samp">true |</span></samp>&rsquo;:
+
+<pre class="display">     <var>head</var> <code>&lt;=&gt;</code> <code>true | (</code><var>P</var><code> ; </code><var>Q</var><code>)</code>
+</pre>
+   <p><strong>Please note</strong>: the above is true as long as you don't declare <code>|</code>
+as an infix operator, which is possible since release 4.3 for ISO compliance. 
+Declaring <code>|</code> as an infix operator will confuse CHR.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CHR-Syntax.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CHR-Syntax.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

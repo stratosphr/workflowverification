@@ -1,0 +1,77 @@
+<html lang="en">
+<head>
+<title>C Compiler and Linker - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="UNIX-Installation-Prerequisites.html#UNIX-Installation-Prerequisites" title="UNIX Installation Prerequisites">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="C-Compiler-and-Linker"></a>
+<p>
+Up:&nbsp;<a rel="up" accesskey="u" href="UNIX-Installation-Prerequisites.html#UNIX-Installation-Prerequisites">UNIX Installation Prerequisites</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">3.1.1.1 C Compiler and Linker</h5>
+
+<p>A full SICStus installation requires a C compiler and a linker to
+perform final link steps on the installation machine.
+
+   <p>For Solaris you can download the Sun Studio C compiler from
+<a href="http://developers.sun.com/">http://developers.sun.com/</a>. For Mac OS X you can download Xcode,
+which contains a C compiler, from
+<a href="http://developer.apple.com/">http://developer.apple.com/</a>. Linux distributions typically has a C
+compiler installed or installable through the system software update
+utility.
+
+   <p>If a C compiler is not available, it is possible to use a <dfn>prebuilt
+installation</dfn> on some platforms. 
+<!-- (e.g.@: Mac OS X, 64-bit SPARC Solaris). -->
+
+   <p>If it is not enabled by default,
+prebuilt installation is only recommended as a last resort; it is
+available
+by invoking
+<code>InstallSICStus</code> with the <samp><span class="option">--prebuilt</span></samp> argument.
+
+   <p>A disadvantage with the prebuilt installation is that SICStus
+libraries that interface to third-party products (Tcl/Tk, Berkeley DB,
+Java) may not work, or may require environment variables such as
+<samp><span class="env">LD_LIBRARY_PATH</span></samp> to be set.  Another disadvantage is that
+<samp><span class="command">spld</span></samp> and <samp><span class="command">splfr</span></samp> may not work unless you manually adjust the
+<samp><span class="command">spld</span></samp> configure file. Of course, neither <samp><span class="command">spld</span></samp> nor
+<samp><span class="command">splfr</span></samp> will work anyway if you don't have a C compiler.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/C-Compiler-and-Linker.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/C-Compiler-and-Linker.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

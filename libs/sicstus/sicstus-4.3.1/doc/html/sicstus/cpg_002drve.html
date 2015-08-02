@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+<title>cpg-rve - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="C-Reference-Pages.html#C-Reference-Pages" title="C Reference Pages">
+<link rel="next" href="cpg_002dtop.html#cpg_002dtop" title="cpg-top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-rve"></a>
+<a name="cpg_002drve"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dtop.html#cpg_002dtop">cpg-top</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="C-Reference-Pages.html#C-Reference-Pages">C Reference Pages</a>
+<hr>
+</div>
+
+<h3 class="section">12.1 Return Values and Errors</h3>
+
+<p><a name="index-C-functions_002c-return-values_002c-errors-5070"></a>
+<a name="index-SP_005fSUCCESS-_0028C-macro_0029-5071"></a><a name="index-SP_005fFAILURE-_0028C-macro_0029-5072"></a><a name="index-SP_005fERROR-_0028C-macro_0029-5073"></a><a name="index-SP_005ferrno-_0028C-macro_0029-5074"></a><a name="index-SP_005ferror_005fmessage_0028_0029-_0028C-function_0029-5075"></a>
+Many, but not all, C functions return one of the codes
+<code>SP_SUCCESS</code> for success, <code>SP_FAILURE</code> for failure,
+<code>SP_ERROR</code> if an error condition occurred, or if an uncaught
+exception was raised during a call from C to Prolog. 
+If the representation is <code>SP_ERROR</code>, the macro <code>SP_errno</code> will return a
+representation (an integer) describing the error condition.
+
+   <p>The function <code>SP_error_message()</code> returns a pointer to the diagnostic
+message corresponding to a specified error number.
+
+   <p>See <a href="mpg_002dref_002dove.html#mpg_002dref_002dove">mpg-ref-ove</a> for a description of the conventions observed in
+the Reference Pages for Prolog predicates.  C function Reference Pages
+differ primarily in the synopsis. Also, the Reference Page for each C
+function documents its return values.
+
+   <p>The following function annotations are used in the Reference Pages:
+
+     
+<a name="index-hook-_0028function-annotation_0029-5076"></a>
+<dl><dt><dfn>hook</dfn><dd>The function is user defined and is called in some specific context.
+
+     <p><a name="index-macro-_0028function-annotation_0029-5077"></a><br><dt><dfn>macro</dfn><dd>The function is defined as a C macro.
+
+     <p><a name="index-preinit-_0028function-annotation_0029-5078"></a><br><dt><dfn>preinit</dfn><dd>It is only meaningful to call the function before initializing the
+Prolog engine
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002drve.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002drve.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

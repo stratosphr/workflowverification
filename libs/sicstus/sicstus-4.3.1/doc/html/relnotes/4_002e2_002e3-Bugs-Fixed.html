@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+<title>4.2.3 Bugs Fixed - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e2_002e3-Changes.html#g_t4_002e2_002e3-Changes" title="4.2.3 Changes">
+<link rel="prev" href="4_002e2_002e3-New-Features.html#g_t4_002e2_002e3-New-Features" title="4.2.3 New Features">
+<link rel="next" href="4_002e2_002e3-Other-Changes.html#g_t4_002e2_002e3-Other-Changes" title="4.2.3 Other Changes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.2.3-Bugs-Fixed"></a>
+<a name="g_t4_002e2_002e3-Bugs-Fixed"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e2_002e3-Other-Changes.html#g_t4_002e2_002e3-Other-Changes">4.2.3 Other Changes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="4_002e2_002e3-New-Features.html#g_t4_002e2_002e3-New-Features">4.2.3 New Features</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e2_002e3-Changes.html#g_t4_002e2_002e3-Changes">4.2.3 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.19.2 Bugs Fixed</h4>
+
+     <ul>
+<li><!-- SPRM 12250 -->
+<code>predicate_property/2</code> with nonvar arguments would succeed nondeterminately. 
+<li><code>ensure_loaded/1</code> would keep reloading non-module &lsquo;<samp><span class="samp">.po</span></samp>&rsquo; file
+if compile-time module was different from load-time module. 
+<li>Work around bugs in OS X 10.8 that affected SICStus I/O. 
+This change may also work around bugs in Linux that could cause SICStus
+to hang, especially when closing streams. 
+<li>Error handling bug in <code>phrase/[2,3]</code>. 
+<li><!-- SPRM 12427 -->
+On Windows, SICStus executables would sometimes not start if put at the root of a disk. 
+<li>CLPFD:
+          <ul>
+<li><!-- SPRM 12637 -->
+Solutions were lost in interaction with nondet suspended goals. 
+<li><code>cumulative/2</code>: holes in domains could cause wrong answers. 
+<li><code>minimum/2</code>, <code>maximum/2</code>:
+some data was not protected from garbage collection. 
+</ul>
+     ZINC:
+          <ul>
+<li>I/O streams could be left open upon errors. 
+<li><code>viz</code> annotations don't cause parse errors any more. 
+<li>Don't obfuscate error messages from <samp><span class="command">mzn2fzn</span></samp>. 
+<li>Architecture dependent default integer bounds. 
+</ul>
+     <li><code>library(types)</code>: The type tests for <code>list</code> and
+<code>proper_list</code> now fail for cyclic lists. Previously, they did not
+terminate. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e2_002e3-Bugs-Fixed.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e2_002e3-Bugs-Fixed.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

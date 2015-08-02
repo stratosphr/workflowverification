@@ -1,0 +1,160 @@
+<html lang="en">
+<head>
+<title>cpg-ref-SP_create_stream - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSP_005fcons_005flist.html#cpg_002dref_002dSP_005fcons_005flist" title="cpg-ref-SP_cons_list">
+<link rel="next" href="cpg_002dref_002dSP_005fcut_005fquery.html#cpg_002dref_002dSP_005fcut_005fquery" title="cpg-ref-SP_cut_query">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-SP_create_stream"></a>
+<a name="cpg_002dref_002dSP_005fcreate_005fstream"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002dSP_005fcut_005fquery.html#cpg_002dref_002dSP_005fcut_005fquery">cpg-ref-SP_cut_query</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSP_005fcons_005flist.html#cpg_002dref_002dSP_005fcons_005flist">cpg-ref-SP_cons_list</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.9 <code>SP_create_stream()</code></h4>
+
+<p><a name="index-SP_005fcreate_005fstream_0028_0029-_0028C-function_0029-5112"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     
+     spio_t_error_code
+     SP_create_stream(
+        void *user_data,
+        void const *user_class,
+        spio_t_simple_device_read *user_read,
+        spio_t_simple_device_write *user_write,
+        spio_t_simple_device_flush_output *user_flush_output,
+        spio_t_simple_device_seek *user_seek,
+        spio_t_simple_device_close *user_close,
+        spio_t_simple_device_interrupt *user_interrupt,
+        spio_t_simple_device_ioctl *user_ioctl,
+        spio_t_bits create_stream_options,
+        SP_stream **pstream);
+</pre>
+   <p>Create a Prolog stream that will call user defined functions to
+perform stream operations.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>user_data</var><dd>This is a pointer to arbitrary user specified data. It is passed to
+all user defined stream methods. It must not be <code>NULL</code>.
+
+     <br><dt><var>user_class</var><dd>Arbitrary pointer. This is used with <code>SP_get_stream_user_data()</code>,
+which see.
+
+     <br><dt><var>user_read</var><dd>If non-NULL then this is an input stream. 
+See <a href="cpg_002dref_002duser_005fread.html#cpg_002dref_002duser_005fread">cpg-ref-user_read</a> for details.
+
+     <br><dt><var>user_write</var><dd>If non-NULL then this is an output stream. 
+See <a href="cpg_002dref_002duser_005fwrite.html#cpg_002dref_002duser_005fwrite">cpg-ref-user_write</a> for details.
+
+     <p>Note that both <code>user_read</code> and <code>user_write</code> can be
+specified, signifying a bidirectional stream.
+
+     <br><dt><var>user_flush_output</var><dd>Will be called to flush output on the stream. Ignored if
+<code>user_write</code> is <code>NULL</code>. Can be <code>NULL</code> if
+the stream need not be flushed, e.g. if <code>user_write</code> always
+ensures that any output reaches its destination immediately. 
+See <a href="cpg_002dref_002duser_005fflush_005foutput.html#cpg_002dref_002duser_005fflush_005foutput">cpg-ref-user_flush_output</a> for details.
+
+     <br><dt><var>user_seek</var><dd>Reserved, should be <code>NULL</code>.
+
+     <br><dt><var>user_close</var><dd>Closes the stream. 
+See <a href="cpg_002dref_002duser_005fclose.html#cpg_002dref_002duser_005fclose">cpg-ref-user_close</a> for details.
+
+     <br><dt><var>user_interrupt</var><dd>Reserved, should be <code>NULL</code>. 
+<!-- Used for interrupting blocking operations. Can be @code{NULL} if -->
+<!-- operations on this stream cannot block. Note that this function must -->
+<!-- be thread safe as it can be called from an arbitrary thread. -->
+<!-- @xref{cpg-ref-user_interrupt} for details. -->
+
+     <br><dt><var>user_ioctl</var><dd>Reserved, should be <code>NULL</code>.
+
+     <br><dt><var>args</var><dd>Reserved, should be <code>NULL</code>.
+
+     <br><dt><var>create_stream_options</var><dd>The following bits can be set:
+
+          <dl>
+<dt><code>SP_CREATE_STREAM_OPTION_BINARY</code><dd>This is a binary stream. The <code>user_read</code> and <code>user_write</code>
+methods transfer bytes.
+
+          <br><dt><code>SP_CREATE_STREAM_OPTION_TEXT</code><dd>This is a TEXT stream. The <code>user_read</code> and <code>user_write</code>
+methods transfer wide characters.
+
+          <br><dt><code>SP_CREATE_STREAM_OPTION_AUTOFLUSH</code><dd>After writing to this stream prolog predicates will do a
+<code>flush_output/1</code>. In essence this ensures that the stream behaves
+as if it were unbuffered.
+
+          <br><dt><code>SP_CREATE_STREAM_OPTION_INTERACTIVE</code><dd><!-- FIXME: need xref for interactive streams. -->
+Treat this stream as an interactive stream. Implies
+<code>SP_CREATE_STREAM_OPTION_AUTOFLUSH</code>.
+
+          <br><dt><code>SP_CREATE_STREAM_OPTION_EOF_ON_EOF</code><dt><code>SP_CREATE_STREAM_OPTION_RESET_ON_EOF</code><dd>These correspond to the <code>open/4</code> options <code>eof_action(eof)</code>
+and <code>eof_action(reset)</code> respectively. The default is to give an
+error if reading after reaching end of file. 
+</dl>
+
+     <p>Exactly one of <code>SP_CREATE_STREAM_OPTION_BINARY</code> and
+<code>SP_CREATE_STREAM_OPTION_TEXT</code> must be set.
+
+     <br><dt><var>pstream</var><dd>This is assigned to the created SICStus stream on success. It
+should be closed with <code>SP_fclose()</code> or <code>close/[1,2]</code>.
+
+</dl>
+
+<h4 class="subheading">Return Value</h4>
+
+<p>On success, <code>*pstream</code> is assigned, and
+<code>SPIO_S_NOERR</code> or some other success code is returned. You should
+use the <code>SPIO_FAILED()</code> macro to determine if the return representation
+signifies failure or success.
+
+<!-- @description -->
+<!-- Create a SICStus stream that will call user defined functions to -->
+<!-- perform stream operations. -->
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Defining-a-New-Stream.html#Defining-a-New-Stream">Defining a New Stream</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fcreate_005fstream.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fcreate_005fstream.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

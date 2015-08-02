@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+<title>OS File System - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Operating-System-Services.html#Operating-System-Services" title="Operating System Services">
+<link rel="prev" href="OS-Memory-Management.html#OS-Memory-Management" title="OS Memory Management">
+<link rel="next" href="OS-Threads.html#OS-Threads" title="OS Threads">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="OS-File-System"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="OS-Threads.html#OS-Threads">OS Threads</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="OS-Memory-Management.html#OS-Memory-Management">OS Memory Management</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Operating-System-Services.html#Operating-System-Services">Operating System Services</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">6.4.7.2 File System</h5>
+
+<p>SICStus Prolog caches the name of the current working directory.  To
+take advantage of the cache and to keep it consistent, foreign code
+should call the following interface functions instead of calling
+<code>chdir()</code> and <code>getcwd()</code> directly:
+
+     <dl>
+<dt><code>SP_set_current_dir()</code><dd><a name="index-SP_005fset_005fcurrent_005fdir_0028_0029-_0028C-function_0029-2294"></a>Obtains the absolute name of the current working directory. 
+<br><dt><code>SP_get_current_dir()</code><dd><a name="index-SP_005fget_005fcurrent_005fdir_0028_0029-_0028C-function_0029-2295"></a>Sets the current working directory. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/OS-File-System.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/OS-File-System.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

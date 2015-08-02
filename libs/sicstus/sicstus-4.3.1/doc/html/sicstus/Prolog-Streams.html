@@ -1,0 +1,117 @@
+<html lang="en">
+<head>
+<title>Prolog Streams - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="SICStus-Streams.html#SICStus-Streams" title="SICStus Streams">
+<link rel="next" href="Defining-a-New-Stream.html#Defining-a-New-Stream" title="Defining a New Stream">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Prolog-Streams"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Defining-a-New-Stream.html#Defining-a-New-Stream">Defining a New Stream</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="SICStus-Streams.html#SICStus-Streams">SICStus Streams</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.6.1 Prolog Streams</h4>
+
+<p>From the Prolog level there is a unique number that identifies a
+stream. This identifier can be converted from/to a Prolog
+stream:
+
+     <dl>
+<dt><code>stream_code(</code><var>?Stream</var><code>,</code><var>?StreamCode</var><code>)</code><dd><a name="index-stream_005fcode_002f2-_0028built_002din_0029-2343"></a><a name="index-stream_005fcode_002f2-_0028built_002din_0029-2344"></a>
+<var>StreamCode</var> is the C stream identifier (an integer) corresponding
+to the Prolog stream <var>Stream</var>.  This predicate is only useful when
+streams are passed between Prolog and C. 
+See <a href="mpg_002dref_002dstream_005fcode.html#mpg_002dref_002dstream_005fcode">mpg-ref-stream_code</a>. 
+<!-- [PM] 4.0 Why would anyone assume this in this time and age? -->
+<!-- Note that @code{@var{StreamCode}} has no relation to UNIX file descriptors. -->
+
+   </dl>
+
+   <p><a name="index-SP_005fstream-_0028C-type_0029-2345"></a>The <var>StreamCode</var> is a Prolog integer representing an
+<!-- aligned -->
+<code>SP_stream *</code> pointer.
+
+   <p>To read or write on a Prolog stream from C, the following functions and
+macros can be used:
+     <dl>
+<dt><code>SP_get_byte()</code><dd><a name="index-SP_005fget_005fbyte_0028_0029-_0028C-macro_0029-2346"></a>Read one byte from a binary stream. 
+<br><dt><code>SP_get_code()</code><dd><a name="index-SP_005fget_005fcode_0028_0029-_0028C-macro_0029-2347"></a>Read one character code from a text stream. 
+<br><dt><code>SP_put_byte()</code><dd><a name="index-SP_005fput_005fbyte_0028_0029-_0028C-macro_0029-2348"></a>Write one byte to a binary stream. 
+<br><dt><code>SP_put_code()</code><dd><a name="index-SP_005fput_005fcode_0028_0029-_0028C-macro_0029-2349"></a>Write one character code to a text stream. 
+<br><dt><code>SP_put_bytes()</code><dd><a name="index-SP_005fput_005fbytes_0028_0029-_0028C-function_0029-2350"></a>Write multiple bytes to a binary stream. 
+<br><dt><code>SP_put_codes()</code><dd><a name="index-SP_005fput_005fcodes_0028_0029-_0028C-function_0029-2351"></a>Write multiple character codes to a text stream. 
+<br><dt><code>SP_put_encoded_string()</code><dd><a name="index-SP_005fput_005fencoded_005fstring_0028_0029-_0028C-function_0029-2352"></a>Write a <code>NUL</code> terminated encoded string to a text stream.
+
+     <br><dt><code>SP_printf()</code><dd><a name="index-SP_005fprintf_0028_0029-_0028C-function_0029-2353"></a><br><dt><code>SP_fprintf()</code><dd><a name="index-SP_005ffprintf_0028_0029-_0028C-function_0029-2354"></a>Perform formatted output. 
+<br><dt><code>SP_flush_output()</code><dd><a name="index-SP_005fflush_005foutput_0028_0029-_0028C-function_0029-2355"></a>Flush buffered data of an output stream. 
+<br><dt><code>SP_fclose()</code><dd><a name="index-SP_005ffclose_0028_0029-_0028C-function_0029-2356"></a>Close a stream. 
+<!-- FIXME: document these? -->
+<!-- SP_unget_code -->
+<!-- SP_unget_byte -->
+<!-- SP_fopen -->
+</dl>
+
+   <p>The following predefined streams are accessible from C:
+
+     <dl>
+<dt><code>SP_stdin</code><dd><a name="index-SP_005fstdin-_0028C-stream_0029-2357"></a>Standard input. Refers to the same stream as <code>user_input</code> in
+Prolog. Which stream is referenced by <code>user_input</code> is
+controlled by the Prolog flag <code>user_input</code>. 
+<a name="index-user_005finput-_0028prolog-flag_0029-2358"></a>
+<br><dt><code>SP_stdout</code><dd><a name="index-SP_005fstdout-_0028C-stream_0029-2359"></a>Standard output. Refers to the same stream as <code>user_output</code>
+in Prolog. Which stream is referenced by <code>user_output</code> is
+controlled by the Prolog flag <code>user_output</code>. 
+<a name="index-user_005foutput-_0028prolog-flag_0029-2360"></a>
+<br><dt><code>SP_stderr</code><dd><a name="index-SP_005fstderr-_0028C-stream_0029-2361"></a>Standard error. Refers to the same stream as <code>user_error</code> in
+Prolog. Which stream is referenced by <code>user_error</code> is
+controlled by the flag <code>user_error</code>. 
+<a name="index-user_005ferror-_0028prolog-flag_0029-2362"></a>
+<br><dt><code>SP_curin</code><dd><a name="index-SP_005fcurin-_0028C-stream_0029-2363"></a>Current input. It is initially set equal to <code>SP_stdin</code>.  It can be
+changed with the predicates <code>see/1</code> and <code>set_input/1</code>.
+
+     <br><dt><code>SP_curout</code><dd><a name="index-SP_005fcurout-_0028C-stream_0029-2364"></a>Current output. It is initially set equal to <code>SP_stdout</code>.  It can
+be changed with the predicates <code>tell/1</code> and
+<code>set_output/1</code>. 
+</dl>
+
+   <p>Note that these variables are read only. 
+<!-- [PM] 4.0 So? -->
+<!-- They are set but never read by the stream handling. -->
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Prolog-Streams.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Prolog-Streams.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

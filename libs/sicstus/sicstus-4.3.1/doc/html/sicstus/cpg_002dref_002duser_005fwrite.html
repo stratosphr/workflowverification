@@ -1,0 +1,141 @@
+<html lang="en">
+<head>
+<title>cpg-ref-user_write - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002duser_005fread.html#cpg_002dref_002duser_005fread" title="cpg-ref-user_read">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-user_write"></a>
+<a name="cpg_002dref_002duser_005fwrite"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002duser_005fread.html#cpg_002dref_002duser_005fread">cpg-ref-user_read</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.108 <code>user_write()</code></h4>
+
+<p><a name="index-user_005fwrite_0028_0029-_0028C-function_0029-5238"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     spio_t_error_code
+     user_write(
+       void *user_data,
+       void const *buf,
+       size_t *pbuf_size,
+       spio_t_bits write_options
+       );
+</pre>
+   <p>This is the prototype for one of the <dfn>methods</dfn> of user defined
+streams. It is used when SICStus wants to write data to the
+user defined stream.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>user_data</var><dd>The same representation as was passed to <code>SP_create_stream()</code>.
+
+     <br><dt><var>buf</var><dd>Points to a buffer allocated by the caller containing the data to be written.
+
+     <br><dt><var>pbuf_size</var><dd>Points to the size of the buffer, always positive. When this function
+returns successfully, <code>*pbuf_size</code> should be set to the number of
+bytes actually written, which should always be positive for
+successful return.
+
+     <p>Note that buffer size is measured in bytes also for text streams.
+
+     <br><dt><var>write_options</var><dd>The following bits can be set:
+
+          <dl>
+<dt><code>SPIO_DEVICE_WRITE_OPTION_BINARY</code><dd>
+This is always specified if the device was created as a binary
+device. The buffer contains <code>*pbuf_size</code> bytes.
+
+          <br><dt><code>SPIO_DEVICE_WRITE_OPTION_TEXT</code><dd>
+This is always specified if the device was created as a text
+device. The buffer contains wide characters, i.e. 
+<code>spio_t_wchar</code>. Note that <code>*buf_size</code> is size in
+<em>bytes</em>, not in characters.
+
+          <br><dt><code>SPIO_DEVICE_WRITE_OPTION_NONBLOCKING</code><dd>
+If this is set, the function should return <dfn>quickly</dfn>,
+either with some data written or with a <code>SPIO_E_WOULD_BLOCK</code>
+code.
+
+          <p>If your <code>user_write</code> will never block, you can ignore this representation.
+
+          <p>You should return <code>SPIO_E_NOT_SUPPORTED</code> if <code>user_write</code>
+cannot support non-blocking write. 
+</dl>
+     </dl>
+
+<h4 class="subheading">Return Value</h4>
+
+<p>On success, <code>*pbuf_size</code> should be assigned to with the number of
+bytes written and <code>SPIO_S_NOERR</code> or some other success code
+returned.  On success, something must have been written, e.g. 
+<code>*pbuf_size</code> must be set to a positive representation.
+
+   <p>On failure, return a SPIO error code. Error codes with special meaning
+for <code>user_write</code>:
+
+     <dl>
+<dt><code>SPIO_E_END_OF_FILE</code><dd>Returned if it is not possible to write more data onto the stream,
+e.g. some underlying device has been closed.
+
+     <br><dt><code>SPIO_E_WOULD_BLOCK</code><dd><code>SPIO_DEVICE_WRITE_OPTION_NONBLOCKING</code> was set but the operation
+would block.
+
+     <br><dt><code>SPIO_E_NOT_SUPPORTED</code><dd>Some unsupported option, e.g. 
+<code>SPIO_DEVICE_WRITE_OPTION_NONBLOCKING</code>,  was passed. 
+</dl>
+
+<p class="noindent">Other error codes may also be returned.
+
+<h4 class="subheading">Description</h4>
+
+<p>Should write up to <code>*buf_size</code> bytes of data from
+<code>buf</code>. Data could be either bytes, for a binary device, or wide
+characters, for a text device.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="cpg_002dref_002dSP_005fcreate_005fstream.html#cpg_002dref_002dSP_005fcreate_005fstream">cpg-ref-SP_create_stream</a>. 
+<a href="Defining-a-New-Stream.html#Defining-a-New-Stream">Defining a New Stream</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002duser_005fwrite.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002duser_005fwrite.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

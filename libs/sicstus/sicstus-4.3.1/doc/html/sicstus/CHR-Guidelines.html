@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+<title>CHR Guidelines - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="lib_002dchr.html#lib_002dchr" title="lib-chr">
+<link rel="prev" href="CHR-Examples.html#CHR-Examples" title="CHR Examples">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CHR-Guidelines"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="CHR-Examples.html#CHR-Examples">CHR Examples</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="lib_002dchr.html#lib_002dchr">lib-chr</a>
+<hr>
+</div>
+
+<h4 class="subsection">10.8.6 Guidelines</h4>
+
+<p>In this subsection we cover several guidelines on how to use CHR to write
+constraint solvers and how to do so efficiently.
+
+     <dl>
+<dt><b>Check guard bindings yourself.</b><dd>It is considered bad practice to write guards that bind variables of
+the head and to rely on the system to detect this at runtime. It is
+inefficient and obscures the working of the program.
+
+     <br><dt><b>Set semantics.</b><dd>The CHR system allows the presence of identical constraints, i.e. 
+multiple constraints with the same functor, arity and arguments. For
+most constraint solvers, this is not desirable: it affects efficiency
+and possibly termination. Hence appropriate simpagation rules should be
+added of the form:
+
+     <pre class="example">          <var>constraint</var> \ <var>constraint</var> &lt;=&gt; <var>true</var>.
+</pre>
+     <br><dt><b>Multi-headed rules.</b><dd>Multi-headed rules are executed more efficiently when the constraints
+share one or more variables.
+
+     <br><dt><b>Mode and type declarations.</b><dd>Provide mode and type declarations to get more efficient program execution. 
+<!-- Make sure to disable debug (-nodebug) and enable optimization (-O). -->
+
+     <br><dt><b>Compile once, run many times.</b><dd>Does consulting your CHR program take a long time? Probably
+it takes the CHR compiler a long time to compile the CHR rules into Prolog
+code. When you disable optimizations the CHR compiler will be a lot quicker,
+but you may lose performance. 
+<!-- Alternatively, you can just use SWI-Prolog's -->
+<!-- \predref{qcompile}{1} to generate a \fileext{qlf} file once from your -->
+<!-- \fileext{pl} file. This fileext{qlf} contains the generated code of the -->
+<!-- CHR compiler (be it in a binary format). When you consult the \fileext{qlf} -->
+<!-- file, the CHR compiler is not invoked and consultation is much faster. -->
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CHR-Guidelines.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CHR-Guidelines.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

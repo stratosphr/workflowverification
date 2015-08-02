@@ -1,0 +1,135 @@
+<html lang="en">
+<head>
+<title>mpg-ref-asserta - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dassert.html#mpg_002dref_002dassert" title="mpg-ref-assert">
+<link rel="next" href="mpg_002dref_002dassertz.html#mpg_002dref_002dassertz" title="mpg-ref-assertz">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-asserta"></a>
+<a name="mpg_002dref_002dasserta"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dassertz.html#mpg_002dref_002dassertz">mpg-ref-assertz</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dassert.html#mpg_002dref_002dassert">mpg-ref-assert</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.11 <code>asserta/[1,2]</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-asserta_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4442"></a><a name="index-asserta_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-4443"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p>These predicates add a dynamic clause,
+<var>Clause</var>, to the Prolog database.  They optionally return a database
+reference in <var>Ref</var>:
+
+   <p><code>asserta(</code><var>+Clause</var><code>)</code>
+
+   <p><code>asserta(</code><var>+Clause</var><code>, </code><var>-Ref</var><code>)</code>
+
+   <p><var>Clause</var> will precede all existing clauses in the database.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:Clause</var><dd><dfn>callable</dfn>, must be nonvar
+
+     <p>A valid dynamic Prolog clause.
+
+     <br><dt><var>Ref</var><dd><dfn>db_reference</dfn>, must be var
+
+     <p>A database reference, which uniquely identifies the newly asserted <var>Clause</var>. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p><var>Clause</var> must be of the form:
+<pre class="example">            <var>Head</var>
+     or     <var>Head</var> :- <var>Body</var>
+     or     <var>M</var>:<var>Clause</var>
+</pre>
+   <p>where <var>Head</var> is of type callable and <var>Body</var> is a valid clause body. 
+If specified, <var>M</var> must be an atom.
+
+   <p><code>asserta(</code><var>Head</var><code>)</code> means assert the unit-clause <var>Head</var>.  The exact
+same effect can be achieved by <code>asserta((</code><var>Head</var><code> :- true))</code>.
+
+   <p>If <var>Body</var> is uninstantiated it is taken to mean <code>call(</code><var>Body</var><code>)</code>. 
+For example, (A) is equivalent to (B):
+<pre class="example">     | ?- <kbd>asserta((p(X) :- X)).</kbd>           &nbsp;<!-- /@w --> (A)
+     | ?- <kbd>asserta((p(X) :- call(X))).</kbd>     &nbsp;<!-- /@w --> (B)
+</pre>
+   <p><var>Ref</var> should be uninstantiated; a range exception is signalled if
+<var>Ref</var>
+does not unify with its return representation.  This exception is signalled after the
+assert has been completed.
+
+   <p>The procedure for <var>Clause</var> must be dynamic or undefined.  If it is
+undefined, it is set to be dynamic.
+
+   <p>When an assert takes place, the new clause is immediately seen by any
+subsequent call to the procedure.  However, if there is a currently active
+call of the procedure at the time the clause is asserted, the new clause
+is not encountered on backtracking by that call.  See <a href="ref_002dmdb_002dbas.html#ref_002dmdb_002dbas">ref-mdb-bas</a>
+for further explanation of what happens when currently running code is
+modified.
+
+   <p>Any uninstantiated variables in the <var>Clause</var> will be replaced by
+new private variables, along with copies of any subgoals blocked on
+these variables (see <a href="ref_002dsem_002dsec.html#ref_002dsem_002dsec">ref-sem-sec</a>).
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>Head</var> (in <var>Clause</var>) or <var>M</var> is uninstantiated.
+
+     <br><dt><code>type_error</code><dd><var>Head</var> is not a callable, or <var>M</var> is
+not an atom, or <var>Body</var> is not a valid clause body.
+
+     <br><dt><code>permission_error</code><dd>the procedure corresponding to <var>Head</var> is not dynamic
+
+     <br><dt><code>uninstantiation_error</code><dd><var>Ref</var> is not a variable
+
+</dl>
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmdb_002dacd.html#ref_002dmdb_002dacd">ref-mdb-acd</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dasserta.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dasserta.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

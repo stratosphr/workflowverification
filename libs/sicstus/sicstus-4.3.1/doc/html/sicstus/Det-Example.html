@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+<title>Det Example - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Determinacy-Checker.html#The-Determinacy-Checker" title="The Determinacy Checker">
+<link rel="prev" href="Checker-Output.html#Checker-Output" title="Checker Output">
+<link rel="next" href="Det-Options.html#Det-Options" title="Det Options">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Det-Example"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Det-Options.html#Det-Options">Det Options</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Checker-Output.html#Checker-Output">Checker Output</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Determinacy-Checker.html#The-Determinacy-Checker">The Determinacy Checker</a>
+<hr>
+</div>
+
+<h4 class="subsection">9.7.4 Example</h4>
+
+<p>Here is an example file:
+<pre class="example">     :- load_files(library(detcheck),
+                   [when(compile_time), if(changed)]).
+     
+     parent(abe, rob).
+     parent(abe, sam).
+     parent(betty, rob).
+     parent(betty, sam).
+     
+     is_parent(Parent) :- parent(Parent, _).
+</pre>
+   <p>The determinacy checker notices that the first arguments of
+clauses 1 and 2 have the same principal functor, and
+similarly for clauses 3 and 4.  It reports:
+<pre class="example">     * Non-determinate: user:parent/2 (clause 1)
+     *     Indexing cannot distinguish this from clause 2.
+     * Non-determinate: user:parent/2 (clause 3)
+     *     Indexing cannot distinguish this from clause 4.
+</pre>
+   <p>In fact, <code>parent/2</code> should be nondeterminate, so we should
+add the declaration
+<pre class="example">     :- parent/2 is nondet.
+</pre>
+   <p class="noindent">before the clauses for <code>parent/2</code>.  If run again after modifying file,
+the determinacy checker prints:
+<pre class="example">     * Non-determinate: user:is_parent/1 (clause 1)
+     *     This clause calls user:parent/2, which may be nondeterminate.
+</pre>
+   <p>It no longer complains about <code>parent/2</code> being nondeterminate,
+since this is declared.  But now it notices that because <code>parent/2</code>
+is nondeterminate, then so is <code>is_parent/1</code>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Det-Example.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Det-Example.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

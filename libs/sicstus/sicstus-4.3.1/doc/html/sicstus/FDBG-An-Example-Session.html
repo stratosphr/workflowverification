@@ -1,0 +1,209 @@
+<html lang="en">
+<head>
+<title>FDBG An Example Session - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="FDBG-Basics.html#FDBG-Basics" title="FDBG Basics">
+<link rel="prev" href="FDBG-Annotation.html#FDBG-Annotation" title="FDBG Annotation">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="FDBG-An-Example-Session"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="FDBG-Annotation.html#FDBG-Annotation">FDBG Annotation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="FDBG-Basics.html#FDBG-Basics">FDBG Basics</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.14.3.6 An Example Session</h5>
+
+<p>The problem of magic sequences is a well known constraint problem. A
+magic sequence is a list, where the <var>i</var>-th item of the
+list is equal to the number of occurrences of the number <var>i</var>
+in the list, starting from zero.  For example, the following is a
+magic sequence:
+
+<pre class="example">     [1,2,1,0]
+</pre>
+   <p>The CLP(FD) solution can be found in
+<samp><span class="file">library('clpfd/examples/magicseq')</span></samp>, which provides a couple of
+different solutions, one of which uses the <code>global_cardinality/2</code>
+constraint.  We'll use this solution to demonstrate a simple session
+with FDBG.
+
+   <p>First, the debugger is imported into the user module:
+
+<pre class="example">     | ?- <kbd>use_module(library(fdbg)).</kbd>
+     % loading /home/matsc/sicstus3/Utils/x86-linux-glibc2.2/lib/sicstus-3.9.1/library/fdbg.po...
+     % module fdbg imported into user
+     
+     [...]
+     
+     % loaded /home/matsc/sicstus3/Utils/x86-linux-glibc2.2/lib/sicstus-3.9.1/library/fdbg.po in module fdbg, 220 msec 453936 bytes
+     
+     | ?- <kbd>use_module(library(clpfd)).</kbd>
+     [...]
+</pre>
+   <p>Then, the magic sequence solver is loaded:
+
+<pre class="example">     | ?- <kbd>[library('clpfd/examples/magicseq')].</kbd>
+     % consulting /home/matsc/sicstus3/Utils/x86-linux-glibc2.2/lib/sicstus-3.9.1/library/clpfd/examples/magicseq.pl...
+     %  module magic imported into user
+     %  module clpfd imported into magic
+     % consulted /home/matsc/sicstus3/Utils/x86-linux-glibc2.2/lib/sicstus-3.9.1/library/clpfd/examples/magicseq.pl in module magic, 30 msec 9440 bytes
+</pre>
+   <p>Now we turn on the debugger, telling it to save the trace in <samp><span class="file">fdbg.log</span></samp>.
+
+<pre class="example">     | ?- <kbd>fdbg_on([file('fdbg.log',write)]).</kbd>
+     % The clp(fd) debugger is switched on
+</pre>
+   <p>To produce a well readable trace output, a name has to be assigned to
+the list representing the magic sequence.  To avoid any
+modifications to the source code, the name is assigned by a
+separate call before calling the magic sequence finder predicate:
+
+<pre class="example">     | ?- <kbd>length(L,4), fdbg_assign_name(L,list), magic_demo(4,L).</kbd>
+     L = [1,2,1,0] ? <kbd>;</kbd>
+     L = [2,0,2,0] ? <kbd>;</kbd>
+     
+     no
+</pre>
+   <blockquote>
+<strong>Please note</strong>: the call to <code>length/2</code> is necessary; otherwise, <code>L</code>
+would be a single variable instead of a list of four
+variables when the name is assigned. 
+</blockquote>
+
+   <p>Finally we turn the debugger off:
+
+<pre class="example">     | ?- <kbd>fdbg_off.</kbd>
+     % The clp(fd) debugger is switched off
+</pre>
+   <p>The output of the sample run can be found in <samp><span class="file">fdbg.log</span></samp>.  Here, we
+show selected parts of the trace.  In each block, the woken constraint
+appears on the first line, followed by the corresponding legend.
+
+   <p>In the first selected block, <code>scalar_product/4</code> removes infeasible
+domain values from <code>list_4</code>, adjusting its upper bound.  The legend
+shows the domains before and after pruning.  Note also that the
+constraint is rewritten to a more readable form:
+
+<pre class="example">     &lt;list_2&gt;+2*&lt;list_3&gt;+3*&lt;list_4&gt;#=&lt;list_1&gt;+&lt;list_2&gt;+&lt;list_3&gt;+&lt;list_4&gt;
+         list_1 = 0..3
+         list_2 = 0..3
+         list_3 = 0..3
+         list_4 = 0..3 -&gt; 0..1
+</pre>
+   <p>The following block shows the initial labeling events,
+trying the representation 0 for <code>list_1</code>:
+
+<pre class="example">     Labeling [9, &lt;list_1&gt;]: starting in range 0..3.
+     Labeling [9, &lt;list_1&gt;]: indomain_up: &lt;list_1&gt; = 0
+</pre>
+   <p>This soon leads to a dead end:
+
+<pre class="example">     &lt;list_1&gt;=0
+         list_1 = 0..3 -&gt; {0}
+         Constraint exited.
+     
+     &lt;list_2&gt;+2*&lt;list_3&gt;+3*&lt;list_4&gt;#=&lt;list_2&gt;+&lt;list_3&gt;+&lt;list_4&gt;
+         list_2 = 0..3
+         list_3 = 0..3 -&gt; {0}
+         list_4 = 0..1 -&gt; {0}
+         Constraint exited.
+     
+     &lt;list_2&gt;+&lt;list_3&gt;+&lt;list_4&gt;#=4
+         list_2 = 0..3
+         list_3 = {0}
+         list_4 = {0}
+         Constraint failed.
+</pre>
+   <p>We backtrack on <code>list_1</code>, trying instead the representation 1.  This leads
+to the following propagation steps and to the first solution.  In these
+propagation steps, the constraint exits, which means that it holds no
+matter what representation any remaining variable takes (like <code>list_2</code> in the second step):
+
+<pre class="example">     Labeling [9, &lt;list_1&gt;]: indomain_up: &lt;list_1&gt; = 1
+     
+     &lt;list_1&gt;=1
+         list_1 = 0..3 -&gt; {1}
+         Constraint exited.
+     
+     &lt;list_2&gt;+2*&lt;list_3&gt;+3*&lt;list_4&gt;#=1+&lt;list_2&gt;+&lt;list_3&gt;+&lt;list_4&gt;
+         list_2 = 0..3
+         list_3 = 0..3 -&gt; {1}
+         list_4 = 0..1 -&gt; {0}
+         Constraint exited.
+     
+     1+&lt;list_2&gt;+&lt;list_3&gt;+&lt;list_4&gt;#=4
+         list_2 = 0..3 -&gt; {2}
+         list_3 = {1}
+         list_4 = {0}
+         Constraint exited.
+     
+     global_cardinality([1,&lt;list_2&gt;,&lt;list_3&gt;,&lt;list_4&gt;],[0-1,1-&lt;list_2&gt;,2-&lt;list_3&gt;,3-&lt;list_4&gt;],[consistency(domain)])
+         list_2 = {2}
+         list_3 = {1}
+         list_4 = {0}
+         Constraint exited.
+</pre>
+   <p>Then, we backtrack again on <code>list_1</code>, which leads to the second
+solution after a chain of propagation steps:
+
+<pre class="example">     Labeling [9, &lt;list_1&gt;]: indomain_up: &lt;list_1&gt; = 2
+     
+     [...]
+     
+     global_cardinality([2,&lt;list_2&gt;,&lt;list_3&gt;,&lt;list_4&gt;],[0-2,1-&lt;list_2&gt;,2-&lt;list_3&gt;,3-&lt;list_4&gt;],[consistency(domain)])
+         list_2 = {0}
+         list_3 = {2}
+         list_4 = {0}
+         Constraint exited.
+</pre>
+   <p>Then we backtrack on <code>list_1</code> yet another time, but no more
+solutions are found:
+
+<pre class="example">     Labeling [9, &lt;list_1&gt;]: indomain_up: &lt;list_1&gt; = 3
+     
+     [...]
+     
+     &lt;list_2&gt;+2*&lt;list_3&gt;+3*&lt;list_4&gt;#=3+&lt;list_2&gt;+&lt;list_3&gt;+&lt;list_4&gt;
+         list_2 = {0}
+         list_3 = {1}
+         list_4 = {0}
+         Constraint failed.
+     
+     Labeling [9, &lt;list_1&gt;]: failed.
+</pre>
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-An-Example-Session.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-An-Example-Session.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

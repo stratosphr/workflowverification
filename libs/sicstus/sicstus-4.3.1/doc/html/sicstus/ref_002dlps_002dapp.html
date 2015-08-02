@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+<title>ref-lps-app - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dlps.html#ref_002dlps" title="ref-lps">
+<link rel="prev" href="ref_002dlps_002dove.html#ref_002dlps_002dove" title="ref-lps-ove">
+<link rel="next" href="ref_002dlps_002dapf.html#ref_002dlps_002dapf" title="ref-lps-apf">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-lps-app"></a>
+<a name="ref_002dlps_002dapp"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dlps_002dapf.html#ref_002dlps_002dapf">ref-lps-apf</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dlps_002dove.html#ref_002dlps_002dove">ref-lps-ove</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dlps.html#ref_002dlps">ref-lps</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.9.2 Associating Predicates with their Properties</h4>
+
+<p><a name="index-predicate_005fproperty_002f2-_0028built_002din_0029-1276"></a><a name="index-predicate_005fproperty_002f2-_0028built_002din_0029-1277"></a>
+The following properties are associated with predicates either
+implicitly or by declaration:
+
+     <dl>
+<dt><code>built_in</code><dd><a name="index-built_005fin_002f0-_0028predicate-property_0029-1278"></a>The predicate is built-in.
+
+     <br><dt><code>compiled</code><dd><a name="index-compiled_002f0-_0028predicate-property_0029-1279"></a>The predicate is in virtual code representation.
+
+     <br><dt><code>interpreted</code><dd><a name="index-interpreted_002f0-_0028predicate-property_0029-1280"></a>The predicate is in interpreted representation.
+
+     <br><dt><code>fd_constraint</code><dd><a name="index-fd_005fconstraint_002f0-_0028predicate-property_0029-1281"></a>The predicate is a so-called FD predicate;
+see <a href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints">Defining Primitive Constraints</a>.
+
+     <br><dt><code>dynamic</code><dd><a name="index-dynamic_002f0-_0028predicate-property_0029-1282"></a>The predicate was declared dynamic.
+
+     <br><dt><code>volatile</code><dd><a name="index-volatile_002f0-_0028predicate-property_0029-1283"></a>The predicate was declared volatile.
+
+     <br><dt><code>multifile</code><dd><a name="index-multifile_002f0-_0028predicate-property_0029-1284"></a>The predicate was declared multifile.
+
+     <br><dt><code>block(</code><var>SkeletalGoal</var><code>)</code><dd><a name="index-block_002f1-_0028predicate-property_0029-1285"></a>The predicate has block declarations.
+
+     <br><dt><code>meta_predicate(</code><var>SkeletalGoal</var><code>)</code><dd><a name="index-meta_005fpredicate_002f1-_0028predicate-property_0029-1286"></a>The predicate is a meta-predicate.
+
+     <p>As of release 4.2, the <var>SkeletalGoal</var> will contain
+the specifications used in the original meta-predicate declaration. 
+<!-- The @var{SkeletalGoal} will contain @code{:} (colon) for meta-arguments -->
+<!-- and @code{?} for non-meta-arguments, regardless of the specifications -->
+<!-- used in the original meta-predicate declaration. In particular, if an integer was -->
+<!-- used, a colon will appear in its place in @var{SkeletalGoal}. -->
+
+     <br><dt><code>exported</code><dd><a name="index-exported_002f0-_0028predicate-property_0029-1287"></a>The predicate was exported from a module.
+
+     <br><dt><code>imported_from(</code><var>Module</var><code>)</code><dd><a name="index-imported_005ffrom_002f1-_0028predicate-property_0029-1288"></a>The predicate was imported from the module <var>Module</var>. 
+</dl>
+
+   <p>Every predicate has exactly one of the properties
+<code>[built_in, compiled, interpreted, fd_constraint]</code>,
+at most one of the properties
+
+   <p><code>[exported, imported_from(</code><var>SkeletalGoal</var><code>)]</code>,
+zero or more <code>block(</code><var>SkeletalGoal</var><code>)</code> properties,
+and at most one of the remaining properties.
+
+   <p>To query these associations, use <code>predicate_property/2</code>.  The
+reference page contains several examples. 
+See <a href="mpg_002dref_002dpredicate_005fproperty.html#mpg_002dref_002dpredicate_005fproperty">mpg-ref-predicate_property</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlps_002dapp.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlps_002dapp.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

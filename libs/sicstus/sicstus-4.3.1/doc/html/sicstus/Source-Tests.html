@@ -1,0 +1,82 @@
+<html lang="en">
+<head>
+<title>Source Tests - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Breakpoint-Conditions.html#Breakpoint-Conditions" title="Breakpoint Conditions">
+<link rel="prev" href="Goal-Tests.html#Goal-Tests" title="Goal Tests">
+<link rel="next" href="Port-Tests.html#Port-Tests" title="Port Tests">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Source-Tests"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Port-Tests.html#Port-Tests">Port Tests</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Goal-Tests.html#Goal-Tests">Goal Tests</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Breakpoint-Conditions.html#Breakpoint-Conditions">Breakpoint Conditions</a>
+<hr>
+</div>
+
+<h4 class="subsection">5.9.2 Tests Related to Source Information</h4>
+
+<p>These tests provide access to source related information.  The
+<code>file</code> and <code>line</code> tests will fail if no source information is
+present. The <code>parent_clause</code> and <code>parent_pred</code> tests are
+available for interpreted code only, they will fail in
+compiled code.
+
+     <dl>
+<dt><code>file(</code><var>File</var><code>)</code><dd><a name="index-file_002f1-_0028debugger-condition_0029-2100"></a>The current goal is invoked from a file whose absolute name is
+<var>File</var>. 
+<br><dt><code>line(</code><var>File</var><code>,</code><var>Line</var><code>)</code><dd><a name="index-line_002f2-_0028debugger-condition_0029-2101"></a>The current goal is invoked from line <var>Line</var>, from within a file
+whose absolute name is <var>File</var>. 
+<br><dt><code>line(</code><var>Line</var><code>)</code><dd><a name="index-line_002f1-_0028debugger-condition_0029-2102"></a>The current goal is invoked from line <var>Line</var>. 
+<br><dt><code>parent_clause(</code><var>Cl</var><code>)</code><dd><a name="index-parent_005fclause_002f1-_0028debugger-condition_0029-2103"></a>The current goal is invoked from clause <var>Cl</var>. 
+<br><dt><code>parent_clause(</code><var>Cl</var><code>,</code><var>Sel</var><code>)</code><dd><a name="index-parent_005fclause_002f2-_0028debugger-condition_0029-2104"></a>The current goal is invoked from clause <var>Cl</var> and within its body it
+is pointed to by the subterm selector <var>Sel</var>. 
+<br><dt><code>parent_clause(</code><var>Cl</var><code>,</code><var>Sel</var><code>,</code><var>I</var><code>)</code><dd><a name="index-parent_005fclause_002f3-_0028debugger-condition_0029-2105"></a>The current goal is invoked from clause <var>Cl</var>, it is pointed to by
+the subterm selector <var>Sel</var> within its body, and it is the <var>I</var>th
+goal within it. The goals in the body are counted following their
+textual occurrence. 
+<br><dt><code>parent_pred(</code><var>Pred</var><code>)</code><dd><a name="index-parent_005fpred_002f1-_0028debugger-condition_0029-2106"></a>The current goal is invoked from predicate <var>Pred</var>. 
+<br><dt><code>parent_pred(</code><var>Pred</var><code>,</code><var>N</var><code>)</code><dd><a name="index-parent_005fpred_002f2-_0028debugger-condition_0029-2107"></a>The current goal is invoked from predicate <var>Pred</var>, clause number
+<var>N</var>. 
+</dl>
+
+   <p>The <code>parent_pred</code> tests match their first argument against
+the functor of the parent predicate in the same way as
+the <code>pred</code> test does; see the notes in the previous section
+(<a href="Goal-Tests.html#Goal-Tests">Goal Tests</a>).
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Source-Tests.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Source-Tests.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

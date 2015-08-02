@@ -1,0 +1,115 @@
+<html lang="en">
+<head>
+<title>4.0.2 Bugs Fixed - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e0_002e2-Changes.html#g_t4_002e0_002e2-Changes" title="4.0.2 Changes">
+<link rel="prev" href="4_002e0_002e2-New-Features.html#g_t4_002e0_002e2-New-Features" title="4.0.2 New Features">
+<link rel="next" href="4_002e0_002e2-Other-Changes.html#g_t4_002e0_002e2-Other-Changes" title="4.0.2 Other Changes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.0.2-Bugs-Fixed"></a>
+<a name="g_t4_002e0_002e2-Bugs-Fixed"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e0_002e2-Other-Changes.html#g_t4_002e0_002e2-Other-Changes">4.0.2 Other Changes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="4_002e0_002e2-New-Features.html#g_t4_002e0_002e2-New-Features">4.0.2 New Features</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e0_002e2-Changes.html#g_t4_002e0_002e2-Changes">4.0.2 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.5.2 Bugs Fixed</h4>
+
+     <ul>
+<li>Memory manager: efficiency bug. 
+<li><code>library(structs)</code>: unsigned types, 64-bit issues. 
+<li><!-- SPRM 10373 -->
+PrologBeans: Lists of integers with element values above 255
+broke the communication between Java and SICStus. 
+<li><!-- SPRM 10385 -->
+Closing a stream would sometimes hang due to a race condition on
+UNIX-like platforms. This was most likely to happen on MacOS X. 
+<li><code>set_stream_position/2</code> and <code>seek/4</code> did not work on output
+streams. 
+<li><!-- SPRM 10394, SPRM 8964 -->
+Multiple issues with <code>absolute_file_name/3</code>.
+
+          <ul>
+<li>Option <code>file_errors(fail)</code> would sometimes report permission
+errors (<code>SPIO_E_PERMISSION_ERROR</code>) instead of silently failing.
+
+          <li>Option <code>file_errors(fail)</code> now fails instead of raising an
+exception for file name domain errors like malformed file names and
+too many symbolic links (<code>SPIO_E_INVALID_NAME</code>).
+
+          <li><!-- SPRM 10394 -->
+Options <code>access(execute)</code> and <code>access(search)</code> now imply
+<code>access(exist)</code>. This is similar to how <code>access(read)</code>
+works.
+
+          <li>The undocumented internal option <code>access(directory)</code> was
+allowed. Use <code>file_type(directory)</code> instead. 
+</ul>
+
+     <li><!-- SPRM 10391 -->
+<code>library(process)</code>: <code>process_create/[2,3]</code> now skips
+non-executable file and non-files if the <var>File</var>-argument can expand
+to more than one file. This is especially useful when using the symbolic
+name <code>path/1</code> to specify a file. 
+<li><!-- SPRM 10352 -->
+<code>library(avl)</code>: Bug in <code>avl_delete/4</code>. 
+<li><!-- SPRM 10414 -->
+<code>library(random)</code>: Document and check validity of the random number
+generator state. 
+<!-- SPRM 10480 -->
+Bug in <code>random_numlist/4</code>. 
+<li><!-- SPRM 10418 -->
+<code>get_atts/2</code>: Could fail incorrectly. 
+<li><!-- SPRM 10453 -->
+<code>library(clpfd)</code>: A memory management problem. 
+An integer overflow problem. 
+Propagation bug in <code>case/[3,4]</code>, affecting <code>automaton/8</code> too. 
+<li><!-- SPRM 10456 -->
+A problem with shared subterms in copying, asserting, collecting
+and throwing terms. 
+<li><!-- SPRM 10483 -->
+The Prolog flag <code>title</code> was truncated by <samp><span class="command">spwin.exe</span></samp>
+under Windows.
+
+     <li><!-- SPRM 9763 -->
+The <samp><span class="command">spdet</span></samp> utility did not automatically add &lsquo;<samp><span class="samp">.pl</span></samp>&rsquo; and
+&lsquo;<samp><span class="samp">.pro</span></samp>&rsquo; extensions to file name arguments. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e0_002e2-Bugs-Fixed.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e0_002e2-Bugs-Fixed.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

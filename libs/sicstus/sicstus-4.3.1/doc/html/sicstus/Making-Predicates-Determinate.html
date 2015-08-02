@@ -1,0 +1,132 @@
+<html lang="en">
+<head>
+<title>Making Predicates Determinate - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Cut.html#The-Cut" title="The Cut">
+<link rel="prev" href="Cut-Overview.html#Cut-Overview" title="Cut Overview">
+<link rel="next" href="Placement-of-Cuts.html#Placement-of-Cuts" title="Placement of Cuts">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Making-Predicates-Determinate"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Placement-of-Cuts.html#Placement-of-Cuts">Placement of Cuts</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Cut-Overview.html#Cut-Overview">Cut Overview</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Cut.html#The-Cut">The Cut</a>
+<hr>
+</div>
+
+<h4 class="subsection">9.4.2 Making Predicates Determinate</h4>
+
+<p>Consider the following predicate, which calculates the factorial
+of a number:
+
+<pre class="example">     fac(0, 1).
+     fac(N, X) :-
+             N1 is N - 1,
+             fac(N1, Y),
+             X is N * Y.
+</pre>
+   <p>The factorial of 5 can be found by typing:
+
+<pre class="example">     | ?- <kbd>fac(5, X).</kbd>
+     
+     X = 120
+</pre>
+   <p>However, backtracking into the above predicate by typing a
+semicolon at this point, causes an infinite loop because the system
+starts attempting to satisfy the goals <code>fac(-1, X).</code>,
+<code>fac(-2, X).</code>, etc.  The problem is that there are two
+clauses that match the goal <code>fac(0, F).</code>, but the
+effect of the second clause on backtracking has not been
+taken into account.  There are at least three possible ways of fixing
+this:
+
+     <ol type=1 start=1>
+<li>Efficient solution: rewrite the first clause as
+     <pre class="example">          fac(0,1) :- !.
+</pre>
+     <p>Adding the cut essentially makes the first solution the only one
+for the factorial of 0 and hence solves the immediate problem.  This
+solution is space-efficient because as soon as Prolog encounters the
+cut, it knows that the predicate is determinate. Thus,
+when it tries the second clause, it can throw away the information
+it would otherwise need in order to backtrack to this point. 
+Unfortunately, if this solution is implemented, typing &lsquo;<samp><span class="samp">fac(-1, X)</span></samp>&rsquo;
+still generates an infinite search.
+
+     <li>Robust solution: rewrite the second clause as
+     <pre class="example">          fac(N, X) :-
+                  N &gt; 0,
+                  N1 is N - 1,
+                  fac(N1, Y),
+                  X is N * Y.
+</pre>
+     <p>This also solves the problem, but it is a more robust solution because this
+way it is impossible to get into an infinite loop.
+
+     <p>This solution makes the predicate <em>logically</em>
+determinate&mdash;there is only one possible clause for any
+input&mdash;but the Prolog system is unable to detect this and must waste
+space for backtracking information.  The space-efficiency point is
+more important than it may at first seem; if <code>fac/2</code> is called from
+another determinate predicate, and if the cut is
+omitted, Prolog cannot detect the fact that <code>fac/2</code> is
+determinate. Therefore, it will not be able to detect the fact
+that the calling predicate is determinate, and space will be
+wasted for the calling predicate as well as for <code>fac/2</code>
+itself.  This argument applies again if the calling
+predicate is itself called by a determinate predicate,
+and so on, so that the cost of an omitted cut can be very high in
+certain circumstances.
+
+     <li>Preferred solution: rewrite the entire predicate as the single
+clause
+     <pre class="example">          fac(N, X) :-
+              (   N &gt; 0 -&gt;
+                      N1 is N - 1,
+                      fac(N1, Y),
+                      X is N * Y
+              ;   N =:= 0 -&gt;
+                      X = 1
+              ).
+</pre>
+     <p>This solution is as robust as solution 2, and more efficient than
+solution 1, since it exploits conditionals with arithmetic tests
+(see <a href="Conditionals-and-Disjunction.html#Conditionals-and-Disjunction">Conditionals and Disjunction</a> for more information on
+optimization using conditionals).
+        </ol>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Making-Predicates-Determinate.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Making-Predicates-Determinate.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

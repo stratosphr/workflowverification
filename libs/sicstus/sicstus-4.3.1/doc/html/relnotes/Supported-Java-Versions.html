@@ -1,0 +1,123 @@
+<html lang="en">
+<head>
+<title>Supported Java Versions - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Jasper-Notes.html#Jasper-Notes" title="Jasper Notes">
+<link rel="next" href="Getting-Started.html#Getting-Started" title="Getting Started">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Supported-Java-Versions"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Getting-Started.html#Getting-Started">Getting Started</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Jasper-Notes.html#Jasper-Notes">Jasper Notes</a>
+<hr>
+</div>
+
+<h3 class="section">8.1 Supported Java Versions</h3>
+
+<p>Jasper requires at least Java 1.5 to run. Except under
+Windows the full development kit, not just the JRE, is needed. 
+c [PM] 4.3 irrelevant these days: <strong>Jasper does not work with Visual J++ or Visual Caf&eacute;</strong>. 
+Unless
+indicated otherwise, you can download the JDK from
+<a href="http://java.sun.com">http://java.sun.com</a>.
+
+   <p>Except where indicated, Jasper is supported for Java 1.5 or later.
+
+   <p>For some platforms, Jasper is <em>only</em> supported under the following
+conditions:
+
+     <dl>
+<dt><strong>Mac OS X</strong><dd>Using Jasper from Java may require that <samp><span class="env">DYLD_LIBRARY_PATH</span></samp> be
+set up so that Java can find the SICStus runtime library. That is, you
+may need to set <samp><span class="env">DYLD_LIBRARY_PATH</span></samp> to the location of the SICStus
+runtime <code>libsprt4-3-1.dylib</code>.
+
+     <!-- [PM] 4.3 We only support OS X 10.7 and later now. -->
+     <!-- @c [PM] [PM] 4.1.0 32-bit Java 1.6 appeared in Mac OS X 10.6 (Snow Leopard) -->
+     <!-- Note that Java 1.6 is not available in a 32-bit version on all versions -->
+     <!-- of Mac OS X. -->
+     <p>On OS X you can either use the legacy Java 6 from Apple, or Java 7 or
+later from <a href="http://java.sun.com">http://java.sun.com</a>.
+
+     <!-- [PM] 4.3 Background info about the Java embedding issue: -->
+     <!-- Java embedding on OS X 10.9 (have Java 7 from Oracle, but embedding -->
+     <!-- seems to request an install of the Apple version). The reason -->
+     <!-- (still not fixed in 7u55, 8u5) is that the Java Info.plist only has -->
+     <!-- ComamndLine on the list of JVMCapabilities, see -->
+     <!-- https://stackoverflow.com/questions/19563766/eclipse-kepler-for-os-x-mavericks-request-java-se-6/19594116#19594116 -->
+     <!-- Presumably this happens on all versions of OS X. Document it on the -->
+     <!-- Don't Panic page? -->
+     <p>On OS X, embedding Java 7 or later in SICStus, e.g. by using
+<code>library(jasper)</code>, may fail, possibly with a dialog about the
+need for a Java SE 6 runtime. This seems to be caused by missing
+information in the section &lsquo;<samp><span class="samp">JVMCapabilities</span></samp>&rsquo; of the file
+<samp><span class="file">Info.plist</span></samp> in the Java installation. As of April 2014 there
+were no official information from Oracle about this but several
+suggested workaround can be found on the net.
+
+     <!-- [PD] 4.0.3beta1 IRIX is not supported in SP4 (yet). -->
+     <!-- @item IRIX -->
+     <!-- @w{JDK 1.3.1} is supported. -->
+     <!-- [PD] 4.0.3beta1 SP4 will probably never be built for HPPA. -->
+     <!-- @item HP-UX PA32 -->
+     <!-- Java (@w{JDK 1.3.1}) is not currently supported. Please contact SICStus -->
+     <!-- support if you need Jasper for this platform. -->
+     <!-- [PD] 3.11.1 HP-UX on Itanium is not built for 3.11.1 -->
+     <!-- @c [PM] 3.10.2 -->
+     <!-- @item HP-UX 1.6i (B.11.22) on Itanium (IPF64) -->
+     <!-- JDK 1.4.1 is supported. -->
+     <!-- You will need to set @env{LD_PRELOAD} to the location of @code{libjvm.so} -->
+     <!-- before invoking @command{sicstus} in order to use -->
+     <!-- @code{library(jasper)}. For instance, to start 64-bit sicstus with JDK -->
+     <!-- 1.4.1 -->
+     <!-- @example -->
+     <!-- @group -->
+     <!-- bash$ @kbd{LD_PRELOAD=/opt/java1.4/jre/lib/IA64W/server/libjvm.so sicstus -i} -->
+     <!-- @end group -->
+     <!-- @end example -->
+     <!-- @c [PM] 3.10.2 IPF32 will not be released (C compiler problems) -->
+     <!-- @c @noindent -->
+     <!-- @c and to start 32-bit sicstus with JDK 1.4.1 -->
+     <!-- @c @example -->
+     <!-- @c @group -->
+     <!-- @c bash$ @kbd{LD_PRELOAD=/opt/java1.4/jre/lib/IA64N/server/libjvm.so sicstus -i} -->
+     <!-- @c @end group -->
+     <!-- @c @end example -->
+     <!-- This is not an issue when Java is the top-level application. -->
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Supported-Java-Versions.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Supported-Java-Versions.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

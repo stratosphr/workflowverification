@@ -1,0 +1,113 @@
+<html lang="en">
+<head>
+<title>mpg-ref-at_end_of_stream - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dat_005fend_005fof_005fline.html#mpg_002dref_002dat_005fend_005fof_005fline" title="mpg-ref-at_end_of_line">
+<link rel="next" href="mpg_002dref_002datom.html#mpg_002dref_002datom" title="mpg-ref-atom">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-at_end_of_stream"></a>
+<a name="mpg_002dref_002dat_005fend_005fof_005fstream"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002datom.html#mpg_002dref_002datom">mpg-ref-atom</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dat_005fend_005fof_005fline.html#mpg_002dref_002dat_005fend_005fof_005fline">mpg-ref-at_end_of_line</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.14 <code>at_end_of_stream/[0,1]</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-at_005fend_005fof_005fstream_002f_005b0_002c1_005d-_0028built_002din_002c-ref-page_0029-4450"></a><a name="index-at_005fend_005fof_005fstream_002f_005b0_002c1_005d-_0028built_002din_002c-ref-page_0029-4451"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>at_end_of_stream</code>
+
+   <p><code>at_end_of_stream(</code><var>+Stream</var><code>)</code>
+
+   <p>Tests whether the end has been reached for
+the current input stream or for the input stream <var>Stream</var>. 
+<a name="index-end-of-stream-4452"></a><a name="index-stream_002c-end-of-4453"></a>
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Stream</var><dd><dfn>stream_object</dfn>, must be ground
+
+     <p>A valid Prolog input stream, defaults to the current input stream. 
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>Checks if the end
+has been reached for the specified input stream. 
+An input stream reaches the end when all items (characters or bytes)
+except &lsquo;<samp><span class="samp">EOF</span></samp>&rsquo; (-1) of the stream have been read. 
+It remains at the end after &lsquo;<samp><span class="samp">EOF</span></samp>&rsquo; has been read.
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Stream errors (see <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>).
+
+<h4 class="subheading">Comments</h4>
+
+<p><code>at_end_of_stream/[0,1]</code> peeks ahead for next input item if there is
+no item available on the buffer of the specified input stream.
+
+   <p>Note that <code>at_end_of_stream/[0,1]</code> never blocks. If reading ahead
+would block then <code>at_end_of_stream/[0,1]</code> will fail, even if the
+stream is actually at its end. If you want to ensure that end of stream
+condition is always properly detected, even if that entails blocking
+until further input is possible, you can use <code>peek_code/[1,2]</code> or
+<code>peek_byte/[1,2]</code>.
+
+   <blockquote>
+<strong>Please note</strong>: The design of <code>at_end_of_stream/[0,1]</code>
+makes it inherently unreliable. It is present only for ISO standards
+compliance. It is better to read or peek until one of the end of file
+indications is returned. 
+</blockquote>
+
+<!-- [PM] 4.0 bogus: -->
+<!-- Coding with @code{at_end_of_stream/[0,1]} to check for end of stream condition -->
+<!-- is more portable among different operating systems than checking end of stream -->
+<!-- by the character code. -->
+<h4 class="subheading">See Also</h4>
+
+<p><code>at_end_of_line/[0,1]</code>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dat_005fend_005fof_005fstream.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dat_005fend_005fof_005fstream.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

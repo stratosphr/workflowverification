@@ -1,0 +1,99 @@
+<html lang="en">
+<head>
+<title>ref-mod-ncl - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmod.html#ref_002dmod" title="ref-mod">
+<link rel="prev" href="ref_002dmod_002dcim.html#ref_002dmod_002dcim" title="ref-mod-cim">
+<link rel="next" href="ref_002dmod_002dilm.html#ref_002dmod_002dilm" title="ref-mod-ilm">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-mod-ncl"></a>
+<a name="ref_002dmod_002dncl"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dmod_002dilm.html#ref_002dmod_002dilm">ref-mod-ilm</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dmod_002dcim.html#ref_002dmod_002dcim">ref-mod-cim</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmod.html#ref_002dmod">ref-mod</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.11.12 Name Clashes</h4>
+
+<p><a name="index-name-clash-1537"></a><a name="index-clash_002c-name-1538"></a>
+<a name="index-modules_002c-name-clashes-1539"></a>
+A <dfn>name clash</dfn> can arise if:
+     <ol type=1 start=1>
+
+     <li>a module tries to import a predicate from some other
+module <code>m1</code> and it has already imported a predicate with the same name and
+arity from a module <code>m2</code>;
+<li>a module tries to import a predicate from some other
+module <code>m1</code> and it already contains a definition of a predicate with the
+same name and arity; or
+<li>a module tries to define a predicate with the same name and arity as
+one that it has imported.
+        </ol>
+
+   <p>Whenever a name clash arises, a message is displayed beginning with
+the words &lsquo;<samp><span class="samp">NAME CLASH</span></samp>&rsquo;.  The user
+is asked to choose from one of several options; for example,
+<pre class="example">     NAME CLASH: f/3 is already imported into module user
+                 from module m1;
+                 do you want to override this definition with
+                 the one in m2? (y,n,p,s,a or ?)
+</pre>
+   <p>The meanings of the five recognized replies are as follows:
+
+     <dl>
+<dt><kbd>y</kbd><dd>forget the previous definition of <code>f/3</code> from <code>m1</code> and use
+the new definition of <code>f/3</code> from <code>m2</code> instead. 
+<br><dt><kbd>n</kbd><dd>retain the previous definition of <code>f/3</code> from <code>m1</code> and ignore the
+new definition of <code>f/3</code> from <code>m2</code>. 
+<br><dt><kbd>p</kbd><dd>(for proceed) means forget the previous definition of <code>f/3</code> and of
+all subsequent predicate definitions in <code>m1</code> that clash during the current load of <code>m2</code>. 
+Instead, use the new definitions in <code>m2</code>.  When the <kbd>p</kbd> option is chosen,
+predicates being loaded from <code>m1</code> into <code>m2</code> will cause
+no &lsquo;<samp><span class="samp">NAME CLASH</span></samp>&rsquo; messages for the remainder of the load, though
+clashes with predicates from other modules will still generate such messages. 
+<br><dt><kbd>s</kbd><dd>(for suppress) means forget the new definition of <code>f/3</code> and of
+all subsequent predicate definitions in <code>m1</code> that clash during the current load of <code>m2</code>. 
+Instead, use the old definitions in <code>m2</code>.  When the <kbd>s</kbd> option is chosen,
+predicates being loaded from <code>m1</code> into <code>m2</code> will cause
+no &lsquo;<samp><span class="samp">NAME CLASH</span></samp>&rsquo; messages for the remainder of the load, though
+clashes with predicates from other modules will still generate such messages. 
+<br><dt><kbd>?</kbd><dd>gives brief help information. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dncl.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dncl.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

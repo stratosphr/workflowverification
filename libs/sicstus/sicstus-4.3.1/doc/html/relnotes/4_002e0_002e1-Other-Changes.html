@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+<title>4.0.1 Other Changes - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e0_002e1-Changes.html#g_t4_002e0_002e1-Changes" title="4.0.1 Changes">
+<link rel="prev" href="4_002e0_002e1-Bugs-Fixed.html#g_t4_002e0_002e1-Bugs-Fixed" title="4.0.1 Bugs Fixed">
+<link rel="next" href="4_002e0_002e1-Known-Issues.html#g_t4_002e0_002e1-Known-Issues" title="4.0.1 Known Issues">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.0.1-Other-Changes"></a>
+<a name="g_t4_002e0_002e1-Other-Changes"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e0_002e1-Known-Issues.html#g_t4_002e0_002e1-Known-Issues">4.0.1 Known Issues</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="4_002e0_002e1-Bugs-Fixed.html#g_t4_002e0_002e1-Bugs-Fixed">4.0.1 Bugs Fixed</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e0_002e1-Changes.html#g_t4_002e0_002e1-Changes">4.0.1 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.4.3 Other Changes</h4>
+
+     <ul>
+<li><strong>Compatibility issue</strong>: The two Latin&nbsp;1<!-- /@w --> character codes
+<code>0x00AA</code> (<code>FEMININE ORDINAL INDICATOR</code>) and <code>0x00BA</code>
+(<code>MASCULINE ORDINAL INDICATOR</code>) are now classified as lower case
+letters by the Prolog parser. They used to be (incorrectly) classified
+as symbol chars. This may affect code that used any of these characters
+in unquoted atoms or functors.
+
+     <p>This change was made to align their classification with the Unicode
+standard.
+
+     <li>Quoted atoms and strings can now contain any character sequence from
+Unicode&nbsp;5.0<!-- /@w --> when reading, with some restrictions; see
+<a href="../sicstus/ref_002dsyn_002dsyn_002dtok.html#ref_002dsyn_002dsyn_002dtok">Syntax of Tokens as Character Strings</a>.
+
+     <li>Quoted atoms and strings are now by default written using a larger
+subset of Unicode than before. See the documentation for the
+Prolog flag <code>quoted_charset</code> (see <a href="../sicstus/ref_002dlps_002dflg.html#ref_002dlps_002dflg">Prolog Flags</a>).
+
+     <li>Windows: All code is built with the security options <samp><span class="option">/GS</span></samp>, <samp><span class="option">/SAFESEH</span></samp>, <samp><span class="option">/NXCOMPAT</span></samp>.
+
+     <li>Corrected the documentation for <code>SP_put_list_n_codes()</code>.
+
+     <li>Now UTF-8 is used when communicating with the SICStus Prolog
+sub-process in versions of Emacs and XEmacs that supports it. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e0_002e1-Other-Changes.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e0_002e1-Other-Changes.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,309 @@
+<html lang="en">
+<head>
+<title>Evaluation Functions - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Tcl_002fTk-Prolog-Library.html#The-Tcl_002fTk-Prolog-Library" title="The Tcl/Tk Prolog Library">
+<link rel="prev" href="Basic-Functions.html#Basic-Functions" title="Basic Functions">
+<link rel="next" href="Event-Functions.html#Event-Functions" title="Event Functions">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Evaluation-Functions"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Event-Functions.html#Event-Functions">Event Functions</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Basic-Functions.html#Basic-Functions">Basic Functions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Tcl_002fTk-Prolog-Library.html#The-Tcl_002fTk-Prolog-Library">The Tcl/Tk Prolog Library</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.37.4.3 Evaluation Functions</h5>
+
+<p>There are two functions in this category: Prolog extended
+to be able to evaluate Tcl expressions in a Tcl interpreter;
+Tcl extended to be able to evaluate a Prolog expression in the Prolog
+system.
+
+   <p>There is a mechanism for describing Tcl commands in Prolog as Prolog
+terms.  This is used in two ways: firstly, to be able to represent
+Tcl commands in Prolog so that they can be subsequently passed to Tcl
+for evaluation; and secondly for passing terms back from Tcl to
+Prolog by doing the reverse transformation.
+
+   <p>Why not represent a Tcl command as a simple atom or string?  This
+can indeed be done, but commands are often not static and each time they
+are called require slightly different parameters.  This means
+constructing different atoms or strings for each command in
+Prolog, which are expensive operations.  A better solution is to
+represent a Tcl command as a Prolog term, something that can be
+quickly and efficiently constructed and stored by a Prolog
+system. Variable parts to a Tcl command (for example command
+arguments) can be passed in through Prolog variables.
+
+   <p>In the special command format, a Tcl command is specified as follows.
+
+   <p><table summary=""><tr align="left"><td valign="top" width="20%"><var>Command</var> </td><td valign="top" width="40%">::= <var>Name</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>codes(</code><dfn>code-list</dfn><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>write(</code><dfn>term</dfn><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>writeq(</code><dfn>term</dfn><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>write_canonical(</code><dfn>term</dfn><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>format(</code><var>Fmt</var><code>,</code><var>Args</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>dq(</code><var>Command</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>br(</code><var>Command</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>sqb(</code><var>Command</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>min(</code><var>Command</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>dot(</code><var>ListOfNames</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>list(</code><var>ListOfCommands</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <var>ListOfCommands</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>Fmt</var> </td><td valign="top" width="40%">::= <dfn>atom</dfn>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>Name</var> </td><td valign="top" width="40%">::= <dfn>atom</dfn> </td><td valign="top" width="40%"><span class="roman">{ other than </span><code>[]</code><span class="roman"> }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <dfn>number</dfn>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>ListOfCommands</var> </td><td valign="top" width="40%">::= <code>[]</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>[ </code><var>Command</var><code> | </code><var>ListOfCommands</var><code> ]</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>ListOfNames</var> </td><td valign="top" width="40%">::= <code>[]</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>[ </code><var>Name</var><code> | </code><var>ListOfNames</var><code> ]</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>Args</var> </td><td valign="top" width="40%">::= <code>[]</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">| <code>[ </code><dfn>term</dfn><code> | </code><var>Args</var><code> ]</code>
+   <br></td></tr></table>
+
+<p class="noindent">where
+
+     <dl>
+<dt><var>Atom</var><dt><var>Number</var><dd>denote their printed representations
+<br><dt><code>codes(</code><var>PrologString</var><code>)</code><dd>denotes the string represented by <var>PrologString</var> (a code-list)
+<br><dt><code>write(</code><var>Term</var><code>)</code><dt><code>writeq(</code><var>Term</var><code>)</code><dt><code>write_canonical(</code><var>Term</var><code>)</code><dd>denotes the string that is printed by the corresponding built-in
+predicate.
+
+     <blockquote>
+<strong>Please note</strong>: In general it is not possible to reconstruct
+<var>Term</var> from the string printed by <code>write/1</code>. If <var>Term</var> will
+be passed back into Prolog it therefore safest to use
+<code>write_canonical(</code><var>Term</var><code>)</code>. 
+</blockquote>
+
+     <br><dt><code>format(</code><var>Fmt</var><code>, </code><var>Args</var><code>)</code><dd>denotes the string that is printed by the corresponding built-in
+predicate
+<br><dt><code>dq(</code><var>Command</var><code>)</code><dd>denotes the string specified by <var>Command</var>, enclosed in double quotes
+<br><dt><code>br(</code><var>Command</var><code>)</code><dd>denotes the string specified by <var>Command</var>, enclosed in curly brackets
+<br><dt><code>sqb(</code><var>Command</var><code>)</code><dd>denotes the string specified by <var>Command</var>, enclosed in square brackets
+<br><dt><code>min(</code><var>Command</var><code>)</code><dd>denotes the string specified by <var>Command</var>, immediately preceded by a hyphen
+<br><dt><code>dot(</code><var>ListOfName</var><code>)</code><dd>denotes the widget path specified by <var>ListOfName</var>, preceded by and separated by dots
+<br><dt><code>list(</code><var>ListOfCommands</var><code>)</code><dd>denotes the TCL list with one element for each element in
+<var>ListOfCommands</var>. This differs from just using <var>ListOfCommands</var>
+or <code>br(</code><var>ListOfCommands</var><code>)</code>
+when any of the elements contains spaces, braces or other characters treated
+specially by TCL. 
+<br><dt><var>ListOfCommands</var><dd>denotes the string denoted by each element, separated by spaces. In many
+cases <code>list(</code><var>ListOfCommands</var><code>)</code> is a better choice. 
+</dl>
+
+   <p>Examples of command specifications and the resulting Tcl code:
+
+<pre class="example">     [set, x, 32]
+         &rArr; set x 32
+</pre>
+   <pre class="example">     [set, x, br([a, b, c])]
+         &rArr; set x {a b c}
+</pre>
+   <pre class="example">     [dot([panel,value_info,name]), configure, min(text), br(write('$display'/1))]
+          &rArr; .panel.value_info.name configure -text {$display/1
+</pre>
+   <pre class="example">     ['foo bar',baz]
+          &rArr;foo bar baz
+</pre>
+   <pre class="example">     list(['foo bar',bar])
+          &rArr; {foo bar} baz
+</pre>
+   <pre class="example">     list(['foo { bar'',bar])
+          &rArr; foo\ \{ \bar baz
+</pre>
+   <p>Prolog calls Tcl through the predicate <code>tcl_eval/3</code>, which
+has the following form:
+
+   <p><a name="index-tcl_005feval_002f3-_0028tcltk_0029-4009"></a><a name="index-tcl_005feval_002f3-_0028tcltk_0029-4010"></a>
+<pre class="example">     tcl_eval(<var>+TclInterpreter</var>, <var>+Command</var>, <var>-Result</var>)
+</pre>
+   <p class="noindent">which causes the interpreter <var>TclInterpreter</var> to evaluate the Tcl
+command <var>Command</var> and return the result <var>Result</var>. The result is
+a string (a code-list) that is the usual return string from
+evaluating a Tcl command.  <var>Command</var> is not just a simple Tcl
+command string (although that is a possibility) but a Tcl command
+represented as a Prolog term in the special Command Format
+(see <a href="Evaluation-Functions.html#Evaluation-Functions">Evaluation Functions</a>).
+
+   <p>Through <code>tcl_eval/3</code>, Prolog has a method of synchronous
+communication with an embedded Tcl interpreter and a way of manipulating
+the state of the interpreter.
+
+   <p>An example:
+
+<pre class="example">     | ?- <kbd>tcl_new(Interp), </kbd>
+          <kbd>tcl_eval(Interp, 'set x 1', _),</kbd>
+          <kbd>tcl_eval(Interp, 'incr x', R).</kbd>
+</pre>
+   <p class="noindent">which creates a Tcl interpreter the handle of which is stored in the
+variable <code>Interp</code>. Then variable <code>x</code> is set to the representation <code>"1"</code>
+and then variable <code>x</code> is incremented and the result returned in
+<code>R</code> as a string.  The result will be "2".  By evaluating the Tcl
+commands in separate <code>tcl_eval/3</code> calls, we show that we are
+manipulating the state of the Tcl interpreter and that it remembers its
+state between manipulations.
+
+   <p>It is worth mentioning here also that because of the possibility
+of the Tcl command causing an error to occur in the Tcl interpreter,
+two new exceptions are added by the <code>tcltk</code> library:
+
+<pre class="example">     tcl_error(<var>Goal</var>, <var>Message</var>)
+     tk_error(<var>Goal</var>, <var>Message</var>)
+</pre>
+   <p class="noindent">where <var>Message</var> is a code-list detailing the reason for the
+exception.  Also two new <code>user:portray_message/2</code> rules are
+provided so that any such uncaught exceptions are displayed at the
+Prolog top-level as
+
+<pre class="example">     [TCL ERROR: <var>Goal</var> - <var>Message</var>]
+     [TK ERROR: <var>Goal</var> - <var>Message</var>]
+</pre>
+   <p class="noindent">respectively.
+
+   <p>These exception conditions can be raised/caught/displayed in the usual
+way through the built-in predicates <code>raise_exception/3</code>,
+<code>on_exception/1</code>, and <code>portray_message/2</code>.
+
+   <p>As an example, the following Prolog code will raise such an exception:
+
+<pre class="example">     | ?- <kbd>tcl_new(X), tcl_eval(X, 'wilbert', R).</kbd>
+</pre>
+   <p class="noindent">which causes a <code>tcl_error/2</code> exception and prints the following:
+
+<pre class="example">     {TCL ERROR: tcl_eval/3 - invalid command name "wilbert"}
+</pre>
+   <p class="noindent">assuming that there is no command or procedure defined in Tcl called
+<code>wilbert</code>.
+
+   <p>The Tcl interpreters created through the SICStus Prolog
+Tcl/Tk library have been extended to allow calls to the underlying Prolog
+system.
+
+   <p>To evaluate a Prolog expression in the Prolog system from a Tcl
+interpreter, the new <code>prolog</code> Tcl command is invoked. It has the
+following form:
+
+<pre class="example">     prolog <var>PrologGoal</var>
+</pre>
+   <p class="noindent">where <var>PrologGoal</var> is the printed form of a Prolog goal.  This
+causes the goal to be executed in Prolog.  It will be executed in
+the <code>user</code> module unless it is prefixed by a module
+name.  Execution is always determinate.
+
+   <p>The return representation of the command either of the following:
+
+     <dl>
+<dt><code>"1"</code><dd>if execution succeeded,
+<br><dt><code>"0"</code><dd>if execution failed. 
+</dl>
+
+   <p>If succeeded (and "1" was returned), any variable in
+<var>PrologGoal</var> that has become bound to a Prolog term will
+be returned to Tcl in the Tcl array named <code>prolog_variables</code> with
+the variable name as index. The term is converted to Tcl using the
+same conversion as used for Tcl commands (see <a href="Evaluation-Functions.html#Evaluation-Functions">Evaluation Functions</a>). As a
+special case the values of unbound variables and variables with
+names starting with &lsquo;<samp><span class="samp">_</span></samp>&rsquo;, are not recorded and need not conform to
+the special command format, this is similar to the threatment of such
+variables by the Prolog top-level.
+
+   <p>An example:
+
+<pre class="example">     test_callback(Result) :-
+         tcl_new(Interp),
+         tcl_eval(Interp,
+             'if {[prolog "foo(X,Y,Z)"] == 1} \\
+                 {list $prolog_variables(X) \\
+                       $prolog_variables(Y) \\
+                       $prolog_variables(Z)}',
+                 Result),
+         tcl_delete(Interp).
+     
+     foo(1, bar, [a, b, c]).
+</pre>
+   <p>When called with the query:
+
+<pre class="example">     | ?- <kbd>test_callback(Result).</kbd>
+</pre>
+   <p class="noindent">will succeed, binding the variable <code>Result</code> to:
+
+<pre class="example">     "1 bar {a b c}"
+</pre>
+   <p>This is because execution of the <code>tcl_eval/3</code> predicate
+causes the execution of the <code>prolog</code> command in Tcl, which executes
+<code>foo(X, Y, Z)</code> in Prolog making the following bindings:
+<code>X = 1</code>, <code>Y = bar</code>, <code>Z = [a, b, c]</code>.  The bindings
+are returned to Tcl in the associative array <code>prolog_variables</code>
+where <code>prolog_variables(X)</code> is "1", <code>prolog_variables(Y)</code> is
+"bar", and <code>prolog_variables(Z)</code> is "a b c".  Then Tcl goes on to
+execute the <code>list</code> command as
+
+<pre class="example">     list "1" "bar" "a b c"
+</pre>
+   <p class="noindent">which returns the result
+
+<pre class="example">     "1 bar {a b c}"
+</pre>
+   <p class="noindent">(remember: nested lists magically get represented with curly brackets)
+which is the string returned in the <var>Result</var> part of the Tcl call,
+and is ultimately returned in the <code>Result</code> variable of the
+top-level call to <code>test_callback(Result)</code>.
+
+   <p>If an error occurs during execution of the <code>prolog</code> Tcl command, a
+<code>tcl_error/2</code> exception will be raised.  The message part of the
+exception will be formed from the string &lsquo;<samp><span class="samp">Exception during Prolog
+execution: </span></samp>&rsquo; appended to the Prolog exception message.  An example is
+the following:
+
+<pre class="example">     | ?- <kbd>tcl_new(T), tcl_eval(T, 'prolog wilbert', R).</kbd>
+</pre>
+   <p class="noindent">which will print
+
+<pre class="example">     {TCL ERROR: tcl_eval/3 - Exception during Prolog execution:
+       wilbert  existence_error(wilbert,0,procedure,user:wilbert/0,0)}
+</pre>
+   <p class="noindent">at the Prolog top-level, assuming that the predicate
+<code>wilbert/0</code> is not defined on the Prolog side of the system. (This
+is a <code>tcl_error</code> exception containing information about the
+underlying exception, an <code>existence_error</code> exception, which was
+caused by trying to execute the non-existent predicate
+<code>wilbert</code>.)
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Evaluation-Functions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Evaluation-Functions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

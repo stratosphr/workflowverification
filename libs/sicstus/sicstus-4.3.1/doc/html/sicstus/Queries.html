@@ -1,0 +1,157 @@
+<html lang="en">
+<head>
+<title>Queries - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Queries-and-Directives.html#Queries-and-Directives" title="Queries and Directives">
+<link rel="next" href="Directives.html#Directives" title="Directives">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Queries"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Directives.html#Directives">Directives</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Queries-and-Directives.html#Queries-and-Directives">Queries and Directives</a>
+<hr>
+</div>
+
+<h4 class="subsection">3.4.1 Queries</h4>
+
+<p><a name="index-g_t_003f_002d-_002f1_002c-query-267"></a><a name="index-g_t_003f_002d-_002f1_002c-query-268"></a>
+The full syntax of a query is &lsquo;<samp><span class="samp">?-</span></samp>&rsquo; followed by a
+sequence of goals.  The top-level expects queries.  This is
+signaled by the initial prompt &lsquo;<samp><span class="samp">|&nbsp;?-&nbsp;</span></samp>&rsquo;<!-- /@w -->.  Thus a query at
+top-level looks like:
+
+<pre class="example">     | ?- <kbd>memb(b, [a,b,c]).</kbd>
+</pre>
+   <p>Remember that Prolog terms must terminate with a full stop
+(&lsquo;<samp><span class="samp">.</span></samp>&rsquo;, possibly followed by whitespace), and that therefore Prolog
+will not execute anything until you have typed the full stop (and then
+&lt;RET&gt;) at the end of the query.
+
+   <p>If the goal(s) specified in a query can be satisfied, and if
+there are no variables as in this example, the system answers
+
+<pre class="example">     yes
+</pre>
+   <p class="noindent">and execution of the query terminates.
+
+   <p>If variables are included in the query, the final representation
+of each variable is displayed (except for variables whose
+names begin with &lsquo;<samp><span class="samp">_</span></samp>&rsquo;).  Thus the query
+
+<pre class="example">     | ?- <kbd>memb(X, [a,b,c]).</kbd>
+</pre>
+   <p class="noindent">would be answered by
+
+<pre class="example">     X = a ?
+</pre>
+   <p>At this point, the development system accepts one-letter commands
+corresponding to certain actions.  To execute an action simply type the
+corresponding character (lower or upper case) followed by &lt;RET&gt;. 
+The available commands in development systems are:
+
+     
+<a name="index-accept-_0028top_002dlevel-command_0029-269"></a>
+<a name="index-RET-_0028top_002dlevel-command_0029-270"></a>
+<dl><dt><kbd>&lt;RET&gt;</kbd><dd><a name="index-y-_0028top_002dlevel-command_0029-271"></a><dt><kbd>y</kbd><dd>&ldquo;accepts&rdquo; the solution; the query is terminated and the
+development system responds with &lsquo;<samp><span class="samp">yes</span></samp>&rsquo;.
+
+     <p><a name="index-reject-_0028top_002dlevel-command_0029-272"></a><a name="index-g_t_003b-_0028top_002dlevel-command_0029-273"></a><br><dt><kbd>;</kbd><dd><a name="index-n-_0028top_002dlevel-command_0029-274"></a><dt><kbd>n</kbd><dd>&ldquo;rejects&rdquo; the solution; the development system backtracks
+(see <a href="ref_002dsem.html#ref_002dsem">ref-sem</a>) looking for alternative solutions.  If no further
+solutions can be found it outputs &lsquo;<samp><span class="samp">no</span></samp>&rsquo;.
+
+     <p><a name="index-break-_0028top_002dlevel-command_0029-275"></a><a name="index-b-_0028top_002dlevel-command_0029-276"></a><br><dt><kbd>b</kbd><dd>invokes a recursive top-level.
+
+     <p><a name="index-reset-printdepth-_0028top_002dlevel-command_0029-277"></a><a name="index-set-printdepth-_0028top_002dlevel-command_0029-278"></a><a name="index-g_t_003c-_0028top_002dlevel-command_0029-279"></a><br><dt><kbd>&lt;</kbd><dd>In the top-level, a global <dfn>printdepth</dfn> is in effect for limiting
+the subterm nesting level when printing bindings. The limit is
+initially 10.
+
+     <p>This command, without arguments, resets the printdepth to 10. 
+With an argument of <var>n</var>, the printdepth is set to <var>n</var>,
+treating 0 as infinity.  This command works by changing the representation of the
+<code>toplevel_print_options</code> Prolog flag. 
+<a name="index-toplevel_005fprint_005foptions-_0028prolog-flag_0029-280"></a>
+<a name="index-reset-subterm-_0028top_002dlevel-command_0029-281"></a><a name="index-set-subterm-_0028top_002dlevel-command_0029-282"></a><a name="index-g_t_005e-_0028top_002dlevel-command_0029-283"></a><br><dt><kbd>^</kbd><dd><a name="index-subterm-selector-284"></a><a name="index-selector_002c-subterm-285"></a>A local <dfn>subterm selector</dfn>, initially <code>[]</code>, is maintained.  The
+subterm selector provides a way of zooming in to some subterm of each
+binding.  For example, the subterm selector <code>[2,3]</code> causes the
+3rd subterm of the 2nd subterm of each binding to be selected.
+
+     <p>This command, without arguments, resets the subterm selector to
+<code>[]</code>.  With an argument of 0, the last element of the subterm
+selector is removed.  With an argument of <var>n</var> (&gt; 0), <var>n</var> is
+added to the end of the subterm selector.  With multiple arguments
+separated by whitespace, the arguments are applied from left to right.
+
+     <p><a name="index-help-_0028top_002dlevel-command_0029-286"></a><a name="index-h-_0028top_002dlevel-command_0029-287"></a><br><dt><kbd>h</kbd><dd><a name="index-g_t_003f-_0028top_002dlevel-command_0029-288"></a><dt><kbd>?</kbd><dd>lists available commands. 
+</dl>
+
+   <p>While the variable bindings are displayed, all
+variables occurring in the values are replaced by
+<!-- [PM] 4.3 the implementation has changed (now uses variable_names/1) -->
+<!-- but the implementatin details was never relevant here anyway. -->
+<!-- terms of -->
+<!-- the form @code{'$VAR'(@var{N})} to yield -->
+friendlier variable
+names.  Such names come out as a sequence of letters and digits preceded
+by &lsquo;<samp><span class="samp">_</span></samp>&rsquo;.  The outcome of some queries is shown below.
+
+<pre class="example">     | ?- <kbd>memb(X, [tom,dick,harry]).</kbd>
+     
+     X = tom <kbd>;</kbd>
+     X = dick <kbd>;</kbd>
+     X = harry <kbd>;</kbd>
+     
+     no
+     | ?- <kbd>memb(X, [a,b,f(Y,c)]), memb(X, [f(b,Z),d]).</kbd>
+     
+     X = f(b,c),
+     Y = b,
+     Z = c
+     
+     | ?- <kbd>memb(X, [f(_),g]).</kbd>
+     
+     X = f(_A)
+</pre>
+   <p>Directives are like queries except that:
+
+     <ol type=1 start=1>
+<li>Variable bindings are not displayed if and when the
+directive succeeds.
+
+     <li>You are not given the chance to backtrack through other solutions.
+        </ol>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Queries.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Queries.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

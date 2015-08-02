@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+<title>Definitions - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints" title="Defining Primitive Constraints">
+<link rel="next" href="Pitfalls-of-Interval-Reasoning.html#Pitfalls-of-Interval-Reasoning" title="Pitfalls of Interval Reasoning">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Definitions"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Pitfalls-of-Interval-Reasoning.html#Pitfalls-of-Interval-Reasoning">Pitfalls of Interval Reasoning</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints">Defining Primitive Constraints</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.10.10.1 Definitions</h5>
+
+<p>For constraint store <var>S</var>, variable <var>X</var>, and finite domain
+<var>R</var>:
+
+     <ul>
+<li><var>D(X,S)</var> denotes the domain of <var>X</var> in <var>S</var>.
+
+     <li><var>(X in R)(S)</var> denotes the extension of <var>S</var> where
+<var>D(X,S)</var> has been intersected with <var>R</var>. 
+</ul>
+
+   <p>The following definitions, adapted from [Van Hentenryck et al. 95],
+define important notions of consistency and entailment of constraints
+wrt. stores.
+
+   <p>A ground constraint is <dfn>true</dfn> if it holds and <dfn>false</dfn> otherwise.
+
+   <p><a name="index-domain_002dconsistent-3150"></a>A constraint <var>C</var> is <dfn>domain-consistent wrt. </dfn><var>S</var> iff, for
+each variable <var>Xi</var> and representation <var>Vi</var> in <var>D(Xi,S)</var>, there exist
+values <var>Vj</var> in <var>D(Xj,S)</var>, <var>1 &lt;= j &lt;= n /\ i != j</var>, such
+that <var>C(V1,<small class="dots">...</small>,Vn)</var> is true.
+
+   <p><a name="index-domain_002dentailed-3151"></a><a name="index-domain_002ddisentailed-3152"></a>A constraint <var>C</var> is <dfn>domain-entailed by </dfn><var>S</var> iff, for all
+values <var>Vj</var> in <var>D(Xj,S)</var>, <var>1 &lt;= j &lt;= n</var>,
+<var>C(V1,<small class="dots">...</small>,Vn)</var> is true.
+
+   <p>Let <var>D'(X,S)</var> denote the interval <var>[min(D(X,S)),max(D(X,S))]</var>.
+
+   <p><a name="index-bounds_002dconsistent-3153"></a>A constraint <var>C</var> is <dfn>bounds-consistent wrt. </dfn><var>S</var> iff, for
+each variable <var>Xi</var>, there exist values <var>Vj</var> and <var>Wj</var> in
+<var>D'(Xj,S)</var>, <var>1 &lt;= j &lt;= n, i != j</var>, such that
+<var>C(V1,<small class="dots">...</small>,min(D(Xi,S)),<small class="dots">...</small>,Vn)</var> and
+<var>C(W1,<small class="dots">...</small>,max(D(Xi,S)),<small class="dots">...</small>,Wn)</var> are both true.
+
+   <p><a name="index-bounds_002dentailed-3154"></a><a name="index-bounds_002ddisentailed-3155"></a>A constraint <var>C</var> is <dfn>bounds-entailed by </dfn><var>S</var> iff, for all
+values <var>Vj</var> in <var>D'(Xj,S)</var>, <var>1 &lt;= j &lt;= n</var>,
+<var>C(V1,<small class="dots">...</small>,Vn)</var> is true.
+
+   <p>Finally, a constraint is <dfn>domain-disentailed (bounds-disentailed)</dfn> by
+<var>S</var> iff its negation is domain-entailed (bounds-entailed) by
+<var>S</var>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Definitions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Definitions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

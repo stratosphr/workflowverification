@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+<title>ref-iou-sos - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002diou.html#ref_002diou" title="ref-iou">
+<link rel="prev" href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" title="ref-iou-sfh">
+<link rel="next" href="ref_002diou_002draf.html#ref_002diou_002draf" title="ref-iou-raf">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-iou-sos"></a>
+<a name="ref_002diou_002dsos"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002diou_002draf.html#ref_002diou_002draf">ref-iou-raf</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002diou_002dsfh.html#ref_002diou_002dsfh">ref-iou-sfh</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002diou.html#ref_002diou">ref-iou</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.6.8 Reading the State of Opened Streams</h4>
+
+<ul class="menu">
+<li><a accesskey="1" href="ref_002diou_002dsos_002dspt.html#ref_002diou_002dsos_002dspt">ref-iou-sos-spt</a>:                      Stream Position Information for Terminal I/O
+</ul>
+
+<p><a name="index-stream-position-1027"></a><a name="index-position_002c-stream-1028"></a>
+Byte, character, line count and line position for a specified stream are
+obtained as follows:
+
+     <ul>
+<li><code>byte_count(</code><var>Stream</var><code>, </code><var>N</var><code>)</code> unifies <var>N</var> with the total
+number of bytes either read or written on the open binary stream <var>Stream</var>. 
+<a name="index-byte_005fcount_002f2-_0028built_002din_0029-1029"></a><a name="index-byte_005fcount_002f2-_0028built_002din_0029-1030"></a>
+
+     <li><code>character_count(</code><var>Stream</var><code>, </code><var>N</var><code>)</code> unifies <var>N</var> with the total
+number of characters either read or written on the open text stream <var>Stream</var>. 
+<a name="index-character_005fcount_002f2-_0028built_002din_0029-1031"></a><a name="index-character_005fcount_002f2-_0028built_002din_0029-1032"></a>
+
+     <li><code>line_count(</code><var>Stream</var><code>, </code><var>N</var><code>)</code> unifies <var>N</var> with the total number of
+lines either read or written on the open text stream <var>Stream</var>. 
+A freshly opened text stream has a line count of 0, i.e. this
+predicate counts the number of newlines seen. 
+<a name="index-line_005fcount_002f2-_0028built_002din_0029-1033"></a><a name="index-line_005fcount_002f2-_0028built_002din_0029-1034"></a>
+
+     <li><code>line_position(</code><var>Stream</var><code>, </code><var>N</var><code>)</code> unifies <var>N</var> with the total number of
+characters either read or written on the current line of the open
+text stream <var>Stream</var>.  A fresh line has a
+line position of 0, i.e. this
+predicate counts the length of the current line. 
+<a name="index-line_005fposition_002f2-_0028built_002din_0029-1035"></a><a name="index-line_005fposition_002f2-_0028built_002din_0029-1036"></a>
+
+   </ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dsos.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dsos.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,119 @@
+<html lang="en">
+<head>
+<title>mpg-ref-compare - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dclose.html#mpg_002dref_002dclose" title="mpg-ref-close">
+<link rel="next" href="mpg_002dref_002dcompile.html#mpg_002dref_002dcompile" title="mpg-ref-compile">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-compare"></a>
+<a name="mpg_002dref_002dcompare"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dcompile.html#mpg_002dref_002dcompile">mpg-ref-compile</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dclose.html#mpg_002dref_002dclose">mpg-ref-close</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.40 <code>compare/3</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-compare_002f3-_0028built_002din_002c-ref-page_0029-4508"></a><a name="index-compare_002f3-_0028built_002din_002c-ref-page_0029-4509"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>compare(</code><var>-Order</var><code>, </code><var>+Term1</var><code>, </code><var>+Term2</var><code>)</code>
+
+   <p>succeeds if the result of comparing terms <var>Term1</var> and
+<var>Term2</var> is <var>Order</var>
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Order</var><dd><dfn>order</dfn>
+
+          <dl>
+<dt><code>=</code><dd>if <var>Term1</var> is identical to <var>Term2</var>,
+<br><dt><code>&lt;</code><dd>if <var>Term1</var> is before <var>Term2</var> in the standard order,
+<br><dt><code>&gt;</code><dd>if <var>Term1</var> is after <var>Term2</var> in the standard order. 
+</dl>
+
+     <br><dt><var>Term1</var><dd><dfn>term</dfn>
+
+     <br><dt><var>Term2</var><dd><dfn>term</dfn>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>The standard order is described in <a href="ref_002dlte_002dcte.html#ref_002dlte_002dcte">ref-lte-cte</a>. Note that the standard order is not, in general, well defined for cyclic terms.
+
+   <p>The goal (A) is equivalent to (B):
+<pre class="example">     | ?- <kbd>compare(=, Term1, Term2).</kbd>&nbsp;<!-- /@w --> (A)
+</pre>
+   <pre class="example">     |?- <kbd>(Term1 == Term2).</kbd>&nbsp;<!-- /@w --> (B)
+</pre>
+   <p>The following query succeeds, binding <var>R</var> to <code>&lt;</code>, because 1 comes
+before 2 in the standard order.
+<pre class="example">      | ?- <kbd>compare(R, 1, 2).</kbd>
+     
+     R = &lt;
+</pre>
+   <p>If <var>Order</var> is supplied, and is not one of <code>&lt;</code>, <code>&gt;</code>, or
+<code>=</code>,
+then an error is thrown, as follows. 
+<!-- @code{compare/3} simply fails. -->
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>type_error(atom, Order)</code><dd>if <var>Order</var> is neither a variable nor an atom.
+
+     <br><dt><code>domain_error(order, Order)</code><dd>if <var>Order</var> is an atom but not <code>&lt;</code>, <code>=</code>, or <code>&gt;</code>. 
+</dl>
+
+   <p>These errors were added in SICStus Prolog 4.3 for alignment with the ISO Prolog
+standard. Previous versions of SICStus Prolog simply failed instead of reporting an error.
+
+<h4 class="subheading">See Also</h4>
+
+<p><code>@&lt;/2</code>,
+<code>@=&lt;/2</code>,
+<code>@&gt;/2</code>,
+<code>@&gt;=/2</code>,
+<code>SP_compare()</code>,
+<a href="ref_002dlte_002dcte.html#ref_002dlte_002dcte">ref-lte-cte</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dcompare.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dcompare.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

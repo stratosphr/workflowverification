@@ -1,0 +1,97 @@
+<html lang="en">
+<head>
+<title>4.2.1 New Features - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="4_002e2_002e1-Changes.html#g_t4_002e2_002e1-Changes" title="4.2.1 Changes">
+<link rel="next" href="4_002e2_002e1-Bugs-Fixed.html#g_t4_002e2_002e1-Bugs-Fixed" title="4.2.1 Bugs Fixed">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="4.2.1-New-Features"></a>
+<a name="g_t4_002e2_002e1-New-Features"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="4_002e2_002e1-Bugs-Fixed.html#g_t4_002e2_002e1-Bugs-Fixed">4.2.1 Bugs Fixed</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="4_002e2_002e1-Changes.html#g_t4_002e2_002e1-Changes">4.2.1 Changes</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.17.1 New Features</h4>
+
+     <ul>
+<!-- [PM] 4.3 Copied to 4.3 section instead. -->
+
+     <li>Compiled clauses could previously not be loaded from a &lsquo;<samp><span class="samp">.po</span></samp>&rsquo; file
+into an existing multifile, interpreted predicate, or vice versa.  This
+limitation has now been lifted.  After loading the &lsquo;<samp><span class="samp">.po</span></samp>&rsquo; file, the
+predicate will remain compiled if it was originally compiled and the
+compiler is available.  Otherwise, it will be interpreted.
+
+     <p>Furthermore, in runtime systems with no compiler available, if
+source code clauses are loaded into an existing, compiled predicate, the
+predicate will become interpreted. 
+<li>CLPFD:
+          <ul>
+<li><code>full_answer/0</code> is volatile. 
+<li><code>automaton/9</code> takes a new option that provides access to the
+sequence of counter values. 
+<li><code>lex_chain/2</code> takes a new option that enables a more aggressive algorithm. 
+<li><code>fd_batch/1</code> is a new exported predicate that posts a set of
+constraints with propagation suspended until the whole set has been posted. 
+<li>Performance improvements in <code>*/2</code>, linear arithmetic, Booleans,
+membership operations. 
+<li>New example models: Balanced Academic Curriculum Problem, Wolf Goat and
+Cabbage Problem, Black Hole Patience Game, Open Stacks Problem. 
+</ul>
+     <li>ZINC:
+          <ul>
+<li>SICStus Prolog has been brought up to date with MiniZinc version 1.4. 
+<li>The default search heuristic has been changed to first-fail, domain splitting. 
+<li>Native support for the following global constraints has been added:
+<code>among</code>,
+<code>bin_packing</code>,
+<code>bin_packing_capa</code>,
+<code>bin_packing_load</code>,
+<code>count</code>,
+<code>distribute</code>,
+<code>lex_greater</code>,
+<code>lex_greatereq</code>,
+<code>regular</code>,
+<code>sliding_sum</code>,
+<code>value_precede</code>,
+<code>value_precede_chain</code>. 
+</ul>
+     </ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e2_002e1-New-Features.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e2_002e1-New-Features.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

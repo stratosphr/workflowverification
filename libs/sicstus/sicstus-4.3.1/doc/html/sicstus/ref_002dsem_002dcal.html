@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+<title>ref-sem-cal - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dsem.html#ref_002dsem" title="ref-sem">
+<link rel="prev" href="ref_002dsem_002dsec.html#ref_002dsem_002dsec" title="ref-sem-sec">
+<link rel="next" href="ref_002dsem_002dexc.html#ref_002dsem_002dexc" title="ref-sem-exc">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-sem-cal"></a>
+<a name="ref_002dsem_002dcal"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dsem_002dexc.html#ref_002dsem_002dexc">ref-sem-exc</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dsem_002dsec.html#ref_002dsem_002dsec">ref-sem-sec</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dsem.html#ref_002dsem">ref-sem</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.2.5 Meta-Calls</h4>
+
+<p><a name="index-meta_002dcall-665"></a>
+If <var>X</var> is instantiated to a term that would be acceptable as the
+body of a clause, the goal <code>call(</code><var>X</var><code>)</code> is executed exactly as
+if that term appeared textually in place of the <code>call(</code><var>X</var><code>)</code>,
+except the scope of any cut occurring in <var>X</var> is limited to the
+execution of <var>X</var>. That is, the cut does not &ldquo;propagate&rdquo; into the
+clause in which <code>call(</code><var>X</var><code>)</code> occurs. If <var>X</var> is not
+properly instantiated, an error exception is raised as described in
+<a href="ref_002dsem_002dexc.html#ref_002dsem_002dexc">ref-sem-exc</a>.
+
+   <p>In release 4, <code>call/1</code> has been generalized to
+<code>call/</code><var>N</var> of any arity <var>N</var> between 1 and 255: the first
+argument is treated as template, which should be augmented by the
+remaining arguments, giving the goal to call.  For example, the goal
+<code>call(p(X),Y,Z)</code> is equivalent to the goal <code>p(X,Y,Z)</code>. 
+Note in particular that the first argument does not need to be an atom.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsem_002dcal.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsem_002dcal.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

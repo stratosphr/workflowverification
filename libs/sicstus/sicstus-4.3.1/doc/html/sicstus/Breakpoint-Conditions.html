@@ -1,0 +1,98 @@
+<html lang="en">
+<head>
+<title>Breakpoint Conditions - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Debug-Intro.html#Debug-Intro" title="Debug Intro">
+<link rel="prev" href="Breakpoint-Processing.html#Breakpoint-Processing" title="Breakpoint Processing">
+<link rel="next" href="Consult.html#Consult" title="Consult">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Breakpoint-Conditions"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Consult.html#Consult">Consult</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Breakpoint-Processing.html#Breakpoint-Processing">Breakpoint Processing</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Debug-Intro.html#Debug-Intro">Debug Intro</a>
+<hr>
+</div>
+
+<h3 class="section">5.9 Breakpoint Conditions</h3>
+
+<p><a name="index-conditions_002c-breakpoint-2084"></a><a name="index-breakpoint-conditions-2085"></a>
+
+   <p>This section describes the format of simple breakpoint conditions. 
+We first list the tests that can be used to enquire the state of
+execution. We then proceed to describe the conditions usable in the
+action part and the options for focusing on past execution
+states. Finally, we describe condition macros and the format of the
+values of the debugger action variables.
+
+   <p><a name="index-non_002dbacktraced-tests-2086"></a>We distinguish between two kinds of tests, based on whether they refer
+to information stored in the backtrace or not. The latter
+category, the <dfn>non-backtraced tests</dfn>, contains the conditions
+related to the current port (<code>port</code>, <code>bid</code>, <code>mode</code>,
+<code>show</code>, <code>command</code>, <code>get</code>) and the breakpoint type
+selection conditions (<code>advice</code> and <code>debug</code>). All remaining
+tests refer to information stored in the backtrace.
+
+   <p>Non-backtraced tests will raise an exception, if they appear in
+calls to <code>execution_state/1</code> from outside the debugger, or in
+queries about past execution state, in <code>execution_state/2</code>.
+
+   <p>Backtraced tests are allowed both inside and outside the
+debugger. However such tests can fail if the given query is not
+meaningful in the given context, e.g. if
+<code>execution_state(goal(G))</code> is queried before any breakpoints
+were encountered.
+
+   <p>Note that if a test is used in the second argument of
+<code>execution_state/2</code>, the term <em>current</em>, in the
+following descriptions, should be interpreted as referring to the
+execution state focused on (described by the first argument of
+<code>execution_state/2</code>).
+
+<ul class="menu">
+<li><a accesskey="1" href="Goal-Tests.html#Goal-Tests">Goal Tests</a>:  Tests Related to the Current Goal
+<li><a accesskey="2" href="Source-Tests.html#Source-Tests">Source Tests</a>:  Tests Related to Source Information
+<li><a accesskey="3" href="Port-Tests.html#Port-Tests">Port Tests</a>:  Tests Related to the Current Port
+<li><a accesskey="4" href="Break-Tests.html#Break-Tests">Break Tests</a>:  Tests Related to the Break Level
+<li><a accesskey="5" href="Other-Tests.html#Other-Tests">Other Tests</a>:  Other Conditions
+<li><a accesskey="6" href="Action-Conditions.html#Action-Conditions">Action Conditions</a>:  Conditions Usable in the Action Part
+<li><a accesskey="7" href="Past-States.html#Past-States">Past States</a>:  Options for Focusing on a Past State
+<li><a accesskey="8" href="Condition-Macros.html#Condition-Macros">Condition Macros</a>:  Condition Macros
+<li><a accesskey="9" href="Action-Variables.html#Action-Variables">Action Variables</a>:  The Action Variables
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Breakpoint-Conditions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Breakpoint-Conditions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

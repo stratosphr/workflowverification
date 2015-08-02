@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+<title>The Determinacy Checker - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" title="Writing Efficient Programs">
+<link rel="prev" href="Last-Clause-Determinacy-Detection.html#Last-Clause-Determinacy-Detection" title="Last Clause Determinacy Detection">
+<link rel="next" href="Last-Call-Optimization.html#Last-Call-Optimization" title="Last Call Optimization">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="The-Determinacy-Checker"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Last-Call-Optimization.html#Last-Call-Optimization">Last Call Optimization</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Last-Clause-Determinacy-Detection.html#Last-Clause-Determinacy-Detection">Last Clause Determinacy Detection</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Writing-Efficient-Programs.html#Writing-Efficient-Programs">Writing Efficient Programs</a>
+<hr>
+</div>
+
+<h3 class="section">9.7 The Determinacy Checker</h3>
+
+<p><a name="index-determinacy-checker-2442"></a><a name="index-spdet_002c-the-determinacy-checker-2443"></a><a name="index-nondeterminacy_002c-finding-2444"></a><a name="index-finding-nondeterminacy-2445"></a>
+<strong>Please note:</strong> the Determinacy Checker tool is mostly
+superseeded by the analysis performed by the SICStus Prolog IDE,
+SPIDER (see <a href="SPIDER.html#SPIDER">SICStus Prolog IDE</a>). SPIDER will analyze the
+source code fully automatically and will annotate the edited source
+code to highlight unwanted non-determinism. The analysis performed by
+SPIDER is more precise than the analysis implemented by the
+determinism checker described below.
+
+   <p>The determinacy checker can help you spot unwanted nondeterminacy in
+your programs.  This tool examines your program source code and points
+out places where nondeterminacy may arise.  It is not in general
+possible to find exactly which parts of a program will be nondeterminate
+without actually running the program, best with the execution profiler,
+which endeavors to find exactly those parts.  However, this tool can
+find most unwanted nondeterminacy.  Unintended nondeterminacy should be
+eradicated because:
+
+     <ol type=1 start=1>
+<li>it may give you wrong answers on backtracking
+<li>it may cause a lot of memory to be wasted
+        </ol>
+
+<ul class="menu">
+<li><a accesskey="1" href="Using-the-Determinacy-Checker.html#Using-the-Determinacy-Checker">Using the Determinacy Checker</a>:  Using the Determinacy Checker
+<li><a accesskey="2" href="Declaring-Nondeterminacy.html#Declaring-Nondeterminacy">Declaring Nondeterminacy</a>:  Declaring Nondeterminacy
+<li><a accesskey="3" href="Checker-Output.html#Checker-Output">Checker Output</a>:  Checker Output
+<li><a accesskey="4" href="Det-Example.html#Det-Example">Det Example</a>:  Example
+<li><a accesskey="5" href="Det-Options.html#Det-Options">Det Options</a>:  Options
+<li><a accesskey="6" href="What-is-Detected.html#What-is-Detected">What is Detected</a>:  What is Detected
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/The-Determinacy-Checker.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/The-Determinacy-Checker.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

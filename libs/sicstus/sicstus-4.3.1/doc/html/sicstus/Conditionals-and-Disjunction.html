@@ -1,0 +1,132 @@
+<html lang="en">
+<head>
+<title>Conditionals and Disjunction - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" title="Writing Efficient Programs">
+<link rel="prev" href="Building-and-Dismantling-Terms.html#Building-and-Dismantling-Terms" title="Building and Dismantling Terms">
+<link rel="next" href="Programming-Examples.html#Programming-Examples" title="Programming Examples">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Conditionals-and-Disjunction"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Programming-Examples.html#Programming-Examples">Programming Examples</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Building-and-Dismantling-Terms.html#Building-and-Dismantling-Terms">Building and Dismantling Terms</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Writing-Efficient-Programs.html#Writing-Efficient-Programs">Writing Efficient Programs</a>
+<hr>
+</div>
+
+<h3 class="section">9.10 Conditionals and Disjunction</h3>
+
+<p><a name="index-conditionals-2454"></a><a name="index-disjunction-2455"></a>There is an efficiency advantage in using conditionals whose test part
+consists only of arithmetic comparisons or type tests.  Consider the
+following alternative definitions of the predicate
+<code>type_of_character/2</code>.  In the first definition, four clauses
+are used to group characters on the basis of arithmetic comparisons.
+
+<pre class="example">     type_of_character(Ch, Type) :-
+             Ch &gt;= "a", Ch =&lt; "z",
+             !,
+             Type = lowercase.
+     type_of_character(Ch, Type) :-
+             Ch &gt;= "A", Ch =&lt; "Z",
+             !,
+             Type = uppercase.
+     type_of_character(Ch, Type) :-
+             Ch &gt;= "0", Ch =&lt; "9",
+             !,
+             Type = digit.
+     type_of_character(_Ch, Type) :-
+             Type = other.
+</pre>
+   <p>In the second definition, a single clause with a conditional is
+used.  The compiler generates equivalent, optimized code for both
+versions.
+
+<pre class="example">     type_of_character(Ch, Type) :-
+             (   Ch &gt;= "a", Ch =&lt; "z" -&gt;
+                     Type = lowercase
+             ;   Ch &gt;= "A", Ch =&lt; "Z" -&gt;
+                     Type = uppercase
+             ;   Ch &gt;= "0", Ch =&lt; "9" -&gt;
+                     Type = digit
+             ;   otherwise -&gt;
+                     Type = other
+             ).
+</pre>
+   <p>Following is a list of built-in predicates that are compiled
+efficiently in conditionals:
+
+     <ul>
+<li><code>atom/1</code>
+<li><code>atomic/1</code>
+<li><code>callable/1</code>
+<li><code>compound/1</code>
+<li><code>db_reference/1</code>
+<li><code>float/1</code>
+<li><code>ground/1</code>
+<li><code>integer/1</code>
+<li><code>nonvar/1</code>
+<li><code>mutable/1</code>
+<li><code>number/1</code>
+<li><code>simple/1</code>
+<li><code>var/1</code>
+<li><code>&lt;/2</code>
+<li><code>=&lt;/2</code>
+<li><code>=:=/2</code>
+<li><code>=\=/2</code>
+<li><code>&gt;=/2</code>
+<li><code>&gt;/2</code>
+<li><code>@&lt;/2</code>
+<li><code>@=&lt;/2</code>
+<li><code>==/2</code>
+<li><code>\==/2</code>
+<li><code>@&gt;=/2</code>
+<li><code>@&gt;/2</code>
+</ul>
+
+   <p><a name="index-guarded-clause-2456"></a><a name="index-clause_002c-guarded-2457"></a>This optimization is actually somewhat more general than what is
+described above.  A sequence of guarded clauses:
+
+<pre class="example">     <var>Head1</var> :- <var>Guard1</var>, !, <var>Body1</var>.
+     ...
+     <var>Headm</var> :- <var>Guardm</var>, !, <var>Bodym</var>.
+     <var>Headn</var> :- <var>Bodym</var>.
+</pre>
+   <p class="noindent">is eligible for the same optimization, provided that the arguments
+of the clause heads are all unique variables and that
+the &ldquo;guards&rdquo; are simple tests as listed above.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Conditionals-and-Disjunction.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Conditionals-and-Disjunction.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

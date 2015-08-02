@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+<title>Message Processing - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dmsg.html#ref_002dmsg" title="ref-msg">
+<link rel="next" href="Message-Handling-Predicates.html#Message-Handling-Predicates" title="Message Handling Predicates">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Message-Processing"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Message-Handling-Predicates.html#Message-Handling-Predicates">Message Handling Predicates</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dmsg.html#ref_002dmsg">ref-msg</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.16.1 Message Processing</h4>
+
+<p>Every message issued by the Prolog system is displayed using a single
+predicate:
+<pre class="example">     <code>print_message(</code><var>Severity</var><code>, </code><var>Message</var><code>)</code>
+</pre>
+   <p><var>Message</var> is a term that encodes the message to be printed. 
+The format of message terms is subject to change, but can be
+inspected in the file <samp><span class="file">library('SU_messages')</span></samp> of the SICStus
+Prolog distribution.
+
+   <p>The atom <var>Severity</var> specifies the type (or importance) of the
+message.  The following table lists the severities known to the SICStus
+Prolog system, together with the line prefixes used in displaying
+messages of the given severity:
+
+   <p><table summary=""><tr align="left"><td valign="top"><code>error</code>         </td><td valign="top"><code>'! '</code> </td><td valign="top">for error messages
+<br></td></tr><tr align="left"><td valign="top"><code>warning</code>       </td><td valign="top"><code>'* '</code> </td><td valign="top">for warning messages
+<br></td></tr><tr align="left"><td valign="top"><code>informational</code> </td><td valign="top"><code>'% '</code> </td><td valign="top">for informational messages
+<br></td></tr><tr align="left"><td valign="top"><code>help</code>          </td><td valign="top"><code>''</code>   </td><td valign="top">for help messages
+<br></td></tr><tr align="left"><td valign="top"><code>query</code>         </td><td valign="top"><code>''</code>   </td><td valign="top">for query texts (see <a href="Query-Processing.html#Query-Processing">Query Processing</a>)
+<br></td></tr><tr align="left"><td valign="top"><code>silent</code>        </td><td valign="top"><code>''</code>   </td><td valign="top">a special kind of message,
+which normally does not produce any output, but can be intercepted by
+hooks
+   <br></td></tr></table>
+
+   <p><code>print_message/2</code> is a built-in predicate, so that users can
+invoke it to have their own messages processed in the same way as the
+system messages.
+
+   <p>The processing and printing of the messages is highly customizable.  For
+example, this allows the user to change the language of the messages, or
+to make them appear in dialog windows rather than on the terminal.
+
+<ul class="menu">
+<li><a accesskey="1" href="Message-Phases.html#Message-Phases">Message Phases</a>:  Phases of Message Processing
+<li><a accesskey="2" href="Message-Generation-Phase.html#Message-Generation-Phase">Message Generation Phase</a>:  Message Generation Phase
+<li><a accesskey="3" href="Message-Printing-Phase.html#Message-Printing-Phase">Message Printing Phase</a>:  Message Printing Phase
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Message-Processing.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Message-Processing.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

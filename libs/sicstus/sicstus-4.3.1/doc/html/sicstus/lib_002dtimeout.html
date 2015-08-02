@@ -1,0 +1,99 @@
+<html lang="en">
+<head>
+<title>lib-timeout - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Prolog-Library.html#The-Prolog-Library" title="The Prolog Library">
+<link rel="prev" href="lib_002dterms.html#lib_002dterms" title="lib-terms">
+<link rel="next" href="lib_002dtrees.html#lib_002dtrees" title="lib-trees">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="lib-timeout"></a>
+<a name="lib_002dtimeout"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="lib_002dtrees.html#lib_002dtrees">lib-trees</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="lib_002dterms.html#lib_002dterms">lib-terms</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Prolog-Library.html#The-Prolog-Library">The Prolog Library</a>
+<hr>
+</div>
+
+<h3 class="section">10.39 Meta-Call with Limit on Execution Time&mdash;<code>library(timeout)</code></h3>
+
+<p>Exported predicates:
+
+     <dl>
+<dt><code>time_out(</code><var>:Goal</var><code>, </code><var>+Time</var><code>, </code><var>-Result</var><code>)</code><dd><a name="index-time_005fout_002f3-_0028timeout_0029-4103"></a><a name="index-time_005fout_002f3-_0028timeout_0029-4104"></a>
+The <var>Goal</var> is executed as if by <code>call/1</code>.  If computing any
+solution takes more than <var>Time</var> milliseconds, the goal will be
+aborted and <var>Result</var> unified with the atom
+<code>time_out</code>.  If the goal succeeds within the specified time,
+<var>Result</var> is unified with the atom <code>success</code>. 
+<var>Time</var> must be a number between (not including) 0 and 2147483647.
+
+     <p>The time is measured in process virtual time under UNIX. Under Windows<!-- /@w -->,
+thread virtual time is used, which
+is the same as process virtual time for single-threaded processes.
+
+     <p>The precision of the time out interval is usually not better than
+several tens of milliseconds. This is due to limitations in the timing
+mechanisms used to implement <samp><span class="file">library(timeout)</span></samp>.
+
+     <!-- SPRM 13483, ... -->
+     <p>This library can only be used by one SICStus instance in a
+process, which is the usual way to run SICStus. This limitation
+only affects programs that load SICStus from C or Java and run
+more than one SICStus instance in the same process.
+
+   </dl>
+
+<!-- [PM] 4.2.1 on_exception/3 and catch/3 no longer (since 4.1.3) catches -->
+<!-- time_out (SPRM 12188). -->
+   <p><code>time_out/3</code> is implemented by raising and handling
+<code>time_out</code> exceptions but, as of SICStus Prolog 4.1.3, these
+exceptions will not be intercepted by the normal exception handlers
+(<code>on_exception/3</code> and <code>catch/3</code>). 
+<!-- @code{time_out/3} is implemented by raising and handling -->
+<!-- @code{time_out} exceptions, so any exception handler in the scope of -->
+<!-- @var{Goal} must be prepared to pass on @code{time_out} exceptions. -->
+<!-- The following incorrect example shows what can happen otherwise: -->
+<!-- @example -->
+<!-- @group -->
+<!-- | ?- @kbd{time_out(on_exception(Q,(repeat,false),true), 1000, Res).} -->
+<!-- Q = time_out, -->
+<!-- Res = success -->
+<!-- @end group -->
+<!-- @end example -->
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dtimeout.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dtimeout.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

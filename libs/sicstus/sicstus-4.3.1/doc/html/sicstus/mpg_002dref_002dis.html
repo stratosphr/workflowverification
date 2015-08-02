@@ -1,0 +1,125 @@
+<html lang="en">
+<head>
+<title>mpg-ref-is - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dinteger.html#mpg_002dref_002dinteger" title="mpg-ref-integer">
+<link rel="next" href="mpg_002dref_002dkeysort.html#mpg_002dref_002dkeysort" title="mpg-ref-keysort">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-is"></a>
+<a name="mpg_002dref_002dis"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dkeysort.html#mpg_002dref_002dkeysort">mpg-ref-keysort</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dinteger.html#mpg_002dref_002dinteger">mpg-ref-integer</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.108 <code>is/2</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-is_002f2-_0028built_002din_002c-ref-page_0029-4663"></a><a name="index-is_002f2-_0028built_002din_002c-ref-page_0029-4664"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><var>-Term</var><code> is </code><var>+Expression</var>
+
+   <p>Evaluates <var>Expression</var> as an arithmetic expression, and unifies
+the resulting number with <var>Term</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Expression</var><dd><dfn>expr</dfn>, must be ground.
+
+     <p>An expression made up of:
+
+          <ul>
+<li>functors representing arithmetic operations
+<li>numbers
+<li>variables bound to numbers or arithmetic expressions
+</ul>
+
+     <br><dt><var>Term</var><dd><dfn>number</dfn>
+</dl>
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Arithmetic errors (see <a href="ref_002dari_002dexc.html#ref_002dari_002dexc">ref-ari-exc</a>).
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     | ?- <kbd>X is 2 * 3 + 4.</kbd>
+     
+     X = 10
+     
+     | ?- <kbd>Y = 32.1, X is Y * Y.</kbd>
+     
+     X = 1030.41
+     Y = 32.1
+     
+     | ?- <kbd>Arity is 3 * 8, X is 4 + Arity + (3 * Arity * Arity).</kbd>
+     
+     Arity = 24
+     X = 1756
+</pre>
+<pre class="example">     | ?- <kbd>X is 6/0.</kbd>
+     ! Domain error in argument 2 of is/2
+     ! expected an integer not equal to 0, but found 0
+     ! goal:  _98 is 6/0
+</pre>
+   <pre class="example">     | ?- <kbd>X is "a".</kbd>
+     
+     X = 97
+     
+     | ?- <kbd>X is 4 * 5, Y is X * 4.</kbd>
+     
+     X = 20,
+     Y = 80
+</pre>
+   <h4 class="subheading">Comments</h4>
+
+<p>If a variable in an arithmetic expression is
+bound to another arithmetic expression (as opposed to a number) at
+runtime then the cost of evaluating that expression is much greater. 
+It is approximately equal to the cost of <code>call/1</code> of an arithmetic
+goal.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dari.html#ref_002dari">ref-ari</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dis.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dis.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

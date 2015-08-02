@@ -1,0 +1,133 @@
+<html lang="en">
+<head>
+<title>lib-xml - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="The-Prolog-Library.html#The-Prolog-Library" title="The Prolog Library">
+<link rel="prev" href="lib_002dwgraphs.html#lib_002dwgraphs" title="lib-wgraphs">
+<link rel="next" href="lib_002dzinc.html#lib_002dzinc" title="lib-zinc">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="lib-xml"></a>
+<a name="lib_002dxml"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="lib_002dzinc.html#lib_002dzinc">lib-zinc</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="lib_002dwgraphs.html#lib_002dwgraphs">lib-wgraphs</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="The-Prolog-Library.html#The-Prolog-Library">The Prolog Library</a>
+<hr>
+</div>
+
+<h3 class="section">10.45 Parsing and Generating XML&mdash;<code>library(xml)</code></h3>
+
+<p>This is a package for parsing XML with Prolog, which
+provides Prolog applications with a simple &ldquo;Document Value Model&rdquo;
+interface to XML documents.  A description of the subset of XML that it
+supports can be found at:
+<!-- [PM] 4.1 link updated 2009-08-14 -->
+<a href="http://www.binding-time.co.uk/xmlpl.html">http://www.binding-time.co.uk/xmlpl.html</a>
+
+   <p>The package, originally written by Binding Time Ltd., is in the public
+domain and unsupported.  To use the package, enter the query:
+
+<pre class="example">     | ?- use_module(library(xml)).
+</pre>
+   <p>The package represents XML documents by the abstract data type
+<var>document</var>, which is defined by the following grammar:
+
+   <p><table summary=""><tr align="left"><td valign="top" width="20%"><var>document</var> </td><td valign="top" width="40%">::= <code>xml(</code><var>attributes</var><code>,</code><var>content</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ well-formed document }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>malformed(</code><var>attributes</var><code>,</code><var>content</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ malformed document }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>attributes</var> </td><td valign="top" width="40%">::= <code>[]</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>[</code><var>name</var><code>=</code><var>char-data</var><code>|</code><var>attributes</var><code>]</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>content</var> </td><td valign="top" width="40%">::= <code>[]</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>[</code><var>cterm</var><code>|</code><var>content</var><code>]</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>cterm</var> </td><td valign="top" width="40%">::= <code>pcdata(</code><var>char-data</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ text }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>comment(</code><var>char-data</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ an XML comment }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>namespace(</code><var>URI</var><code>,</code><var>prefix</var><code>,</code><var>element</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ a Namespace }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>element(</code><var>tag</var><var>attributes</var><code>,</code><var>content</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ &lt;</span><var>tag</var><span class="roman">&gt;..&lt;/</span><var>tag</var><span class="roman">&gt; encloses </span><var>content</var><span class="roman"> or &lt;</span><var>tag</var><span class="roman"> /&gt; if empty }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>instructions(</code><var>name</var><code>,</code><var>char-data</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ A PI &lt;? </span><var>name</var> <var>char-data</var><span class="roman"> ?&gt; }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>cdata(</code><var>char-data</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ &lt;![CDATA[</span><var>char-data</var><span class="roman">]]&gt;  }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>doctype(</code><var>tag</var><code>,</code><var>doctype-id</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ DTD &lt;!DOCTYPE .. &gt; }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>unparsed(</code><var>char-data</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ text that hasn't been parsed }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>out_of_context(</code><var>tag</var><code>)</code> </td><td valign="top" width="40%"><span class="roman">{ </span><var>tag</var><span class="roman"> is not closed }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>tag</var> </td><td valign="top" width="40%">::= <dfn>atom</dfn> </td><td valign="top" width="40%"><span class="roman">{ naming an element }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>name</var> </td><td valign="top" width="40%">::= <dfn>atom</dfn> </td><td valign="top" width="40%"><span class="roman">{ not naming an element }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>URI</var> </td><td valign="top" width="40%">::= <dfn>atom</dfn> </td><td valign="top" width="40%"><span class="roman">{ giving the URI of a namespace }</span>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>char-data</var> </td><td valign="top" width="40%">::= <dfn>code-list</dfn>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>doctype-id</var> </td><td valign="top" width="40%">::= <code>public(</code><var>char-data</var><code>,</code><var>char-data</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>public(</code><var>char-data</var><code>,</code><var>dtd-literals</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>system(</code><var>char-data</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>system(</code><var>char-data</var><code>,</code><var>dtd-literals</var><code>)</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>local</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>local,</code><var>dtd-literals</var>
+<br></td></tr><tr align="left"><td valign="top" width="20%"><br></td></tr><tr align="left"><td valign="top" width="20%"><var>dtd-literals</var> </td><td valign="top" width="40%">::= <code>[]</code>
+<br></td></tr><tr align="left"><td valign="top" width="20%"></td><td valign="top" width="40%">|   <code>[dtd_literal(</code><var>char-data</var><code>)|</code><var>dtd-literals</var><code>]</code>
+   <br></td></tr></table>
+
+   <p>The following predicates are exported by the package:
+
+     <dl>
+<dt><code>xml_parse(</code><var>?Chars</var><code>, </code><var>?Document</var><code>)</code><dt><code>xml_parse(</code><var>?Chars</var><code>, </code><var>?Document</var><code>, </code><var>+Options</var><code>)</code><dd><a name="index-xml_005fparse_002f_005b2_002c3_005d-_0028xml_0029-4222"></a><a name="index-xml_005fparse_002f_005b2_002c3_005d-_0028xml_0029-4223"></a>
+Either parses <var>Chars</var>, a <dfn>code-list</dfn>, to <var>Document</var>, a
+<var>document</var>.  <var>Chars</var> is not required to represent strictly
+well-formed XML. 
+Or generates <var>Chars</var>, a <dfn>code-list</dfn>,
+from <var>Document</var>, a <var>document</var>. 
+If <var>Document</var> is not a valid <var>document</var> term representing
+well-formed XML, an exception is raised. 
+In the second usage of the predicate, the only option available is <code>format/1</code>.
+
+     <p><var>Options</var> is a list of zero or more of the following, where
+<var>Boolean</var> must be <code>true</code> or <code>false</code>:
+
+          <dl>
+<dt><code>format(</code><var>Boolean</var><code>)</code><dd><a name="index-format_002f1-_0028xml_005fparse_002f3-option_0029-4224"></a>Indent the element content (default <code>true</code>).
+
+          <br><dt><code>extended_characters(</code><var>Boolean</var><code>)</code><dd><a name="index-extended_005fcharacters_002f1-_0028xml_005fparse_002f3-option_0029-4225"></a>Use the extended character entities for XHTML (default <code>true</code>).
+
+          <br><dt><code>remove_attribute_prefixes(</code><var>Boolean</var><code>)</code><dd><a name="index-remove_005fattribute_005fprefixes_002f1-_0028xml_005fparse_002f3-option_0029-4226"></a>Remove namespace prefixes from attributes when it's the same as the
+prefix of the parent element (default <code>false</code>). 
+</dl>
+
+     <br><dt><code>xml_subterm(</code><var>+Term</var><code>, </code><var>?Subterm</var><code>)</code><dd><a name="index-xml_005fsubterm_002f2-_0028xml_0029-4227"></a><a name="index-xml_005fsubterm_002f2-_0028xml_0029-4228"></a>
+Unifies <var>Subterm</var> with a sub-term of <var>Term</var>, a
+<var>document</var>. This can be especially useful when trying to test or
+retrieve a deeply-nested subterm from a document.
+
+     <br><dt><code>xml_pp(</code><var>+Document</var><code>)</code><dd><a name="index-xml_005fpp_002f1-_0028xml_0029-4229"></a><a name="index-xml_005fpp_002f1-_0028xml_0029-4230"></a>
+&ldquo;Pretty prints&rdquo; <var>Document</var>, a <var>document</var>, on the current
+output stream. 
+</dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dxml.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dxml.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

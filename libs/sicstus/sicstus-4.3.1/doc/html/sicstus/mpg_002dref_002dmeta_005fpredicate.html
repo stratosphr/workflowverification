@@ -1,0 +1,147 @@
+<html lang="en">
+<head>
+<title>mpg-ref-meta_predicate - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dmessage_005fhook.html#mpg_002dref_002dmessage_005fhook" title="mpg-ref-message_hook">
+<link rel="next" href="mpg_002dref_002dmode.html#mpg_002dref_002dmode" title="mpg-ref-mode">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-meta_predicate"></a>
+<a name="mpg_002dref_002dmeta_005fpredicate"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dmode.html#mpg_002dref_002dmode">mpg-ref-mode</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dmessage_005fhook.html#mpg_002dref_002dmessage_005fhook">mpg-ref-message_hook</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.122 <code>meta_predicate/1</code> &nbsp;<!-- /@w --> <dfn>[declaration]</dfn></h4>
+
+<p><a name="index-meta_005fpredicate_002f1-_0028built_002din_002c-ref-page_0029-4696"></a><a name="index-meta_005fpredicate_002f1-_0028built_002din_002c-ref-page_0029-4697"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- meta_predicate </code><var>+MetaSpec</var>
+
+   <p>Provides for module name expansion of arguments in calls to the
+predicate given by <var>MetaSpec</var>. All <code>meta_predicate/1</code> declarations
+should be at the beginning of a module.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>:MetaSpec</var><dd><dfn>callable</dfn>, must be ground
+
+     <p>Goal template or list of goal templates, of the form
+<code>functor(</code><var>Arg1</var><code>, </code><var>Arg2</var><code>,...)</code>. 
+Each <var>Argn</var> is one of:
+
+     <!-- [PM] 4.1 This is mostly repeated in @ref{ref-mod-met}. -->
+          <dl>
+<dt>&lsquo;<samp><span class="samp">:</span></samp>&rsquo;<dd>requires module name expansion
+
+          <p>If the argument will be treated as a goal then it is better to
+explicitly indicate this using an integer, see the next item.
+
+          <br><dt><var>nsuppressed</var><dd>a non-negative integer.
+
+          <p>This is a special case of &lsquo;<samp><span class="samp">:</span></samp>&rsquo; that means that the argument can be
+made into a goal by adding <var>nsuppressed</var> additional
+arguments. E.g., if the argument will be passed to <code>call/1</code> then
+<code>0</code> (zero) should be used.
+
+          <p>As another example, the meta_predicate declaration for the built-in
+<code>call/3</code> would be <code>:- meta_predicate call(2,?,?)</code>, since
+<code>call/3</code> will add two arguments to its first argument in order to
+to construct the goal to invoke.
+
+          <p>An integer is treated the same as &lsquo;<samp><span class="samp">:</span></samp>&rsquo; above by the SICStus
+runtime. Other tools, such as the cross referencer (see <a href="The-Cross_002dReferencer.html#The-Cross_002dReferencer">The Cross-Referencer</a>) and the SICStus Prolog IDE (see <a href="SPIDER.html#SPIDER">SICStus Prolog IDE</a>), will use this information to better follow predicate
+references in analyzed source code.
+
+          <br><dt>&lsquo;<samp><span class="samp">*</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">+</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">-</span></samp>&rsquo;<dt>&lsquo;<samp><span class="samp">?</span></samp>&rsquo;<dd>ignored
+</dl>
+     </dl>
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>Exceptions in the context of loading code are printed as error messages.
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>MetaSpec</var> not ground.
+
+     <br><dt><code>type_error</code><dd><var>MetaSpec</var> not a valid specification.
+
+     <br><dt><code>context_error</code><dd>Declaration appeared in a goal.
+
+     <br><dt><code>permission_error</code><dd>Declaration appeared as a clause. 
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<p>Consider a sort routine,
+<code>mysort/3</code>, to which the name of the comparison predicate is passed as
+an argument:
+<pre class="example">     mysort(<var>LessThanOrEqual</var>, <var>InputList</var>, <var>OutputList</var>) :-
+        ...
+        %% LessThanOrEqual is called exactly like the built-in @=&lt;/2
+        ( call(LessThanOrEqual, Term1, Term2) -&gt; ... ; ... ),
+        ...
+</pre>
+   <p>An appropriate <code>meta_predicate</code> declaration for <code>mysort/3</code> is:
+<pre class="example">     :- meta_predicate mysort(2, +, -).
+</pre>
+   <p class="noindent">since the first argument, <var>LessThanOrEqual</var>, will have two
+additional arguments added to it (by <code>call/3</code>) when invoked.
+
+   <p>This means that whenever a goal <code>mysort(</code><var>A</var><code>, </code><var>B</var><code>,
+</code><var>C</var><code>)</code> appears in a clause, it will be transformed at load time
+into <code>mysort(</code><var>M</var><code>:</code><var>A</var><code>, </code><var>B</var><code>, </code><var>C</var><code>)</code>, where <var>M</var>
+is the source module.  The transformation will happen unless:
+
+     <ol type=1 start=1>
+
+     <li><var>A</var> has an explicit module prefix, or
+<li><var>A</var> is a variable and the same variable appears in
+the head of the clause in a module-name-expansion position.
+        </ol>
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Meta_002dPredicate-Declarations.html#Meta_002dPredicate-Declarations">Meta-Predicate Declarations</a>, <a href="ref_002dmod_002dmne.html#ref_002dmod_002dmne">ref-mod-mne</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dmeta_005fpredicate.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dmeta_005fpredicate.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,221 @@
+<project>
+    <assemblies>
+        <assembly location=".\prologbeans.dll" documentation="prologbeans.NET.xml" />
+    </assemblies>
+    <namespaces>
+        <namespace name="se.sics.prologbeans"></namespace>
+    </namespaces>
+    <documenters>
+        <documenter name="HtmlHelp2">
+            <property name="CharacterSet" representation="Ascii" />
+            <property name="LangID" representation="1033" />
+            <property name="DeleteCHM" representation="False" />
+            <property name="AugmentXmlDataIslands" representation="True" />
+            <property name="RegisterTitleWithNamespace" representation="False" />
+            <property name="ParentCollectionNamespace" representation="" />
+            <property name="RegisterTitleAsCollection" representation="False" />
+            <property name="OutputDirectory" representation="@HtmlHelp2OutputDirectory@" />
+            <property name="HtmlHelpName" representation="Documentation" />
+            <property name="IncludeFavorites" representation="False" />
+            <property name="Title" representation="An NDoc Documented Class Library" />
+            <property name="SplitTOCs" representation="False" />
+            <property name="DefaulTOC" representation="" />
+            <property name="IncludeHierarchy" representation="False" />
+            <property name="ShowVisualBasic" representation="False" />
+            <property name="RootPageContainsNamespaces" representation="False" />
+            <property name="SortTOCByNamespace" representation="True" />
+            <property name="OutputTarget" representation="HtmlHelp" />
+            <property name="HeaderHtml" representation="" />
+            <property name="FooterHtml" representation="" />
+            <property name="FilesToInclude" representation="" />
+            <property name="LinkToSdkDocVersion" representation="SDK_v1_1" />
+            <property name="ShowMissingSummaries" representation="False" />
+            <property name="ShowMissingRemarks" representation="False" />
+            <property name="ShowMissingParams" representation="False" />
+            <property name="ShowMissingReturns" representation="False" />
+            <property name="ShowMissingValues" representation="False" />
+            <property name="DocumentInternals" representation="False" />
+            <property name="DocumentProtected" representation="True" />
+            <property name="DocumentPrivates" representation="False" />
+            <property name="DocumentProtectedInternalAsProtected" representation="False" />
+            <property name="DocumentEmptyNamespaces" representation="False" />
+            <property name="IncludeAssemblyVersion" representation="False" />
+            <property name="CopyrightText" representation="" />
+            <property name="CopyrightHref" representation="" />
+            <property name="ReferencesPath" representation="" />
+            <property name="SkipNamespacesWithoutSummaries" representation="False" />
+            <property name="UseNamespaceDocSummaries" representation="False" />
+            <property name="AutoPropertyBackerSummaries" representation="False" />
+            <property name="AutoDocumentConstructors" representation="True" />
+            <property name="DocumentAttributes" representation="False" />
+            <property name="ShowTypeIdInAttributes" representation="False" />
+            <property name="DocumentedAttributes" representation="" />
+            <property name="GetExternalSummaries" representation="True" />
+            <property name="EditorBrowsableFilter" representation="Off" />
+            <property name="UseNDocXmlFile" representation="" />
+        </documenter>
+        <documenter name="JavaDoc">
+            <property name="OutputDirectory" representation="@JavaDocOutputDirectory@" />
+            <property name="ShowMissingSummaries" representation="False" />
+            <property name="ShowMissingRemarks" representation="False" />
+            <property name="ShowMissingParams" representation="False" />
+            <property name="ShowMissingReturns" representation="False" />
+            <property name="ShowMissingValues" representation="False" />
+            <property name="DocumentInternals" representation="False" />
+            <property name="DocumentProtected" representation="True" />
+            <property name="DocumentPrivates" representation="False" />
+            <property name="DocumentProtectedInternalAsProtected" representation="False" />
+            <property name="DocumentEmptyNamespaces" representation="False" />
+            <property name="IncludeAssemblyVersion" representation="False" />
+            <property name="CopyrightText" representation="" />
+            <property name="CopyrightHref" representation="" />
+            <property name="ReferencesPath" representation="" />
+            <property name="SkipNamespacesWithoutSummaries" representation="False" />
+            <property name="UseNamespaceDocSummaries" representation="False" />
+            <property name="AutoPropertyBackerSummaries" representation="False" />
+            <property name="AutoDocumentConstructors" representation="True" />
+            <property name="DocumentAttributes" representation="False" />
+            <property name="ShowTypeIdInAttributes" representation="False" />
+            <property name="DocumentedAttributes" representation="" />
+            <property name="GetExternalSummaries" representation="True" />
+            <property name="EditorBrowsableFilter" representation="Off" />
+            <property name="UseNDocXmlFile" representation="" />
+        </documenter>
+        <documenter name="LaTeX">
+            <property name="OutputDirectory" representation=".\doc\" />
+            <property name="TextFileFullName" representation="Documentation.tex" />
+            <property name="TexFileBaseName" representation="Documentation" />
+            <property name="LatexCompiler" representation="latex" />
+            <property name="TexFileFullPath" representation=".\doc\Documentation.tex" />
+            <property name="ShowMissingSummaries" representation="False" />
+            <property name="ShowMissingRemarks" representation="False" />
+            <property name="ShowMissingParams" representation="False" />
+            <property name="ShowMissingReturns" representation="False" />
+            <property name="ShowMissingValues" representation="False" />
+            <property name="DocumentInternals" representation="False" />
+            <property name="DocumentProtected" representation="True" />
+            <property name="DocumentPrivates" representation="False" />
+            <property name="DocumentProtectedInternalAsProtected" representation="False" />
+            <property name="DocumentEmptyNamespaces" representation="False" />
+            <property name="IncludeAssemblyVersion" representation="False" />
+            <property name="CopyrightText" representation="" />
+            <property name="CopyrightHref" representation="" />
+            <property name="ReferencesPath" representation="" />
+            <property name="SkipNamespacesWithoutSummaries" representation="False" />
+            <property name="UseNamespaceDocSummaries" representation="False" />
+            <property name="AutoPropertyBackerSummaries" representation="False" />
+            <property name="AutoDocumentConstructors" representation="True" />
+            <property name="DocumentAttributes" representation="False" />
+            <property name="ShowTypeIdInAttributes" representation="False" />
+            <property name="DocumentedAttributes" representation="" />
+            <property name="GetExternalSummaries" representation="True" />
+            <property name="EditorBrowsableFilter" representation="Off" />
+            <property name="UseNDocXmlFile" representation="" />
+        </documenter>
+        <documenter name="LinearHtml">
+            <property name="IncludeTypeMemberDetails" representation="False" />
+            <property name="OutputDirectory" representation=".\doc\" />
+            <property name="MethodParametersInTable" representation="False" />
+            <property name="TypeIncludeRegexp" representation="" />
+            <property name="NamespaceExcludeRegexp" representation="" />
+            <property name="Title" representation="An NDoc Documented Class Library" />
+            <property name="IncludeHierarchy" representation="False" />
+            <property name="SortTOCByNamespace" representation="True" />
+            <property name="HeaderHtml" representation="" />
+            <property name="FooterHtml" representation="" />
+            <property name="FilesToInclude" representation="" />
+            <property name="ShowMissingSummaries" representation="False" />
+            <property name="ShowMissingRemarks" representation="False" />
+            <property name="ShowMissingParams" representation="False" />
+            <property name="ShowMissingReturns" representation="False" />
+            <property name="ShowMissingValues" representation="False" />
+            <property name="DocumentInternals" representation="False" />
+            <property name="DocumentProtected" representation="True" />
+            <property name="DocumentPrivates" representation="False" />
+            <property name="DocumentProtectedInternalAsProtected" representation="False" />
+            <property name="DocumentEmptyNamespaces" representation="False" />
+            <property name="IncludeAssemblyVersion" representation="False" />
+            <property name="CopyrightText" representation="" />
+            <property name="CopyrightHref" representation="" />
+            <property name="ReferencesPath" representation="" />
+            <property name="SkipNamespacesWithoutSummaries" representation="False" />
+            <property name="UseNamespaceDocSummaries" representation="False" />
+            <property name="AutoPropertyBackerSummaries" representation="False" />
+            <property name="AutoDocumentConstructors" representation="True" />
+            <property name="DocumentAttributes" representation="False" />
+            <property name="ShowTypeIdInAttributes" representation="False" />
+            <property name="DocumentedAttributes" representation="" />
+            <property name="GetExternalSummaries" representation="True" />
+            <property name="EditorBrowsableFilter" representation="Off" />
+            <property name="UseNDocXmlFile" representation="" />
+        </documenter>
+        <documenter name="MSDN">
+            <property name="OutputDirectory" representation=".\doc\" />
+            <property name="HtmlHelpName" representation="Documentation" />
+            <property name="IncludeFavorites" representation="False" />
+            <property name="Title" representation="An NDoc Documented Class Library" />
+            <property name="SplitTOCs" representation="False" />
+            <property name="DefaulTOC" representation="" />
+            <property name="IncludeHierarchy" representation="False" />
+            <property name="ShowVisualBasic" representation="False" />
+            <property name="RootPageContainsNamespaces" representation="False" />
+            <property name="SortTOCByNamespace" representation="True" />
+            <property name="OutputTarget" representation="HtmlHelpAndWeb" />
+            <property name="HeaderHtml" representation="" />
+            <property name="FooterHtml" representation="" />
+            <property name="FilesToInclude" representation="" />
+            <property name="LinkToSdkDocVersion" representation="SDK_v1_1" />
+            <property name="ShowMissingSummaries" representation="False" />
+            <property name="ShowMissingRemarks" representation="False" />
+            <property name="ShowMissingParams" representation="False" />
+            <property name="ShowMissingReturns" representation="False" />
+            <property name="ShowMissingValues" representation="False" />
+            <property name="DocumentInternals" representation="False" />
+            <property name="DocumentProtected" representation="True" />
+            <property name="DocumentPrivates" representation="False" />
+            <property name="DocumentProtectedInternalAsProtected" representation="False" />
+            <property name="DocumentEmptyNamespaces" representation="False" />
+            <property name="IncludeAssemblyVersion" representation="False" />
+            <property name="CopyrightText" representation="" />
+            <property name="CopyrightHref" representation="" />
+            <property name="ReferencesPath" representation="" />
+            <property name="SkipNamespacesWithoutSummaries" representation="False" />
+            <property name="UseNamespaceDocSummaries" representation="False" />
+            <property name="AutoPropertyBackerSummaries" representation="False" />
+            <property name="AutoDocumentConstructors" representation="True" />
+            <property name="DocumentAttributes" representation="False" />
+            <property name="ShowTypeIdInAttributes" representation="False" />
+            <property name="DocumentedAttributes" representation="" />
+            <property name="GetExternalSummaries" representation="True" />
+            <property name="EditorBrowsableFilter" representation="Off" />
+            <property name="UseNDocXmlFile" representation="" />
+        </documenter>
+        <documenter name="XML">
+            <property name="OutputFile" representation=".\doc\doc.xml" />
+            <property name="ShowMissingSummaries" representation="False" />
+            <property name="ShowMissingRemarks" representation="False" />
+            <property name="ShowMissingParams" representation="False" />
+            <property name="ShowMissingReturns" representation="False" />
+            <property name="ShowMissingValues" representation="False" />
+            <property name="DocumentInternals" representation="False" />
+            <property name="DocumentProtected" representation="True" />
+            <property name="DocumentPrivates" representation="False" />
+            <property name="DocumentProtectedInternalAsProtected" representation="False" />
+            <property name="DocumentEmptyNamespaces" representation="False" />
+            <property name="IncludeAssemblyVersion" representation="False" />
+            <property name="CopyrightText" representation="" />
+            <property name="CopyrightHref" representation="" />
+            <property name="ReferencesPath" representation="" />
+            <property name="SkipNamespacesWithoutSummaries" representation="False" />
+            <property name="UseNamespaceDocSummaries" representation="False" />
+            <property name="AutoPropertyBackerSummaries" representation="False" />
+            <property name="AutoDocumentConstructors" representation="True" />
+            <property name="DocumentAttributes" representation="False" />
+            <property name="ShowTypeIdInAttributes" representation="False" />
+            <property name="DocumentedAttributes" representation="" />
+            <property name="GetExternalSummaries" representation="True" />
+            <property name="EditorBrowsableFilter" representation="Off" />
+            <property name="UseNDocXmlFile" representation="" />
+        </documenter>
+    </documenters>
+</project>

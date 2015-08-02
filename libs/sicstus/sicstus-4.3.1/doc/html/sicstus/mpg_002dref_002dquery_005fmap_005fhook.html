@@ -1,0 +1,95 @@
+<html lang="en">
+<head>
+<title>mpg-ref-query_map_hook - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dquery_005fmap.html#mpg_002dref_002dquery_005fmap" title="mpg-ref-query_map">
+<link rel="next" href="mpg_002dref_002draise_005fexception.html#mpg_002dref_002draise_005fexception" title="mpg-ref-raise_exception">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-query_map_hook"></a>
+<a name="mpg_002dref_002dquery_005fmap_005fhook"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002draise_005fexception.html#mpg_002dref_002draise_005fexception">mpg-ref-raise_exception</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dquery_005fmap.html#mpg_002dref_002dquery_005fmap">mpg-ref-query_map</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.181 <code>query_map_hook/4</code> &nbsp;<!-- /@w --> <dfn>[hook]</dfn></h4>
+
+<p><a name="index-query_005fmap_005fhook_002f4-_0028hook_002c-ref-page_0029-4850"></a><a name="index-query_005fmap_005fhook_002f4-_0028hook_002c-ref-page_0029-4851"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- multifile user:query_map_hook/4.</code>
+
+   <p><code>user:query_map_hook(</code><var>+MapMethod</var><code>, </code><var>+RawInput</var><code>, </code><var>-Result</var><code>, </code><var>-Answer</var><code>)</code>
+
+   <p>Provides the user with a method of overriding the call to
+<code>'SU_messages':query_map/4</code> in the map phase of query
+processing.  This way the implementation of the default map methods
+can be changed.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>MapMethod</var><dd><dfn>term</dfn>
+
+     <p>The map method to use.
+
+     <br><dt><var>RawInput</var><dd><dfn>atom</dfn>
+
+     <p>As received from <code>query_input/3</code>.
+
+     <br><dt><var>Result</var><dd><dfn>one of </dfn><code>[success,failure,failure(</code><var>Warning</var><code>)]</code>
+
+     <p>Result of conversion.
+
+     <br><dt><var>Answer</var><dd><dfn>one of </dfn><code>[success,failure,failure(</code><var>Warning</var><code>)]</code>
+
+     <p>Abstract answer term. 
+</dl>
+
+<h4 class="subheading">Exceptions</h4>
+
+<p>All error handling is done by the predicates extended by this hook.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Query-Processing.html#Query-Processing">Query Processing</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dquery_005fmap_005fhook.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dquery_005fmap_005fhook.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

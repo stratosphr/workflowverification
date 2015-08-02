@@ -1,0 +1,146 @@
+<html lang="en">
+<head>
+<title>Saving - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Run-Intro.html#Run-Intro" title="Run Intro">
+<link rel="prev" href="Nested.html#Nested" title="Nested">
+<link rel="next" href="SPIDER.html#SPIDER" title="SPIDER">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Saving"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="SPIDER.html#SPIDER">SPIDER</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Nested.html#Nested">Nested</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Run-Intro.html#Run-Intro">Run Intro</a>
+<hr>
+</div>
+
+<h3 class="section">3.10 Saving and Restoring Program States</h3>
+
+<p><a name="index-saving-323"></a><a name="index-restoring-324"></a><a name="index-saved_002dstate-325"></a><a name="index-program-state-326"></a><a name="index-state_002c-program-327"></a>
+Once a program has been read, the system will have available all
+the information necessary for its execution.  This information is called
+a <dfn>program state</dfn>.
+
+   <p><a name="index-save_005fprogram_002f_005b1_002c2_005d-_0028built_002din_0029-328"></a><a name="index-save_005fprogram_002f_005b1_002c2_005d-_0028built_002din_0029-329"></a>
+The saved-state of a program may be saved on disk for future execution. 
+To save a program into a file <var>File</var>, type the following
+query.  On UNIX platforms, the file becomes executable:
+
+<pre class="example">     | ?- <kbd>save_program(</kbd><var>File</var><kbd>).</kbd>
+</pre>
+   <p>You can also specify a goal to be run when a saved program
+is restored.  This is done by:
+
+<pre class="example">     | ?- <kbd>save_program(</kbd><var>File</var><kbd>, start).</kbd>
+</pre>
+   <p class="noindent">where <code>start/0</code> is the predicate to be called.
+
+   <p><a name="index-restore_002f1-_0028built_002din_0029-330"></a><a name="index-restore_002f1-_0028built_002din_0029-331"></a>
+Once a program has been saved into a file <var>File</var>, the
+following query will restore the system to the saved-state:
+
+<pre class="example">     | ?- <kbd>restore(</kbd><var>File</var><kbd>).</kbd>
+</pre>
+   <p>If a saved-state has been moved or copied to another machine, or if it
+is a symbolic link, the path names of foreign resources and other files
+needed upon restore are typically different at restore time from their
+save time values.  To solve this problem, certain atoms will be renamed
+during restore as follows:
+
+     <ul>
+<li>Atoms that had <samp><span class="file">$SP_PATH/library</span></samp> (the name of the directory
+containing the Prolog Library) as prefix at save time will have that
+prefix replaced by the corresponding restore time representation.
+
+     <li>Atoms that had the name of the directory containing <var>File</var> as
+prefix at save time will have that prefix replaced by the corresponding
+restore time representation.
+</ul>
+
+   <p>The purpose of this procedure is to be able to build and deploy an
+application consisting of a saved-state and other files as a
+directory tree with the saved-state at the root: as long as the
+other files maintain their relative position in the deployed copy, they
+can still be found upon restore. 
+See <a href="Building-for-a-Target-Machine.html#Building-for-a-Target-Machine">Building for a Target Machine</a> for an example.
+
+   <blockquote>
+
+   <p><strong>Please note</strong>: When creating a saved-state with
+<code>save_program/[1,2]</code>, the names and paths of foreign resources, are
+included in the saved-state. After restoring a saved-state, this
+information is used to reload the foreign resources again.
+
+   <p>The state of the foreign resource in terms of
+global C variables and allocated memory is thus not
+preserved. Foreign resources may define init and deinit
+functions to take special action upon loading and unloading;
+see <a href="Init-and-Deinit-Functions.html#Init-and-Deinit-Functions">Init and Deinit Functions</a>. 
+</blockquote>
+
+   <p><a name="index-save_005ffiles_002f2-_0028built_002din_0029-332"></a><a name="index-save_005ffiles_002f2-_0028built_002din_0029-333"></a>
+<a name="index-save_005fmodules_002f2-_0028built_002din_0029-334"></a><a name="index-save_005fmodules_002f2-_0028built_002din_0029-335"></a>
+<a name="index-save_005fpredicates_002f2-_0028built_002din_0029-336"></a><a name="index-save_005fpredicates_002f2-_0028built_002din_0029-337"></a>
+As of release 3.8, partial saved-states corresponding to a set of source
+files, modules, and predicates can be created by the built-in predicates
+<code>save_files/2</code>, <code>save_modules/2</code>, and <code>save_predicates/2</code>
+respectively.  These predicates create files in a binary format, by
+default with the prefix &lsquo;<samp><span class="samp">.po</span></samp>&rsquo; (for Prolog object), which can be
+loaded by <code>load_files/[1,2]</code>.  In fact, PO files use exactly the
+same binary format as saved-states, and are subject to the same
+above-mentioned atom renaming rules.  For example, to compile a program
+split into several source files into a single PO file, type:
+
+<pre class="example">     | ?- <kbd>compile(</kbd><var>Files</var><kbd>), save_files(</kbd><var>Files</var><kbd>, </kbd><var>Object</var><kbd>).</kbd>
+</pre>
+   <p>For each filename given, the first goal will try to locate a
+source file
+<!-- [PM] 4.0 We now have .pro and it always accepted file names with -->
+<!-- other explicit extensions as well as files with no -->
+<!-- extensions -->
+<!-- with the default suffix @samp{.pl} -->
+and compile it into
+memory.  The second goal will save the program just
+compiled into a PO file whose default suffix is &lsquo;<samp><span class="samp">.po</span></samp>&rsquo;. 
+Thus the PO file will contain a partial memory image.
+
+   <blockquote>
+<strong>Please note</strong>: PO files can be created with any suffix, but cannot be
+loaded unless the suffix is &lsquo;<samp><span class="samp">.po</span></samp>&rsquo;! 
+</blockquote>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Saving.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Saving.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

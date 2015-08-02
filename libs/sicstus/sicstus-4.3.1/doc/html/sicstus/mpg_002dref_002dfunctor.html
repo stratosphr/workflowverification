@@ -1,0 +1,138 @@
+<html lang="en">
+<head>
+<title>mpg-ref-functor - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002dfrozen.html#mpg_002dref_002dfrozen" title="mpg-ref-frozen">
+<link rel="next" href="mpg_002dref_002dgarbage_005fcollect.html#mpg_002dref_002dgarbage_005fcollect" title="mpg-ref-garbage_collect">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-functor"></a>
+<a name="mpg_002dref_002dfunctor"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002dgarbage_005fcollect.html#mpg_002dref_002dgarbage_005fcollect">mpg-ref-garbage_collect</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002dfrozen.html#mpg_002dref_002dfrozen">mpg-ref-frozen</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.88 <code>functor/3</code> &nbsp;<!-- /@w --> <dfn>[ISO]</dfn></h4>
+
+<p><a name="index-functor_002f3-_0028built_002din_002c-ref-page_0029-4619"></a><a name="index-functor_002f3-_0028built_002din_002c-ref-page_0029-4620"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>functor(+Term, -Name, -Arity)</code>
+
+   <p><code>functor(-Term, +Name, +Arity)</code>
+
+   <p>Succeeds if the principal functor of term <var>Term</var> has name
+<var>Name</var> and arity <var>Arity</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Term</var><dd><dfn>term</dfn>
+
+     <br><dt><var>Name</var><dd><dfn>atom</dfn>
+
+     <br><dt><var>Arity</var><dd><dfn>arity</dfn>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>There are two ways of using this predicate:
+
+     <ol type=1 start=1>
+<li>If <var>Term</var> is initially instantiated, then
+
+          <ul>
+<li>if <var>Term</var> is a compound term,
+<var>Name</var> and <var>Arity</var> are unified with the name and arity of
+its principal functor. 
+<li>otherwise, <var>Name</var> is
+unified with <var>Term</var>, and <var>Arity</var> is unified with 0. 
+</ul>
+
+     <li>If <var>Term</var> is initially uninstantiated, <var>Name</var> and
+<var>Arity</var> must both be instantiated, and
+
+          <ul>
+<li>if <var>Arity</var> is an integer in the range 1..255, then <var>Name</var> must
+be an atom, and <var>Term</var>
+becomes instantiated to the most general term having the specified
+<var>Name</var> and <var>Arity</var>; that is, a term with distinct variables for all
+of its arguments. 
+<li>if <var>Arity</var> is 0, then
+<var>Name</var> must be atomic, and it is unified with <var>Term</var>. 
+</ul>
+     </ol>
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>instantiation_error</code><dd><var>Term</var> and either <var>Name</var> or <var>Arity</var> are uninstantiated.
+
+     <br><dt><code>type_error</code><dd><var>Name</var> is not atomic, or
+<var>Arity</var> is not an integer, or
+<var>Name</var> is not an atom when <var>Arity</var> &gt; 0.
+
+     <br><dt><code>domain_error</code><dd><var>Arity</var> is an integer &lt; 0.
+
+     <br><dt><code>representation_error</code><dd><var>Term</var> is uninstantiated and <var>Arity</var> &gt; 255. 
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<pre class="example">     
+     | ?- <kbd>functor(foo(a,b), N, A).</kbd>
+     
+     N = foo,
+     A = 2
+     
+     | ?- <kbd>functor(X, foo, 2).</kbd>
+     
+     X = foo(_A,_B)
+</pre>
+<pre class="example">     | ?- <kbd>functor(X, 2, 0).</kbd>
+     
+     X = 2
+</pre>
+   <h4 class="subheading">See Also</h4>
+
+<p><code>arg/3</code>, <code>name/2</code>, <code>=../2</code>, <a href="ref_002dlte_002dact.html#ref_002dlte_002dact">ref-lte-act</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dfunctor.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dfunctor.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

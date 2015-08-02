@@ -1,0 +1,185 @@
+<html lang="en">
+<head>
+<title>Platform specific UNIX notes - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Release-Notes-and-Installation-Guide-for-UNIX.html#Release-Notes-and-Installation-Guide-for-UNIX" title="Release Notes and Installation Guide for UNIX">
+<link rel="prev" href="UNIX-installation.html#UNIX-installation" title="UNIX installation">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Platform-specific-UNIX-notes"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="UNIX-installation.html#UNIX-installation">UNIX installation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Release-Notes-and-Installation-Guide-for-UNIX.html#Release-Notes-and-Installation-Guide-for-UNIX">Release Notes and Installation Guide for UNIX</a>
+<hr>
+</div>
+
+<h3 class="section">3.2 Platform Specific Notes</h3>
+
+<p>This section contains some installation notes that are platform
+specific under UNIX.
+
+     <dl>
+<!-- [PM] 4.3 Solaris 8 is no longer supported -->
+<!-- @item Solaris 8 SPARC 64-bit -->
+<!-- You cannot install (or build) the 64 bit version of SICStus using -->
+<!-- @command{gcc 2.x}. You need to use the Sun Workshop compiler, -->
+<!-- version 5.0 or later. @code{InstallSICStus} will try to find it during -->
+<!-- installation but if that fails, you can set the environment variable -->
+<!-- @env{CC} to e.g.@: @file{/opt/SUNWspro/bin/cc} before invoking -->
+<!-- @code{InstallSICStus}. Recent versions of gcc, i.e.@: gcc 3.x or 4.x, -->
+<!-- do seem to work. -->
+<!-- To install with @command{gcc}, -->
+<!-- set the environment variable @env{CC} appropriately before invoking -->
+<!-- @code{InstallSICStus}. -->
+
+     <dt><strong>Solaris Intel 64-bit, SPARC 64-bit</strong><dd>
+The following libraries are not supported: <code>library(bdb)</code>,
+<code>library(tcltk)</code>.
+
+     <!-- [PM] 4.3 Solaris 8 is no longer supported -->
+     <!-- @item Solaris 8 -->
+     <!-- The default thread library in Solaris 8 is incompatible with -->
+     <!-- SICStus.  The ``Alternate Thread Library (T2)'' must be used instead.  This is -->
+     <!-- ensured automatically for executables built with the @command{spld} -->
+     <!-- tool.  It is @strong{not} ensured automatically when loading SICStus -->
+     <!-- into Java or other programs not built by @command{spld}. See -->
+     <!-- @uref{http://developers.sun.com/solaris/articles/alt_thread_lib.html} -->
+     <!-- for further information. -->
+     <!-- Problems caused by the old thread library include: -->
+     <!-- @itemize @bullet -->
+     <!-- @item -->
+     <!-- @code{library(timeout)} does not work. -->
+     <!-- @item -->
+     <!-- Java hangs during initialization of a Jasper @code{SICStus} object. -->
+     <!-- @end itemize -->
+     <!-- This problem does not affect Solaris 9 or later. -->
+     <!-- @ifset MACOSXSUPPORTED -->
+     <br><dt><strong>Mac OS X</strong><dd>
+Mac OS X 10.5, 10.6, 10.7 and Mac OS X 10.8 are supported on Intel 32-bit and
+64-bit. Mac OS X 10.6 or later is recommended, due to deficiencies in Mac OS X
+10.5 that affects the SICStus I/O sub-system.
+
+     <p>An executable built with <samp><span class="command">spld</span></samp> will only work if there is a
+properly configured subdirectory <samp><span class="file">sp-4.3.1</span></samp> in the
+same directory as the executable; see <a href="../sicstus/Runtime-Systems-on-UNIX-Target-Machines.html#Runtime-Systems-on-UNIX-Target-Machines">Runtime Systems on UNIX Target Machines</a>.
+
+     <p>Alternatively, the option <samp><span class="option">--wrapper</span></samp> can be passed to <samp><span class="command">spld</span></samp>. 
+In this case a wrapper script is created that will set up various
+environment variables and invoke the real executable.
+
+     <p>When using third-party products like BDB, you may need to set up
+<samp><span class="env">DYLD_LIBRARY_PATH</span></samp> so that the Mac OS X dynamic linker can find
+them. When using the SICStus development executable (<samp><span class="command">sicstus</span></samp>),
+this should happen automatically, if the third-party products have been
+installed in the standard locations; see <a href="Berkeley-DB-on-Mac-OS-X.html#Berkeley-DB-on-Mac-OS-X">Berkeley DB on Mac OS X</a>.
+
+     <p>Sometimes, the default limit on the process's data-segment is
+unreasonably small, which may lead to unexpected memory allocation
+failures. To check this limit, do:
+     <pre class="example">          bash$ <kbd>ulimit -d</kbd>
+          6144
+</pre>
+     <p>This indicates that the maximum size of the data-segment is only 6
+Mb. To remove the limit, do:
+     <pre class="example">          bash$ <kbd>ulimit -d unlimited</kbd>
+          bash$ <kbd>ulimit -d</kbd>
+          unlimited
+</pre>
+     <blockquote>
+<strong>Please note</strong>: <samp><span class="command">ulimit</span></samp> is a shell built-in
+in <samp><span class="command">bash</span></samp>. It may have a different name in other shells. 
+</blockquote>
+
+     <!-- [PM] 4.2 Emacs now passes -DSP_ULIMIT_DATA_SEGMENT_SIZE=unlimited -->
+     <!-- @quotation -->
+     <!-- @strong{Please note}: The limit will also affect SICStus when started -->
+     <!-- from within Emacs, e.g.@: with @kbd{M-x run-prolog}. To change the -->
+     <!-- limit used by Emacs and its sub-processes (such as SICStus) you will -->
+     <!-- need to change the limit in the shell used to start Emacs. Alternatively -->
+     <!-- you can create a shell wrapper for the @command{emacs} command. -->
+     <!-- @end quotation -->
+     <p>SICStus will set the data segment size of itself according to the representation
+of the system property (or environment variable)
+<samp><span class="env">SP_ULIMIT_DATA_SEGMENT_SIZE</span></samp>. If you set this variable in the
+initialization file for your shell you don't have to use the
+<samp><span class="command">ulimit</span></samp> command when SICStus is started from the
+shell. See <a href="../sicstus/System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a> for more information about
+<samp><span class="env">SP_ULIMIT_DATA_SEGMENT_SIZE</span></samp>. This system property is set
+automatically when SICStus is invoked from the SICStus Prolog IDE
+(SPIDER), from Emacs (via <kbd>M-x run-prolog</kbd>), or from the launcher
+script <samp><span class="file">SICStus Prolog 4.3.1.term</span></samp> installed in
+<samp><span class="file">Applications</span></samp>.
+
+     <p>File names are encoded in UTF-8 under Mac OS X. This is
+handled correctly by SICStus.
+
+     <p>If SICStus encounters a file name that is not encoded in UTF-8, it
+<!-- will interpret the name as @w{Latin 1} (ISO-8859-1) instead. -->
+will silently ignore the file or directory. 
+This can happen on file systems where files have been created by some
+other OS than Mac OS X, e.g. on network file servers accessed by
+other UNIX flavors or Windows.
+
+     <p>The default character encoding for the SICStus standard streams is
+based on the current locale which is POSIX/C, i.e. US ASCII, by
+default on Mac OS X. 
+<!-- (@pxref{WCX Environment Variables, , WCX Environment Variables, sicstus, the SICStus Prolog Manual}). -->
+This will come in
+conflict with the default character encoding for the Terminal
+application which is UTF-8. A clickable launcher for SICStus is
+optionally installed in the Applications folder. This launcher will set
+the character encoding of the standard streams to UTF-8 for both the
+Terminal and SICStus. The character encoding is set automatically when
+SICStus is invoked from the SICStus Prolog IDE (SPIDER), or from Emacs
+(via <kbd>M-x run-prolog</kbd>)
+
+     <!-- @end ifset MACOSXSUPPORTED -->
+     <!-- [PM] 4.1.0 Seems to be fixed in 10.6 (but our code has not yet adapted). -->
+     <!-- On Mac OS X some I/O operation can cause SICStus to hang in a way that -->
+     <!-- cannot be interrupted with @kbd{C-c} (@code{SIGINT}). The cause of this -->
+     <!-- is that, despite the UNIX 03 certification of Mac OS X 10.5, Mac OS X -->
+     <!-- does not implement cancellable I/O. -->
+     <!-- @item @strong{irix} -->
+     <!-- @code{spld -moveable} implies @option{-wrapper}. this is due to -->
+     <!-- limitations in the irix runtime loader. -->
+     <!-- @item @strong{irix} -->
+     <!-- prelinked dynamic resources will not be found at runtime if the -->
+     <!-- executable was built with @code{spld -moveable}. this should not be a -->
+     <!-- problem; prelinked dynamic resources are not recommended anyway. -->
+     <!-- [PM] 4.1.0 AIX no longer supported -->
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Platform-specific-UNIX-notes.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Platform-specific-UNIX-notes.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,139 @@
+<html lang="en">
+<head>
+<title>REX - SICStus Prolog Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog Release Notes">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="prev" href="Special-Releases.html#Special-Releases" title="Special Releases">
+<link rel="next" href="Tcl_002fTk-Notes.html#Tcl_002fTk-Notes" title="Tcl/Tk Notes">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="REX"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Tcl_002fTk-Notes.html#Tcl_002fTk-Notes">Tcl/Tk Notes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Special-Releases.html#Special-Releases">Special Releases</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+<hr>
+</div>
+
+<h2 class="chapter">6 Managing Extended Runtime License Information</h2>
+
+<p>Extended runtime systems need to have a license available at runtime. 
+This license can be embedded in the extended runtime executable or
+located in a separate file.  The following describes the steps needed in
+order to enter the license information.  The example assumes that you
+are familiar with the procedure for building runtime systems. 
+See <a href="../sicstus/The-Application-Builder.html#The-Application-Builder">The Application Builder</a> for details.
+
+   <p>Suppose that you have been provided with the following
+license information:
+
+<pre class="example">     Your license information for platform
+     'extended_runtime_sicstus4.0_x86-win32-nt-4' is as follows:
+     
+     Site name:          MySite
+     License code:       a111-b222-c333-d444-e444
+     Expiration date:    permanent
+</pre>
+   <p>Following is a list of common tasks.
+
+     <ul>
+<li><b>Making the license available to the development system.</b>
+
+     <p>Create a file <samp><span class="file">extended_license.pl</span></samp> containing the following:
+
+     <pre class="example">          %% LICENSE BEGIN
+          site('MySite').
+          product('extended_runtime_sicstus4.0_x86-win32-nt-4',
+                  'permanent',
+                  'a111-b222-c333-d444-e444').
+          %% LICENSE END
+</pre>
+     <p>This file can be located anywhere, e.g. in the folder containing your
+source code.
+
+     <li><b>Building an Extended Runtime System using </b><samp><span class="command">spld</span></samp><b> which embeds
+license information from the above file:</b>
+
+     <pre class="example">          % <kbd>spld -E --license-file ./extended_license.pl [...]</kbd>
+</pre>
+     <p>This will read the license information and embed the information in
+the created executable. No separate license file will be needed at
+runtime. This is the preferred method. 
+This method can be used also to create an all-in-one executable;
+see <a href="../sicstus/All_002din_002done-Executables.html#All_002din_002done-Executables">All-in-one Executables</a>.
+
+     <p>On UNIX platforms, it is possible to install the license information
+using the <samp><span class="command">splm</span></samp> tool so that you don't need create the file
+<samp><span class="file">extended_license.pl</span></samp> and pass it to <samp><span class="command">spld</span></samp>. However, a
+separate license file may be needed anyway if the license cannot be
+embedded; see below.
+
+     <li><b>Building an Extended Runtime System which does not embed license information.</b>
+
+     <p>The resulting runtime system will need a way to find the
+license file at runtime. This variant is useful when the executable is
+not built with <samp><span class="command">spld</span></samp>, e.g. when builing a DLL (Windows) or DSO (UNIX):
+
+     <pre class="example">          % <kbd>spld -E --no-embed-license [...]</kbd>
+</pre>
+     <p>The resulting executable will produce output similar to the following
+if it cannot find the license file:
+
+     <pre class="example">          License error:
+          License file not found! [...]
+</pre>
+     <li><b>Ensuring that the license information is available at runtime.</b>
+
+     <p>If the license information has been embedded, no special steps are needed. 
+Otherwise, you need to distribute the license file along with the runtime
+system. 
+To make the license file available it should be located in the <samp><span class="file">library</span></samp>
+folder and named <samp><span class="file">license.pl</span></samp>. That is, copy <samp><span class="file">extended_license.pl</span></samp>
+as created above into the file <samp><span class="file">library/license.pl</span></samp> in the folder tree
+available at runtime. 
+See <a href="../sicstus/Runtime-Systems-on-Target-Machines.html#Runtime-Systems-on-Target-Machines">Runtime Systems on Target Machines</a> for details. Also see <a href="../sicstus/Locating-the-License-Information.html#Locating-the-License-Information">Locating the License Information</a> for additional ways of making the
+license information available.
+
+     <li><b>Understanding steps performed by </b><samp><span class="command">spld</span></samp><b>.</b>
+As usual, you can use:
+
+     <pre class="example">          % <kbd>spld --verbose --keep [...]</kbd>
+</pre>
+     <p class="noindent">in order to see exactly what steps are performed by <samp><span class="command">spld</span></samp>.  This is
+useful if you want to embed the license but need to build the
+executable manually, instead of using <samp><span class="command">spld</span></samp>. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/REX.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/REX.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+   </body></html>
+

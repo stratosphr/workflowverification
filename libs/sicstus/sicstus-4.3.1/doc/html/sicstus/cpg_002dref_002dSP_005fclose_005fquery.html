@@ -1,0 +1,88 @@
+<html lang="en">
+<head>
+<title>cpg-ref-SP_close_query - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="cpg_002dbif.html#cpg_002dbif" title="cpg-bif">
+<link rel="prev" href="cpg_002dref_002dSP_005fcalloc.html#cpg_002dref_002dSP_005fcalloc" title="cpg-ref-SP_calloc">
+<link rel="next" href="cpg_002dref_002dSP_005fcompare.html#cpg_002dref_002dSP_005fcompare" title="cpg-ref-SP_compare">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="cpg-ref-SP_close_query"></a>
+<a name="cpg_002dref_002dSP_005fclose_005fquery"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="cpg_002dref_002dSP_005fcompare.html#cpg_002dref_002dSP_005fcompare">cpg-ref-SP_compare</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cpg_002dref_002dSP_005fcalloc.html#cpg_002dref_002dSP_005fcalloc">cpg-ref-SP_calloc</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="cpg_002dbif.html#cpg_002dbif">cpg-bif</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.4 <code>SP_close_query()</code></h4>
+
+<p><a name="index-SP_005fclose_005fquery_0028_0029-_0028C-function_0029-5104"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<pre class="example">     #include &lt;sicstus/sicstus.h&gt;
+     
+     int
+     SP_close_query(SP_qid query);
+</pre>
+   <p>Discard the current solution to the given query, and close it.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>query</var><dd><a name="index-SP_005fqid-_0028C-type_0029-5105"></a>The query, created by <code>SP_open_query()</code>. 
+</dl>
+
+<h4 class="subheading">Return Value</h4>
+
+<p><code>SP_SUCCESS</code> for success,
+<code>SP_ERROR</code> if an error condition occurred.
+
+<h4 class="subheading">Description</h4>
+
+<p>This will discard the choices created since the corresponding
+<code>SP_open_query()</code>, and then backtrack into the query, throwing
+away any current solution, like the goal <code>!, fail</code>.  The given
+argument does not have to be the innermost open query; any open
+queries in its scope will also be closed.
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Finding-Multiple-Solutions-of-a-Call.html#Finding-Multiple-Solutions-of-a-Call">Finding Multiple Solutions of a Call</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fclose_005fquery.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fclose_005fquery.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

@@ -1,0 +1,131 @@
+<html lang="en">
+<head>
+<title>Message Phases - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Message-Processing.html#Message-Processing" title="Message Processing">
+<link rel="next" href="Message-Generation-Phase.html#Message-Generation-Phase" title="Message Generation Phase">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="Message-Phases"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Message-Generation-Phase.html#Message-Generation-Phase">Message Generation Phase</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Message-Processing.html#Message-Processing">Message Processing</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.16.1.1 Phases of Message Processing</h5>
+
+<p>Messages are processed in two major phases.  The user can influence the
+behavior of each phase using appropriate hooks, described later.
+
+   <p>The first phase is called the <em>message generation phase</em>: it
+determines the text of the message from the input (the abstract message
+term).  No printing is done here.  In this phase the user can
+change the phrasing or the language of the messages.
+
+   <p><a name="index-format_002dcommand-1766"></a>The result of the first phase is created in the form of a
+<dfn>format-command list</dfn>.  This is a list whose elements are
+<dfn>format-commands</dfn>, or the atom <code>nl</code> denoting the end of a
+line.  A format-command describes a piece of text not extending
+over a line boundary and it can be one of the following:
+
+     <dl>
+<dt><var>FormatString</var><code>-</code><var>Args</var><dt><code>format(</code><var>FormatString</var><code>, </code><var>Args</var><code>)</code><dd>This indicates that the message text should appear as if printed by
+     <pre class="example">          format(<var>FormatString</var>, <var>Args</var>).
+</pre>
+     <br><dt><code>write_term(</code><var>Term</var><code>, </code><var>Options</var><code>)</code><dd>This indicates that the message text should appear as if printed by
+     <pre class="example">          write_term(<var>Term</var>, <var>Options</var>).
+</pre>
+     <br><dt><code>write_term(</code><var>Term</var><code>)</code><dd>Equivalent to <code>write_term(</code><var>Term</var><code>, </code><var>Options</var><code>)</code> where
+<var>Options</var> is the actual representation of the Prolog flag
+<code>toplevel_print_options</code>. 
+<a name="index-toplevel_005fprint_005foptions-_0028prolog-flag_0029-1767"></a></dl>
+
+   <p>As an example, let us see what happens in case of the toplevel call
+<code>_ =:= 3</code>.  An instantiation error is raised by the Prolog
+system, which is caught, and the abstract message term
+<code>error(instantiation_error,instantiation_error(_=:=3,1))</code> is
+generated&mdash;the first argument is the goal, and the second argument is
+the position of the uninstantiated variable within the goal.  In the
+first phase of message processing this is converted to the following
+format-command list:
+<pre class="example">     ['Instantiation error'-[],' in argument ~d of ~q'-[1,=:= /2],nl,
+      'goal:  '-[],write_term(_=:=3),nl]
+</pre>
+   <p>A minor transformation, so-called <em>line splitting</em> is performed on
+the message text before it is handed over to the second phase.  The
+format-command list is broken up along the <code>nl</code> atoms
+into a list of lines, where each line is a list of
+format-commands.  We will use the term format-command lines
+to refer to the result of this transformation.
+
+   <p>In the example above, the result of this conversion is the following:
+<pre class="example">     [['Instantiation error'-[],' in argument ~d of ~q'-[1,=:= /2]],
+      ['goal:  '-[],write_term(_=:=3)]]
+</pre>
+   <p>The above format-command lines term is the input of the
+second phase of message processing.
+
+   <p>The second phase is called the <em>message printing phase</em>, this is
+where the message is actually displayed.  The severity of the message is
+used here to prefix each line of the message with some characters
+indicating the type of the message, as listed above.
+
+   <p>The user can change the exact method of printing (e.g. redirection of
+messages to a stream, a window, or using different prefixes, etc.) 
+through appropriate hooks.
+
+   <p>In our example the following lines are printed by the second phase
+of processing:
+<pre class="example">     ! Instantiation error in argument 1 of =:= /2
+     ! goal:  _=:=3
+</pre>
+   <p>The user can override the default message processing mechanism in the
+following two ways:
+     <ul>
+<li>A global method is to define the hook predicate
+<code>portray_message/2</code>, which is the first thing called by message
+processing.  If this hook exists and succeeds, it overrides
+all other processing&mdash;nothing further is done by
+<code>print_message/2</code>.
+
+     <li>If a finer method of influencing the behavior of message processing is
+needed, there are several further hooks provided, which
+affect only one phase of the process.  These are described in the
+following paragraphs. 
+</ul>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Message-Phases.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Message-Phases.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

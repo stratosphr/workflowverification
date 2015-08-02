@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+<title>CLPB Example 3 - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="CLPB-Examples.html#CLPB-Examples" title="CLPB Examples">
+<link rel="prev" href="CLPB-Example-2.html#CLPB-Example-2" title="CLPB Example 2">
+<link rel="next" href="CLPB-Example-4.html#CLPB-Example-4" title="CLPB Example 4">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="CLPB-Example-3"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="CLPB-Example-4.html#CLPB-Example-4">CLPB Example 4</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="CLPB-Example-2.html#CLPB-Example-2">CLPB Example 2</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="CLPB-Examples.html#CLPB-Examples">CLPB Examples</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.9.3.3 Example 3</h5>
+
+<pre class="example">     | ?- <kbd>[user].</kbd>
+     | <kbd>adder(X, Y, Sum, Cin, Cout) :-</kbd>
+          <kbd>sat(Sum =:= card([1,3],[X,Y,Cin])),</kbd>
+          <kbd>sat(Cout =:= card([2-3],[X,Y,Cin])).</kbd>
+     | <kbd>^D</kbd>
+     % consulted user in module user, 0 msec 424 bytes
+     
+     | ?- <kbd>adder(x, y, Sum, cin, Cout).</kbd>
+     
+     sat(Sum=:=cin#x#y),
+     sat(Cout=:=x*cin#x*y#y*cin)
+     
+     | ?- <kbd>adder(x, y, Sum, 0, Cout).</kbd>
+     
+     sat(Sum=:=x#y),
+     sat(Cout=:=x*y)
+     
+     | ?- <kbd>adder(X, Y, 0, Cin, 1), labeling([X,Y,Cin]).</kbd>
+     
+     Cin = 0,
+     X = 1,
+     Y = 1 ? <kbd>;</kbd>
+     
+     Cin = 1,
+     X = 0,
+     Y = 1 ? <kbd>;</kbd>
+     
+     Cin = 1,
+     X = 1,
+     Y = 0 ? <kbd>;</kbd>
+</pre>
+<p class="noindent">illustrates the use of cardinality constraints and models a one-bit
+adder circuit.  The first query illustrates how representing the
+input signals by symbolic constants forces the output signals to be
+displayed as functions of the inputs and not vice versa.  The second
+query computes the simplified functions obtained by setting
+carry-in to 0.  The third query asks for particular input values
+satisfying sum and carry-out being 0 and 1, respectively.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPB-Example-3.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPB-Example-3.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

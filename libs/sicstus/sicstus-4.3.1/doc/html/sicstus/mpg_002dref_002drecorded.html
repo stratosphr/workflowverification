@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+<title>mpg-ref-recorded - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="mpg_002dbpr.html#mpg_002dbpr" title="mpg-bpr">
+<link rel="prev" href="mpg_002dref_002drecorda.html#mpg_002dref_002drecorda" title="mpg-ref-recorda">
+<link rel="next" href="mpg_002dref_002drecordz.html#mpg_002dref_002drecordz" title="mpg-ref-recordz">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="mpg-ref-recorded"></a>
+<a name="mpg_002dref_002drecorded"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="mpg_002dref_002drecordz.html#mpg_002dref_002drecordz">mpg-ref-recordz</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="mpg_002dref_002drecorda.html#mpg_002dref_002drecorda">mpg-ref-recorda</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="mpg_002dbpr.html#mpg_002dbpr">mpg-bpr</a>
+<hr>
+</div>
+
+<h4 class="subsection">11.3.188 <code>recorded/3</code></h4>
+
+<p><a name="index-recorded_002f3-_0028built_002din_002c-ref-page_0029-4879"></a><a name="index-recorded_002f3-_0028built_002din_002c-ref-page_0029-4880"></a>
+
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>recorded(</code><var>-Key</var><code>, </code><var>-Term</var><code>, </code><var>+Ref</var><code>)</code>
+
+   <p><code>recorded(</code><var>?Key</var><code>, </code><var>?Term</var><code>, </code><var>?Ref</var><code>)</code>
+
+   <p>Searches the internal database for a term recorded under the key
+<var>Key</var> that unifies with <var>Term</var>, and whose database
+reference unifies with <var>Ref</var>.
+
+<h4 class="subheading">Arguments</h4>
+
+     <dl>
+<dt><var>Key</var><dd><dfn>atomic</dfn>
+
+     <br><dt><var>Term</var><dd><dfn>term</dfn>
+
+     <br><dt><var>Ref</var><dd><dfn>db_reference</dfn>
+</dl>
+
+<h4 class="subheading">Description</h4>
+
+<p>If <var>Ref</var> is instantiated, then <var>Key</var> and <var>Term</var>
+are unified with the key and term associated with <var>Ref</var>. 
+Otherwise, If <var>Key</var> is a compound term, only its principal functor is
+significant.  That is, <code>foo(1)</code> represents the same
+key as <code>foo(n)</code>.
+
+<h4 class="subheading">Backtracking</h4>
+
+<p>Can be used to backtrack through all the
+matching terms recorded under the specified key.
+
+<h4 class="subheading">Exceptions</h4>
+
+     <dl>
+<dt><code>type_error</code><dd><var>Ref</var> is not a database reference
+</dl>
+
+<h4 class="subheading">Examples</h4>
+
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmdb_002didb.html#ref_002dmdb_002didb">ref-mdb-idb</a>.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002drecorded.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002drecorded.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

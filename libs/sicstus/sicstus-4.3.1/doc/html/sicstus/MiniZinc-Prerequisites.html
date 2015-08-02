@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+<title>MiniZinc Prerequisites - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="MiniZinc.html#MiniZinc" title="MiniZinc">
+<link rel="next" href="MiniZinc-Exported-Predicates.html#MiniZinc-Exported-Predicates" title="MiniZinc Exported Predicates">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="MiniZinc-Prerequisites"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="MiniZinc-Exported-Predicates.html#MiniZinc-Exported-Predicates">MiniZinc Exported Predicates</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="MiniZinc.html#MiniZinc">MiniZinc</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">10.46.3.1 Prerequisites</h5>
+
+<p>An external MiniZinc<!-- /@w -->-to-FlatZinc<!-- /@w --> translator must be made available
+to SICStus and must accept:
+     <ul>
+<li>a MiniZinc<!-- /@w --> program file <code>&lt;model&gt;.mzn</code> as only argument. 
+<li>the option <samp><span class="option">--no-optimise</span></samp> with the meaning
+that the translation should be unoptimized. 
+<li>the option <samp><span class="option">--output-fzn-to-file</span></samp> <var>file</var> with the meaning
+that the translated FlatZinc<!-- /@w --> program is written onto <var>file</var>. 
+<li>the option <samp><span class="option">--output-ozn-to-file</span></samp> <var>file</var> with the meaning
+that the output commands of the FlatZinc<!-- /@w --> program are written onto <var>file</var>. 
+<li>(multiple instances of) the option <samp><span class="option">--data</span></samp> <var>file</var>
+with the meaning that <var>file</var> is an included MiniZinc<!-- /@w --> data
+file. 
+<li>(multiple instances of) the option <samp><span class="option">--search-dir</span></samp>
+<var>dir</var> with the meaning that <var>dir</var> is searched for MiniZinc<!-- /@w --> data
+files and solver specific global constraint definitions. 
+</ul>
+
+   <p>There are two ways to make such a translator available to SICStus:
+     <ol type=1 start=1>
+<li>Set the environment variable <samp><span class="env">MZN2FZN</span></samp> to the location of the
+translator executable. 
+<li>Put a translator executable named <samp><span class="command">mzn2fzn</span></samp> in a directory included
+in the <samp><span class="env">PATH</span></samp> environment variable.
+        </ol>
+
+   <p>An external solution printer, such as <samp><span class="command">solns2out</span></samp>, should be
+available to SICStus.  This can be done in two ways:
+     <ol type=1 start=1>
+<li>Set the environment variable <samp><span class="env">SOLNS2OUT</span></samp> to the location of the
+translator executable. 
+<li>Put a translator executable named <samp><span class="command">solns2out</span></samp> in a directory included
+in the <samp><span class="env">PATH</span></samp> environment variable.
+        </ol>
+
+   <p>The G12 MiniZinc<!-- /@w --> and FlatZinc<!-- /@w --> distribution includes such a
+MiniZinc<!-- /@w -->-to-FlatZinc<!-- /@w --> translator and solution printer. See the G12
+MiniZinc<!-- /@w --> and FlatZinc<!-- /@w --> web pages at
+<a href="http://www.minizinc.org">http://www.minizinc.org</a> for more information
+and download links.
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/MiniZinc-Prerequisites.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/MiniZinc-Prerequisites.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+

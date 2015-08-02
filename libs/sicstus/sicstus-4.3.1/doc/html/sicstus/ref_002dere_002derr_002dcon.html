@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+<title>ref-ere-err-con - SICStus Prolog</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SICStus Prolog">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="ref_002dere_002derr.html#ref_002dere_002derr" title="ref-ere-err">
+<link rel="prev" href="ref_002dere_002derr_002dper.html#ref_002dere_002derr_002dper" title="ref-ere-err-per">
+<link rel="next" href="ref_002dere_002derr_002dcns.html#ref_002dere_002derr_002dcns" title="ref-ere-err-cns">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="node">
+<a name="ref-ere-err-con"></a>
+<a name="ref_002dere_002derr_002dcon"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ref_002dere_002derr_002dcns.html#ref_002dere_002derr_002dcns">ref-ere-err-cns</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="ref_002dere_002derr_002dper.html#ref_002dere_002derr_002dper">ref-ere-err-per</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="ref_002dere_002derr.html#ref_002dere_002derr">ref-ere-err</a>
+<hr>
+</div>
+
+<h5 class="subsubsection">4.15.4.9 Context Errors</h5>
+
+<p><a name="index-context-errors-1738"></a>
+<a name="index-errors_002c-context-1739"></a>
+
+   <p>A context error occurs when a goal or declaration appears in the wrong
+place.  There may or may not be anything wrong with the goal or
+declaration as such; the point is that it is out of place.  Calling
+<code>multifile/1</code> as a goal is a context error, as is having
+<code>:-module/2</code> anywhere but as the first term in a source file.  This
+error classe is an extension to the ISO Prolog standard.
+
+   <p>The <var>SICStus_Error</var> term associated with a context error is
+<pre class="example">     context_error(<var>Goal, ContextType, CommandType</var>)
+</pre>
+     <dl>
+<dt><var>ContextType</var><dd>the context in which the command was attempted.
+
+     <br><dt><var>CommandType</var><dd>the type of command that was attempted.
+
+   </dl>
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002derr_002dcon.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002derr_002dcon.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+   </body></html>
+
