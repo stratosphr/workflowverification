@@ -1,6 +1,6 @@
-package specifications;
+package specifications.model;
 
-import specifications.formulas.Formula;
+import specifications.model.formulas.Formula;
 
 public class Specification {
 

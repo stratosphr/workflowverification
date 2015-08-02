@@ -1,4 +1,4 @@
-package specifications.formulas;
+package specifications.model.formulas;
 
 import exceptions.NoChildrenCompoundFormulaException;
 import tools.StringTools;
@@ -20,7 +20,7 @@ public abstract class CompoundFormula extends Formula {
     }
 
     public CompoundFormula(String name, Formula... children) {
-        this(name, new ArrayList<Formula>(Arrays.asList(children)));
+        this(name, new ArrayList<>(Arrays.asList(children)));
     }
 
     @Override

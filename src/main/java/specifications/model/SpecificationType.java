@@ -1,4 +1,4 @@
-package specifications;
+package specifications.model;
 
 public enum SpecificationType {
 

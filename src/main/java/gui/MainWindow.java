@@ -33,15 +33,18 @@ public class MainWindow {
     private JPanel panel_rightReport;
 
     public MainWindow(VerificationFolder verificationFolder) {
+        this();
+        loadVerificationFolder(verificationFolder);
+    }
+
+    public MainWindow() {
         $$$setupUI$$$();
         btn_parameters.addActionListener(new BtnParametersListener());
-        loadVerificationFolder(verificationFolder);
     }
 
     private void loadVerificationFolder(VerificationFolder verificationFolder) {
         System.out.println(verificationFolder.getAbsolutePath());
-        System.out.println(verificationFolder != null && verificationFolder.isValid());
-        //System.exit(0);
+        System.out.println(verificationFolder.isValid());
     }
 
     public static void main() {
@@ -50,7 +53,11 @@ public class MainWindow {
 
     public static void main(VerificationFolder verificationFolder) {
         final JFrame frame = new JFrame("Workflows Modal Specifications Verifier");
-        frame.setContentPane(new MainWindow(verificationFolder).tab_main);
+        if(verificationFolder == null) {
+            frame.setContentPane(new MainWindow().tab_main);
+        }else{
+            frame.setContentPane(new MainWindow(verificationFolder).tab_main);
+        }
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         frame.setResizable(false);

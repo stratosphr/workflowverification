@@ -1,4 +1,4 @@
-package specifications.formulas;
+package specifications.model.formulas;
 
 public class NegationFormula extends CompoundFormula {
 

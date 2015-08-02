@@ -1,5 +1,6 @@
 package specifications;
 
+import exceptions.InvalidSpecificationException;
 import exceptions.InvalidWorkflowException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -8,7 +9,9 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-import specifications.formulas.*;
+import specifications.model.formulas.*;
+import specifications.model.Specification;
+import specifications.model.SpecificationType;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -45,66 +48,65 @@ public class SpecificationParser {
                 }
             }
             throw new InvalidWorkflowException("Should never happen.");
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e.getMessage());
-        } catch (SAXException e) {
-            throw new RuntimeException(e.getMessage());
-        } catch (IOException e) {
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             throw new RuntimeException(e.getMessage());
         }
     }
 
     private static Formula getFormula(Node child) {
         String elementName = child.getNodeName();
-        if (elementName.equals("transition")) {
-            String transitionName = child.getAttributes().getNamedItem("name").getNodeValue();
-            return new TransitionFormula(transitionName);
-        } else if (elementName.equals("conjunction")) {
-            NodeList childrenNodes = child.getChildNodes();
-            ArrayList<Formula> children = new ArrayList<Formula>();
-            for (int i = 0; i < childrenNodes.getLength(); i++) {
-                Node childNode = childrenNodes.item(i);
-                if (childNode.getNodeType() == Node.ELEMENT_NODE) {
-                    children.add(getFormula(childNode));
+        switch (elementName) {
+            case "transition":
+                String transitionName = child.getAttributes().getNamedItem("name").getNodeValue();
+                return new TransitionFormula(transitionName);
+            case "conjunction":
+                NodeList conjunctionChildrenNodes = child.getChildNodes();
+                ArrayList<Formula> conjunctionChildren = new ArrayList<>();
+                for (int i = 0; i < conjunctionChildrenNodes.getLength(); i++) {
+                    Node childNode = conjunctionChildrenNodes.item(i);
+                    if (childNode.getNodeType() == Node.ELEMENT_NODE) {
+                        conjunctionChildren.add(getFormula(childNode));
+                    }
                 }
-            }
-            return new ConjunctionFormula(children);
-        } else if (elementName.equals("disjunction")) {
-            NodeList childrenNodes = child.getChildNodes();
-            ArrayList<Formula> children = new ArrayList<Formula>();
-            for (int i = 0; i < childrenNodes.getLength(); i++) {
-                Node childNode = childrenNodes.item(i);
-                if (childNode.getNodeType() == Node.ELEMENT_NODE) {
-                    children.add(getFormula(childNode));
+                return new ConjunctionFormula(conjunctionChildren);
+            case "disjunction": {
+                NodeList disjunctionChildrenNodes = child.getChildNodes();
+                ArrayList<Formula> disjunctionChildren = new ArrayList<>();
+                for (int i = 0; i < disjunctionChildrenNodes.getLength(); i++) {
+                    Node childNode = disjunctionChildrenNodes.item(i);
+                    if (childNode.getNodeType() == Node.ELEMENT_NODE) {
+                        disjunctionChildren.add(getFormula(childNode));
+                    }
                 }
+                return new DisjunctionFormula(disjunctionChildren);
             }
-            return new DisjunctionFormula(children);
-        } else if (elementName.equals("negation")) {
-            NodeList childrenNodes = child.getChildNodes();
-            for (int i = 0; i < childrenNodes.getLength(); i++) {
-                Node childNode = childrenNodes.item(i);
-                if (childNode.getNodeType() == Node.ELEMENT_NODE) {
-                    return new NegationFormula(getFormula(childNode));
+            case "negation":
+                NodeList negationChildrenNodes = child.getChildNodes();
+                for (int i = 0; i < negationChildrenNodes.getLength(); i++) {
+                    Node childNode = negationChildrenNodes.item(i);
+                    if (childNode.getNodeType() == Node.ELEMENT_NODE) {
+                        return new NegationFormula(getFormula(childNode));
+                    }
                 }
-            }
-        } else {
-            throw new InvalidWorkflowException("Should never happen.");
+                break;
+            default:
+                throw new InvalidSpecificationException("Should never happen.");
         }
-        return null;
+        throw new InvalidSpecificationException("Should never happen.");
     }
 
     private static class SpecificationParserErrorHandler implements ErrorHandler {
 
         public void warning(SAXParseException e) throws SAXException {
-            throw new InvalidWorkflowException(e.getMessage());
+            throw new InvalidSpecificationException(e.getMessage());
         }
 
         public void error(SAXParseException e) throws SAXException {
-            throw new InvalidWorkflowException(e.getMessage());
+            throw new InvalidSpecificationException(e.getMessage());
         }
 
         public void fatalError(SAXParseException e) throws SAXException {
-            throw new InvalidWorkflowException(e.getMessage());
+            throw new InvalidSpecificationException(e.getMessage());
         }
 
     }

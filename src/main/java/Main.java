@@ -1,7 +1,5 @@
-import codegeneration.xml.XMLDocument;
-import codegeneration.xml.XMLNode;
-import codegeneration.xml.XMLTextNode;
-import petrinets.PIPEParser;
+import files.VerificationFolder;
+import gui.MainWindow;
 import reports.Approximation;
 import verifiers.IVerificationHandler;
 import verifiers.sicstus.SicstusVerifier;
@@ -13,51 +11,15 @@ import java.io.File;
 public class Main {
 
     public static void main(String[] args) {
-
-        XMLDocument document = new XMLDocument();
-        XMLNode root = new XMLNode("root");
-        XMLNode parent1 = new XMLNode("parent1");
-        parent1.addChild(new XMLTextNode("text1", "value1"));
-        XMLNode parent2 = new XMLNode("parent2");
-        parent2.addChild(new XMLTextNode("text1", "value1"));
-        parent2.addChild(new XMLTextNode("text2", "value2"));
-        XMLNode parent3 = new XMLNode("parent3");
-        parent3.addChild(new XMLTextNode("text1", "value1"));
-        parent3.addChild(new XMLTextNode("text2", "value2"));
-        parent3.addChild(new XMLTextNode("text3", "value3"));
-        root.addChild(parent1);
-        root.addChild(parent2);
-        root.addChild(parent3);
-        document.setRootNode(root);
-        //System.out.println(document);
-        File workflow;
-        if ((new File("resources/verificationFolderExample2/mail.xml")).exists()) {
-            workflow = new File("resources/verificationFolderExample2/mail.xml");
-        } else {
-            workflow = new File("src/main/resources/verificationFolderExample2/mail.xml");
-        }
-        PIPEParser.parse(workflow);
-
-        /*setDefaultLookAndFeel("Nimbus");
+        setDefaultLookAndFeel("Nimbus");
         VerificationFolder verificationFolder;
-        if ((new File("resources/verificationFolderExample")).exists()) {
-            verificationFolder = new VerificationFolder("resources/verificationFolderExample");
+        if ((new File("resources/verificationFolderExample2")).exists()) {
+            verificationFolder = new VerificationFolder("resources/verificationFolderExample2");
         } else {
-            verificationFolder = new VerificationFolder("src/main/resources/verificationFolderExample");
+            verificationFolder = new VerificationFolder("src/main/resources/verificationFolderExample2");
         }
-        PetriNet petriNet = new PetriNet();
-        Place p1 = new Place("p1");
-        Place p2 = new Place("p2");
-        Transition t1 = new Transition("t1");
-        Transition t2 = new Transition("t2");
-        petriNet.addFlow(new PTFlow(p1, t1));
-        petriNet.addFlow(new PTFlow(p1, t2));
-        petriNet.addFlow(new TPFlow(t2, p1));
-        petriNet.addFlow(new TPFlow(t2, p2));
-        petriNet.addFlow(new PTFlow(p2, t2));
-        System.out.println(petriNet);
         MainWindow.main(verificationFolder);
-        System.out.println(verificationFolder.getPetriNetFile().extractPetriNet());*/
+        System.out.println(verificationFolder.getPetriNetFile().extractPetriNet());
         //MainWindow.main();
     }
 

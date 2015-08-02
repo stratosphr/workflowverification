@@ -22,7 +22,8 @@ public class PIPEParser {
     public static Workflow parse(File pnmlFile) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            factory.setValidating(true);
+            //TODO : Set validating to true for PIPEParser
+            //factory.setValidating(true);
             DocumentBuilder builder = factory.newDocumentBuilder();
             builder.setErrorHandler(new WorkflowParserErrorHandler());
             Document document = builder.parse(pnmlFile);
@@ -79,11 +80,7 @@ public class PIPEParser {
                 }
             }
             throw new InvalidWorkflowException("Should never happen.");
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e.getMessage());
-        } catch (SAXException e) {
-            throw new RuntimeException(e.getMessage());
-        } catch (IOException e) {
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -92,17 +89,17 @@ public class PIPEParser {
 
         @Override
         public void warning(SAXParseException e) throws SAXException {
-
+            throw new InvalidWorkflowException(e.getMessage());
         }
 
         @Override
         public void error(SAXParseException e) throws SAXException {
-
+            throw new InvalidWorkflowException(e.getMessage());
         }
 
         @Override
         public void fatalError(SAXParseException e) throws SAXException {
-
+            throw new InvalidWorkflowException(e.getMessage());
         }
 
     }
