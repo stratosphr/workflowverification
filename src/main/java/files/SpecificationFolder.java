@@ -1,8 +1,5 @@
 package files;
 
-import exceptions.InvalidSpecificationException;
-import exceptions.InvalidSpecificationFolderException;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,9 +12,7 @@ public class SpecificationFolder extends File {
     public SpecificationFolder(String path) {
         super(path);
         specificationFiles = new HashSet<>();
-        if (!isValid()) {
-            throw new InvalidSpecificationFolderException();
-        }
+        isValid();
     }
 
     public boolean isValid() {
@@ -38,19 +33,6 @@ public class SpecificationFolder extends File {
     }
 
     public ArrayList<SpecificationFile> getSpecificationFiles() {
-        /*String[] specificationFileNames = new String[specificationFiles.size()];
-        int i = 0;
-        for (SpecificationFile specificationFile : this.specificationFiles) {
-            specificationFileNames[i] = specificationFile.getName();
-            ++i;
-        }
-        for (String specificationFileName : specificationFileNames) {
-            System.out.println(specificationFileName);
-        }
-        Arrays.sort(specificationFileNames);
-        for (String specificationFileName : specificationFileNames) {
-            System.out.println(specificationFileName);
-        }*/
         SpecificationFile[] specificationFiles = this.specificationFiles.toArray(new SpecificationFile[this.specificationFiles.size()]);
         Arrays.sort(specificationFiles);
         return new ArrayList<>(Arrays.asList(specificationFiles));

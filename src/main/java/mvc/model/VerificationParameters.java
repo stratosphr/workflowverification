@@ -17,19 +17,11 @@ public class VerificationParameters {
 
     public VerificationParameters(VerificationFolder verificationFolder) {
         verificationParametersListeners = new EventListenerList();
-        if (verificationFolder == null) {
-            System.err.println("Verification folder is null in model VerificationParameters");
-        } else {
-            this.verificationFolder = verificationFolder;
-        }
+        this.verificationFolder = verificationFolder;
     }
 
     public void addVerificationParametersListener(IVerificationParametersListener verificationParametersListener) {
         verificationParametersListeners.add(IVerificationParametersListener.class, verificationParametersListener);
-    }
-
-    public void removeVerificationParametersListener(IVerificationParametersListener verificationParametersListener) {
-        verificationParametersListeners.remove(IVerificationParametersListener.class, verificationParametersListener);
     }
 
     public VerificationFolder getVerificationFolder() {
