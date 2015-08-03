@@ -14,6 +14,8 @@ public class VerificationFolder extends File {
     }
 
     public boolean isValid() {
+        System.err.println(petriNetFile);
+        System.err.println(specificationFolder);
         return isDirectory() && petriNetFile != null && specificationFolder != null;
     }
 

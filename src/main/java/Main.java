@@ -14,7 +14,7 @@ public class Main {
         setDefaultLookAndFeel("Nimbus");
         VerificationParameters verificationParameters = new VerificationParameters();
         VerificationController verificationController = new VerificationController(verificationParameters);
-        verificationParameters.setVerificationFolder(new VerificationFolder("resources/mail"));
+        verificationParameters.setVerificationFolder(new VerificationFolder("src/main/java/resources/mail"));
         verificationController.displayViews();
     }
 

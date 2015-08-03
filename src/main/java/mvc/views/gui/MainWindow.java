@@ -2,6 +2,8 @@ package mvc.views.gui;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
+import files.SpecificationFile;
+import files.VerificationFolder;
 import mvc.controllers.VerificationController;
 import mvc.eventsmanagement.VerificationParametersChanged;
 import mvc.model.VerificationParameters;
@@ -53,7 +55,14 @@ public class MainWindow extends VerificationView {
 
     @Override
     public void verificationFolderChanged(VerificationParametersChanged event) {
-        txt_verificationFolder.setText(((VerificationParameters) event.getSource()).getVerificationFolder().getAbsolutePath());
+        VerificationFolder verificationFolder = ((VerificationParameters) event.getSource()).getVerificationFolder();
+        if (verificationFolder.isValid()) {
+            txt_verificationFolder.setText(verificationFolder.getAbsolutePath());
+            cbx_specificationFile.removeAllItems();
+            for (SpecificationFile specificationFile : verificationFolder.getSpecificationFolder().getSpecificationFiles()) {
+                cbx_specificationFile.addItem(specificationFile);
+            }
+        }
     }
 
     /**
