@@ -16,7 +16,11 @@ public class PetriNetFile extends File {
     }
 
     public boolean isValid() {
-        return getAbsolutePath().endsWith(".xml");
+        System.out.println(getName());
+        System.out.println(getParentFile().getName());
+        boolean ret = isFile() && getName().equals(getParentFile().getName() + ".xml") && getAbsolutePath().endsWith(".xml");
+        System.out.println(ret);
+        return ret;
     }
 
 }

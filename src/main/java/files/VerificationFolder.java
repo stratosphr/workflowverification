@@ -21,17 +21,21 @@ public class VerificationFolder extends File {
         if (petriNetFile != null) {
             return petriNetFile;
         } else {
-            for (File file : listFiles()) {
-                PetriNetFile petriNetFile = new PetriNetFile(file.getAbsolutePath());
-                if (petriNetFile.isValid()) {
-                    this.petriNetFile = petriNetFile;
+            File[] files = listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    PetriNetFile petriNetFile = new PetriNetFile(file.getAbsolutePath());
+                    if (petriNetFile.isValid()) {
+                        this.petriNetFile = petriNetFile;
+                        break;
+                    }
                 }
             }
             return petriNetFile;
         }
     }
 
-    private SpecificationFolder getSpecificationFolder() {
+    public SpecificationFolder getSpecificationFolder() {
         if (specificationFolder != null) {
             return specificationFolder;
         } else {

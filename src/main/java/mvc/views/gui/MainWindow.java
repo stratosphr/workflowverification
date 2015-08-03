@@ -1,15 +1,18 @@
-package gui;
+package mvc.views.gui;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
-import gui.listeners.BtnParametersListener;
-import files.VerificationFolder;
+import mvc.controllers.VerificationController;
+import mvc.eventsmanagement.VerificationParametersChanged;
+import mvc.model.VerificationParameters;
+import mvc.views.VerificationView;
+import mvc.views.gui.listeners.BtnParametersListener;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-public class MainWindow {
+public class MainWindow extends VerificationView {
 
     private JTabbedPane tab_main;
 
@@ -18,50 +21,39 @@ public class MainWindow {
     private JButton btn_verificationFolder;
     private JTextField txt_generatedCode;
     private JTextField txt_generatedReport;
-    private JComboBox cbx_specificationName;
+    private JComboBox cbx_specificationFile;
     private JRadioButton radio_may;
     private JRadioButton radio_must;
     private JLabel lbl_formula;
     private JButton btn_parameters;
-    private JButton btn_sicstusVerifySpecification;
+    private JButton verifySpecificationWithSicstusButton;
     private JComboBox cbx_sicstusImplementations;
-    private JButton btn_z3VerifySpecification;
+    private JButton verifySpecificationWithZ3Button;
     private JComboBox cbx_z3Implementations;
     private JPanel panel_report;
     private JSplitPane splitpanel_reports;
     private JPanel panel_leftReport;
     private JPanel panel_rightReport;
 
-    public MainWindow(VerificationFolder verificationFolder) {
-        this();
-        loadVerificationFolder(verificationFolder);
-    }
-
-    public MainWindow() {
+    public MainWindow(VerificationController verificationController, VerificationParameters verificationParameters) {
+        super(verificationController, verificationParameters);
         $$$setupUI$$$();
         btn_parameters.addActionListener(new BtnParametersListener());
     }
 
-    private void loadVerificationFolder(VerificationFolder verificationFolder) {
-        System.out.println(verificationFolder.getAbsolutePath());
-        System.out.println(verificationFolder.isValid());
-    }
-
-    public static void main() {
-        main(null);
-    }
-
-    public static void main(VerificationFolder verificationFolder) {
+    @Override
+    public void display() {
         final JFrame frame = new JFrame("Workflows Modal Specifications Verifier");
-        if(verificationFolder == null) {
-            frame.setContentPane(new MainWindow().tab_main);
-        }else{
-            frame.setContentPane(new MainWindow(verificationFolder).tab_main);
-        }
+        frame.setContentPane(tab_main);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         frame.setResizable(false);
         frame.setVisible(true);
+    }
+
+    @Override
+    public void verificationFolderChanged(VerificationParametersChanged event) {
+        txt_verificationFolder.setText(((VerificationParameters) event.getSource()).getVerificationFolder().getAbsolutePath());
     }
 
     /**
@@ -112,8 +104,8 @@ public class MainWindow {
         panel3.setLayout(new GridLayoutManager(2, 3, new Insets(2, 2, 2, 2), -1, -1));
         panel1.add(panel3, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         panel3.setBorder(BorderFactory.createTitledBorder(null, "Specification", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
-        cbx_specificationName = new JComboBox();
-        panel3.add(cbx_specificationName, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        cbx_specificationFile = new JComboBox();
+        panel3.add(cbx_specificationFile, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label4 = new JLabel();
         label4.setText("Name :");
         panel3.add(label4, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -153,9 +145,9 @@ public class MainWindow {
         panel7.add(label6, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         cbx_sicstusImplementations = new JComboBox();
         panel7.add(cbx_sicstusImplementations, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        btn_sicstusVerifySpecification = new JButton();
-        btn_sicstusVerifySpecification.setText("Verify specification");
-        panel7.add(btn_sicstusVerifySpecification, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        verifySpecificationWithSicstusButton = new JButton();
+        verifySpecificationWithSicstusButton.setText("Verify specification");
+        panel7.add(verifySpecificationWithSicstusButton, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel8 = new JPanel();
         panel8.setLayout(new GridLayoutManager(2, 2, new Insets(2, 2, 2, 2), -1, -1));
         panel6.add(panel8, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
@@ -165,9 +157,9 @@ public class MainWindow {
         panel8.add(label7, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         cbx_z3Implementations = new JComboBox();
         panel8.add(cbx_z3Implementations, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        btn_z3VerifySpecification = new JButton();
-        btn_z3VerifySpecification.setText("Verify specification");
-        panel8.add(btn_z3VerifySpecification, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        verifySpecificationWithZ3Button = new JButton();
+        verifySpecificationWithZ3Button.setText("Verify specification");
+        panel8.add(verifySpecificationWithZ3Button, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         btn_parameters = new JButton();
         btn_parameters.setText("Parameters...");
         panel6.add(btn_parameters, new GridConstraints(0, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -205,4 +197,5 @@ public class MainWindow {
     public JComponent $$$getRootComponent$$$() {
         return tab_main;
     }
+
 }

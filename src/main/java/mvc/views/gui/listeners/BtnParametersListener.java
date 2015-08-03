@@ -1,6 +1,6 @@
-package gui.listeners;
+package mvc.views.gui.listeners;
 
-import gui.VerificationParametersDialog;
+import mvc.views.gui.VerificationParametersDialog;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

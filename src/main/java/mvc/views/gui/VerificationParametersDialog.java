@@ -1,4 +1,4 @@
-package gui;
+package mvc.views.gui;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -16,10 +16,10 @@ public class VerificationParametersDialog extends JDialog {
     private JSpinner spinner1;
     private JSpinner spinner2;
     private JSpinner spinner3;
-    private JCheckBox stateEquationSpecificationCheckBox;
-    private JCheckBox stateEquationSpecificationNoCheckBox;
-    private JCheckBox segmentsCheckBox;
-    private JCheckBox segmentsNoSiphonCheckBox;
+    private JCheckBox a1StateEquationSpecificationCheckBox;
+    private JCheckBox a2StateEquationSpecificationCheckBox;
+    private JCheckBox a3SegmentsCheckBox;
+    private JCheckBox a4SegmentsNoSiphonCheckBox;
 
     public VerificationParametersDialog() {
         setTitle("Verification parameters");
@@ -132,18 +132,18 @@ public class VerificationParametersDialog extends JDialog {
         panel6.setLayout(new GridLayoutManager(4, 1, new Insets(2, 2, 2, 2), -1, -1));
         panel4.add(panel6, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         panel6.setBorder(BorderFactory.createTitledBorder(null, "Approximations", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
-        stateEquationSpecificationCheckBox = new JCheckBox();
-        stateEquationSpecificationCheckBox.setText("State Equation + Specification");
-        panel6.add(stateEquationSpecificationCheckBox, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        stateEquationSpecificationNoCheckBox = new JCheckBox();
-        stateEquationSpecificationNoCheckBox.setText("State Equation + Specification + No siphon");
-        panel6.add(stateEquationSpecificationNoCheckBox, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        segmentsCheckBox = new JCheckBox();
-        segmentsCheckBox.setText("Segments");
-        panel6.add(segmentsCheckBox, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        segmentsNoSiphonCheckBox = new JCheckBox();
-        segmentsNoSiphonCheckBox.setText("Segments + No siphon");
-        panel6.add(segmentsNoSiphonCheckBox, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        a1StateEquationSpecificationCheckBox = new JCheckBox();
+        a1StateEquationSpecificationCheckBox.setText("State Equation + Specification");
+        panel6.add(a1StateEquationSpecificationCheckBox, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        a2StateEquationSpecificationCheckBox = new JCheckBox();
+        a2StateEquationSpecificationCheckBox.setText("State Equation + Specification + No siphon");
+        panel6.add(a2StateEquationSpecificationCheckBox, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        a3SegmentsCheckBox = new JCheckBox();
+        a3SegmentsCheckBox.setText("Segments");
+        panel6.add(a3SegmentsCheckBox, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        a4SegmentsNoSiphonCheckBox = new JCheckBox();
+        a4SegmentsNoSiphonCheckBox.setText("Segments + No siphon");
+        panel6.add(a4SegmentsNoSiphonCheckBox, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer2 = new Spacer();
         panel3.add(spacer2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     }
