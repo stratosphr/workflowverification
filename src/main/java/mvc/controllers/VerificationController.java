@@ -1,5 +1,6 @@
 package mvc.controllers;
 
+import files.SpecificationFile;
 import files.VerificationFolder;
 import mvc.model.VerificationParameters;
 import mvc.views.VerificationView;
@@ -31,6 +32,10 @@ public class VerificationController {
 
     public void notifyVerificationFolderChanged(VerificationFolder verificationFolder){
         verificationParameters.setVerificationFolder(verificationFolder);
+    }
+
+    public void notifySpecificationFileChanged(SpecificationFile specificationFile) {
+        verificationParameters.setSpecificationFile(specificationFile);
     }
 
 }

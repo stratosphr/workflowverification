@@ -6,21 +6,5 @@
 <specification name="specification2" type="may">
     <conjunction>
         <transition name="t1"/>
-        <negation>
-            <disjunction>
-                <transition name="t2"/>
-                <transition name="t3"/>
-            </disjunction>
-        </negation>
-        <disjunction>
-            <transition name="t2"/>
-            <transition name="t4"/>
-            <conjunction>
-                <negation>
-                    <transition name="t4"/>
-                </negation>
-                <transition name="t5"/>
-            </conjunction>
-        </disjunction>
     </conjunction>
 </specification>

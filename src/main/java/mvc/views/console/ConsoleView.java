@@ -13,11 +13,19 @@ public class ConsoleView extends VerificationView {
 
     @Override
     public void display() {
+        System.out.println("Verification folder : " + verificationParameters.getVerificationFolder().getAbsolutePath());
     }
 
     @Override
     public void verificationFolderChanged(VerificationParametersChanged event) {
-        System.out.println("Verification folder changed : " + ((VerificationParameters) event.getSource()).getVerificationFolder().getAbsolutePath());
+        verificationParameters = (VerificationParameters) event.getSource();
+        display();
+    }
+
+    @Override
+    public void specificationFileChanged(VerificationParametersChanged event) {
+        verificationParameters = (VerificationParameters) event.getSource();
+        display();
     }
 
 }

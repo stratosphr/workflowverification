@@ -9,7 +9,7 @@
     </properties>
     <border type="none"/>
     <children>
-      <grid id="27dc6" binding="panel_verification" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="27dc6" binding="panel_verification" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="10" left="10" bottom="10" right="10"/>
         <constraints>
           <tabbedpane title="Verification"/>
@@ -17,263 +17,312 @@
         <properties/>
         <border type="none"/>
         <children>
-          <scrollpane id="426bf">
+          <grid id="27ffe" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="2" left="2" bottom="2" right="2"/>
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
-            <border type="empty"/>
+            <border type="none" title="Workspace" title-justification="2"/>
             <children>
-              <grid id="e809c" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
-                <constraints/>
+              <component id="49afd" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Verification folder :"/>
+                </properties>
+              </component>
+              <component id="5c976" class="javax.swing.JTextField" binding="txt_verificationFolder">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <editable value="false"/>
+                </properties>
+              </component>
+              <component id="93af8" class="javax.swing.JButton" binding="btn_verificationFolder">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="..."/>
+                </properties>
+              </component>
+              <component id="156df" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Workflow file :"/>
+                </properties>
+              </component>
+              <component id="7ee15" class="javax.swing.JTextField" binding="txt_workflowFile">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <editable value="false"/>
+                </properties>
+              </component>
+              <component id="4c50b" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Specification folder :"/>
+                </properties>
+              </component>
+              <component id="c3aa0" class="javax.swing.JTextField" binding="txt_specificationFolder">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <editable value="false"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="63432" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="2" left="2" bottom="2" right="2"/>
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none" title="Specification" title-justification="2"/>
+            <children>
+              <component id="3ce7d" class="javax.swing.JComboBox" binding="cbx_specificationFile" default-binding="true">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
                 <properties/>
+              </component>
+              <component id="58bec" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Name :"/>
+                </properties>
+              </component>
+              <scrollpane id="937c7">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <horizontalScrollBarPolicy value="30"/>
+                </properties>
                 <border type="none"/>
                 <children>
-                  <grid id="27ffe" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                    <margin top="2" left="2" bottom="2" right="2"/>
+                  <component id="6c30" class="javax.swing.JTextPane" binding="txtpanel_formula">
+                    <constraints/>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+              <component id="dee93" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Formula :"/>
+                </properties>
+              </component>
+              <grid id="723c3" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="2" left="2" bottom="2" right="2"/>
+                <constraints>
+                  <grid row="0" column="2" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none" title="Type" title-justification="2"/>
+                <children>
+                  <component id="38563" class="javax.swing.JRadioButton" binding="radio_may">
                     <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties/>
-                    <border type="none" title="Workspace" title-justification="2"/>
-                    <children>
-                      <component id="49afd" class="javax.swing.JLabel">
-                        <constraints>
-                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <text value="Verification folder :"/>
-                        </properties>
-                      </component>
-                      <component id="5c976" class="javax.swing.JTextField" binding="txt_verificationFolder">
-                        <constraints>
-                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="-1"/>
-                          </grid>
-                        </constraints>
-                        <properties>
-                          <editable value="false"/>
-                        </properties>
-                      </component>
-                      <component id="93af8" class="javax.swing.JButton" binding="btn_verificationFolder">
-                        <constraints>
-                          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <text value="..."/>
-                        </properties>
-                      </component>
-                      <component id="d0979" class="javax.swing.JLabel">
-                        <constraints>
-                          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <text value="Generated report :"/>
-                        </properties>
-                      </component>
-                      <component id="bc21d" class="javax.swing.JTextField" binding="txt_generatedReport">
-                        <constraints>
-                          <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="-1"/>
-                          </grid>
-                        </constraints>
-                        <properties>
-                          <editable value="false"/>
-                        </properties>
-                      </component>
-                      <component id="f578d" class="javax.swing.JTextField" binding="txt_generatedCode">
-                        <constraints>
-                          <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="-1"/>
-                          </grid>
-                        </constraints>
-                        <properties>
-                          <editable value="false"/>
-                        </properties>
-                      </component>
-                      <component id="6c332" class="javax.swing.JLabel">
-                        <constraints>
-                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <text value="Generated code :"/>
-                        </properties>
-                      </component>
-                    </children>
-                  </grid>
-                  <grid id="63432" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                    <margin top="2" left="2" bottom="2" right="2"/>
+                    <properties>
+                      <enabled value="true"/>
+                      <selected value="true"/>
+                      <text value="M&amp;ay"/>
+                    </properties>
+                  </component>
+                  <component id="90424" class="javax.swing.JRadioButton" binding="radio_must">
                     <constraints>
-                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties/>
-                    <border type="none" title="Specification" title-justification="2"/>
-                    <children>
-                      <component id="3ce7d" class="javax.swing.JComboBox" binding="cbx_specificationFile" default-binding="true">
-                        <constraints>
-                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties/>
-                      </component>
-                      <component id="58bec" class="javax.swing.JLabel">
-                        <constraints>
-                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <text value="Name :"/>
-                        </properties>
-                      </component>
-                      <scrollpane id="937c7">
-                        <constraints>
-                          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <horizontalScrollBarPolicy value="30"/>
-                        </properties>
-                        <border type="none"/>
-                        <children>
-                          <grid id="c1ae7" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                            <margin top="0" left="0" bottom="0" right="0"/>
-                            <constraints/>
-                            <properties/>
-                            <border type="none"/>
-                            <children>
-                              <component id="c6020" class="javax.swing.JLabel" binding="lbl_formula">
-                                <constraints>
-                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                                </constraints>
-                                <properties>
-                                  <text value=""/>
-                                </properties>
-                              </component>
-                            </children>
-                          </grid>
-                        </children>
-                      </scrollpane>
-                      <component id="dee93" class="javax.swing.JLabel">
-                        <constraints>
-                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <text value="Formula :"/>
-                        </properties>
-                      </component>
-                      <grid id="723c3" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="2" left="2" bottom="2" right="2"/>
-                        <constraints>
-                          <grid row="0" column="2" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties/>
-                        <border type="none" title="Type" title-justification="2"/>
-                        <children>
-                          <component id="38563" class="javax.swing.JRadioButton" binding="radio_may">
-                            <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <selected value="true"/>
-                              <text value="M&amp;ay"/>
-                            </properties>
-                          </component>
-                          <component id="90424" class="javax.swing.JRadioButton" binding="radio_must">
-                            <constraints>
-                              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <text value="M&amp;ust"/>
-                            </properties>
-                          </component>
-                        </children>
-                      </grid>
-                    </children>
-                  </grid>
-                  <grid id="254a7" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                    <margin top="2" left="2" bottom="2" right="2"/>
-                    <constraints>
-                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties/>
-                    <border type="none" title="Verification" title-justification="2"/>
-                    <children>
-                      <grid id="ee490" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="2" left="2" bottom="2" right="2"/>
-                        <constraints>
-                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties/>
-                        <border type="none" title="Sicstus" title-justification="2"/>
-                        <children>
-                          <component id="e4fb" class="javax.swing.JLabel">
-                            <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <text value="Implementation :"/>
-                            </properties>
-                          </component>
-                          <component id="b9397" class="javax.swing.JComboBox" binding="cbx_sicstusImplementations">
-                            <constraints>
-                              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties/>
-                          </component>
-                          <component id="50de" class="javax.swing.JButton" binding="verifySpecificationWithSicstusButton" default-binding="true">
-                            <constraints>
-                              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <text value="Verify specification with &amp;Sicstus"/>
-                            </properties>
-                          </component>
-                        </children>
-                      </grid>
-                      <grid id="df02" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="2" left="2" bottom="2" right="2"/>
-                        <constraints>
-                          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties/>
-                        <border type="none" title="Z3" title-justification="2"/>
-                        <children>
-                          <component id="81202" class="javax.swing.JLabel">
-                            <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <text value="Implementation :"/>
-                            </properties>
-                          </component>
-                          <component id="e4bed" class="javax.swing.JComboBox" binding="cbx_z3Implementations">
-                            <constraints>
-                              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties/>
-                          </component>
-                          <component id="f9bab" class="javax.swing.JButton" binding="verifySpecificationWithZ3Button" default-binding="true">
-                            <constraints>
-                              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <text value="Verify specification with &amp;Z3"/>
-                            </properties>
-                          </component>
-                        </children>
-                      </grid>
-                      <component id="8e0ac" class="javax.swing.JButton" binding="btn_parameters" default-binding="true">
-                        <constraints>
-                          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <text value="&amp;Parameters..."/>
-                        </properties>
-                      </component>
-                    </children>
-                  </grid>
+                    <properties>
+                      <enabled value="true"/>
+                      <text value="M&amp;ust"/>
+                    </properties>
+                  </component>
                 </children>
               </grid>
             </children>
-          </scrollpane>
+          </grid>
+          <grid id="254a7" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="2" left="2" bottom="2" right="2"/>
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none" title="Verification" title-justification="2"/>
+            <children>
+              <grid id="ee490" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="2" left="2" bottom="2" right="2"/>
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none" title="Sicstus" title-justification="2"/>
+                <children>
+                  <component id="e4fb" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Implementation :"/>
+                    </properties>
+                  </component>
+                  <component id="b9397" class="javax.swing.JComboBox" binding="cbx_sicstusImplementations">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="50de" class="javax.swing.JButton" binding="btn_sicstusVerifySpecification">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Verify specification with &amp;Sicstus"/>
+                    </properties>
+                  </component>
+                  <component id="55ff6" class="javax.swing.JTextField" binding="txt_sicstusGeneratedCode">
+                    <constraints>
+                      <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                  <component id="550cf" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Generated code :"/>
+                    </properties>
+                  </component>
+                  <component id="ca516" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Generated report :"/>
+                    </properties>
+                  </component>
+                  <component id="b4a4b" class="javax.swing.JTextField" binding="txt_sicstusGeneratedReport">
+                    <constraints>
+                      <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="df02" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="2" left="2" bottom="2" right="2"/>
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none" title="Z3" title-justification="2"/>
+                <children>
+                  <component id="81202" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Implementation :"/>
+                    </properties>
+                  </component>
+                  <component id="e4bed" class="javax.swing.JComboBox" binding="cbx_z3Implementations">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="f9bab" class="javax.swing.JButton" binding="btn_z3VerifySpecification">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Verify specification with &amp;Z3"/>
+                    </properties>
+                  </component>
+                  <component id="748fa" class="javax.swing.JTextField" binding="txt_z3GeneratedCode">
+                    <constraints>
+                      <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                    </properties>
+                  </component>
+                  <component id="86c7b" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Generated code :"/>
+                    </properties>
+                  </component>
+                  <component id="f50b7" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Generated report :"/>
+                    </properties>
+                  </component>
+                  <component id="8b5a3" class="javax.swing.JTextField" binding="txt_z3GeneratedReport">
+                    <constraints>
+                      <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <component id="8e0ac" class="javax.swing.JButton" binding="btn_parameters" default-binding="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="&amp;Parameters..."/>
+                </properties>
+              </component>
+            </children>
+          </grid>
         </children>
       </grid>
       <grid id="58b47" binding="panel_report" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -286,55 +335,38 @@
         </properties>
         <border type="none"/>
         <children>
-          <scrollpane id="bbb37">
+          <splitpane id="ab5b1" binding="splitpanel_reports">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="200" height="200"/>
+              </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <oneTouchExpandable value="true"/>
+              <resizeWeight value="0.5"/>
+            </properties>
             <border type="none"/>
             <children>
-              <grid id="7b914" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="f513c" binding="panel_leftReport" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
-                <constraints/>
+                <constraints>
+                  <splitpane position="left"/>
+                </constraints>
                 <properties/>
-                <border type="none"/>
-                <children>
-                  <splitpane id="ab5b1" binding="splitpanel_reports">
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                        <preferred-size width="200" height="200"/>
-                      </grid>
-                    </constraints>
-                    <properties>
-                      <oneTouchExpandable value="true"/>
-                      <resizeWeight value="0.5"/>
-                    </properties>
-                    <border type="none"/>
-                    <children>
-                      <grid id="f513c" binding="panel_leftReport" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <splitpane position="left"/>
-                        </constraints>
-                        <properties/>
-                        <border type="none" title="May validity report"/>
-                        <children/>
-                      </grid>
-                      <grid id="ee361" binding="panel_rightReport" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <splitpane position="right"/>
-                        </constraints>
-                        <properties/>
-                        <border type="none" title="Must validity report"/>
-                        <children/>
-                      </grid>
-                    </children>
-                  </splitpane>
-                </children>
+                <border type="none" title="May validity report"/>
+                <children/>
+              </grid>
+              <grid id="ee361" binding="panel_rightReport" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <splitpane position="right"/>
+                </constraints>
+                <properties/>
+                <border type="none" title="Must validity report"/>
+                <children/>
               </grid>
             </children>
-          </scrollpane>
+          </splitpane>
         </children>
       </grid>
     </children>

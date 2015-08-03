@@ -2,13 +2,21 @@ package mvc.views.gui;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
+import files.GeneratedCodeFile.SicstusGeneratedCodeFile;
+import files.GeneratedCodeFile.Z3GeneratedCodeFile;
+import files.GeneratedReportFile.SicstusGeneratedReportFile;
+import files.GeneratedReportFile.Z3GeneratedReportFile;
 import files.SpecificationFile;
 import files.VerificationFolder;
 import mvc.controllers.VerificationController;
 import mvc.eventsmanagement.VerificationParametersChanged;
 import mvc.model.VerificationParameters;
 import mvc.views.VerificationView;
+import mvc.views.gui.items.SpecificationItem;
 import mvc.views.gui.listeners.BtnParametersListener;
+import mvc.views.gui.listeners.CbxSpecificationFileListener;
+import specifications.model.Specification;
+import specifications.model.SpecificationType;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -21,26 +29,31 @@ public class MainWindow extends VerificationView {
     private JPanel panel_verification;
     private JTextField txt_verificationFolder;
     private JButton btn_verificationFolder;
-    private JTextField txt_generatedCode;
-    private JTextField txt_generatedReport;
-    private JComboBox cbx_specificationFile;
+    private JComboBox<SpecificationItem> cbx_specificationFile;
     private JRadioButton radio_may;
     private JRadioButton radio_must;
-    private JLabel lbl_formula;
     private JButton btn_parameters;
-    private JButton verifySpecificationWithSicstusButton;
+    private JButton btn_sicstusVerifySpecification;
     private JComboBox cbx_sicstusImplementations;
-    private JButton verifySpecificationWithZ3Button;
+    private JButton btn_z3VerifySpecification;
     private JComboBox cbx_z3Implementations;
     private JPanel panel_report;
     private JSplitPane splitpanel_reports;
     private JPanel panel_leftReport;
     private JPanel panel_rightReport;
+    private JTextPane txtpanel_formula;
+    private JTextField txt_sicstusGeneratedCode;
+    private JTextField txt_sicstusGeneratedReport;
+    private JTextField txt_workflowFile;
+    private JTextField txt_specificationFolder;
+    private JTextField txt_z3GeneratedCode;
+    private JTextField txt_z3GeneratedReport;
 
     public MainWindow(VerificationController verificationController, VerificationParameters verificationParameters) {
         super(verificationController, verificationParameters);
         $$$setupUI$$$();
         btn_parameters.addActionListener(new BtnParametersListener());
+        cbx_specificationFile.addItemListener(new CbxSpecificationFileListener(verificationController));
     }
 
     @Override
@@ -60,8 +73,29 @@ public class MainWindow extends VerificationView {
             txt_verificationFolder.setText(verificationFolder.getAbsolutePath());
             cbx_specificationFile.removeAllItems();
             for (SpecificationFile specificationFile : verificationFolder.getSpecificationFolder().getSpecificationFiles()) {
-                cbx_specificationFile.addItem(specificationFile);
+                cbx_specificationFile.addItem(new SpecificationItem(specificationFile));
             }
+            txt_workflowFile.setText(verificationFolder.getPetriNetFile().getAbsolutePath());
+        }
+    }
+
+    @Override
+    public void specificationFileChanged(VerificationParametersChanged event) {
+        VerificationFolder verificationFolder = ((VerificationParameters) event.getSource()).getVerificationFolder();
+        SpecificationFile specificationFile = ((VerificationParameters) event.getSource()).getSpecificationFile();
+        if (verificationFolder.isValid()) {
+            Specification specification = specificationFile.extractSpecification();
+            txt_specificationFolder.setText(verificationFolder.getSpecificationFolder().getAbsolutePath());
+            txtpanel_formula.setText(specification.getFormula().toString());
+            if (specification.getType() == SpecificationType.MAY) {
+                radio_may.setSelected(true);
+            } else {
+                radio_must.setSelected(true);
+            }
+            txt_sicstusGeneratedCode.setText(new SicstusGeneratedCodeFile(verificationFolder, specificationFile).getAbsolutePath());
+            txt_z3GeneratedCode.setText(new Z3GeneratedCodeFile(verificationFolder, specificationFile).getAbsolutePath());
+            txt_sicstusGeneratedReport.setText(new SicstusGeneratedReportFile(verificationFolder, specificationFile).getAbsolutePath());
+            txt_z3GeneratedReport.setText(new Z3GeneratedReportFile(verificationFolder, specificationFile).getAbsolutePath());
         }
     }
 
@@ -100,12 +134,12 @@ public class MainWindow extends VerificationView {
         final JLabel label2 = new JLabel();
         label2.setText("Generated report :");
         panel2.add(label2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        txt_generatedReport = new JTextField();
-        txt_generatedReport.setEditable(false);
-        panel2.add(txt_generatedReport, new GridConstraints(2, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        txt_generatedCode = new JTextField();
-        txt_generatedCode.setEditable(false);
-        panel2.add(txt_generatedCode, new GridConstraints(1, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        txt_sicstusGeneratedReport = new JTextField();
+        txt_sicstusGeneratedReport.setEditable(false);
+        panel2.add(txt_sicstusGeneratedReport, new GridConstraints(2, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        txt_sicstusGeneratedCode = new JTextField();
+        txt_sicstusGeneratedCode.setEditable(false);
+        panel2.add(txt_sicstusGeneratedCode, new GridConstraints(1, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JLabel label3 = new JLabel();
         label3.setText("Generated code :");
         panel2.add(label3, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -124,9 +158,6 @@ public class MainWindow extends VerificationView {
         final JPanel panel4 = new JPanel();
         panel4.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         scrollPane2.setViewportView(panel4);
-        lbl_formula = new JLabel();
-        lbl_formula.setText("");
-        panel4.add(lbl_formula, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label5 = new JLabel();
         label5.setText("Formula :");
         panel3.add(label5, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -154,9 +185,9 @@ public class MainWindow extends VerificationView {
         panel7.add(label6, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         cbx_sicstusImplementations = new JComboBox();
         panel7.add(cbx_sicstusImplementations, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        verifySpecificationWithSicstusButton = new JButton();
-        verifySpecificationWithSicstusButton.setText("Verify specification");
-        panel7.add(verifySpecificationWithSicstusButton, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        btn_sicstusVerifySpecification = new JButton();
+        btn_sicstusVerifySpecification.setText("Verify specification");
+        panel7.add(btn_sicstusVerifySpecification, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel8 = new JPanel();
         panel8.setLayout(new GridLayoutManager(2, 2, new Insets(2, 2, 2, 2), -1, -1));
         panel6.add(panel8, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
@@ -166,9 +197,9 @@ public class MainWindow extends VerificationView {
         panel8.add(label7, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         cbx_z3Implementations = new JComboBox();
         panel8.add(cbx_z3Implementations, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        verifySpecificationWithZ3Button = new JButton();
-        verifySpecificationWithZ3Button.setText("Verify specification");
-        panel8.add(verifySpecificationWithZ3Button, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        btn_z3VerifySpecification = new JButton();
+        btn_z3VerifySpecification.setText("Verify specification");
+        panel8.add(btn_z3VerifySpecification, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         btn_parameters = new JButton();
         btn_parameters.setText("Parameters...");
         panel6.add(btn_parameters, new GridConstraints(0, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));

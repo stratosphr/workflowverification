@@ -1,3 +1,4 @@
+import files.SpecificationFolder;
 import files.VerificationFolder;
 import mvc.controllers.VerificationController;
 import mvc.model.VerificationParameters;
@@ -14,7 +15,8 @@ public class Main {
         setDefaultLookAndFeel("Nimbus");
         VerificationParameters verificationParameters = new VerificationParameters();
         VerificationController verificationController = new VerificationController(verificationParameters);
-        verificationParameters.setVerificationFolder(new VerificationFolder("src/main/java/resources/mail"));
+        verificationParameters.setVerificationFolder(new VerificationFolder("src/main/resources/mail"));
+        SpecificationFolder specificationFolder = verificationParameters.getVerificationFolder().getSpecificationFolder();
         verificationController.displayViews();
     }
 

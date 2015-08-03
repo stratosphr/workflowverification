@@ -3,8 +3,93 @@
 
 <!-- and[t1, not[or[t2, t3]], or[t2, t4, and[not[t4], t5]]] -->
 
-<specification name="specification1" type="may">
+<specification name="specification1" type="must">
     <conjunction>
+        <transition name="t1"/>
+        <negation>
+            <disjunction>
+                <transition name="t2"/>
+                <transition name="t3"/>
+            </disjunction>
+        </negation>
+        <disjunction>
+            <transition name="t2"/>
+            <transition name="t4"/>
+            <conjunction>
+                <negation>
+                    <transition name="t4"/>
+                </negation>
+                <transition name="t5"/>
+            </conjunction>
+        </disjunction>
+        <transition name="t1"/>
+        <negation>
+            <disjunction>
+                <transition name="t2"/>
+                <transition name="t3"/>
+            </disjunction>
+        </negation>
+        <disjunction>
+            <transition name="t2"/>
+            <transition name="t4"/>
+            <conjunction>
+                <negation>
+                    <transition name="t4"/>
+                </negation>
+                <transition name="t5"/>
+            </conjunction>
+        </disjunction>
+        <transition name="t1"/>
+        <negation>
+            <disjunction>
+                <transition name="t2"/>
+                <transition name="t3"/>
+            </disjunction>
+        </negation>
+        <disjunction>
+            <transition name="t2"/>
+            <transition name="t4"/>
+            <conjunction>
+                <negation>
+                    <transition name="t4"/>
+                </negation>
+                <transition name="t5"/>
+            </conjunction>
+        </disjunction>
+        <transition name="t1"/>
+        <negation>
+            <disjunction>
+                <transition name="t2"/>
+                <transition name="t3"/>
+            </disjunction>
+        </negation>
+        <disjunction>
+            <transition name="t2"/>
+            <transition name="t4"/>
+            <conjunction>
+                <negation>
+                    <transition name="t4"/>
+                </negation>
+                <transition name="t5"/>
+            </conjunction>
+        </disjunction>
+        <transition name="t1"/>
+        <negation>
+            <disjunction>
+                <transition name="t2"/>
+                <transition name="t3"/>
+            </disjunction>
+        </negation>
+        <disjunction>
+            <transition name="t2"/>
+            <transition name="t4"/>
+            <conjunction>
+                <negation>
+                    <transition name="t4"/>
+                </negation>
+                <transition name="t5"/>
+            </conjunction>
+        </disjunction>
         <transition name="t1"/>
         <negation>
             <disjunction>
