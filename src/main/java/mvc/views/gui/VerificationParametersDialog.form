@@ -29,7 +29,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="e7465" class="javax.swing.JButton" binding="buttonOK">
+              <component id="e7465" class="javax.swing.JButton" binding="btn_ok">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -37,7 +37,7 @@
                   <text value="&amp;OK"/>
                 </properties>
               </component>
-              <component id="5723f" class="javax.swing.JButton" binding="buttonCancel">
+              <component id="5723f" class="javax.swing.JButton" binding="btn_cancel">
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -81,7 +81,7 @@
                       <text value="Max node valuation :"/>
                     </properties>
                   </component>
-                  <component id="321ac" class="javax.swing.JSpinner" binding="spinner1" default-binding="true">
+                  <component id="321ac" class="javax.swing.JSpinner" binding="spin_maxNodeValuation" custom-create="true">
                     <constraints>
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -95,7 +95,7 @@
                       <text value="Max number of segments :"/>
                     </properties>
                   </component>
-                  <component id="5ecaa" class="javax.swing.JSpinner" binding="spinner2" default-binding="true">
+                  <component id="5ecaa" class="javax.swing.JSpinner" binding="spin_maxNumberOfSegments" custom-create="true">
                     <constraints>
                       <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -109,7 +109,7 @@
                       <text value="Min number of segments :"/>
                     </properties>
                   </component>
-                  <component id="8a075" class="javax.swing.JSpinner" binding="spinner3" default-binding="true">
+                  <component id="8a075" class="javax.swing.JSpinner" binding="spin_minNumberOfSegments" custom-create="true">
                     <constraints>
                       <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -125,7 +125,7 @@
                 <properties/>
                 <border type="none" title="Approximations" title-justification="2"/>
                 <children>
-                  <component id="bff0a" class="javax.swing.JCheckBox" binding="a1StateEquationSpecificationCheckBox" default-binding="true">
+                  <component id="bff0a" class="javax.swing.JCheckBox" binding="chk_approximation1">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -134,7 +134,7 @@
                       <text value="&amp;1- State Equation + Specification"/>
                     </properties>
                   </component>
-                  <component id="35f3b" class="javax.swing.JCheckBox" binding="a2StateEquationSpecificationCheckBox" default-binding="true">
+                  <component id="35f3b" class="javax.swing.JCheckBox" binding="chk_approximation2">
                     <constraints>
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -143,7 +143,7 @@
                       <text value="&amp;2- State Equation + Specification + No siphon"/>
                     </properties>
                   </component>
-                  <component id="186c1" class="javax.swing.JCheckBox" binding="a3SegmentsCheckBox" default-binding="true">
+                  <component id="186c1" class="javax.swing.JCheckBox" binding="chk_approximation3">
                     <constraints>
                       <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -152,7 +152,7 @@
                       <text value="&amp;3- Segments"/>
                     </properties>
                   </component>
-                  <component id="80fe" class="javax.swing.JCheckBox" binding="a4SegmentsNoSiphonCheckBox" default-binding="true">
+                  <component id="80fe" class="javax.swing.JCheckBox" binding="chk_approximation4">
                     <constraints>
                       <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>

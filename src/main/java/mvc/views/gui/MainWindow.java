@@ -1,5 +1,7 @@
 package mvc.views.gui;
 
+import codegeneration.implementations.sicstus.ESicstusImplementation;
+import codegeneration.implementations.z3.EZ3Implementation;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import files.GeneratedCodeFile.SicstusGeneratedCodeFile;
@@ -34,9 +36,9 @@ public class MainWindow extends VerificationView {
     private JRadioButton radio_must;
     private JButton btn_parameters;
     private JButton btn_sicstusVerifySpecification;
-    private JComboBox cbx_sicstusImplementations;
+    private JComboBox<ESicstusImplementation> cbx_sicstusImplementations;
     private JButton btn_z3VerifySpecification;
-    private JComboBox cbx_z3Implementations;
+    private JComboBox<EZ3Implementation> cbx_z3Implementations;
     private JPanel panel_report;
     private JSplitPane splitpanel_reports;
     private JPanel panel_leftReport;
@@ -54,6 +56,12 @@ public class MainWindow extends VerificationView {
         $$$setupUI$$$();
         btn_parameters.addActionListener(new BtnParametersListener());
         cbx_specificationFile.addItemListener(new CbxSpecificationFileListener(verificationController));
+        for (ESicstusImplementation sicstusImplementation : ESicstusImplementation.values()) {
+            cbx_sicstusImplementations.addItem(sicstusImplementation);
+        }
+        for (EZ3Implementation z3Implementation : EZ3Implementation.values()) {
+            cbx_z3Implementations.addItem(z3Implementation);
+        }
     }
 
     @Override

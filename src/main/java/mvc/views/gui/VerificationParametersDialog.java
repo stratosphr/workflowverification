@@ -10,30 +10,31 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class VerificationParametersDialog extends JDialog {
+
     private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
-    private JSpinner spinner1;
-    private JSpinner spinner2;
-    private JSpinner spinner3;
-    private JCheckBox a1StateEquationSpecificationCheckBox;
-    private JCheckBox a2StateEquationSpecificationCheckBox;
-    private JCheckBox a3SegmentsCheckBox;
-    private JCheckBox a4SegmentsNoSiphonCheckBox;
+    private JButton btn_ok;
+    private JButton btn_cancel;
+    private JSpinner spin_maxNodeValuation;
+    private JSpinner spin_maxNumberOfSegments;
+    private JSpinner spin_minNumberOfSegments;
+    private JCheckBox chk_approximation1;
+    private JCheckBox chk_approximation2;
+    private JCheckBox chk_approximation3;
+    private JCheckBox chk_approximation4;
 
     public VerificationParametersDialog() {
         setTitle("Verification parameters");
         setContentPane(contentPane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
+        getRootPane().setDefaultButton(btn_ok);
 
-        buttonOK.addActionListener(new ActionListener() {
+        btn_ok.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
             }
         });
 
-        buttonCancel.addActionListener(new ActionListener() {
+        btn_cancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();
             }
@@ -96,12 +97,12 @@ public class VerificationParametersDialog extends JDialog {
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1, true, false));
         panel1.add(panel2, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        buttonOK = new JButton();
-        buttonOK.setText("OK");
-        panel2.add(buttonOK, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        buttonCancel = new JButton();
-        buttonCancel.setText("Cancel");
-        panel2.add(buttonCancel, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        btn_ok = new JButton();
+        btn_ok.setText("OK");
+        panel2.add(btn_ok, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        btn_cancel = new JButton();
+        btn_cancel.setText("Cancel");
+        panel2.add(btn_cancel, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
         contentPane.add(panel3, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
@@ -116,34 +117,34 @@ public class VerificationParametersDialog extends JDialog {
         final JLabel label1 = new JLabel();
         label1.setText("Max node valuation :");
         panel5.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        spinner1 = new JSpinner();
-        panel5.add(spinner1, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        spin_maxNodeValuation = new JSpinner();
+        panel5.add(spin_maxNodeValuation, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label2 = new JLabel();
         label2.setText("Max number of segments :");
         panel5.add(label2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        spinner2 = new JSpinner();
-        panel5.add(spinner2, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        spin_maxNumberOfSegments = new JSpinner();
+        panel5.add(spin_maxNumberOfSegments, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label3 = new JLabel();
         label3.setText("Min number of segments :");
         panel5.add(label3, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        spinner3 = new JSpinner();
-        panel5.add(spinner3, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        spin_minNumberOfSegments = new JSpinner();
+        panel5.add(spin_minNumberOfSegments, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel6 = new JPanel();
         panel6.setLayout(new GridLayoutManager(4, 1, new Insets(2, 2, 2, 2), -1, -1));
         panel4.add(panel6, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         panel6.setBorder(BorderFactory.createTitledBorder(null, "Approximations", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
-        a1StateEquationSpecificationCheckBox = new JCheckBox();
-        a1StateEquationSpecificationCheckBox.setText("State Equation + Specification");
-        panel6.add(a1StateEquationSpecificationCheckBox, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        a2StateEquationSpecificationCheckBox = new JCheckBox();
-        a2StateEquationSpecificationCheckBox.setText("State Equation + Specification + No siphon");
-        panel6.add(a2StateEquationSpecificationCheckBox, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        a3SegmentsCheckBox = new JCheckBox();
-        a3SegmentsCheckBox.setText("Segments");
-        panel6.add(a3SegmentsCheckBox, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        a4SegmentsNoSiphonCheckBox = new JCheckBox();
-        a4SegmentsNoSiphonCheckBox.setText("Segments + No siphon");
-        panel6.add(a4SegmentsNoSiphonCheckBox, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        chk_approximation1 = new JCheckBox();
+        chk_approximation1.setText("State Equation + Specification");
+        panel6.add(chk_approximation1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        chk_approximation2 = new JCheckBox();
+        chk_approximation2.setText("State Equation + Specification + No siphon");
+        panel6.add(chk_approximation2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        chk_approximation3 = new JCheckBox();
+        chk_approximation3.setText("Segments");
+        panel6.add(chk_approximation3, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        chk_approximation4 = new JCheckBox();
+        chk_approximation4.setText("Segments + No siphon");
+        panel6.add(chk_approximation4, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer2 = new Spacer();
         panel3.add(spacer2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     }
@@ -154,4 +155,11 @@ public class VerificationParametersDialog extends JDialog {
     public JComponent $$$getRootComponent$$$() {
         return contentPane;
     }
+
+    private void createUIComponents() {
+        spin_maxNodeValuation = new JSpinner(new SpinnerNumberModel(100, 1, 3000, 1));
+        spin_minNumberOfSegments = new JSpinner(new SpinnerNumberModel(2, 1, 3000, 1));
+        spin_maxNumberOfSegments = new JSpinner(new SpinnerNumberModel(3000, 1, 3000, 1));
+    }
+
 }
