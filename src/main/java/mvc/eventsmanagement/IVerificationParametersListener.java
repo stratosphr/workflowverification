@@ -1,11 +1,15 @@
 package mvc.eventsmanagement;
 
-import java.util.EventListener;
+import mvc.eventsmanagement.events.verificationparametersevents.MaxNodeValuationChanged;
+import mvc.eventsmanagement.events.verificationparametersevents.MaxNumberOfSegmentsChanged;
+import mvc.eventsmanagement.events.verificationparametersevents.MinNumberOfSegmentsChanged;
 
-public interface IVerificationParametersListener extends EventListener {
+public interface IVerificationParametersListener {
 
-    void verificationFolderChanged(VerificationParametersChanged event);
+    void maxNodeValuationChanged(MaxNodeValuationChanged event);
 
-    void specificationFileChanged(VerificationParametersChanged event);
+    void minNumberOfSegmentsChanged(MinNumberOfSegmentsChanged event);
+
+    void maxNumberOfSegmentsChanged(MaxNumberOfSegmentsChanged event);
 
 }

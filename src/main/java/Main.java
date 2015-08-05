@@ -1,7 +1,8 @@
 import files.SpecificationFolder;
 import files.VerificationFolder;
-import mvc.controllers.VerificationController;
-import mvc.model.VerificationParameters;
+import mvc.controllers.ConfigurationController;
+import mvc.model.ConfigurationModel;
+import mvc.model.ParametersModel;
 import reports.Approximation;
 import verifiers.IVerificationHandler;
 import verifiers.sicstus.SicstusVerifier;
@@ -13,11 +14,11 @@ public class Main {
 
     public static void main(String[] args) {
         setDefaultLookAndFeel("Nimbus");
-        VerificationParameters verificationParameters = new VerificationParameters();
-        VerificationController verificationController = new VerificationController(verificationParameters);
-        verificationParameters.setVerificationFolder(new VerificationFolder("src/main/resources/mail"));
-        SpecificationFolder specificationFolder = verificationParameters.getVerificationFolder().getSpecificationFolder();
-        verificationController.displayViews();
+        ConfigurationModel configurationModel = new ConfigurationModel();
+        ConfigurationController configurationController = new ConfigurationController(configurationModel, new ParametersModel());
+        configurationModel.setVerificationFolder(new VerificationFolder("src/main/resources/mail"));
+        SpecificationFolder specificationFolder = configurationModel.getVerificationFolder().getSpecificationFolder();
+        configurationController.displayViews();
     }
 
     private static void setDefaultLookAndFeel(String lookAndFeelName) {

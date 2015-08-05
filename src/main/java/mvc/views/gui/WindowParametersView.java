@@ -3,73 +3,76 @@ package mvc.views.gui;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import mvc.controllers.ParametersController;
+import mvc.eventsmanagement.events.verificationparametersevents.MaxNodeValuationChanged;
+import mvc.eventsmanagement.events.verificationparametersevents.MaxNumberOfSegmentsChanged;
+import mvc.eventsmanagement.events.verificationparametersevents.MinNumberOfSegmentsChanged;
+import mvc.model.ParametersModel;
+import mvc.views.AbstractParametersView;
+import mvc.views.gui.listeners.parameters.SpinMaxNumberOfSegmentsListener;
+import mvc.views.gui.listeners.parameters.SpinMinNumberOfSegmentsListener;
+import mvc.views.gui.listeners.parameters.BtnCancelListener;
+import mvc.views.gui.listeners.parameters.BtnOkListener;
+import mvc.views.gui.listeners.parameters.SpinMaxNodeValuationListener;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.*;
 
-public class VerificationParametersDialog extends JDialog {
+public class WindowParametersView extends AbstractParametersView {
 
     private JPanel contentPane;
     private JButton btn_ok;
     private JButton btn_cancel;
     private JSpinner spin_maxNodeValuation;
-    private JSpinner spin_maxNumberOfSegments;
     private JSpinner spin_minNumberOfSegments;
+    private JSpinner spin_maxNumberOfSegments;
     private JCheckBox chk_approximation1;
     private JCheckBox chk_approximation2;
     private JCheckBox chk_approximation3;
     private JCheckBox chk_approximation4;
+    private JDialog dialog;
 
-    public VerificationParametersDialog() {
-        setTitle("Verification parameters");
-        setContentPane(contentPane);
-        setModal(true);
-        getRootPane().setDefaultButton(btn_ok);
-
-        btn_ok.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
-
-        btn_cancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
-
-// call onCancel() when cross is clicked
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                onCancel();
-            }
-        });
-
-// call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+    public WindowParametersView(ParametersController parametersController, ParametersModel parametersModel) {
+        super(parametersController, parametersModel);
     }
 
-    private void onOK() {
-// add your code here
-        dispose();
-    }
-
-    private void onCancel() {
-// add your code here if necessary
-        dispose();
-    }
-
-    public static void main(String[] args) {
-        VerificationParametersDialog dialog = new VerificationParametersDialog();
+    @Override
+    public void buildView() {
+        $$$setupUI$$$();
+        spin_maxNodeValuation.addChangeListener(new SpinMaxNodeValuationListener(getParametersController()));
+        spin_minNumberOfSegments.addChangeListener(new SpinMinNumberOfSegmentsListener(getParametersController()));
+        spin_maxNumberOfSegments.addChangeListener(new SpinMaxNumberOfSegmentsListener(getParametersController()));
+        btn_ok.addActionListener(new BtnOkListener(getParametersController()));
+        btn_cancel.addActionListener(new BtnCancelListener(getParametersController()));
+        dialog = new JDialog();
+        dialog.setTitle("Verification parameters");
+        dialog.setContentPane(contentPane);
+        dialog.setModal(true);
+        dialog.getRootPane().setDefaultButton(btn_ok);
         dialog.pack();
+    }
+
+    @Override
+    public void display() {
         dialog.setVisible(true);
+    }
+
+    @Override
+    public void close() {
+        dialog.dispose();
+    }
+
+    @Override
+    public void maxNodeValuationChanged(MaxNodeValuationChanged event) {
+    }
+
+    @Override
+    public void minNumberOfSegmentsChanged(MinNumberOfSegmentsChanged event) {
+    }
+
+    @Override
+    public void maxNumberOfSegmentsChanged(MaxNumberOfSegmentsChanged event) {
     }
 
     {
@@ -99,9 +102,13 @@ public class VerificationParametersDialog extends JDialog {
         panel1.add(panel2, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         btn_ok = new JButton();
         btn_ok.setText("OK");
+        btn_ok.setMnemonic('O');
+        btn_ok.setDisplayedMnemonicIndex(0);
         panel2.add(btn_ok, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         btn_cancel = new JButton();
         btn_cancel.setText("Cancel");
+        btn_cancel.setMnemonic('C');
+        btn_cancel.setDisplayedMnemonicIndex(0);
         panel2.add(btn_cancel, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
@@ -134,16 +141,28 @@ public class VerificationParametersDialog extends JDialog {
         panel4.add(panel6, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         panel6.setBorder(BorderFactory.createTitledBorder(null, "Approximations", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
         chk_approximation1 = new JCheckBox();
-        chk_approximation1.setText("State Equation + Specification");
+        chk_approximation1.setSelected(true);
+        chk_approximation1.setText("1- State Equation + Specification");
+        chk_approximation1.setMnemonic('1');
+        chk_approximation1.setDisplayedMnemonicIndex(0);
         panel6.add(chk_approximation1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         chk_approximation2 = new JCheckBox();
-        chk_approximation2.setText("State Equation + Specification + No siphon");
+        chk_approximation2.setSelected(true);
+        chk_approximation2.setText("2- State Equation + Specification + No siphon");
+        chk_approximation2.setMnemonic('2');
+        chk_approximation2.setDisplayedMnemonicIndex(0);
         panel6.add(chk_approximation2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         chk_approximation3 = new JCheckBox();
-        chk_approximation3.setText("Segments");
+        chk_approximation3.setSelected(true);
+        chk_approximation3.setText("3- Segments");
+        chk_approximation3.setMnemonic('3');
+        chk_approximation3.setDisplayedMnemonicIndex(0);
         panel6.add(chk_approximation3, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         chk_approximation4 = new JCheckBox();
-        chk_approximation4.setText("Segments + No siphon");
+        chk_approximation4.setSelected(true);
+        chk_approximation4.setText("4- Segments + No siphon");
+        chk_approximation4.setMnemonic('4');
+        chk_approximation4.setDisplayedMnemonicIndex(0);
         panel6.add(chk_approximation4, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer2 = new Spacer();
         panel3.add(spacer2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
@@ -155,11 +174,4 @@ public class VerificationParametersDialog extends JDialog {
     public JComponent $$$getRootComponent$$$() {
         return contentPane;
     }
-
-    private void createUIComponents() {
-        spin_maxNodeValuation = new JSpinner(new SpinnerNumberModel(100, 1, 3000, 1));
-        spin_minNumberOfSegments = new JSpinner(new SpinnerNumberModel(2, 1, 3000, 1));
-        spin_maxNumberOfSegments = new JSpinner(new SpinnerNumberModel(3000, 1, 3000, 1));
-    }
-
 }

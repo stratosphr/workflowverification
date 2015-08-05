@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="mvc.views.gui.MainWindow">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="mvc.views.gui.WindowConfigurationView">
   <tabbedpane id="3f793" binding="tab_main">
     <constraints>
       <xy x="20" y="20" width="649" height="775"/>
