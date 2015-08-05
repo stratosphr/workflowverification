@@ -1,8 +1,8 @@
 package mvc.eventsmanagement;
 
-import mvc.eventsmanagement.events.verificationparametersevents.MaxNodeValuationChanged;
-import mvc.eventsmanagement.events.verificationparametersevents.MaxNumberOfSegmentsChanged;
-import mvc.eventsmanagement.events.verificationparametersevents.MinNumberOfSegmentsChanged;
+import mvc.eventsmanagement.events.parameters.MaxNodeValuationChanged;
+import mvc.eventsmanagement.events.parameters.MaxNumberOfSegmentsChanged;
+import mvc.eventsmanagement.events.parameters.MinNumberOfSegmentsChanged;
 
 public interface IVerificationParametersListener {
 

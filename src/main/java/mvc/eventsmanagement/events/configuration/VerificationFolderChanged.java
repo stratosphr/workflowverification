@@ -1,9 +1,9 @@
-package mvc.eventsmanagement.events.verificationconfigurationevents;
+package mvc.eventsmanagement.events.configuration;
 
 import files.VerificationFolder;
 import mvc.model.ConfigurationModel;
 
-public class VerificationFolderChanged extends VerificationConfigurationEvent {
+public class VerificationFolderChanged extends AbstractVerificationConfigurationEvent {
 
     private final VerificationFolder newVerificationFolder;
 

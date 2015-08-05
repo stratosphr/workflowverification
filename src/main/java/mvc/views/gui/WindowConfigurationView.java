@@ -11,12 +11,13 @@ import files.GeneratedReportFile.Z3GeneratedReportFile;
 import files.SpecificationFile;
 import files.VerificationFolder;
 import mvc.controllers.ConfigurationController;
-import mvc.eventsmanagement.events.verificationconfigurationevents.SpecificationFileChanged;
-import mvc.eventsmanagement.events.verificationconfigurationevents.VerificationFolderChanged;
+import mvc.eventsmanagement.events.configuration.*;
 import mvc.model.ConfigurationModel;
 import mvc.views.AbstractConfigurationView;
 import mvc.views.gui.items.SpecificationItem;
 import mvc.views.gui.listeners.configuration.BtnParametersListener;
+import mvc.views.gui.listeners.configuration.CbxSicstusImplementationListener;
+import mvc.views.gui.listeners.configuration.CbxSpecificationFileListener;
 import specifications.model.Specification;
 import specifications.model.SpecificationType;
 
@@ -36,9 +37,9 @@ public class WindowConfigurationView extends AbstractConfigurationView {
     private JRadioButton radio_must;
     private JButton btn_parameters;
     private JButton btn_sicstusVerifySpecification;
-    private JComboBox<ESicstusImplementation> cbx_sicstusImplementations;
+    private JComboBox<ESicstusImplementation> cbx_sicstusImplementation;
     private JButton btn_z3VerifySpecification;
-    private JComboBox<EZ3Implementation> cbx_z3Implementations;
+    private JComboBox<EZ3Implementation> cbx_z3Implementation;
     private JPanel panel_report;
     private JSplitPane splitpanel_reports;
     private JPanel panel_leftReport;
@@ -54,23 +55,28 @@ public class WindowConfigurationView extends AbstractConfigurationView {
 
     public WindowConfigurationView(ConfigurationController configurationController, ConfigurationModel configurationModel) {
         super(configurationController, configurationModel);
-    }
-
-    @Override
-    public void buildView() {
-        $$$setupUI$$$();
-        btn_parameters.addActionListener(new BtnParametersListener(getConfigurationController()));
-        for (ESicstusImplementation sicstusImplementation : ESicstusImplementation.values()) {
-            cbx_sicstusImplementations.addItem(sicstusImplementation);
-        }
-        for (EZ3Implementation z3Implementation : EZ3Implementation.values()) {
-            cbx_z3Implementations.addItem(z3Implementation);
-        }
         frame = new JFrame("Workflows Modal Specifications Verifier");
         frame.setContentPane(tab_main);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         frame.setResizable(false);
+        btn_parameters.addActionListener(new BtnParametersListener(getConfigurationController()));
+        cbx_specificationFile.addItemListener(new CbxSpecificationFileListener(getConfigurationController()));
+        CbxSicstusImplementationListener cbxSicstusImplementationListener = new CbxSicstusImplementationListener(getConfigurationController());
+        cbx_sicstusImplementation.addItemListener(cbxSicstusImplementationListener);
+        CbxZ3ImplementationListener cbxZ3ImplementationListener = new CbxZ3ImplementationListener(getConfigurationController());
+        cbx_z3Implementation.addItemListener(cbxZ3ImplementationListener);
+        for (ESicstusImplementation sicstusImplementation : ESicstusImplementation.values()) {
+            cbx_sicstusImplementation.addItem(sicstusImplementation);
+        }
+        for (EZ3Implementation z3Implementation : EZ3Implementation.values()) {
+            cbx_z3Implementation.addItem(z3Implementation);
+        }
+    }
+
+    @Override
+    public void buildView() {
+        $$$setupUI$$$();
     }
 
     @Override
@@ -93,13 +99,16 @@ public class WindowConfigurationView extends AbstractConfigurationView {
                 cbx_specificationFile.addItem(new SpecificationItem(specificationFile));
             }
             txt_workflowFile.setText(verificationFolder.getPetriNetFile().getAbsolutePath());
+            txt_specificationFolder.setText(verificationFolder.getSpecificationFolder().getAbsolutePath());
         }
     }
 
     @Override
     public void specificationFileChanged(SpecificationFileChanged event) {
         VerificationFolder verificationFolder = ((ConfigurationModel) event.getSource()).getVerificationFolder();
-        SpecificationFile specificationFile = ((ConfigurationModel) event.getSource()).getSpecificationFile();
+        SpecificationFile specificationFile = event.getNewSpecificationFile();
+        ESicstusImplementation sicstusImplementation = ((ConfigurationModel) event.getSource()).getSicstusImplementation();
+        EZ3Implementation z3Implementation = ((ConfigurationModel) event.getSource()).getZ3Implementation();
         if (verificationFolder.isValid()) {
             Specification specification = specificationFile.extractSpecification();
             txt_specificationFolder.setText(verificationFolder.getSpecificationFolder().getAbsolutePath());
@@ -109,11 +118,29 @@ public class WindowConfigurationView extends AbstractConfigurationView {
             } else {
                 radio_must.setSelected(true);
             }
-            txt_sicstusGeneratedCode.setText(new SicstusGeneratedCodeFile(verificationFolder, specificationFile).getAbsolutePath());
-            txt_z3GeneratedCode.setText(new Z3GeneratedCodeFile(verificationFolder, specificationFile).getAbsolutePath());
-            txt_sicstusGeneratedReport.setText(new SicstusGeneratedReportFile(verificationFolder, specificationFile).getAbsolutePath());
-            txt_z3GeneratedReport.setText(new Z3GeneratedReportFile(verificationFolder, specificationFile).getAbsolutePath());
+            txt_sicstusGeneratedCode.setText(new SicstusGeneratedCodeFile(verificationFolder, specificationFile, sicstusImplementation).getAbsolutePath());
+            txt_sicstusGeneratedReport.setText(new SicstusGeneratedReportFile(verificationFolder, specificationFile, sicstusImplementation).getAbsolutePath());
+            txt_z3GeneratedCode.setText(new Z3GeneratedCodeFile(verificationFolder, specificationFile, z3Implementation).getAbsolutePath());
+            txt_z3GeneratedReport.setText(new Z3GeneratedReportFile(verificationFolder, specificationFile, z3Implementation).getAbsolutePath());
         }
+    }
+
+    @Override
+    public void sicstusImplementationChanged(SicstusImplementationChanged event) {
+        VerificationFolder verificationFolder = ((ConfigurationModel) event.getSource()).getVerificationFolder();
+        SpecificationFile specificationFile = ((ConfigurationModel) event.getSource()).getSpecificationFile();
+        ESicstusImplementation sicstusImplementation = event.getNewSicstusImplementation();
+        txt_sicstusGeneratedCode.setText(new SicstusGeneratedCodeFile(verificationFolder, specificationFile, sicstusImplementation).getAbsolutePath());
+        txt_sicstusGeneratedReport.setText(new SicstusGeneratedReportFile(verificationFolder, specificationFile, sicstusImplementation).getAbsolutePath());
+    }
+
+    @Override
+    public void z3ImplementationChanged(Z3ImplementationChanged event) {
+        VerificationFolder verificationFolder = ((ConfigurationModel) event.getSource()).getVerificationFolder();
+        SpecificationFile specificationFile = ((ConfigurationModel) event.getSource()).getSpecificationFile();
+        EZ3Implementation z3Implementation = event.getNewZ3Implementation();
+        txt_z3GeneratedCode.setText(new Z3GeneratedCodeFile(verificationFolder, specificationFile, z3Implementation).getAbsolutePath());
+        txt_z3GeneratedReport.setText(new Z3GeneratedReportFile(verificationFolder, specificationFile, z3Implementation).getAbsolutePath());
     }
 
     {
@@ -208,8 +235,8 @@ public class WindowConfigurationView extends AbstractConfigurationView {
         final JLabel label6 = new JLabel();
         label6.setText("Implementation :");
         panel5.add(label6, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        cbx_sicstusImplementations = new JComboBox();
-        panel5.add(cbx_sicstusImplementations, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        cbx_sicstusImplementation = new JComboBox();
+        panel5.add(cbx_sicstusImplementation, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         btn_sicstusVerifySpecification = new JButton();
         btn_sicstusVerifySpecification.setText("Verify specification with Sicstus");
         btn_sicstusVerifySpecification.setMnemonic('S');
@@ -235,8 +262,8 @@ public class WindowConfigurationView extends AbstractConfigurationView {
         final JLabel label9 = new JLabel();
         label9.setText("Implementation :");
         panel6.add(label9, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        cbx_z3Implementations = new JComboBox();
-        panel6.add(cbx_z3Implementations, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        cbx_z3Implementation = new JComboBox();
+        panel6.add(cbx_z3Implementation, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         btn_z3VerifySpecification = new JButton();
         btn_z3VerifySpecification.setText("Verify specification with Z3");
         btn_z3VerifySpecification.setMnemonic('Z');

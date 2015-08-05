@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public enum EZ3Implementation {
 
-    DEFAULT;
+    DEFAULT, ONE_TRANSITION_PER_SEGMENT;
 
     @Override
     public String toString() {

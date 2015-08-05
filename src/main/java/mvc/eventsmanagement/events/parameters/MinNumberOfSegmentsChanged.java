@@ -1,4 +1,4 @@
-package mvc.eventsmanagement.events.verificationparametersevents;
+package mvc.eventsmanagement.events.parameters;
 
 import mvc.model.ParametersModel;
 

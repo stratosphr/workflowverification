@@ -4,16 +4,12 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import mvc.controllers.ParametersController;
-import mvc.eventsmanagement.events.verificationparametersevents.MaxNodeValuationChanged;
-import mvc.eventsmanagement.events.verificationparametersevents.MaxNumberOfSegmentsChanged;
-import mvc.eventsmanagement.events.verificationparametersevents.MinNumberOfSegmentsChanged;
+import mvc.eventsmanagement.events.parameters.MaxNodeValuationChanged;
+import mvc.eventsmanagement.events.parameters.MaxNumberOfSegmentsChanged;
+import mvc.eventsmanagement.events.parameters.MinNumberOfSegmentsChanged;
 import mvc.model.ParametersModel;
 import mvc.views.AbstractParametersView;
-import mvc.views.gui.listeners.parameters.SpinMaxNumberOfSegmentsListener;
-import mvc.views.gui.listeners.parameters.SpinMinNumberOfSegmentsListener;
-import mvc.views.gui.listeners.parameters.BtnCancelListener;
-import mvc.views.gui.listeners.parameters.BtnOkListener;
-import mvc.views.gui.listeners.parameters.SpinMaxNodeValuationListener;
+import mvc.views.gui.listeners.parameters.*;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -40,6 +36,10 @@ public class WindowParametersView extends AbstractParametersView {
     @Override
     public void buildView() {
         $$$setupUI$$$();
+    }
+
+    @Override
+    public void display() {
         spin_maxNodeValuation.addChangeListener(new SpinMaxNodeValuationListener(getParametersController()));
         spin_minNumberOfSegments.addChangeListener(new SpinMinNumberOfSegmentsListener(getParametersController()));
         spin_maxNumberOfSegments.addChangeListener(new SpinMaxNumberOfSegmentsListener(getParametersController()));
@@ -51,10 +51,6 @@ public class WindowParametersView extends AbstractParametersView {
         dialog.setModal(true);
         dialog.getRootPane().setDefaultButton(btn_ok);
         dialog.pack();
-    }
-
-    @Override
-    public void display() {
         dialog.setVisible(true);
     }
 
@@ -91,7 +87,7 @@ public class WindowParametersView extends AbstractParametersView {
      */
     private void $$$setupUI$$$() {
         contentPane = new JPanel();
-        contentPane.setLayout(new GridLayoutManager(2, 1, new Insets(10, 10, 10, 10), -1, -1));
+        contentPane.setLayout(new GridLayoutManager(2, 2, new Insets(10, 10, 10, 10), -1, -1));
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
         contentPane.add(panel1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, 1, null, null, null, 0, false));
@@ -125,17 +121,17 @@ public class WindowParametersView extends AbstractParametersView {
         label1.setText("Max node valuation :");
         panel5.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         spin_maxNodeValuation = new JSpinner();
-        panel5.add(spin_maxNodeValuation, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel5.add(spin_maxNodeValuation, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(101, 26), null, 0, false));
         final JLabel label2 = new JLabel();
         label2.setText("Max number of segments :");
         panel5.add(label2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         spin_maxNumberOfSegments = new JSpinner();
-        panel5.add(spin_maxNumberOfSegments, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel5.add(spin_maxNumberOfSegments, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(101, 26), null, 0, false));
         final JLabel label3 = new JLabel();
         label3.setText("Min number of segments :");
         panel5.add(label3, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         spin_minNumberOfSegments = new JSpinner();
-        panel5.add(spin_minNumberOfSegments, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel5.add(spin_minNumberOfSegments, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(101, 26), null, 0, false));
         final JPanel panel6 = new JPanel();
         panel6.setLayout(new GridLayoutManager(4, 1, new Insets(2, 2, 2, 2), -1, -1));
         panel4.add(panel6, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
@@ -166,6 +162,8 @@ public class WindowParametersView extends AbstractParametersView {
         panel6.add(chk_approximation4, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer2 = new Spacer();
         panel3.add(spacer2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        final Spacer spacer3 = new Spacer();
+        contentPane.add(spacer3, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
     }
 
     /**

@@ -7,8 +7,8 @@ import java.io.File;
 
 public abstract class GeneratedCodeFile extends File {
 
-    public GeneratedCodeFile(VerificationFolder verificationFolder, String subFolder, SpecificationFile specificationFile, String fileExtension) {
-        super(verificationFolder.getAbsolutePath() + File.separator + "sources" + File.separator + subFolder + File.separator + specificationFile.extractSpecification().getName() + "." + fileExtension);
+    public GeneratedCodeFile(VerificationFolder verificationFolder, String verifierSubFolder, String implementationSubFolder, SpecificationFile specificationFile, String fileExtension) {
+        super(verificationFolder.getAbsolutePath() + File.separator + "sources" + File.separator + verifierSubFolder + File.separator + implementationSubFolder + File.separator + specificationFile.extractSpecification().getName() + "." + fileExtension);
     }
 
 }

@@ -1,9 +1,9 @@
-package mvc.eventsmanagement.events.verificationconfigurationevents;
+package mvc.eventsmanagement.events.configuration;
 
 import files.SpecificationFile;
 import mvc.model.ConfigurationModel;
 
-public class SpecificationFileChanged extends VerificationConfigurationEvent {
+public class SpecificationFileChanged extends AbstractVerificationConfigurationEvent {
 
     private final SpecificationFile newSpecificationFile;
 

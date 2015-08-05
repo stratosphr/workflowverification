@@ -1,8 +1,10 @@
 package mvc.views.console;
 
 import mvc.controllers.ConfigurationController;
-import mvc.eventsmanagement.events.verificationconfigurationevents.SpecificationFileChanged;
-import mvc.eventsmanagement.events.verificationconfigurationevents.VerificationFolderChanged;
+import mvc.eventsmanagement.events.configuration.SicstusImplementationChanged;
+import mvc.eventsmanagement.events.configuration.SpecificationFileChanged;
+import mvc.eventsmanagement.events.configuration.VerificationFolderChanged;
+import mvc.eventsmanagement.events.configuration.Z3ImplementationChanged;
 import mvc.model.ConfigurationModel;
 import mvc.views.AbstractConfigurationView;
 
@@ -29,7 +31,6 @@ public class ConsoleConfigurationView extends AbstractConfigurationView {
 
     @Override
     public void close() {
-        System.out.println("CONFIGURATION VIEW CLOSED");
     }
 
     @Override
@@ -39,7 +40,17 @@ public class ConsoleConfigurationView extends AbstractConfigurationView {
 
     @Override
     public void specificationFileChanged(SpecificationFileChanged event) {
-        System.out.println("VerificationFolderChanged" + event.getNewSpecificationFile());
+        System.out.println("VerificationFolderChanged : " + event.getNewSpecificationFile());
+    }
+
+    @Override
+    public void sicstusImplementationChanged(SicstusImplementationChanged event) {
+        System.out.println("SicstusImplementationChanged : " + event.getNewSicstusImplementation());
+    }
+
+    @Override
+    public void z3ImplementationChanged(Z3ImplementationChanged event) {
+        System.out.println("Z3ImplementationChanged : " + event.getNewZ3Implementation());
     }
 
 }

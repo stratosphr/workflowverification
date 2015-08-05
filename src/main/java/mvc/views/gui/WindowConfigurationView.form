@@ -192,7 +192,7 @@
                       <text value="Implementation :"/>
                     </properties>
                   </component>
-                  <component id="b9397" class="javax.swing.JComboBox" binding="cbx_sicstusImplementations">
+                  <component id="b9397" class="javax.swing.JComboBox" binding="cbx_sicstusImplementation">
                     <constraints>
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -261,7 +261,7 @@
                       <text value="Implementation :"/>
                     </properties>
                   </component>
-                  <component id="e4bed" class="javax.swing.JComboBox" binding="cbx_z3Implementations">
+                  <component id="e4bed" class="javax.swing.JComboBox" binding="cbx_z3Implementation">
                     <constraints>
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>

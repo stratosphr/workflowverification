@@ -1,9 +1,9 @@
 package mvc.views.console;
 
 import mvc.controllers.ParametersController;
-import mvc.eventsmanagement.events.verificationparametersevents.MaxNodeValuationChanged;
-import mvc.eventsmanagement.events.verificationparametersevents.MaxNumberOfSegmentsChanged;
-import mvc.eventsmanagement.events.verificationparametersevents.MinNumberOfSegmentsChanged;
+import mvc.eventsmanagement.events.parameters.MaxNodeValuationChanged;
+import mvc.eventsmanagement.events.parameters.MaxNumberOfSegmentsChanged;
+import mvc.eventsmanagement.events.parameters.MinNumberOfSegmentsChanged;
 import mvc.model.ParametersModel;
 import mvc.views.AbstractParametersView;
 
