@@ -1,10 +1,7 @@
 package mvc.views.console;
 
 import mvc.controllers.ConfigurationController;
-import mvc.eventsmanagement.events.configuration.SicstusImplementationChanged;
-import mvc.eventsmanagement.events.configuration.SpecificationFileChanged;
-import mvc.eventsmanagement.events.configuration.VerificationFolderChanged;
-import mvc.eventsmanagement.events.configuration.Z3ImplementationChanged;
+import mvc.eventsmanagement.events.configuration.*;
 import mvc.model.ConfigurationModel;
 import mvc.views.AbstractConfigurationView;
 
@@ -51,6 +48,16 @@ public class ConsoleConfigurationView extends AbstractConfigurationView {
     @Override
     public void z3ImplementationChanged(Z3ImplementationChanged event) {
         System.out.println("Z3ImplementationChanged : " + event.getNewZ3Implementation());
+    }
+
+    @Override
+    public void sicstusVerificationDone(SicstusVerificationDone event) {
+        System.out.println("SicstusVerificationDone");
+    }
+
+    @Override
+    public void z3VerificationDone(Z3VerificationDone event) {
+        System.out.println("Z3VerificationDone");
     }
 
 }

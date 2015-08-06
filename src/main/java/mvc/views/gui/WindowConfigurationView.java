@@ -15,9 +15,7 @@ import mvc.eventsmanagement.events.configuration.*;
 import mvc.model.ConfigurationModel;
 import mvc.views.AbstractConfigurationView;
 import mvc.views.gui.items.SpecificationItem;
-import mvc.views.gui.listeners.configuration.BtnParametersListener;
-import mvc.views.gui.listeners.configuration.CbxSicstusImplementationListener;
-import mvc.views.gui.listeners.configuration.CbxSpecificationFileListener;
+import mvc.views.gui.listeners.configuration.*;
 import specifications.model.Specification;
 import specifications.model.SpecificationType;
 
@@ -55,7 +53,7 @@ public class WindowConfigurationView extends AbstractConfigurationView {
 
     public WindowConfigurationView(ConfigurationController configurationController, ConfigurationModel configurationModel) {
         super(configurationController, configurationModel);
-        frame = new JFrame("Workflows Modal Specifications Verifier");
+        frame = new JFrame("Workflows Modal Specifications AbstractVerifier");
         frame.setContentPane(tab_main);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -66,6 +64,8 @@ public class WindowConfigurationView extends AbstractConfigurationView {
         cbx_sicstusImplementation.addItemListener(cbxSicstusImplementationListener);
         CbxZ3ImplementationListener cbxZ3ImplementationListener = new CbxZ3ImplementationListener(getConfigurationController());
         cbx_z3Implementation.addItemListener(cbxZ3ImplementationListener);
+        btn_sicstusVerifySpecification.addActionListener(new BtnSicstusVerifySpecificationListener(getConfigurationController()));
+        btn_z3VerifySpecification.addActionListener(new BtnZ3VerifySpecificationListener(getConfigurationController()));
         for (ESicstusImplementation sicstusImplementation : ESicstusImplementation.values()) {
             cbx_sicstusImplementation.addItem(sicstusImplementation);
         }
@@ -141,6 +141,14 @@ public class WindowConfigurationView extends AbstractConfigurationView {
         EZ3Implementation z3Implementation = event.getNewZ3Implementation();
         txt_z3GeneratedCode.setText(new Z3GeneratedCodeFile(verificationFolder, specificationFile, z3Implementation).getAbsolutePath());
         txt_z3GeneratedReport.setText(new Z3GeneratedReportFile(verificationFolder, specificationFile, z3Implementation).getAbsolutePath());
+    }
+
+    @Override
+    public void sicstusVerificationDone(SicstusVerificationDone event) {
+    }
+
+    @Override
+    public void z3VerificationDone(Z3VerificationDone event) {
     }
 
     {

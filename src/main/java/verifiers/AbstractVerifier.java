@@ -6,19 +6,12 @@ import reports.OverApproximation;
 import javax.swing.*;
 import java.util.concurrent.ExecutionException;
 
-public abstract class Verifier implements IVerifier {
-
-    public Verifier() {
-    }
+public abstract class AbstractVerifier implements IVerifier {
 
     public void startOverApproximation1Checking(final IVerificationHandler verificationHandler) {
         (new SwingWorker<Approximation, Void>() {
             @Override
             protected Approximation doInBackground() throws Exception {
-                double i = 0;
-                while (i < 100000) {
-                    i += 0.0001;
-                }
                 return checkOverApproximation1();
             }
 
@@ -26,9 +19,7 @@ public abstract class Verifier implements IVerifier {
             protected void done() {
                 try {
                     verificationHandler.doneChecking(get());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
+                } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
             }
@@ -39,11 +30,6 @@ public abstract class Verifier implements IVerifier {
         (new SwingWorker<Approximation, Void>() {
             @Override
             protected OverApproximation doInBackground() throws Exception {
-                double i = 0;
-                while (i < 100000) {
-                    i += 0.00005;
-                }
-
                 return checkOverApproximation2();
             }
 
@@ -51,9 +37,7 @@ public abstract class Verifier implements IVerifier {
             protected void done() {
                 try {
                     verificationHandler.doneChecking(get());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
+                } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
             }
