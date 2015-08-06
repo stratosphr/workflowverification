@@ -3,7 +3,7 @@ package mvc.eventsmanagement.events.configuration;
 import codegeneration.implementations.sicstus.ESicstusImplementation;
 import mvc.model.ConfigurationModel;
 
-public class SicstusImplementationChanged extends AbstractVerificationConfigurationEvent {
+public class SicstusImplementationChanged extends AbstractConfigurationEvent {
 
     private ESicstusImplementation newSicstusImplementation;
 

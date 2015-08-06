@@ -3,7 +3,7 @@ package mvc.eventsmanagement.events.configuration;
 import files.SpecificationFile;
 import mvc.model.ConfigurationModel;
 
-public class SpecificationFileChanged extends AbstractVerificationConfigurationEvent {
+public class SpecificationFileChanged extends AbstractConfigurationEvent {
 
     private final SpecificationFile newSpecificationFile;
 

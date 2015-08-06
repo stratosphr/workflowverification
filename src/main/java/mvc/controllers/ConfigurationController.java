@@ -62,4 +62,12 @@ public class ConfigurationController extends AbstractController {
         configurationModel.setZ3Implementation(newZ3Implementation);
     }
 
+    public void notifySicstusVerificationRequired() {
+        configurationModel.runSicstusVerification();
+    }
+
+    public void notifyZ3VerificationRequired() {
+        configurationModel.runZ3Verification();
+    }
+
 }

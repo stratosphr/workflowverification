@@ -70,8 +70,6 @@ public class PIPEParser {
                                             }
                                         }
                                     }
-                                    System.out.println(workflow);
-                                    System.out.println(workflow.toPNML());
                                     return workflow;
                                 }
                             }

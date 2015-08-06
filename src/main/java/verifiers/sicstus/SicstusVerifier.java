@@ -2,12 +2,12 @@ package verifiers.sicstus;
 
 import codegeneration.sicstus.PlTerm;
 import reports.OverApproximation;
-import verifiers.Verifier;
+import verifiers.AbstractVerifier;
 
 import java.io.File;
 import java.util.HashMap;
 
-public class SicstusVerifier extends Verifier{
+public class SicstusVerifier extends AbstractVerifier {
 
     public OverApproximation checkOverApproximation1() {
         Sicstus sicstus = Sicstus.getSingleton();

@@ -1,9 +1,9 @@
 package verifiers.z3;
 
 import reports.OverApproximation;
-import verifiers.Verifier;
+import verifiers.AbstractVerifier;
 
-public class Z3Verifier extends Verifier {
+public class Z3Verifier extends AbstractVerifier {
 
     public OverApproximation checkOverApproximation1() {
         return null;

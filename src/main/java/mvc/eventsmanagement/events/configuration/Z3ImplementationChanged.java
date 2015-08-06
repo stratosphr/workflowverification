@@ -3,7 +3,7 @@ package mvc.eventsmanagement.events.configuration;
 import codegeneration.implementations.z3.EZ3Implementation;
 import mvc.model.ConfigurationModel;
 
-public class Z3ImplementationChanged extends AbstractVerificationConfigurationEvent {
+public class Z3ImplementationChanged extends AbstractConfigurationEvent {
 
     private EZ3Implementation newZ3Implementation;
 

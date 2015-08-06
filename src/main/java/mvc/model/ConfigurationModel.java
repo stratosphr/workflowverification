@@ -2,19 +2,20 @@ package mvc.model;
 
 import codegeneration.implementations.sicstus.ESicstusImplementation;
 import codegeneration.implementations.z3.EZ3Implementation;
+import codegeneration.writers.SicstusCodeWriter;
 import files.SpecificationFile;
 import files.VerificationFolder;
-import mvc.eventsmanagement.IVerificationConfigurationListener;
-import mvc.eventsmanagement.events.configuration.SicstusImplementationChanged;
-import mvc.eventsmanagement.events.configuration.SpecificationFileChanged;
-import mvc.eventsmanagement.events.configuration.VerificationFolderChanged;
-import mvc.eventsmanagement.events.configuration.Z3ImplementationChanged;
+import mvc.eventsmanagement.IConfigurationListener;
+import mvc.eventsmanagement.events.configuration.*;
+import reports.Approximation;
+import verifiers.IVerificationHandler;
+import verifiers.sicstus.SicstusVerifier;
 
 import javax.swing.event.EventListenerList;
 
 public class ConfigurationModel extends AbstractModel {
 
-    private EventListenerList verificationConfigurationListeners;
+    private EventListenerList configurationListeners;
     private VerificationFolder verificationFolder;
     private SpecificationFile specificationFile;
     private ESicstusImplementation sicstusImplementation;
@@ -25,15 +26,15 @@ public class ConfigurationModel extends AbstractModel {
     }
 
     public ConfigurationModel(VerificationFolder verificationFolder, SpecificationFile specificationFile, ESicstusImplementation sicstusImplementation, EZ3Implementation z3Implementation) {
-        verificationConfigurationListeners = new EventListenerList();
+        configurationListeners = new EventListenerList();
         this.verificationFolder = verificationFolder;
         this.specificationFile = specificationFile;
         this.sicstusImplementation = sicstusImplementation;
         this.z3Implementation = z3Implementation;
     }
 
-    public void addVerificationParametersListener(IVerificationConfigurationListener verificationParametersListener) {
-        verificationConfigurationListeners.add(IVerificationConfigurationListener.class, verificationParametersListener);
+    public void addVerificationParametersListener(IConfigurationListener verificationParametersListener) {
+        configurationListeners.add(IConfigurationListener.class, verificationParametersListener);
     }
 
     public VerificationFolder getVerificationFolder() {
@@ -46,9 +47,9 @@ public class ConfigurationModel extends AbstractModel {
     }
 
     public void fireVerificationFolderChanged() {
-        IVerificationConfigurationListener[] verificationConfigurationListeners = this.verificationConfigurationListeners.getListeners(IVerificationConfigurationListener.class);
-        for (IVerificationConfigurationListener verificationConfigurationListener : verificationConfigurationListeners) {
-            verificationConfigurationListener.verificationFolderChanged(new VerificationFolderChanged(this, verificationFolder));
+        IConfigurationListener[] configurationListeners = this.configurationListeners.getListeners(IConfigurationListener.class);
+        for (IConfigurationListener configurationListener : configurationListeners) {
+            configurationListener.verificationFolderChanged(new VerificationFolderChanged(this, verificationFolder));
         }
     }
 
@@ -62,9 +63,9 @@ public class ConfigurationModel extends AbstractModel {
     }
 
     public void fireSpecificationFileChanged() {
-        IVerificationConfigurationListener[] verificationConfigurationListeners = this.verificationConfigurationListeners.getListeners(IVerificationConfigurationListener.class);
-        for (IVerificationConfigurationListener verificationConfigurationListener : verificationConfigurationListeners) {
-            verificationConfigurationListener.specificationFileChanged(new SpecificationFileChanged(this, specificationFile));
+        IConfigurationListener[] configurationListeners = this.configurationListeners.getListeners(IConfigurationListener.class);
+        for (IConfigurationListener configurationListener : configurationListeners) {
+            configurationListener.specificationFileChanged(new SpecificationFileChanged(this, specificationFile));
         }
     }
 
@@ -78,9 +79,9 @@ public class ConfigurationModel extends AbstractModel {
     }
 
     public void fireSicstusImplementationChanged() {
-        IVerificationConfigurationListener[] verificationConfigurationListeners = this.verificationConfigurationListeners.getListeners(IVerificationConfigurationListener.class);
-        for (IVerificationConfigurationListener verificationConfigurationListener : verificationConfigurationListeners) {
-            verificationConfigurationListener.sicstusImplementationChanged(new SicstusImplementationChanged(this, sicstusImplementation));
+        IConfigurationListener[] configurationListeners = this.configurationListeners.getListeners(IConfigurationListener.class);
+        for (IConfigurationListener configurationListener : configurationListeners) {
+            configurationListener.sicstusImplementationChanged(new SicstusImplementationChanged(this, sicstusImplementation));
         }
     }
 
@@ -94,9 +95,40 @@ public class ConfigurationModel extends AbstractModel {
     }
 
     public void fireZ3ImplementationChanged() {
-        IVerificationConfigurationListener[] verificationConfigurationListeners = this.verificationConfigurationListeners.getListeners(IVerificationConfigurationListener.class);
-        for (IVerificationConfigurationListener verificationConfigurationListener : verificationConfigurationListeners) {
-            verificationConfigurationListener.z3ImplementationChanged(new Z3ImplementationChanged(this, z3Implementation));
+        IConfigurationListener[] configurationListeners = this.configurationListeners.getListeners(IConfigurationListener.class);
+        for (IConfigurationListener configurationListener : configurationListeners) {
+            configurationListener.z3ImplementationChanged(new Z3ImplementationChanged(this, z3Implementation));
+        }
+    }
+
+    public void runSicstusVerification() {
+        SicstusCodeWriter sicstusCodeWriter = new SicstusCodeWriter(this);
+        sicstusCodeWriter.writeStateEquation();
+        SicstusVerifier sicstusVerifier = new SicstusVerifier();
+        sicstusVerifier.startOverApproximation1Checking(new IVerificationHandler() {
+            public void doneChecking(Approximation result) {
+                fireSicstusVerificationDone();
+            }
+        });
+    }
+
+    private void fireSicstusVerificationDone() {
+        IConfigurationListener[] configurationListeners = this.configurationListeners.getListeners(IConfigurationListener.class);
+        for (IConfigurationListener configurationListener : configurationListeners) {
+            configurationListener.sicstusVerificationDone(new SicstusVerificationDone(this));
+        }
+    }
+
+    public void runZ3Verification() {
+        System.out.println("Z3 VERIFICATION...");
+        System.out.println("DONE.");
+        fireZ3VerificationDone();
+    }
+
+    private void fireZ3VerificationDone() {
+        IConfigurationListener[] configurationListeners = this.configurationListeners.getListeners(IConfigurationListener.class);
+        for (IConfigurationListener configurationListener : configurationListeners) {
+            configurationListener.z3VerificationDone(new Z3VerificationDone(this));
         }
     }
 
