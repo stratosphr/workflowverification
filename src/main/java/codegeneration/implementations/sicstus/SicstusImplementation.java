@@ -16,4 +16,9 @@ public class SicstusImplementation extends Implementation {
         return new PlPredicateDefinition("overApproximation").toString();
     }
 
+    @Override
+    public String getFormulaConstraint() {
+        return new PlPredicateDefinition("formula").toString();
+    }
+
 }

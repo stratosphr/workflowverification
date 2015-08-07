@@ -1,19 +1,23 @@
 package codegeneration;
 
+import codegeneration.implementations.Implementation;
 import files.GeneratedCodeFile.GeneratedCodeFile;
-import mvc.model.ConfigurationModel;
 
 public class CodeWriter extends SimpleWriter {
 
-    private final ConfigurationModel configurationModel;
+    private final Implementation implementation;
 
-    public CodeWriter(GeneratedCodeFile generatedCodeFile, ConfigurationModel configurationModel) {
+    public CodeWriter(GeneratedCodeFile generatedCodeFile, Implementation implementation) {
         super(generatedCodeFile);
-        this.configurationModel = configurationModel;
+        this.implementation = implementation;
     }
 
     public void writeStateEquation() {
-        write(configurationModel.getImplementation().getStateEquation());
+        write(implementation.getStateEquation());
+    }
+
+    public void writeFormulaConstraint() {
+        write(implementation.getFormulaConstraint());
     }
 
 }

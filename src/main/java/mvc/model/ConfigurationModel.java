@@ -1,11 +1,11 @@
 package mvc.model;
 
-import codegeneration.CodeWriter;
 import codegeneration.implementations.Implementation;
 import codegeneration.implementations.ImplementationFactory;
 import codegeneration.implementations.sicstus.ESicstusImplementation;
 import codegeneration.implementations.z3.EZ3Implementation;
 import files.GeneratedCodeFile.SicstusGeneratedCodeFile;
+import files.GeneratedCodeFile.Z3GeneratedCodeFile;
 import files.SpecificationFile;
 import files.VerificationFolder;
 import mvc.eventsmanagement.IConfigurationListener;
@@ -111,15 +111,21 @@ public class ConfigurationModel extends AbstractModel {
         this.implementation = implementation;
     }
 
+    public SicstusGeneratedCodeFile getGeneratedCodeFile(ESicstusImplementation sicstusImplementation) {
+        return new SicstusGeneratedCodeFile(getVerificationFolder(), getSpecificationFile(), sicstusImplementation);
+    }
+
+    public Z3GeneratedCodeFile getGeneratedCodeFile(EZ3Implementation z3Implementation) {
+        return new Z3GeneratedCodeFile(getVerificationFolder(), getSpecificationFile(), z3Implementation);
+    }
+
     public Implementation getImplementation() {
         return implementation;
     }
 
     public void runSicstusVerification() {
         setImplementation(ImplementationFactory.getImplementation(getSicstusImplementation(), (Workflow) getVerificationFolder().getPetriNetFile().extractPetriNet(), getSpecificationFile().extractSpecification()));
-        CodeWriter codeWriter = new CodeWriter(new SicstusGeneratedCodeFile(getVerificationFolder(), getSpecificationFile(), getSicstusImplementation()), this);
-        codeWriter.writeStateEquation();
-        SicstusVerifier sicstusVerifier = new SicstusVerifier();
+        SicstusVerifier sicstusVerifier = new SicstusVerifier(getGeneratedCodeFile(getSicstusImplementation()), getImplementation());
         sicstusVerifier.startOverApproximation1Checking(new IVerificationHandler() {
             public void doneChecking(Approximation result) {
                 fireSicstusVerificationDone();
@@ -135,10 +141,8 @@ public class ConfigurationModel extends AbstractModel {
     }
 
     public void runZ3Verification() {
-        setImplementation(ImplementationFactory.getImplementation(getSicstusImplementation(), (Workflow) getVerificationFolder().getPetriNetFile().extractPetriNet(), getSpecificationFile().extractSpecification()));
-        CodeWriter codeWriter = new CodeWriter(new SicstusGeneratedCodeFile(getVerificationFolder(), getSpecificationFile(), getSicstusImplementation()), this);
-        codeWriter.writeStateEquation();
-        Z3Verifier z3Verifier = new Z3Verifier();
+        setImplementation(ImplementationFactory.getImplementation(getZ3Implementation(), (Workflow) getVerificationFolder().getPetriNetFile().extractPetriNet(), getSpecificationFile().extractSpecification()));
+        Z3Verifier z3Verifier = new Z3Verifier(getGeneratedCodeFile(getZ3Implementation()), getImplementation());
         z3Verifier.startOverApproximation1Checking(new IVerificationHandler() {
             public void doneChecking(Approximation result) {
                 fireZ3VerificationDone();

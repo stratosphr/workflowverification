@@ -15,4 +15,9 @@ public class Z3Implementation extends Implementation {
         return null;
     }
 
+    @Override
+    public String getFormulaConstraint() {
+        return null;
+    }
+
 }
