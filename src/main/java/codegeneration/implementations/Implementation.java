@@ -15,4 +15,6 @@ public abstract class Implementation {
 
     public abstract String getStateEquation();
 
+    public abstract String getFormulaConstraint();
+
 }

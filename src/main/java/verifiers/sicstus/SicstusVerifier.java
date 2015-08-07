@@ -1,6 +1,8 @@
 package verifiers.sicstus;
 
+import codegeneration.implementations.Implementation;
 import codegeneration.sicstus.PlTerm;
+import files.GeneratedCodeFile.GeneratedCodeFile;
 import reports.OverApproximation;
 import verifiers.AbstractVerifier;
 
@@ -8,6 +10,10 @@ import java.io.File;
 import java.util.HashMap;
 
 public class SicstusVerifier extends AbstractVerifier {
+
+    public SicstusVerifier(GeneratedCodeFile generatedCodeFile, Implementation implementation) {
+        super(generatedCodeFile, implementation);
+    }
 
     public OverApproximation checkOverApproximation1() {
         Sicstus sicstus = Sicstus.getSingleton();

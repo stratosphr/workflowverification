@@ -11,6 +11,7 @@ public class SimpleWriter {
 
     public SimpleWriter(File outputFile) {
         this.outputFile = outputFile;
+        empty();
     }
 
     protected void write(Object... objects) {
@@ -21,20 +22,30 @@ public class SimpleWriter {
                 e.printStackTrace();
             }
         } else {
-            if (!outputFile.getParentFile().exists() && !outputFile.getParentFile().mkdirs()) {
-                throw new UnableToCreateSubFoldersForFileWritingException();
-            }
-            try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile.getAbsolutePath()), "utf-8"))) {
+            try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(outputFile, true)))) {
                 for (Object object : objects) {
                     if (object == null) {
                         throw new AttemptToWriteNullPointerToFileException();
                     } else {
-                        writer.write(object.toString());
+                        writer.write(object.toString() + "\n");
                     }
                 }
+                writer.write("\n");
             } catch (IOException | AttemptToWriteNullPointerToFileException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void empty() {
+        if (!outputFile.getParentFile().exists() && !outputFile.getParentFile().mkdirs()) {
+            throw new UnableToCreateSubFoldersForFileWritingException();
+        }
+        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)))) {
+            // JUST EMPTY THE FILE
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
