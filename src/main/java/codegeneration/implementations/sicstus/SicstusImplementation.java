@@ -110,8 +110,7 @@ public class SicstusImplementation extends Implementation {
         parameters.add(list_VTsOptimized);
         SicstusFormulaVisitor sicstusFormulaVisitor = new SicstusFormulaVisitor();
         specification.getFormula().accept(sicstusFormulaVisitor);
-        System.out.println(sicstusFormulaVisitor.getConstraint());
-        System.exit(0);
+        body.add(sicstusFormulaVisitor.getConstraint());
         return new PlPredicateDefinition(
                 "formulaConstraint",
                 parameters,

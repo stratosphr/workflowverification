@@ -1,6 +1,5 @@
 package specifications.model.visitors;
 
-import codegeneration.sicstus.PlTerm;
 import specifications.model.formulas.ConjunctionFormula;
 import specifications.model.formulas.DisjunctionFormula;
 import specifications.model.formulas.NegationFormula;
@@ -8,12 +7,12 @@ import specifications.model.formulas.TransitionFormula;
 
 public interface IFormulaVisitor {
 
-    PlTerm visit(TransitionFormula transitionFormula);
+    void visit(TransitionFormula transitionFormula);
 
-    PlTerm visit(ConjunctionFormula conjunctionFormula);
+    void visit(ConjunctionFormula conjunctionFormula);
 
-    PlTerm visit(DisjunctionFormula disjunctionFormula);
+    void visit(DisjunctionFormula disjunctionFormula);
 
-    PlTerm visit(NegationFormula negationFormula);
+    void visit(NegationFormula negationFormula);
 
 }

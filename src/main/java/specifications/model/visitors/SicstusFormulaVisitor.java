@@ -1,37 +1,59 @@
 package specifications.model.visitors;
 
+import codegeneration.sicstus.PlBooleanExpr;
+import codegeneration.sicstus.PlCompoundBooleanExpr;
 import codegeneration.sicstus.PlTerm;
-import specifications.model.formulas.ConjunctionFormula;
-import specifications.model.formulas.DisjunctionFormula;
-import specifications.model.formulas.NegationFormula;
-import specifications.model.formulas.TransitionFormula;
+import codegeneration.sicstus.fd.PlFDConjunction;
+import codegeneration.sicstus.fd.PlFDDisjunction;
+import codegeneration.sicstus.fd.PlFDGreaterThan;
+import codegeneration.sicstus.fd.PlFDNegation;
+import specifications.model.formulas.*;
+import tools.Prefixes;
 
 public class SicstusFormulaVisitor implements IFormulaVisitor {
 
-    @Override
-    public PlTerm visit(TransitionFormula transitionFormula) {
-        return null;
+    private PlCompoundBooleanExpr constraint;
+
+    public SicstusFormulaVisitor() {
     }
 
     @Override
-    public PlTerm visit(ConjunctionFormula conjunctionFormula) {
-        return null;
+    public void visit(TransitionFormula transitionFormula) {
+        constraint = new PlFDGreaterThan(new PlTerm(Prefixes.VT + transitionFormula.getName()), new PlTerm(0));
     }
 
     @Override
-    public PlTerm visit(DisjunctionFormula disjunctionFormula) {
-        System.out.println("Displaying disjunction formula : " + disjunctionFormula);
-        return null;
+    public void visit(ConjunctionFormula conjunctionFormula) {
+        constraint = new PlFDConjunction();
+        for(IVisitedFormula child : conjunctionFormula.getChildren()){
+            SicstusFormulaVisitor sicstusFormulaVisitor = new SicstusFormulaVisitor();
+            child.accept(sicstusFormulaVisitor);
+            constraint.addChild(sicstusFormulaVisitor.getConstraint());
+        }
     }
 
     @Override
-    public PlTerm visit(NegationFormula negationFormula) {
-        System.out.println("Displaying negation formula : " + negationFormula);
-        return null;
+    public void visit(DisjunctionFormula disjunctionFormula) {
+        constraint = new PlFDDisjunction();
+        for(IVisitedFormula child : disjunctionFormula.getChildren()){
+            SicstusFormulaVisitor sicstusFormulaVisitor = new SicstusFormulaVisitor();
+            child.accept(sicstusFormulaVisitor);
+            constraint.addChild(sicstusFormulaVisitor.getConstraint());
+        }
     }
 
-    public PlTerm getConstraint() {
-        return null;
+    @Override
+    public void visit(NegationFormula negationFormula) {
+        constraint = new PlFDNegation();
+        for(IVisitedFormula child : negationFormula.getChildren()){
+            SicstusFormulaVisitor sicstusFormulaVisitor = new SicstusFormulaVisitor();
+            child.accept(sicstusFormulaVisitor);
+            constraint.addChild(sicstusFormulaVisitor.getConstraint());
+        }
+    }
+
+    public PlBooleanExpr getConstraint() {
+        return constraint;
     }
 
 }
