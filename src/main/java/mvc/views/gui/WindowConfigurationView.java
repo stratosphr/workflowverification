@@ -98,7 +98,7 @@ public class WindowConfigurationView extends AbstractConfigurationView {
             for (SpecificationFile specificationFile : verificationFolder.getSpecificationFolder().getSpecificationFiles()) {
                 cbx_specificationFile.addItem(new SpecificationItem(specificationFile));
             }
-            txt_workflowFile.setText(verificationFolder.getPetriNetFile().getAbsolutePath());
+            txt_workflowFile.setText(verificationFolder.getWorkflowFile().getAbsolutePath());
             txt_specificationFolder.setText(verificationFolder.getSpecificationFolder().getAbsolutePath());
         }
     }

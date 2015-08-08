@@ -13,7 +13,7 @@ public class SicstusCodeWriter extends CodeWriter {
 
     @Override
     public void writeStateEquation() {
-        SicstusImplementation sicstusImplementation = ImplementationFactory.getImplementation(configurationModel.getSicstusImplementation(), (Workflow) configurationModel.getVerificationFolder().getPetriNetFile().extractPetriNet(), configurationModel.getSpecificationFile().extractSpecification());
+        SicstusImplementation sicstusImplementation = ImplementationFactory.getImplementation(configurationModel.getSicstusImplementation(), (Workflow) configurationModel.getVerificationFolder().getWorkflowFile().extractWorkflow(), configurationModel.getSpecificationFile().extractSpecification());
         super.write(sicstusImplementation.getStateEquation());
     }
 

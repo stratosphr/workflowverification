@@ -1,110 +1,110 @@
 <?xml version = "1.0" ?>
 <!DOCTYPE specification SYSTEM "../../specification.dtd">
 
-<!-- and[t1, not[or[t2, t3]], or[t2, t4, and[not[t4], t5]]] -->
+<!-- and[split, not[or[pseudo, mdp]], or[pseudo, valider, and[not[valider], consulter]]] -->
 
 <specification name="specification1" type="must">
     <conjunction>
-        <transition name="t1"/>
+        <transition name="split"/>
         <negation>
             <disjunction>
-                <transition name="t2"/>
-                <transition name="t3"/>
+                <transition name="pseudo"/>
+                <transition name="mdp"/>
             </disjunction>
         </negation>
         <disjunction>
-            <transition name="t2"/>
-            <transition name="t4"/>
+            <transition name="pseudo"/>
+            <transition name="valider"/>
             <conjunction>
                 <negation>
-                    <transition name="t4"/>
+                    <transition name="valider"/>
                 </negation>
-                <transition name="t5"/>
+                <transition name="consulter"/>
             </conjunction>
         </disjunction>
-        <transition name="t1"/>
+        <transition name="split"/>
         <negation>
             <disjunction>
-                <transition name="t2"/>
-                <transition name="t3"/>
+                <transition name="pseudo"/>
+                <transition name="mdp"/>
             </disjunction>
         </negation>
         <disjunction>
-            <transition name="t2"/>
-            <transition name="t4"/>
+            <transition name="pseudo"/>
+            <transition name="valider"/>
             <conjunction>
                 <negation>
-                    <transition name="t4"/>
+                    <transition name="valider"/>
                 </negation>
-                <transition name="t5"/>
+                <transition name="consulter"/>
             </conjunction>
         </disjunction>
-        <transition name="t1"/>
+        <transition name="split"/>
         <negation>
             <disjunction>
-                <transition name="t2"/>
-                <transition name="t3"/>
+                <transition name="pseudo"/>
+                <transition name="mdp"/>
             </disjunction>
         </negation>
         <disjunction>
-            <transition name="t2"/>
-            <transition name="t4"/>
+            <transition name="pseudo"/>
+            <transition name="valider"/>
             <conjunction>
                 <negation>
-                    <transition name="t4"/>
+                    <transition name="valider"/>
                 </negation>
-                <transition name="t5"/>
+                <transition name="consulter"/>
             </conjunction>
         </disjunction>
-        <transition name="t1"/>
+        <transition name="split"/>
         <negation>
             <disjunction>
-                <transition name="t2"/>
-                <transition name="t3"/>
+                <transition name="pseudo"/>
+                <transition name="mdp"/>
             </disjunction>
         </negation>
         <disjunction>
-            <transition name="t2"/>
-            <transition name="t4"/>
+            <transition name="pseudo"/>
+            <transition name="valider"/>
             <conjunction>
                 <negation>
-                    <transition name="t4"/>
+                    <transition name="valider"/>
                 </negation>
-                <transition name="t5"/>
+                <transition name="consulter"/>
             </conjunction>
         </disjunction>
-        <transition name="t1"/>
+        <transition name="split"/>
         <negation>
             <disjunction>
-                <transition name="t2"/>
-                <transition name="t3"/>
+                <transition name="pseudo"/>
+                <transition name="mdp"/>
             </disjunction>
         </negation>
         <disjunction>
-            <transition name="t2"/>
-            <transition name="t4"/>
+            <transition name="pseudo"/>
+            <transition name="valider"/>
             <conjunction>
                 <negation>
-                    <transition name="t4"/>
+                    <transition name="valider"/>
                 </negation>
-                <transition name="t5"/>
+                <transition name="consulter"/>
             </conjunction>
         </disjunction>
-        <transition name="t1"/>
+        <transition name="split"/>
         <negation>
             <disjunction>
-                <transition name="t2"/>
-                <transition name="t3"/>
+                <transition name="pseudo"/>
+                <transition name="mdp"/>
             </disjunction>
         </negation>
         <disjunction>
-            <transition name="t2"/>
-            <transition name="t4"/>
+            <transition name="pseudo"/>
+            <transition name="valider"/>
             <conjunction>
                 <negation>
-                    <transition name="t4"/>
+                    <transition name="valider"/>
                 </negation>
-                <transition name="t5"/>
+                <transition name="consulter"/>
             </conjunction>
         </disjunction>
     </conjunction>

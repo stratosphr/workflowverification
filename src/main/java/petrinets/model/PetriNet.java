@@ -4,18 +4,21 @@ import codegeneration.xml.XMLDocument;
 import codegeneration.xml.XMLNode;
 
 import java.util.ArrayList;
-import java.util.TreeSet;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 
 public class PetriNet {
 
-    private TreeSet<Place> places;
-    private TreeSet<Transition> transitions;
+    private LinkedHashSet<Place> places;
+    private LinkedHashSet<Transition> transitions;
+    private LinkedHashSet<Place> sortedPlaces;
+    private LinkedHashSet<Transition> sortedTransitions;
     private ArrayList<Flow> flows;
 
     public PetriNet() {
-        places = new TreeSet<Place>();
-        transitions = new TreeSet<Transition>();
-        flows = new ArrayList<Flow>();
+        places = new LinkedHashSet<>();
+        transitions = new LinkedHashSet<>();
+        flows = new ArrayList<>();
     }
 
     public void addFlow(Flow flow) {
@@ -32,12 +35,22 @@ public class PetriNet {
         source.addSuccessor(target);
     }
 
-    public TreeSet<Place> getPlaces() {
-        return places;
+    public LinkedHashSet<Place> getPlaces() {
+        if (sortedPlaces == null) {
+            Place[] sortedPlacesArray = places.toArray(new Place[places.size()]);
+            Arrays.sort(sortedPlacesArray);
+            sortedPlaces = new LinkedHashSet<>(Arrays.asList(sortedPlacesArray));
+        }
+        return sortedPlaces;
     }
 
-    public TreeSet<Transition> getTransitions() {
-        return transitions;
+    public LinkedHashSet<Transition> getTransitions() {
+        if (sortedTransitions == null) {
+            Transition[] sortedTransitionsArray = transitions.toArray(new Transition[transitions.size()]);
+            Arrays.sort(sortedTransitionsArray);
+            sortedTransitions = new LinkedHashSet<>(Arrays.asList(sortedTransitionsArray));
+        }
+        return sortedTransitions;
     }
 
     public ArrayList<Flow> getFlows() {

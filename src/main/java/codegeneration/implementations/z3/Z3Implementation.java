@@ -11,6 +11,11 @@ public class Z3Implementation extends Implementation {
     }
 
     @Override
+    public void init() {
+
+    }
+
+    @Override
     public String getStateEquation() {
         return null;
     }

@@ -1,17 +1,17 @@
 package files;
 
 import petrinets.PIPEParser;
-import petrinets.model.PetriNet;
+import petrinets.model.Workflow;
 
 import java.io.File;
 
-public class PetriNetFile extends File {
+public class WorkflowFile extends File {
 
-    public PetriNetFile(String path) {
+    public WorkflowFile(String path) {
         super(path);
     }
 
-    public PetriNet extractPetriNet() {
+    public Workflow extractWorkflow() {
         return PIPEParser.parse(this);
     }
 

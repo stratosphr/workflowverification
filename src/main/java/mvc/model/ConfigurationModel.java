@@ -10,7 +10,6 @@ import files.SpecificationFile;
 import files.VerificationFolder;
 import mvc.eventsmanagement.IConfigurationListener;
 import mvc.eventsmanagement.events.configuration.*;
-import petrinets.model.Workflow;
 import reports.Approximation;
 import verifiers.IVerificationHandler;
 import verifiers.sicstus.SicstusVerifier;
@@ -124,7 +123,7 @@ public class ConfigurationModel extends AbstractModel {
     }
 
     public void runSicstusVerification() {
-        setImplementation(ImplementationFactory.getImplementation(getSicstusImplementation(), (Workflow) getVerificationFolder().getPetriNetFile().extractPetriNet(), getSpecificationFile().extractSpecification()));
+        setImplementation(ImplementationFactory.getImplementation(getSicstusImplementation(), getVerificationFolder().getWorkflowFile().extractWorkflow(), getSpecificationFile().extractSpecification()));
         SicstusVerifier sicstusVerifier = new SicstusVerifier(getGeneratedCodeFile(getSicstusImplementation()), getImplementation());
         sicstusVerifier.startOverApproximation1Checking(new IVerificationHandler() {
             public void doneChecking(Approximation result) {
@@ -141,7 +140,7 @@ public class ConfigurationModel extends AbstractModel {
     }
 
     public void runZ3Verification() {
-        setImplementation(ImplementationFactory.getImplementation(getZ3Implementation(), (Workflow) getVerificationFolder().getPetriNetFile().extractPetriNet(), getSpecificationFile().extractSpecification()));
+        setImplementation(ImplementationFactory.getImplementation(getZ3Implementation(), getVerificationFolder().getWorkflowFile().extractWorkflow(), getSpecificationFile().extractSpecification()));
         Z3Verifier z3Verifier = new Z3Verifier(getGeneratedCodeFile(getZ3Implementation()), getImplementation());
         z3Verifier.startOverApproximation1Checking(new IVerificationHandler() {
             public void doneChecking(Approximation result) {

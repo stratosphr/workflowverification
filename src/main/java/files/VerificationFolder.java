@@ -5,33 +5,33 @@ import java.io.File;
 public class VerificationFolder extends File {
 
     private SpecificationFolder specificationFolder;
-    private PetriNetFile petriNetFile;
+    private WorkflowFile workflowFile;
 
     public VerificationFolder(String path) {
         super(path);
         this.specificationFolder = getSpecificationFolder();
-        this.petriNetFile = getPetriNetFile();
+        this.workflowFile = getWorkflowFile();
     }
 
     public boolean isValid() {
-        return isDirectory() && petriNetFile != null && specificationFolder != null;
+        return isDirectory() && workflowFile != null && specificationFolder != null;
     }
 
-    public PetriNetFile getPetriNetFile() {
-        if (petriNetFile != null) {
-            return petriNetFile;
+    public WorkflowFile getWorkflowFile() {
+        if (workflowFile != null) {
+            return workflowFile;
         } else {
             File[] files = listFiles();
             if (files != null) {
                 for (File file : files) {
-                    PetriNetFile petriNetFile = new PetriNetFile(file.getAbsolutePath());
-                    if (petriNetFile.isValid()) {
-                        this.petriNetFile = petriNetFile;
+                    WorkflowFile workflowFile = new WorkflowFile(file.getAbsolutePath());
+                    if (workflowFile.isValid()) {
+                        this.workflowFile = workflowFile;
                         break;
                     }
                 }
             }
-            return petriNetFile;
+            return workflowFile;
         }
     }
 

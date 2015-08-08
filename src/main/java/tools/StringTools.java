@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class StringTools {
 
-    public static String join(ArrayList<? extends Object> objects, String separator) {
+    public static String join(ArrayList<?> objects, String separator) {
         if (objects != null) {
             if (objects.isEmpty()) {
                 return "";
@@ -25,7 +25,14 @@ public class StringTools {
     }
 
     public static String join(Object[] objects, String separator) {
-        return StringTools.join(new ArrayList<Object>(Arrays.asList(objects)), separator);
+        return StringTools.join(new ArrayList<>(Arrays.asList(objects)), separator);
     }
 
+    public static String separator(int size) {
+        String str = "";
+        for (int i = 0; i < size; i++) {
+            str += "-";
+        }
+        return str;
+    }
 }

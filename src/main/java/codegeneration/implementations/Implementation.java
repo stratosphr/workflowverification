@@ -5,13 +5,16 @@ import specifications.model.Specification;
 
 public abstract class Implementation {
 
-    private final Workflow workflow;
-    private final Specification specification;
+    protected final Workflow workflow;
+    protected final Specification specification;
 
     public Implementation(Workflow workflow, Specification specification){
         this.workflow = workflow;
         this.specification = specification;
+        init();
     }
+
+    public abstract void init();
 
     public abstract String getStateEquation();
 
