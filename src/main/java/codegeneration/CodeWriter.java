@@ -20,4 +20,8 @@ public class CodeWriter extends SimpleWriter {
         write(implementation.getFormulaConstraint());
     }
 
+    public void writeOverApproximation1() {
+        write(implementation.getOverApproximation1());
+    }
+
 }

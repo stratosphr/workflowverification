@@ -11,8 +11,8 @@ import java.util.concurrent.ExecutionException;
 
 public abstract class AbstractVerifier implements IVerifier {
 
-    private final GeneratedCodeFile generatedCodeFile;
-    private final Implementation implementation;
+    protected final GeneratedCodeFile generatedCodeFile;
+    protected final Implementation implementation;
 
     public AbstractVerifier(GeneratedCodeFile generatedCodeFile, Implementation implementation) {
         this.generatedCodeFile = generatedCodeFile;

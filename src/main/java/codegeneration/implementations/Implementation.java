@@ -8,7 +8,7 @@ public abstract class Implementation {
     protected final Workflow workflow;
     protected final Specification specification;
 
-    public Implementation(Workflow workflow, Specification specification){
+    public Implementation(Workflow workflow, Specification specification) {
         this.workflow = workflow;
         this.specification = specification;
         init();
@@ -19,5 +19,9 @@ public abstract class Implementation {
     public abstract String getStateEquation();
 
     public abstract String getFormulaConstraint();
+
+    public abstract String getOverApproximation1();
+
+    public abstract String getOverApproximation1Assertion();
 
 }

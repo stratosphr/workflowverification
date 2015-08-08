@@ -118,4 +118,14 @@ public class SicstusImplementation extends Implementation {
         ).toString();
     }
 
+    @Override
+    public String getOverApproximation1() {
+        return null;
+    }
+
+    @Override
+    public String getOverApproximation1Assertion() {
+        return null;
+    }
+
 }

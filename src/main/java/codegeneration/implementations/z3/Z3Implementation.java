@@ -25,4 +25,14 @@ public class Z3Implementation extends Implementation {
         return null;
     }
 
+    @Override
+    public String getOverApproximation1() {
+        return null;
+    }
+
+    @Override
+    public String getOverApproximation1Assertion() {
+        return null;
+    }
+
 }
