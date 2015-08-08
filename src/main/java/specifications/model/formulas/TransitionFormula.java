@@ -1,9 +1,8 @@
 package specifications.model.formulas;
 
-import codegeneration.sicstus.PlBooleanExpr;
 import petrinets.model.Transition;
 import petrinets.model.Workflow;
-import specifications.model.visitors.IFormulaVisitor;
+import specifications.visitors.IFormulaVisitor;
 
 import java.util.LinkedHashSet;
 
@@ -27,9 +26,8 @@ public class TransitionFormula extends Formula {
     }
 
     @Override
-    public PlBooleanExpr accept(IFormulaVisitor formulaVisitor) {
+    public void accept(IFormulaVisitor formulaVisitor) {
         formulaVisitor.visit(this);
-        return null;
     }
 
 }

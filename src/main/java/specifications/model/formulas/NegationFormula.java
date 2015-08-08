@@ -1,7 +1,6 @@
 package specifications.model.formulas;
 
-import codegeneration.sicstus.PlBooleanExpr;
-import specifications.model.visitors.IFormulaVisitor;
+import specifications.visitors.IFormulaVisitor;
 
 public class NegationFormula extends CompoundFormula {
 
@@ -10,10 +9,8 @@ public class NegationFormula extends CompoundFormula {
     }
 
     @Override
-    public PlBooleanExpr accept(IFormulaVisitor formulaVisitor) {
+    public void accept(IFormulaVisitor formulaVisitor) {
         formulaVisitor.visit(this);
-        super.accept(formulaVisitor);
-        return null;
     }
 
 }

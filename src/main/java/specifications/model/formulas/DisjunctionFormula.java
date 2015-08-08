@@ -1,7 +1,6 @@
 package specifications.model.formulas;
 
-import codegeneration.sicstus.PlBooleanExpr;
-import specifications.model.visitors.IFormulaVisitor;
+import specifications.visitors.IFormulaVisitor;
 
 import java.util.ArrayList;
 
@@ -16,10 +15,8 @@ public class DisjunctionFormula extends CompoundFormula {
     }
 
     @Override
-    public PlBooleanExpr accept(IFormulaVisitor formulaVisitor) {
+    public void accept(IFormulaVisitor formulaVisitor) {
         formulaVisitor.visit(this);
-        super.accept(formulaVisitor);
-        return null;
     }
 
 }

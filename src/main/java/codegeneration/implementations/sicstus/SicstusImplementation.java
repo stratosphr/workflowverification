@@ -7,7 +7,7 @@ import petrinets.model.Place;
 import petrinets.model.Transition;
 import petrinets.model.Workflow;
 import specifications.model.Specification;
-import specifications.model.visitors.SicstusFormulaVisitor;
+import specifications.visitors.SicstusFormulaVisitor;
 import tools.Prefixes;
 
 import java.util.ArrayList;
@@ -110,8 +110,7 @@ public class SicstusImplementation extends Implementation {
         parameters.add(list_VTsOptimized);
         SicstusFormulaVisitor sicstusFormulaVisitor = new SicstusFormulaVisitor();
         specification.getFormula().accept(sicstusFormulaVisitor);
-        System.out.println(sicstusFormulaVisitor.getConstraint());
-        System.exit(0);
+        body.add(sicstusFormulaVisitor.getConstraint());
         return new PlPredicateDefinition(
                 "formulaConstraint",
                 parameters,

@@ -1,11 +1,8 @@
 package specifications.model.formulas;
 
-import codegeneration.sicstus.PlBooleanExpr;
 import exceptions.NoChildrenCompoundFormulaException;
 import petrinets.model.Transition;
 import petrinets.model.Workflow;
-import specifications.model.visitors.IFormulaVisitor;
-import specifications.model.visitors.IVisitedFormula;
 import tools.StringTools;
 
 import java.util.ArrayList;
@@ -43,13 +40,8 @@ public abstract class CompoundFormula extends Formula {
         return name + "(" + StringTools.join(children, ", ") + ")";
     }
 
-    @Override
-    public PlBooleanExpr accept(IFormulaVisitor formulaVisitor) {
-        ArrayList<PlBooleanExpr> subConstraints = new ArrayList<>();
-        for (IVisitedFormula child : children) {
-            subConstraints.add(child.accept(formulaVisitor));
-        }
-        return null;
+    public ArrayList<Formula> getChildren() {
+        return children;
     }
 
 }

@@ -2,7 +2,7 @@ package specifications.model.formulas;
 
 import petrinets.model.Transition;
 import petrinets.model.Workflow;
-import specifications.model.visitors.IVisitedFormula;
+import specifications.visitors.IVisitedFormula;
 
 import java.util.LinkedHashSet;
 
