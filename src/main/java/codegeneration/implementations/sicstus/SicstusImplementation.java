@@ -1,13 +1,13 @@
 package codegeneration.implementations.sicstus;
 
-import codegeneration.sicstus.PlUseModule;
 import codegeneration.implementations.Implementation;
 import codegeneration.sicstus.*;
-import codegeneration.sicstus.fd.PlFDEquality;
+import codegeneration.sicstus.fd.*;
 import petrinets.model.Place;
 import petrinets.model.Transition;
 import petrinets.model.Workflow;
 import specifications.model.Specification;
+import specifications.model.formulas.NegationFormula;
 import specifications.visitors.SicstusFormulaVisitor;
 import tools.Prefixes;
 
@@ -114,6 +114,12 @@ public class SicstusImplementation extends Implementation {
         parameters.add(list_MBs);
         parameters.add(list_VPs);
         parameters.add(list_VTs);
+        /**********************************/
+        body.add(new PlFDDomain(list_MAs, new PlTerm(0), new PlTerm("sup")));
+        body.add(new PlFDDomain(list_MBs, new PlTerm(0), new PlTerm("sup")));
+        body.add(new PlFDDomain(list_VPs, new PlTerm(0), term_VMax));
+        body.add(new PlFDDomain(list_VTs, new PlTerm(0), term_VMax));
+        /**********************************/
         for (Place p : workflow.getPlaces()) {
             /**********************************/
             ArrayList<PlTerm> pres = new ArrayList<>();
@@ -153,10 +159,17 @@ public class SicstusImplementation extends Implementation {
         ArrayList<PlBooleanExpr> body = new ArrayList<>();
         parameters.add(list_VTsOptimized);
         SicstusFormulaVisitor sicstusFormulaVisitor = new SicstusFormulaVisitor();
-        specification.getFormula().accept(sicstusFormulaVisitor);
+        switch (specification.getType()) {
+            case MAY:
+                specification.getFormula().accept(sicstusFormulaVisitor);
+                break;
+            case MUST:
+                new NegationFormula(specification.getFormula()).accept(sicstusFormulaVisitor);
+                break;
+        }
         body.add(sicstusFormulaVisitor.getConstraint());
         return new PlPredicateDefinition(
-                "formulaConstraint",
+                "formula",
                 parameters,
                 body
         );
@@ -172,13 +185,15 @@ public class SicstusImplementation extends Implementation {
     }
 
     @Override
-    public Object getMarkedGraph() {
+    public PlPredicateDefinition getMarkedGraph() {
         ArrayList<PlTerm> parameters = new ArrayList<>();
-        parameters.add(list_MAs);
-        parameters.add(list_VPs);
+        ArrayList<PlBooleanExpr> body = new ArrayList<>();
+        parameters.add(term_VPs);
+        body.add(new PlFDDomain(term_VPs, new PlTerm(0), new PlTerm(1)));
         return new PlPredicateDefinition(
                 "markedGraph",
-                parameters
+                parameters,
+                body
         );
     }
 

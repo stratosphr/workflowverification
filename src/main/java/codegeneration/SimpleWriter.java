@@ -26,6 +26,10 @@ public class SimpleWriter {
                 for (Object object : objects) {
                     if (object == null) {
                         throw new AttemptToWriteNullPointerToFileException();
+                    } else if (object instanceof Object[]) {
+                        for(Object subObject : (Object[]) object){
+                            writer.write(subObject.toString() + "\n");
+                        }
                     } else {
                         writer.write(object.toString() + "\n");
                     }
@@ -35,6 +39,7 @@ public class SimpleWriter {
                 e.printStackTrace();
             }
         }
+
     }
 
     private void empty() {

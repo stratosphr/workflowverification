@@ -17,11 +17,6 @@ public class Z3Implementation extends Implementation {
     }
 
     @Override
-    public Object getMarkedGraph() {
-        return null;
-    }
-
-    @Override
     public Object getHeader() {
         return null;
     }
@@ -48,6 +43,11 @@ public class Z3Implementation extends Implementation {
 
     @Override
     public Object getNoSiphon() {
+        return null;
+    }
+
+    @Override
+    public Object[] getMarkedGraph() {
         return null;
     }
 

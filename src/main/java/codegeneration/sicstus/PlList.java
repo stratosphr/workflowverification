@@ -18,8 +18,8 @@ public class PlList extends PlTerm {
         this.terms = terms;
     }
 
-    public PlList(PlTerm... terms) {
-        this(new ArrayList<PlTerm>(Arrays.asList(terms)));
+    public PlList(PlTerm... terms){
+        this(new ArrayList<>(Arrays.asList(terms)));
     }
 
     public ArrayList<PlTerm> getTerms() {

@@ -24,6 +24,7 @@ public abstract class AbstractVerifier implements IVerifier {
         codeWriter.writeStateEquation();
         codeWriter.writeFormulaConstraint();
         codeWriter.writeNoSiphon();
+        codeWriter.writeMarkedGraph();
         codeWriter.writeOverApproximation1();
         codeWriter.writeOverApproximation2();
         codeWriter.writeOverApproximation3();

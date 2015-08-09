@@ -4,5 +4,12 @@
 <!-- and[t1, not[or[t2, t3]], or[t2, t4, and[not[t4], t5]]] -->
 
 <specification name="specification2" type="may">
-    <transition name="consulter"/>
+    <conjunction>
+        <transition name="split"/>
+        <transition name="pseudo"/>
+        <transition name="mdp"/>
+        <transition name="valider"/>
+        <transition name="consulter"/>
+        <transition name="deconnecter"/>
+    </conjunction>
 </specification>
