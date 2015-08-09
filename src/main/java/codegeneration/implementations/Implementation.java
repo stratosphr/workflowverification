@@ -16,12 +16,34 @@ public abstract class Implementation {
 
     public abstract void init();
 
-    public abstract String getStateEquation();
+    public abstract Object getHeader();
 
-    public abstract String getFormulaConstraint();
+    public abstract Object getInitialMarking();
 
-    public abstract String getOverApproximation1();
+    public abstract Object getFinalMarking();
+
+    public abstract Object getStateEquation();
+
+    public abstract Object getFormula();
+
+    public abstract Object getNoSiphon();
+
+    public abstract Object getMarkedGraph();
+
+    public abstract Object getOverApproximation1();
 
     public abstract String getOverApproximation1Assertion();
+
+    public abstract Object getOverApproximation2();
+
+    public abstract String getOverApproximation2Assertion();
+
+    public abstract Object getOverApproximation3();
+
+    public abstract String getOverApproximation3Assertion();
+
+    public abstract Object getUnderApproximation();
+
+    public abstract String getUnderApproximationAssertion();
 
 }

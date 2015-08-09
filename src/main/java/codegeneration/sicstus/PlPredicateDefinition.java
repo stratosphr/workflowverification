@@ -16,11 +16,15 @@ public class PlPredicateDefinition {
     }
 
     public PlPredicateDefinition(String name, PlTerm... parameters) {
-        this(name, new ArrayList<PlTerm>(Arrays.asList(parameters)), new ArrayList<PlBooleanExpr>());
+        this(name, new ArrayList<>(Arrays.asList(parameters)), new ArrayList<PlBooleanExpr>());
+    }
+
+    public PlPredicateDefinition(String name, ArrayList<PlTerm> parameters) {
+        this(name, parameters, new ArrayList<PlBooleanExpr>());
     }
 
     public PlPredicateDefinition(String name, PlTerm[] parameters, PlBooleanExpr[] body) {
-        this(name, new ArrayList<PlTerm>(Arrays.asList(parameters)), new ArrayList<PlBooleanExpr>(Arrays.asList(body)));
+        this(name, new ArrayList<>(Arrays.asList(parameters)), new ArrayList<>(Arrays.asList(body)));
     }
 
     public PlPredicateDefinition(String name, ArrayList<PlTerm> parameters, ArrayList<PlBooleanExpr> body) {
@@ -32,15 +36,22 @@ public class PlPredicateDefinition {
     @Override
     public String toString() {
         String str = name;
-        if(!parameters.isEmpty()){
+        if (!parameters.isEmpty()) {
             str += "(" + StringTools.join(parameters, ", ") + ")";
         }
-        if(!body.isEmpty()){
+        if (!body.isEmpty()) {
             str += ":-\n";
             str += "\t" + StringTools.join(body, ",\n\t");
         }
         str += ".";
         return str;
+    }
+
+    public PlPredicateCall getCallWith(PlTerm... parameters) {
+        return new PlPredicateCall(
+                name,
+                parameters
+        );
     }
 
 }

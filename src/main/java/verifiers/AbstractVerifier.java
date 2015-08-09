@@ -18,8 +18,16 @@ public abstract class AbstractVerifier implements IVerifier {
         this.generatedCodeFile = generatedCodeFile;
         this.implementation = implementation;
         CodeWriter codeWriter = new CodeWriter(generatedCodeFile, implementation);
+        codeWriter.writeHeader();
+        codeWriter.writeInitialMarking();
+        codeWriter.writeFinalMarking();
         codeWriter.writeStateEquation();
         codeWriter.writeFormulaConstraint();
+        codeWriter.writeNoSiphon();
+        codeWriter.writeOverApproximation1();
+        codeWriter.writeOverApproximation2();
+        codeWriter.writeOverApproximation3();
+        codeWriter.writeUnderApproximation();
     }
 
     public void startOverApproximation1Checking(final IVerificationHandler verificationHandler) {

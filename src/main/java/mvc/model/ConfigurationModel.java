@@ -128,6 +128,7 @@ public class ConfigurationModel extends AbstractModel {
         sicstusVerifier.startOverApproximation1Checking(new IVerificationHandler() {
             public void doneChecking(Approximation result) {
                 fireSicstusVerificationDone();
+                System.exit(0);
             }
         });
     }

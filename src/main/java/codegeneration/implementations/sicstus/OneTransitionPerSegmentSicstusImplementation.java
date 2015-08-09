@@ -9,9 +9,4 @@ public class OneTransitionPerSegmentSicstusImplementation extends SicstusImpleme
         super(workflow, specification);
     }
 
-    @Override
-    public String getStateEquation() {
-        return null;
-    }
-
 }

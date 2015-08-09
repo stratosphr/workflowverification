@@ -1,5 +1,6 @@
 package codegeneration.implementations.sicstus;
 
+import codegeneration.sicstus.PlUseModule;
 import codegeneration.implementations.Implementation;
 import codegeneration.sicstus.*;
 import codegeneration.sicstus.fd.PlFDEquality;
@@ -17,6 +18,10 @@ import java.util.LinkedHashSet;
 public class SicstusImplementation extends Implementation {
 
     private PlTerm term_VMax;
+    private PlTerm term_MAs;
+    private PlTerm term_MBs;
+    private PlTerm term_VPs;
+    private PlTerm term_VTs;
     private PlList list_MAs;
     private PlList list_MBs;
     private PlList list_VPs;
@@ -35,6 +40,10 @@ public class SicstusImplementation extends Implementation {
     @Override
     public void init() {
         term_VMax = new PlTerm("VMax");
+        term_MAs = new PlTerm("MAs");
+        term_MBs = new PlTerm("MBs");
+        term_VPs = new PlTerm("VPs");
+        term_VTs = new PlTerm("VTs");
         masTerms = new LinkedHashMap<>();
         mbsTerms = new LinkedHashMap<>();
         vpsTerms = new LinkedHashMap<>();
@@ -62,7 +71,42 @@ public class SicstusImplementation extends Implementation {
     }
 
     @Override
-    public String getStateEquation() {
+    public PlPredicateDefinition getHeader() {
+        return new PlUseModule(new PlLibrary("clpfd"));
+    }
+
+    @Override
+    public PlPredicateDefinition getInitialMarking() {
+        ArrayList<PlTerm> parameters = new ArrayList<>();
+        ArrayList<PlTerm> initialMarking = new ArrayList<>();
+        initialMarking.add(new PlTerm(1));
+        for (int i = 1; i < workflow.getPlaces().size(); i++) {
+            initialMarking.add(new PlTerm(0));
+        }
+        parameters.add(new PlList(initialMarking));
+        return new PlPredicateDefinition(
+                "initialMarking",
+                parameters
+        );
+    }
+
+    public PlPredicateDefinition getFinalMarking() {
+        ArrayList<PlTerm> parameters = new ArrayList<>();
+        ArrayList<PlTerm> finalMarking = new ArrayList<>();
+        finalMarking.add(new PlTerm(0));
+        finalMarking.add(new PlTerm(1));
+        for (int i = 2; i < workflow.getPlaces().size(); i++) {
+            finalMarking.add(new PlTerm(0));
+        }
+        parameters.add(new PlList(finalMarking));
+        return new PlPredicateDefinition(
+                "finalMarking",
+                parameters
+        );
+    }
+
+    @Override
+    public PlPredicateDefinition getStateEquation() {
         ArrayList<PlBooleanExpr> body = new ArrayList<>();
         ArrayList<PlTerm> parameters = new ArrayList<>();
         parameters.add(term_VMax);
@@ -100,11 +144,11 @@ public class SicstusImplementation extends Implementation {
                 "stateEquation",
                 parameters,
                 body
-        ).toString();
+        );
     }
 
     @Override
-    public String getFormulaConstraint() {
+    public PlPredicateDefinition getFormula() {
         ArrayList<PlTerm> parameters = new ArrayList<>();
         ArrayList<PlBooleanExpr> body = new ArrayList<>();
         parameters.add(list_VTsOptimized);
@@ -115,16 +159,99 @@ public class SicstusImplementation extends Implementation {
                 "formulaConstraint",
                 parameters,
                 body
-        ).toString();
+        );
     }
 
     @Override
-    public String getOverApproximation1() {
-        return null;
+    public PlPredicateDefinition getNoSiphon() {
+        ArrayList<PlTerm> parameters = new ArrayList<>();
+        return new PlPredicateDefinition(
+                "noSiphon",
+                parameters
+        );
+    }
+
+    @Override
+    public Object getMarkedGraph() {
+        ArrayList<PlTerm> parameters = new ArrayList<>();
+        parameters.add(list_MAs);
+        parameters.add(list_VPs);
+        return new PlPredicateDefinition(
+                "markedGraph",
+                parameters
+        );
+    }
+
+    @Override
+    public PlPredicateDefinition getOverApproximation1() {
+        ArrayList<PlTerm> parameters = new ArrayList<>();
+        ArrayList<PlBooleanExpr> body = new ArrayList<>();
+        parameters.add(term_VMax);
+        parameters.add(term_MAs);
+        parameters.add(term_MBs);
+        parameters.add(term_VPs);
+        parameters.add(term_VTs);
+        body.add(getInitialMarking().getCallWith(term_MAs));
+        body.add(getFinalMarking().getCallWith(term_MBs));
+        body.add(getStateEquation().getCallWith(term_VMax, term_MAs, term_MBs, term_VPs, term_VTs));
+        body.add(getFormula().getCallWith(term_VTs));
+        return new PlPredicateDefinition(
+                "overApproximation1",
+                parameters,
+                body
+        );
     }
 
     @Override
     public String getOverApproximation1Assertion() {
+        //TODO: new PlTerm(42) should be replaced by the max node valuation specified by the user
+        return getOverApproximation1().getCallWith(new PlTerm(42), term_MAs, term_MBs, term_VPs, term_VTs).toString();
+    }
+
+    @Override
+    public PlPredicateDefinition getOverApproximation2() {
+        ArrayList<PlTerm> parameters = new ArrayList<>();
+        ArrayList<PlBooleanExpr> body = new ArrayList<>();
+        parameters.add(term_VMax);
+        parameters.add(term_MAs);
+        parameters.add(term_MBs);
+        parameters.add(term_VPs);
+        parameters.add(term_VTs);
+        body.add(getInitialMarking().getCallWith(term_MAs));
+        body.add(getFinalMarking().getCallWith(term_MBs));
+        body.add(getStateEquation().getCallWith(term_VMax, term_MAs, term_MBs, term_VPs, term_VTs));
+        body.add(getFormula().getCallWith(term_VTs));
+        body.add(getNoSiphon().getCallWith(term_MAs, term_MBs, term_VPs, term_VTs));
+        return new PlPredicateDefinition(
+                "overApproximation2",
+                parameters,
+                body
+        );
+    }
+
+    @Override
+    public String getOverApproximation2Assertion() {
+        //TODO: new PlTerm(42) should be replaced by the max node valuation specified by the user
+        return getOverApproximation2().getCallWith(new PlTerm(42), term_MAs, term_MBs, term_VPs, term_VTs).toString();
+    }
+
+    @Override
+    public PlPredicateDefinition getOverApproximation3() {
+        return null;
+    }
+
+    @Override
+    public String getOverApproximation3Assertion() {
+        return null;
+    }
+
+    @Override
+    public PlPredicateDefinition getUnderApproximation() {
+        return null;
+    }
+
+    @Override
+    public String getUnderApproximationAssertion() {
         return null;
     }
 

@@ -14,8 +14,8 @@ public class PlPredicateCall extends PlBooleanExpr {
         this(name, new ArrayList<PlTerm>());
     }
 
-    public PlPredicateCall(String test, PlTerm... parameters) {
-        this(test, new ArrayList<>(Arrays.asList(parameters)));
+    public PlPredicateCall(String name, PlTerm... parameters) {
+        this(name, new ArrayList<>(Arrays.asList(parameters)));
     }
 
     public PlPredicateCall(String name, ArrayList<PlTerm> parameters) {

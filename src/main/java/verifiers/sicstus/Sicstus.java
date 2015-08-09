@@ -50,7 +50,7 @@ public class Sicstus {
 
         public HashMap<String, PlTerm> getSolution() {
             try {
-                HashMap<String, Term> solution = new HashMap<String, Term>();
+                HashMap<String, Term> solution = new HashMap<>();
                 synchronized (prolog) {
                     prolog.query(this.query, solution);
                 }
@@ -62,7 +62,7 @@ public class Sicstus {
         }
 
         private HashMap<String, PlTerm> normalizeSolution(HashMap<String, Term> solution) {
-            HashMap<String, PlTerm> normalizedSolution = new HashMap<String, PlTerm>();
+            HashMap<String, PlTerm> normalizedSolution = new HashMap<>();
             for (String key : solution.keySet()) {
                 normalizedSolution.put(key, PlTerm.parsePlTerm(solution.get(key)));
             }

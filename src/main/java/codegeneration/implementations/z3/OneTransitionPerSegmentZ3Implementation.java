@@ -14,4 +14,9 @@ public class OneTransitionPerSegmentZ3Implementation extends Z3Implementation {
         return null;
     }
 
+    @Override
+    public Object getNoSiphon() {
+        return null;
+    }
+
 }
