@@ -27,24 +27,15 @@ public class Sicstus {
         return singleton;
     }
 
-    public static Prolog getProlog() {
-        return prolog;
-    }
-
     public HashMap<String, PlTerm> query(File file, String query) {
-        try {
-            return (new SicstusQuery(file, query)).getSolution();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        return (new SicstusQuery(file, query)).getSolution();
     }
 
     private class SicstusQuery {
 
         private final String query;
 
-        public SicstusQuery(File file, String query) {
+        private SicstusQuery(File file, String query) {
             this.query = "consult('" + file.getAbsolutePath() + "'), " + query + (query.endsWith(".") ? "" : ".");
         }
 

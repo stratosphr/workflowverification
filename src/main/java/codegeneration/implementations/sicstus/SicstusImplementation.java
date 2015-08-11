@@ -2,7 +2,8 @@ package codegeneration.implementations.sicstus;
 
 import codegeneration.implementations.Implementation;
 import codegeneration.sicstus.*;
-import codegeneration.sicstus.fd.*;
+import codegeneration.sicstus.fd.PlFDDomain;
+import codegeneration.sicstus.fd.PlFDEquality;
 import petrinets.model.Place;
 import petrinets.model.Transition;
 import petrinets.model.Workflow;

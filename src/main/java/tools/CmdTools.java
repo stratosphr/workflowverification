@@ -1,25 +1,28 @@
 package tools;
 
+import exceptions.UnableToExecuteCommandException;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class CmdTools {
 
-    public static String executeCommand(String command) {
-        StringBuffer output = new StringBuffer();
-        Process p;
+    public static ArrayList<String> executeCommand(String command) {
+        ArrayList<String> lines = new ArrayList<>();
         try {
-            p = Runtime.getRuntime().exec(command);
-            p.waitFor();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                output.append(line + "\n");
+            Process process = Runtime.getRuntime().exec(new String[]{"/bin/sh", "-c", command});
+            process.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String currentLine;
+            while ((currentLine = reader.readLine()) != null) {
+                lines.add(currentLine);
             }
+            process.destroy();
+            return lines;
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new UnableToExecuteCommandException(e.getMessage());
         }
-        return output.toString();
     }
 
 }

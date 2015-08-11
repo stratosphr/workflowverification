@@ -2,13 +2,18 @@ package codegeneration.z3;
 
 public class SMTTerm {
 
-    protected String name;
+    protected Object representation;
 
     public SMTTerm() {
     }
 
-    public SMTTerm(String name) {
-        this.name = name;
+    public SMTTerm(Object representation) {
+        this.representation = representation;
+    }
+
+    @Override
+    public String toString() {
+        return representation.toString();
     }
 
 }

@@ -7,6 +7,8 @@ import petrinets.model.Place;
 import petrinets.model.Transition;
 import petrinets.model.Workflow;
 import specifications.model.Specification;
+import specifications.model.formulas.NegationFormula;
+import specifications.visitors.Z3FormulaVisitor;
 import tools.Prefixes;
 
 import java.util.ArrayList;
@@ -66,7 +68,7 @@ public class Z3Implementation extends Implementation {
     @Override
     public SMTPredicateDefinition getStateEquation() {
         ArrayList<SMTVar> parameters = new ArrayList<>();
-        ArrayList<SMTPredicateCall> body = new ArrayList<>();
+        ArrayList<SMTTerm> body = new ArrayList<>();
         parameters.add(term_VMax);
         parameters.addAll(masTerms.values());
         parameters.addAll(mbsTerms.values());
@@ -80,13 +82,13 @@ public class Z3Implementation extends Implementation {
         /**********************************/
         for (Place p : workflow.getPlaces()) {
             /**********************************/
-            ArrayList<SMTVar> pres = new ArrayList<>();
+            ArrayList<SMTTerm> pres = new ArrayList<>();
             pres.add(masTerms.get(p));
             for (Transition t : p.getPreset()) {
                 pres.add(vtsTerms.get(t));
             }
             /**********************************/
-            ArrayList<SMTVar> posts = new ArrayList<>();
+            ArrayList<SMTTerm> posts = new ArrayList<>();
             posts.add(mbsTerms.get(p));
             for (Transition t : p.getPostset()) {
                 posts.add(vtsTerms.get(t));
@@ -111,8 +113,26 @@ public class Z3Implementation extends Implementation {
     }
 
     @Override
-    public String getFormula() {
-        return null;
+    public SMTPredicateDefinition getFormula() {
+        ArrayList<SMTVar> parameters = new ArrayList<>();
+        ArrayList<SMTTerm> body = new ArrayList<>();
+        parameters.addAll(vtsOptimizedTerms);
+        Z3FormulaVisitor z3FormulaVisitor = new Z3FormulaVisitor();
+        switch (specification.getType()) {
+            case MAY:
+                specification.getFormula().accept(z3FormulaVisitor);
+                break;
+            case MUST:
+                new NegationFormula(specification.getFormula()).accept(z3FormulaVisitor);
+                break;
+        }
+        body.add(z3FormulaVisitor.getConstraint());
+        return new SMTPredicateDefinition(
+                "formula",
+                parameters,
+                ESMTType.BOOL,
+                body
+        );
     }
 
     @Override
@@ -126,13 +146,38 @@ public class Z3Implementation extends Implementation {
     }
 
     @Override
-    public String getOverApproximation1() {
-        return null;
+    public SMTPredicateDefinition getOverApproximation1() {
+        ArrayList<SMTVar> parameters = new ArrayList<>();
+        ArrayList<SMTTerm> body = new ArrayList<>();
+        parameters.add(term_VMax);
+        parameters.addAll(masTerms.values());
+        parameters.addAll(mbsTerms.values());
+        parameters.addAll(vpsTerms.values());
+        parameters.addAll(vtsTerms.values());
+        body.add(getStateEquation().getCallWith(new ArrayList<SMTTerm>(parameters)));
+        body.add(getFormula().getCallWith(new ArrayList<SMTTerm>(vtsOptimizedTerms)));
+        return new SMTPredicateDefinition(
+                "overApproximation1",
+                parameters,
+                ESMTType.BOOL,
+                body
+        );
     }
 
     @Override
     public String getOverApproximation1Assertion() {
-        return null;
+        ArrayList<SMTVar> parameters = new ArrayList<>();
+        parameters.add(term_VMax);
+        parameters.addAll(masTerms.values());
+        parameters.addAll(mbsTerms.values());
+        parameters.addAll(vpsTerms.values());
+        parameters.addAll(vtsTerms.values());
+        return new SMTAssert(
+                new SMTExists(
+                        parameters,
+                        getOverApproximation1().getCallWith(new ArrayList<SMTTerm>(parameters))
+                )
+        ).toString() + new SMTCheckSat() + new SMTGetModel();
     }
 
     @Override

@@ -9,13 +9,8 @@ public class SMTVar extends SMTTerm {
         this.type = type;
     }
 
-    @Override
-    public String toString() {
-        return name;
-    }
-
     public String toTypedVar() {
-        return "(" + name + " " + type + ")";
+        return "(" + representation + " " + type + ")";
     }
 
 }

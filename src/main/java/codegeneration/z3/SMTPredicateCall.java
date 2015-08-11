@@ -8,21 +8,28 @@ import java.util.Arrays;
 
 public class SMTPredicateCall extends SMTTerm {
 
-    private String name;
-    private ArrayList<? extends SMTTerm> parameters;
+    protected ArrayList<SMTTerm> parameters;
 
     public SMTPredicateCall(String name, @NotNull SMTTerm... parameters) {
         this(name, new ArrayList<>(Arrays.asList(parameters)));
     }
 
-    public SMTPredicateCall(String name, @NotNull ArrayList<? extends SMTTerm> parameters) {
-        this.name = name;
+    public SMTPredicateCall(String name, @NotNull ArrayList<SMTTerm> parameters) {
+        super(name);
         this.parameters = parameters;
+    }
+
+    public void addParameter(SMTTerm parameter) {
+        parameters.add(parameter);
     }
 
     @Override
     public String toString() {
-        return "(" + name + " " + StringTools.join(parameters, " ") + ")";
+        if (parameters.isEmpty()) {
+            return "(" + representation + ")";
+        } else {
+            return "(" + representation + " " + StringTools.join(parameters, " ") + ")";
+        }
     }
 
 }
