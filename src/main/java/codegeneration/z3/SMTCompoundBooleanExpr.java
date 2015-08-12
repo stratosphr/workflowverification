@@ -1,4 +1,4 @@
-package codegeneration.implementations.z3;
+package codegeneration.z3;
 
 import codegeneration.z3.SMTBooleanExpr;
 import codegeneration.z3.SMTTerm;

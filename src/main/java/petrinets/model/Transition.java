@@ -15,7 +15,7 @@ public class Transition extends Node {
 
     @Override
     public TreeSet<Place> getPostset() {
-        return (TreeSet<Place>) (TreeSet<?>) preset;
+        return (TreeSet<Place>) (TreeSet<?>) postset;
     }
 
 }

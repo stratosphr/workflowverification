@@ -1,7 +1,6 @@
 package codegeneration.implementations.z3;
 
 import codegeneration.implementations.Implementation;
-import codegeneration.sicstus.PlPredicateDefinition;
 import codegeneration.z3.*;
 import petrinets.model.Place;
 import petrinets.model.Transition;
@@ -23,6 +22,7 @@ public class Z3Implementation extends Implementation {
     private LinkedHashMap<Place, SMTVar> vpsTerms;
     private LinkedHashMap<Transition, SMTVar> vtsTerms;
     private ArrayList<SMTVar> vtsOptimizedTerms;
+    private LinkedHashMap<Place, SMTVar> xisTerms;
 
     public Z3Implementation(Workflow workflow, Specification specification) {
         super(workflow, specification);
@@ -36,10 +36,12 @@ public class Z3Implementation extends Implementation {
         vpsTerms = new LinkedHashMap<>();
         vtsTerms = new LinkedHashMap<>();
         vtsOptimizedTerms = new ArrayList<>();
+        xisTerms = new LinkedHashMap<>();
         for (Place p : workflow.getPlaces()) {
             masTerms.put(p, new SMTVar(Prefixes.MA + p, ESMTType.INT));
             mbsTerms.put(p, new SMTVar(Prefixes.MB + p, ESMTType.INT));
             vpsTerms.put(p, new SMTVar(Prefixes.VP + p, ESMTType.INT));
+            xisTerms.put(p, new SMTVar(Prefixes.XI + p, ESMTType.INT));
         }
         LinkedHashSet<Transition> usedTransitions = specification.getFormula().getUsedTransitions(workflow);
         for (Transition t : workflow.getTransitions()) {
@@ -56,13 +58,53 @@ public class Z3Implementation extends Implementation {
     }
 
     @Override
-    public PlPredicateDefinition getInitialMarking() {
-        return null;
+    public SMTPredicateDefinition getInitialMarking() {
+        ArrayList<SMTVar> parameters = new ArrayList<>();
+        ArrayList<SMTTerm> body = new ArrayList<>();
+        parameters.addAll(masTerms.values());
+        body.add(new SMTEquality(
+                masTerms.get(workflow.getSource()),
+                new SMTTerm(1)
+        ));
+        for (Place p : workflow.getPlaces()) {
+            if (p != workflow.getSource()) {
+                body.add(new SMTEquality(
+                        masTerms.get(p),
+                        new SMTTerm(0)
+                ));
+            }
+        }
+        return new SMTPredicateDefinition(
+                "initialMarking",
+                parameters,
+                ESMTType.BOOL,
+                body
+        );
     }
 
     @Override
-    public Object getFinalMarking() {
-        return null;
+    public SMTPredicateDefinition getFinalMarking() {
+        ArrayList<SMTVar> parameters = new ArrayList<>();
+        ArrayList<SMTTerm> body = new ArrayList<>();
+        parameters.addAll(mbsTerms.values());
+        body.add(new SMTEquality(
+                mbsTerms.get(workflow.getSink()),
+                new SMTTerm(1)
+        ));
+        for (Place p : workflow.getPlaces()) {
+            if (p != workflow.getSink()) {
+                body.add(new SMTEquality(
+                        mbsTerms.get(p),
+                        new SMTTerm(0)
+                ));
+            }
+        }
+        return new SMTPredicateDefinition(
+                "finalMarking",
+                parameters,
+                ESMTType.BOOL,
+                body
+        );
     }
 
     @Override
@@ -75,10 +117,28 @@ public class Z3Implementation extends Implementation {
         parameters.addAll(vpsTerms.values());
         parameters.addAll(vtsTerms.values());
         /**********************************/
-        //body.add(new PlFDDomain(list_MAs, new PlTerm(0), new PlTerm("sup")));
-        //body.add(new PlFDDomain(list_MBs, new PlTerm(0), new PlTerm("sup")));
-        //body.add(new PlFDDomain(list_VPs, new PlTerm(0), term_VMax));
-        //body.add(new PlFDDomain(list_VTs, new PlTerm(0), term_VMax));
+        for (Place p : workflow.getPlaces()) {
+            body.add(new SMTGreaterOrEqual(
+                    masTerms.get(p),
+                    new SMTTerm(0)
+            ));
+            body.add(new SMTGreaterOrEqual(
+                    mbsTerms.get(p),
+                    new SMTTerm(0)
+            ));
+            body.add(new SMTDomain(
+                    vpsTerms.get(p),
+                    new SMTTerm(0),
+                    term_VMax
+            ));
+        }
+        for (Transition t : workflow.getTransitions()) {
+            body.add(new SMTDomain(
+                    vtsTerms.get(t),
+                    new SMTTerm(0),
+                    term_VMax
+            ));
+        }
         /**********************************/
         for (Place p : workflow.getPlaces()) {
             /**********************************/
@@ -136,8 +196,85 @@ public class Z3Implementation extends Implementation {
     }
 
     @Override
-    public Object getNoSiphon() {
-        return null;
+    public SMTPredicateDefinition getNoSiphon() {
+        ArrayList<SMTVar> parameters = new ArrayList<>();
+        ArrayList<SMTTerm> body = new ArrayList<>();
+        SMTConjunction existsBody = new SMTConjunction();
+        /**********************************/
+        parameters.addAll(masTerms.values());
+        parameters.addAll(mbsTerms.values());
+        parameters.addAll(vpsTerms.values());
+        parameters.addAll(vtsTerms.values());
+        /**********************************/
+        existsBody.addParameter(new SMTGreaterThan(
+                new SMTSum(new ArrayList<SMTTerm>(xisTerms.values())),
+                new SMTTerm(0)
+        ));
+        /**********************************/
+        for (SMTVar xi : xisTerms.values()) {
+            existsBody.addParameter(new SMTDomain(
+                    xi,
+                    new SMTTerm(0),
+                    new SMTTerm(1)
+            ));
+        }
+        /**********************************/
+        for (Place p : workflow.getPlaces()) {
+            existsBody.addParameter(new SMTImplication(
+                    new SMTDisjunction(
+                            new SMTGreaterThan(
+                                    masTerms.get(p),
+                                    new SMTTerm(0)
+                            ),
+                            new SMTGreaterThan(
+                                    mbsTerms.get(p),
+                                    new SMTTerm(0)
+                            ),
+                            new SMTEquality(
+                                    vpsTerms.get(p),
+                                    new SMTTerm(0)
+                            )
+                    ),
+                    new SMTEquality(
+                            xisTerms.get(p),
+                            new SMTTerm(0)
+                    )
+            ));
+        }
+        /**********************************/
+        for (Transition t : workflow.getTransitions()) {
+            ArrayList<SMTTerm> xisPreT = new ArrayList<>();
+            for (Place p : t.getPreset()) {
+                xisPreT.add(xisTerms.get(p));
+            }
+            SMTConjunction implicationRight = new SMTConjunction();
+            for (Place p : t.getPostset()) {
+                implicationRight.addParameter(new SMTGreaterOrEqual(
+                        new SMTSum(xisPreT),
+                        xisTerms.get(p)
+                ));
+            }
+            existsBody.addParameter(new SMTImplication(
+                    new SMTGreaterOrEqual(
+                            vtsTerms.get(t),
+                            new SMTTerm(0)
+                    ),
+                    implicationRight
+            ));
+        }
+        /**********************************/
+        body.add(new SMTNegation(
+                new SMTExists(
+                        new ArrayList<>(xisTerms.values()),
+                        existsBody
+                )
+        ));
+        return new SMTPredicateDefinition(
+                "noSiphon",
+                parameters,
+                ESMTType.BOOL,
+                body
+        );
     }
 
     @Override
@@ -154,6 +291,8 @@ public class Z3Implementation extends Implementation {
         parameters.addAll(mbsTerms.values());
         parameters.addAll(vpsTerms.values());
         parameters.addAll(vtsTerms.values());
+        body.add(getInitialMarking().getCallWith(new ArrayList<SMTTerm>(masTerms.values())));
+        body.add(getFinalMarking().getCallWith(new ArrayList<SMTTerm>(mbsTerms.values())));
         body.add(getStateEquation().getCallWith(new ArrayList<SMTTerm>(parameters)));
         body.add(getFormula().getCallWith(new ArrayList<SMTTerm>(vtsOptimizedTerms)));
         return new SMTPredicateDefinition(
@@ -181,13 +320,46 @@ public class Z3Implementation extends Implementation {
     }
 
     @Override
-    public String getOverApproximation2() {
-        return null;
+    public SMTPredicateDefinition getOverApproximation2() {
+        ArrayList<SMTVar> parameters = new ArrayList<>();
+        ArrayList<SMTTerm> body = new ArrayList<>();
+        ArrayList<SMTVar> noSiphonParameters = new ArrayList<>();
+        parameters.add(term_VMax);
+        parameters.addAll(masTerms.values());
+        parameters.addAll(mbsTerms.values());
+        parameters.addAll(vpsTerms.values());
+        parameters.addAll(vtsTerms.values());
+        noSiphonParameters.addAll(masTerms.values());
+        noSiphonParameters.addAll(mbsTerms.values());
+        noSiphonParameters.addAll(vpsTerms.values());
+        noSiphonParameters.addAll(vtsTerms.values());
+        body.add(getInitialMarking().getCallWith(new ArrayList<SMTTerm>(masTerms.values())));
+        body.add(getFinalMarking().getCallWith(new ArrayList<SMTTerm>(mbsTerms.values())));
+        body.add(getStateEquation().getCallWith(new ArrayList<SMTTerm>(parameters)));
+        body.add(getFormula().getCallWith(new ArrayList<SMTTerm>(vtsOptimizedTerms)));
+        body.add(getNoSiphon().getCallWith(new ArrayList<SMTTerm>(noSiphonParameters)));
+        return new SMTPredicateDefinition(
+                "overApproximation2",
+                parameters,
+                ESMTType.BOOL,
+                body
+        );
     }
 
     @Override
     public String getOverApproximation2Assertion() {
-        return null;
+        ArrayList<SMTVar> parameters = new ArrayList<>();
+        parameters.add(term_VMax);
+        parameters.addAll(masTerms.values());
+        parameters.addAll(mbsTerms.values());
+        parameters.addAll(vpsTerms.values());
+        parameters.addAll(vtsTerms.values());
+        return new SMTAssert(
+                new SMTExists(
+                        parameters,
+                        getOverApproximation2().getCallWith(new ArrayList<SMTTerm>(parameters))
+                )
+        ).toString() + new SMTCheckSat() + new SMTGetModel();
     }
 
     @Override

@@ -128,7 +128,6 @@ public class ConfigurationModel extends AbstractModel {
         sicstusVerifier.startOverApproximation1Checking(new IVerificationHandler() {
             public void doneChecking(Approximation result) {
                 fireSicstusVerificationDone();
-                System.exit(0);
             }
         });
     }
@@ -144,6 +143,11 @@ public class ConfigurationModel extends AbstractModel {
         setImplementation(ImplementationFactory.getImplementation(getZ3Implementation(), getVerificationFolder().getWorkflowFile().extractWorkflow(), getSpecificationFile().extractSpecification()));
         Z3Verifier z3Verifier = new Z3Verifier(getGeneratedCodeFile(getZ3Implementation()), getImplementation());
         z3Verifier.startOverApproximation1Checking(new IVerificationHandler() {
+            public void doneChecking(Approximation result) {
+                fireZ3VerificationDone();
+            }
+        });
+        z3Verifier.startOverApproximation2Checking(new IVerificationHandler() {
             public void doneChecking(Approximation result) {
                 fireZ3VerificationDone();
             }

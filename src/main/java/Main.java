@@ -12,7 +12,7 @@ public class Main {
         setDefaultLookAndFeel("Nimbus");
         ConfigurationModel configurationModel = new ConfigurationModel();
         ConfigurationController configurationController = new ConfigurationController(configurationModel, new ParametersModel());
-        configurationModel.setVerificationFolder(new VerificationFolder("src/main/resources/mail"));
+        configurationModel.setVerificationFolder(new VerificationFolder("src/main/resources/examples/big_siphonMG"));
         SpecificationFolder specificationFolder = configurationModel.getVerificationFolder().getSpecificationFolder();
         configurationController.displayViews();
     }
