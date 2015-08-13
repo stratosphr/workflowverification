@@ -1,4 +1,3 @@
-import files.SpecificationFolder;
 import files.VerificationFolder;
 import mvc.controllers.ConfigurationController;
 import mvc.model.ConfigurationModel;
@@ -12,8 +11,7 @@ public class Main {
         setDefaultLookAndFeel("Nimbus");
         ConfigurationModel configurationModel = new ConfigurationModel();
         ConfigurationController configurationController = new ConfigurationController(configurationModel, new ParametersModel());
-        configurationModel.setVerificationFolder(new VerificationFolder("src/main/resources/examples/big_siphonMG"));
-        SpecificationFolder specificationFolder = configurationModel.getVerificationFolder().getSpecificationFolder();
+        configurationModel.setVerificationFolder(new VerificationFolder("src/main/resources/examples/mail"));
         configurationController.displayViews();
     }
 
