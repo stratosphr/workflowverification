@@ -23,6 +23,9 @@ public class SicstusImplementation extends Implementation {
     private PlTerm term_VPs;
     private PlTerm term_VTs;
     private PlTerm term_XIs;
+    private PlTerm term_MKs;
+    private PlTerm term_VPKs;
+    private PlTerm term_VTKs;
     private PlList list_MAs;
     private PlList list_MBs;
     private PlList list_VPs;
@@ -35,6 +38,12 @@ public class SicstusImplementation extends Implementation {
     private LinkedHashMap<Transition, PlTerm> vtsTerms;
     private ArrayList<PlTerm> vtsOptimizedTerms;
     private LinkedHashMap<Place, PlTerm> xisTerms;
+    private ArrayList<PlTerm> mksTerms;
+    private ArrayList<PlTerm> vpksTerms;
+    private ArrayList<PlTerm> vtksTerms;
+    private PlList list_MKs;
+    private PlList list_VPKs;
+    private PlList list_VTKs;
 
     public SicstusImplementation(Workflow workflow, Specification specification) {
         super(workflow, specification);
@@ -48,12 +57,18 @@ public class SicstusImplementation extends Implementation {
         term_VPs = new PlTerm("VPs");
         term_VTs = new PlTerm("VTs");
         term_XIs = new PlTerm("XIs");
+        term_MKs = new PlTerm("MKs");
+        term_VPKs = new PlTerm("VPKs");
+        term_VTKs = new PlTerm("VTKs");
         masTerms = new LinkedHashMap<>();
         mbsTerms = new LinkedHashMap<>();
         vpsTerms = new LinkedHashMap<>();
         vtsTerms = new LinkedHashMap<>();
         vtsOptimizedTerms = new ArrayList<>();
         xisTerms = new LinkedHashMap<>();
+        mksTerms = new ArrayList<>();
+        vpksTerms = new ArrayList<>();
+        vtksTerms = new ArrayList<>();
         for (Place p : workflow.getPlaces()) {
             masTerms.put(p, new PlTerm(Prefixes.MA + p));
             mbsTerms.put(p, new PlTerm(Prefixes.MB + p));
@@ -75,6 +90,17 @@ public class SicstusImplementation extends Implementation {
         }
         list_VTsOptimized = new PlList(vtsOptimizedTerms);
         list_VTs = new PlList(new ArrayList<>(vtsTerms.values()));
+        //TODO: nbSegments should be replaced by the number of segments specified by the user
+        int nbSegments = 10;
+        for (int segment = 1; segment <= nbSegments; segment++) {
+            mksTerms.add(new PlTerm(Prefixes.MK + (segment - 1)));
+            vpksTerms.add(new PlTerm(Prefixes.VPK + (segment - 1)));
+            vtksTerms.add(new PlTerm(Prefixes.VTK + (segment - 1)));
+        }
+        mksTerms.add(new PlTerm(Prefixes.MK + nbSegments));
+        list_MKs = new PlList(mksTerms);
+        list_VPKs = new PlList(vpksTerms);
+        list_VTKs = new PlList(vtksTerms);
     }
 
     @Override
@@ -264,6 +290,9 @@ public class SicstusImplementation extends Implementation {
         noSiphonParameters.add(term_VTs);
         siphonCallParameters.addAll(noSiphonParameters);
         siphonCallParameters.add(term_XIs);
+        noSiphonBody.add(new PlFDLabeling(
+                term_VTs
+        ));
         noSiphonBody.add(new PlNegation(
                 siphon.getCallWith(siphonCallParameters)
         ));
@@ -280,16 +309,48 @@ public class SicstusImplementation extends Implementation {
     }
 
     @Override
-    public PlPredicateDefinition getMarkedGraph() {
-        ArrayList<PlTerm> parameters = new ArrayList<>();
-        ArrayList<PlBooleanExpr> body = new ArrayList<>();
-        parameters.add(term_VPs);
-        body.add(new PlFDDomain(term_VPs, new PlTerm(0), new PlTerm(1)));
-        return new PlPredicateDefinition(
+    public PlPredicateDefinition[] getMarkedGraph() {
+        ArrayList<PlTerm> markedGraph1Parameters = new ArrayList<>();
+        ArrayList<PlTerm> markedGraph2Parameters = new ArrayList<>();
+        ArrayList<PlBooleanExpr> markedGraph2Body = new ArrayList<>();
+        /**********************************/
+        markedGraph1Parameters.add(new PlList());
+        markedGraph1Parameters.add(new PlList());
+        PlPredicateDefinition markedGraph1 = new PlPredicateDefinition(
                 "markedGraph",
-                parameters,
-                body
+                markedGraph1Parameters
         );
+        /**********************************/
+        markedGraph2Parameters.add(new PlHeadTailList(
+                new PlTerm("MA"),
+                term_MAs
+        ));
+        markedGraph2Parameters.add(new PlHeadTailList(
+                new PlTerm("VP"),
+                term_VPs
+        ));
+        markedGraph2Body.add(new PlFDLowerOrEqual(
+                new PlSub(
+                        new PlTerm("VP"),
+                        new PlTerm("MA")
+                ),
+                new PlTerm(1)
+        ));
+        markedGraph2Body.add(new PlPredicateCall(
+                "markedGraph",
+                term_MAs,
+                term_VPs
+        ));
+        PlPredicateDefinition markedGraph2 = new PlPredicateDefinition(
+                "markedGraph",
+                markedGraph2Parameters,
+                markedGraph2Body
+        );
+        /**********************************/
+        return new PlPredicateDefinition[]{
+                markedGraph1,
+                markedGraph2
+        };
     }
 
     @Override
@@ -347,22 +408,56 @@ public class SicstusImplementation extends Implementation {
 
     @Override
     public PlPredicateDefinition getOverApproximation3() {
-        return null;
+        ArrayList<PlTerm> parameters = new ArrayList<>();
+        ArrayList<PlBooleanExpr> body = new ArrayList<>();
+        parameters.add(term_VMax);
+        parameters.add(list_MKs);
+        parameters.add(list_VPKs);
+        parameters.add(list_VTKs);
+        body.add(getInitialMarking().getCallWith(mksTerms.get(0)));
+        body.add(getFinalMarking().getCallWith(mksTerms.get(mksTerms.size() - 1)));
+        for (int segment = 1; segment < mksTerms.size(); segment++) {
+            body.add(getStateEquation().getCallWith(term_VMax, mksTerms.get(segment - 1), mksTerms.get(segment), vpksTerms.get(segment - 1), vtksTerms.get(segment - 1)));
+            body.add(getMarkedGraph()[0].getCallWith(mksTerms.get(segment - 1), vpksTerms.get(segment - 1)));
+        }
+        return new PlPredicateDefinition(
+                "overApproximation3",
+                parameters,
+                body
+        );
     }
 
     @Override
     public String getOverApproximation3Assertion() {
-        return null;
+        return getOverApproximation3().getCallWith(new PlTerm(42), term_MKs, term_VPKs, term_VTKs).toString();
     }
 
     @Override
     public PlPredicateDefinition getUnderApproximation() {
-        return null;
+        ArrayList<PlTerm> parameters = new ArrayList<>();
+        ArrayList<PlBooleanExpr> body = new ArrayList<>();
+        parameters.add(term_VMax);
+        parameters.add(list_MKs);
+        parameters.add(list_VPKs);
+        parameters.add(list_VTKs);
+        body.add(getInitialMarking().getCallWith(mksTerms.get(0)));
+        body.add(getFinalMarking().getCallWith(mksTerms.get(mksTerms.size() - 1)));
+        for (int segment = 1; segment < mksTerms.size(); segment++) {
+            body.add(getStateEquation().getCallWith(term_VMax, mksTerms.get(segment - 1), mksTerms.get(segment), vpksTerms.get(segment - 1), vtksTerms.get(segment - 1)));
+            body.add(getMarkedGraph()[0].getCallWith(mksTerms.get(segment - 1), vpksTerms.get(segment - 1)));
+            body.add(getNoSiphon()[0].getCallWith(mksTerms.get(segment - 1), mksTerms.get(segment), vpksTerms.get(segment - 1), vtksTerms.get(segment - 1)));
+        }
+        System.out.println(getOverApproximation3Assertion());
+        return new PlPredicateDefinition(
+                "underApproximation",
+                parameters,
+                body
+        );
     }
 
     @Override
     public String getUnderApproximationAssertion() {
-        return null;
+        return getUnderApproximation().getCallWith(new PlTerm(42), term_MKs, term_VPKs, term_VTKs).toString();
     }
 
 }
