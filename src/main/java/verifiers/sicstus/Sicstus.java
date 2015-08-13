@@ -3,6 +3,7 @@ package verifiers.sicstus;
 import codegeneration.sicstus.PlTerm;
 import exceptions.UnableToInitializeSicstusException;
 import se.sics.jasper.*;
+import tools.StringTools;
 
 import java.io.File;
 import java.util.HashMap;
@@ -37,12 +38,15 @@ public class Sicstus {
 
         private SicstusQuery(File file, String query) {
             this.query = "consult('" + file.getAbsolutePath() + "'), " + query + (query.endsWith(".") ? "" : ".");
+            System.out.println(StringTools.separator(50));
+            System.out.println(this.query);
+            System.out.println(StringTools.separator(50));
         }
 
         public HashMap<String, PlTerm> getSolution() {
             try {
                 HashMap<String, Term> solution = new HashMap<>();
-                synchronized (prolog) {
+                synchronized (singleton) {
                     prolog.query(this.query, solution);
                 }
                 return normalizeSolution(solution);

@@ -48,6 +48,10 @@ public class PlPredicateDefinition {
     }
 
     public PlPredicateCall getCallWith(PlTerm... parameters) {
+        return getCallWith(new ArrayList<>(Arrays.asList(parameters)));
+    }
+
+    public PlPredicateCall getCallWith(ArrayList<PlTerm> parameters) {
         return new PlPredicateCall(
                 name,
                 parameters

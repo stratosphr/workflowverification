@@ -2,8 +2,7 @@ package codegeneration.implementations.sicstus;
 
 import codegeneration.implementations.Implementation;
 import codegeneration.sicstus.*;
-import codegeneration.sicstus.fd.PlFDDomain;
-import codegeneration.sicstus.fd.PlFDEquality;
+import codegeneration.sicstus.fd.*;
 import petrinets.model.Place;
 import petrinets.model.Transition;
 import petrinets.model.Workflow;
@@ -23,16 +22,19 @@ public class SicstusImplementation extends Implementation {
     private PlTerm term_MBs;
     private PlTerm term_VPs;
     private PlTerm term_VTs;
+    private PlTerm term_XIs;
     private PlList list_MAs;
     private PlList list_MBs;
     private PlList list_VPs;
     private PlList list_VTs;
     private PlList list_VTsOptimized;
+    private PlList list_XIs;
     private LinkedHashMap<Place, PlTerm> masTerms;
     private LinkedHashMap<Place, PlTerm> mbsTerms;
     private LinkedHashMap<Place, PlTerm> vpsTerms;
     private LinkedHashMap<Transition, PlTerm> vtsTerms;
     private ArrayList<PlTerm> vtsOptimizedTerms;
+    private LinkedHashMap<Place, PlTerm> xisTerms;
 
     public SicstusImplementation(Workflow workflow, Specification specification) {
         super(workflow, specification);
@@ -45,19 +47,23 @@ public class SicstusImplementation extends Implementation {
         term_MBs = new PlTerm("MBs");
         term_VPs = new PlTerm("VPs");
         term_VTs = new PlTerm("VTs");
+        term_XIs = new PlTerm("XIs");
         masTerms = new LinkedHashMap<>();
         mbsTerms = new LinkedHashMap<>();
         vpsTerms = new LinkedHashMap<>();
         vtsTerms = new LinkedHashMap<>();
         vtsOptimizedTerms = new ArrayList<>();
+        xisTerms = new LinkedHashMap<>();
         for (Place p : workflow.getPlaces()) {
             masTerms.put(p, new PlTerm(Prefixes.MA + p));
             mbsTerms.put(p, new PlTerm(Prefixes.MB + p));
             vpsTerms.put(p, new PlTerm(Prefixes.VP + p));
+            xisTerms.put(p, new PlTerm(Prefixes.XI + p));
         }
         list_MAs = new PlList(new ArrayList<>(masTerms.values()));
         list_MBs = new PlList(new ArrayList<>(mbsTerms.values()));
         list_VPs = new PlList(new ArrayList<>(vpsTerms.values()));
+        list_XIs = new PlList(new ArrayList<>(xisTerms.values()));
         LinkedHashSet<Transition> usedTransitions = specification.getFormula().getUsedTransitions(workflow);
         for (Transition t : workflow.getTransitions()) {
             vtsTerms.put(t, new PlTerm(Prefixes.VT + t));
@@ -137,11 +143,13 @@ public class SicstusImplementation extends Implementation {
             }
             PlList postsList = new PlList(posts);
             /**********************************/
-            body.add(new PlFDEquality(
+            body.add(new PlFDSum(
+                    "#=",
                     presList,
                     vpsTerms.get(p)
             ));
-            body.add(new PlFDEquality(
+            body.add(new PlFDSum(
+                    "#=",
                     postsList,
                     vpsTerms.get(p)
             ));
@@ -177,12 +185,98 @@ public class SicstusImplementation extends Implementation {
     }
 
     @Override
-    public PlPredicateDefinition getNoSiphon() {
-        ArrayList<PlTerm> parameters = new ArrayList<>();
-        return new PlPredicateDefinition(
-                "noSiphon",
-                parameters
+    public PlPredicateDefinition[] getNoSiphon() {
+        ArrayList<PlTerm> noSiphonParameters = new ArrayList<>();
+        ArrayList<PlTerm> siphonParameters = new ArrayList<>();
+        ArrayList<PlBooleanExpr> noSiphonBody = new ArrayList<>();
+        ArrayList<PlTerm> siphonCallParameters = new ArrayList<>();
+        ArrayList<PlBooleanExpr> siphonBody = new ArrayList<>();
+        /**********************************/
+        siphonParameters.add(list_MAs);
+        siphonParameters.add(list_MBs);
+        siphonParameters.add(list_VPs);
+        siphonParameters.add(list_VTs);
+        siphonParameters.add(list_XIs);
+        siphonBody.add(new PlFDDomain(
+                list_XIs,
+                new PlTerm(0),
+                new PlTerm(1)
+        ));
+        siphonBody.add(new PlFDSum(
+                "#>",
+                list_XIs,
+                new PlTerm(0)
+        ));
+        for (Place p : workflow.getPlaces()) {
+            siphonBody.add(new PlFDImplies(
+                    new PlFDDisjunction(
+                            new PlFDGreaterThan(
+                                    masTerms.get(p),
+                                    new PlTerm(0)
+                            ),
+                            new PlFDGreaterThan(
+                                    mbsTerms.get(p),
+                                    new PlTerm(0)
+                            ),
+                            new PLFDEquals(
+                                    vpsTerms.get(p),
+                                    new PlTerm(0)
+                            )
+                    ),
+                    new PLFDEquals(
+                            xisTerms.get(p),
+                            new PlTerm(0)
+                    )
+            ));
+        }
+        for (Transition t : workflow.getTransitions()) {
+            ArrayList<PlTerm> xisPreT = new ArrayList<>();
+            for (Place p : t.getPreset()) {
+                xisPreT.add(xisTerms.get(p));
+            }
+            PlFDConjunction implicationRight = new PlFDConjunction();
+            for (Place p : t.getPostset()) {
+                implicationRight.addParameter(new PlFDGreaterOrEqual(
+                        new PlSum(xisPreT),
+                        xisTerms.get(p)
+                ));
+            }
+            siphonBody.add(new PlFDImplies(
+                    new PlFDGreaterThan(
+                            vtsTerms.get(t),
+                            new PlTerm(0)
+                    ),
+                    implicationRight
+            ));
+        }
+        siphonBody.add(new PlFDLabeling(
+                list_XIs
+        ));
+        PlPredicateDefinition siphon = new PlPredicateDefinition(
+                "siphon",
+                siphonParameters,
+                siphonBody
         );
+        /**********************************/
+        noSiphonParameters.add(term_MAs);
+        noSiphonParameters.add(term_MBs);
+        noSiphonParameters.add(term_VPs);
+        noSiphonParameters.add(term_VTs);
+        siphonCallParameters.addAll(noSiphonParameters);
+        siphonCallParameters.add(term_XIs);
+        noSiphonBody.add(new PlNegation(
+                siphon.getCallWith(siphonCallParameters)
+        ));
+        PlPredicateDefinition noSiphon = new PlPredicateDefinition(
+                "noSiphon",
+                noSiphonParameters,
+                noSiphonBody
+        );
+        /**********************************/
+        return new PlPredicateDefinition[]{
+                noSiphon,
+                siphon
+        };
     }
 
     @Override
@@ -237,7 +331,7 @@ public class SicstusImplementation extends Implementation {
         body.add(getFinalMarking().getCallWith(term_MBs));
         body.add(getStateEquation().getCallWith(term_VMax, term_MAs, term_MBs, term_VPs, term_VTs));
         body.add(getFormula().getCallWith(term_VTs));
-        body.add(getNoSiphon().getCallWith(term_MAs, term_MBs, term_VPs, term_VTs));
+        body.add(getNoSiphon()[0].getCallWith(term_MAs, term_MBs, term_VPs, term_VTs));
         return new PlPredicateDefinition(
                 "overApproximation2",
                 parameters,

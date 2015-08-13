@@ -28,7 +28,7 @@ public class PlCompoundBooleanExpr extends PlBooleanExpr {
         this.children = children;
     }
 
-    public void addChild(PlTerm child) {
+    public void addParameter(PlTerm child) {
         children.add(child);
     }
 

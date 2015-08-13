@@ -23,6 +23,10 @@ public class SicstusVerifier extends AbstractVerifier {
     }
 
     public OverApproximation checkOverApproximation2() {
+        Sicstus sicstus = Sicstus.getSingleton();
+        System.out.println(implementation.getOverApproximation2Assertion());
+        HashMap<String, PlTerm> result = sicstus.query(generatedCodeFile, implementation.getOverApproximation2Assertion());
+        System.out.println("Result : " + result);
         return new OverApproximation();
     }
 

@@ -28,7 +28,7 @@ public class SicstusFormulaVisitor implements IFormulaVisitor {
         for(IVisitedFormula child : conjunctionFormula.getChildren()){
             SicstusFormulaVisitor sicstusFormulaVisitor = new SicstusFormulaVisitor();
             child.accept(sicstusFormulaVisitor);
-            constraint.addChild(sicstusFormulaVisitor.getConstraint());
+            constraint.addParameter(sicstusFormulaVisitor.getConstraint());
         }
     }
 
@@ -38,7 +38,7 @@ public class SicstusFormulaVisitor implements IFormulaVisitor {
         for(IVisitedFormula child : disjunctionFormula.getChildren()){
             SicstusFormulaVisitor sicstusFormulaVisitor = new SicstusFormulaVisitor();
             child.accept(sicstusFormulaVisitor);
-            constraint.addChild(sicstusFormulaVisitor.getConstraint());
+            constraint.addParameter(sicstusFormulaVisitor.getConstraint());
         }
     }
 
@@ -48,7 +48,7 @@ public class SicstusFormulaVisitor implements IFormulaVisitor {
         for(IVisitedFormula child : negationFormula.getChildren()){
             SicstusFormulaVisitor sicstusFormulaVisitor = new SicstusFormulaVisitor();
             child.accept(sicstusFormulaVisitor);
-            constraint.addChild(sicstusFormulaVisitor.getConstraint());
+            constraint.addParameter(sicstusFormulaVisitor.getConstraint());
         }
     }
 

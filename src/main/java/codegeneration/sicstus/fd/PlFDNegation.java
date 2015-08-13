@@ -17,7 +17,7 @@ public class PlFDNegation extends PlCompoundBooleanExpr {
     }
 
     @Override
-    public void addChild(PlTerm child) {
+    public void addParameter(PlTerm child) {
         if (children.size() > 0) {
             throw new NegationCanOnlyHaveOneChildException();
         }else {
