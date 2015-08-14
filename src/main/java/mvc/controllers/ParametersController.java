@@ -1,5 +1,6 @@
 package mvc.controllers;
 
+import mvc.model.ConfigurationModel;
 import mvc.model.ParametersModel;
 import mvc.views.console.ConsoleParametersView;
 import mvc.views.gui.WindowParametersView;
@@ -26,6 +27,11 @@ public class ParametersController extends AbstractController {
     public void closeViews() {
         consoleView.close();
         windowView.close();
+    }
+
+    @Override
+    public ParametersModel getModel() {
+        return parametersModel;
     }
 
     public void notifyMaxNodeValuationChanged(int newMaxNodeValuation) {

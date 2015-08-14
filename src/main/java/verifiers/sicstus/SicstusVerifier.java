@@ -30,4 +30,22 @@ public class SicstusVerifier extends AbstractVerifier {
         return new OverApproximation();
     }
 
+    @Override
+    public OverApproximation checkOverApproximation3() {
+        Sicstus sicstus = Sicstus.getSingleton();
+        System.out.println(implementation.getOverApproximation3Assertion());
+        HashMap<String, PlTerm> result = sicstus.query(generatedCodeFile, implementation.getOverApproximation3Assertion());
+        System.out.println("Result : " + result);
+        return new OverApproximation();
+    }
+
+    @Override
+    public OverApproximation checkUnderApproximation() {
+        Sicstus sicstus = Sicstus.getSingleton();
+        System.out.println(implementation.getUnderApproximationAssertion());
+        HashMap<String, PlTerm> result = sicstus.query(generatedCodeFile, implementation.getUnderApproximationAssertion());
+        System.out.println("Result : " + result);
+        return new OverApproximation();
+    }
+
 }

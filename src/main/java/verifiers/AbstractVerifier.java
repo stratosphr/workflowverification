@@ -67,4 +67,40 @@ public abstract class AbstractVerifier implements IVerifier {
         }).execute();
     }
 
+    public void startOverApproximation3Checking(final IVerificationHandler verificationHandler) {
+        (new SwingWorker<Approximation, Void>() {
+            @Override
+            protected OverApproximation doInBackground() throws Exception {
+                return checkOverApproximation3();
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    verificationHandler.doneChecking(get());
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).execute();
+    }
+
+    public void startUnderApproximationChecking(final IVerificationHandler verificationHandler) {
+        (new SwingWorker<Approximation, Void>() {
+            @Override
+            protected OverApproximation doInBackground() throws Exception {
+                return checkUnderApproximation();
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    verificationHandler.doneChecking(get());
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).execute();
+    }
+
 }

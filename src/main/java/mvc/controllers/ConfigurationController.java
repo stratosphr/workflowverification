@@ -42,6 +42,11 @@ public class ConfigurationController extends AbstractController {
         windowView.close();
     }
 
+    @Override
+    public ConfigurationModel getModel() {
+        return configurationModel;
+    }
+
     public void notifyVerificationFolderChanged(VerificationFolder newVerificationFolder) {
         configurationModel.setVerificationFolder(newVerificationFolder);
     }

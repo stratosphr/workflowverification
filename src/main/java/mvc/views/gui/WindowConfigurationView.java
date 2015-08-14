@@ -15,6 +15,7 @@ import mvc.eventsmanagement.events.configuration.*;
 import mvc.model.ConfigurationModel;
 import mvc.views.AbstractConfigurationView;
 import mvc.views.gui.items.SpecificationItem;
+import mvc.views.gui.listeners.configuration.BtnVerificationFolderListener;
 import mvc.views.gui.listeners.configuration.*;
 import specifications.model.Specification;
 import specifications.model.SpecificationType;
@@ -58,6 +59,8 @@ public class WindowConfigurationView extends AbstractConfigurationView {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         frame.setResizable(false);
+        txt_verificationFolder.addMouseListener(new BtnVerificationFolderListener(getConfigurationController()));
+        btn_verificationFolder.addActionListener(new BtnVerificationFolderListener(getConfigurationController()));
         btn_parameters.addActionListener(new BtnParametersListener(getConfigurationController()));
         cbx_specificationFile.addItemListener(new CbxSpecificationFileListener(getConfigurationController()));
         CbxSicstusImplementationListener cbxSicstusImplementationListener = new CbxSicstusImplementationListener(getConfigurationController());
@@ -92,15 +95,13 @@ public class WindowConfigurationView extends AbstractConfigurationView {
     @Override
     public void verificationFolderChanged(VerificationFolderChanged event) {
         VerificationFolder verificationFolder = event.getNewVerificationFolder();
-        if (verificationFolder.isValid()) {
-            txt_verificationFolder.setText(verificationFolder.getAbsolutePath());
-            cbx_specificationFile.removeAllItems();
-            for (SpecificationFile specificationFile : verificationFolder.getSpecificationFolder().getSpecificationFiles()) {
-                cbx_specificationFile.addItem(new SpecificationItem(specificationFile));
-            }
-            txt_workflowFile.setText(verificationFolder.getWorkflowFile().getAbsolutePath());
-            txt_specificationFolder.setText(verificationFolder.getSpecificationFolder().getAbsolutePath());
+        txt_verificationFolder.setText(verificationFolder.getAbsolutePath());
+        cbx_specificationFile.removeAllItems();
+        for (SpecificationFile specificationFile : verificationFolder.getSpecificationFolder().getSpecificationFiles()) {
+            cbx_specificationFile.addItem(new SpecificationItem(specificationFile));
         }
+        txt_workflowFile.setText(verificationFolder.getWorkflowFile().getAbsolutePath());
+        txt_specificationFolder.setText(verificationFolder.getSpecificationFolder().getAbsolutePath());
     }
 
     @Override

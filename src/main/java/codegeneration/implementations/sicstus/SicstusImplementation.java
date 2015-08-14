@@ -447,7 +447,6 @@ public class SicstusImplementation extends Implementation {
             body.add(getMarkedGraph()[0].getCallWith(mksTerms.get(segment - 1), vpksTerms.get(segment - 1)));
             body.add(getNoSiphon()[0].getCallWith(mksTerms.get(segment - 1), mksTerms.get(segment), vpksTerms.get(segment - 1), vtksTerms.get(segment - 1)));
         }
-        System.out.println(getOverApproximation3Assertion());
         return new PlPredicateDefinition(
                 "underApproximation",
                 parameters,

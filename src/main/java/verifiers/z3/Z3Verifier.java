@@ -30,4 +30,18 @@ public class Z3Verifier extends AbstractVerifier {
         return new OverApproximation();
     }
 
+    @Override
+    public OverApproximation checkOverApproximation3() {
+        Z3 z3 = Z3.getSingleton();
+        System.out.println(implementation.getOverApproximation3Assertion());
+        HashMap<String, SMTTerm> result = z3.query(generatedCodeFile, implementation.getOverApproximation3Assertion());
+        System.out.println("Result : " + result);
+        return new OverApproximation();
+    }
+
+    @Override
+    public OverApproximation checkUnderApproximation() {
+        return null;
+    }
+
 }

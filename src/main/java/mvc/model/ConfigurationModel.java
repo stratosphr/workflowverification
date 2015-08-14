@@ -47,8 +47,10 @@ public class ConfigurationModel extends AbstractModel {
     }
 
     public void setVerificationFolder(VerificationFolder verificationFolder) {
-        this.verificationFolder = verificationFolder;
-        fireVerificationFolderChanged();
+        if (verificationFolder.isValid()) {
+            this.verificationFolder = verificationFolder;
+            fireVerificationFolderChanged();
+        }
     }
 
     public void fireVerificationFolderChanged() {
@@ -153,6 +155,16 @@ public class ConfigurationModel extends AbstractModel {
             }
         });
         z3Verifier.startOverApproximation2Checking(new IVerificationHandler() {
+            public void doneChecking(Approximation result) {
+                fireZ3VerificationDone();
+            }
+        });
+        z3Verifier.startOverApproximation3Checking(new IVerificationHandler() {
+            public void doneChecking(Approximation result) {
+                fireZ3VerificationDone();
+            }
+        });
+        z3Verifier.startUnderApproximationChecking(new IVerificationHandler() {
             public void doneChecking(Approximation result) {
                 fireZ3VerificationDone();
             }

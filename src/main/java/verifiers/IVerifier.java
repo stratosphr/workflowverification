@@ -8,4 +8,8 @@ public interface IVerifier {
 
     OverApproximation checkOverApproximation2();
 
+    OverApproximation checkOverApproximation3();
+
+    OverApproximation checkUnderApproximation();
+
 }

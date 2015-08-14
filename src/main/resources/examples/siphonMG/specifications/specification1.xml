@@ -1,5 +1,5 @@
 <?xml version = "1.0" ?>
-<!DOCTYPE specification SYSTEM "../specification.dtd">
+<!DOCTYPE specification SYSTEM "../../specification.dtd">
 <specification name="specification1" type="may">
     <disjunction>
         <transition name="T0"/>
