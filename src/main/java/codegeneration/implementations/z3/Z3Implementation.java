@@ -81,8 +81,8 @@ public class Z3Implementation extends Implementation {
     }
 
     @Override
-    public Object getHeader() {
-        return null;
+    public String getHeader() {
+        return "";
     }
 
     @Override
@@ -490,7 +490,7 @@ public class Z3Implementation extends Implementation {
             body.add(getNoSiphon().getCallWith(noSiphonParameters));
         }
         return new SMTPredicateDefinition(
-                "overApproximation3",
+                "underApproximation",
                 parameters,
                 ESMTType.BOOL,
                 body

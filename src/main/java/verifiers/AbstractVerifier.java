@@ -3,8 +3,9 @@ package verifiers;
 import codegeneration.CodeWriter;
 import codegeneration.implementations.Implementation;
 import files.GeneratedCodeFile.GeneratedCodeFile;
-import reports.Approximation;
-import reports.OverApproximation;
+import reports.AbstractApproximation;
+import reports.MultipleSegmentsApproximation;
+import reports.SingleSegmentApproximation;
 
 import javax.swing.*;
 import java.util.concurrent.ExecutionException;
@@ -32,9 +33,9 @@ public abstract class AbstractVerifier implements IVerifier {
     }
 
     public void startOverApproximation1Checking(final IVerificationHandler verificationHandler) {
-        (new SwingWorker<Approximation, Void>() {
+        (new SwingWorker<AbstractApproximation, Void>() {
             @Override
-            protected Approximation doInBackground() throws Exception {
+            protected SingleSegmentApproximation doInBackground() throws Exception {
                 return checkOverApproximation1();
             }
 
@@ -50,9 +51,9 @@ public abstract class AbstractVerifier implements IVerifier {
     }
 
     public void startOverApproximation2Checking(final IVerificationHandler verificationHandler) {
-        (new SwingWorker<Approximation, Void>() {
+        (new SwingWorker<AbstractApproximation, Void>() {
             @Override
-            protected OverApproximation doInBackground() throws Exception {
+            protected SingleSegmentApproximation doInBackground() throws Exception {
                 return checkOverApproximation2();
             }
 
@@ -68,9 +69,9 @@ public abstract class AbstractVerifier implements IVerifier {
     }
 
     public void startOverApproximation3Checking(final IVerificationHandler verificationHandler) {
-        (new SwingWorker<Approximation, Void>() {
+        (new SwingWorker<AbstractApproximation, Void>() {
             @Override
-            protected OverApproximation doInBackground() throws Exception {
+            protected MultipleSegmentsApproximation doInBackground() throws Exception {
                 return checkOverApproximation3();
             }
 
@@ -86,9 +87,9 @@ public abstract class AbstractVerifier implements IVerifier {
     }
 
     public void startUnderApproximationChecking(final IVerificationHandler verificationHandler) {
-        (new SwingWorker<Approximation, Void>() {
+        (new SwingWorker<AbstractApproximation, Void>() {
             @Override
-            protected OverApproximation doInBackground() throws Exception {
+            protected MultipleSegmentsApproximation doInBackground() throws Exception {
                 return checkUnderApproximation();
             }
 

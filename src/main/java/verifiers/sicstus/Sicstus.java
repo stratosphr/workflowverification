@@ -2,8 +2,9 @@ package verifiers.sicstus;
 
 import codegeneration.sicstus.PlTerm;
 import exceptions.UnableToInitializeSicstusException;
-import se.sics.jasper.*;
-import tools.StringTools;
+import se.sics.jasper.Jasper;
+import se.sics.jasper.Prolog;
+import se.sics.jasper.Term;
 
 import java.io.File;
 import java.util.HashMap;
@@ -11,19 +12,19 @@ import java.util.HashMap;
 public class Sicstus {
 
     private static Sicstus singleton;
-    private static Prolog prolog;
+    private final Prolog prolog;
 
     private Sicstus() {
+        try {
+            prolog = Jasper.newProlog();
+        } catch (InterruptedException e) {
+            throw new UnableToInitializeSicstusException(e.toString());
+        }
     }
 
     public static Sicstus getSingleton() {
         if (singleton == null) {
             singleton = new Sicstus();
-            try {
-                prolog = Jasper.newProlog();
-            } catch (InterruptedException e) {
-                throw new UnableToInitializeSicstusException(e.toString());
-            }
         }
         return singleton;
     }
@@ -38,15 +39,12 @@ public class Sicstus {
 
         private SicstusQuery(File file, String query) {
             this.query = "consult('" + file.getAbsolutePath() + "'), " + query + (query.endsWith(".") ? "" : ".");
-            System.out.println(StringTools.separator(50));
-            System.out.println(this.query);
-            System.out.println(StringTools.separator(50));
         }
 
         public HashMap<String, PlTerm> getSolution() {
             try {
                 HashMap<String, Term> solution = new HashMap<>();
-                synchronized (singleton) {
+                synchronized (prolog) {
                     prolog.query(this.query, solution);
                 }
                 return normalizeSolution(solution);

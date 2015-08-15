@@ -21,7 +21,7 @@ Bool
 (define-fun formula 
 ((VT_consulter Int) (VT_deconnecter Int) (VT_mdp Int) (VT_pseudo Int) (VT_split Int) (VT_valider Int))
 Bool
-(and (not (and (> VT_split 0) (> VT_pseudo 0) (> VT_mdp 0) (> VT_valider 0) (> VT_consulter 0) (> VT_deconnecter 0))))
+(and (and (> VT_split 0) (> VT_pseudo 0) (> VT_mdp 0) (> VT_valider 0) (> VT_consulter 0) (> VT_deconnecter 0)))
 )
 
 (define-fun noSiphon 

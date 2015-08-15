@@ -10,7 +10,7 @@ import files.SpecificationFile;
 import files.VerificationFolder;
 import mvc.eventsmanagement.IConfigurationListener;
 import mvc.eventsmanagement.events.configuration.*;
-import reports.Approximation;
+import reports.AbstractApproximation;
 import verifiers.IVerificationHandler;
 import verifiers.sicstus.SicstusVerifier;
 import verifiers.z3.Z3Verifier;
@@ -128,12 +128,12 @@ public class ConfigurationModel extends AbstractModel {
         setImplementation(ImplementationFactory.getImplementation(getSicstusImplementation(), getVerificationFolder().getWorkflowFile().extractWorkflow(), getSpecificationFile().extractSpecification()));
         SicstusVerifier sicstusVerifier = new SicstusVerifier(getGeneratedCodeFile(getSicstusImplementation()), getImplementation());
         sicstusVerifier.startOverApproximation1Checking(new IVerificationHandler() {
-            public void doneChecking(Approximation result) {
+            public void doneChecking(AbstractApproximation result) {
                 fireSicstusVerificationDone();
             }
         });
         sicstusVerifier.startOverApproximation2Checking(new IVerificationHandler() {
-            public void doneChecking(Approximation result) {
+            public void doneChecking(AbstractApproximation result) {
                 fireSicstusVerificationDone();
             }
         });
@@ -150,22 +150,22 @@ public class ConfigurationModel extends AbstractModel {
         setImplementation(ImplementationFactory.getImplementation(getZ3Implementation(), getVerificationFolder().getWorkflowFile().extractWorkflow(), getSpecificationFile().extractSpecification()));
         Z3Verifier z3Verifier = new Z3Verifier(getGeneratedCodeFile(getZ3Implementation()), getImplementation());
         z3Verifier.startOverApproximation1Checking(new IVerificationHandler() {
-            public void doneChecking(Approximation result) {
+            public void doneChecking(AbstractApproximation result) {
                 fireZ3VerificationDone();
             }
         });
         z3Verifier.startOverApproximation2Checking(new IVerificationHandler() {
-            public void doneChecking(Approximation result) {
+            public void doneChecking(AbstractApproximation result) {
                 fireZ3VerificationDone();
             }
         });
         z3Verifier.startOverApproximation3Checking(new IVerificationHandler() {
-            public void doneChecking(Approximation result) {
+            public void doneChecking(AbstractApproximation result) {
                 fireZ3VerificationDone();
             }
         });
         z3Verifier.startUnderApproximationChecking(new IVerificationHandler() {
-            public void doneChecking(Approximation result) {
+            public void doneChecking(AbstractApproximation result) {
                 fireZ3VerificationDone();
             }
         });

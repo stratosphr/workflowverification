@@ -1,15 +1,16 @@
 package verifiers;
 
-import reports.OverApproximation;
+import reports.MultipleSegmentsApproximation;
+import reports.SingleSegmentApproximation;
 
 public interface IVerifier {
 
-    OverApproximation checkOverApproximation1();
+    SingleSegmentApproximation checkOverApproximation1();
 
-    OverApproximation checkOverApproximation2();
+    SingleSegmentApproximation checkOverApproximation2();
 
-    OverApproximation checkOverApproximation3();
+    MultipleSegmentsApproximation checkOverApproximation3();
 
-    OverApproximation checkUnderApproximation();
+    MultipleSegmentsApproximation checkUnderApproximation();
 
 }

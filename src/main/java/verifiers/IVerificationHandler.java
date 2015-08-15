@@ -1,9 +1,9 @@
 package verifiers;
 
-import reports.Approximation;
+import reports.AbstractApproximation;
 
 public interface IVerificationHandler {
 
-    void doneChecking(Approximation result);
+    void doneChecking(AbstractApproximation result);
 
 }
