@@ -38,9 +38,9 @@ public class SicstusImplementation extends Implementation {
     private LinkedHashMap<Transition, PlTerm> vtsTerms;
     private ArrayList<PlTerm> vtsOptimizedTerms;
     private LinkedHashMap<Place, PlTerm> xisTerms;
-    private ArrayList<PlTerm> mksTerms;
-    private ArrayList<PlTerm> vpksTerms;
-    private ArrayList<PlTerm> vtksTerms;
+    private ArrayList<PlList> mksLists;
+    private ArrayList<PlList> vpksLists;
+    private ArrayList<PlList> vtksLists;
     private PlList list_MKs;
     private PlList list_VPKs;
     private PlList list_VTKs;
@@ -66,9 +66,9 @@ public class SicstusImplementation extends Implementation {
         vtsTerms = new LinkedHashMap<>();
         vtsOptimizedTerms = new ArrayList<>();
         xisTerms = new LinkedHashMap<>();
-        mksTerms = new ArrayList<>();
-        vpksTerms = new ArrayList<>();
-        vtksTerms = new ArrayList<>();
+        mksLists = new ArrayList<>();
+        vpksLists = new ArrayList<>();
+        vtksLists = new ArrayList<>();
         for (Place p : workflow.getPlaces()) {
             masTerms.put(p, new PlTerm(Prefixes.MA + p));
             mbsTerms.put(p, new PlTerm(Prefixes.MB + p));
@@ -92,12 +92,33 @@ public class SicstusImplementation extends Implementation {
         list_VTs = new PlList(new ArrayList<>(vtsTerms.values()));
         //TODO: nbSegments should be replaced by the number of segments specified by the user
         int nbSegments = 2;
+        ArrayList<PlTerm> mksTerms = new ArrayList<>();
+        ArrayList<PlTerm> vpksTerms = new ArrayList<>();
+        ArrayList<PlTerm> vtksTerms = new ArrayList<>();
         for (int segment = 1; segment <= nbSegments; segment++) {
             mksTerms.add(new PlTerm(Prefixes.MK + (segment - 1)));
-            vpksTerms.add(new PlTerm(Prefixes.VPK + (segment - 1)));
-            vtksTerms.add(new PlTerm(Prefixes.VTK + (segment - 1)));
+            vpksTerms.add(new PlTerm(Prefixes.VPK + segment));
+            vtksTerms.add(new PlTerm(Prefixes.VTK + segment));
+            ArrayList<PlTerm> mksTermsSegment = new ArrayList<>();
+            ArrayList<PlTerm> vpksTermsSegment = new ArrayList<>();
+            ArrayList<PlTerm> vtksTermsSegment = new ArrayList<>();
+            for (Place p : workflow.getPlaces()) {
+                mksTermsSegment.add(new PlTerm(Prefixes.MK + (segment - 1) + "_" + p));
+                vpksTermsSegment.add(new PlTerm(Prefixes.VPK + segment + "_" + p));
+            }
+            for (Transition t : workflow.getTransitions()) {
+                vtksTermsSegment.add(new PlTerm(Prefixes.VTK + segment + "_" + t));
+            }
+            mksLists.add(new PlList(mksTermsSegment));
+            vpksLists.add(new PlList(vpksTermsSegment));
+            vtksLists.add(new PlList(vtksTermsSegment));
         }
         mksTerms.add(new PlTerm(Prefixes.MK + nbSegments));
+        ArrayList<PlTerm> mksTermsSegment = new ArrayList<>();
+        for (Place p : workflow.getPlaces()) {
+            mksTermsSegment.add(new PlTerm(Prefixes.MK + nbSegments + "_" + p));
+        }
+        mksLists.add(new PlList(mksTermsSegment));
         list_MKs = new PlList(mksTerms);
         list_VPKs = new PlList(vpksTerms);
         list_VTKs = new PlList(vtksTerms);
@@ -414,11 +435,21 @@ public class SicstusImplementation extends Implementation {
         parameters.add(list_MKs);
         parameters.add(list_VPKs);
         parameters.add(list_VTKs);
-        body.add(getInitialMarking().getCallWith(mksTerms.get(0)));
-        body.add(getFinalMarking().getCallWith(mksTerms.get(mksTerms.size() - 1)));
-        for (int segment = 1; segment < mksTerms.size(); segment++) {
-            body.add(getStateEquation().getCallWith(term_VMax, mksTerms.get(segment - 1), mksTerms.get(segment), vpksTerms.get(segment - 1), vtksTerms.get(segment - 1)));
-            body.add(getMarkedGraph()[0].getCallWith(mksTerms.get(segment - 1), vpksTerms.get(segment - 1)));
+        body.add(getInitialMarking().getCallWith(list_MKs.getTerm(0)));
+        body.add(getFinalMarking().getCallWith(list_MKs.getTerm(list_MKs.getTerms().size() - 1)));
+        for (int segment = 1; segment < mksLists.size(); segment++) {
+            body.add(getStateEquation().getCallWith(term_VMax, list_MKs.getTerm(segment - 1), list_MKs.getTerm(segment), list_VPKs.getTerm(segment - 1), list_VTKs.getTerm(segment - 1)));
+            body.add(getMarkedGraph()[0].getCallWith(list_MKs.getTerm(segment - 1), list_VPKs.getTerm(segment - 1)));
+        }
+        for (int segment = 1; segment < mksLists.size(); segment++) {
+            body.add(new PlFDLabeling(
+                    list_VTKs.getTerm(segment - 1)
+            ));
+        }
+        for (int segment = 1; segment < mksLists.size(); segment++) {
+            body.add(new PlFDLabeling(
+                    list_VPKs.getTerm(segment - 1)
+            ));
         }
         return new PlPredicateDefinition(
                 "overApproximation3",
@@ -429,7 +460,7 @@ public class SicstusImplementation extends Implementation {
 
     @Override
     public String getOverApproximation3Assertion() {
-        return getOverApproximation3().getCallWith(new PlTerm(42), term_MKs, term_VPKs, term_VTKs).toString();
+        return getOverApproximation3().getCallWith(new PlTerm(42), new PlList(new ArrayList<PlTerm>(mksLists)), new PlList(new ArrayList<PlTerm>(vpksLists)), new PlList(new ArrayList<PlTerm>(vtksLists))).toString();
     }
 
     @Override
@@ -440,12 +471,22 @@ public class SicstusImplementation extends Implementation {
         parameters.add(list_MKs);
         parameters.add(list_VPKs);
         parameters.add(list_VTKs);
-        body.add(getInitialMarking().getCallWith(mksTerms.get(0)));
-        body.add(getFinalMarking().getCallWith(mksTerms.get(mksTerms.size() - 1)));
-        for (int segment = 1; segment < mksTerms.size(); segment++) {
-            body.add(getStateEquation().getCallWith(term_VMax, mksTerms.get(segment - 1), mksTerms.get(segment), vpksTerms.get(segment - 1), vtksTerms.get(segment - 1)));
-            body.add(getMarkedGraph()[0].getCallWith(mksTerms.get(segment - 1), vpksTerms.get(segment - 1)));
-            body.add(getNoSiphon()[0].getCallWith(mksTerms.get(segment - 1), mksTerms.get(segment), vpksTerms.get(segment - 1), vtksTerms.get(segment - 1)));
+        body.add(getInitialMarking().getCallWith(list_MKs.getTerm(0)));
+        body.add(getFinalMarking().getCallWith(list_MKs.getTerm(list_MKs.getTerms().size() - 1)));
+        for (int segment = 1; segment < mksLists.size(); segment++) {
+            body.add(getStateEquation().getCallWith(term_VMax, list_MKs.getTerm(segment - 1), list_MKs.getTerm(segment), list_VPKs.getTerm(segment - 1), list_VTKs.getTerm(segment - 1)));
+            body.add(getMarkedGraph()[0].getCallWith(list_MKs.getTerm(segment - 1), list_VPKs.getTerm(segment - 1)));
+            body.add(getNoSiphon()[0].getCallWith(list_MKs.getTerm(segment - 1), list_MKs.getTerm(segment), list_VPKs.getTerm(segment - 1), list_VTKs.getTerm(segment - 1)));
+        }
+        for (int segment = 1; segment < mksLists.size(); segment++) {
+            body.add(new PlFDLabeling(
+                    list_VTKs.getTerm(segment - 1)
+            ));
+        }
+        for (int segment = 1; segment < mksLists.size(); segment++) {
+            body.add(new PlFDLabeling(
+                    list_VPKs.getTerm(segment - 1)
+            ));
         }
         return new PlPredicateDefinition(
                 "underApproximation",
@@ -456,7 +497,7 @@ public class SicstusImplementation extends Implementation {
 
     @Override
     public String getUnderApproximationAssertion() {
-        return getUnderApproximation().getCallWith(new PlTerm(42), term_MKs, term_VPKs, term_VTKs).toString();
+        return getUnderApproximation().getCallWith(new PlTerm(42), new PlList(new ArrayList<PlTerm>(mksLists)), new PlList(new ArrayList<PlTerm>(vpksLists)), new PlList(new ArrayList<PlTerm>(vtksLists))).toString();
     }
 
 }

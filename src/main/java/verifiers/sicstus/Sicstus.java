@@ -38,16 +38,18 @@ public class Sicstus {
         private final String query;
 
         private SicstusQuery(File file, String query) {
-            this.query = "consult('" + file.getAbsolutePath() + "'), " + query + (query.endsWith(".") ? "" : ".");
+            this.query = "set_prolog_flag(redefine_warnings, off), consult('" + file.getAbsolutePath() + "'), " + query + (query.endsWith(".") ? "" : ".");
         }
 
         public HashMap<String, PlTerm> getSolution() {
             try {
                 HashMap<String, Term> solution = new HashMap<>();
+                HashMap<String, PlTerm> normalizedSolution;
                 synchronized (prolog) {
                     prolog.query(this.query, solution);
+                    normalizedSolution = normalizeSolution(solution);
                 }
-                return normalizeSolution(solution);
+                return normalizedSolution;
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -57,7 +57,7 @@ public class Z3Implementation extends Implementation {
             }
         }
         //TODO: nbSegments should be replaced by the number of segments specified by the user
-        int nbSegments = 10;
+        int nbSegments = 2;
         for (int segment = 1; segment <= nbSegments; segment++) {
             ArrayList<SMTVar> mksTermsSegment = new ArrayList<>();
             ArrayList<SMTVar> vpksTermsSegment = new ArrayList<>();
