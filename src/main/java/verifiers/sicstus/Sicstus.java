@@ -39,6 +39,7 @@ public class Sicstus {
 
         private SicstusQuery(File file, String query) {
             this.query = "set_prolog_flag(redefine_warnings, off), consult('" + file.getAbsolutePath() + "'), " + query + (query.endsWith(".") ? "" : ".");
+            System.out.println(this.query);
         }
 
         public HashMap<String, PlTerm> getSolution() {

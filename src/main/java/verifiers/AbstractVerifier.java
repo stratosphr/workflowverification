@@ -28,8 +28,12 @@ public abstract class AbstractVerifier implements IVerifier {
         codeWriter.writeMarkedGraph();
         codeWriter.writeOverApproximation1();
         codeWriter.writeOverApproximation2();
-        codeWriter.writeOverApproximation3();
-        codeWriter.writeUnderApproximation();
+        for (int nbSegments = implementation.getParameters().getMinNumberOfSegments(); nbSegments <= implementation.getParameters().getMaxNumberOfSegments(); nbSegments++) {
+            codeWriter.writeOverApproximation3(nbSegments);
+        }
+        for (int nbSegments = implementation.getParameters().getMinNumberOfSegments(); nbSegments <= implementation.getParameters().getMaxNumberOfSegments(); nbSegments++) {
+            codeWriter.writeUnderApproximation(nbSegments);
+        }
     }
 
     public void startOverApproximation1Checking(final IVerificationHandler verificationHandler) {
@@ -72,7 +76,13 @@ public abstract class AbstractVerifier implements IVerifier {
         (new SwingWorker<AbstractApproximation, Void>() {
             @Override
             protected MultipleSegmentsApproximation doInBackground() throws Exception {
-                return checkOverApproximation3();
+                MultipleSegmentsApproximation approximation;
+                for (int nbSegments = implementation.getParameters().getMinNumberOfSegments(); nbSegments < implementation.getParameters().getMaxNumberOfSegments(); nbSegments++) {
+                    if ((approximation = checkOverApproximation3(nbSegments)).isValid()) {
+                        return approximation;
+                    }
+                }
+                return checkOverApproximation3(implementation.getParameters().getMaxNumberOfSegments());
             }
 
             @Override
@@ -90,7 +100,13 @@ public abstract class AbstractVerifier implements IVerifier {
         (new SwingWorker<AbstractApproximation, Void>() {
             @Override
             protected MultipleSegmentsApproximation doInBackground() throws Exception {
-                return checkUnderApproximation();
+                MultipleSegmentsApproximation approximation;
+                for (int nbSegments = implementation.getParameters().getMinNumberOfSegments(); nbSegments < implementation.getParameters().getMaxNumberOfSegments(); nbSegments++) {
+                    if ((approximation = checkUnderApproximation(nbSegments)).isValid()) {
+                        return approximation;
+                    }
+                }
+                return checkUnderApproximation(implementation.getParameters().getMaxNumberOfSegments());
             }
 
             @Override

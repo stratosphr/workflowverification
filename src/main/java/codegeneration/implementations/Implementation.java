@@ -1,5 +1,6 @@
 package codegeneration.implementations;
 
+import mvc.model.ParametersModel;
 import petrinets.model.Workflow;
 import specifications.model.Specification;
 
@@ -7,11 +8,17 @@ public abstract class Implementation {
 
     protected final Workflow workflow;
     protected final Specification specification;
+    private final ParametersModel parametersModel;
 
-    public Implementation(Workflow workflow, Specification specification) {
+    public Implementation(Workflow workflow, Specification specification, ParametersModel parametersModel) {
         this.workflow = workflow;
         this.specification = specification;
+        this.parametersModel = parametersModel;
         init();
+    }
+
+    public ParametersModel getParameters(){
+        return parametersModel;
     }
 
     public abstract void init();
@@ -38,12 +45,12 @@ public abstract class Implementation {
 
     public abstract String getOverApproximation2Assertion();
 
-    public abstract Object getOverApproximation3();
+    public abstract Object getOverApproximation3(int nbSegments);
 
-    public abstract String getOverApproximation3Assertion();
+    public abstract String getOverApproximation3Assertion(int nbSegments);
 
-    public abstract Object getUnderApproximation();
+    public abstract Object getUnderApproximation(int nbSegments);
 
-    public abstract String getUnderApproximationAssertion();
+    public abstract String getUnderApproximationAssertion(int nbSegments);
 
 }

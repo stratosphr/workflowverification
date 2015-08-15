@@ -1,6 +1,6 @@
 package mvc.views.console;
 
-import mvc.controllers.ParametersController;
+import mvc.controllers.ConfigurationController;
 import mvc.eventsmanagement.events.parameters.MaxNodeValuationChanged;
 import mvc.eventsmanagement.events.parameters.MaxNumberOfSegmentsChanged;
 import mvc.eventsmanagement.events.parameters.MinNumberOfSegmentsChanged;
@@ -11,7 +11,7 @@ public class ConsoleParametersView extends AbstractParametersView {
 
     private String representation;
 
-    public ConsoleParametersView(ParametersController parametersController, ParametersModel parametersModel) {
+    public ConsoleParametersView(ConfigurationController parametersController, ParametersModel parametersModel) {
         super(parametersController, parametersModel);
     }
 

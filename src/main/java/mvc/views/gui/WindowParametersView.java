@@ -3,7 +3,7 @@ package mvc.views.gui;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
-import mvc.controllers.ParametersController;
+import mvc.controllers.ConfigurationController;
 import mvc.eventsmanagement.events.parameters.MaxNodeValuationChanged;
 import mvc.eventsmanagement.events.parameters.MaxNumberOfSegmentsChanged;
 import mvc.eventsmanagement.events.parameters.MinNumberOfSegmentsChanged;
@@ -29,7 +29,7 @@ public class WindowParametersView extends AbstractParametersView {
     private JCheckBox chk_approximation4;
     private JDialog dialog;
 
-    public WindowParametersView(ParametersController parametersController, ParametersModel parametersModel) {
+    public WindowParametersView(ConfigurationController parametersController, ParametersModel parametersModel) {
         super(parametersController, parametersModel);
     }
 
@@ -40,11 +40,11 @@ public class WindowParametersView extends AbstractParametersView {
 
     @Override
     public void display() {
-        spin_maxNodeValuation.addChangeListener(new SpinMaxNodeValuationListener(getParametersController()));
-        spin_minNumberOfSegments.addChangeListener(new SpinMinNumberOfSegmentsListener(getParametersController()));
-        spin_maxNumberOfSegments.addChangeListener(new SpinMaxNumberOfSegmentsListener(getParametersController()));
-        btn_ok.addActionListener(new BtnOkListener(getParametersController()));
-        btn_cancel.addActionListener(new BtnCancelListener(getParametersController()));
+        spin_maxNodeValuation.addChangeListener(new SpinMaxNodeValuationListener(getController()));
+        spin_minNumberOfSegments.addChangeListener(new SpinMinNumberOfSegmentsListener(getController()));
+        spin_maxNumberOfSegments.addChangeListener(new SpinMaxNumberOfSegmentsListener(getController()));
+        btn_ok.addActionListener(new BtnOkListener(getController()));
+        btn_cancel.addActionListener(new BtnCancelListener(getController()));
         dialog = new JDialog();
         dialog.setTitle("Verification parameters");
         dialog.setContentPane(contentPane);

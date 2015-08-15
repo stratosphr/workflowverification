@@ -2,6 +2,7 @@ package codegeneration.implementations.z3;
 
 import codegeneration.implementations.Implementation;
 import codegeneration.z3.*;
+import mvc.model.ParametersModel;
 import petrinets.model.Place;
 import petrinets.model.Transition;
 import petrinets.model.Workflow;
@@ -27,8 +28,8 @@ public class Z3Implementation extends Implementation {
     private ArrayList<ArrayList<SMTVar>> vpksTerms;
     private ArrayList<ArrayList<SMTVar>> vtksTerms;
 
-    public Z3Implementation(Workflow workflow, Specification specification) {
-        super(workflow, specification);
+    public Z3Implementation(Workflow workflow, Specification specification, ParametersModel parametersModel) {
+        super(workflow, specification, parametersModel);
     }
 
     @Override
@@ -56,8 +57,7 @@ public class Z3Implementation extends Implementation {
                 vtsOptimizedTerms.add(new SMTVar(Prefixes.VT + t, ESMTType.INT));
             }
         }
-        //TODO: nbSegments should be replaced by the number of segments specified by the user
-        int nbSegments = 2;
+        int nbSegments = getParameters().getMaxNumberOfSegments();
         for (int segment = 1; segment <= nbSegments; segment++) {
             ArrayList<SMTVar> mksTermsSegment = new ArrayList<>();
             ArrayList<SMTVar> vpksTermsSegment = new ArrayList<>();
@@ -348,16 +348,21 @@ public class Z3Implementation extends Implementation {
 
     @Override
     public String getOverApproximation1Assertion() {
-        ArrayList<SMTVar> parameters = new ArrayList<>();
-        parameters.add(term_VMax);
+        ArrayList<SMTTerm> parameters = new ArrayList<>();
+        ArrayList<SMTVar> existsParameters = new ArrayList<>();
+        parameters.add(new SMTTerm(getParameters().getMaxNodeValuation()));
         parameters.addAll(masTerms.values());
         parameters.addAll(mbsTerms.values());
         parameters.addAll(vpsTerms.values());
         parameters.addAll(vtsTerms.values());
+        existsParameters.addAll(masTerms.values());
+        existsParameters.addAll(mbsTerms.values());
+        existsParameters.addAll(vpsTerms.values());
+        existsParameters.addAll(vtsTerms.values());
         return new SMTAssert(
                 new SMTExists(
-                        parameters,
-                        getOverApproximation1().getCallWith(new ArrayList<SMTTerm>(parameters))
+                        existsParameters,
+                        getOverApproximation1().getCallWith(parameters)
                 )
         ).toString() + new SMTCheckSat() + new SMTGetModel();
     }
@@ -391,34 +396,39 @@ public class Z3Implementation extends Implementation {
 
     @Override
     public String getOverApproximation2Assertion() {
-        ArrayList<SMTVar> parameters = new ArrayList<>();
-        parameters.add(term_VMax);
+        ArrayList<SMTTerm> parameters = new ArrayList<>();
+        ArrayList<SMTVar> existsParameters = new ArrayList<>();
+        parameters.add(new SMTTerm(getParameters().getMaxNodeValuation()));
         parameters.addAll(masTerms.values());
         parameters.addAll(mbsTerms.values());
         parameters.addAll(vpsTerms.values());
         parameters.addAll(vtsTerms.values());
+        existsParameters.addAll(masTerms.values());
+        existsParameters.addAll(mbsTerms.values());
+        existsParameters.addAll(vpsTerms.values());
+        existsParameters.addAll(vtsTerms.values());
         return new SMTAssert(
                 new SMTExists(
-                        parameters,
-                        getOverApproximation2().getCallWith(new ArrayList<SMTTerm>(parameters))
+                        existsParameters,
+                        getOverApproximation2().getCallWith(parameters)
                 )
         ).toString() + new SMTCheckSat() + new SMTGetModel();
     }
 
     @Override
-    public SMTPredicateDefinition getOverApproximation3() {
+    public SMTPredicateDefinition getOverApproximation3(int nbSegments) {
         ArrayList<SMTVar> parameters = new ArrayList<>();
         ArrayList<SMTTerm> body = new ArrayList<>();
         parameters.add(term_VMax);
         parameters.addAll(mksTerms.get(0));
-        for (int segment = 1; segment < mksTerms.size(); segment++) {
+        for (int segment = 1; segment <= nbSegments; segment++) {
             parameters.addAll(mksTerms.get(segment));
             parameters.addAll(vpksTerms.get(segment - 1));
             parameters.addAll(vtksTerms.get(segment - 1));
         }
         body.add(getInitialMarking().getCallWith(new ArrayList<SMTTerm>(mksTerms.get(0))));
-        body.add(getFinalMarking().getCallWith(new ArrayList<SMTTerm>(mksTerms.get(mksTerms.size() - 1))));
-        for (int segment = 1; segment < mksTerms.size(); segment++) {
+        body.add(getFinalMarking().getCallWith(new ArrayList<SMTTerm>(mksTerms.get(nbSegments))));
+        for (int segment = 1; segment <= nbSegments; segment++) {
             ArrayList<SMTTerm> stateEquationParameters = new ArrayList<>();
             ArrayList<SMTTerm> markedGraphParameters = new ArrayList<>();
             stateEquationParameters.add(term_VMax);
@@ -432,7 +442,7 @@ public class Z3Implementation extends Implementation {
             body.add(getMarkedGraph().getCallWith(markedGraphParameters));
         }
         return new SMTPredicateDefinition(
-                "overApproximation3",
+                "overApproximation3_" + nbSegments,
                 parameters,
                 ESMTType.BOOL,
                 body
@@ -440,37 +450,42 @@ public class Z3Implementation extends Implementation {
     }
 
     @Override
-    public String getOverApproximation3Assertion() {
-        ArrayList<SMTVar> parameters = new ArrayList<>();
-        parameters.add(term_VMax);
+    public String getOverApproximation3Assertion(int nbSegments) {
+        ArrayList<SMTTerm> parameters = new ArrayList<>();
+        ArrayList<SMTVar> existsParameters = new ArrayList<>();
+        parameters.add(new SMTTerm(getParameters().getMaxNodeValuation()));
         parameters.addAll(mksTerms.get(0));
-        for (int segment = 1; segment < mksTerms.size(); segment++) {
+        existsParameters.addAll(mksTerms.get(0));
+        for (int segment = 1; segment <= nbSegments; segment++) {
             parameters.addAll(mksTerms.get(segment));
             parameters.addAll(vpksTerms.get(segment - 1));
             parameters.addAll(vtksTerms.get(segment - 1));
+            existsParameters.addAll(mksTerms.get(segment));
+            existsParameters.addAll(vpksTerms.get(segment - 1));
+            existsParameters.addAll(vtksTerms.get(segment - 1));
         }
         return new SMTAssert(
                 new SMTExists(
-                        parameters,
-                        getOverApproximation3().getCallWith(new ArrayList<SMTTerm>(parameters))
+                        existsParameters,
+                        getOverApproximation3(nbSegments).getCallWith(parameters)
                 )
         ).toString() + new SMTCheckSat() + new SMTGetModel();
     }
 
     @Override
-    public SMTPredicateDefinition getUnderApproximation() {
+    public SMTPredicateDefinition getUnderApproximation(int nbSegments) {
         ArrayList<SMTVar> parameters = new ArrayList<>();
         ArrayList<SMTTerm> body = new ArrayList<>();
         parameters.add(term_VMax);
         parameters.addAll(mksTerms.get(0));
-        for (int segment = 1; segment < mksTerms.size(); segment++) {
+        for (int segment = 1; segment <= nbSegments; segment++) {
             parameters.addAll(mksTerms.get(segment));
             parameters.addAll(vpksTerms.get(segment - 1));
             parameters.addAll(vtksTerms.get(segment - 1));
         }
         body.add(getInitialMarking().getCallWith(new ArrayList<SMTTerm>(mksTerms.get(0))));
         body.add(getFinalMarking().getCallWith(new ArrayList<SMTTerm>(mksTerms.get(mksTerms.size() - 1))));
-        for (int segment = 1; segment < mksTerms.size(); segment++) {
+        for (int segment = 1; segment <= nbSegments; segment++) {
             ArrayList<SMTTerm> stateEquationParameters = new ArrayList<>();
             ArrayList<SMTTerm> markedGraphParameters = new ArrayList<>();
             ArrayList<SMTTerm> noSiphonParameters = new ArrayList<>();
@@ -490,7 +505,7 @@ public class Z3Implementation extends Implementation {
             body.add(getNoSiphon().getCallWith(noSiphonParameters));
         }
         return new SMTPredicateDefinition(
-                "underApproximation",
+                "underApproximation_" + nbSegments,
                 parameters,
                 ESMTType.BOOL,
                 body
@@ -498,19 +513,24 @@ public class Z3Implementation extends Implementation {
     }
 
     @Override
-    public String getUnderApproximationAssertion() {
-        ArrayList<SMTVar> parameters = new ArrayList<>();
-        parameters.add(term_VMax);
+    public String getUnderApproximationAssertion(int nbSegments) {
+        ArrayList<SMTTerm> parameters = new ArrayList<>();
+        ArrayList<SMTVar> existsParameters = new ArrayList<>();
+        parameters.add(new SMTTerm(getParameters().getMaxNodeValuation()));
         parameters.addAll(mksTerms.get(0));
-        for (int segment = 1; segment < mksTerms.size(); segment++) {
+        existsParameters.addAll(mksTerms.get(0));
+        for (int segment = 1; segment < nbSegments; segment++) {
             parameters.addAll(mksTerms.get(segment));
             parameters.addAll(vpksTerms.get(segment - 1));
             parameters.addAll(vtksTerms.get(segment - 1));
+            existsParameters.addAll(mksTerms.get(segment));
+            existsParameters.addAll(vpksTerms.get(segment - 1));
+            existsParameters.addAll(vtksTerms.get(segment - 1));
         }
         return new SMTAssert(
                 new SMTExists(
-                        parameters,
-                        getUnderApproximation().getCallWith(new ArrayList<SMTTerm>(parameters))
+                        existsParameters,
+                        getUnderApproximation(nbSegments).getCallWith(parameters)
                 )
         ).toString() + new SMTCheckSat() + new SMTGetModel();
     }

@@ -48,12 +48,12 @@ public class CodeWriter extends SimpleWriter {
         write(implementation.getOverApproximation2());
     }
 
-    public void writeOverApproximation3() {
-        write(implementation.getOverApproximation3());
+    public void writeOverApproximation3(int nbSegments) {
+        write(implementation.getOverApproximation3(nbSegments));
     }
 
-    public void writeUnderApproximation() {
-        write(implementation.getUnderApproximation());
+    public void writeUnderApproximation(int nbSegments) {
+        write(implementation.getUnderApproximation(nbSegments));
     }
 
 }

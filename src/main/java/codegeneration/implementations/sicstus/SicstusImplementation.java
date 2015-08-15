@@ -3,6 +3,7 @@ package codegeneration.implementations.sicstus;
 import codegeneration.implementations.Implementation;
 import codegeneration.sicstus.*;
 import codegeneration.sicstus.fd.*;
+import mvc.model.ParametersModel;
 import petrinets.model.Place;
 import petrinets.model.Transition;
 import petrinets.model.Workflow;
@@ -45,8 +46,8 @@ public class SicstusImplementation extends Implementation {
     private PlList list_VPKs;
     private PlList list_VTKs;
 
-    public SicstusImplementation(Workflow workflow, Specification specification) {
-        super(workflow, specification);
+    public SicstusImplementation(Workflow workflow, Specification specification, ParametersModel parametersModel) {
+        super(workflow, specification, parametersModel);
     }
 
     @Override
@@ -91,7 +92,7 @@ public class SicstusImplementation extends Implementation {
         list_VTsOptimized = new PlList(vtsOptimizedTerms);
         list_VTs = new PlList(new ArrayList<>(vtsTerms.values()));
         //TODO: nbSegments should be replaced by the number of segments specified by the user
-        int nbSegments = 2;
+        int nbSegments = getParameters().getMaxNumberOfSegments();
         ArrayList<PlTerm> mksTerms = new ArrayList<>();
         ArrayList<PlTerm> vpksTerms = new ArrayList<>();
         ArrayList<PlTerm> vtksTerms = new ArrayList<>();
@@ -396,8 +397,7 @@ public class SicstusImplementation extends Implementation {
 
     @Override
     public String getOverApproximation1Assertion() {
-        //TODO: new PlTerm(42) should be replaced by the max node valuation specified by the user
-        return getOverApproximation1().getCallWith(new PlTerm(42), term_MAs, term_MBs, term_VPs, term_VTs).toString();
+        return getOverApproximation1().getCallWith(new PlTerm(getParameters().getMaxNodeValuation()), term_MAs, term_MBs, term_VPs, term_VTs).toString();
     }
 
     @Override
@@ -423,12 +423,11 @@ public class SicstusImplementation extends Implementation {
 
     @Override
     public String getOverApproximation2Assertion() {
-        //TODO: new PlTerm(42) should be replaced by the max node valuation specified by the user
-        return getOverApproximation2().getCallWith(new PlTerm(42), term_MAs, term_MBs, term_VPs, term_VTs).toString();
+        return getOverApproximation2().getCallWith(new PlTerm(getParameters().getMaxNodeValuation()), term_MAs, term_MBs, term_VPs, term_VTs).toString();
     }
 
     @Override
-    public PlPredicateDefinition getOverApproximation3() {
+    public PlPredicateDefinition getOverApproximation3(int nbSegments) {
         ArrayList<PlTerm> parameters = new ArrayList<>();
         ArrayList<PlBooleanExpr> body = new ArrayList<>();
         parameters.add(term_VMax);
@@ -452,19 +451,19 @@ public class SicstusImplementation extends Implementation {
             ));
         }
         return new PlPredicateDefinition(
-                "overApproximation3",
+                "overApproximation3_" + nbSegments,
                 parameters,
                 body
         );
     }
 
     @Override
-    public String getOverApproximation3Assertion() {
-        return getOverApproximation3().getCallWith(new PlTerm(42), new PlList(new ArrayList<PlTerm>(mksLists)), new PlList(new ArrayList<PlTerm>(vpksLists)), new PlList(new ArrayList<PlTerm>(vtksLists))).toString();
+    public String getOverApproximation3Assertion(int nbSegments) {
+        return getOverApproximation3(nbSegments).getCallWith(new PlTerm(getParameters().getMaxNodeValuation()), new PlList(new ArrayList<PlTerm>(mksLists)), new PlList(new ArrayList<PlTerm>(vpksLists)), new PlList(new ArrayList<PlTerm>(vtksLists))).toString();
     }
 
     @Override
-    public PlPredicateDefinition getUnderApproximation() {
+    public PlPredicateDefinition getUnderApproximation(int nbSegments) {
         ArrayList<PlTerm> parameters = new ArrayList<>();
         ArrayList<PlBooleanExpr> body = new ArrayList<>();
         parameters.add(term_VMax);
@@ -472,32 +471,32 @@ public class SicstusImplementation extends Implementation {
         parameters.add(list_VPKs);
         parameters.add(list_VTKs);
         body.add(getInitialMarking().getCallWith(list_MKs.getTerm(0)));
-        body.add(getFinalMarking().getCallWith(list_MKs.getTerm(list_MKs.getTerms().size() - 1)));
-        for (int segment = 1; segment < mksLists.size(); segment++) {
+        body.add(getFinalMarking().getCallWith(list_MKs.getTerm(nbSegments)));
+        for (int segment = 1; segment <= nbSegments; segment++) {
             body.add(getStateEquation().getCallWith(term_VMax, list_MKs.getTerm(segment - 1), list_MKs.getTerm(segment), list_VPKs.getTerm(segment - 1), list_VTKs.getTerm(segment - 1)));
             body.add(getMarkedGraph()[0].getCallWith(list_MKs.getTerm(segment - 1), list_VPKs.getTerm(segment - 1)));
             body.add(getNoSiphon()[0].getCallWith(list_MKs.getTerm(segment - 1), list_MKs.getTerm(segment), list_VPKs.getTerm(segment - 1), list_VTKs.getTerm(segment - 1)));
         }
-        for (int segment = 1; segment < mksLists.size(); segment++) {
+        for (int segment = 1; segment < nbSegments; segment++) {
             body.add(new PlFDLabeling(
                     list_VTKs.getTerm(segment - 1)
             ));
         }
-        for (int segment = 1; segment < mksLists.size(); segment++) {
+        for (int segment = 1; segment < nbSegments; segment++) {
             body.add(new PlFDLabeling(
                     list_VPKs.getTerm(segment - 1)
             ));
         }
         return new PlPredicateDefinition(
-                "underApproximation",
+                "underApproximation_" + nbSegments,
                 parameters,
                 body
         );
     }
 
     @Override
-    public String getUnderApproximationAssertion() {
-        return getUnderApproximation().getCallWith(new PlTerm(42), new PlList(new ArrayList<PlTerm>(mksLists)), new PlList(new ArrayList<PlTerm>(vpksLists)), new PlList(new ArrayList<PlTerm>(vtksLists))).toString();
+    public String getUnderApproximationAssertion(int nbSegments) {
+        return getUnderApproximation(nbSegments).getCallWith(new PlTerm(getParameters().getMaxNodeValuation()), new PlList(new ArrayList<PlTerm>(mksLists)), new PlList(new ArrayList<PlTerm>(vpksLists)), new PlList(new ArrayList<PlTerm>(vtksLists))).toString();
     }
 
 }

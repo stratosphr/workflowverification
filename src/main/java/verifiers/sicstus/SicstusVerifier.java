@@ -15,12 +15,14 @@ public class SicstusVerifier extends AbstractVerifier {
         super(generatedCodeFile, implementation);
     }
 
+    @Override
     public SingleSegmentApproximation checkOverApproximation1() {
         Sicstus sicstus = Sicstus.getSingleton();
         HashMap<String, PlTerm> result = sicstus.query(generatedCodeFile, implementation.getOverApproximation1Assertion());
         return new SingleSegmentApproximation();
     }
 
+    @Override
     public SingleSegmentApproximation checkOverApproximation2() {
         Sicstus sicstus = Sicstus.getSingleton();
         HashMap<String, PlTerm> result = sicstus.query(generatedCodeFile, implementation.getOverApproximation2Assertion());
@@ -28,16 +30,16 @@ public class SicstusVerifier extends AbstractVerifier {
     }
 
     @Override
-    public MultipleSegmentsApproximation checkOverApproximation3() {
+    public MultipleSegmentsApproximation checkOverApproximation3(int nbSegments) {
         Sicstus sicstus = Sicstus.getSingleton();
-        HashMap<String, PlTerm> result = sicstus.query(generatedCodeFile, implementation.getOverApproximation3Assertion());
+        HashMap<String, PlTerm> result = sicstus.query(generatedCodeFile, implementation.getOverApproximation3Assertion(nbSegments));
         return new MultipleSegmentsApproximation();
     }
 
     @Override
-    public MultipleSegmentsApproximation checkUnderApproximation() {
+    public MultipleSegmentsApproximation checkUnderApproximation(int nbSegments) {
         Sicstus sicstus = Sicstus.getSingleton();
-        HashMap<String, PlTerm> result = sicstus.query(generatedCodeFile, implementation.getUnderApproximationAssertion());
+        HashMap<String, PlTerm> result = sicstus.query(generatedCodeFile, implementation.getUnderApproximationAssertion(nbSegments));
         return new MultipleSegmentsApproximation();
     }
 

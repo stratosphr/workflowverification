@@ -12,7 +12,7 @@ public class Main {
         ConfigurationModel configurationModel = new ConfigurationModel();
         ConfigurationController configurationController = new ConfigurationController(configurationModel, new ParametersModel());
         configurationModel.setVerificationFolder(new VerificationFolder("src/main/resources/examples/mail"));
-        configurationController.displayViews();
+        configurationController.displayMainViews();
     }
 
     private static void setDefaultLookAndFeel(String lookAndFeelName) {

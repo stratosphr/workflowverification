@@ -9,6 +9,7 @@ import files.GeneratedCodeFile.Z3GeneratedCodeFile;
 import files.SpecificationFile;
 import files.VerificationFolder;
 import mvc.eventsmanagement.IConfigurationListener;
+import mvc.eventsmanagement.IParametersListener;
 import mvc.eventsmanagement.events.configuration.*;
 import reports.AbstractApproximation;
 import verifiers.IVerificationHandler;
@@ -20,6 +21,7 @@ import javax.swing.event.EventListenerList;
 public class ConfigurationModel extends AbstractModel {
 
     private EventListenerList configurationListeners;
+    private EventListenerList parametersListeners;
     private VerificationFolder verificationFolder;
     private SpecificationFile specificationFile;
     private ESicstusImplementation sicstusImplementation;
@@ -32,14 +34,19 @@ public class ConfigurationModel extends AbstractModel {
 
     public ConfigurationModel(VerificationFolder verificationFolder, SpecificationFile specificationFile, ESicstusImplementation sicstusImplementation, EZ3Implementation z3Implementation) {
         configurationListeners = new EventListenerList();
+        parametersListeners = new EventListenerList();
         this.verificationFolder = verificationFolder;
         this.specificationFile = specificationFile;
         this.sicstusImplementation = sicstusImplementation;
         this.z3Implementation = z3Implementation;
     }
 
-    public void addVerificationParametersListener(IConfigurationListener verificationParametersListener) {
-        configurationListeners.add(IConfigurationListener.class, verificationParametersListener);
+    public void addConfigurationListener(IConfigurationListener configurationListener) {
+        configurationListeners.add(IConfigurationListener.class, configurationListener);
+    }
+
+    public void addParametersListener(IParametersListener parametersListener) {
+        parametersListeners.add(IParametersListener.class, parametersListener);
     }
 
     public VerificationFolder getVerificationFolder() {
@@ -124,8 +131,8 @@ public class ConfigurationModel extends AbstractModel {
         return implementation;
     }
 
-    public void runSicstusVerification() {
-        setImplementation(ImplementationFactory.getImplementation(getSicstusImplementation(), getVerificationFolder().getWorkflowFile().extractWorkflow(), getSpecificationFile().extractSpecification()));
+    public void runSicstusVerification(ParametersModel parametersModel) {
+        setImplementation(ImplementationFactory.getImplementation(getSicstusImplementation(), getVerificationFolder().getWorkflowFile().extractWorkflow(), getSpecificationFile().extractSpecification(), parametersModel));
         SicstusVerifier sicstusVerifier = new SicstusVerifier(getGeneratedCodeFile(getSicstusImplementation()), getImplementation());
         sicstusVerifier.startOverApproximation1Checking(new IVerificationHandler() {
             public void doneChecking(AbstractApproximation result) {
@@ -156,8 +163,8 @@ public class ConfigurationModel extends AbstractModel {
         }
     }
 
-    public void runZ3Verification() {
-        setImplementation(ImplementationFactory.getImplementation(getZ3Implementation(), getVerificationFolder().getWorkflowFile().extractWorkflow(), getSpecificationFile().extractSpecification()));
+    public void runZ3Verification(ParametersModel parametersModel) {
+        setImplementation(ImplementationFactory.getImplementation(getZ3Implementation(), getVerificationFolder().getWorkflowFile().extractWorkflow(), getSpecificationFile().extractSpecification(), parametersModel));
         Z3Verifier z3Verifier = new Z3Verifier(getGeneratedCodeFile(getZ3Implementation()), getImplementation());
         z3Verifier.startOverApproximation1Checking(new IVerificationHandler() {
             public void doneChecking(AbstractApproximation result) {

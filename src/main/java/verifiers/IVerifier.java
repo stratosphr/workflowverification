@@ -9,8 +9,8 @@ public interface IVerifier {
 
     SingleSegmentApproximation checkOverApproximation2();
 
-    MultipleSegmentsApproximation checkOverApproximation3();
+    MultipleSegmentsApproximation checkOverApproximation3(int nbSegments);
 
-    MultipleSegmentsApproximation checkUnderApproximation();
+    MultipleSegmentsApproximation checkUnderApproximation(int nbSegments);
 
 }

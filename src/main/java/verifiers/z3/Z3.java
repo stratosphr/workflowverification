@@ -49,12 +49,18 @@ public class Z3 {
 
         private HashMap<String, SMTTerm> normalizeSolution(ArrayList<String> solution) {
             HashMap<String, SMTTerm> normalizedSolution = new HashMap<>();
+            System.err.println(solution);
             solution.remove(0);
             solution.remove(0);
             for (int i = 0; i < solution.size() - 1; i += 2) {
-                String varName = solution.get(i).substring(solution.get(i).indexOf("(define-fun ") + 11).replaceAll("!.*", "");
-                int varValuation = Integer.parseInt(solution.get(i + 1).replaceAll("(\\s|\\))", ""));
-                normalizedSolution.put(varName, new SMTTerm(varValuation));
+                if (!solution.get(i).contains("(define-fun ")) {
+                    System.err.println(solution.get(i));
+                    System.exit(0);
+                } else {
+                    String varName = solution.get(i).substring(solution.get(i).indexOf("(define-fun ") + 11).replaceAll("!.*", "");
+                    int varValuation = Integer.parseInt(solution.get(i + 1).replaceAll("(\\s|\\))", ""));
+                    normalizedSolution.put(varName, new SMTTerm(varValuation));
+                }
             }
             return normalizedSolution;
         }

@@ -4,9 +4,13 @@ import mvc.model.AbstractModel;
 
 public abstract class AbstractController {
 
-    public abstract void displayViews();
+    public abstract void displayMainViews();
 
-    public abstract void closeViews();
+    abstract void displayParametersViews();
+
+    public abstract void closeMainViews();
+
+    abstract void closeParametersView();
 
     public abstract AbstractModel getModel();
 

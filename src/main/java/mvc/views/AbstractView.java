@@ -1,14 +1,14 @@
 package mvc.views;
 
-import mvc.controllers.AbstractController;
+import mvc.controllers.ConfigurationController;
 import mvc.model.AbstractModel;
 
 public abstract class AbstractView {
 
-    private final AbstractController controller;
+    private final ConfigurationController controller;
     private final AbstractModel model;
 
-    public AbstractView(AbstractController controller, AbstractModel model) {
+    public AbstractView(ConfigurationController controller, AbstractModel model) {
         this.controller = controller;
         this.model = model;
         buildView();
@@ -16,7 +16,7 @@ public abstract class AbstractView {
 
     public abstract void buildView();
 
-    public AbstractController getController() {
+    public ConfigurationController getController() {
         return controller;
     }
 
