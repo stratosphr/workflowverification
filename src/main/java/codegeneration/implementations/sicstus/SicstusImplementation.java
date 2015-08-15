@@ -91,7 +91,7 @@ public class SicstusImplementation extends Implementation {
         list_VTsOptimized = new PlList(vtsOptimizedTerms);
         list_VTs = new PlList(new ArrayList<>(vtsTerms.values()));
         //TODO: nbSegments should be replaced by the number of segments specified by the user
-        int nbSegments = 10;
+        int nbSegments = 2;
         for (int segment = 1; segment <= nbSegments; segment++) {
             mksTerms.add(new PlTerm(Prefixes.MK + (segment - 1)));
             vpksTerms.add(new PlTerm(Prefixes.VPK + (segment - 1)));

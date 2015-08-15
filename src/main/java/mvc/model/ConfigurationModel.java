@@ -137,6 +137,16 @@ public class ConfigurationModel extends AbstractModel {
                 fireSicstusVerificationDone();
             }
         });
+        sicstusVerifier.startOverApproximation3Checking(new IVerificationHandler() {
+            public void doneChecking(AbstractApproximation result) {
+                fireSicstusVerificationDone();
+            }
+        });
+        sicstusVerifier.startUnderApproximationChecking(new IVerificationHandler() {
+            public void doneChecking(AbstractApproximation result) {
+                fireSicstusVerificationDone();
+            }
+        });
     }
 
     private void fireSicstusVerificationDone() {

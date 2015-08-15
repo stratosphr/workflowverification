@@ -56,7 +56,6 @@ public class Z3 {
                 int varValuation = Integer.parseInt(solution.get(i + 1).replaceAll("(\\s|\\))", ""));
                 normalizedSolution.put(varName, new SMTTerm(varValuation));
             }
-            System.out.println(normalizedSolution);
             return normalizedSolution;
         }
 

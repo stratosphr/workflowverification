@@ -18,27 +18,27 @@ public class Z3Verifier extends AbstractVerifier {
     public SingleSegmentApproximation checkOverApproximation1() {
         Z3 z3 = Z3.getSingleton();
         HashMap<String, SMTTerm> result = z3.query(generatedCodeFile, implementation.getOverApproximation1Assertion());
-        return new SingleSegmentApproximation();
+        return new SingleSegmentApproximation(result);
     }
 
     public SingleSegmentApproximation checkOverApproximation2() {
         Z3 z3 = Z3.getSingleton();
         HashMap<String, SMTTerm> result = z3.query(generatedCodeFile, implementation.getOverApproximation2Assertion());
-        return new SingleSegmentApproximation();
+        return new SingleSegmentApproximation(result);
     }
 
     @Override
     public MultipleSegmentsApproximation checkOverApproximation3() {
         Z3 z3 = Z3.getSingleton();
         HashMap<String, SMTTerm> result = z3.query(generatedCodeFile, implementation.getOverApproximation3Assertion());
-        return new MultipleSegmentsApproximation();
+        return new MultipleSegmentsApproximation(result);
     }
 
     @Override
     public MultipleSegmentsApproximation checkUnderApproximation() {
         Z3 z3 = Z3.getSingleton();
         HashMap<String, SMTTerm> result = z3.query(generatedCodeFile, implementation.getUnderApproximationAssertion());
-        return new MultipleSegmentsApproximation();
+        return new MultipleSegmentsApproximation(result);
     }
 
 }
