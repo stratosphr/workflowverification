@@ -3,8 +3,8 @@ package verifiers.sicstus;
 import codegeneration.implementations.Implementation;
 import codegeneration.sicstus.PlTerm;
 import files.GeneratedCodeFile.GeneratedCodeFile;
-import reports.MultipleSegmentsApproximation;
-import reports.SingleSegmentApproximation;
+import reports.approximations.MultipleSegmentsApproximation;
+import reports.approximations.SingleSegmentApproximation;
 import verifiers.AbstractVerifier;
 
 import java.util.HashMap;
@@ -33,14 +33,14 @@ public class SicstusVerifier extends AbstractVerifier {
     public MultipleSegmentsApproximation checkOverApproximation3(int nbSegments) {
         Sicstus sicstus = Sicstus.getSingleton();
         HashMap<String, PlTerm> result = sicstus.query(generatedCodeFile, implementation.getOverApproximation3Assertion(nbSegments));
-        return new MultipleSegmentsApproximation(result);
+        return new MultipleSegmentsApproximation(nbSegments, result);
     }
 
     @Override
     public MultipleSegmentsApproximation checkUnderApproximation(int nbSegments) {
         Sicstus sicstus = Sicstus.getSingleton();
         HashMap<String, PlTerm> result = sicstus.query(generatedCodeFile, implementation.getUnderApproximationAssertion(nbSegments));
-        return new MultipleSegmentsApproximation(result);
+        return new MultipleSegmentsApproximation(nbSegments, result);
     }
 
 }

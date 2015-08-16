@@ -16,4 +16,6 @@ public interface IConfigurationListener extends EventListener {
 
     void checkingDone(CheckingDone event);
 
+    void verificationStarted(VerificationStarted event);
+
 }

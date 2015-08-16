@@ -3,8 +3,8 @@ package verifiers;
 import codegeneration.CodeWriter;
 import codegeneration.implementations.Implementation;
 import files.GeneratedCodeFile.GeneratedCodeFile;
-import reports.MultipleSegmentsApproximation;
-import reports.SingleSegmentApproximation;
+import reports.approximations.MultipleSegmentsApproximation;
+import reports.approximations.SingleSegmentApproximation;
 
 import javax.swing.*;
 import java.util.concurrent.ExecutionException;

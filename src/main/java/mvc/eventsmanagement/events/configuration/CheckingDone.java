@@ -1,26 +1,19 @@
 package mvc.eventsmanagement.events.configuration;
 
 import mvc.model.ConfigurationModel;
-import reports.AbstractApproximation;
-import verifiers.AbstractVerifier;
+import reports.Report;
 
-public class CheckingDone extends Z3VerificationDone {
+public class CheckingDone extends AbstractConfigurationEvent{
 
-    private final AbstractVerifier usedVerifier;
-    private final AbstractApproximation approximation;
+    private final Report report;
 
-    public CheckingDone(ConfigurationModel configurationModel, AbstractVerifier usedVerifier, AbstractApproximation approximation) {
+    public CheckingDone(ConfigurationModel configurationModel, Report report) {
         super(configurationModel);
-        this.usedVerifier = usedVerifier;
-        this.approximation = approximation;
+        this.report = report;
     }
 
-    public AbstractVerifier getUsedVerifier() {
-        return usedVerifier;
-    }
-
-    public AbstractApproximation getApproximation() {
-        return approximation;
+    public Report getReport() {
+        return report;
     }
 
 }

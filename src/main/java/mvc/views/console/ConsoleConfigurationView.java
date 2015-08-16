@@ -47,4 +47,9 @@ public class ConsoleConfigurationView extends AbstractConfigurationView {
 
     }
 
+    @Override
+    public void verificationStarted(VerificationStarted event) {
+
+    }
+
 }

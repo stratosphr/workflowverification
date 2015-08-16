@@ -3,8 +3,8 @@ package verifiers.z3;
 import codegeneration.implementations.Implementation;
 import codegeneration.z3.SMTTerm;
 import files.GeneratedCodeFile.Z3GeneratedCodeFile;
-import reports.MultipleSegmentsApproximation;
-import reports.SingleSegmentApproximation;
+import reports.approximations.MultipleSegmentsApproximation;
+import reports.approximations.SingleSegmentApproximation;
 import verifiers.AbstractVerifier;
 
 import java.util.HashMap;
@@ -33,14 +33,14 @@ public class Z3Verifier extends AbstractVerifier {
     public MultipleSegmentsApproximation checkOverApproximation3(int nbSegments) {
         Z3 z3 = Z3.getSingleton();
         HashMap<String, SMTTerm> result = z3.query(generatedCodeFile, implementation.getOverApproximation3Assertion(nbSegments));
-        return new MultipleSegmentsApproximation(result);
+        return new MultipleSegmentsApproximation(nbSegments, result);
     }
 
     @Override
     public MultipleSegmentsApproximation checkUnderApproximation(int nbSegments) {
         Z3 z3 = Z3.getSingleton();
         HashMap<String, SMTTerm> result = z3.query(generatedCodeFile, implementation.getUnderApproximationAssertion(nbSegments));
-        return new MultipleSegmentsApproximation(result);
+        return new MultipleSegmentsApproximation(nbSegments, result);
     }
 
 }

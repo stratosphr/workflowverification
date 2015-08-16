@@ -10,9 +10,10 @@ import files.SpecificationFile;
 import files.VerificationFolder;
 import mvc.eventsmanagement.IConfigurationListener;
 import mvc.eventsmanagement.events.configuration.*;
-import reports.AbstractApproximation;
-import reports.MultipleSegmentsApproximation;
-import reports.SingleSegmentApproximation;
+import reports.approximations.AbstractApproximation;
+import reports.approximations.MultipleSegmentsApproximation;
+import reports.Report;
+import reports.approximations.SingleSegmentApproximation;
 import verifiers.AbstractVerifier;
 import verifiers.IVerificationHandler;
 import verifiers.sicstus.SicstusVerifier;
@@ -133,6 +134,7 @@ public class ConfigurationModel extends AbstractModel implements IVerificationHa
         this.parametersModel = parametersModel;
         setImplementation(ImplementationFactory.getImplementation(getSicstusImplementation(), getVerificationFolder().getWorkflowFile().extractWorkflow(), getSpecificationFile().extractSpecification(), parametersModel));
         this.verifier = new SicstusVerifier(getGeneratedCodeFile(getSicstusImplementation()), getImplementation());
+        fireVerificationStarted();
         if (parametersModel.checkOverApproximation1()) {
             verifier.startOverApproximation1Checking(this);
         } else if (parametersModel.checkOverApproximation2()) {
@@ -164,10 +166,18 @@ public class ConfigurationModel extends AbstractModel implements IVerificationHa
         });*/
     }
 
+    private void fireVerificationStarted() {
+        IConfigurationListener[] configurationListeners = this.configurationListeners.getListeners(IConfigurationListener.class);
+        for (IConfigurationListener configurationListener : configurationListeners) {
+            configurationListener.verificationStarted(new VerificationStarted(this));
+        }
+    }
+
     public void runZ3Verification(ParametersModel parametersModel) {
         this.parametersModel = parametersModel;
         setImplementation(ImplementationFactory.getImplementation(getZ3Implementation(), getVerificationFolder().getWorkflowFile().extractWorkflow(), getSpecificationFile().extractSpecification(), parametersModel));
         this.verifier = new Z3Verifier(getGeneratedCodeFile(getZ3Implementation()), getImplementation());
+        fireVerificationStarted();
         if (parametersModel.checkOverApproximation1()) {
             verifier.startOverApproximation1Checking(this);
         } else if (parametersModel.checkOverApproximation2()) {
@@ -243,7 +253,7 @@ public class ConfigurationModel extends AbstractModel implements IVerificationHa
     private void fireCheckingDone(AbstractApproximation approximation) {
         IConfigurationListener[] configurationListeners = this.configurationListeners.getListeners(IConfigurationListener.class);
         for (IConfigurationListener configurationListener : configurationListeners) {
-            configurationListener.checkingDone(new CheckingDone(this, verifier, approximation));
+            configurationListener.checkingDone(new CheckingDone(this, new Report(this, parametersModel, approximation)));
         }
     }
 

@@ -52,7 +52,7 @@ public class Z3 {
             solution.remove(0);
             solution.remove(0);
             for (int i = 0; i < solution.size() - 1; i += 2) {
-                String varName = solution.get(i).substring(solution.get(i).indexOf("(define-fun ") + 11).replaceAll("!.*", "");
+                String varName = solution.get(i).substring(solution.get(i).indexOf("(define-fun ") + 12).replaceAll("!.*", "");
                 int varValuation = Integer.parseInt(solution.get(i + 1).replaceAll("(\\s|\\))", ""));
                 normalizedSolution.put(varName, new SMTTerm(varValuation));
             }

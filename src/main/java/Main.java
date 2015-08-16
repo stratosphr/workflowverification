@@ -9,6 +9,9 @@ public class Main {
 
     public static void main(String[] args) {
         setDefaultLookAndFeel("Nimbus");
+        System.out.println(String.format("%-10s%10%n", "text"));
+        System.out.println(String.format("%-10s%10%n", "text"));
+        System.exit(0);
         ConfigurationModel configurationModel = new ConfigurationModel();
         ConfigurationController configurationController = new ConfigurationController(configurationModel, new ParametersModel());
         configurationModel.setVerificationFolder(new VerificationFolder("src/main/resources/examples/mail"));

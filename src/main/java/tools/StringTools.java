@@ -33,6 +33,7 @@ public class StringTools {
         for (int i = 0; i < size; i++) {
             str += "-";
         }
+        str += "\n";
         return str;
     }
 }
