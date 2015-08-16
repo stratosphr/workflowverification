@@ -145,11 +145,8 @@ public class WindowConfigurationView extends AbstractConfigurationView {
     }
 
     @Override
-    public void sicstusVerificationDone(SicstusVerificationDone event) {
-    }
-
-    @Override
-    public void z3VerificationDone(Z3VerificationDone event) {
+    public void checkingDone(CheckingDone event) {
+        System.out.println(event.getApproximation());
     }
 
     {
@@ -324,4 +321,5 @@ public class WindowConfigurationView extends AbstractConfigurationView {
     public JComponent $$$getRootComponent$$$() {
         return tab_main;
     }
+
 }

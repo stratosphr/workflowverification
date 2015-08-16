@@ -83,7 +83,7 @@ public class ParametersModel extends AbstractModel {
         }
     }
 
-    public boolean isCheckOverApproximation1() {
+    public boolean checkOverApproximation1() {
         return checkOverApproximation1;
     }
 
@@ -95,11 +95,11 @@ public class ParametersModel extends AbstractModel {
     private void fireCheckOverApproximation1Changed() {
         IParametersListener[] parametersListeners = this.parametersListeners.getListeners(IParametersListener.class);
         for (IParametersListener parameterListener : parametersListeners) {
-            parameterListener.checkOverApproximation1Changed(new CheckOverApproximation1Changed(this, isCheckOverApproximation1()));
+            parameterListener.checkOverApproximation1Changed(new CheckOverApproximation1Changed(this, checkOverApproximation1()));
         }
     }
 
-    public boolean isCheckOverApproximation2() {
+    public boolean checkOverApproximation2() {
         return checkOverApproximation2;
     }
 
@@ -111,11 +111,11 @@ public class ParametersModel extends AbstractModel {
     private void fireCheckOverApproximation2Changed() {
         IParametersListener[] parametersListeners = this.parametersListeners.getListeners(IParametersListener.class);
         for (IParametersListener parameterListener : parametersListeners) {
-            parameterListener.checkOverApproximation2Changed(new CheckOverApproximation2Changed(this, isCheckOverApproximation2()));
+            parameterListener.checkOverApproximation2Changed(new CheckOverApproximation2Changed(this, checkOverApproximation2()));
         }
     }
 
-    public boolean isCheckOverApproximation3() {
+    public boolean checkOverApproximation3() {
         return checkOverApproximation3;
     }
 
@@ -127,11 +127,11 @@ public class ParametersModel extends AbstractModel {
     private void fireCheckOverApproximation3Changed() {
         IParametersListener[] parametersListeners = this.parametersListeners.getListeners(IParametersListener.class);
         for (IParametersListener parameterListener : parametersListeners) {
-            parameterListener.checkOverApproximation3Changed(new CheckOverApproximation3Changed(this, isCheckOverApproximation3()));
+            parameterListener.checkOverApproximation3Changed(new CheckOverApproximation3Changed(this, checkOverApproximation3()));
         }
     }
 
-    public boolean isCheckUnderApproximation() {
+    public boolean checkUnderApproximation() {
         return checkUnderApproximation;
     }
 
@@ -143,7 +143,7 @@ public class ParametersModel extends AbstractModel {
     private void fireCheckUnderApproximationChanged() {
         IParametersListener[] parametersListeners = this.parametersListeners.getListeners(IParametersListener.class);
         for (IParametersListener parameterListener : parametersListeners) {
-            parameterListener.checkUnderApproximationChanged(new CheckUnderApproximationChanged(this, isCheckUnderApproximation()));
+            parameterListener.checkUnderApproximationChanged(new CheckUnderApproximationChanged(this, checkUnderApproximation()));
         }
     }
 

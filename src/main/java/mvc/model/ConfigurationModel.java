@@ -11,13 +11,16 @@ import files.VerificationFolder;
 import mvc.eventsmanagement.IConfigurationListener;
 import mvc.eventsmanagement.events.configuration.*;
 import reports.AbstractApproximation;
+import reports.MultipleSegmentsApproximation;
+import reports.SingleSegmentApproximation;
+import verifiers.AbstractVerifier;
 import verifiers.IVerificationHandler;
 import verifiers.sicstus.SicstusVerifier;
 import verifiers.z3.Z3Verifier;
 
 import javax.swing.event.EventListenerList;
 
-public class ConfigurationModel extends AbstractModel {
+public class ConfigurationModel extends AbstractModel implements IVerificationHandler {
 
     private EventListenerList configurationListeners;
     private VerificationFolder verificationFolder;
@@ -25,6 +28,8 @@ public class ConfigurationModel extends AbstractModel {
     private ESicstusImplementation sicstusImplementation;
     private EZ3Implementation z3Implementation;
     private Implementation implementation;
+    private ParametersModel parametersModel;
+    private AbstractVerifier verifier;
 
     public ConfigurationModel() {
         this(null, null, ESicstusImplementation.DEFAULT, EZ3Implementation.DEFAULT);
@@ -125,9 +130,19 @@ public class ConfigurationModel extends AbstractModel {
     }
 
     public void runSicstusVerification(ParametersModel parametersModel) {
+        this.parametersModel = parametersModel;
         setImplementation(ImplementationFactory.getImplementation(getSicstusImplementation(), getVerificationFolder().getWorkflowFile().extractWorkflow(), getSpecificationFile().extractSpecification(), parametersModel));
-        SicstusVerifier sicstusVerifier = new SicstusVerifier(getGeneratedCodeFile(getSicstusImplementation()), getImplementation());
-        sicstusVerifier.startOverApproximation1Checking(new IVerificationHandler() {
+        this.verifier = new SicstusVerifier(getGeneratedCodeFile(getSicstusImplementation()), getImplementation());
+        if (parametersModel.checkOverApproximation1()) {
+            verifier.startOverApproximation1Checking(this);
+        } else if (parametersModel.checkOverApproximation2()) {
+            verifier.startOverApproximation2Checking(this);
+        } else if (parametersModel.checkOverApproximation3()) {
+            verifier.startOverApproximation3Checking(this);
+        } else if (parametersModel.checkUnderApproximation()) {
+            verifier.startUnderApproximationChecking(this);
+        }
+        /*sicstusVerifier.startOverApproximation1Checking(new IVerificationHandler() {
             public void doneChecking(AbstractApproximation result) {
                 fireSicstusVerificationDone();
             }
@@ -146,45 +161,89 @@ public class ConfigurationModel extends AbstractModel {
             public void doneChecking(AbstractApproximation result) {
                 fireSicstusVerificationDone();
             }
-        });
-    }
-
-    private void fireSicstusVerificationDone() {
-        IConfigurationListener[] configurationListeners = this.configurationListeners.getListeners(IConfigurationListener.class);
-        for (IConfigurationListener configurationListener : configurationListeners) {
-            configurationListener.sicstusVerificationDone(new SicstusVerificationDone(this));
-        }
+        });*/
     }
 
     public void runZ3Verification(ParametersModel parametersModel) {
+        this.parametersModel = parametersModel;
         setImplementation(ImplementationFactory.getImplementation(getZ3Implementation(), getVerificationFolder().getWorkflowFile().extractWorkflow(), getSpecificationFile().extractSpecification(), parametersModel));
-        Z3Verifier z3Verifier = new Z3Verifier(getGeneratedCodeFile(getZ3Implementation()), getImplementation());
-        z3Verifier.startOverApproximation1Checking(new IVerificationHandler() {
-            public void doneChecking(AbstractApproximation result) {
-                fireZ3VerificationDone();
-            }
-        });
-        z3Verifier.startOverApproximation2Checking(new IVerificationHandler() {
-            public void doneChecking(AbstractApproximation result) {
-                fireZ3VerificationDone();
-            }
-        });
-        z3Verifier.startOverApproximation3Checking(new IVerificationHandler() {
-            public void doneChecking(AbstractApproximation result) {
-                fireZ3VerificationDone();
-            }
-        });
-        z3Verifier.startUnderApproximationChecking(new IVerificationHandler() {
-            public void doneChecking(AbstractApproximation result) {
-                fireZ3VerificationDone();
-            }
-        });
+        this.verifier = new Z3Verifier(getGeneratedCodeFile(getZ3Implementation()), getImplementation());
+        if (parametersModel.checkOverApproximation1()) {
+            verifier.startOverApproximation1Checking(this);
+        } else if (parametersModel.checkOverApproximation2()) {
+            verifier.startOverApproximation2Checking(this);
+        } else if (parametersModel.checkOverApproximation3()) {
+            verifier.startOverApproximation3Checking(this);
+        } else if (parametersModel.checkUnderApproximation()) {
+            verifier.startUnderApproximationChecking(this);
+        }
+        /*if (parametersModel.checkOverApproximation1()) {
+            z3Verifier.startOverApproximation1Checking(new IVerificationHandler() {
+                public void doneChecking(AbstractApproximation result) {
+                    fireZ3VerificationDone();
+
+                }
+            });
+        } else if (parametersModel.checkOverApproximation2()) {
+            z3Verifier.startOverApproximation2Checking(new IVerificationHandler() {
+                public void doneChecking(AbstractApproximation result) {
+                    fireZ3VerificationDone();
+                }
+            });
+        } else if (parametersModel.checkOverApproximation3()) {
+            z3Verifier.startOverApproximation3Checking(new IVerificationHandler() {
+                public void doneChecking(AbstractApproximation result) {
+                    fireZ3VerificationDone();
+                }
+            });
+        } else if (parametersModel.checkUnderApproximation()) {
+            z3Verifier.startUnderApproximationChecking(new IVerificationHandler() {
+                public void doneChecking(AbstractApproximation result) {
+                    fireZ3VerificationDone();
+                }
+            });
+        }*/
     }
 
-    private void fireZ3VerificationDone() {
+    @Override
+    public void doneCheckingOverApproximation1(SingleSegmentApproximation approximation) {
+        fireCheckingDone(approximation);
+        if (parametersModel.checkOverApproximation2()) {
+            verifier.startOverApproximation2Checking(this);
+        } else if (parametersModel.checkOverApproximation3()) {
+            verifier.startOverApproximation3Checking(this);
+        } else if (parametersModel.checkUnderApproximation()) {
+            verifier.startUnderApproximationChecking(this);
+        }
+    }
+
+    @Override
+    public void doneCheckingOverApproximation2(SingleSegmentApproximation approximation) {
+        fireCheckingDone(approximation);
+        if (parametersModel.checkOverApproximation3()) {
+            verifier.startOverApproximation3Checking(this);
+        } else if (parametersModel.checkUnderApproximation()) {
+            verifier.startUnderApproximationChecking(this);
+        }
+    }
+
+    @Override
+    public void doneCheckingOverApproximation3(MultipleSegmentsApproximation approximation) {
+        fireCheckingDone(approximation);
+        if (parametersModel.checkUnderApproximation()) {
+            verifier.startUnderApproximationChecking(this);
+        }
+    }
+
+    @Override
+    public void doneCheckingUnderApproximation(MultipleSegmentsApproximation approximation) {
+        fireCheckingDone(approximation);
+    }
+
+    private void fireCheckingDone(AbstractApproximation approximation) {
         IConfigurationListener[] configurationListeners = this.configurationListeners.getListeners(IConfigurationListener.class);
         for (IConfigurationListener configurationListener : configurationListeners) {
-            configurationListener.z3VerificationDone(new Z3VerificationDone(this));
+            configurationListener.checkingDone(new CheckingDone(this, verifier, approximation));
         }
     }
 

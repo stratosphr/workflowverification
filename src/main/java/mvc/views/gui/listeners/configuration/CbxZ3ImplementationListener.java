@@ -1,4 +1,4 @@
-package mvc.eventsmanagement.events.configuration;
+package mvc.views.gui.listeners.configuration;
 
 import codegeneration.implementations.z3.EZ3Implementation;
 import mvc.controllers.AbstractController;

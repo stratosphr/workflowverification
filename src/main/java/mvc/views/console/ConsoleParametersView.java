@@ -50,20 +50,15 @@ public class ConsoleParametersView extends AbstractParametersView {
 
     @Override
     public void buildView() {
-        representation = "##################\n";
-        representation += "### Parameters ###\n";
-        representation += "##################\n";
     }
 
     @Override
     public void display() {
         buildView();
-        System.out.println(representation);
     }
 
     @Override
     public void close() {
-        System.out.println("PARAMETERS VIEW CLOSED");
     }
 
     @Override

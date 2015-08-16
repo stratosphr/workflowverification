@@ -83,17 +83,4 @@ public class PetriNet {
         return document;
     }
 
-    @Override
-    public String toString() {
-        for (Place p : getPlaces()) {
-            for (Transition t : p.getPostset()) {
-                System.out.println(p + " --> " + t);
-            }
-            for (Transition t : p.getPreset()) {
-                System.out.println(t + " --> " + p);
-            }
-        }
-        return "";
-    }
-
 }

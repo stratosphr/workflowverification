@@ -455,7 +455,6 @@ public class Z3Implementation extends Implementation {
 
     @Override
     public String getOverApproximation3Assertion(int nbSegments) {
-        System.out.println("NB SEGMENTS : " + nbSegments);
         ArrayList<SMTTerm> parameters = new ArrayList<>();
         ArrayList<SMTVar> existsParameters = new ArrayList<>();
         parameters.add(new SMTTerm(getParameters().getMaxNodeValuation()));

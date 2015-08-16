@@ -130,6 +130,10 @@ public class ConfigurationController extends AbstractController {
         notifyMaxNodeValuationChanged(parametersModel.getMaxNodeValuation());
         notifyMinNumberOfSegmentsChanged(parametersModel.getMinNumberOfSegments());
         notifyMaxNumberOfSegmentsChanged(parametersModel.getMaxNumberOfSegments());
+        notifyCheckOverApproximation1Changed(parametersModel.checkOverApproximation1());
+        notifyCheckOverApproximation2Changed(parametersModel.checkOverApproximation2());
+        notifyCheckOverApproximation3Changed(parametersModel.checkOverApproximation3());
+        notifyCheckUnderApproximationChanged(parametersModel.checkUnderApproximation());
         closeParametersViews();
     }
 

@@ -388,6 +388,12 @@ public class SicstusImplementation extends Implementation {
         body.add(getFinalMarking().getCallWith(term_MBs));
         body.add(getStateEquation().getCallWith(term_VMax, term_MAs, term_MBs, term_VPs, term_VTs));
         body.add(getFormula().getCallWith(term_VTs));
+        body.add(new PlFDLabeling(
+                term_VTs
+        ));
+        body.add(new PlFDLabeling(
+                term_VPs
+        ));
         return new PlPredicateDefinition(
                 "overApproximation1",
                 parameters,
@@ -397,7 +403,7 @@ public class SicstusImplementation extends Implementation {
 
     @Override
     public String getOverApproximation1Assertion() {
-        return getOverApproximation1().getCallWith(new PlTerm(getParameters().getMaxNodeValuation()), term_MAs, term_MBs, term_VPs, term_VTs).toString();
+        return getOverApproximation1().getCallWith(new PlTerm(getParameters().getMaxNodeValuation()), list_MAs, list_MBs, list_VPs, list_VTs).toString();
     }
 
     @Override
@@ -414,6 +420,12 @@ public class SicstusImplementation extends Implementation {
         body.add(getStateEquation().getCallWith(term_VMax, term_MAs, term_MBs, term_VPs, term_VTs));
         body.add(getFormula().getCallWith(term_VTs));
         body.add(getNoSiphon()[0].getCallWith(term_MAs, term_MBs, term_VPs, term_VTs));
+        body.add(new PlFDLabeling(
+                term_VTs
+        ));
+        body.add(new PlFDLabeling(
+                term_VPs
+        ));
         return new PlPredicateDefinition(
                 "overApproximation2",
                 parameters,
@@ -423,7 +435,7 @@ public class SicstusImplementation extends Implementation {
 
     @Override
     public String getOverApproximation2Assertion() {
-        return getOverApproximation2().getCallWith(new PlTerm(getParameters().getMaxNodeValuation()), term_MAs, term_MBs, term_VPs, term_VTs).toString();
+        return getOverApproximation2().getCallWith(new PlTerm(getParameters().getMaxNodeValuation()), list_MAs, list_MBs, list_VPs, list_VTs).toString();
     }
 
     @Override

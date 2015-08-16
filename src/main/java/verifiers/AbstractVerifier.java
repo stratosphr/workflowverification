@@ -3,7 +3,6 @@ package verifiers;
 import codegeneration.CodeWriter;
 import codegeneration.implementations.Implementation;
 import files.GeneratedCodeFile.GeneratedCodeFile;
-import reports.AbstractApproximation;
 import reports.MultipleSegmentsApproximation;
 import reports.SingleSegmentApproximation;
 
@@ -37,7 +36,7 @@ public abstract class AbstractVerifier implements IVerifier {
     }
 
     public void startOverApproximation1Checking(final IVerificationHandler verificationHandler) {
-        (new SwingWorker<AbstractApproximation, Void>() {
+        (new SwingWorker<SingleSegmentApproximation, Void>() {
             @Override
             protected SingleSegmentApproximation doInBackground() throws Exception {
                 return checkOverApproximation1();
@@ -46,7 +45,7 @@ public abstract class AbstractVerifier implements IVerifier {
             @Override
             protected void done() {
                 try {
-                    verificationHandler.doneChecking(get());
+                    verificationHandler.doneCheckingOverApproximation1(get());
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
@@ -55,7 +54,7 @@ public abstract class AbstractVerifier implements IVerifier {
     }
 
     public void startOverApproximation2Checking(final IVerificationHandler verificationHandler) {
-        (new SwingWorker<AbstractApproximation, Void>() {
+        (new SwingWorker<SingleSegmentApproximation, Void>() {
             @Override
             protected SingleSegmentApproximation doInBackground() throws Exception {
                 return checkOverApproximation2();
@@ -64,7 +63,7 @@ public abstract class AbstractVerifier implements IVerifier {
             @Override
             protected void done() {
                 try {
-                    verificationHandler.doneChecking(get());
+                    verificationHandler.doneCheckingOverApproximation2(get());
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
@@ -73,12 +72,12 @@ public abstract class AbstractVerifier implements IVerifier {
     }
 
     public void startOverApproximation3Checking(final IVerificationHandler verificationHandler) {
-        (new SwingWorker<AbstractApproximation, Void>() {
+        (new SwingWorker<MultipleSegmentsApproximation, Void>() {
             @Override
             protected MultipleSegmentsApproximation doInBackground() throws Exception {
                 MultipleSegmentsApproximation approximation;
                 for (int nbSegments = implementation.getParameters().getMinNumberOfSegments(); nbSegments < implementation.getParameters().getMaxNumberOfSegments(); nbSegments++) {
-                    if ((approximation = checkOverApproximation3(nbSegments)).isValid()) {
+                    if ((approximation = checkOverApproximation3(nbSegments)).isSAT()) {
                         return approximation;
                     }
                 }
@@ -88,7 +87,7 @@ public abstract class AbstractVerifier implements IVerifier {
             @Override
             protected void done() {
                 try {
-                    verificationHandler.doneChecking(get());
+                    verificationHandler.doneCheckingOverApproximation3(get());
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
@@ -97,12 +96,12 @@ public abstract class AbstractVerifier implements IVerifier {
     }
 
     public void startUnderApproximationChecking(final IVerificationHandler verificationHandler) {
-        (new SwingWorker<AbstractApproximation, Void>() {
+        (new SwingWorker<MultipleSegmentsApproximation, Void>() {
             @Override
             protected MultipleSegmentsApproximation doInBackground() throws Exception {
                 MultipleSegmentsApproximation approximation;
                 for (int nbSegments = implementation.getParameters().getMinNumberOfSegments(); nbSegments < implementation.getParameters().getMaxNumberOfSegments(); nbSegments++) {
-                    if ((approximation = checkUnderApproximation(nbSegments)).isValid()) {
+                    if ((approximation = checkUnderApproximation(nbSegments)).isSAT()) {
                         return approximation;
                     }
                 }
@@ -112,7 +111,7 @@ public abstract class AbstractVerifier implements IVerifier {
             @Override
             protected void done() {
                 try {
-                    verificationHandler.doneChecking(get());
+                    verificationHandler.doneCheckingUnderApproximation(get());
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }

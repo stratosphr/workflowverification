@@ -14,8 +14,6 @@ public interface IConfigurationListener extends EventListener {
 
     void z3ImplementationChanged(Z3ImplementationChanged event);
 
-    void sicstusVerificationDone(SicstusVerificationDone event);
-
-    void z3VerificationDone(Z3VerificationDone event);
+    void checkingDone(CheckingDone event);
 
 }
