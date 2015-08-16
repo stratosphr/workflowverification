@@ -4,9 +4,7 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import mvc.controllers.ConfigurationController;
-import mvc.eventsmanagement.events.parameters.MaxNodeValuationChanged;
-import mvc.eventsmanagement.events.parameters.MaxNumberOfSegmentsChanged;
-import mvc.eventsmanagement.events.parameters.MinNumberOfSegmentsChanged;
+import mvc.eventsmanagement.events.parameters.*;
 import mvc.model.ParametersModel;
 import mvc.views.AbstractParametersView;
 import mvc.views.gui.listeners.parameters.*;
@@ -40,10 +38,10 @@ public class WindowParametersView extends AbstractParametersView {
 
     @Override
     public void display() {
-        spin_maxNodeValuation.addChangeListener(new SpinMaxNodeValuationListener(getController()));
+        /*spin_maxNodeValuation.addChangeListener(new SpinMaxNodeValuationListener(getController()));
         spin_minNumberOfSegments.addChangeListener(new SpinMinNumberOfSegmentsListener(getController()));
-        spin_maxNumberOfSegments.addChangeListener(new SpinMaxNumberOfSegmentsListener(getController()));
-        btn_ok.addActionListener(new BtnOkListener(getController()));
+        spin_maxNumberOfSegments.addChangeListener(new SpinMaxNumberOfSegmentsListener(getController()));*/
+        btn_ok.addActionListener(new BtnOkListener(this));
         btn_cancel.addActionListener(new BtnCancelListener(getController()));
         dialog = new JDialog();
         dialog.setTitle("Verification parameters");
@@ -60,15 +58,79 @@ public class WindowParametersView extends AbstractParametersView {
     }
 
     @Override
+    public int getSpecifiedMaxNodeValuation() {
+        return (int) spin_maxNodeValuation.getValue();
+    }
+
+    @Override
+    public int getSpecifiedMinNumberOfSegments() {
+        return (int) spin_minNumberOfSegments.getValue();
+    }
+
+    @Override
+    public int getSpecifiedMaxNumberOfSegments() {
+        return (int) spin_maxNumberOfSegments.getValue();
+    }
+
+    @Override
+    public boolean getCheckOverApproximation1isSelected() {
+        return chk_approximation1.isSelected();
+    }
+
+    @Override
+    public boolean getCheckOverApproximation2isSelected() {
+        return chk_approximation2.isSelected();
+    }
+
+    @Override
+    public boolean getCheckOverApproximation3isSelected() {
+        return chk_approximation3.isSelected();
+    }
+
+    @Override
+    public boolean getCheckUnderApproximationisSelected() {
+        return chk_approximation4.isSelected();
+    }
+
+    @Override
     public void maxNodeValuationChanged(MaxNodeValuationChanged event) {
+        spin_maxNodeValuation.setValue(event.getNewMaxNodeValuation());
     }
 
     @Override
     public void minNumberOfSegmentsChanged(MinNumberOfSegmentsChanged event) {
+        spin_minNumberOfSegments.setValue(event.getNewMinNumberOfSegments());
     }
 
     @Override
     public void maxNumberOfSegmentsChanged(MaxNumberOfSegmentsChanged event) {
+        spin_maxNumberOfSegments.setValue(event.getNewMaxNumberOfSegments());
+    }
+
+    @Override
+    public void checkOverApproximation1Changed(CheckOverApproximation1Changed event) {
+        chk_approximation1.setSelected(event.getNewCheckOverApproximation1());
+    }
+
+    @Override
+    public void checkOverApproximation2Changed(CheckOverApproximation2Changed event) {
+        chk_approximation2.setSelected(event.getNewCheckOverApproximation2());
+    }
+
+    @Override
+    public void checkOverApproximation3Changed(CheckOverApproximation3Changed event) {
+        chk_approximation3.setSelected(event.getNewCheckOverApproximation3());
+    }
+
+    @Override
+    public void checkUnderApproximationChanged(CheckUnderApproximationChanged event) {
+        chk_approximation4.setSelected(event.getNewCheckUnderApproximation());
+    }
+
+    private void createUIComponents() {
+        spin_maxNodeValuation = new JSpinner(new SpinnerNumberModel(10, 1, 9999, 1));
+        spin_minNumberOfSegments = new JSpinner(new SpinnerNumberModel(2, 2, 9999, 1));
+        spin_maxNumberOfSegments = new JSpinner(new SpinnerNumberModel(10, 2, 9999, 1));
     }
 
     {
@@ -86,6 +148,7 @@ public class WindowParametersView extends AbstractParametersView {
      * @noinspection ALL
      */
     private void $$$setupUI$$$() {
+        createUIComponents();
         contentPane = new JPanel();
         contentPane.setLayout(new GridLayoutManager(2, 2, new Insets(10, 10, 10, 10), -1, -1));
         final JPanel panel1 = new JPanel();
@@ -120,17 +183,14 @@ public class WindowParametersView extends AbstractParametersView {
         final JLabel label1 = new JLabel();
         label1.setText("Max node valuation :");
         panel5.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        spin_maxNodeValuation = new JSpinner();
         panel5.add(spin_maxNodeValuation, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(101, 26), null, 0, false));
         final JLabel label2 = new JLabel();
         label2.setText("Max number of segments :");
         panel5.add(label2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        spin_maxNumberOfSegments = new JSpinner();
         panel5.add(spin_maxNumberOfSegments, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(101, 26), null, 0, false));
         final JLabel label3 = new JLabel();
         label3.setText("Min number of segments :");
         panel5.add(label3, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        spin_minNumberOfSegments = new JSpinner();
         panel5.add(spin_minNumberOfSegments, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(101, 26), null, 0, false));
         final JPanel panel6 = new JPanel();
         panel6.setLayout(new GridLayoutManager(4, 1, new Insets(2, 2, 2, 2), -1, -1));

@@ -33,8 +33,8 @@ public class ConfigurationController extends AbstractController {
     private void addListenersToModel() {
         configurationModel.addConfigurationListener(consoleMainView);
         configurationModel.addConfigurationListener(windowMainView);
-        configurationModel.addParametersListener(consoleParametersView);
-        configurationModel.addParametersListener(windowParametersView);
+        parametersModel.addParametersListener(consoleParametersView);
+        parametersModel.addParametersListener(windowParametersView);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ConfigurationController extends AbstractController {
     }
 
     @Override
-    public void closeParametersView() {
+    public void closeParametersViews() {
         consoleParametersView.close();
         windowParametersView.close();
     }
@@ -106,12 +106,31 @@ public class ConfigurationController extends AbstractController {
         parametersModel.setMaxNumberOfSegments(maxNumberOfSegments);
     }
 
+    public void notifyCheckOverApproximation1Changed(boolean isSelected) {
+        parametersModel.setCheckOverApproximation1(isSelected);
+    }
+
+    public void notifyCheckOverApproximation2Changed(boolean isSelected) {
+        parametersModel.setCheckOverApproximation2(isSelected);
+    }
+
+    public void notifyCheckOverApproximation3Changed(boolean isSelected) {
+        parametersModel.setCheckOverApproximation3(isSelected);
+    }
+
+    public void notifyCheckUnderApproximationChanged(boolean isSelected) {
+        parametersModel.setCheckUnderApproximation(isSelected);
+    }
+
     public void notifyParametersEditionValidated() {
-        closeParametersView();
+        closeParametersViews();
     }
 
     public void notifyParametersEditionAborted() {
-        closeParametersView();
+        notifyMaxNodeValuationChanged(parametersModel.getMaxNodeValuation());
+        notifyMinNumberOfSegmentsChanged(parametersModel.getMinNumberOfSegments());
+        notifyMaxNumberOfSegmentsChanged(parametersModel.getMaxNumberOfSegments());
+        closeParametersViews();
     }
 
 }

@@ -10,4 +10,18 @@ public abstract class AbstractParametersView extends AbstractView implements IPa
         super(configurationController, parametersModel);
     }
 
+    public abstract int getSpecifiedMaxNodeValuation();
+
+    public abstract int getSpecifiedMinNumberOfSegments();
+
+    public abstract int getSpecifiedMaxNumberOfSegments();
+
+    public abstract boolean getCheckOverApproximation1isSelected();
+
+    public abstract boolean getCheckOverApproximation2isSelected();
+
+    public abstract boolean getCheckOverApproximation3isSelected();
+
+    public abstract boolean getCheckUnderApproximationisSelected();
+
 }

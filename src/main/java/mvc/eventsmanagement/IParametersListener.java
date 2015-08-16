@@ -1,8 +1,6 @@
 package mvc.eventsmanagement;
 
-import mvc.eventsmanagement.events.parameters.MaxNodeValuationChanged;
-import mvc.eventsmanagement.events.parameters.MaxNumberOfSegmentsChanged;
-import mvc.eventsmanagement.events.parameters.MinNumberOfSegmentsChanged;
+import mvc.eventsmanagement.events.parameters.*;
 
 import java.util.EventListener;
 
@@ -13,5 +11,13 @@ public interface IParametersListener extends EventListener {
     void minNumberOfSegmentsChanged(MinNumberOfSegmentsChanged event);
 
     void maxNumberOfSegmentsChanged(MaxNumberOfSegmentsChanged event);
+
+    void checkOverApproximation1Changed(CheckOverApproximation1Changed event);
+
+    void checkOverApproximation2Changed(CheckOverApproximation2Changed event);
+
+    void checkOverApproximation3Changed(CheckOverApproximation3Changed event);
+
+    void checkUnderApproximationChanged(CheckUnderApproximationChanged event);
 
 }

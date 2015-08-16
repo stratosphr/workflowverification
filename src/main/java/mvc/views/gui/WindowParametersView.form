@@ -3,7 +3,7 @@
   <grid id="cbd77" binding="contentPane" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="48" y="54" width="619" height="301"/>
+      <xy x="48" y="54" width="648" height="301"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -81,7 +81,7 @@
                       <text value="Max node valuation :"/>
                     </properties>
                   </component>
-                  <component id="321ac" class="javax.swing.JSpinner" binding="spin_maxNodeValuation">
+                  <component id="321ac" class="javax.swing.JSpinner" binding="spin_maxNodeValuation" custom-create="true">
                     <constraints>
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="101" height="26"/>
@@ -97,7 +97,7 @@
                       <text value="Max number of segments :"/>
                     </properties>
                   </component>
-                  <component id="5ecaa" class="javax.swing.JSpinner" binding="spin_maxNumberOfSegments">
+                  <component id="5ecaa" class="javax.swing.JSpinner" binding="spin_maxNumberOfSegments" custom-create="true">
                     <constraints>
                       <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="101" height="26"/>
@@ -113,7 +113,7 @@
                       <text value="Min number of segments :"/>
                     </properties>
                   </component>
-                  <component id="8a075" class="javax.swing.JSpinner" binding="spin_minNumberOfSegments">
+                  <component id="8a075" class="javax.swing.JSpinner" binding="spin_minNumberOfSegments" custom-create="true">
                     <constraints>
                       <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="101" height="26"/>

@@ -10,7 +10,7 @@ public abstract class AbstractController {
 
     public abstract void closeMainViews();
 
-    abstract void closeParametersView();
+    abstract void closeParametersViews();
 
     public abstract AbstractModel getModel();
 

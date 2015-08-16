@@ -9,7 +9,6 @@ import files.GeneratedCodeFile.Z3GeneratedCodeFile;
 import files.SpecificationFile;
 import files.VerificationFolder;
 import mvc.eventsmanagement.IConfigurationListener;
-import mvc.eventsmanagement.IParametersListener;
 import mvc.eventsmanagement.events.configuration.*;
 import reports.AbstractApproximation;
 import verifiers.IVerificationHandler;
@@ -21,7 +20,6 @@ import javax.swing.event.EventListenerList;
 public class ConfigurationModel extends AbstractModel {
 
     private EventListenerList configurationListeners;
-    private EventListenerList parametersListeners;
     private VerificationFolder verificationFolder;
     private SpecificationFile specificationFile;
     private ESicstusImplementation sicstusImplementation;
@@ -34,7 +32,6 @@ public class ConfigurationModel extends AbstractModel {
 
     public ConfigurationModel(VerificationFolder verificationFolder, SpecificationFile specificationFile, ESicstusImplementation sicstusImplementation, EZ3Implementation z3Implementation) {
         configurationListeners = new EventListenerList();
-        parametersListeners = new EventListenerList();
         this.verificationFolder = verificationFolder;
         this.specificationFile = specificationFile;
         this.sicstusImplementation = sicstusImplementation;
@@ -43,10 +40,6 @@ public class ConfigurationModel extends AbstractModel {
 
     public void addConfigurationListener(IConfigurationListener configurationListener) {
         configurationListeners.add(IConfigurationListener.class, configurationListener);
-    }
-
-    public void addParametersListener(IParametersListener parametersListener) {
-        parametersListeners.add(IParametersListener.class, parametersListener);
     }
 
     public VerificationFolder getVerificationFolder() {
