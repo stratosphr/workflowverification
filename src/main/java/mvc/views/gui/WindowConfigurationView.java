@@ -19,6 +19,7 @@ import mvc.views.gui.listeners.configuration.BtnVerificationFolderListener;
 import mvc.views.gui.listeners.configuration.*;
 import specifications.model.Specification;
 import specifications.model.SpecificationType;
+import tools.StringTools;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -50,6 +51,8 @@ public class WindowConfigurationView extends AbstractConfigurationView {
     private JTextField txt_specificationFolder;
     private JTextField txt_z3GeneratedCode;
     private JTextField txt_z3GeneratedReport;
+    private JTextPane txt_mayReport;
+    private JTextPane txt_mustReport;
     private JFrame frame;
 
     public WindowConfigurationView(ConfigurationController configurationController, ConfigurationModel configurationModel) {
@@ -146,7 +149,19 @@ public class WindowConfigurationView extends AbstractConfigurationView {
 
     @Override
     public void checkingDone(CheckingDone event) {
-        System.out.println(event.getApproximation());
+        if (event.getReport().getSpecification().getType() == SpecificationType.MAY) {
+            txt_mayReport.setText(txt_mayReport.getText() + StringTools.separator(50) + event.getReport().toString());
+        } else if (event.getReport().getSpecification().getType() == SpecificationType.MUST) {
+            txt_mayReport.setText(txt_mayReport.getText() + StringTools.separator(50) + event.getReport().toString());
+            txt_mustReport.setText(txt_mayReport.getText() + StringTools.separator(50) + event.getReport().toString());
+        }
+    }
+
+    @Override
+    public void verificationStarted(VerificationStarted event) {
+        txt_mayReport.setText("");
+        txt_mustReport.setText("");
+        tab_main.setSelectedComponent(panel_report);
     }
 
     {
@@ -294,7 +309,7 @@ public class WindowConfigurationView extends AbstractConfigurationView {
         panel4.add(btn_parameters, new GridConstraints(0, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         panel_report = new JPanel();
         panel_report.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        panel_report.setVisible(false);
+        panel_report.setVisible(true);
         tab_main.addTab("Reports", panel_report);
         splitpanel_reports = new JSplitPane();
         splitpanel_reports.setOneTouchExpandable(true);
@@ -304,10 +319,21 @@ public class WindowConfigurationView extends AbstractConfigurationView {
         panel_leftReport.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         splitpanel_reports.setLeftComponent(panel_leftReport);
         panel_leftReport.setBorder(BorderFactory.createTitledBorder("May validity report"));
+        final JScrollPane scrollPane2 = new JScrollPane();
+        panel_leftReport.add(scrollPane2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        txt_mayReport = new JTextPane();
+        txt_mayReport.setFont(new Font("Monospaced", txt_mayReport.getFont().getStyle(), txt_mayReport.getFont().getSize()));
+        txt_mayReport.setText("");
+        scrollPane2.setViewportView(txt_mayReport);
         panel_rightReport = new JPanel();
         panel_rightReport.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         splitpanel_reports.setRightComponent(panel_rightReport);
         panel_rightReport.setBorder(BorderFactory.createTitledBorder("Must validity report"));
+        final JScrollPane scrollPane3 = new JScrollPane();
+        panel_rightReport.add(scrollPane3, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        txt_mustReport = new JTextPane();
+        txt_mustReport.setFont(new Font("Monospaced", txt_mustReport.getFont().getStyle(), txt_mustReport.getFont().getSize()));
+        scrollPane3.setViewportView(txt_mustReport);
         ButtonGroup buttonGroup;
         buttonGroup = new ButtonGroup();
         buttonGroup.add(radio_may);
@@ -321,5 +347,4 @@ public class WindowConfigurationView extends AbstractConfigurationView {
     public JComponent $$$getRootComponent$$$() {
         return tab_main;
     }
-
 }
