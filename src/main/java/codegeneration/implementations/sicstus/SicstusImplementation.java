@@ -431,21 +431,21 @@ public class SicstusImplementation extends Implementation {
         ArrayList<PlTerm> parameters = new ArrayList<>();
         ArrayList<PlBooleanExpr> body = new ArrayList<>();
         parameters.add(term_VMax);
-        parameters.add(list_MKs);
-        parameters.add(list_VPKs);
-        parameters.add(list_VTKs);
+        parameters.add(new PlList(new ArrayList<>(list_MKs.getTerms().subList(0, nbSegments + 1))));
+        parameters.add(new PlList(new ArrayList<>(list_VPKs.getTerms().subList(0, nbSegments))));
+        parameters.add(new PlList(new ArrayList<>(list_VTKs.getTerms().subList(0, nbSegments))));
         body.add(getInitialMarking().getCallWith(list_MKs.getTerm(0)));
-        body.add(getFinalMarking().getCallWith(list_MKs.getTerm(list_MKs.getTerms().size() - 1)));
-        for (int segment = 1; segment < mksLists.size(); segment++) {
+        body.add(getFinalMarking().getCallWith(list_MKs.getTerm(nbSegments)));
+        for (int segment = 1; segment <= nbSegments; segment++) {
             body.add(getStateEquation().getCallWith(term_VMax, list_MKs.getTerm(segment - 1), list_MKs.getTerm(segment), list_VPKs.getTerm(segment - 1), list_VTKs.getTerm(segment - 1)));
             body.add(getMarkedGraph()[0].getCallWith(list_MKs.getTerm(segment - 1), list_VPKs.getTerm(segment - 1)));
         }
-        for (int segment = 1; segment < mksLists.size(); segment++) {
+        for (int segment = 1; segment <= nbSegments; segment++) {
             body.add(new PlFDLabeling(
                     list_VTKs.getTerm(segment - 1)
             ));
         }
-        for (int segment = 1; segment < mksLists.size(); segment++) {
+        for (int segment = 1; segment <= nbSegments; segment++) {
             body.add(new PlFDLabeling(
                     list_VPKs.getTerm(segment - 1)
             ));
@@ -459,7 +459,7 @@ public class SicstusImplementation extends Implementation {
 
     @Override
     public String getOverApproximation3Assertion(int nbSegments) {
-        return getOverApproximation3(nbSegments).getCallWith(new PlTerm(getParameters().getMaxNodeValuation()), new PlList(new ArrayList<PlTerm>(mksLists)), new PlList(new ArrayList<PlTerm>(vpksLists)), new PlList(new ArrayList<PlTerm>(vtksLists))).toString();
+        return getOverApproximation3(nbSegments).getCallWith(new PlTerm(getParameters().getMaxNodeValuation()), new PlList(new ArrayList<PlTerm>(mksLists.subList(0, nbSegments + 1))), new PlList(new ArrayList<PlTerm>(vpksLists.subList(0, nbSegments))), new PlList(new ArrayList<PlTerm>(vtksLists.subList(0, nbSegments)))).toString();
     }
 
     @Override
@@ -467,9 +467,9 @@ public class SicstusImplementation extends Implementation {
         ArrayList<PlTerm> parameters = new ArrayList<>();
         ArrayList<PlBooleanExpr> body = new ArrayList<>();
         parameters.add(term_VMax);
-        parameters.add(list_MKs);
-        parameters.add(list_VPKs);
-        parameters.add(list_VTKs);
+        parameters.add(new PlList(new ArrayList<>(list_MKs.getTerms().subList(0, nbSegments + 1))));
+        parameters.add(new PlList(new ArrayList<>(list_VPKs.getTerms().subList(0, nbSegments))));
+        parameters.add(new PlList(new ArrayList<>(list_VTKs.getTerms().subList(0, nbSegments))));
         body.add(getInitialMarking().getCallWith(list_MKs.getTerm(0)));
         body.add(getFinalMarking().getCallWith(list_MKs.getTerm(nbSegments)));
         for (int segment = 1; segment <= nbSegments; segment++) {
@@ -477,12 +477,12 @@ public class SicstusImplementation extends Implementation {
             body.add(getMarkedGraph()[0].getCallWith(list_MKs.getTerm(segment - 1), list_VPKs.getTerm(segment - 1)));
             body.add(getNoSiphon()[0].getCallWith(list_MKs.getTerm(segment - 1), list_MKs.getTerm(segment), list_VPKs.getTerm(segment - 1), list_VTKs.getTerm(segment - 1)));
         }
-        for (int segment = 1; segment < nbSegments; segment++) {
+        for (int segment = 1; segment <= nbSegments; segment++) {
             body.add(new PlFDLabeling(
                     list_VTKs.getTerm(segment - 1)
             ));
         }
-        for (int segment = 1; segment < nbSegments; segment++) {
+        for (int segment = 1; segment <= nbSegments; segment++) {
             body.add(new PlFDLabeling(
                     list_VPKs.getTerm(segment - 1)
             ));
@@ -496,7 +496,7 @@ public class SicstusImplementation extends Implementation {
 
     @Override
     public String getUnderApproximationAssertion(int nbSegments) {
-        return getUnderApproximation(nbSegments).getCallWith(new PlTerm(getParameters().getMaxNodeValuation()), new PlList(new ArrayList<PlTerm>(mksLists)), new PlList(new ArrayList<PlTerm>(vpksLists)), new PlList(new ArrayList<PlTerm>(vtksLists))).toString();
+        return getUnderApproximation(nbSegments).getCallWith(new PlTerm(getParameters().getMaxNodeValuation()), new PlList(new ArrayList<PlTerm>(mksLists.subList(0, nbSegments + 1))), new PlList(new ArrayList<PlTerm>(vpksLists.subList(0, nbSegments))), new PlList(new ArrayList<PlTerm>(vtksLists.subList(0, nbSegments)))).toString();
     }
 
 }
