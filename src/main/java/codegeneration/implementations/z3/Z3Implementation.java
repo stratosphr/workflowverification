@@ -423,7 +423,11 @@ public class Z3Implementation extends Implementation {
         parameters.addAll(mksTerms.get(0));
         for (int segment = 1; segment <= nbSegments; segment++) {
             parameters.addAll(mksTerms.get(segment));
+        }
+        for (int segment = 1; segment <= nbSegments; segment++) {
             parameters.addAll(vpksTerms.get(segment - 1));
+        }
+        for (int segment = 1; segment <= nbSegments; segment++) {
             parameters.addAll(vtksTerms.get(segment - 1));
         }
         body.add(getInitialMarking().getCallWith(new ArrayList<SMTTerm>(mksTerms.get(0))));
@@ -451,6 +455,7 @@ public class Z3Implementation extends Implementation {
 
     @Override
     public String getOverApproximation3Assertion(int nbSegments) {
+        System.out.println("NB SEGMENTS : " + nbSegments);
         ArrayList<SMTTerm> parameters = new ArrayList<>();
         ArrayList<SMTVar> existsParameters = new ArrayList<>();
         parameters.add(new SMTTerm(getParameters().getMaxNodeValuation()));
@@ -458,10 +463,14 @@ public class Z3Implementation extends Implementation {
         existsParameters.addAll(mksTerms.get(0));
         for (int segment = 1; segment <= nbSegments; segment++) {
             parameters.addAll(mksTerms.get(segment));
-            parameters.addAll(vpksTerms.get(segment - 1));
-            parameters.addAll(vtksTerms.get(segment - 1));
             existsParameters.addAll(mksTerms.get(segment));
+        }
+        for (int segment = 1; segment <= nbSegments; segment++) {
+            parameters.addAll(vpksTerms.get(segment - 1));
             existsParameters.addAll(vpksTerms.get(segment - 1));
+        }
+        for (int segment = 1; segment <= nbSegments; segment++) {
+            parameters.addAll(vtksTerms.get(segment - 1));
             existsParameters.addAll(vtksTerms.get(segment - 1));
         }
         return new SMTAssert(
@@ -480,11 +489,15 @@ public class Z3Implementation extends Implementation {
         parameters.addAll(mksTerms.get(0));
         for (int segment = 1; segment <= nbSegments; segment++) {
             parameters.addAll(mksTerms.get(segment));
+        }
+        for (int segment = 1; segment <= nbSegments; segment++) {
             parameters.addAll(vpksTerms.get(segment - 1));
+        }
+        for (int segment = 1; segment <= nbSegments; segment++) {
             parameters.addAll(vtksTerms.get(segment - 1));
         }
         body.add(getInitialMarking().getCallWith(new ArrayList<SMTTerm>(mksTerms.get(0))));
-        body.add(getFinalMarking().getCallWith(new ArrayList<SMTTerm>(mksTerms.get(mksTerms.size() - 1))));
+        body.add(getFinalMarking().getCallWith(new ArrayList<SMTTerm>(mksTerms.get(nbSegments))));
         for (int segment = 1; segment <= nbSegments; segment++) {
             ArrayList<SMTTerm> stateEquationParameters = new ArrayList<>();
             ArrayList<SMTTerm> markedGraphParameters = new ArrayList<>();
@@ -519,7 +532,7 @@ public class Z3Implementation extends Implementation {
         parameters.add(new SMTTerm(getParameters().getMaxNodeValuation()));
         parameters.addAll(mksTerms.get(0));
         existsParameters.addAll(mksTerms.get(0));
-        for (int segment = 1; segment < nbSegments; segment++) {
+        for (int segment = 1; segment <= nbSegments; segment++) {
             parameters.addAll(mksTerms.get(segment));
             parameters.addAll(vpksTerms.get(segment - 1));
             parameters.addAll(vtksTerms.get(segment - 1));
