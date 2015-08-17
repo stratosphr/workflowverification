@@ -31,6 +31,7 @@ public class Z3 {
 
         private Z3Query(File file, String query) {
             this.query = "echo \"" + query + "\" | cat " + file.getAbsolutePath() + " /dev/stdin | z3 -in";
+            System.out.println(query);
         }
 
         public HashMap<String, SMTTerm> getSolution() {

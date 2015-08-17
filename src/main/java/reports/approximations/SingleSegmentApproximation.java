@@ -33,7 +33,7 @@ public class SingleSegmentApproximation extends AbstractApproximation {
 
     @Override
     public boolean isSAT() {
-        return false;
+        return !valuation.isEmpty();
     }
 
     @Override

@@ -283,7 +283,7 @@ public class Z3Implementation extends Implementation {
                 ));
             }
             existsBody.addParameter(new SMTImplication(
-                    new SMTGreaterOrEqual(
+                    new SMTGreaterThan(
                             vtsTerms.get(t),
                             new SMTTerm(0)
                     ),
@@ -533,10 +533,14 @@ public class Z3Implementation extends Implementation {
         existsParameters.addAll(mksTerms.get(0));
         for (int segment = 1; segment <= nbSegments; segment++) {
             parameters.addAll(mksTerms.get(segment));
-            parameters.addAll(vpksTerms.get(segment - 1));
-            parameters.addAll(vtksTerms.get(segment - 1));
             existsParameters.addAll(mksTerms.get(segment));
+        }
+        for (int segment = 1; segment <= nbSegments; segment++) {
+            parameters.addAll(vpksTerms.get(segment - 1));
             existsParameters.addAll(vpksTerms.get(segment - 1));
+        }
+        for (int segment = 1; segment <= nbSegments; segment++) {
+            parameters.addAll(vtksTerms.get(segment - 1));
             existsParameters.addAll(vtksTerms.get(segment - 1));
         }
         return new SMTAssert(
