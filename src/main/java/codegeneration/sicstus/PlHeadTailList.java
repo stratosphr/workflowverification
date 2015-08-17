@@ -14,6 +14,10 @@ public class PlHeadTailList extends PlTerm {
         this(new ArrayList<>(Arrays.asList(new PlTerm[]{head})), tail);
     }
 
+    public PlHeadTailList(PlTerm[] head, PlTerm tail) {
+        this(new ArrayList<>(Arrays.asList(head)), tail);
+    }
+
     public PlHeadTailList(ArrayList<PlTerm> headTerms, PlTerm tail) {
         super("[" + StringTools.join(headTerms, ", ") + "|" + tail + "]");
         this.headTerms = headTerms;

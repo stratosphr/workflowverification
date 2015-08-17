@@ -1,15 +1,12 @@
-<?xml version = "1.0" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE specification SYSTEM "../../specification.dtd">
 
-<!-- and[split, not[or[pseudo, mdp]], or[pseudo, valider, and[not[valider], consulter]]] -->
-
-<specification name="specification1" type="must">
+<specification type="must" name="mail3">
     <conjunction>
         <transition name="split"/>
         <transition name="pseudo"/>
         <transition name="mdp"/>
         <transition name="valider"/>
-        <transition name="consulter"/>
         <transition name="deconnecter"/>
     </conjunction>
 </specification>

@@ -56,22 +56,7 @@ public class MultipleSegmentsApproximation extends AbstractApproximation {
     public String toString() {
         String str = super.toString();
         if (isSAT()) {
-            str += valuation;
             str += "\t\t" + StringTools.separator(20);
-        /*for (int segment = 1; segment <= nbSegments; segment++) {
-            for (String varName : mks.get(segment - 1).keySet()) {
-                str += segment + " | " + varName + " = " + vpks.get(segment - 1).get(varName) + "\n";
-            }
-            for (String varName : mks.get(segment).keySet()) {
-                str += segment + " | " + varName + " = " + vpks.get(segment).get(varName) + "\n";
-            }
-            for (String varName : vpks.get(segment - 1).keySet()) {
-                str += segment + " | " + varName + " = " + vpks.get(segment - 1).get(varName) + "\n";
-            }
-            for (String varName : vtks.get(segment - 1).keySet()) {
-                str += segment + " | " + varName + " = " + vtks.get(segment - 1).get(varName) + "\n";
-            }
-        }*/
             for (int segment = 1; segment <= nbSegments; segment++) {
                 String maksSegment = "MAs = [ ";
                 String mbksSegment = "MBs = [ ";

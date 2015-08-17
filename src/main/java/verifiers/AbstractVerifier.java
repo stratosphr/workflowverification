@@ -25,6 +25,7 @@ public abstract class AbstractVerifier implements IVerifier {
         codeWriter.writeFormulaConstraint();
         codeWriter.writeNoSiphon();
         codeWriter.writeMarkedGraph();
+        codeWriter.writePairwiseSum();
         codeWriter.writeOverApproximation1();
         codeWriter.writeOverApproximation2();
         for (int nbSegments = implementation.getParameters().getMinNumberOfSegments(); nbSegments <= implementation.getParameters().getMaxNumberOfSegments(); nbSegments++) {

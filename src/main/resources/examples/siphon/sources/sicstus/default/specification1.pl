@@ -1,11 +1,5 @@
 :- use_module(library(clpfd)).
 
-w(Name, Value):-
-    write(Name),
-    write(' = '),
-    write(Value),
-    nl.
-
 initialMarking([1, 0, 0, 0, 0, 0, 0]).
 
 finalMarking([0, 1, 0, 0, 0, 0, 0]).
@@ -34,11 +28,11 @@ formula([VT_T0, VT_T1, VT_T2, VT_T3]):-
 	((VT_T0 #> 0) #\/ (VT_T1 #> 0) #\/ (VT_T2 #> 0) #\/ (VT_T3 #> 0)).
 
 noSiphon(MAs, MBs, VPs, VTs):-
-    init(MAs, MBs, VPs, VTs, XIs),
-    labeling([], VTs),
-	\+ siphon(MAs, MBs, VPs, VTs, XIs).
-init([MA_i, MA_o, MA_P1, MA_P2, MA_P3, MA_P4, MA_P5], [MB_i, MB_o, MB_P1, MB_P2, MB_P3, MB_P4, MB_P5], [VP_i, VP_o, VP_P1, VP_P2, VP_P3, VP_P4, VP_P5], [VT_T0, VT_T1, VT_T2, VT_T3], [XI_i, XI_o, XI_P1, XI_P2, XI_P3, XI_P4, XI_P5]):-
-    domain([XI_i, XI_o, XI_P1, XI_P2, XI_P3, XI_P4, XI_P5], 0, 1),
+	labeling([], VTs),
+	\+(siphon(MAs, MBs, VPs, VTs, XIs)).
+siphon([MA_i, MA_o, MA_P1, MA_P2, MA_P3, MA_P4, MA_P5], [MB_i, MB_o, MB_P1, MB_P2, MB_P3, MB_P4, MB_P5], [VP_i, VP_o, VP_P1, VP_P2, VP_P3, VP_P4, VP_P5], [VT_T0, VT_T1, VT_T2, VT_T3], [XI_i, XI_o, XI_P1, XI_P2, XI_P3, XI_P4, XI_P5]):-
+	domain([XI_i, XI_o, XI_P1, XI_P2, XI_P3, XI_P4, XI_P5], 0, 1),
+	sum([XI_i, XI_o, XI_P1, XI_P2, XI_P3, XI_P4, XI_P5], #>, 0),
 	(((MA_i #> 0) #\/ (MB_i #> 0) #\/ (VP_i #= 0)) #=> (XI_i #= 0)),
 	(((MA_o #> 0) #\/ (MB_o #> 0) #\/ (VP_o #= 0)) #=> (XI_o #= 0)),
 	(((MA_P1 #> 0) #\/ (MB_P1 #> 0) #\/ (VP_P1 #= 0)) #=> (XI_P1 #= 0)),
@@ -49,11 +43,8 @@ init([MA_i, MA_o, MA_P1, MA_P2, MA_P3, MA_P4, MA_P5], [MB_i, MB_o, MB_P1, MB_P2,
 	((VT_T0 #> 0) #=> (((XI_i) #>= XI_P1) #/\ ((XI_i) #>= XI_P2))),
 	((VT_T1 #> 0) #=> (((XI_P1 + XI_P3) #>= XI_P3) #/\ ((XI_P1 + XI_P3) #>= XI_P4))),
 	((VT_T2 #> 0) #=> (((XI_P2 + XI_P3) #>= XI_P3) #/\ ((XI_P2 + XI_P3) #>= XI_P5))),
-	((VT_T3 #> 0) #=> (((XI_P4 + XI_P5) #>= XI_o))).
-siphon([MA_i, MA_o, MA_P1, MA_P2, MA_P3, MA_P4, MA_P5], [MB_i, MB_o, MB_P1, MB_P2, MB_P3, MB_P4, MB_P5], [VP_i, VP_o, VP_P1, VP_P2, VP_P3, VP_P4, VP_P5], [VT_T0, VT_T1, VT_T2, VT_T3], [XI_i, XI_o, XI_P1, XI_P2, XI_P3, XI_P4, XI_P5]):-
-	sum([XI_i, XI_o, XI_P1, XI_P2, XI_P3, XI_P4, XI_P5], #>, 0),
-    labeling([], [XI_i, XI_o, XI_P1, XI_P2, XI_P3, XI_P4, XI_P5]),
-    write('Siphon....'),nl.
+	((VT_T3 #> 0) #=> (((XI_P4 + XI_P5) #>= XI_o))),
+	labeling([], [XI_i, XI_o, XI_P1, XI_P2, XI_P3, XI_P4, XI_P5]).
 
 markedGraph([], []).
 markedGraph([MA|MAs], [VP|VPs]):-

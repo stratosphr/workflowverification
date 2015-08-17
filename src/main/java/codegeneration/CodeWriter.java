@@ -40,6 +40,10 @@ public class CodeWriter extends SimpleWriter {
         write(implementation.getMarkedGraph());
     }
 
+    public void writePairwiseSum(){
+        write(implementation.getPairwiseSum());
+    }
+
     public void writeOverApproximation1() {
         write(implementation.getOverApproximation1());
     }

@@ -10,9 +10,9 @@ import files.SpecificationFile;
 import files.VerificationFolder;
 import mvc.eventsmanagement.IConfigurationListener;
 import mvc.eventsmanagement.events.configuration.*;
+import reports.Report;
 import reports.approximations.AbstractApproximation;
 import reports.approximations.MultipleSegmentsApproximation;
-import reports.Report;
 import reports.approximations.SingleSegmentApproximation;
 import verifiers.AbstractVerifier;
 import verifiers.IVerificationHandler;
@@ -187,61 +187,41 @@ public class ConfigurationModel extends AbstractModel implements IVerificationHa
         } else if (parametersModel.checkUnderApproximation()) {
             verifier.startUnderApproximationChecking(this);
         }
-        /*if (parametersModel.checkOverApproximation1()) {
-            z3Verifier.startOverApproximation1Checking(new IVerificationHandler() {
-                public void doneChecking(AbstractApproximation result) {
-                    fireZ3VerificationDone();
-
-                }
-            });
-        } else if (parametersModel.checkOverApproximation2()) {
-            z3Verifier.startOverApproximation2Checking(new IVerificationHandler() {
-                public void doneChecking(AbstractApproximation result) {
-                    fireZ3VerificationDone();
-                }
-            });
-        } else if (parametersModel.checkOverApproximation3()) {
-            z3Verifier.startOverApproximation3Checking(new IVerificationHandler() {
-                public void doneChecking(AbstractApproximation result) {
-                    fireZ3VerificationDone();
-                }
-            });
-        } else if (parametersModel.checkUnderApproximation()) {
-            z3Verifier.startUnderApproximationChecking(new IVerificationHandler() {
-                public void doneChecking(AbstractApproximation result) {
-                    fireZ3VerificationDone();
-                }
-            });
-        }*/
     }
 
     @Override
     public void doneCheckingOverApproximation1(SingleSegmentApproximation approximation) {
         fireCheckingDone(approximation);
-        if (parametersModel.checkOverApproximation2()) {
-            verifier.startOverApproximation2Checking(this);
-        } else if (parametersModel.checkOverApproximation3()) {
-            verifier.startOverApproximation3Checking(this);
-        } else if (parametersModel.checkUnderApproximation()) {
-            verifier.startUnderApproximationChecking(this);
+        if (approximation.isSAT()) {
+            if (parametersModel.checkOverApproximation2()) {
+                verifier.startOverApproximation2Checking(this);
+            } else if (parametersModel.checkOverApproximation3()) {
+                verifier.startOverApproximation3Checking(this);
+            } else if (parametersModel.checkUnderApproximation()) {
+                verifier.startUnderApproximationChecking(this);
+            }
         }
     }
 
     @Override
     public void doneCheckingOverApproximation2(SingleSegmentApproximation approximation) {
         fireCheckingDone(approximation);
-        if (parametersModel.checkOverApproximation3()) {
-            verifier.startOverApproximation3Checking(this);
-        } else if (parametersModel.checkUnderApproximation()) {
-            verifier.startUnderApproximationChecking(this);
+        if (approximation.isSAT()) {
+            if (parametersModel.checkOverApproximation3()) {
+                verifier.startOverApproximation3Checking(this);
+            } else if (parametersModel.checkUnderApproximation()) {
+                verifier.startUnderApproximationChecking(this);
+            }
         }
     }
 
     @Override
     public void doneCheckingOverApproximation3(MultipleSegmentsApproximation approximation) {
         fireCheckingDone(approximation);
-        if (parametersModel.checkUnderApproximation()) {
-            verifier.startUnderApproximationChecking(this);
+        if (approximation.isSAT()) {
+            if (parametersModel.checkUnderApproximation()) {
+                verifier.startUnderApproximationChecking(this);
+            }
         }
     }
 

@@ -24,9 +24,6 @@ public class SicstusImplementation extends Implementation {
     private PlTerm term_VPs;
     private PlTerm term_VTs;
     private PlTerm term_XIs;
-    private PlTerm term_MKs;
-    private PlTerm term_VPKs;
-    private PlTerm term_VTKs;
     private PlList list_MAs;
     private PlList list_MBs;
     private PlList list_VPs;
@@ -45,6 +42,7 @@ public class SicstusImplementation extends Implementation {
     private PlList list_MKs;
     private PlList list_VPKs;
     private PlList list_VTKs;
+    private PlPredicateDefinition pairwiseSum;
 
     public SicstusImplementation(Workflow workflow, Specification specification, ParametersModel parametersModel) {
         super(workflow, specification, parametersModel);
@@ -58,9 +56,6 @@ public class SicstusImplementation extends Implementation {
         term_VPs = new PlTerm("VPs");
         term_VTs = new PlTerm("VTs");
         term_XIs = new PlTerm("XIs");
-        term_MKs = new PlTerm("MKs");
-        term_VPKs = new PlTerm("VPKs");
-        term_VTKs = new PlTerm("VTKs");
         masTerms = new LinkedHashMap<>();
         mbsTerms = new LinkedHashMap<>();
         vpsTerms = new LinkedHashMap<>();
@@ -376,6 +371,90 @@ public class SicstusImplementation extends Implementation {
     }
 
     @Override
+    public PlPredicateDefinition[] getPairwiseSum() {
+        PlPredicateDefinition pairwiseSum1 = new PlPredicateDefinition(
+                "pairwiseSum",
+                new PlList(),
+                new PlList(),
+                new PlList()
+        );
+        PlPredicateDefinition pairwiseSum2 = new PlPredicateDefinition(
+                "pairwiseSum",
+                new PlTerm[]{
+                        new PlHeadTailList(
+                                new PlTerm("H1"),
+                                new PlTerm("T1")
+                        ),
+                        new PlHeadTailList(
+                                new PlTerm("H2"),
+                                new PlTerm("T2")
+                        ),
+                        new PlHeadTailList(
+                                new PlTerm("H3"),
+                                new PlTerm("T3")
+                        )
+                },
+                new PlBooleanExpr[]{
+                        new PLFDEquals(
+                                new PlTerm("H3"),
+                                new PlSum(
+                                        new PlTerm("H1"),
+                                        new PlTerm("H2")
+                                )
+                        ),
+                        new PlPredicateCall(
+                                "pairwiseSum",
+                                new PlTerm("T1"),
+                                new PlTerm("T2"),
+                                new PlTerm("T3")
+                        )
+                }
+        );
+        PlPredicateDefinition pairwiseSum3 = new PlPredicateDefinition(
+                "pairwiseSum",
+                new PlList(
+                        new PlTerm("L")
+                ),
+                new PlTerm("L")
+        );
+        PlPredicateDefinition pairwiseSum4 = new PlPredicateDefinition(
+                "pairwiseSum",
+                new PlTerm[]{
+                        new PlHeadTailList(
+                                new PlTerm[]{
+                                        new PlTerm("L1"),
+                                        new PlTerm("L2")
+                                },
+                                new PlTerm("Ls")
+                        ),
+                        new PlTerm("R")
+                },
+                new PlBooleanExpr[]{
+                        new PlPredicateCall(
+                                "pairwiseSum",
+                                new PlTerm("L1"),
+                                new PlTerm("L2"),
+                                new PlTerm("R1")
+                        ),
+                        new PlPredicateCall(
+                                "pairwiseSum",
+                                new PlHeadTailList(
+                                        new PlTerm("R1"),
+                                        new PlTerm("Ls")
+                                ),
+                                new PlTerm("R")
+                        )
+                }
+        );
+        return new PlPredicateDefinition[]{
+                pairwiseSum1,
+                pairwiseSum2,
+                pairwiseSum3,
+                pairwiseSum4,
+        };
+    }
+
+    @Override
     public PlPredicateDefinition getOverApproximation1() {
         ArrayList<PlTerm> parameters = new ArrayList<>();
         ArrayList<PlBooleanExpr> body = new ArrayList<>();
@@ -442,16 +521,21 @@ public class SicstusImplementation extends Implementation {
     public PlPredicateDefinition getOverApproximation3(int nbSegments) {
         ArrayList<PlTerm> parameters = new ArrayList<>();
         ArrayList<PlBooleanExpr> body = new ArrayList<>();
+        ArrayList<PlTerm> pairwiseSumParameters = new ArrayList<>();
         parameters.add(term_VMax);
         parameters.add(new PlList(new ArrayList<>(list_MKs.getTerms().subList(0, nbSegments + 1))));
         parameters.add(new PlList(new ArrayList<>(list_VPKs.getTerms().subList(0, nbSegments))));
         parameters.add(new PlList(new ArrayList<>(list_VTKs.getTerms().subList(0, nbSegments))));
+        pairwiseSumParameters.add(new PlList(new ArrayList<>(list_VTKs.getTerms().subList(0, nbSegments))));
+        pairwiseSumParameters.add(term_VTs);
         body.add(getInitialMarking().getCallWith(list_MKs.getTerm(0)));
         body.add(getFinalMarking().getCallWith(list_MKs.getTerm(nbSegments)));
         for (int segment = 1; segment <= nbSegments; segment++) {
             body.add(getStateEquation().getCallWith(term_VMax, list_MKs.getTerm(segment - 1), list_MKs.getTerm(segment), list_VPKs.getTerm(segment - 1), list_VTKs.getTerm(segment - 1)));
             body.add(getMarkedGraph()[0].getCallWith(list_MKs.getTerm(segment - 1), list_VPKs.getTerm(segment - 1)));
         }
+        body.add(getPairwiseSum()[0].getCallWith(pairwiseSumParameters));
+        body.add(getFormula().getCallWith(term_VTs));
         for (int segment = 1; segment <= nbSegments; segment++) {
             body.add(new PlFDLabeling(
                     list_VTKs.getTerm(segment - 1)
@@ -478,10 +562,13 @@ public class SicstusImplementation extends Implementation {
     public PlPredicateDefinition getUnderApproximation(int nbSegments) {
         ArrayList<PlTerm> parameters = new ArrayList<>();
         ArrayList<PlBooleanExpr> body = new ArrayList<>();
+        ArrayList<PlTerm> pairwiseSumParameters = new ArrayList<>();
         parameters.add(term_VMax);
         parameters.add(new PlList(new ArrayList<>(list_MKs.getTerms().subList(0, nbSegments + 1))));
         parameters.add(new PlList(new ArrayList<>(list_VPKs.getTerms().subList(0, nbSegments))));
         parameters.add(new PlList(new ArrayList<>(list_VTKs.getTerms().subList(0, nbSegments))));
+        pairwiseSumParameters.add(new PlList(new ArrayList<>(list_VTKs.getTerms().subList(0, nbSegments))));
+        pairwiseSumParameters.add(term_VTs);
         body.add(getInitialMarking().getCallWith(list_MKs.getTerm(0)));
         body.add(getFinalMarking().getCallWith(list_MKs.getTerm(nbSegments)));
         for (int segment = 1; segment <= nbSegments; segment++) {
@@ -489,6 +576,8 @@ public class SicstusImplementation extends Implementation {
             body.add(getMarkedGraph()[0].getCallWith(list_MKs.getTerm(segment - 1), list_VPKs.getTerm(segment - 1)));
             body.add(getNoSiphon()[0].getCallWith(list_MKs.getTerm(segment - 1), list_MKs.getTerm(segment), list_VPKs.getTerm(segment - 1), list_VTKs.getTerm(segment - 1)));
         }
+        body.add(getPairwiseSum()[0].getCallWith(pairwiseSumParameters));
+        body.add(getFormula().getCallWith(term_VTs));
         for (int segment = 1; segment <= nbSegments; segment++) {
             body.add(new PlFDLabeling(
                     list_VTKs.getTerm(segment - 1)

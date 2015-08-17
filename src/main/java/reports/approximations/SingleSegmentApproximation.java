@@ -19,14 +19,14 @@ public class SingleSegmentApproximation extends AbstractApproximation {
         vps = new TreeMap<>();
         vts = new TreeMap<>();
         for (String varName : valuation.keySet()) {
-            if (varName.startsWith(Prefixes.VP)) {
+            if (varName.startsWith(Prefixes.MA)) {
+                mas.put(varName.replaceFirst(Prefixes.MA, ""), Integer.parseInt(valuation.get(varName).toString()));
+            } else if (varName.startsWith(Prefixes.MB)) {
+                mbs.put(varName.replaceFirst(Prefixes.MB, ""), Integer.parseInt(valuation.get(varName).toString()));
+            } else if (varName.startsWith(Prefixes.VP)) {
                 vps.put(varName.replaceFirst(Prefixes.VP, ""), Integer.parseInt(valuation.get(varName).toString()));
             } else if (varName.startsWith(Prefixes.VT)) {
                 vts.put(varName.replaceFirst(Prefixes.VT, ""), Integer.parseInt(valuation.get(varName).toString()));
-            } else if (varName.startsWith(Prefixes.MA)) {
-                mas.put(varName.replaceFirst(Prefixes.VT, ""), Integer.parseInt(valuation.get(varName).toString()));
-            } else if (varName.startsWith(Prefixes.MB)) {
-                mbs.put(varName.replaceFirst(Prefixes.VT, ""), Integer.parseInt(valuation.get(varName).toString()));
             }
         }
     }
@@ -39,17 +39,39 @@ public class SingleSegmentApproximation extends AbstractApproximation {
     @Override
     public String toString() {
         String str = super.toString();
-        for (String varName : mas.keySet()) {
-            str += varName + " = " + mas.get(varName) + "\n";
-        }
-        for (String varName : mbs.keySet()) {
-            str += varName + " = " + mbs.get(varName) + "\n";
-        }
-        for (String varName : vps.keySet()) {
-            str += varName + " = " + vps.get(varName) + "\n";
-        }
-        for (String varName : vts.keySet()) {
-            str += varName + " = " + vts.get(varName) + "\n";
+        if (isSAT()) {
+            String masSegment = "MAs = [ ";
+            String mbsSegment = "MBs = [ ";
+            String vpsSegment = "VPs = [ ";
+            String vtsSegment = "VTs = [ ";
+            for (String varName : mas.keySet()) {
+                if (mas.get(varName) > 0) {
+                    masSegment += varName + " ";
+                }
+            }
+            for (String varName : mbs.keySet()) {
+                if (mbs.get(varName) > 0) {
+                    mbsSegment += varName + " ";
+                }
+            }
+            for (String varName : vps.keySet()) {
+                if (vps.get(varName) > 0) {
+                    vpsSegment += varName + " ";
+                }
+            }
+            for (String varName : vts.keySet()) {
+                if (vts.get(varName) > 0) {
+                    vtsSegment += varName + " ";
+                }
+            }
+            masSegment += "]";
+            mbsSegment += "]";
+            vpsSegment += "]";
+            vtsSegment += "]";
+            str += "\t\t" + masSegment + "\n";
+            str += "\t\t" + mbsSegment + "\n";
+            str += "\t\t" + vpsSegment + "\n";
+            str += "\t\t" + vtsSegment + "\n";
         }
         return str;
     }

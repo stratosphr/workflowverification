@@ -1,15 +1,18 @@
-<?xml version = "1.0" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE specification SYSTEM "../../specification.dtd">
 
-<!-- and[t1, not[or[t2, t3]], or[t2, t4, and[not[t4], t5]]] -->
-
-<specification name="specification2" type="may">
+<specification type="may" name="mail2">
     <conjunction>
         <transition name="split"/>
         <transition name="pseudo"/>
         <transition name="mdp"/>
         <transition name="valider"/>
-        <transition name="consulter"/>
+        <disjunction>
+            <negation>
+                <transition name="consulter"/>
+            </negation>
+            <transition name="consulter"/>
+        </disjunction>
         <transition name="deconnecter"/>
     </conjunction>
 </specification>

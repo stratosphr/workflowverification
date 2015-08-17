@@ -37,6 +37,8 @@ public abstract class Implementation {
 
     public abstract Object getMarkedGraph();
 
+    public abstract Object getPairwiseSum();
+
     public abstract Object getOverApproximation1();
 
     public abstract String getOverApproximation1Assertion();
