@@ -27,6 +27,7 @@ public class Z3Implementation extends Implementation {
     private ArrayList<ArrayList<SMTVar>> mksTerms;
     private ArrayList<ArrayList<SMTVar>> vpksTerms;
     private ArrayList<ArrayList<SMTVar>> vtksTerms;
+    private ArrayList<ArrayList<SMTVar>> vtksOptimizedTerms;
 
     public Z3Implementation(Workflow workflow, Specification specification, ParametersModel parametersModel) {
         super(workflow, specification, parametersModel);
@@ -44,6 +45,7 @@ public class Z3Implementation extends Implementation {
         mksTerms = new ArrayList<>();
         vpksTerms = new ArrayList<>();
         vtksTerms = new ArrayList<>();
+        vtksOptimizedTerms = new ArrayList<>();
         for (Place p : workflow.getPlaces()) {
             masTerms.put(p, new SMTVar(Prefixes.MA + p, ESMTType.INT));
             mbsTerms.put(p, new SMTVar(Prefixes.MB + p, ESMTType.INT));
@@ -78,6 +80,15 @@ public class Z3Implementation extends Implementation {
             mksTermsSegment.add(new SMTVar(Prefixes.MK + nbSegments + "_" + p, ESMTType.INT));
         }
         mksTerms.add(mksTermsSegment);
+        for (Transition t : workflow.getTransitions()) {
+            if (usedTransitions.contains(t)) {
+                ArrayList<SMTVar> vtksOptimizedTermsSegment = new ArrayList<>();
+                for (int segment = 1; segment <= nbSegments; segment++) {
+                    vtksOptimizedTermsSegment.add(new SMTVar(Prefixes.VTK + (segment) + "_" + t, ESMTType.INT));
+                }
+                vtksOptimizedTerms.add(vtksOptimizedTermsSegment);
+            }
+        }
     }
 
     @Override
@@ -424,6 +435,7 @@ public class Z3Implementation extends Implementation {
     public SMTPredicateDefinition getOverApproximation3(int nbSegments) {
         ArrayList<SMTVar> parameters = new ArrayList<>();
         ArrayList<SMTTerm> body = new ArrayList<>();
+        ArrayList<SMTTerm> formulaParameters = new ArrayList<>();
         parameters.add(term_VMax);
         parameters.addAll(mksTerms.get(0));
         for (int segment = 1; segment <= nbSegments; segment++) {
@@ -450,6 +462,12 @@ public class Z3Implementation extends Implementation {
             body.add(getStateEquation().getCallWith(stateEquationParameters));
             body.add(getMarkedGraph().getCallWith(markedGraphParameters));
         }
+        for (ArrayList<SMTVar> vtkOptimizedTerms : vtksOptimizedTerms) {
+            formulaParameters.add(new SMTSum(
+                    new ArrayList<SMTTerm>(vtkOptimizedTerms.subList(0, nbSegments))
+            ));
+        }
+        body.add(getFormula().getCallWith(formulaParameters));
         return new SMTPredicateDefinition(
                 "overApproximation3_" + nbSegments,
                 parameters,
@@ -489,6 +507,7 @@ public class Z3Implementation extends Implementation {
     public SMTPredicateDefinition getUnderApproximation(int nbSegments) {
         ArrayList<SMTVar> parameters = new ArrayList<>();
         ArrayList<SMTTerm> body = new ArrayList<>();
+        ArrayList<SMTTerm> formulaParameters = new ArrayList<>();
         parameters.add(term_VMax);
         parameters.addAll(mksTerms.get(0));
         for (int segment = 1; segment <= nbSegments; segment++) {
@@ -521,6 +540,12 @@ public class Z3Implementation extends Implementation {
             body.add(getMarkedGraph().getCallWith(markedGraphParameters));
             body.add(getNoSiphon().getCallWith(noSiphonParameters));
         }
+        for (ArrayList<SMTVar> vtkOptimizedTerms : vtksOptimizedTerms) {
+            formulaParameters.add(new SMTSum(
+                    new ArrayList<SMTTerm>(vtkOptimizedTerms.subList(0, nbSegments))
+            ));
+        }
+        body.add(getFormula().getCallWith(formulaParameters));
         return new SMTPredicateDefinition(
                 "underApproximation_" + nbSegments,
                 parameters,
