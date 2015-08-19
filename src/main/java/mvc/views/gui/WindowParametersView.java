@@ -128,9 +128,9 @@ public class WindowParametersView extends AbstractParametersView {
     }
 
     private void createUIComponents() {
-        spin_maxNodeValuation = new JSpinner(new SpinnerNumberModel(10, 1, 9999, 1));
+        spin_maxNodeValuation = new JSpinner(new SpinnerNumberModel(100, 1, 9999, 1));
         spin_minNumberOfSegments = new JSpinner(new SpinnerNumberModel(2, 2, 9999, 1));
-        spin_maxNumberOfSegments = new JSpinner(new SpinnerNumberModel(10, 2, 9999, 1));
+        spin_maxNumberOfSegments = new JSpinner(new SpinnerNumberModel(20, 2, 9999, 1));
     }
 
     {

@@ -1,0 +1,8 @@
+<?xml version = "1.0" ?>
+<!DOCTYPE specification SYSTEM "../../specification.dtd">
+
+<specification name="specification1" type="may">
+    <conjunction>
+        <transition name="T445"/>
+    </conjunction>
+</specification>

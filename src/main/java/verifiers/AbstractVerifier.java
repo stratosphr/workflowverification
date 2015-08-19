@@ -30,9 +30,11 @@ public abstract class AbstractVerifier implements IVerifier {
         codeWriter.writeOverApproximation2();
         for (int nbSegments = implementation.getParameters().getMinNumberOfSegments(); nbSegments <= implementation.getParameters().getMaxNumberOfSegments(); nbSegments++) {
             codeWriter.writeOverApproximation3(nbSegments);
+            System.out.println("OverApproximation3_" + nbSegments + " written.");
         }
         for (int nbSegments = implementation.getParameters().getMinNumberOfSegments(); nbSegments <= implementation.getParameters().getMaxNumberOfSegments(); nbSegments++) {
             codeWriter.writeUnderApproximation(nbSegments);
+            System.out.println("UnderApproximation_" + nbSegments + " written.");
         }
     }
 

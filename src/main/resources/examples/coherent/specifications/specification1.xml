@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE specification SYSTEM "../../specification.dtd">
+
+<specification type="may" name="specification1">
+    <conjunction>
+        <transition name="CRITSIT_navigateToSearch"/>
+        <transition name="CRITSIT_backendSendTo"/>
+        <transition name="CRITSIT_backendValidDispatch"/>
+        <transition name="CRITSIT_verifyBackEndControlsStatus"/>
+        <transition name="T38"/>
+        <transition name="SR_navigateToSRCreation"/>
+        <transition name="SR_navigateToSearch"/>
+        <transition name="SR_frontEndAnalyse"/>
+        <transition name="T34"/>
+        <transition name="SR_backEnd2Verify"/>
+        <transition name="T39"/>
+        <transition name="T36"/>
+    </conjunction>
+</specification>

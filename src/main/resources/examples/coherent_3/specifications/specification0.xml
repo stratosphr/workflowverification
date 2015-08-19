@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE specification SYSTEM "../../specification.dtd">
+
+<specification type="may" name="specification0">
+    <transition name="T183"/>
+</specification>

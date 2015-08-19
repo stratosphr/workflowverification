@@ -11,7 +11,7 @@ public class Main {
         setDefaultLookAndFeel("Nimbus");
         ConfigurationModel configurationModel = new ConfigurationModel();
         ConfigurationController configurationController = new ConfigurationController(configurationModel, new ParametersModel());
-        configurationModel.setVerificationFolder(new VerificationFolder("src/main/resources/examples/segments_2"));
+        configurationModel.setVerificationFolder(new VerificationFolder("src/main/resources/examples/coherent_3"));
         configurationController.displayMainViews();
     }
 

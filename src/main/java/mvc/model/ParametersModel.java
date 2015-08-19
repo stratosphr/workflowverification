@@ -17,7 +17,7 @@ public class ParametersModel extends AbstractModel {
     private boolean checkUnderApproximation;
 
     public ParametersModel() {
-        this(10, 2, 10, true, true, true, true);
+        this(100, 2, 20, true, true, true, true);
     }
 
     public ParametersModel(int maxNodeValuation, int minNumberOfSegments, int maxNumberOfSegments, boolean checkOverApproximation1, boolean checkOverApproximation2, boolean checkOverApproximation3, boolean checkUnderApproximation) {
