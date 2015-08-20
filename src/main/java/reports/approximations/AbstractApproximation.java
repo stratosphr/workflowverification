@@ -11,7 +11,9 @@ public abstract class AbstractApproximation {
 
     }
 
-    public abstract boolean isSAT();
+    public boolean isSAT() {
+        return !valuation.isEmpty();
+    }
 
     public int size() {
         return valuation.size();

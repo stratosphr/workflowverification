@@ -48,11 +48,6 @@ public class MultipleSegmentsApproximation extends AbstractApproximation {
     }
 
     @Override
-    public boolean isSAT() {
-        return !valuation.isEmpty();
-    }
-
-    @Override
     public String toString() {
         String str = super.toString();
         if (isSAT()) {

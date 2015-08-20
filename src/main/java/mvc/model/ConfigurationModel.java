@@ -206,7 +206,7 @@ public class ConfigurationModel extends AbstractModel implements IVerificationHa
     @Override
     public void doneCheckingOverApproximation2(SingleSegmentApproximation approximation) {
         fireCheckingDone(approximation);
-        if (approximation.isSAT()) {
+        if (approximation.isSAT() && !approximation.isValid()) {
             if (parametersModel.checkOverApproximation3()) {
                 verifier.startOverApproximation3Checking(this);
             } else if (parametersModel.checkUnderApproximation()) {

@@ -31,9 +31,17 @@ public class SingleSegmentApproximation extends AbstractApproximation {
         }
     }
 
-    @Override
-    public boolean isSAT() {
-        return !valuation.isEmpty();
+    public boolean isValid() {
+        if(isSAT()) {
+            for (Integer vt : vts.values()) {
+                if (vt > 1){
+                    return false;
+                }
+            }
+            return true;
+        }else {
+            return false;
+        }
     }
 
     @Override
