@@ -1,16 +1,16 @@
 package codegeneration.implementations;
 
-import mvc.model.ParametersModel;
+import mvc2.models.ParametersModel;
 import petrinets.model.Workflow;
 import specifications.model.Specification;
 
-public abstract class Implementation {
+public abstract class AbstractImplementation {
 
     protected final Workflow workflow;
     protected final Specification specification;
     private final ParametersModel parametersModel;
 
-    public Implementation(Workflow workflow, Specification specification, ParametersModel parametersModel) {
+    public AbstractImplementation(Workflow workflow, Specification specification, ParametersModel parametersModel) {
         this.workflow = workflow;
         this.specification = specification;
         this.parametersModel = parametersModel;

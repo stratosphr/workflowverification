@@ -32,16 +32,21 @@ public class SingleSegmentApproximation extends AbstractApproximation {
     }
 
     public boolean isValid() {
-        if(isSAT()) {
-            for (Integer vt : vts.values()) {
-                if (vt > 1){
-                    return false;
-                }
-            }
-            return true;
-        }else {
+        if (isSAT()) {
+            return getMaxValuation() == 1;
+        } else {
             return false;
         }
+    }
+
+    public int getMaxValuation() {
+        int maxValuation = 0;
+        for (Integer vt : vts.values()) {
+            if (vt > maxValuation) {
+                maxValuation = vt;
+            }
+        }
+        return maxValuation;
     }
 
     @Override

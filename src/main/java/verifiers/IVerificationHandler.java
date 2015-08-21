@@ -1,16 +1,10 @@
 package verifiers;
 
-import reports.approximations.MultipleSegmentsApproximation;
-import reports.approximations.SingleSegmentApproximation;
+import reports.approximations.AbstractApproximation;
+import reports.approximations.ApproximationTypes;
 
 public interface IVerificationHandler {
 
-    void doneCheckingOverApproximation1(SingleSegmentApproximation approximation);
-
-    void doneCheckingOverApproximation2(SingleSegmentApproximation approximation);
-
-    void doneCheckingOverApproximation3(MultipleSegmentsApproximation approximation);
-
-    void doneCheckingUnderApproximation(MultipleSegmentsApproximation approximation);
+    void fireDoneChecking(ApproximationTypes approximationType, AbstractApproximation approximation);
 
 }

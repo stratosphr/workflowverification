@@ -1,14 +1,14 @@
 package codegeneration.implementations;
 
 import codegeneration.implementations.sicstus.SicstusImplementation;
-import codegeneration.implementations.sicstus.ESicstusImplementation;
+import codegeneration.implementations.sicstus.ESicstusImplementations;
 import codegeneration.implementations.sicstus.OneTransitionPerSegmentSicstusImplementation;
 import codegeneration.implementations.z3.Z3Implementation;
-import codegeneration.implementations.z3.EZ3Implementation;
+import codegeneration.implementations.z3.EZ3Implementations;
 import codegeneration.implementations.z3.OneTransitionPerSegmentZ3Implementation;
 import exceptions.UnknownSicstusImplementationException;
 import exceptions.UnknownZ3ImplementationException;
-import mvc.model.ParametersModel;
+import mvc2.models.ParametersModel;
 import petrinets.model.Workflow;
 import specifications.model.Specification;
 
@@ -18,7 +18,7 @@ public class ImplementationFactory {
 
     }
 
-    public static SicstusImplementation getImplementation(ESicstusImplementation sicstusImplementation, Workflow workflow, Specification specification, ParametersModel parametersModel) {
+    public static SicstusImplementation getImplementation(ESicstusImplementations sicstusImplementation, Workflow workflow, Specification specification, ParametersModel parametersModel) {
         switch (sicstusImplementation) {
             case DEFAULT:
                 return new SicstusImplementation(workflow, specification, parametersModel);
@@ -29,7 +29,7 @@ public class ImplementationFactory {
         }
     }
 
-    public static Z3Implementation getImplementation(EZ3Implementation z3Implementation, Workflow workflow, Specification specification, ParametersModel parametersModel) {
+    public static Z3Implementation getImplementation(EZ3Implementations z3Implementation, Workflow workflow, Specification specification, ParametersModel parametersModel) {
         switch (z3Implementation) {
             case DEFAULT:
                 return new Z3Implementation(workflow, specification, parametersModel);

@@ -1,9 +1,9 @@
 package codegeneration.implementations.sicstus;
 
-import codegeneration.implementations.Implementation;
+import codegeneration.implementations.AbstractImplementation;
 import codegeneration.sicstus.*;
 import codegeneration.sicstus.fd.*;
-import mvc.model.ParametersModel;
+import mvc2.models.ParametersModel;
 import petrinets.model.Place;
 import petrinets.model.Transition;
 import petrinets.model.Workflow;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
-public class SicstusImplementation extends Implementation {
+public class SicstusImplementation extends AbstractImplementation {
 
     private PlTerm term_VMax;
     private PlTerm term_MAs;

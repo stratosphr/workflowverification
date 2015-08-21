@@ -1,6 +1,6 @@
 package mvc.views.gui.listeners.configuration;
 
-import codegeneration.implementations.z3.EZ3Implementation;
+import codegeneration.implementations.z3.EZ3Implementations;
 import mvc.controllers.AbstractController;
 import mvc.controllers.ConfigurationController;
 import mvc.views.gui.listeners.AbstractListener;
@@ -19,7 +19,7 @@ public class CbxZ3ImplementationListener extends AbstractListener implements Ite
     @Override
     public void itemStateChanged(ItemEvent itemEvent) {
         if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
-            ((ConfigurationController) getController()).notifyZ3ImplementationChanged((EZ3Implementation) itemEvent.getItem());
+            ((ConfigurationController) getController()).notifyZ3ImplementationChanged((EZ3Implementations) itemEvent.getItem());
         }
     }
 

@@ -1,9 +1,9 @@
-package codegeneration.implementations.sicstus;
+package codegeneration.implementations.z3;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public enum ESicstusImplementation {
+public enum EZ3Implementations {
 
     DEFAULT, ONE_TRANSITION_PER_SEGMENT;
 

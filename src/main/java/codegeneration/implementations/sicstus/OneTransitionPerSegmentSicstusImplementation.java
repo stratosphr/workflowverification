@@ -1,6 +1,6 @@
 package codegeneration.implementations.sicstus;
 
-import mvc.model.ParametersModel;
+import mvc2.models.ParametersModel;
 import petrinets.model.Workflow;
 import specifications.model.Specification;
 

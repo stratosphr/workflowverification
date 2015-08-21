@@ -11,7 +11,7 @@ public abstract class AbstractConfigurationView extends AbstractView implements 
     }
 
     public ConfigurationController getConfigurationController() {
-        return (ConfigurationController) getController();
+        return getController();
     }
 
 }

@@ -1,18 +1,18 @@
 package mvc.eventsmanagement.events.configuration;
 
-import codegeneration.implementations.sicstus.ESicstusImplementation;
+import codegeneration.implementations.sicstus.ESicstusImplementations;
 import mvc.model.ConfigurationModel;
 
 public class SicstusImplementationChanged extends AbstractConfigurationEvent {
 
-    private ESicstusImplementation newSicstusImplementation;
+    private ESicstusImplementations newSicstusImplementation;
 
-    public SicstusImplementationChanged(ConfigurationModel source, ESicstusImplementation newSicstusImplementation) {
+    public SicstusImplementationChanged(ConfigurationModel source, ESicstusImplementations newSicstusImplementation) {
         super(source);
         this.newSicstusImplementation = newSicstusImplementation;
     }
 
-    public ESicstusImplementation getNewSicstusImplementation() {
+    public ESicstusImplementations getNewSicstusImplementation() {
         return newSicstusImplementation;
     }
 

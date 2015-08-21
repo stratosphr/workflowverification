@@ -1,13 +1,13 @@
 package codegeneration;
 
-import codegeneration.implementations.Implementation;
+import codegeneration.implementations.AbstractImplementation;
 import files.GeneratedCodeFile.GeneratedCodeFile;
 
 public class CodeWriter extends SimpleWriter {
 
-    private final Implementation implementation;
+    private final AbstractImplementation implementation;
 
-    public CodeWriter(GeneratedCodeFile generatedCodeFile, Implementation implementation) {
+    public CodeWriter(GeneratedCodeFile generatedCodeFile, AbstractImplementation implementation) {
         super(generatedCodeFile);
         this.implementation = implementation;
     }

@@ -1,7 +1,7 @@
 package mvc.controllers;
 
-import codegeneration.implementations.sicstus.ESicstusImplementation;
-import codegeneration.implementations.z3.EZ3Implementation;
+import codegeneration.implementations.sicstus.ESicstusImplementations;
+import codegeneration.implementations.z3.EZ3Implementations;
 import files.SpecificationFile;
 import files.VerificationFolder;
 import mvc.model.ConfigurationModel;
@@ -78,11 +78,11 @@ public class ConfigurationController extends AbstractController {
         displayParametersViews();
     }
 
-    public void notifySicstusImplementationChanged(ESicstusImplementation newSicstusImplementation) {
+    public void notifySicstusImplementationChanged(ESicstusImplementations newSicstusImplementation) {
         configurationModel.setSicstusImplementation(newSicstusImplementation);
     }
 
-    public void notifyZ3ImplementationChanged(EZ3Implementation newZ3Implementation) {
+    public void notifyZ3ImplementationChanged(EZ3Implementations newZ3Implementation) {
         configurationModel.setZ3Implementation(newZ3Implementation);
     }
 

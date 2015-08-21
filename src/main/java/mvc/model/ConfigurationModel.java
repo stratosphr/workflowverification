@@ -1,9 +1,8 @@
 package mvc.model;
 
-import codegeneration.implementations.Implementation;
-import codegeneration.implementations.ImplementationFactory;
-import codegeneration.implementations.sicstus.ESicstusImplementation;
-import codegeneration.implementations.z3.EZ3Implementation;
+import codegeneration.implementations.AbstractImplementation;
+import codegeneration.implementations.sicstus.ESicstusImplementations;
+import codegeneration.implementations.z3.EZ3Implementations;
 import files.GeneratedCodeFile.SicstusGeneratedCodeFile;
 import files.GeneratedCodeFile.Z3GeneratedCodeFile;
 import files.SpecificationFile;
@@ -13,30 +12,26 @@ import mvc.eventsmanagement.events.configuration.*;
 import reports.Report;
 import reports.approximations.AbstractApproximation;
 import reports.approximations.MultipleSegmentsApproximation;
-import reports.approximations.SingleSegmentApproximation;
 import verifiers.AbstractVerifier;
-import verifiers.IVerificationHandler;
-import verifiers.sicstus.SicstusVerifier;
-import verifiers.z3.Z3Verifier;
 
 import javax.swing.event.EventListenerList;
 
-public class ConfigurationModel extends AbstractModel implements IVerificationHandler {
+public class ConfigurationModel extends AbstractModel {
 
     private EventListenerList configurationListeners;
     private VerificationFolder verificationFolder;
     private SpecificationFile specificationFile;
-    private ESicstusImplementation sicstusImplementation;
-    private EZ3Implementation z3Implementation;
-    private Implementation implementation;
+    private ESicstusImplementations sicstusImplementation;
+    private EZ3Implementations z3Implementation;
+    private AbstractImplementation implementation;
     private ParametersModel parametersModel;
     private AbstractVerifier verifier;
 
     public ConfigurationModel() {
-        this(null, null, ESicstusImplementation.DEFAULT, EZ3Implementation.DEFAULT);
+        this(null, null, ESicstusImplementations.DEFAULT, EZ3Implementations.DEFAULT);
     }
 
-    public ConfigurationModel(VerificationFolder verificationFolder, SpecificationFile specificationFile, ESicstusImplementation sicstusImplementation, EZ3Implementation z3Implementation) {
+    public ConfigurationModel(VerificationFolder verificationFolder, SpecificationFile specificationFile, ESicstusImplementations sicstusImplementation, EZ3Implementations z3Implementation) {
         configurationListeners = new EventListenerList();
         this.verificationFolder = verificationFolder;
         this.specificationFile = specificationFile;
@@ -82,11 +77,11 @@ public class ConfigurationModel extends AbstractModel implements IVerificationHa
         }
     }
 
-    public ESicstusImplementation getSicstusImplementation() {
+    public ESicstusImplementations getSicstusImplementation() {
         return sicstusImplementation;
     }
 
-    public void setSicstusImplementation(ESicstusImplementation sicstusImplementation) {
+    public void setSicstusImplementation(ESicstusImplementations sicstusImplementation) {
         this.sicstusImplementation = sicstusImplementation;
         fireSicstusImplementationChanged();
     }
@@ -98,11 +93,11 @@ public class ConfigurationModel extends AbstractModel implements IVerificationHa
         }
     }
 
-    public EZ3Implementation getZ3Implementation() {
+    public EZ3Implementations getZ3Implementation() {
         return z3Implementation;
     }
 
-    public void setZ3Implementation(EZ3Implementation z3Implementation) {
+    public void setZ3Implementation(EZ3Implementations z3Implementation) {
         this.z3Implementation = z3Implementation;
         fireZ3ImplementationChanged();
     }
@@ -114,24 +109,24 @@ public class ConfigurationModel extends AbstractModel implements IVerificationHa
         }
     }
 
-    private void setImplementation(Implementation implementation) {
+    private void setImplementation(AbstractImplementation implementation) {
         this.implementation = implementation;
     }
 
-    public SicstusGeneratedCodeFile getGeneratedCodeFile(ESicstusImplementation sicstusImplementation) {
+    public SicstusGeneratedCodeFile getGeneratedCodeFile(ESicstusImplementations sicstusImplementation) {
         return new SicstusGeneratedCodeFile(getVerificationFolder(), getSpecificationFile(), sicstusImplementation);
     }
 
-    public Z3GeneratedCodeFile getGeneratedCodeFile(EZ3Implementation z3Implementation) {
+    public Z3GeneratedCodeFile getGeneratedCodeFile(EZ3Implementations z3Implementation) {
         return new Z3GeneratedCodeFile(getVerificationFolder(), getSpecificationFile(), z3Implementation);
     }
 
-    public Implementation getImplementation() {
+    public AbstractImplementation getImplementation() {
         return implementation;
     }
 
     public void runSicstusVerification(ParametersModel parametersModel) {
-        this.parametersModel = parametersModel;
+        /*this.parametersModel = parametersModel;
         setImplementation(ImplementationFactory.getImplementation(getSicstusImplementation(), getVerificationFolder().getWorkflowFile().extractWorkflow(), getSpecificationFile().extractSpecification(), parametersModel));
         this.verifier = new SicstusVerifier(getGeneratedCodeFile(getSicstusImplementation()), getImplementation());
         fireVerificationStarted();
@@ -143,27 +138,7 @@ public class ConfigurationModel extends AbstractModel implements IVerificationHa
             verifier.startOverApproximation3Checking(this);
         } else if (parametersModel.checkUnderApproximation()) {
             verifier.startUnderApproximationChecking(this);
-        }
-        /*sicstusVerifier.startOverApproximation1Checking(new IVerificationHandler() {
-            public void doneChecking(AbstractApproximation result) {
-                fireSicstusVerificationDone();
-            }
-        });
-        sicstusVerifier.startOverApproximation2Checking(new IVerificationHandler() {
-            public void doneChecking(AbstractApproximation result) {
-                fireSicstusVerificationDone();
-            }
-        });
-        sicstusVerifier.startOverApproximation3Checking(new IVerificationHandler() {
-            public void doneChecking(AbstractApproximation result) {
-                fireSicstusVerificationDone();
-            }
-        });
-        sicstusVerifier.startUnderApproximationChecking(new IVerificationHandler() {
-            public void doneChecking(AbstractApproximation result) {
-                fireSicstusVerificationDone();
-            }
-        });*/
+        }*/
     }
 
     private void fireVerificationStarted() {
@@ -174,7 +149,7 @@ public class ConfigurationModel extends AbstractModel implements IVerificationHa
     }
 
     public void runZ3Verification(ParametersModel parametersModel) {
-        this.parametersModel = parametersModel;
+        /*this.parametersModel = parametersModel;
         setImplementation(ImplementationFactory.getImplementation(getZ3Implementation(), getVerificationFolder().getWorkflowFile().extractWorkflow(), getSpecificationFile().extractSpecification(), parametersModel));
         this.verifier = new Z3Verifier(getGeneratedCodeFile(getZ3Implementation()), getImplementation());
         fireVerificationStarted();
@@ -186,46 +161,9 @@ public class ConfigurationModel extends AbstractModel implements IVerificationHa
             verifier.startOverApproximation3Checking(this);
         } else if (parametersModel.checkUnderApproximation()) {
             verifier.startUnderApproximationChecking(this);
-        }
+        }*/
     }
 
-    @Override
-    public void doneCheckingOverApproximation1(SingleSegmentApproximation approximation) {
-        fireCheckingDone(approximation);
-        if (approximation.isSAT()) {
-            if (parametersModel.checkOverApproximation2()) {
-                verifier.startOverApproximation2Checking(this);
-            } else if (parametersModel.checkOverApproximation3()) {
-                verifier.startOverApproximation3Checking(this);
-            } else if (parametersModel.checkUnderApproximation()) {
-                verifier.startUnderApproximationChecking(this);
-            }
-        }
-    }
-
-    @Override
-    public void doneCheckingOverApproximation2(SingleSegmentApproximation approximation) {
-        fireCheckingDone(approximation);
-        if (approximation.isSAT() && !approximation.isValid()) {
-            if (parametersModel.checkOverApproximation3()) {
-                verifier.startOverApproximation3Checking(this);
-            } else if (parametersModel.checkUnderApproximation()) {
-                verifier.startUnderApproximationChecking(this);
-            }
-        }
-    }
-
-    @Override
-    public void doneCheckingOverApproximation3(MultipleSegmentsApproximation approximation) {
-        fireCheckingDone(approximation);
-        if (approximation.isSAT()) {
-            if (parametersModel.checkUnderApproximation()) {
-                verifier.startUnderApproximationChecking(this);
-            }
-        }
-    }
-
-    @Override
     public void doneCheckingUnderApproximation(MultipleSegmentsApproximation approximation) {
         fireCheckingDone(approximation);
     }

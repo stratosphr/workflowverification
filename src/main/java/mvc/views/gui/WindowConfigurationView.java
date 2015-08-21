@@ -1,7 +1,7 @@
 package mvc.views.gui;
 
-import codegeneration.implementations.sicstus.ESicstusImplementation;
-import codegeneration.implementations.z3.EZ3Implementation;
+import codegeneration.implementations.sicstus.ESicstusImplementations;
+import codegeneration.implementations.z3.EZ3Implementations;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import files.GeneratedCodeFile.SicstusGeneratedCodeFile;
@@ -37,9 +37,9 @@ public class WindowConfigurationView extends AbstractConfigurationView {
     private JRadioButton radio_must;
     private JButton btn_parameters;
     private JButton btn_sicstusVerifySpecification;
-    private JComboBox<ESicstusImplementation> cbx_sicstusImplementation;
+    private JComboBox<ESicstusImplementations> cbx_sicstusImplementation;
     private JButton btn_z3VerifySpecification;
-    private JComboBox<EZ3Implementation> cbx_z3Implementation;
+    private JComboBox<EZ3Implementations> cbx_z3Implementation;
     private JPanel panel_report;
     private JSplitPane splitpanel_reports;
     private JPanel panel_leftReport;
@@ -51,6 +51,10 @@ public class WindowConfigurationView extends AbstractConfigurationView {
     private JTextField txt_specificationFolder;
     private JTextField txt_z3GeneratedCode;
     private JTextField txt_z3GeneratedReport;
+    private JEditorPane editorPane1;
+    private JEditorPane editorPane2;
+    private JEditorPane editorPane3;
+    private JEditorPane editorPane4;
     private JTextPane txt_mayReport;
     private JTextPane txt_mustReport;
     private JFrame frame;
@@ -72,10 +76,10 @@ public class WindowConfigurationView extends AbstractConfigurationView {
         cbx_z3Implementation.addItemListener(cbxZ3ImplementationListener);
         btn_sicstusVerifySpecification.addActionListener(new BtnSicstusVerifySpecificationListener(getConfigurationController()));
         btn_z3VerifySpecification.addActionListener(new BtnZ3VerifySpecificationListener(getConfigurationController()));
-        for (ESicstusImplementation sicstusImplementation : ESicstusImplementation.values()) {
+        for (ESicstusImplementations sicstusImplementation : ESicstusImplementations.values()) {
             cbx_sicstusImplementation.addItem(sicstusImplementation);
         }
-        for (EZ3Implementation z3Implementation : EZ3Implementation.values()) {
+        for (EZ3Implementations z3Implementation : EZ3Implementations.values()) {
             cbx_z3Implementation.addItem(z3Implementation);
         }
     }
@@ -111,8 +115,8 @@ public class WindowConfigurationView extends AbstractConfigurationView {
     public void specificationFileChanged(SpecificationFileChanged event) {
         VerificationFolder verificationFolder = ((ConfigurationModel) event.getSource()).getVerificationFolder();
         SpecificationFile specificationFile = event.getNewSpecificationFile();
-        ESicstusImplementation sicstusImplementation = ((ConfigurationModel) event.getSource()).getSicstusImplementation();
-        EZ3Implementation z3Implementation = ((ConfigurationModel) event.getSource()).getZ3Implementation();
+        ESicstusImplementations sicstusImplementation = ((ConfigurationModel) event.getSource()).getSicstusImplementation();
+        EZ3Implementations z3Implementation = ((ConfigurationModel) event.getSource()).getZ3Implementation();
         if (verificationFolder.isValid()) {
             Specification specification = specificationFile.extractSpecification();
             txt_specificationFolder.setText(verificationFolder.getSpecificationFolder().getAbsolutePath());
@@ -133,7 +137,7 @@ public class WindowConfigurationView extends AbstractConfigurationView {
     public void sicstusImplementationChanged(SicstusImplementationChanged event) {
         VerificationFolder verificationFolder = ((ConfigurationModel) event.getSource()).getVerificationFolder();
         SpecificationFile specificationFile = ((ConfigurationModel) event.getSource()).getSpecificationFile();
-        ESicstusImplementation sicstusImplementation = event.getNewSicstusImplementation();
+        ESicstusImplementations sicstusImplementation = event.getNewSicstusImplementation();
         txt_sicstusGeneratedCode.setText(new SicstusGeneratedCodeFile(verificationFolder, specificationFile, sicstusImplementation).getAbsolutePath());
         txt_sicstusGeneratedReport.setText(new SicstusGeneratedReportFile(verificationFolder, specificationFile, sicstusImplementation).getAbsolutePath());
     }
@@ -142,7 +146,7 @@ public class WindowConfigurationView extends AbstractConfigurationView {
     public void z3ImplementationChanged(Z3ImplementationChanged event) {
         VerificationFolder verificationFolder = ((ConfigurationModel) event.getSource()).getVerificationFolder();
         SpecificationFile specificationFile = ((ConfigurationModel) event.getSource()).getSpecificationFile();
-        EZ3Implementation z3Implementation = event.getNewZ3Implementation();
+        EZ3Implementations z3Implementation = event.getNewZ3Implementation();
         txt_z3GeneratedCode.setText(new Z3GeneratedCodeFile(verificationFolder, specificationFile, z3Implementation).getAbsolutePath());
         txt_z3GeneratedReport.setText(new Z3GeneratedReportFile(verificationFolder, specificationFile, z3Implementation).getAbsolutePath());
     }
@@ -180,7 +184,7 @@ public class WindowConfigurationView extends AbstractConfigurationView {
      */
     private void $$$setupUI$$$() {
         tab_main = new JTabbedPane();
-        tab_main.setName("sdf");
+        tab_main.setName("");
         panel_verification = new JPanel();
         panel_verification.setLayout(new GridLayoutManager(3, 1, new Insets(10, 10, 10, 10), -1, -1));
         tab_main.addTab("Verification", panel_verification);
@@ -316,24 +320,31 @@ public class WindowConfigurationView extends AbstractConfigurationView {
         splitpanel_reports.setResizeWeight(0.5);
         panel_report.add(splitpanel_reports, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, new Dimension(200, 200), null, 0, false));
         panel_leftReport = new JPanel();
-        panel_leftReport.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel_leftReport.setLayout(new GridLayoutManager(4, 1, new Insets(0, 0, 0, 0), -1, -1));
         splitpanel_reports.setLeftComponent(panel_leftReport);
         panel_leftReport.setBorder(BorderFactory.createTitledBorder("May validity report"));
         final JScrollPane scrollPane2 = new JScrollPane();
         panel_leftReport.add(scrollPane2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        txt_mayReport = new JTextPane();
-        txt_mayReport.setFont(new Font("Monospaced", txt_mayReport.getFont().getStyle(), txt_mayReport.getFont().getSize()));
-        txt_mayReport.setText("");
-        scrollPane2.setViewportView(txt_mayReport);
+        editorPane2 = new JEditorPane();
+        scrollPane2.setViewportView(editorPane2);
+        final JScrollPane scrollPane3 = new JScrollPane();
+        panel_leftReport.add(scrollPane3, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        editorPane3 = new JEditorPane();
+        scrollPane3.setViewportView(editorPane3);
+        final JScrollPane scrollPane4 = new JScrollPane();
+        panel_leftReport.add(scrollPane4, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        editorPane4 = new JEditorPane();
+        scrollPane4.setViewportView(editorPane4);
+        final JScrollPane scrollPane5 = new JScrollPane();
+        panel_leftReport.add(scrollPane5, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        editorPane1 = new JEditorPane();
+        scrollPane5.setViewportView(editorPane1);
         panel_rightReport = new JPanel();
         panel_rightReport.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         splitpanel_reports.setRightComponent(panel_rightReport);
         panel_rightReport.setBorder(BorderFactory.createTitledBorder("Must validity report"));
-        final JScrollPane scrollPane3 = new JScrollPane();
-        panel_rightReport.add(scrollPane3, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        txt_mustReport = new JTextPane();
-        txt_mustReport.setFont(new Font("Monospaced", txt_mustReport.getFont().getStyle(), txt_mustReport.getFont().getSize()));
-        scrollPane3.setViewportView(txt_mustReport);
+        final JScrollPane scrollPane6 = new JScrollPane();
+        panel_rightReport.add(scrollPane6, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         ButtonGroup buttonGroup;
         buttonGroup = new ButtonGroup();
         buttonGroup.add(radio_may);

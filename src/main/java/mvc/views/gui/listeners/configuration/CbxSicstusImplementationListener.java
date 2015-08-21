@@ -1,6 +1,6 @@
 package mvc.views.gui.listeners.configuration;
 
-import codegeneration.implementations.sicstus.ESicstusImplementation;
+import codegeneration.implementations.sicstus.ESicstusImplementations;
 import mvc.controllers.ConfigurationController;
 import mvc.views.gui.listeners.AbstractListener;
 
@@ -16,7 +16,7 @@ public class CbxSicstusImplementationListener extends AbstractListener implement
     @Override
     public void itemStateChanged(ItemEvent itemEvent) {
         if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
-            ((ConfigurationController) getController()).notifySicstusImplementationChanged((ESicstusImplementation) itemEvent.getItem());
+            ((ConfigurationController) getController()).notifySicstusImplementationChanged((ESicstusImplementations) itemEvent.getItem());
         }
     }
 

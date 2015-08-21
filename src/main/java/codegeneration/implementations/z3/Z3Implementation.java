@@ -1,8 +1,8 @@
 package codegeneration.implementations.z3;
 
-import codegeneration.implementations.Implementation;
+import codegeneration.implementations.AbstractImplementation;
 import codegeneration.z3.*;
-import mvc.model.ParametersModel;
+import mvc2.models.ParametersModel;
 import petrinets.model.Place;
 import petrinets.model.Transition;
 import petrinets.model.Workflow;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
-public class Z3Implementation extends Implementation {
+public class Z3Implementation extends AbstractImplementation {
 
     private SMTVar term_VMax;
     private LinkedHashMap<Place, SMTVar> masTerms;
