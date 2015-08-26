@@ -5,6 +5,7 @@ import codegeneration.implementations.AbstractImplementation;
 import files.GeneratedCodeFile.GeneratedCodeFile;
 import mvc2.models.ConfigurationModel;
 import mvc2.models.ParametersModel;
+import reports.Report;
 import reports.approximations.ApproximationTypes;
 import reports.approximations.MultipleSegmentsApproximation;
 import reports.approximations.SingleSegmentApproximation;
@@ -33,10 +34,10 @@ public abstract class AbstractVerifier {
         codeWriter.writePairwiseSum();
         codeWriter.writeOverApproximation1();
         codeWriter.writeOverApproximation2();
-        for (int nbSegments = implementation.getParameters().getMinNumberOfSegments(); nbSegments <= implementation.getParameters().getMaxNumberOfSegments(); nbSegments++) {
+        for (int nbSegments = implementation.getParametersModel().getMinNumberOfSegments(); nbSegments <= implementation.getParametersModel().getMaxNumberOfSegments(); nbSegments++) {
             codeWriter.writeOverApproximation3(nbSegments);
         }
-        for (int nbSegments = implementation.getParameters().getMinNumberOfSegments(); nbSegments <= implementation.getParameters().getMaxNumberOfSegments(); nbSegments++) {
+        for (int nbSegments = implementation.getParametersModel().getMinNumberOfSegments(); nbSegments <= implementation.getParametersModel().getMaxNumberOfSegments(); nbSegments++) {
             codeWriter.writeUnderApproximation(nbSegments);
         }
     }
@@ -86,7 +87,8 @@ public abstract class AbstractVerifier {
             protected void done() {
                 try {
                     SingleSegmentApproximation approximation = get();
-                    verificationHandler.fireDoneChecking(ApproximationTypes.OVER_APPROXIMATION_1, approximation);
+                    //verificationHandler.fireDoneChecking(ApproximationTypes.OVER_APPROXIMATION_1, approximation);
+                    verificationHandler.fireDoneChecking(new Report(implementation, ApproximationTypes.OVER_APPROXIMATION_1, approximation));
                     if (approximation.isSAT()) {
                         if (parametersModel.checkOverApproximation2()) {
                             startChecking(ApproximationTypes.OVER_APPROXIMATION_2, verificationHandler);
@@ -114,7 +116,8 @@ public abstract class AbstractVerifier {
             protected void done() {
                 try {
                     SingleSegmentApproximation approximation = get();
-                    verificationHandler.fireDoneChecking(ApproximationTypes.OVER_APPROXIMATION_2, approximation);
+                    //verificationHandler.fireDoneChecking(ApproximationTypes.OVER_APPROXIMATION_2, approximation);
+                    verificationHandler.fireDoneChecking(new Report(implementation, ApproximationTypes.OVER_APPROXIMATION_2, approximation));
                     if (approximation.isSAT() && !approximation.isValid()) {
                         setMinNumberOfSegments(approximation.getMaxValuation());
                         if (parametersModel.checkOverApproximation3()) {
@@ -135,19 +138,20 @@ public abstract class AbstractVerifier {
             @Override
             protected MultipleSegmentsApproximation doInBackground() throws Exception {
                 MultipleSegmentsApproximation approximation;
-                for (int nbSegments = minNumberOfSegments; nbSegments < implementation.getParameters().getMaxNumberOfSegments(); nbSegments++) {
+                for (int nbSegments = minNumberOfSegments; nbSegments < implementation.getParametersModel().getMaxNumberOfSegments(); nbSegments++) {
                     if ((approximation = checkOverApproximation3(nbSegments)).isSAT()) {
                         return approximation;
                     }
                 }
-                return checkOverApproximation3(implementation.getParameters().getMaxNumberOfSegments());
+                return checkOverApproximation3(implementation.getParametersModel().getMaxNumberOfSegments());
             }
 
             @Override
             protected void done() {
                 try {
                     MultipleSegmentsApproximation approximation = get();
-                    verificationHandler.fireDoneChecking(ApproximationTypes.OVER_APPROXIMATION_3, approximation);
+                    //verificationHandler.fireDoneChecking(ApproximationTypes.OVER_APPROXIMATION_3, approximation);
+                    verificationHandler.fireDoneChecking(new Report(implementation, ApproximationTypes.OVER_APPROXIMATION_3, approximation));
                     if (approximation.isSAT()) {
                         if (parametersModel.checkUnderApproximation()) {
                             startChecking(ApproximationTypes.UNDER_APPROXIMATION, verificationHandler);
@@ -165,19 +169,20 @@ public abstract class AbstractVerifier {
             @Override
             protected MultipleSegmentsApproximation doInBackground() throws Exception {
                 MultipleSegmentsApproximation approximation;
-                for (int nbSegments = minNumberOfSegments; nbSegments < implementation.getParameters().getMaxNumberOfSegments(); nbSegments++) {
+                for (int nbSegments = minNumberOfSegments; nbSegments < implementation.getParametersModel().getMaxNumberOfSegments(); nbSegments++) {
                     if ((approximation = checkUnderApproximation(nbSegments)).isSAT()) {
                         return approximation;
                     }
                 }
-                return checkUnderApproximation(implementation.getParameters().getMaxNumberOfSegments());
+                return checkUnderApproximation(implementation.getParametersModel().getMaxNumberOfSegments());
             }
 
             @Override
             protected void done() {
                 try {
                     MultipleSegmentsApproximation approximation = get();
-                    verificationHandler.fireDoneChecking(ApproximationTypes.UNDER_APPROXIMATION, approximation);
+                    //verificationHandler.fireDoneChecking(ApproximationTypes.UNDER_APPROXIMATION, approximation);
+                    verificationHandler.fireDoneChecking(new Report(implementation, ApproximationTypes.UNDER_APPROXIMATION, approximation));
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }

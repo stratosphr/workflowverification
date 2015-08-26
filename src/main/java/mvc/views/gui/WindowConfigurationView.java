@@ -15,11 +15,9 @@ import mvc.eventsmanagement.events.configuration.*;
 import mvc.model.ConfigurationModel;
 import mvc.views.AbstractConfigurationView;
 import mvc.views.gui.items.SpecificationItem;
-import mvc.views.gui.listeners.configuration.BtnVerificationFolderListener;
 import mvc.views.gui.listeners.configuration.*;
 import specifications.model.Specification;
 import specifications.model.SpecificationType;
-import tools.StringTools;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -153,12 +151,12 @@ public class WindowConfigurationView extends AbstractConfigurationView {
 
     @Override
     public void checkingDone(CheckingDone event) {
-        if (event.getReport().getSpecification().getType() == SpecificationType.MAY) {
+        /*if (event.getReport().getSpecification().getType() == SpecificationType.MAY) {
             txt_mayReport.setText(txt_mayReport.getText() + StringTools.separator(50) + event.getReport().toString());
         } else if (event.getReport().getSpecification().getType() == SpecificationType.MUST) {
             txt_mayReport.setText(txt_mayReport.getText() + StringTools.separator(50) + event.getReport().toString());
             txt_mustReport.setText(txt_mayReport.getText() + StringTools.separator(50) + event.getReport().toString());
-        }
+        }*/
     }
 
     @Override

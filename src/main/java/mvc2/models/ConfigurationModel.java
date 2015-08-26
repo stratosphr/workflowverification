@@ -11,8 +11,7 @@ import files.SpecificationFile;
 import files.VerificationFolder;
 import mvc2.events.IConfigurationEventListener;
 import mvc2.events.events.*;
-import reports.approximations.AbstractApproximation;
-import reports.approximations.ApproximationTypes;
+import reports.Report;
 import verifiers.IVerificationHandler;
 import verifiers.sicstus.SicstusVerifier;
 import verifiers.z3.Z3Verifier;
@@ -131,9 +130,9 @@ public class ConfigurationModel extends AbstractModel implements IVerificationHa
     }
 
     @Override
-    public void fireDoneChecking(ApproximationTypes approximationType, AbstractApproximation approximation) {
+    public void fireDoneChecking(Report report) {
         for (IConfigurationEventListener configurationEventListener : eventListeners.getListeners(IConfigurationEventListener.class)) {
-            configurationEventListener.doneChecking(new DoneChecking(this, approximationType, approximation));
+            configurationEventListener.doneChecking(new DoneChecking(this, report));
         }
     }
 

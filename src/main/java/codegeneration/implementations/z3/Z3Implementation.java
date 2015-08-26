@@ -59,7 +59,7 @@ public class Z3Implementation extends AbstractImplementation {
                 vtsOptimizedTerms.add(new SMTVar(Prefixes.VT + t, ESMTType.INT));
             }
         }
-        int nbSegments = getParameters().getMaxNumberOfSegments();
+        int nbSegments = getParametersModel().getMaxNumberOfSegments();
         for (int segment = 1; segment <= nbSegments; segment++) {
             ArrayList<SMTVar> mksTermsSegment = new ArrayList<>();
             ArrayList<SMTVar> vpksTermsSegment = new ArrayList<>();
@@ -366,7 +366,7 @@ public class Z3Implementation extends AbstractImplementation {
     public String getOverApproximation1Assertion() {
         ArrayList<SMTTerm> parameters = new ArrayList<>();
         ArrayList<SMTVar> existsParameters = new ArrayList<>();
-        parameters.add(new SMTTerm(getParameters().getMaxNodeValuation()));
+        parameters.add(new SMTTerm(getParametersModel().getMaxNodeValuation()));
         parameters.addAll(masTerms.values());
         parameters.addAll(mbsTerms.values());
         parameters.addAll(vpsTerms.values());
@@ -414,7 +414,7 @@ public class Z3Implementation extends AbstractImplementation {
     public String getOverApproximation2Assertion() {
         ArrayList<SMTTerm> parameters = new ArrayList<>();
         ArrayList<SMTVar> existsParameters = new ArrayList<>();
-        parameters.add(new SMTTerm(getParameters().getMaxNodeValuation()));
+        parameters.add(new SMTTerm(getParametersModel().getMaxNodeValuation()));
         parameters.addAll(masTerms.values());
         parameters.addAll(mbsTerms.values());
         parameters.addAll(vpsTerms.values());
@@ -480,7 +480,7 @@ public class Z3Implementation extends AbstractImplementation {
     public String getOverApproximation3Assertion(int nbSegments) {
         ArrayList<SMTTerm> parameters = new ArrayList<>();
         ArrayList<SMTVar> existsParameters = new ArrayList<>();
-        parameters.add(new SMTTerm(getParameters().getMaxNodeValuation()));
+        parameters.add(new SMTTerm(getParametersModel().getMaxNodeValuation()));
         parameters.addAll(mksTerms.get(0));
         existsParameters.addAll(mksTerms.get(0));
         for (int segment = 1; segment <= nbSegments; segment++) {
@@ -558,7 +558,7 @@ public class Z3Implementation extends AbstractImplementation {
     public String getUnderApproximationAssertion(int nbSegments) {
         ArrayList<SMTTerm> parameters = new ArrayList<>();
         ArrayList<SMTVar> existsParameters = new ArrayList<>();
-        parameters.add(new SMTTerm(getParameters().getMaxNodeValuation()));
+        parameters.add(new SMTTerm(getParametersModel().getMaxNodeValuation()));
         parameters.addAll(mksTerms.get(0));
         existsParameters.addAll(mksTerms.get(0));
         for (int segment = 1; segment <= nbSegments; segment++) {

@@ -17,7 +17,15 @@ public abstract class AbstractImplementation {
         init();
     }
 
-    public ParametersModel getParameters(){
+    public Workflow getWorkflow() {
+        return workflow;
+    }
+
+    public Specification getSpecification() {
+        return specification;
+    }
+
+    public ParametersModel getParametersModel() {
         return parametersModel;
     }
 

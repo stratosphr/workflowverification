@@ -35,6 +35,7 @@ public class Controller {
         folderSelectionViews.add(new WindowFolderSelectionView(this));
         parametersViews.add(new WindowParametersView(this));
         addListenersToModels();
+        parametersModel.update();
     }
 
     protected void addListenersToModels() {

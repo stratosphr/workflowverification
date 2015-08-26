@@ -1,26 +1,19 @@
 package mvc2.events.events;
 
 import mvc2.models.ConfigurationModel;
-import reports.approximations.AbstractApproximation;
-import reports.approximations.ApproximationTypes;
+import reports.Report;
 
-public class DoneChecking extends AbstractEvent{
+public class DoneChecking extends AbstractEvent {
 
-    private final ApproximationTypes approximationType;
-    private final AbstractApproximation approximation;
+    private final Report report;
 
-    public DoneChecking(ConfigurationModel source, ApproximationTypes approximationType, AbstractApproximation approximation) {
+    public DoneChecking(ConfigurationModel source, Report report) {
         super(source);
-        this.approximationType = approximationType;
-        this.approximation = approximation;
+        this.report = report;
     }
 
-    public ApproximationTypes getApproximationType() {
-        return approximationType;
-    }
-
-    public AbstractApproximation getApproximation() {
-        return approximation;
+    public Report getReport() {
+        return report;
     }
 
 }

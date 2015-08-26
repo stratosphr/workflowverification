@@ -87,7 +87,7 @@ public class SicstusImplementation extends AbstractImplementation {
         list_VTsOptimized = new PlList(vtsOptimizedTerms);
         list_VTs = new PlList(new ArrayList<>(vtsTerms.values()));
         //TODO: nbSegments should be replaced by the number of segments specified by the user
-        int nbSegments = getParameters().getMaxNumberOfSegments();
+        int nbSegments = getParametersModel().getMaxNumberOfSegments();
         ArrayList<PlTerm> mksTerms = new ArrayList<>();
         ArrayList<PlTerm> vpksTerms = new ArrayList<>();
         ArrayList<PlTerm> vtksTerms = new ArrayList<>();
@@ -482,7 +482,7 @@ public class SicstusImplementation extends AbstractImplementation {
 
     @Override
     public String getOverApproximation1Assertion() {
-        return getOverApproximation1().getCallWith(new PlTerm(getParameters().getMaxNodeValuation()), list_MAs, list_MBs, list_VPs, list_VTs).toString();
+        return getOverApproximation1().getCallWith(new PlTerm(getParametersModel().getMaxNodeValuation()), list_MAs, list_MBs, list_VPs, list_VTs).toString();
     }
 
     @Override
@@ -514,7 +514,7 @@ public class SicstusImplementation extends AbstractImplementation {
 
     @Override
     public String getOverApproximation2Assertion() {
-        return getOverApproximation2().getCallWith(new PlTerm(getParameters().getMaxNodeValuation()), list_MAs, list_MBs, list_VPs, list_VTs).toString();
+        return getOverApproximation2().getCallWith(new PlTerm(getParametersModel().getMaxNodeValuation()), list_MAs, list_MBs, list_VPs, list_VTs).toString();
     }
 
     @Override
@@ -555,7 +555,7 @@ public class SicstusImplementation extends AbstractImplementation {
 
     @Override
     public String getOverApproximation3Assertion(int nbSegments) {
-        return getOverApproximation3(nbSegments).getCallWith(new PlTerm(getParameters().getMaxNodeValuation()), new PlList(new ArrayList<PlTerm>(mksLists.subList(0, nbSegments + 1))), new PlList(new ArrayList<PlTerm>(vpksLists.subList(0, nbSegments))), new PlList(new ArrayList<PlTerm>(vtksLists.subList(0, nbSegments)))).toString();
+        return getOverApproximation3(nbSegments).getCallWith(new PlTerm(getParametersModel().getMaxNodeValuation()), new PlList(new ArrayList<PlTerm>(mksLists.subList(0, nbSegments + 1))), new PlList(new ArrayList<PlTerm>(vpksLists.subList(0, nbSegments))), new PlList(new ArrayList<PlTerm>(vtksLists.subList(0, nbSegments)))).toString();
     }
 
     @Override
@@ -597,7 +597,7 @@ public class SicstusImplementation extends AbstractImplementation {
 
     @Override
     public String getUnderApproximationAssertion(int nbSegments) {
-        return getUnderApproximation(nbSegments).getCallWith(new PlTerm(getParameters().getMaxNodeValuation()), new PlList(new ArrayList<PlTerm>(mksLists.subList(0, nbSegments + 1))), new PlList(new ArrayList<PlTerm>(vpksLists.subList(0, nbSegments))), new PlList(new ArrayList<PlTerm>(vtksLists.subList(0, nbSegments)))).toString();
+        return getUnderApproximation(nbSegments).getCallWith(new PlTerm(getParametersModel().getMaxNodeValuation()), new PlList(new ArrayList<PlTerm>(mksLists.subList(0, nbSegments + 1))), new PlList(new ArrayList<PlTerm>(vpksLists.subList(0, nbSegments))), new PlList(new ArrayList<PlTerm>(vtksLists.subList(0, nbSegments)))).toString();
     }
 
 }

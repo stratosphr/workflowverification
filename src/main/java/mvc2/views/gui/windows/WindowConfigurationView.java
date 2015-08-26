@@ -45,14 +45,14 @@ public class WindowConfigurationView extends AbstractConfigurationView {
     private JTextField txt_specificationFolder;
     private JTextField txt_z3GeneratedCode;
     private JTextField txt_z3GeneratedReport;
-    private JEditorPane editorPane3;
-    private JEditorPane editorPane2;
-    private JEditorPane editorPane4;
-    private JEditorPane editorPane5;
-    private JEditorPane editorPane1;
-    private JEditorPane editorPane6;
-    private JEditorPane editorPane7;
-    private JEditorPane editorPane8;
+    private JEditorPane editpanel_mayOverApproximation2;
+    private JEditorPane editpanel_mayOverApproximation1;
+    private JEditorPane editpanel_mayOverApproximation3;
+    private JEditorPane editpanel_mayUnderApproximation;
+    private JEditorPane editpanel_mustOverApproximation1;
+    private JEditorPane editpanel_mustOverApproximation2;
+    private JEditorPane editpanel_mustOverApproximation3;
+    private JEditorPane editpanel_mustUnderApproximation;
 
     public WindowConfigurationView(Controller controller) {
         super(controller);
@@ -133,13 +133,55 @@ public class WindowConfigurationView extends AbstractConfigurationView {
 
     @Override
     public void verificationStarted(VerificationStarted verificationStarted) {
+        editpanel_mayOverApproximation1.setText("");
+        editpanel_mayOverApproximation2.setText("");
+        editpanel_mayOverApproximation3.setText("");
+        editpanel_mayUnderApproximation.setText("");
+        editpanel_mustOverApproximation1.setText("");
+        editpanel_mustOverApproximation2.setText("");
+        editpanel_mustOverApproximation3.setText("");
+        editpanel_mustUnderApproximation.setText("");
         tab_main.setSelectedComponent(panel_report);
     }
 
     @Override
     public void doneChecking(DoneChecking doneChecking) {
-        System.out.println("DONE CHECKING " + doneChecking.getApproximationType());
-        System.out.println(doneChecking.getApproximation());
+        JEditorPane editorPane = null;
+        switch (doneChecking.getReport().getImplementation().getSpecification().getType()) {
+            case MAY:
+                switch (doneChecking.getReport().getApproximationType()) {
+                    case OVER_APPROXIMATION_1:
+                        editorPane = editpanel_mayOverApproximation1;
+                        break;
+                    case OVER_APPROXIMATION_2:
+                        editorPane = editpanel_mayOverApproximation2;
+                        break;
+                    case OVER_APPROXIMATION_3:
+                        editorPane = editpanel_mayOverApproximation3;
+                        break;
+                    case UNDER_APPROXIMATION:
+                        editorPane = editpanel_mayUnderApproximation;
+                        break;
+                }
+                break;
+            case MUST:
+                switch (doneChecking.getReport().getApproximationType()) {
+                    case OVER_APPROXIMATION_1:
+                        editorPane = editpanel_mustOverApproximation1;
+                        break;
+                    case OVER_APPROXIMATION_2:
+                        editorPane = editpanel_mustOverApproximation2;
+                        break;
+                    case OVER_APPROXIMATION_3:
+                        editorPane = editpanel_mustOverApproximation3;
+                        break;
+                    case UNDER_APPROXIMATION:
+                        editorPane = editpanel_mustUnderApproximation;
+                        break;
+                }
+                break;
+        }
+        editorPane.setText(doneChecking.getReport().toString());
     }
 
     /*****************************************************/
@@ -302,23 +344,23 @@ public class WindowConfigurationView extends AbstractConfigurationView {
         final JScrollPane scrollPane2 = new JScrollPane();
         panel_leftReport.add(scrollPane2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         scrollPane2.setBorder(BorderFactory.createTitledBorder(null, "Over-approximation 1", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
-        editorPane2 = new JEditorPane();
-        scrollPane2.setViewportView(editorPane2);
+        editpanel_mayOverApproximation1 = new JEditorPane();
+        scrollPane2.setViewportView(editpanel_mayOverApproximation1);
         final JScrollPane scrollPane3 = new JScrollPane();
         panel_leftReport.add(scrollPane3, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         scrollPane3.setBorder(BorderFactory.createTitledBorder(null, "Over-approximation 2", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
-        editorPane3 = new JEditorPane();
-        scrollPane3.setViewportView(editorPane3);
+        editpanel_mayOverApproximation2 = new JEditorPane();
+        scrollPane3.setViewportView(editpanel_mayOverApproximation2);
         final JScrollPane scrollPane4 = new JScrollPane();
         panel_leftReport.add(scrollPane4, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         scrollPane4.setBorder(BorderFactory.createTitledBorder(null, "Over-approximation 3", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
-        editorPane4 = new JEditorPane();
-        scrollPane4.setViewportView(editorPane4);
+        editpanel_mayOverApproximation3 = new JEditorPane();
+        scrollPane4.setViewportView(editpanel_mayOverApproximation3);
         final JScrollPane scrollPane5 = new JScrollPane();
         panel_leftReport.add(scrollPane5, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         scrollPane5.setBorder(BorderFactory.createTitledBorder(null, "Under-approximation", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
-        editorPane5 = new JEditorPane();
-        scrollPane5.setViewportView(editorPane5);
+        editpanel_mayUnderApproximation = new JEditorPane();
+        scrollPane5.setViewportView(editpanel_mayUnderApproximation);
         panel_rightReport = new JPanel();
         panel_rightReport.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         splitpanel_reports.setRightComponent(panel_rightReport);
@@ -329,23 +371,23 @@ public class WindowConfigurationView extends AbstractConfigurationView {
         final JScrollPane scrollPane6 = new JScrollPane();
         panel7.add(scrollPane6, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         scrollPane6.setBorder(BorderFactory.createTitledBorder(null, "Over-approximation 1", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
-        editorPane1 = new JEditorPane();
-        scrollPane6.setViewportView(editorPane1);
+        editpanel_mustOverApproximation1 = new JEditorPane();
+        scrollPane6.setViewportView(editpanel_mustOverApproximation1);
         final JScrollPane scrollPane7 = new JScrollPane();
         panel7.add(scrollPane7, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         scrollPane7.setBorder(BorderFactory.createTitledBorder(null, "Under-approximation", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
-        editorPane8 = new JEditorPane();
-        scrollPane7.setViewportView(editorPane8);
+        editpanel_mustUnderApproximation = new JEditorPane();
+        scrollPane7.setViewportView(editpanel_mustUnderApproximation);
         final JScrollPane scrollPane8 = new JScrollPane();
         panel7.add(scrollPane8, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         scrollPane8.setBorder(BorderFactory.createTitledBorder(null, "Over-approximation 3", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
-        editorPane7 = new JEditorPane();
-        scrollPane8.setViewportView(editorPane7);
+        editpanel_mustOverApproximation3 = new JEditorPane();
+        scrollPane8.setViewportView(editpanel_mustOverApproximation3);
         final JScrollPane scrollPane9 = new JScrollPane();
         panel7.add(scrollPane9, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         scrollPane9.setBorder(BorderFactory.createTitledBorder(null, "Over-approximation 2", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
-        editorPane6 = new JEditorPane();
-        scrollPane9.setViewportView(editorPane6);
+        editpanel_mustOverApproximation2 = new JEditorPane();
+        scrollPane9.setViewportView(editpanel_mustOverApproximation2);
         ButtonGroup buttonGroup;
         buttonGroup = new ButtonGroup();
         buttonGroup.add(radio_may);

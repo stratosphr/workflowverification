@@ -363,7 +363,7 @@
                     <properties/>
                     <border type="none" title="Over-approximation 1" title-justification="2"/>
                     <children>
-                      <component id="89e48" class="javax.swing.JEditorPane" binding="editorPane2" default-binding="true">
+                      <component id="89e48" class="javax.swing.JEditorPane" binding="editpanel_mayOverApproximation1">
                         <constraints/>
                         <properties/>
                       </component>
@@ -376,7 +376,7 @@
                     <properties/>
                     <border type="none" title="Over-approximation 2" title-justification="2"/>
                     <children>
-                      <component id="1f369" class="javax.swing.JEditorPane" binding="editorPane3" default-binding="true">
+                      <component id="1f369" class="javax.swing.JEditorPane" binding="editpanel_mayOverApproximation2">
                         <constraints/>
                         <properties/>
                       </component>
@@ -389,7 +389,7 @@
                     <properties/>
                     <border type="none" title="Over-approximation 3" title-justification="2"/>
                     <children>
-                      <component id="baa19" class="javax.swing.JEditorPane" binding="editorPane4" default-binding="true">
+                      <component id="baa19" class="javax.swing.JEditorPane" binding="editpanel_mayOverApproximation3">
                         <constraints/>
                         <properties/>
                       </component>
@@ -402,7 +402,7 @@
                     <properties/>
                     <border type="none" title="Under-approximation" title-justification="2"/>
                     <children>
-                      <component id="a6c60" class="javax.swing.JEditorPane" binding="editorPane5" default-binding="true">
+                      <component id="a6c60" class="javax.swing.JEditorPane" binding="editpanel_mayUnderApproximation">
                         <constraints/>
                         <properties/>
                       </component>
@@ -433,7 +433,7 @@
                         <properties/>
                         <border type="none" title="Over-approximation 1" title-justification="2"/>
                         <children>
-                          <component id="d518c" class="javax.swing.JEditorPane" binding="editorPane1" default-binding="true">
+                          <component id="d518c" class="javax.swing.JEditorPane" binding="editpanel_mustOverApproximation1">
                             <constraints/>
                             <properties/>
                           </component>
@@ -446,7 +446,7 @@
                         <properties/>
                         <border type="none" title="Under-approximation" title-justification="2"/>
                         <children>
-                          <component id="81de8" class="javax.swing.JEditorPane" binding="editorPane8" default-binding="true">
+                          <component id="81de8" class="javax.swing.JEditorPane" binding="editpanel_mustUnderApproximation">
                             <constraints/>
                             <properties/>
                           </component>
@@ -459,7 +459,7 @@
                         <properties/>
                         <border type="none" title="Over-approximation 3" title-justification="2"/>
                         <children>
-                          <component id="a156c" class="javax.swing.JEditorPane" binding="editorPane7" default-binding="true">
+                          <component id="a156c" class="javax.swing.JEditorPane" binding="editpanel_mustOverApproximation3">
                             <constraints/>
                             <properties/>
                           </component>
@@ -472,7 +472,7 @@
                         <properties/>
                         <border type="none" title="Over-approximation 2" title-justification="2"/>
                         <children>
-                          <component id="522ab" class="javax.swing.JEditorPane" binding="editorPane6" default-binding="true">
+                          <component id="522ab" class="javax.swing.JEditorPane" binding="editpanel_mustOverApproximation2">
                             <constraints/>
                             <properties/>
                           </component>

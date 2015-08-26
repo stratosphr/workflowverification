@@ -1,10 +1,9 @@
 package verifiers;
 
-import reports.approximations.AbstractApproximation;
-import reports.approximations.ApproximationTypes;
+import reports.Report;
 
 public interface IVerificationHandler {
 
-    void fireDoneChecking(ApproximationTypes approximationType, AbstractApproximation approximation);
+    void fireDoneChecking(Report report);
 
 }

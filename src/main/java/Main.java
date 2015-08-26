@@ -1,7 +1,7 @@
 import files.VerificationFolder;
+import mvc2.controller.Controller;
 import mvc2.models.ConfigurationModel;
 import mvc2.models.ParametersModel;
-import mvc2.controller.Controller;
 
 import javax.swing.*;
 
@@ -13,6 +13,7 @@ public class Main {
         ConfigurationController configurationController = new ConfigurationController(configurationModel, new ParametersModel());
         configurationModel.setVerificationFolder(new VerificationFolder("src/main/resources/examples/big_MG"));
         configurationController.displayMainViews();*/
+        //configurationModel.setVerificationFolder(
         Controller controller = new Controller(new ConfigurationModel(), new ParametersModel());
         controller.notifyVerificationFolderChanged(new VerificationFolder("/home/stratosphr/IdeaProjects/workflowverification/src/main/resources/examples/dependants"));
         controller.displayMainViews();

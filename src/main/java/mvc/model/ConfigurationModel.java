@@ -9,9 +9,6 @@ import files.SpecificationFile;
 import files.VerificationFolder;
 import mvc.eventsmanagement.IConfigurationListener;
 import mvc.eventsmanagement.events.configuration.*;
-import reports.Report;
-import reports.approximations.AbstractApproximation;
-import reports.approximations.MultipleSegmentsApproximation;
 import verifiers.AbstractVerifier;
 
 import javax.swing.event.EventListenerList;
@@ -162,17 +159,6 @@ public class ConfigurationModel extends AbstractModel {
         } else if (parametersModel.checkUnderApproximation()) {
             verifier.startUnderApproximationChecking(this);
         }*/
-    }
-
-    public void doneCheckingUnderApproximation(MultipleSegmentsApproximation approximation) {
-        fireCheckingDone(approximation);
-    }
-
-    private void fireCheckingDone(AbstractApproximation approximation) {
-        IConfigurationListener[] configurationListeners = this.configurationListeners.getListeners(IConfigurationListener.class);
-        for (IConfigurationListener configurationListener : configurationListeners) {
-            configurationListener.checkingDone(new CheckingDone(this, new Report(this, parametersModel, approximation)));
-        }
     }
 
 }
