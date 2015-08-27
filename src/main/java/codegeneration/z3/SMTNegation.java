@@ -1,6 +1,5 @@
 package codegeneration.z3;
 
-import com.sun.istack.internal.NotNull;
 import exceptions.NegationCanOnlyHaveOneChildException;
 
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ public class SMTNegation extends SMTPredicateCall {
         this(new ArrayList<>(Arrays.asList(new SMTTerm[]{parameter})));
     }
 
-    public SMTNegation(@NotNull ArrayList<SMTTerm> parameters) {
+    public SMTNegation(ArrayList<SMTTerm> parameters) {
         super("not", parameters);
     }
 

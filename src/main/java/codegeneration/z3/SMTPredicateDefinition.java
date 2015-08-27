@@ -1,6 +1,5 @@
 package codegeneration.z3;
 
-import com.sun.istack.internal.NotNull;
 import tools.StringTools;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ public class SMTPredicateDefinition {
     private ESMTType type;
     private ArrayList<SMTTerm> body;
 
-    public SMTPredicateDefinition(String name, @NotNull SMTVar[] parameters, ESMTType type) {
+    public SMTPredicateDefinition(String name, SMTVar[] parameters, ESMTType type) {
         this(name, new ArrayList<>(Arrays.asList(parameters)), type);
     }
 
@@ -21,11 +20,11 @@ public class SMTPredicateDefinition {
         this(name, parameters, type, new ArrayList<SMTTerm>());
     }
 
-    public SMTPredicateDefinition(String name, @NotNull SMTVar[] parameters, ESMTType type, @NotNull SMTTerm... body) {
+    public SMTPredicateDefinition(String name, SMTVar[] parameters, ESMTType type, SMTTerm... body) {
         this(name, new ArrayList<>(Arrays.asList(parameters)), type, new ArrayList<>(Arrays.asList(body)));
     }
 
-    public SMTPredicateDefinition(String name, @NotNull ArrayList<SMTVar> parameters, ESMTType type, @NotNull SMTTerm... body) {
+    public SMTPredicateDefinition(String name, ArrayList<SMTVar> parameters, ESMTType type, SMTTerm... body) {
         this(name, parameters, type, new ArrayList<>(Arrays.asList(body)));
     }
 
@@ -36,11 +35,11 @@ public class SMTPredicateDefinition {
         this.body = body;
     }
 
-    public SMTPredicateCall getCallWith(@NotNull SMTTerm... parameters) {
+    public SMTPredicateCall getCallWith(SMTTerm... parameters) {
         return getCallWith(new ArrayList<>(Arrays.asList(parameters)));
     }
 
-    public SMTPredicateCall getCallWith(@NotNull ArrayList<SMTTerm> parameters) {
+    public SMTPredicateCall getCallWith(ArrayList<SMTTerm> parameters) {
         return new SMTPredicateCall(
                 name,
                 parameters

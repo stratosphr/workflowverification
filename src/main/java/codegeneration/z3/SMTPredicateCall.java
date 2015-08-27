@@ -1,6 +1,5 @@
 package codegeneration.z3;
 
-import com.sun.istack.internal.NotNull;
 import tools.StringTools;
 
 import java.util.ArrayList;
@@ -10,11 +9,11 @@ public class SMTPredicateCall extends SMTTerm {
 
     protected ArrayList<SMTTerm> parameters;
 
-    public SMTPredicateCall(String name, @NotNull SMTTerm... parameters) {
+    public SMTPredicateCall(String name, SMTTerm... parameters) {
         this(name, new ArrayList<>(Arrays.asList(parameters)));
     }
 
-    public SMTPredicateCall(String name, @NotNull ArrayList<SMTTerm> parameters) {
+    public SMTPredicateCall(String name, ArrayList<SMTTerm> parameters) {
         super(name);
         this.parameters = parameters;
     }

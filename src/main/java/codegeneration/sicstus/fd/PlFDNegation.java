@@ -3,7 +3,6 @@ package codegeneration.sicstus.fd;
 import codegeneration.sicstus.PlBooleanExpr;
 import codegeneration.sicstus.PlCompoundBooleanExpr;
 import codegeneration.sicstus.PlTerm;
-import com.sun.istack.internal.NotNull;
 import exceptions.NegationCanOnlyHaveOneChildException;
 
 public class PlFDNegation extends PlCompoundBooleanExpr {
@@ -12,7 +11,7 @@ public class PlFDNegation extends PlCompoundBooleanExpr {
         super("#\\ ");
     }
 
-    public PlFDNegation(@NotNull PlBooleanExpr child) {
+    public PlFDNegation(PlBooleanExpr child) {
         super("#\\ ", child);
     }
 

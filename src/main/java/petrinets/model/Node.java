@@ -1,7 +1,5 @@
 package petrinets.model;
 
-import com.sun.istack.internal.NotNull;
-
 import java.util.TreeSet;
 
 public abstract class Node implements Comparable<Node> {
@@ -29,7 +27,7 @@ public abstract class Node implements Comparable<Node> {
         preset.add(predecessor);
     }
 
-    public int compareTo(@NotNull Node node) {
+    public int compareTo(Node node) {
         return name.compareTo(node.getName());
     }
 
