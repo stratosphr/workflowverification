@@ -12,36 +12,10 @@ public class CodeWriter extends SimpleWriter {
         this.implementation = implementation;
     }
 
-    public void writeHeader(){
-        write(implementation.getHeader());
-    }
-
-    public void writeInitialMarking() {
-        write(implementation.getInitialMarking());
-    }
-
-    public void writeFinalMarking() {
-        write(implementation.getFinalMarking());
-    }
-
-    public void writeStateEquation() {
-        write(implementation.getStateEquation());
-    }
-
-    public void writeFormulaConstraint() {
-        write(implementation.getFormula());
-    }
-
-    public void writeNoSiphon(){
-        write(implementation.getNoSiphon());
-    }
-
-    public void writeMarkedGraph(){
-        write(implementation.getMarkedGraph());
-    }
-
-    public void writePairwiseSum(){
-        write(implementation.getPairwiseSum());
+    public void writeStandardPredicates() {
+        for (Object standardPredicate : implementation.getStandardPredicates()) {
+            write(standardPredicate);
+        }
     }
 
     public void writeOverApproximation1() {

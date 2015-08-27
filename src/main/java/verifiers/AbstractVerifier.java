@@ -25,18 +25,12 @@ public abstract class AbstractVerifier {
         this.generatedCodeFile = generatedCodeFile;
         this.implementation = implementation;
         this.codeWriter = new CodeWriter(generatedCodeFile, implementation);
+        this.minNumberOfSegments = implementation.getParametersModel().getMinNumberOfSegments();
     }
 
     public void startChecking(VerificationModel verificationModel, ParametersModel parametersModel) {
         this.parametersModel = parametersModel;
-        codeWriter.writeHeader();
-        codeWriter.writeInitialMarking();
-        codeWriter.writeFinalMarking();
-        codeWriter.writeStateEquation();
-        codeWriter.writeFormulaConstraint();
-        codeWriter.writeNoSiphon();
-        codeWriter.writeMarkedGraph();
-        codeWriter.writePairwiseSum();
+        codeWriter.writeStandardPredicates();
         if (parametersModel.checkOverApproximation1()) {
             startChecking(ApproximationTypes.OVER_APPROXIMATION_1, verificationModel);
         } else if (parametersModel.checkOverApproximation2()) {

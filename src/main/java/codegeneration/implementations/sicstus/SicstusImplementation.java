@@ -121,6 +121,13 @@ public class SicstusImplementation extends AbstractImplementation {
     }
 
     @Override
+    public ArrayList<Object> getStandardPredicates() {
+        ArrayList<Object> standardPredicates = super.getStandardPredicates();
+        standardPredicates.add(getPairwiseSum());
+        return standardPredicates;
+    }
+
+    @Override
     public PlPredicateDefinition getHeader() {
         return new PlUseModule(new PlLibrary("clpfd"));
     }
@@ -140,6 +147,7 @@ public class SicstusImplementation extends AbstractImplementation {
         );
     }
 
+    @Override
     public PlPredicateDefinition getFinalMarking() {
         ArrayList<PlTerm> parameters = new ArrayList<>();
         ArrayList<PlTerm> finalMarking = new ArrayList<>();
@@ -370,7 +378,6 @@ public class SicstusImplementation extends AbstractImplementation {
         };
     }
 
-    @Override
     public PlPredicateDefinition[] getPairwiseSum() {
         PlPredicateDefinition pairwiseSum1 = new PlPredicateDefinition(
                 "pairwiseSum",

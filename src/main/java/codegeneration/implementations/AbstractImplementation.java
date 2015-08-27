@@ -4,6 +4,9 @@ import mvc2.models.ParametersModel;
 import petrinets.model.Workflow;
 import specifications.model.Specification;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public abstract class AbstractImplementation {
 
     protected final Workflow workflow;
@@ -31,6 +34,18 @@ public abstract class AbstractImplementation {
 
     public abstract void init();
 
+    public ArrayList<Object> getStandardPredicates() {
+        return new ArrayList<>(Arrays.asList(new Object[]{
+                getHeader(),
+                getInitialMarking(),
+                getFinalMarking(),
+                getStateEquation(),
+                getFormula(),
+                getNoSiphon(),
+                getMarkedGraph()
+        }));
+    }
+
     public abstract Object getHeader();
 
     public abstract Object getInitialMarking();
@@ -44,8 +59,6 @@ public abstract class AbstractImplementation {
     public abstract Object getNoSiphon();
 
     public abstract Object getMarkedGraph();
-
-    public abstract Object getPairwiseSum();
 
     public abstract Object getOverApproximation1();
 

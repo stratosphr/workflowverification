@@ -337,11 +337,6 @@ public class Z3Implementation extends AbstractImplementation {
     }
 
     @Override
-    public Object getPairwiseSum() {
-        return null;
-    }
-
-    @Override
     public SMTPredicateDefinition getOverApproximation1() {
         ArrayList<SMTVar> parameters = new ArrayList<>();
         ArrayList<SMTTerm> body = new ArrayList<>();
