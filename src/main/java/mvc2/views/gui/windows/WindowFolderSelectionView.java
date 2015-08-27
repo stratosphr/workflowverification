@@ -1,6 +1,7 @@
 package mvc2.views.gui.windows;
 
 import mvc2.controller.Controller;
+import mvc2.events.events.VerificationFolderChanged;
 import mvc2.views.AbstractFolderSelectionView;
 import mvc2.views.gui.listeners.FileChooserListener;
 
@@ -28,6 +29,11 @@ public class WindowFolderSelectionView extends AbstractFolderSelectionView {
     @Override
     public void display() {
         fileChooser.showOpenDialog(null);
+    }
+
+    @Override
+    public void verificationFolderChanged(VerificationFolderChanged verificationFolderChanged) {
+        fileChooser.setCurrentDirectory(verificationFolderChanged.getVerificationFolder().getParentFile());
     }
 
 }

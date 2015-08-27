@@ -1,6 +1,6 @@
 import files.VerificationFolder;
 import mvc2.controller.Controller;
-import mvc2.models.ConfigurationModel;
+import mvc2.models.VerificationModel;
 import mvc2.models.ParametersModel;
 
 import javax.swing.*;
@@ -9,13 +9,8 @@ public class Main {
 
     public static void main(String[] args) {
         setDefaultLookAndFeel("Nimbus");
-        /*ConfigurationModel configurationModel = new ConfigurationModel();
-        ConfigurationController configurationController = new ConfigurationController(configurationModel, new ParametersModel());
-        configurationModel.setVerificationFolder(new VerificationFolder("src/main/resources/examples/big_MG"));
-        configurationController.displayMainViews();*/
-        //configurationModel.setVerificationFolder(
-        Controller controller = new Controller(new ConfigurationModel(), new ParametersModel());
-        controller.notifyVerificationFolderChanged(new VerificationFolder("/home/stratosphr/IdeaProjects/workflowverification/src/main/resources/examples/dependants"));
+        Controller controller = new Controller(new VerificationModel(), new ParametersModel());
+        controller.notifyVerificationFolderChanged(new VerificationFolder("/home/stratosphr/IdeaProjects/workflowverification/src/main/resources/examples/mail"));
         controller.displayMainViews();
     }
 

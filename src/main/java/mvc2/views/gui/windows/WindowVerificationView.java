@@ -8,17 +8,19 @@ import files.SpecificationFile;
 import files.VerificationFolder;
 import mvc2.controller.Controller;
 import mvc2.events.events.*;
-import mvc2.views.AbstractConfigurationView;
+import mvc2.views.AbstractVerificationView;
 import mvc2.views.gui.items.SicstusImplementationItem;
 import mvc2.views.gui.items.SpecificationItem;
 import mvc2.views.gui.items.Z3ImplementationItem;
 import mvc2.views.gui.listeners.*;
+import reports.approximations.ApproximationTypes;
+import specifications.model.SpecificationType;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-public class WindowConfigurationView extends AbstractConfigurationView {
+public class WindowVerificationView extends AbstractVerificationView {
 
     private JFrame frame;
     private JTabbedPane tab_main;
@@ -54,7 +56,7 @@ public class WindowConfigurationView extends AbstractConfigurationView {
     private JEditorPane editpanel_mustOverApproximation3;
     private JEditorPane editpanel_mustUnderApproximation;
 
-    public WindowConfigurationView(Controller controller) {
+    public WindowVerificationView(Controller controller) {
         super(controller);
         $$$setupUI$$$();
         addEventListeners();
@@ -87,6 +89,45 @@ public class WindowConfigurationView extends AbstractConfigurationView {
     @Override
     public void display() {
         frame.setVisible(true);
+    }
+
+    private JEditorPane getEditorPane(SpecificationType specificationType, ApproximationTypes approximationType) {
+        JEditorPane editorPane = null;
+        switch (specificationType) {
+            case MAY:
+                switch (approximationType) {
+                    case OVER_APPROXIMATION_1:
+                        editorPane = editpanel_mayOverApproximation1;
+                        break;
+                    case OVER_APPROXIMATION_2:
+                        editorPane = editpanel_mayOverApproximation2;
+                        break;
+                    case OVER_APPROXIMATION_3:
+                        editorPane = editpanel_mayOverApproximation3;
+                        break;
+                    case UNDER_APPROXIMATION:
+                        editorPane = editpanel_mayUnderApproximation;
+                        break;
+                }
+                break;
+            case MUST:
+                switch (approximationType) {
+                    case OVER_APPROXIMATION_1:
+                        editorPane = editpanel_mustOverApproximation1;
+                        break;
+                    case OVER_APPROXIMATION_2:
+                        editorPane = editpanel_mustOverApproximation2;
+                        break;
+                    case OVER_APPROXIMATION_3:
+                        editorPane = editpanel_mustOverApproximation3;
+                        break;
+                    case UNDER_APPROXIMATION:
+                        editorPane = editpanel_mustUnderApproximation;
+                        break;
+                }
+                break;
+        }
+        return editorPane;
     }
 
     /*****************************************************/
@@ -145,43 +186,27 @@ public class WindowConfigurationView extends AbstractConfigurationView {
     }
 
     @Override
-    public void doneChecking(DoneChecking doneChecking) {
-        JEditorPane editorPane = null;
-        switch (doneChecking.getReport().getImplementation().getSpecification().getType()) {
-            case MAY:
-                switch (doneChecking.getReport().getApproximationType()) {
-                    case OVER_APPROXIMATION_1:
-                        editorPane = editpanel_mayOverApproximation1;
-                        break;
-                    case OVER_APPROXIMATION_2:
-                        editorPane = editpanel_mayOverApproximation2;
-                        break;
-                    case OVER_APPROXIMATION_3:
-                        editorPane = editpanel_mayOverApproximation3;
-                        break;
-                    case UNDER_APPROXIMATION:
-                        editorPane = editpanel_mayUnderApproximation;
-                        break;
-                }
-                break;
-            case MUST:
-                switch (doneChecking.getReport().getApproximationType()) {
-                    case OVER_APPROXIMATION_1:
-                        editorPane = editpanel_mustOverApproximation1;
-                        break;
-                    case OVER_APPROXIMATION_2:
-                        editorPane = editpanel_mustOverApproximation2;
-                        break;
-                    case OVER_APPROXIMATION_3:
-                        editorPane = editpanel_mustOverApproximation3;
-                        break;
-                    case UNDER_APPROXIMATION:
-                        editorPane = editpanel_mustUnderApproximation;
-                        break;
-                }
-                break;
-        }
-        editorPane.setText(doneChecking.getReport().toString());
+    public void writingStarted(WritingStarted writingStarted) {
+        getEditorPane(writingStarted.getSpecificationType(), writingStarted.getApproximationType()).setText("Writing code...");
+    }
+
+    @Override
+    public void writingDone(WritingDone writingStarted) {
+        JEditorPane editorPane = getEditorPane(writingStarted.getSpecificationType(), writingStarted.getApproximationType());
+        editorPane.setText(editorPane.getText() + "\nDone.");
+    }
+
+    @Override
+    public void checkingStarted(CheckingStarted checkingStarted) {
+        JEditorPane editorPane = getEditorPane(checkingStarted.getSpecificationType(), checkingStarted.getApproximationType());
+        editorPane.setText(editorPane.getText() + "Checking...");
+    }
+
+    @Override
+    public void checkingDone(CheckingDone checkingDone) {
+        SpecificationType specificationType = checkingDone.getReport().getImplementation().getSpecification().getType();
+        ApproximationTypes approximationType = checkingDone.getReport().getApproximationType();
+        getEditorPane(specificationType, approximationType).setText(checkingDone.getReport().toString());
     }
 
     /*****************************************************/
@@ -332,7 +357,7 @@ public class WindowConfigurationView extends AbstractConfigurationView {
         panel4.add(btn_parameters, new GridConstraints(0, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         panel_report = new JPanel();
         panel_report.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        panel_report.setVisible(true);
+        panel_report.setVisible(false);
         tab_main.addTab("Reports", panel_report);
         splitpanel_reports.setOneTouchExpandable(true);
         splitpanel_reports.setResizeWeight(0.5);
@@ -401,5 +426,4 @@ public class WindowConfigurationView extends AbstractConfigurationView {
     public JComponent $$$getRootComponent$$$() {
         return tab_main;
     }
-
 }

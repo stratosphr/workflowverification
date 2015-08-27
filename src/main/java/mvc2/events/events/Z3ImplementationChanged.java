@@ -1,13 +1,13 @@
 package mvc2.events.events;
 
 import codegeneration.implementations.z3.EZ3Implementations;
-import mvc2.models.ConfigurationModel;
+import mvc2.models.VerificationModel;
 
 public class Z3ImplementationChanged extends AbstractEvent {
 
     private final EZ3Implementations z3Implementation;
 
-    public Z3ImplementationChanged(ConfigurationModel source, EZ3Implementations z3Implementation) {
+    public Z3ImplementationChanged(VerificationModel source, EZ3Implementations z3Implementation) {
         super(source);
         this.z3Implementation = z3Implementation;
     }

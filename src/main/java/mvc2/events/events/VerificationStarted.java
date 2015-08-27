@@ -1,10 +1,10 @@
 package mvc2.events.events;
 
-import mvc2.models.ConfigurationModel;
+import mvc2.models.VerificationModel;
 
 public class VerificationStarted extends AbstractEvent {
 
-    public VerificationStarted(ConfigurationModel source) {
+    public VerificationStarted(VerificationModel source) {
         super(source);
     }
 

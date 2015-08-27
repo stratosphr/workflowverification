@@ -4,9 +4,7 @@ import mvc2.events.events.*;
 
 import java.util.EventListener;
 
-public interface IConfigurationEventListener extends EventListener {
-
-    void verificationFolderChanged(VerificationFolderChanged verificationFolderChanged);
+public interface IVerificationEventListener extends EventListener {
 
     void specificationFileChanged(SpecificationFileChanged specificationFileChanged);
 
@@ -16,6 +14,12 @@ public interface IConfigurationEventListener extends EventListener {
 
     void verificationStarted(VerificationStarted verificationStarted);
 
-    void doneChecking(DoneChecking doneChecking);
+    void writingStarted(WritingStarted writingStarted);
+
+    void writingDone(WritingDone writingStarted);
+
+    void checkingStarted(CheckingStarted checkingStarted);
+
+    void checkingDone(CheckingDone checkingDone);
 
 }

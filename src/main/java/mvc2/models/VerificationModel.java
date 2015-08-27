@@ -9,14 +9,17 @@ import files.GeneratedReportFile.SicstusGeneratedReportFile;
 import files.GeneratedReportFile.Z3GeneratedReportFile;
 import files.SpecificationFile;
 import files.VerificationFolder;
-import mvc2.events.IConfigurationEventListener;
+import mvc2.events.IVerificationEventListener;
+import mvc2.events.IVerificationFolderChangedListener;
 import mvc2.events.events.*;
 import reports.Report;
+import reports.approximations.ApproximationTypes;
+import specifications.model.SpecificationType;
 import verifiers.IVerificationHandler;
 import verifiers.sicstus.SicstusVerifier;
 import verifiers.z3.Z3Verifier;
 
-public class ConfigurationModel extends AbstractModel implements IVerificationHandler {
+public class VerificationModel extends AbstractModel implements IVerificationHandler {
 
     private VerificationFolder verificationFolder;
     private SpecificationFile specificationFile;
@@ -29,12 +32,16 @@ public class ConfigurationModel extends AbstractModel implements IVerificationHa
     private SicstusVerifier sicstusVerifier;
     private Z3Verifier z3Verifier;
 
-    public ConfigurationModel() {
+    public VerificationModel() {
         super();
     }
 
-    public void addConfigurationListener(IConfigurationEventListener configurationListener) {
-        eventListeners.add(IConfigurationEventListener.class, configurationListener);
+    public void addConfigurationListener(IVerificationEventListener configurationListener) {
+        eventListeners.add(IVerificationEventListener.class, configurationListener);
+    }
+
+    public void addVerificationFolderListener(IVerificationFolderChangedListener folderChangedListener) {
+        eventListeners.add(IVerificationFolderChangedListener.class, folderChangedListener);
     }
 
     public void setVerificationFolder(VerificationFolder verificationFolder) {
@@ -100,39 +107,81 @@ public class ConfigurationModel extends AbstractModel implements IVerificationHa
     /*****************************************************/
 
     private void fireVerificationFolderChanged() {
-        for (IConfigurationEventListener configurationEventListener : eventListeners.getListeners(IConfigurationEventListener.class)) {
-            configurationEventListener.verificationFolderChanged(new VerificationFolderChanged(this, verificationFolder));
+        for (IVerificationFolderChangedListener folderChangedListener : eventListeners.getListeners(IVerificationFolderChangedListener.class)) {
+            folderChangedListener.verificationFolderChanged(new VerificationFolderChanged(this, verificationFolder));
         }
     }
 
     private void fireSpecificationFileChanged() {
-        for (IConfigurationEventListener configurationEventListener : eventListeners.getListeners(IConfigurationEventListener.class)) {
+        for (IVerificationEventListener configurationEventListener : eventListeners.getListeners(IVerificationEventListener.class)) {
             configurationEventListener.specificationFileChanged(new SpecificationFileChanged(this, specificationFile));
         }
     }
 
     private void fireSicstusGeneratedFilesChanged() {
-        for (IConfigurationEventListener configurationEventListener : eventListeners.getListeners(IConfigurationEventListener.class)) {
+        for (IVerificationEventListener configurationEventListener : eventListeners.getListeners(IVerificationEventListener.class)) {
             configurationEventListener.sicstusGeneratedCodeFilesChanged(new SicstusGeneratedFilesChanged(this, sicstusGeneratedCodeFile, sicstusGeneratedReportFile));
         }
     }
 
     private void fireZ3GeneratedFilesChanged() {
-        for (IConfigurationEventListener configurationEventListener : eventListeners.getListeners(IConfigurationEventListener.class)) {
+        for (IVerificationEventListener configurationEventListener : eventListeners.getListeners(IVerificationEventListener.class)) {
             configurationEventListener.z3GeneratedCodeFilesChanged(new Z3GeneratedFilesChanged(this, z3GeneratedCodeFile, z3GeneratedReportFile));
         }
     }
 
     private void fireVerificationStarted() {
-        for (IConfigurationEventListener configurationEventListener : eventListeners.getListeners(IConfigurationEventListener.class)) {
+        for (IVerificationEventListener configurationEventListener : eventListeners.getListeners(IVerificationEventListener.class)) {
             configurationEventListener.verificationStarted(new VerificationStarted(this));
         }
     }
 
     @Override
-    public void fireDoneChecking(Report report) {
-        for (IConfigurationEventListener configurationEventListener : eventListeners.getListeners(IConfigurationEventListener.class)) {
-            configurationEventListener.doneChecking(new DoneChecking(this, report));
+    public void fireWritingStarted(SpecificationType specificationType, ApproximationTypes approximationType) {
+        for (IVerificationEventListener configurationEventListener : eventListeners.getListeners(IVerificationEventListener.class)) {
+            configurationEventListener.writingStarted(new WritingStarted(this, specificationType, approximationType));
+        }
+    }
+
+    @Override
+    public void fireWritingStarted(SpecificationType specificationType, ApproximationTypes approximationType, int segment) {
+        for (IVerificationEventListener configurationEventListener : eventListeners.getListeners(IVerificationEventListener.class)) {
+            configurationEventListener.writingStarted(new WritingStarted(this, specificationType, approximationType, segment));
+        }
+    }
+
+    @Override
+    public void fireWritingDone(SpecificationType specificationType, ApproximationTypes approximationType) {
+        for (IVerificationEventListener configurationEventListener : eventListeners.getListeners(IVerificationEventListener.class)) {
+            configurationEventListener.writingDone(new WritingDone(this, specificationType, approximationType));
+        }
+    }
+
+    @Override
+    public void fireWritingDone(SpecificationType specificationType, ApproximationTypes approximationType, int segment) {
+        for (IVerificationEventListener configurationEventListener : eventListeners.getListeners(IVerificationEventListener.class)) {
+            configurationEventListener.writingDone(new WritingDone(this, specificationType, approximationType, segment));
+        }
+    }
+
+    @Override
+    public void fireCheckingStarted(SpecificationType specificationType, ApproximationTypes approximationType) {
+        for (IVerificationEventListener configurationEventListener : eventListeners.getListeners(IVerificationEventListener.class)) {
+            configurationEventListener.checkingStarted(new CheckingStarted(this, specificationType, approximationType));
+        }
+    }
+
+    @Override
+    public void fireCheckingStarted(SpecificationType specificationType, ApproximationTypes approximationType, int segment) {
+        for (IVerificationEventListener configurationEventListener : eventListeners.getListeners(IVerificationEventListener.class)) {
+            configurationEventListener.checkingStarted(new CheckingStarted(this, specificationType, approximationType, segment));
+        }
+    }
+
+    @Override
+    public void fireCheckingDone(Report report) {
+        for (IVerificationEventListener configurationEventListener : eventListeners.getListeners(IVerificationEventListener.class)) {
+            configurationEventListener.checkingDone(new CheckingDone(this, report));
         }
     }
 

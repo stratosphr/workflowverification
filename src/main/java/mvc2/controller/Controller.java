@@ -4,14 +4,15 @@ import codegeneration.implementations.sicstus.ESicstusImplementations;
 import codegeneration.implementations.z3.EZ3Implementations;
 import files.SpecificationFile;
 import files.VerificationFolder;
-import mvc2.events.IConfigurationEventListener;
+import mvc2.events.IVerificationEventListener;
 import mvc2.events.IParametersEventListener;
-import mvc2.models.ConfigurationModel;
+import mvc2.events.IVerificationFolderChangedListener;
+import mvc2.models.VerificationModel;
 import mvc2.models.ParametersModel;
-import mvc2.views.AbstractConfigurationView;
+import mvc2.views.AbstractVerificationView;
 import mvc2.views.AbstractFolderSelectionView;
 import mvc2.views.AbstractParametersView;
-import mvc2.views.gui.windows.WindowConfigurationView;
+import mvc2.views.gui.windows.WindowVerificationView;
 import mvc2.views.gui.windows.WindowFolderSelectionView;
 import mvc2.views.gui.windows.WindowParametersView;
 
@@ -19,19 +20,19 @@ import java.util.ArrayList;
 
 public class Controller {
 
-    private final ConfigurationModel configurationModel;
+    private final VerificationModel verificationModel;
     private final ParametersModel parametersModel;
-    private ArrayList<AbstractConfigurationView> configurationViews;
+    private ArrayList<AbstractVerificationView> configurationViews;
     private ArrayList<AbstractFolderSelectionView> folderSelectionViews;
     private ArrayList<AbstractParametersView> parametersViews;
 
-    public Controller(ConfigurationModel configurationModel, ParametersModel parametersModel) {
+    public Controller(VerificationModel verificationModel, ParametersModel parametersModel) {
         configurationViews = new ArrayList<>();
         folderSelectionViews = new ArrayList<>();
         parametersViews = new ArrayList<>();
-        this.configurationModel = configurationModel;
+        this.verificationModel = verificationModel;
         this.parametersModel = parametersModel;
-        configurationViews.add(new WindowConfigurationView(this));
+        configurationViews.add(new WindowVerificationView(this));
         folderSelectionViews.add(new WindowFolderSelectionView(this));
         parametersViews.add(new WindowParametersView(this));
         addListenersToModels();
@@ -39,8 +40,14 @@ public class Controller {
     }
 
     protected void addListenersToModels() {
-        for (IConfigurationEventListener configurationListener : configurationViews) {
-            configurationModel.addConfigurationListener(configurationListener);
+        for (IVerificationEventListener configurationListener : configurationViews) {
+            verificationModel.addConfigurationListener(configurationListener);
+        }
+        for (IVerificationFolderChangedListener verificationFolderChangedListener : configurationViews) {
+            verificationModel.addVerificationFolderListener(verificationFolderChangedListener);
+        }
+        for(IVerificationFolderChangedListener verificationFolderChangedListener : folderSelectionViews){
+            verificationModel.addVerificationFolderListener(verificationFolderChangedListener);
         }
         for (IParametersEventListener parametersListener : parametersViews) {
             parametersModel.addParametersListener(parametersListener);
@@ -48,7 +55,7 @@ public class Controller {
     }
 
     public void displayMainViews() {
-        for (AbstractConfigurationView configurationView : configurationViews) {
+        for (AbstractVerificationView configurationView : configurationViews) {
             configurationView.display();
         }
     }
@@ -66,7 +73,7 @@ public class Controller {
     }
 
     private void closeParametersViews() {
-        for(AbstractParametersView parametersView : parametersViews){
+        for (AbstractParametersView parametersView : parametersViews) {
             parametersView.close();
         }
     }
@@ -84,19 +91,19 @@ public class Controller {
     }
 
     public void notifyVerificationFolderChanged(VerificationFolder newVerificationFolder) {
-        configurationModel.setVerificationFolder(newVerificationFolder);
+        verificationModel.setVerificationFolder(newVerificationFolder);
     }
 
     public void notifySpecificationFileChanged(SpecificationFile specificationFile) {
-        configurationModel.setSpecificationFile(specificationFile);
+        verificationModel.setSpecificationFile(specificationFile);
     }
 
     public void notifySicstusImplementationChanged(ESicstusImplementations implementation) {
-        configurationModel.setSicstusImplementation(implementation);
+        verificationModel.setSicstusImplementation(implementation);
     }
 
     public void notifyZ3ImplementationChanged(EZ3Implementations implementation) {
-        configurationModel.setZ3Implementation(implementation);
+        verificationModel.setZ3Implementation(implementation);
     }
 
     public void notifyParametersEdited(int maxNodeValuation, int minNumberOfSegments, int maxNumberOfSegments, boolean checkOverApproximation1, boolean checkOverApproximation2, boolean checkOverApproximation3, boolean checkUnderApproximation) {
@@ -116,11 +123,11 @@ public class Controller {
     }
 
     public void notifySicstusVerificationRequired() {
-        configurationModel.runSicstusVerification(parametersModel);
+        verificationModel.runSicstusVerification(parametersModel);
     }
 
     public void notifyZ3VerificationRequired() {
-        configurationModel.runZ3Verification(parametersModel);
+        verificationModel.runZ3Verification(parametersModel);
     }
 
 }
