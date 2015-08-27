@@ -8,7 +8,6 @@ public abstract class AbstractApproximation {
 
     public AbstractApproximation(HashMap<String, ?> valuation) {
         this.valuation = valuation;
-
     }
 
     public boolean isSAT() {
@@ -17,16 +16,6 @@ public abstract class AbstractApproximation {
 
     public int size() {
         return valuation.size();
-    }
-
-    @Override
-    public String toString() {
-        String str = "Approximation : \n";
-        str += "\tSAT : " + isSAT() + "\n";
-        if (isSAT()) {
-            str += "\tSegments : \n";
-        }
-        return str;
     }
 
 }

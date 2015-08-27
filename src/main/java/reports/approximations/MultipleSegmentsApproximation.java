@@ -49,43 +49,43 @@ public class MultipleSegmentsApproximation extends AbstractApproximation {
 
     @Override
     public String toString() {
-        String str = super.toString();
+        String str = "";
         if (isSAT()) {
-            str += "\t\t" + StringTools.separator(20);
+            str += StringTools.separator(40);
             for (int segment = 1; segment <= nbSegments; segment++) {
-                String maksSegment = "MAs = [ ";
-                String mbksSegment = "MBs = [ ";
-                String vpksSegment = "VPs = [ ";
-                String vtksSegment = "VTs = [ ";
+                String maksSegment = "MAs = [ | ";
+                String mbksSegment = "MBs = [ | ";
+                String vpksSegment = "VPs = [ | ";
+                String vtksSegment = "VTs = [ | ";
                 for (String varName : mks.get(segment - 1).keySet()) {
                     if (mks.get(segment - 1).get(varName) > 0) {
-                        maksSegment += varName + " ";
+                        maksSegment += varName + " -> " + mks.get(segment - 1).get(varName) + " | ";
                     }
                 }
                 for (String varName : mks.get(segment).keySet()) {
                     if (mks.get(segment).get(varName) > 0) {
-                        mbksSegment += varName + " ";
+                        mbksSegment += varName + " -> " + mks.get(segment).get(varName) + " | ";
                     }
                 }
                 for (String varName : vpks.get(segment - 1).keySet()) {
                     if (vpks.get(segment - 1).get(varName) > 0) {
-                        vpksSegment += varName + " ";
+                        vpksSegment += varName + " -> " + vpks.get(segment - 1).get(varName) + " | ";
                     }
                 }
                 for (String varName : vtks.get(segment - 1).keySet()) {
                     if (vtks.get(segment - 1).get(varName) > 0) {
-                        vtksSegment += varName + " ";
+                        vtksSegment += varName + " -> " + vtks.get(segment - 1).get(varName) + " | ";
                     }
                 }
                 maksSegment += "]";
                 mbksSegment += "]";
                 vpksSegment += "]";
                 vtksSegment += "]";
-                str += "\t\t" + segment + " | " + maksSegment + "\n";
-                str += "\t\t" + segment + " | " + mbksSegment + "\n";
-                str += "\t\t" + segment + " | " + vpksSegment + "\n";
-                str += "\t\t" + segment + " | " + vtksSegment + "\n";
-                str += "\t\t" + StringTools.separator(20);
+                str += segment + " | " + maksSegment + "\n";
+                str += segment + " | " + mbksSegment + "\n";
+                str += segment + " | " + vpksSegment + "\n";
+                str += segment + " | " + vtksSegment + "\n";
+                str += StringTools.separator(40);
             }
         }
         return str;

@@ -1,17 +1,13 @@
 package mvc.views.gui.listeners;
 
-import mvc.controllers.AbstractController;
+import mvc.controller.Controller;
 
 public class AbstractListener {
 
-    private final AbstractController controller;
+    protected Controller controller;
 
-    public AbstractListener(AbstractController controller) {
+    public AbstractListener(Controller controller) {
         this.controller = controller;
-    }
-
-    public AbstractController getController() {
-        return controller;
     }
 
 }

@@ -3,7 +3,7 @@ package codegeneration.implementations.sicstus;
 import codegeneration.implementations.AbstractImplementation;
 import codegeneration.sicstus.*;
 import codegeneration.sicstus.fd.*;
-import mvc2.models.ParametersModel;
+import mvc.models.ParametersModel;
 import petrinets.model.Place;
 import petrinets.model.Transition;
 import petrinets.model.Workflow;

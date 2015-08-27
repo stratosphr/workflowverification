@@ -1,6 +1,6 @@
 package codegeneration.implementations;
 
-import mvc2.models.ParametersModel;
+import mvc.models.ParametersModel;
 import petrinets.model.Workflow;
 import specifications.model.Specification;
 

@@ -51,40 +51,40 @@ public class SingleSegmentApproximation extends AbstractApproximation {
 
     @Override
     public String toString() {
-        String str = super.toString();
+        String str = "";
         if (isSAT()) {
-            String masSegment = "MAs = [ ";
-            String mbsSegment = "MBs = [ ";
-            String vpsSegment = "VPs = [ ";
-            String vtsSegment = "VTs = [ ";
+            String masSegment = "MAs = [ | ";
+            String mbsSegment = "MBs = [ | ";
+            String vpsSegment = "VPs = [ | ";
+            String vtsSegment = "VTs = [ | ";
             for (String varName : mas.keySet()) {
                 if (mas.get(varName) > 0) {
-                    masSegment += varName + " ";
+                    masSegment += varName + " -> " + mas.get(varName) + " | ";
                 }
             }
             for (String varName : mbs.keySet()) {
                 if (mbs.get(varName) > 0) {
-                    mbsSegment += varName + " ";
+                    mbsSegment += varName + " = " + mbs.get(varName) + " | ";
                 }
             }
             for (String varName : vps.keySet()) {
                 if (vps.get(varName) > 0) {
-                    vpsSegment += varName + " ";
+                    vpsSegment += varName + " = " + vps.get(varName) + " | ";
                 }
             }
             for (String varName : vts.keySet()) {
                 if (vts.get(varName) > 0) {
-                    vtsSegment += varName + " ";
+                    vtsSegment += varName + " = " + vts.get(varName) + " | ";
                 }
             }
             masSegment += "]";
             mbsSegment += "]";
             vpsSegment += "]";
             vtsSegment += "]";
-            str += "\t\t" + masSegment + "\n";
-            str += "\t\t" + mbsSegment + "\n";
-            str += "\t\t" + vpsSegment + "\n";
-            str += "\t\t" + vtsSegment + "\n";
+            str += masSegment + "\n";
+            str += mbsSegment + "\n";
+            str += vpsSegment + "\n";
+            str += vtsSegment + "\n";
         }
         return str;
     }

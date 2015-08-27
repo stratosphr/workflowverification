@@ -8,7 +8,7 @@ import codegeneration.implementations.z3.EZ3Implementations;
 import codegeneration.implementations.z3.OneTransitionPerSegmentZ3Implementation;
 import exceptions.UnknownSicstusImplementationException;
 import exceptions.UnknownZ3ImplementationException;
-import mvc2.models.ParametersModel;
+import mvc.models.ParametersModel;
 import petrinets.model.Workflow;
 import specifications.model.Specification;
 

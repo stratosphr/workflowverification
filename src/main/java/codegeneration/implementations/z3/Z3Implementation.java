@@ -2,7 +2,7 @@ package codegeneration.implementations.z3;
 
 import codegeneration.implementations.AbstractImplementation;
 import codegeneration.z3.*;
-import mvc2.models.ParametersModel;
+import mvc.models.ParametersModel;
 import petrinets.model.Place;
 import petrinets.model.Transition;
 import petrinets.model.Workflow;
