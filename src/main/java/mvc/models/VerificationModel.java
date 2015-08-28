@@ -130,12 +130,6 @@ public class VerificationModel extends AbstractModel implements IVerificationHan
         }
     }
 
-    private void fireVerificationStarted() {
-        for (IVerificationEventListener configurationEventListener : eventListeners.getListeners(IVerificationEventListener.class)) {
-            configurationEventListener.verificationStarted(new VerificationStarted(this));
-        }
-    }
-
     @Override
     public void fireWritingStarted(SpecificationType specificationType, ApproximationTypes approximationType) {
         for (IVerificationEventListener configurationEventListener : eventListeners.getListeners(IVerificationEventListener.class)) {
@@ -182,6 +176,20 @@ public class VerificationModel extends AbstractModel implements IVerificationHan
     public void fireCheckingDone(Report report) {
         for (IVerificationEventListener configurationEventListener : eventListeners.getListeners(IVerificationEventListener.class)) {
             configurationEventListener.checkingDone(new CheckingDone(this, report));
+        }
+    }
+
+    @Override
+    public void fireVerificationStarted() {
+        for (IVerificationEventListener configurationEventListener : eventListeners.getListeners(IVerificationEventListener.class)) {
+            configurationEventListener.verificationStarted(new VerificationStarted(this));
+        }
+    }
+
+    @Override
+    public void fireVerificationDone(Report report) {
+        for (IVerificationEventListener configurationEventListener : eventListeners.getListeners(IVerificationEventListener.class)) {
+            configurationEventListener.verificationDone(new VerificationDone(this, report));
         }
     }
 

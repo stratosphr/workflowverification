@@ -20,4 +20,8 @@ public interface IVerificationHandler {
 
     void fireCheckingDone(Report report);
 
+    void fireVerificationStarted();
+
+    void fireVerificationDone(Report report);
+
 }

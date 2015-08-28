@@ -31,6 +31,7 @@ public class SingleSegmentApproximation extends AbstractApproximation {
         }
     }
 
+    @Override
     public boolean isValid() {
         if (isSAT()) {
             return getMaxValuation() == 1;

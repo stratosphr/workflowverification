@@ -47,6 +47,15 @@ public class MultipleSegmentsApproximation extends AbstractApproximation {
         }
     }
 
+    public int getNbSegments() {
+        return nbSegments;
+    }
+
+    @Override
+    public boolean isValid() {
+        return isSAT();
+    }
+
     @Override
     public String toString() {
         String str = "";
@@ -74,7 +83,7 @@ public class MultipleSegmentsApproximation extends AbstractApproximation {
                 }
                 for (String varName : vtks.get(segment - 1).keySet()) {
                     if (vtks.get(segment - 1).get(varName) > 0) {
-                        vtksSegment += varName + " -> " + vtks.get(segment - 1).get(varName) + " | ";
+                        vtksSegment += varName;
                     }
                 }
                 maksSegment += "]";

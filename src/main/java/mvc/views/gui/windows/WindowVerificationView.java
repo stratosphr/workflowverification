@@ -63,6 +63,12 @@ public class WindowVerificationView extends AbstractVerificationView {
     private JScrollPane scrollpane_mustOverApproximation2;
     private JScrollPane scrollpane_mustOverApproximation3;
     private JScrollPane scrollpane_mustUnderApproximation;
+    private JCheckBox chk_mustValidity;
+    private JCheckBox chk_mayValidity;
+    private JCheckBox chk_specificationValidity;
+    private JPanel panel_statusBar;
+    private JLabel lbl_status;
+    private JLabel lbl_timer;
 
     public WindowVerificationView(Controller controller) {
         super(controller);
@@ -190,33 +196,49 @@ public class WindowVerificationView extends AbstractVerificationView {
         editpanel_mustOverApproximation2.setText("");
         editpanel_mustOverApproximation3.setText("");
         editpanel_mustUnderApproximation.setText("");
+        chk_mayValidity.setSelected(false);
+        chk_mustValidity.setSelected(false);
         tab_main.setSelectedComponent(panel_report);
     }
 
     @Override
     public void writingStarted(WritingStarted writingStarted) {
-        JEditorPane editorPane = getEditorPane(writingStarted.getSpecificationType(), writingStarted.getApproximationType());
-        editorPane.setText(((editorPane.getText().equals("")) ? "" : editorPane.getText() + "\n") + "Writing " + writingStarted.getApproximationType() + ((writingStarted.getSegment() == 0) ? "" : " - Segment : " + writingStarted.getSegment()) + "...");
+        lbl_status.setText("Writing " + writingStarted.getSpecificationType() + " " + writingStarted.getApproximationType() + " verification code" + ((writingStarted.getSegment() == 0) ? "" : " (Segment " + writingStarted.getSegment() + ")") + "...");
     }
 
     @Override
     public void writingDone(WritingDone writingStarted) {
-        JEditorPane editorPane = getEditorPane(writingStarted.getSpecificationType(), writingStarted.getApproximationType());
-        editorPane.setText(editorPane.getText() + " Done writing.\n");
+        lbl_status.setText("Done Writing " + writingStarted.getSpecificationType() + " " + writingStarted.getApproximationType() + " verification code" + ((writingStarted.getSegment() == 0) ? "" : " (Segment " + writingStarted.getSegment()) + ")");
     }
 
     @Override
     public void checkingStarted(CheckingStarted checkingStarted) {
-        JEditorPane editorPane = getEditorPane(checkingStarted.getSpecificationType(), checkingStarted.getApproximationType());
-        editorPane.setText(editorPane.getText() + "Checking " + checkingStarted.getApproximationType() + ((checkingStarted.getSegment() == 0) ? "" : " - Segment " + checkingStarted.getSegment()) + "\n");
+        lbl_status.setText("Checking " + checkingStarted.getSpecificationType() + " " + checkingStarted.getApproximationType() + ((checkingStarted.getSegment() == 0) ? "" : " (Segment " + checkingStarted.getSegment() + ")") + "...");
     }
 
     @Override
     public void checkingDone(CheckingDone checkingDone) {
         SpecificationType specificationType = checkingDone.getReport().getImplementation().getSpecification().getType();
         ApproximationTypes approximationType = checkingDone.getReport().getApproximationType();
+        int nbSegments = checkingDone.getReport().getNbSegments();
+        lbl_status.setText("Done checking " + specificationType + " " + approximationType + ((nbSegments == 0) ? "" : " (Segment " + nbSegments + ")"));
         JEditorPane editorPane = getEditorPane(specificationType, approximationType);
         editorPane.setText(editorPane.getText() + checkingDone.getReport());
+    }
+
+    @Override
+    public void verificationDone(VerificationDone verificationDone) {
+        ApproximationTypes approximationType = verificationDone.getReport().getApproximationType();
+        boolean approximationValid = verificationDone.getReport().getApproximation().isValid();
+        SpecificationType specificationType = verificationDone.getReport().getImplementation().getSpecification().getType();
+        switch (specificationType) {
+            case MAY:
+                chk_mayValidity.setSelected(approximationValid);
+                break;
+            case MUST:
+                chk_mustValidity.setSelected(!approximationValid);
+                break;
+        }
     }
 
     /*****************************************************/
@@ -366,14 +388,14 @@ public class WindowVerificationView extends AbstractVerificationView {
         btn_parameters.setDisplayedMnemonicIndex(0);
         panel4.add(btn_parameters, new GridConstraints(0, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         panel_report = new JPanel();
-        panel_report.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel_report.setLayout(new GridLayoutManager(3, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel_report.setVisible(true);
         tab_main.addTab("Reports", panel_report);
         splitpanel_reports.setOneTouchExpandable(true);
         splitpanel_reports.setResizeWeight(0.5);
         panel_report.add(splitpanel_reports, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, new Dimension(200, 200), null, 0, false));
         panel_leftReport = new JPanel();
-        panel_leftReport.setLayout(new GridLayoutManager(4, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel_leftReport.setLayout(new GridLayoutManager(5, 1, new Insets(0, 0, 0, 0), -1, -1));
         splitpanel_reports.setLeftComponent(panel_leftReport);
         panel_leftReport.setBorder(BorderFactory.createTitledBorder(null, "May validity report", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
         scrollpane_mayOverApproximation1 = new JScrollPane();
@@ -397,8 +419,11 @@ public class WindowVerificationView extends AbstractVerificationView {
         scrollpane_mayUnderApproximation.setBorder(BorderFactory.createTitledBorder(null, "Under-approximation", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
         editpanel_mayUnderApproximation = new JEditorPane();
         scrollpane_mayUnderApproximation.setViewportView(editpanel_mayUnderApproximation);
+        chk_mayValidity = new JCheckBox();
+        chk_mayValidity.setText("May validity");
+        panel_leftReport.add(chk_mayValidity, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         panel_rightReport = new JPanel();
-        panel_rightReport.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel_rightReport.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
         splitpanel_reports.setRightComponent(panel_rightReport);
         panel_rightReport.setBorder(BorderFactory.createTitledBorder(null, "Must validity report", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
         final JPanel panel7 = new JPanel();
@@ -424,6 +449,22 @@ public class WindowVerificationView extends AbstractVerificationView {
         scrollpane_mustOverApproximation2.setBorder(BorderFactory.createTitledBorder(null, "Over-approximation 2", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
         editpanel_mustOverApproximation2 = new JEditorPane();
         scrollpane_mustOverApproximation2.setViewportView(editpanel_mustOverApproximation2);
+        chk_mustValidity = new JCheckBox();
+        chk_mustValidity.setText("Must validity");
+        panel_rightReport.add(chk_mustValidity, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        chk_specificationValidity = new JCheckBox();
+        chk_specificationValidity.setText("Specification validity");
+        panel_report.add(chk_specificationValidity, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel_statusBar = new JPanel();
+        panel_statusBar.setLayout(new GridLayoutManager(1, 2, new Insets(5, 5, 5, 5), -1, -1));
+        panel_report.add(panel_statusBar, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel_statusBar.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), null));
+        lbl_status = new JLabel();
+        lbl_status.setText("Label");
+        panel_statusBar.add(lbl_status, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        lbl_timer = new JLabel();
+        lbl_timer.setText("17:19:24");
+        panel_statusBar.add(lbl_timer, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         ButtonGroup buttonGroup;
         buttonGroup = new ButtonGroup();
         buttonGroup.add(radio_may);

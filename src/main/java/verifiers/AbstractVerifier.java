@@ -78,7 +78,8 @@ public abstract class AbstractVerifier {
             protected void done() {
                 try {
                     SingleSegmentApproximation approximation = get();
-                    verificationHandler.fireCheckingDone(new Report(implementation, ApproximationTypes.OVER_APPROXIMATION_1, approximation));
+                    Report report = new Report(implementation, ApproximationTypes.OVER_APPROXIMATION_1, approximation);
+                    verificationHandler.fireCheckingDone(report);
                     if (approximation.isSAT()) {
                         if (parametersModel.checkOverApproximation2()) {
                             startChecking(ApproximationTypes.OVER_APPROXIMATION_2, verificationHandler);
@@ -86,7 +87,11 @@ public abstract class AbstractVerifier {
                             startChecking(ApproximationTypes.OVER_APPROXIMATION_3, verificationHandler);
                         } else if (parametersModel.checkUnderApproximation()) {
                             startChecking(ApproximationTypes.UNDER_APPROXIMATION, verificationHandler);
+                        } else {
+                            verificationHandler.fireVerificationDone(report);
                         }
+                    } else {
+                        verificationHandler.fireVerificationDone(report);
                     }
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
@@ -110,14 +115,19 @@ public abstract class AbstractVerifier {
             protected void done() {
                 try {
                     SingleSegmentApproximation approximation = get();
-                    verificationHandler.fireCheckingDone(new Report(implementation, ApproximationTypes.OVER_APPROXIMATION_2, approximation));
+                    Report report = new Report(implementation, ApproximationTypes.OVER_APPROXIMATION_2, approximation);
+                    verificationHandler.fireCheckingDone(report);
                     if (approximation.isSAT() && !approximation.isValid()) {
                         setMinNumberOfSegments(approximation.getMaxValuation());
                         if (parametersModel.checkOverApproximation3()) {
                             startChecking(ApproximationTypes.OVER_APPROXIMATION_3, verificationHandler);
                         } else if (parametersModel.checkUnderApproximation()) {
                             startChecking(ApproximationTypes.UNDER_APPROXIMATION, verificationHandler);
+                        } else {
+                            verificationHandler.fireVerificationDone(report);
                         }
+                    } else {
+                        verificationHandler.fireVerificationDone(report);
                     }
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
@@ -147,11 +157,16 @@ public abstract class AbstractVerifier {
             protected void done() {
                 try {
                     MultipleSegmentsApproximation approximation = get();
-                    verificationHandler.fireCheckingDone(new Report(implementation, ApproximationTypes.OVER_APPROXIMATION_3, approximation));
+                    Report report = new Report(implementation, ApproximationTypes.OVER_APPROXIMATION_3, approximation);
+                    verificationHandler.fireCheckingDone(report);
                     if (approximation.isSAT()) {
                         if (parametersModel.checkUnderApproximation()) {
                             startChecking(ApproximationTypes.UNDER_APPROXIMATION, verificationHandler);
+                        } else {
+                            verificationHandler.fireVerificationDone(report);
                         }
+                    } else {
+                        verificationHandler.fireVerificationDone(report);
                     }
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
@@ -181,7 +196,9 @@ public abstract class AbstractVerifier {
             protected void done() {
                 try {
                     MultipleSegmentsApproximation approximation = get();
-                    verificationHandler.fireCheckingDone(new Report(implementation, ApproximationTypes.UNDER_APPROXIMATION, approximation));
+                    Report report = new Report(implementation, ApproximationTypes.UNDER_APPROXIMATION, approximation);
+                    verificationHandler.fireCheckingDone(report);
+                    verificationHandler.fireVerificationDone(report);
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
