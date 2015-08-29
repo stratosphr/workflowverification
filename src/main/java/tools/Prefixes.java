@@ -10,5 +10,6 @@ public abstract class Prefixes {
     public static final String MK = "MK_";
     public static final String VPK = "VPK_";
     public static final String VTK = "VTK_";
+    public static final String XIK = "XIK_";
 
 }

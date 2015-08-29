@@ -235,6 +235,11 @@ public class Z3Implementation extends AbstractImplementation {
     }
 
     @Override
+    public Object getSubnetInitialization() {
+        return null;
+    }
+
+    @Override
     public SMTPredicateDefinition getNoSiphon() {
         ArrayList<SMTVar> parameters = new ArrayList<>();
         ArrayList<SMTTerm> body = new ArrayList<>();

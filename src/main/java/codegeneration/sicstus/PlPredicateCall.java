@@ -4,11 +4,12 @@ import tools.StringTools;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class PlPredicateCall extends PlBooleanExpr {
 
     private final String name;
-    private final ArrayList<PlTerm> parameters;
+    private final List<PlTerm> parameters;
 
     public PlPredicateCall(String name) {
         this(name, new ArrayList<PlTerm>());
@@ -18,7 +19,7 @@ public class PlPredicateCall extends PlBooleanExpr {
         this(name, new ArrayList<>(Arrays.asList(parameters)));
     }
 
-    public PlPredicateCall(String name, ArrayList<PlTerm> parameters) {
+    public PlPredicateCall(String name, List<PlTerm> parameters) {
         this.name = name;
         this.parameters = parameters;
     }

@@ -4,10 +4,11 @@ import tools.StringTools;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class SMTPredicateCall extends SMTTerm {
 
-    protected ArrayList<SMTTerm> parameters;
+    protected List<SMTTerm> parameters;
 
     public SMTPredicateCall(String name, SMTTerm... parameters) {
         this(name, new ArrayList<>(Arrays.asList(parameters)));

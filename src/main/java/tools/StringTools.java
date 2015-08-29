@@ -4,10 +4,11 @@ import exceptions.JoinOnNullException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class StringTools {
 
-    public static String join(ArrayList<?> objects, String separator) {
+    public static String join(List<?> objects, String separator) {
         if (objects != null) {
             if (objects.isEmpty()) {
                 return "";

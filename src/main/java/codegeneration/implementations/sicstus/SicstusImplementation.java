@@ -39,9 +39,11 @@ public class SicstusImplementation extends AbstractImplementation {
     private ArrayList<PlList> mksLists;
     private ArrayList<PlList> vpksLists;
     private ArrayList<PlList> vtksLists;
+    private ArrayList<PlList> xiksLists;
     private PlList list_MKs;
     private PlList list_VPKs;
     private PlList list_VTKs;
+    private PlList list_XIKs;
     private PlPredicateDefinition pairwiseSum;
 
     public SicstusImplementation(Workflow workflow, Specification specification, ParametersModel parametersModel) {
@@ -65,6 +67,7 @@ public class SicstusImplementation extends AbstractImplementation {
         mksLists = new ArrayList<>();
         vpksLists = new ArrayList<>();
         vtksLists = new ArrayList<>();
+        xiksLists = new ArrayList<>();
         for (Place p : workflow.getPlaces()) {
             masTerms.put(p, new PlTerm(Prefixes.MA + p));
             mbsTerms.put(p, new PlTerm(Prefixes.MB + p));
@@ -91,16 +94,20 @@ public class SicstusImplementation extends AbstractImplementation {
         ArrayList<PlTerm> mksTerms = new ArrayList<>();
         ArrayList<PlTerm> vpksTerms = new ArrayList<>();
         ArrayList<PlTerm> vtksTerms = new ArrayList<>();
+        ArrayList<PlTerm> xiksTerms = new ArrayList<>();
         for (int segment = 1; segment <= nbSegments; segment++) {
             mksTerms.add(new PlTerm(Prefixes.MK + (segment - 1)));
             vpksTerms.add(new PlTerm(Prefixes.VPK + segment));
             vtksTerms.add(new PlTerm(Prefixes.VTK + segment));
+            xiksTerms.add(new PlTerm(Prefixes.XIK + segment));
             ArrayList<PlTerm> mksTermsSegment = new ArrayList<>();
             ArrayList<PlTerm> vpksTermsSegment = new ArrayList<>();
             ArrayList<PlTerm> vtksTermsSegment = new ArrayList<>();
+            ArrayList<PlTerm> xiksTermsSegment = new ArrayList<>();
             for (Place p : workflow.getPlaces()) {
                 mksTermsSegment.add(new PlTerm(Prefixes.MK + (segment - 1) + "_" + p));
                 vpksTermsSegment.add(new PlTerm(Prefixes.VPK + segment + "_" + p));
+                xiksTermsSegment.add(new PlTerm(Prefixes.XIK + segment + "_" + p));
             }
             for (Transition t : workflow.getTransitions()) {
                 vtksTermsSegment.add(new PlTerm(Prefixes.VTK + segment + "_" + t));
@@ -108,6 +115,7 @@ public class SicstusImplementation extends AbstractImplementation {
             mksLists.add(new PlList(mksTermsSegment));
             vpksLists.add(new PlList(vpksTermsSegment));
             vtksLists.add(new PlList(vtksTermsSegment));
+            xiksLists.add(new PlList(xiksTermsSegment));
         }
         mksTerms.add(new PlTerm(Prefixes.MK + nbSegments));
         ArrayList<PlTerm> mksTermsSegment = new ArrayList<>();
@@ -118,6 +126,7 @@ public class SicstusImplementation extends AbstractImplementation {
         list_MKs = new PlList(mksTerms);
         list_VPKs = new PlList(vpksTerms);
         list_VTKs = new PlList(vtksTerms);
+        list_XIKs = new PlList(xiksTerms);
     }
 
     @Override
@@ -236,30 +245,21 @@ public class SicstusImplementation extends AbstractImplementation {
     }
 
     @Override
-    public PlPredicateDefinition[] getNoSiphon() {
-        ArrayList<PlTerm> noSiphonParameters = new ArrayList<>();
-        ArrayList<PlTerm> siphonParameters = new ArrayList<>();
-        ArrayList<PlBooleanExpr> noSiphonBody = new ArrayList<>();
-        ArrayList<PlTerm> siphonCallParameters = new ArrayList<>();
-        ArrayList<PlBooleanExpr> siphonBody = new ArrayList<>();
-        /**********************************/
-        siphonParameters.add(list_MAs);
-        siphonParameters.add(list_MBs);
-        siphonParameters.add(list_VPs);
-        siphonParameters.add(list_VTs);
-        siphonParameters.add(list_XIs);
-        siphonBody.add(new PlFDDomain(
+    public PlPredicateDefinition getSubnetInitialization() {
+        ArrayList<PlTerm> parameters = new ArrayList<>();
+        ArrayList<PlBooleanExpr> body = new ArrayList<>();
+        parameters.add(list_MAs);
+        parameters.add(list_MBs);
+        parameters.add(list_VPs);
+        parameters.add(list_VTs);
+        parameters.add(list_XIs);
+        body.add(new PlFDDomain(
                 list_XIs,
                 new PlTerm(0),
                 new PlTerm(1)
         ));
-        siphonBody.add(new PlFDSum(
-                "#>",
-                list_XIs,
-                new PlTerm(0)
-        ));
         for (Place p : workflow.getPlaces()) {
-            siphonBody.add(new PlFDImplies(
+            body.add(new PlFDImplies(
                     new PlFDDisjunction(
                             new PlFDGreaterThan(
                                     masTerms.get(p),
@@ -280,6 +280,31 @@ public class SicstusImplementation extends AbstractImplementation {
                     )
             ));
         }
+        return new PlPredicateDefinition(
+                "subnetInitialization",
+                parameters,
+                body
+        );
+    }
+
+    @Override
+    public PlPredicateDefinition[] getNoSiphon() {
+        ArrayList<PlTerm> noSiphonParameters = new ArrayList<>();
+        ArrayList<PlTerm> siphonParameters = new ArrayList<>();
+        ArrayList<PlBooleanExpr> noSiphonBody = new ArrayList<>();
+        ArrayList<PlTerm> siphonCallParameters = new ArrayList<>();
+        ArrayList<PlBooleanExpr> siphonBody = new ArrayList<>();
+        /**********************************/
+        siphonParameters.add(list_MAs);
+        siphonParameters.add(list_MBs);
+        siphonParameters.add(list_VPs);
+        siphonParameters.add(list_VTs);
+        siphonParameters.add(list_XIs);
+        siphonBody.add(new PlFDSum(
+                "#>",
+                list_XIs,
+                new PlTerm(0)
+        ));
         for (Transition t : workflow.getTransitions()) {
             ArrayList<PlTerm> xisPreT = new ArrayList<>();
             for (Place p : t.getPreset()) {
@@ -313,8 +338,9 @@ public class SicstusImplementation extends AbstractImplementation {
         noSiphonParameters.add(term_MBs);
         noSiphonParameters.add(term_VPs);
         noSiphonParameters.add(term_VTs);
+        noSiphonParameters.add(term_XIs);
         siphonCallParameters.addAll(noSiphonParameters);
-        siphonCallParameters.add(term_XIs);
+        noSiphonBody.add(getSubnetInitialization().getCallWith(noSiphonParameters));
         noSiphonBody.add(new PlFDLabeling(
                 term_VTs
         ));
@@ -328,8 +354,8 @@ public class SicstusImplementation extends AbstractImplementation {
         );
         /**********************************/
         return new PlPredicateDefinition[]{
-                noSiphon,
-                siphon
+                siphon,
+                noSiphon
         };
     }
 
@@ -505,7 +531,7 @@ public class SicstusImplementation extends AbstractImplementation {
         body.add(getFinalMarking().getCallWith(term_MBs));
         body.add(getStateEquation().getCallWith(term_VMax, term_MAs, term_MBs, term_VPs, term_VTs));
         body.add(getFormula().getCallWith(term_VTs));
-        body.add(getNoSiphon()[0].getCallWith(term_MAs, term_MBs, term_VPs, term_VTs));
+        body.add(getNoSiphon()[1].getCallWith(term_MAs, term_MBs, term_VPs, term_VTs, term_XIs));
         body.add(new PlFDLabeling(
                 term_VTs
         ));
@@ -581,7 +607,7 @@ public class SicstusImplementation extends AbstractImplementation {
         for (int segment = 1; segment <= nbSegments; segment++) {
             body.add(getStateEquation().getCallWith(term_VMax, list_MKs.getTerm(segment - 1), list_MKs.getTerm(segment), list_VPKs.getTerm(segment - 1), list_VTKs.getTerm(segment - 1)));
             body.add(getMarkedGraph()[0].getCallWith(list_MKs.getTerm(segment - 1), list_VPKs.getTerm(segment - 1)));
-            body.add(getNoSiphon()[0].getCallWith(list_MKs.getTerm(segment - 1), list_MKs.getTerm(segment), list_VPKs.getTerm(segment - 1), list_VTKs.getTerm(segment - 1)));
+            body.add(getNoSiphon()[1].getCallWith(list_MKs.getTerm(segment - 1), list_MKs.getTerm(segment), list_VPKs.getTerm(segment - 1), list_VTKs.getTerm(segment - 1), list_XIKs.getTerm(segment - 1)));
         }
         body.add(getPairwiseSum()[0].getCallWith(pairwiseSumParameters));
         body.add(getFormula().getCallWith(term_VTs));
