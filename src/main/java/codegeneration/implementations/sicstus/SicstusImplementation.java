@@ -133,6 +133,7 @@ public class SicstusImplementation extends AbstractImplementation {
     public ArrayList<Object> getStandardPredicates() {
         ArrayList<Object> standardPredicates = super.getStandardPredicates();
         standardPredicates.add(getPairwiseSum());
+        standardPredicates.add(getSubnetInitialization());
         return standardPredicates;
     }
 
@@ -244,7 +245,6 @@ public class SicstusImplementation extends AbstractImplementation {
         );
     }
 
-    @Override
     public PlPredicateDefinition getSubnetInitialization() {
         ArrayList<PlTerm> parameters = new ArrayList<>();
         ArrayList<PlBooleanExpr> body = new ArrayList<>();

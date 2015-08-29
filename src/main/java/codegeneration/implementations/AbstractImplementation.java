@@ -41,7 +41,6 @@ public abstract class AbstractImplementation {
                 getFinalMarking(),
                 getStateEquation(),
                 getFormula(),
-                getSubnetInitialization(),
                 getNoSiphon(),
                 getMarkedGraph()
         }));
@@ -56,8 +55,6 @@ public abstract class AbstractImplementation {
     public abstract Object getStateEquation();
 
     public abstract Object getFormula();
-
-    public abstract Object getSubnetInitialization();
 
     public abstract Object getNoSiphon();
 
