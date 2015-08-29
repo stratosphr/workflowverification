@@ -5,6 +5,7 @@ import codegeneration.implementations.AbstractImplementation;
 import files.GeneratedCodeFile.GeneratedCodeFile;
 import mvc.models.VerificationModel;
 import mvc.models.ParametersModel;
+import org.apache.commons.lang3.time.StopWatch;
 import reports.Report;
 import reports.approximations.ApproximationTypes;
 import reports.approximations.MultipleSegmentsApproximation;
@@ -20,12 +21,14 @@ public abstract class AbstractVerifier {
     private final CodeWriter codeWriter;
     private ParametersModel parametersModel;
     private int minNumberOfSegments;
+    private StopWatch stopWatch;
 
     public AbstractVerifier(GeneratedCodeFile generatedCodeFile, AbstractImplementation implementation) {
         this.generatedCodeFile = generatedCodeFile;
         this.implementation = implementation;
         this.codeWriter = new CodeWriter(generatedCodeFile, implementation);
         this.minNumberOfSegments = implementation.getParametersModel().getMinNumberOfSegments();
+        this.stopWatch = new StopWatch();
     }
 
     public void startChecking(VerificationModel verificationModel, ParametersModel parametersModel) {
@@ -71,14 +74,18 @@ public abstract class AbstractVerifier {
                 codeWriter.writeOverApproximation1();
                 verificationHandler.fireWritingDone(implementation.getSpecification().getType(), ApproximationTypes.OVER_APPROXIMATION_1);
                 verificationHandler.fireCheckingStarted(implementation.getSpecification().getType(), ApproximationTypes.OVER_APPROXIMATION_1);
+                stopWatch.start();
                 return checkOverApproximation1();
             }
 
             @Override
             protected void done() {
                 try {
+                    stopWatch.stop();
+                    long time = stopWatch.getTime();
+                    stopWatch.reset();
                     SingleSegmentApproximation approximation = get();
-                    Report report = new Report(implementation, ApproximationTypes.OVER_APPROXIMATION_1, approximation);
+                    Report report = new Report(implementation, ApproximationTypes.OVER_APPROXIMATION_1, approximation, time);
                     verificationHandler.fireCheckingDone(report);
                     if (approximation.isSAT()) {
                         if (parametersModel.checkOverApproximation2()) {
@@ -108,14 +115,18 @@ public abstract class AbstractVerifier {
                 codeWriter.writeOverApproximation2();
                 verificationHandler.fireWritingDone(implementation.getSpecification().getType(), ApproximationTypes.OVER_APPROXIMATION_2);
                 verificationHandler.fireCheckingStarted(implementation.getSpecification().getType(), ApproximationTypes.OVER_APPROXIMATION_2);
+                stopWatch.start();
                 return checkOverApproximation2();
             }
 
             @Override
             protected void done() {
                 try {
+                    stopWatch.stop();
+                    long time = stopWatch.getTime();
+                    stopWatch.reset();
                     SingleSegmentApproximation approximation = get();
-                    Report report = new Report(implementation, ApproximationTypes.OVER_APPROXIMATION_2, approximation);
+                    Report report = new Report(implementation, ApproximationTypes.OVER_APPROXIMATION_2, approximation, time);
                     verificationHandler.fireCheckingDone(report);
                     if (approximation.isSAT() && !approximation.isValid()) {
                         setMinNumberOfSegments(approximation.getMaxValuation());
@@ -146,9 +157,15 @@ public abstract class AbstractVerifier {
                     codeWriter.writeOverApproximation3(segment);
                     verificationHandler.fireWritingDone(implementation.getSpecification().getType(), ApproximationTypes.OVER_APPROXIMATION_3, segment);
                     verificationHandler.fireCheckingStarted(implementation.getSpecification().getType(), ApproximationTypes.OVER_APPROXIMATION_3, segment);
+                    if (!stopWatch.isStarted()) {
+                        stopWatch.start();
+                    }
                     if ((approximation = checkOverApproximation3(segment)).isSAT()) {
                         return approximation;
                     }
+                }
+                if (!stopWatch.isStarted()) {
+                    stopWatch.start();
                 }
                 return checkOverApproximation3(implementation.getParametersModel().getMaxNumberOfSegments());
             }
@@ -156,8 +173,11 @@ public abstract class AbstractVerifier {
             @Override
             protected void done() {
                 try {
+                    stopWatch.stop();
+                    long time = stopWatch.getTime();
+                    stopWatch.reset();
                     MultipleSegmentsApproximation approximation = get();
-                    Report report = new Report(implementation, ApproximationTypes.OVER_APPROXIMATION_3, approximation);
+                    Report report = new Report(implementation, ApproximationTypes.OVER_APPROXIMATION_3, approximation, time);
                     verificationHandler.fireCheckingDone(report);
                     if (approximation.isSAT()) {
                         if (parametersModel.checkUnderApproximation()) {
@@ -185,9 +205,15 @@ public abstract class AbstractVerifier {
                     codeWriter.writeUnderApproximation(segment);
                     verificationHandler.fireWritingDone(implementation.getSpecification().getType(), ApproximationTypes.UNDER_APPROXIMATION, segment);
                     verificationHandler.fireCheckingStarted(implementation.getSpecification().getType(), ApproximationTypes.UNDER_APPROXIMATION, segment);
+                    if (!stopWatch.isStarted()) {
+                        stopWatch.start();
+                    }
                     if ((approximation = checkUnderApproximation(segment)).isSAT()) {
                         return approximation;
                     }
+                }
+                if (!stopWatch.isStarted()) {
+                    stopWatch.start();
                 }
                 return checkUnderApproximation(implementation.getParametersModel().getMaxNumberOfSegments());
             }
@@ -196,7 +222,10 @@ public abstract class AbstractVerifier {
             protected void done() {
                 try {
                     MultipleSegmentsApproximation approximation = get();
-                    Report report = new Report(implementation, ApproximationTypes.UNDER_APPROXIMATION, approximation);
+                    stopWatch.stop();
+                    long time = stopWatch.getTime();
+                    stopWatch.reset();
+                    Report report = new Report(implementation, ApproximationTypes.UNDER_APPROXIMATION, approximation, time);
                     verificationHandler.fireCheckingDone(report);
                     verificationHandler.fireVerificationDone(report);
                 } catch (InterruptedException | ExecutionException e) {

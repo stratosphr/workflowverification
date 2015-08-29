@@ -11,11 +11,13 @@ public class Report {
     private final ApproximationTypes approximationType;
     private final AbstractApproximation approximation;
     private int nbSegments;
+    private long time;
 
-    public Report(AbstractImplementation implementation, ApproximationTypes approximationType, AbstractApproximation approximation) {
+    public Report(AbstractImplementation implementation, ApproximationTypes approximationType, AbstractApproximation approximation, long time) {
         this.implementation = implementation;
         this.approximationType = approximationType;
         this.approximation = approximation;
+        this.time = time;
     }
 
     public ApproximationTypes getApproximationType() {
@@ -41,6 +43,10 @@ public class Report {
     @Override
     public String toString() {
         return "SAT : " + approximation.isSAT() + "\n" + approximation.toString();
+    }
+
+    public long getTime() {
+        return time;
     }
 
 }

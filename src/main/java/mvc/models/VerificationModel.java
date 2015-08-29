@@ -193,4 +193,10 @@ public class VerificationModel extends AbstractModel implements IVerificationHan
         }
     }
 
+    public void fireTimerTicked() {
+        for (IVerificationEventListener configurationEventListener : eventListeners.getListeners(IVerificationEventListener.class)) {
+            configurationEventListener.timerTicked(new TimerTicked(this));
+        }
+    }
+
 }

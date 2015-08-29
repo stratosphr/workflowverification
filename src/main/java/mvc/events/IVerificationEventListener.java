@@ -24,4 +24,6 @@ public interface IVerificationEventListener extends EventListener {
 
     void verificationDone(VerificationDone verificationDone);
 
+    void timerTicked(TimerTicked timerTicked);
+
 }

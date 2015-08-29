@@ -65,7 +65,7 @@ public class MultipleSegmentsApproximation extends AbstractApproximation {
                 String maksSegment = "MAs = [ | ";
                 String mbksSegment = "MBs = [ | ";
                 String vpksSegment = "VPs = [ | ";
-                String vtksSegment = "VTs = [ | ";
+                String vtksSegment = "VTs = [ ";
                 for (String varName : mks.get(segment - 1).keySet()) {
                     if (mks.get(segment - 1).get(varName) > 0) {
                         maksSegment += varName + " -> " + mks.get(segment - 1).get(varName) + " | ";
@@ -83,7 +83,7 @@ public class MultipleSegmentsApproximation extends AbstractApproximation {
                 }
                 for (String varName : vtks.get(segment - 1).keySet()) {
                     if (vtks.get(segment - 1).get(varName) > 0) {
-                        vtksSegment += varName;
+                        vtksSegment += varName + " ";
                     }
                 }
                 maksSegment += "]";

@@ -13,8 +13,10 @@ import mvc.views.gui.items.SicstusImplementationItem;
 import mvc.views.gui.items.SpecificationItem;
 import mvc.views.gui.items.Z3ImplementationItem;
 import mvc.views.gui.listeners.*;
+import org.apache.commons.lang3.time.StopWatch;
 import reports.approximations.ApproximationTypes;
 import specifications.model.SpecificationType;
+import tools.DateTools;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -70,9 +72,13 @@ public class WindowVerificationView extends AbstractVerificationView {
     private JLabel lbl_status;
     private JLabel lbl_timer;
 
+    private Timer timer;
+    private StopWatch stopWatch;
+
     public WindowVerificationView(Controller controller) {
         super(controller);
         $$$setupUI$$$();
+        stopWatch = new StopWatch();
         addEventListeners();
         buildFrame();
     }
@@ -91,6 +97,7 @@ public class WindowVerificationView extends AbstractVerificationView {
     }
 
     private void addEventListeners() {
+        timer = new Timer(10, new TimerEventListener(controller));
         btn_verificationFolder.addActionListener(new BtnVerificationFolderListener(controller));
         cbx_specificationFile.addItemListener(new CbxSpecificationFileListener(controller));
         btn_parameters.addActionListener(new BtnParametersListener(controller));
@@ -199,6 +206,7 @@ public class WindowVerificationView extends AbstractVerificationView {
         chk_mayValidity.setSelected(false);
         chk_mustValidity.setSelected(false);
         tab_main.setSelectedComponent(panel_report);
+        lbl_timer.setText(DateTools.format(0));
     }
 
     @Override
@@ -214,31 +222,46 @@ public class WindowVerificationView extends AbstractVerificationView {
     @Override
     public void checkingStarted(CheckingStarted checkingStarted) {
         lbl_status.setText("Checking " + checkingStarted.getSpecificationType() + " " + checkingStarted.getApproximationType() + ((checkingStarted.getSegment() == 0) ? "" : " (Segment " + checkingStarted.getSegment() + ")") + "...");
+        if (!stopWatch.isStarted()) {
+            timer.start();
+            stopWatch.start();
+        }
     }
 
     @Override
     public void checkingDone(CheckingDone checkingDone) {
+        timer.stop();
+        stopWatch.stop();
+        stopWatch.reset();
         SpecificationType specificationType = checkingDone.getReport().getImplementation().getSpecification().getType();
         ApproximationTypes approximationType = checkingDone.getReport().getApproximationType();
         int nbSegments = checkingDone.getReport().getNbSegments();
         lbl_status.setText("Done checking " + specificationType + " " + approximationType + ((nbSegments == 0) ? "" : " (Segment " + nbSegments + ")"));
         JEditorPane editorPane = getEditorPane(specificationType, approximationType);
-        editorPane.setText(editorPane.getText() + checkingDone.getReport());
+        editorPane.setText(editorPane.getText() + checkingDone.getReport() + "Time : " + DateTools.format(checkingDone.getReport().getTime()));
     }
 
     @Override
     public void verificationDone(VerificationDone verificationDone) {
-        ApproximationTypes approximationType = verificationDone.getReport().getApproximationType();
         boolean approximationValid = verificationDone.getReport().getApproximation().isValid();
         SpecificationType specificationType = verificationDone.getReport().getImplementation().getSpecification().getType();
         switch (specificationType) {
             case MAY:
                 chk_mayValidity.setSelected(approximationValid);
+                chk_specificationValidity.setSelected(approximationValid);
                 break;
             case MUST:
-                chk_mustValidity.setSelected(!approximationValid);
+                chk_mustValidity.setSelected(chk_mayValidity.isSelected() && !approximationValid);
+                chk_specificationValidity.setSelected(chk_mayValidity.isSelected() && !approximationValid);
                 break;
         }
+        lbl_status.setText("Done checking specification : " + (chk_specificationValidity.isSelected() ? "Valid" : "Invalid"));
+        lbl_timer.setText(DateTools.format(0));
+    }
+
+    @Override
+    public void timerTicked(TimerTicked timerTicked) {
+        lbl_timer.setText(DateTools.format(stopWatch.getTime()));
     }
 
     /*****************************************************/
@@ -420,6 +443,7 @@ public class WindowVerificationView extends AbstractVerificationView {
         editpanel_mayUnderApproximation = new JEditorPane();
         scrollpane_mayUnderApproximation.setViewportView(editpanel_mayUnderApproximation);
         chk_mayValidity = new JCheckBox();
+        chk_mayValidity.setEnabled(false);
         chk_mayValidity.setText("May validity");
         panel_leftReport.add(chk_mayValidity, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         panel_rightReport = new JPanel();
@@ -450,19 +474,24 @@ public class WindowVerificationView extends AbstractVerificationView {
         editpanel_mustOverApproximation2 = new JEditorPane();
         scrollpane_mustOverApproximation2.setViewportView(editpanel_mustOverApproximation2);
         chk_mustValidity = new JCheckBox();
+        chk_mustValidity.setEnabled(false);
         chk_mustValidity.setText("Must validity");
         panel_rightReport.add(chk_mustValidity, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         chk_specificationValidity = new JCheckBox();
+        chk_specificationValidity.setEnabled(false);
         chk_specificationValidity.setText("Specification validity");
         panel_report.add(chk_specificationValidity, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         panel_statusBar = new JPanel();
         panel_statusBar.setLayout(new GridLayoutManager(1, 2, new Insets(5, 5, 5, 5), -1, -1));
+        panel_statusBar.setBackground(new Color(-16777216));
         panel_report.add(panel_statusBar, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         panel_statusBar.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), null));
         lbl_status = new JLabel();
+        lbl_status.setForeground(new Color(-1));
         lbl_status.setText("Label");
         panel_statusBar.add(lbl_status, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         lbl_timer = new JLabel();
+        lbl_timer.setForeground(new Color(-1));
         lbl_timer.setText("17:19:24");
         panel_statusBar.add(lbl_timer, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         ButtonGroup buttonGroup;

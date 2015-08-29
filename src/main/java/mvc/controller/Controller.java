@@ -130,4 +130,8 @@ public class Controller {
         verificationModel.runZ3Verification(parametersModel);
     }
 
+    public void notifyTimerTicked() {
+        verificationModel.fireTimerTicked();
+    }
+
 }
