@@ -443,7 +443,7 @@ public class WindowVerificationView extends AbstractVerificationView {
         editpanel_mayUnderApproximation = new JEditorPane();
         scrollpane_mayUnderApproximation.setViewportView(editpanel_mayUnderApproximation);
         chk_mayValidity = new JCheckBox();
-        chk_mayValidity.setEnabled(false);
+        chk_mayValidity.setEnabled(true);
         chk_mayValidity.setText("May validity");
         panel_leftReport.add(chk_mayValidity, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         panel_rightReport = new JPanel();
@@ -474,11 +474,11 @@ public class WindowVerificationView extends AbstractVerificationView {
         editpanel_mustOverApproximation2 = new JEditorPane();
         scrollpane_mustOverApproximation2.setViewportView(editpanel_mustOverApproximation2);
         chk_mustValidity = new JCheckBox();
-        chk_mustValidity.setEnabled(false);
+        chk_mustValidity.setEnabled(true);
         chk_mustValidity.setText("Must validity");
         panel_rightReport.add(chk_mustValidity, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         chk_specificationValidity = new JCheckBox();
-        chk_specificationValidity.setEnabled(false);
+        chk_specificationValidity.setEnabled(true);
         chk_specificationValidity.setText("Specification validity");
         panel_report.add(chk_specificationValidity, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         panel_statusBar = new JPanel();
