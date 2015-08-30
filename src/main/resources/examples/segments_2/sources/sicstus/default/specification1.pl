@@ -1,4 +1,5 @@
 :- use_module(library(clpfd)).
+:- use_module(library(lists)).
 
 initialMarking([1, 0, 0, 0, 0, 0, 0]).
 
@@ -27,16 +28,6 @@ stateEquation(VMax, [MA_i, MA_o, MA_P1, MA_P2, MA_P3, MA_P5, MA_P6], [MB_i, MB_o
 formula([_, _, _, VT_T3, VT_T4, _]):-
 	((VT_T3 #> 0) #/\ (VT_T4 #> 0)).
 
-subnetInitialization([MA_i, MA_o, MA_P1, MA_P2, MA_P3, MA_P5, MA_P6], [MB_i, MB_o, MB_P1, MB_P2, MB_P3, MB_P5, MB_P6], [VP_i, VP_o, VP_P1, VP_P2, VP_P3, VP_P5, VP_P6], [VT_T0, VT_T1, VT_T2, VT_T3, VT_T4, VT_T5], [XI_i, XI_o, XI_P1, XI_P2, XI_P3, XI_P5, XI_P6]):-
-	domain([XI_i, XI_o, XI_P1, XI_P2, XI_P3, XI_P5, XI_P6], 0, 1),
-	(((MA_i #> 0) #\/ (MB_i #> 0) #\/ (VP_i #= 0)) #=> (XI_i #= 0)),
-	(((MA_o #> 0) #\/ (MB_o #> 0) #\/ (VP_o #= 0)) #=> (XI_o #= 0)),
-	(((MA_P1 #> 0) #\/ (MB_P1 #> 0) #\/ (VP_P1 #= 0)) #=> (XI_P1 #= 0)),
-	(((MA_P2 #> 0) #\/ (MB_P2 #> 0) #\/ (VP_P2 #= 0)) #=> (XI_P2 #= 0)),
-	(((MA_P3 #> 0) #\/ (MB_P3 #> 0) #\/ (VP_P3 #= 0)) #=> (XI_P3 #= 0)),
-	(((MA_P5 #> 0) #\/ (MB_P5 #> 0) #\/ (VP_P5 #= 0)) #=> (XI_P5 #= 0)),
-	(((MA_P6 #> 0) #\/ (MB_P6 #> 0) #\/ (VP_P6 #= 0)) #=> (XI_P6 #= 0)).
-
 siphon([MA_i, MA_o, MA_P1, MA_P2, MA_P3, MA_P5, MA_P6], [MB_i, MB_o, MB_P1, MB_P2, MB_P3, MB_P5, MB_P6], [VP_i, VP_o, VP_P1, VP_P2, VP_P3, VP_P5, VP_P6], [VT_T0, VT_T1, VT_T2, VT_T3, VT_T4, VT_T5], [XI_i, XI_o, XI_P1, XI_P2, XI_P3, XI_P5, XI_P6]):-
 	sum([XI_i, XI_o, XI_P1, XI_P2, XI_P3, XI_P5, XI_P6], #>, 0),
 	((VT_T0 #> 0) #=> (((XI_i) #>= XI_P1))),
@@ -48,7 +39,7 @@ siphon([MA_i, MA_o, MA_P1, MA_P2, MA_P3, MA_P5, MA_P6], [MB_i, MB_o, MB_P1, MB_P
 	labeling([], [XI_i, XI_o, XI_P1, XI_P2, XI_P3, XI_P5, XI_P6]).
 noSiphon(MAs, MBs, VPs, VTs, XIs):-
 	subnetInitialization(MAs, MBs, VPs, VTs, XIs),
-	labeling([], VTs),
+	labeling([leftmost, step, up], VTs),
 	\+(siphon(MAs, MBs, VPs, VTs, XIs)).
 
 markedGraph([], []).
@@ -65,20 +56,40 @@ pairwiseSum([L1, L2|Ls], R):-
 	pairwiseSum(L1, L2, R1),
 	pairwiseSum([R1|Ls], R).
 
-overApproximation1(VMax, MAs, MBs, VPs, VTs):-
-	initialMarking(MAs),
-	finalMarking(MBs),
-	stateEquation(VMax, MAs, MBs, VPs, VTs),
-	formula(VTs),
-	labeling([], VTs),
-	labeling([], VPs).
+subnetInitialization([MA_i, MA_o, MA_P1, MA_P2, MA_P3, MA_P5, MA_P6], [MB_i, MB_o, MB_P1, MB_P2, MB_P3, MB_P5, MB_P6], [VP_i, VP_o, VP_P1, VP_P2, VP_P3, VP_P5, VP_P6], [VT_T0, VT_T1, VT_T2, VT_T3, VT_T4, VT_T5], [XI_i, XI_o, XI_P1, XI_P2, XI_P3, XI_P5, XI_P6]):-
+	domain([XI_i, XI_o, XI_P1, XI_P2, XI_P3, XI_P5, XI_P6], 0, 1),
+	(((MA_i #> 0) #\/ (MB_i #> 0) #\/ (VP_i #= 0)) #=> (XI_i #= 0)),
+	(((MA_o #> 0) #\/ (MB_o #> 0) #\/ (VP_o #= 0)) #=> (XI_o #= 0)),
+	(((MA_P1 #> 0) #\/ (MB_P1 #> 0) #\/ (VP_P1 #= 0)) #=> (XI_P1 #= 0)),
+	(((MA_P2 #> 0) #\/ (MB_P2 #> 0) #\/ (VP_P2 #= 0)) #=> (XI_P2 #= 0)),
+	(((MA_P3 #> 0) #\/ (MB_P3 #> 0) #\/ (VP_P3 #= 0)) #=> (XI_P3 #= 0)),
+	(((MA_P5 #> 0) #\/ (MB_P5 #> 0) #\/ (VP_P5 #= 0)) #=> (XI_P5 #= 0)),
+	(((MA_P6 #> 0) #\/ (MB_P6 #> 0) #\/ (VP_P6 #= 0)) #=> (XI_P6 #= 0)).
 
-overApproximation2(VMax, MAs, MBs, VPs, VTs):-
-	initialMarking(MAs),
-	finalMarking(MBs),
-	stateEquation(VMax, MAs, MBs, VPs, VTs),
+overApproximation3_2(VMax, [MK_0, MK_1, MK_2], [VPK_1, VPK_2], [VTK_1, VTK_2]):-
+	initialMarking(MK_0),
+	finalMarking(MK_2),
+	stateEquation(VMax, MK_0, MK_1, VPK_1, VTK_1),
+	markedGraph(MK_0, VPK_1),
+	stateEquation(VMax, MK_1, MK_2, VPK_2, VTK_2),
+	markedGraph(MK_1, VPK_2),
+	pairwiseSum([VTK_1, VTK_2], VTs),
 	formula(VTs),
-	noSiphon(MAs, MBs, VPs, VTs, XIs),
-	labeling([], VTs),
-	labeling([], VPs).
+	append([[VTK_1, VTK_2], [VPK_1, VPK_2]], VKs),
+	append(VKs, Vs),
+	labeling([leftmost, step, up], Vs).
+
+underApproximation_2(VMax, [MK_0, MK_1, MK_2], [VPK_1, VPK_2], [VTK_1, VTK_2]):-
+	initialMarking(MK_0),
+	finalMarking(MK_2),
+	stateEquation(VMax, MK_0, MK_1, VPK_1, VTK_1),
+	markedGraph(MK_0, VPK_1),
+	noSiphon(MK_0, MK_1, VPK_1, VTK_1, XIK_1),
+	stateEquation(VMax, MK_1, MK_2, VPK_2, VTK_2),
+	markedGraph(MK_1, VPK_2),
+	noSiphon(MK_1, MK_2, VPK_2, VTK_2, XIK_2),
+	pairwiseSum([VTK_1, VTK_2], VTs),
+	formula(VTs),
+	append([VPK_1, VPK_2], Vs),
+	labeling([leftmost, step, up], Vs).
 

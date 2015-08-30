@@ -1,9 +1,11 @@
 package mvc.views.gui.windows;
 
+import codegeneration.heuristics.sicstus.SicstusHeuristics;
 import codegeneration.implementations.sicstus.ESicstusImplementations;
 import codegeneration.implementations.z3.EZ3Implementations;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
+import com.intellij.uiDesigner.core.Spacer;
 import files.SpecificationFile;
 import files.VerificationFolder;
 import mvc.controller.Controller;
@@ -71,6 +73,10 @@ public class WindowVerificationView extends AbstractVerificationView {
     private JPanel panel_statusBar;
     private JLabel lbl_status;
     private JLabel lbl_timer;
+    private JComboBox cbx_sicstusSelectionHeuristic;
+    private JRadioButton radio_sicstusExplorationHeuristicUp;
+    private JRadioButton radio_sicstusExplorationHeuristicDown;
+    private JComboBox cbx_sicstusChoicesHeuristic;
 
     private Timer timer;
     private StopWatch stopWatch;
@@ -90,6 +96,12 @@ public class WindowVerificationView extends AbstractVerificationView {
         for (EZ3Implementations z3Implementation : EZ3Implementations.values()) {
             cbx_z3Implementation.addItem(new Z3ImplementationItem(z3Implementation));
         }
+        for (String sicstusSelectionHeuristic : SicstusHeuristics.getSelectionHeuristics()) {
+            cbx_sicstusSelectionHeuristic.addItem(sicstusSelectionHeuristic);
+        }
+        for (String sicstusChoicesHeuristic : SicstusHeuristics.getChoicesHeuristics()) {
+            cbx_sicstusChoicesHeuristic.addItem(sicstusChoicesHeuristic);
+        }
         frame = new JFrame("Modal Specifications Checker");
         frame.setContentPane(tab_main);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -103,6 +115,10 @@ public class WindowVerificationView extends AbstractVerificationView {
         btn_parameters.addActionListener(new BtnParametersListener(controller));
         cbx_sicstusImplementation.addItemListener(new CbxSicstusImplementationListener(controller));
         cbx_z3Implementation.addItemListener(new CbxZ3ImplementationListener(controller));
+        cbx_sicstusSelectionHeuristic.addItemListener(new CbxSicstusSelectionHeuristicListener(controller));
+        cbx_sicstusChoicesHeuristic.addItemListener(new CbxSicstusChoicesHeuristicListener(controller));
+        radio_sicstusExplorationHeuristicUp.addActionListener(new RadioSicstusExplorationHeuristicUpListener(controller));
+        radio_sicstusExplorationHeuristicDown.addActionListener(new RadioSicstusExplorationHeuristicDownListener(controller));
         btn_sicstusVerifySpecification.addActionListener(new BtnSicstusVerifySpecificationListener(controller));
         btn_z3VerifySpecification.addActionListener(new BtnZ3VerifySpecificationListener(controller));
     }
@@ -353,23 +369,23 @@ public class WindowVerificationView extends AbstractVerificationView {
         panel_verification.add(panel4, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         panel4.setBorder(BorderFactory.createTitledBorder(null, "Verification", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
         final JPanel panel5 = new JPanel();
-        panel5.setLayout(new GridLayoutManager(4, 2, new Insets(2, 2, 2, 2), -1, -1));
+        panel5.setLayout(new GridLayoutManager(5, 4, new Insets(2, 2, 2, 2), -1, -1));
         panel4.add(panel5, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         panel5.setBorder(BorderFactory.createTitledBorder(null, "Sicstus", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
         final JLabel label6 = new JLabel();
         label6.setText("Implementation :");
         panel5.add(label6, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         cbx_sicstusImplementation = new JComboBox();
-        panel5.add(cbx_sicstusImplementation, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel5.add(cbx_sicstusImplementation, new GridConstraints(0, 1, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         btn_sicstusVerifySpecification = new JButton();
         btn_sicstusVerifySpecification.setText("Verify specification with Sicstus");
         btn_sicstusVerifySpecification.setMnemonic('S');
         btn_sicstusVerifySpecification.setDisplayedMnemonicIndex(26);
-        panel5.add(btn_sicstusVerifySpecification, new GridConstraints(3, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel5.add(btn_sicstusVerifySpecification, new GridConstraints(4, 0, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         txt_sicstusGeneratedCode = new JTextField();
         txt_sicstusGeneratedCode.setEditable(false);
         txt_sicstusGeneratedCode.setText("");
-        panel5.add(txt_sicstusGeneratedCode, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        panel5.add(txt_sicstusGeneratedCode, new GridConstraints(1, 1, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JLabel label7 = new JLabel();
         label7.setText("Generated code :");
         panel5.add(label7, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -378,33 +394,68 @@ public class WindowVerificationView extends AbstractVerificationView {
         panel5.add(label8, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         txt_sicstusGeneratedReport = new JTextField();
         txt_sicstusGeneratedReport.setEditable(false);
-        panel5.add(txt_sicstusGeneratedReport, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        panel5.add(txt_sicstusGeneratedReport, new GridConstraints(2, 1, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JPanel panel6 = new JPanel();
-        panel6.setLayout(new GridLayoutManager(4, 2, new Insets(2, 2, 2, 2), -1, -1));
-        panel4.add(panel6, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        panel6.setBorder(BorderFactory.createTitledBorder(null, "Z3", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
+        panel6.setLayout(new GridLayoutManager(3, 4, new Insets(0, 0, 0, 0), -1, -1));
+        panel5.add(panel6, new GridConstraints(3, 0, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         final JLabel label9 = new JLabel();
-        label9.setText("Implementation :");
-        panel6.add(label9, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        label9.setText("Heuristics :");
+        panel6.add(label9, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label10 = new JLabel();
+        label10.setText("Selection :");
+        panel6.add(label10, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        cbx_sicstusSelectionHeuristic = new JComboBox();
+        panel6.add(cbx_sicstusSelectionHeuristic, new GridConstraints(0, 2, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        cbx_sicstusChoicesHeuristic = new JComboBox();
+        panel6.add(cbx_sicstusChoicesHeuristic, new GridConstraints(1, 2, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label11 = new JLabel();
+        label11.setText("Choices :");
+        panel6.add(label11, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label12 = new JLabel();
+        label12.setText("Exploration :");
+        panel6.add(label12, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        radio_sicstusExplorationHeuristicUp = new JRadioButton();
+        radio_sicstusExplorationHeuristicUp.setSelected(true);
+        radio_sicstusExplorationHeuristicUp.setText("Up");
+        panel6.add(radio_sicstusExplorationHeuristicUp, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        radio_sicstusExplorationHeuristicDown = new JRadioButton();
+        radio_sicstusExplorationHeuristicDown.setText("Down");
+        panel6.add(radio_sicstusExplorationHeuristicDown, new GridConstraints(2, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JPanel panel7 = new JPanel();
+        panel7.setLayout(new GridLayoutManager(5, 2, new Insets(2, 2, 2, 2), -1, -1));
+        panel4.add(panel7, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panel7.setBorder(BorderFactory.createTitledBorder(null, "Z3", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
+        final JLabel label13 = new JLabel();
+        label13.setText("Implementation :");
+        panel7.add(label13, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         cbx_z3Implementation = new JComboBox();
-        panel6.add(cbx_z3Implementation, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel7.add(cbx_z3Implementation, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         btn_z3VerifySpecification = new JButton();
         btn_z3VerifySpecification.setText("Verify specification with Z3");
         btn_z3VerifySpecification.setMnemonic('Z');
         btn_z3VerifySpecification.setDisplayedMnemonicIndex(26);
-        panel6.add(btn_z3VerifySpecification, new GridConstraints(3, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel7.add(btn_z3VerifySpecification, new GridConstraints(4, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         txt_z3GeneratedCode = new JTextField();
         txt_z3GeneratedCode.setEditable(false);
-        panel6.add(txt_z3GeneratedCode, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        final JLabel label10 = new JLabel();
-        label10.setText("Generated code :");
-        panel6.add(label10, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final JLabel label11 = new JLabel();
-        label11.setText("Generated report :");
-        panel6.add(label11, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel7.add(txt_z3GeneratedCode, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        final JLabel label14 = new JLabel();
+        label14.setText("Generated code :");
+        panel7.add(label14, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label15 = new JLabel();
+        label15.setText("Generated report :");
+        panel7.add(label15, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         txt_z3GeneratedReport = new JTextField();
         txt_z3GeneratedReport.setEditable(false);
-        panel6.add(txt_z3GeneratedReport, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        panel7.add(txt_z3GeneratedReport, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        final JPanel panel8 = new JPanel();
+        panel8.setLayout(new GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
+        panel8.setEnabled(false);
+        panel7.add(panel8, new GridConstraints(3, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        final JLabel label16 = new JLabel();
+        label16.setText("Heuristics :");
+        panel8.add(label16, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final Spacer spacer1 = new Spacer();
+        panel8.add(spacer1, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
         btn_parameters = new JButton();
         btn_parameters.setText("Parameters...");
         btn_parameters.setMnemonic('P');
@@ -412,7 +463,7 @@ public class WindowVerificationView extends AbstractVerificationView {
         panel4.add(btn_parameters, new GridConstraints(0, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         panel_report = new JPanel();
         panel_report.setLayout(new GridLayoutManager(3, 1, new Insets(0, 0, 0, 0), -1, -1));
-        panel_report.setVisible(true);
+        panel_report.setVisible(false);
         tab_main.addTab("Reports", panel_report);
         splitpanel_reports.setOneTouchExpandable(true);
         splitpanel_reports.setResizeWeight(0.5);
@@ -450,26 +501,26 @@ public class WindowVerificationView extends AbstractVerificationView {
         panel_rightReport.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
         splitpanel_reports.setRightComponent(panel_rightReport);
         panel_rightReport.setBorder(BorderFactory.createTitledBorder(null, "Must validity report", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
-        final JPanel panel7 = new JPanel();
-        panel7.setLayout(new GridLayoutManager(4, 1, new Insets(0, 0, 0, 0), -1, -1));
-        panel_rightReport.add(panel7, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        final JPanel panel9 = new JPanel();
+        panel9.setLayout(new GridLayoutManager(4, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel_rightReport.add(panel9, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         scrollpane_mustOverApproximation1 = new JScrollPane();
-        panel7.add(scrollpane_mustOverApproximation1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        panel9.add(scrollpane_mustOverApproximation1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         scrollpane_mustOverApproximation1.setBorder(BorderFactory.createTitledBorder(null, "Over-approximation 1", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
         editpanel_mustOverApproximation1 = new JEditorPane();
         scrollpane_mustOverApproximation1.setViewportView(editpanel_mustOverApproximation1);
         scrollpane_mustUnderApproximation = new JScrollPane();
-        panel7.add(scrollpane_mustUnderApproximation, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        panel9.add(scrollpane_mustUnderApproximation, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         scrollpane_mustUnderApproximation.setBorder(BorderFactory.createTitledBorder(null, "Under-approximation", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
         editpanel_mustUnderApproximation = new JEditorPane();
         scrollpane_mustUnderApproximation.setViewportView(editpanel_mustUnderApproximation);
         scrollpane_mustOverApproximation3 = new JScrollPane();
-        panel7.add(scrollpane_mustOverApproximation3, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        panel9.add(scrollpane_mustOverApproximation3, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         scrollpane_mustOverApproximation3.setBorder(BorderFactory.createTitledBorder(null, "Over-approximation 3", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
         editpanel_mustOverApproximation3 = new JEditorPane();
         scrollpane_mustOverApproximation3.setViewportView(editpanel_mustOverApproximation3);
         scrollpane_mustOverApproximation2 = new JScrollPane();
-        panel7.add(scrollpane_mustOverApproximation2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        panel9.add(scrollpane_mustOverApproximation2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         scrollpane_mustOverApproximation2.setBorder(BorderFactory.createTitledBorder(null, "Over-approximation 2", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
         editpanel_mustOverApproximation2 = new JEditorPane();
         scrollpane_mustOverApproximation2.setViewportView(editpanel_mustOverApproximation2);
@@ -499,6 +550,10 @@ public class WindowVerificationView extends AbstractVerificationView {
         buttonGroup.add(radio_may);
         buttonGroup.add(radio_may);
         buttonGroup.add(radio_must);
+        buttonGroup = new ButtonGroup();
+        buttonGroup.add(radio_sicstusExplorationHeuristicUp);
+        buttonGroup.add(radio_sicstusExplorationHeuristicUp);
+        buttonGroup.add(radio_sicstusExplorationHeuristicDown);
     }
 
     /**

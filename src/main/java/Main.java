@@ -10,7 +10,8 @@ public class Main {
     public static void main(String[] args) {
         setDefaultLookAndFeel("Nimbus");
         Controller controller = new Controller(new VerificationModel(), new ParametersModel());
-        controller.notifyVerificationFolderChanged(new VerificationFolder("/home/stratosphr/IdeaProjects/workflowverification/src/main/resources/examples/segments_6"));
+        String folder = "segments_5";
+        controller.notifyVerificationFolderChanged(new VerificationFolder("/home/stratosphr/IdeaProjects/workflowverification/src/main/resources/examples/" + folder));
         controller.displayMainViews();
     }
 

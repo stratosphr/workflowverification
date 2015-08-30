@@ -4,16 +4,17 @@ import tools.StringTools;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class PlList extends PlTerm {
 
-    private final ArrayList<PlTerm> terms;
+    private final List<PlTerm> terms;
 
     public PlList() {
         this(new ArrayList<PlTerm>());
     }
 
-    public PlList(ArrayList<PlTerm> terms) {
+    public PlList(List<PlTerm> terms) {
         super("[" + StringTools.join(terms, ", ") + "]");
         this.terms = terms;
     }
@@ -22,7 +23,7 @@ public class PlList extends PlTerm {
         this(new ArrayList<>(Arrays.asList(terms)));
     }
 
-    public ArrayList<PlTerm> getTerms() {
+    public List<PlTerm> getTerms() {
         return terms;
     }
 

@@ -1,4 +1,5 @@
 :- use_module(library(clpfd)).
+:- use_module(library(lists)).
 
 initialMarking([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]).
 
@@ -47,29 +48,8 @@ stateEquation(VMax, [MA_P0, MA_P16, MA_P1, MA_P10, MA_P11, MA_P12, MA_P13, MA_P1
 formula([_, _, VT_T10, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]):-
 	((VT_T10 #> 0)).
 
-noSiphon(MAs, MBs, VPs, VTs):-
-	labeling([], VTs),
-	\+(siphon(MAs, MBs, VPs, VTs, XIs)).
 siphon([MA_P0, MA_P16, MA_P1, MA_P10, MA_P11, MA_P12, MA_P13, MA_P14, MA_P15, MA_P2, MA_P3, MA_P4, MA_P5, MA_P6, MA_P7, MA_P8, MA_P9], [MB_P0, MB_P16, MB_P1, MB_P10, MB_P11, MB_P12, MB_P13, MB_P14, MB_P15, MB_P2, MB_P3, MB_P4, MB_P5, MB_P6, MB_P7, MB_P8, MB_P9], [VP_P0, VP_P16, VP_P1, VP_P10, VP_P11, VP_P12, VP_P13, VP_P14, VP_P15, VP_P2, VP_P3, VP_P4, VP_P5, VP_P6, VP_P7, VP_P8, VP_P9], [VT_T0, VT_T1, VT_T10, VT_T11, VT_T12, VT_T13, VT_T14, VT_T15, VT_T16, VT_T17, VT_T18, VT_T19, VT_T2, VT_T3, VT_T4, VT_T5, VT_T6, VT_T7, VT_T8, VT_T9], [XI_P0, XI_P16, XI_P1, XI_P10, XI_P11, XI_P12, XI_P13, XI_P14, XI_P15, XI_P2, XI_P3, XI_P4, XI_P5, XI_P6, XI_P7, XI_P8, XI_P9]):-
-	domain([XI_P0, XI_P16, XI_P1, XI_P10, XI_P11, XI_P12, XI_P13, XI_P14, XI_P15, XI_P2, XI_P3, XI_P4, XI_P5, XI_P6, XI_P7, XI_P8, XI_P9], 0, 1),
 	sum([XI_P0, XI_P16, XI_P1, XI_P10, XI_P11, XI_P12, XI_P13, XI_P14, XI_P15, XI_P2, XI_P3, XI_P4, XI_P5, XI_P6, XI_P7, XI_P8, XI_P9], #>, 0),
-	(((MA_P0 #> 0) #\/ (MB_P0 #> 0) #\/ (VP_P0 #= 0)) #=> (XI_P0 #= 0)),
-	(((MA_P16 #> 0) #\/ (MB_P16 #> 0) #\/ (VP_P16 #= 0)) #=> (XI_P16 #= 0)),
-	(((MA_P1 #> 0) #\/ (MB_P1 #> 0) #\/ (VP_P1 #= 0)) #=> (XI_P1 #= 0)),
-	(((MA_P10 #> 0) #\/ (MB_P10 #> 0) #\/ (VP_P10 #= 0)) #=> (XI_P10 #= 0)),
-	(((MA_P11 #> 0) #\/ (MB_P11 #> 0) #\/ (VP_P11 #= 0)) #=> (XI_P11 #= 0)),
-	(((MA_P12 #> 0) #\/ (MB_P12 #> 0) #\/ (VP_P12 #= 0)) #=> (XI_P12 #= 0)),
-	(((MA_P13 #> 0) #\/ (MB_P13 #> 0) #\/ (VP_P13 #= 0)) #=> (XI_P13 #= 0)),
-	(((MA_P14 #> 0) #\/ (MB_P14 #> 0) #\/ (VP_P14 #= 0)) #=> (XI_P14 #= 0)),
-	(((MA_P15 #> 0) #\/ (MB_P15 #> 0) #\/ (VP_P15 #= 0)) #=> (XI_P15 #= 0)),
-	(((MA_P2 #> 0) #\/ (MB_P2 #> 0) #\/ (VP_P2 #= 0)) #=> (XI_P2 #= 0)),
-	(((MA_P3 #> 0) #\/ (MB_P3 #> 0) #\/ (VP_P3 #= 0)) #=> (XI_P3 #= 0)),
-	(((MA_P4 #> 0) #\/ (MB_P4 #> 0) #\/ (VP_P4 #= 0)) #=> (XI_P4 #= 0)),
-	(((MA_P5 #> 0) #\/ (MB_P5 #> 0) #\/ (VP_P5 #= 0)) #=> (XI_P5 #= 0)),
-	(((MA_P6 #> 0) #\/ (MB_P6 #> 0) #\/ (VP_P6 #= 0)) #=> (XI_P6 #= 0)),
-	(((MA_P7 #> 0) #\/ (MB_P7 #> 0) #\/ (VP_P7 #= 0)) #=> (XI_P7 #= 0)),
-	(((MA_P8 #> 0) #\/ (MB_P8 #> 0) #\/ (VP_P8 #= 0)) #=> (XI_P8 #= 0)),
-	(((MA_P9 #> 0) #\/ (MB_P9 #> 0) #\/ (VP_P9 #= 0)) #=> (XI_P9 #= 0)),
 	((VT_T0 #> 0) #=> (((XI_P0) #>= XI_P1))),
 	((VT_T1 #> 0) #=> (((XI_P1) #>= XI_P2))),
 	((VT_T10 #> 0) #=> (((XI_P10) #>= XI_P1) #/\ ((XI_P10) #>= XI_P11))),
@@ -91,6 +71,10 @@ siphon([MA_P0, MA_P16, MA_P1, MA_P10, MA_P11, MA_P12, MA_P13, MA_P14, MA_P15, MA
 	((VT_T8 #> 0) #=> (((XI_P6 + XI_P8) #>= XI_P9))),
 	((VT_T9 #> 0) #=> (((XI_P9) #>= XI_P10))),
 	labeling([], [XI_P0, XI_P16, XI_P1, XI_P10, XI_P11, XI_P12, XI_P13, XI_P14, XI_P15, XI_P2, XI_P3, XI_P4, XI_P5, XI_P6, XI_P7, XI_P8, XI_P9]).
+noSiphon(MAs, MBs, VPs, VTs, XIs):-
+	subnetInitialization(MAs, MBs, VPs, VTs, XIs),
+	labeling([leftmost, step, up], VTs),
+	\+(siphon(MAs, MBs, VPs, VTs, XIs)).
 
 markedGraph([], []).
 markedGraph([MA|MAs], [VP|VPs]):-
@@ -106,22 +90,42 @@ pairwiseSum([L1, L2|Ls], R):-
 	pairwiseSum(L1, L2, R1),
 	pairwiseSum([R1|Ls], R).
 
+subnetInitialization([MA_P0, MA_P16, MA_P1, MA_P10, MA_P11, MA_P12, MA_P13, MA_P14, MA_P15, MA_P2, MA_P3, MA_P4, MA_P5, MA_P6, MA_P7, MA_P8, MA_P9], [MB_P0, MB_P16, MB_P1, MB_P10, MB_P11, MB_P12, MB_P13, MB_P14, MB_P15, MB_P2, MB_P3, MB_P4, MB_P5, MB_P6, MB_P7, MB_P8, MB_P9], [VP_P0, VP_P16, VP_P1, VP_P10, VP_P11, VP_P12, VP_P13, VP_P14, VP_P15, VP_P2, VP_P3, VP_P4, VP_P5, VP_P6, VP_P7, VP_P8, VP_P9], [VT_T0, VT_T1, VT_T10, VT_T11, VT_T12, VT_T13, VT_T14, VT_T15, VT_T16, VT_T17, VT_T18, VT_T19, VT_T2, VT_T3, VT_T4, VT_T5, VT_T6, VT_T7, VT_T8, VT_T9], [XI_P0, XI_P16, XI_P1, XI_P10, XI_P11, XI_P12, XI_P13, XI_P14, XI_P15, XI_P2, XI_P3, XI_P4, XI_P5, XI_P6, XI_P7, XI_P8, XI_P9]):-
+	domain([XI_P0, XI_P16, XI_P1, XI_P10, XI_P11, XI_P12, XI_P13, XI_P14, XI_P15, XI_P2, XI_P3, XI_P4, XI_P5, XI_P6, XI_P7, XI_P8, XI_P9], 0, 1),
+	(((MA_P0 #> 0) #\/ (MB_P0 #> 0) #\/ (VP_P0 #= 0)) #=> (XI_P0 #= 0)),
+	(((MA_P16 #> 0) #\/ (MB_P16 #> 0) #\/ (VP_P16 #= 0)) #=> (XI_P16 #= 0)),
+	(((MA_P1 #> 0) #\/ (MB_P1 #> 0) #\/ (VP_P1 #= 0)) #=> (XI_P1 #= 0)),
+	(((MA_P10 #> 0) #\/ (MB_P10 #> 0) #\/ (VP_P10 #= 0)) #=> (XI_P10 #= 0)),
+	(((MA_P11 #> 0) #\/ (MB_P11 #> 0) #\/ (VP_P11 #= 0)) #=> (XI_P11 #= 0)),
+	(((MA_P12 #> 0) #\/ (MB_P12 #> 0) #\/ (VP_P12 #= 0)) #=> (XI_P12 #= 0)),
+	(((MA_P13 #> 0) #\/ (MB_P13 #> 0) #\/ (VP_P13 #= 0)) #=> (XI_P13 #= 0)),
+	(((MA_P14 #> 0) #\/ (MB_P14 #> 0) #\/ (VP_P14 #= 0)) #=> (XI_P14 #= 0)),
+	(((MA_P15 #> 0) #\/ (MB_P15 #> 0) #\/ (VP_P15 #= 0)) #=> (XI_P15 #= 0)),
+	(((MA_P2 #> 0) #\/ (MB_P2 #> 0) #\/ (VP_P2 #= 0)) #=> (XI_P2 #= 0)),
+	(((MA_P3 #> 0) #\/ (MB_P3 #> 0) #\/ (VP_P3 #= 0)) #=> (XI_P3 #= 0)),
+	(((MA_P4 #> 0) #\/ (MB_P4 #> 0) #\/ (VP_P4 #= 0)) #=> (XI_P4 #= 0)),
+	(((MA_P5 #> 0) #\/ (MB_P5 #> 0) #\/ (VP_P5 #= 0)) #=> (XI_P5 #= 0)),
+	(((MA_P6 #> 0) #\/ (MB_P6 #> 0) #\/ (VP_P6 #= 0)) #=> (XI_P6 #= 0)),
+	(((MA_P7 #> 0) #\/ (MB_P7 #> 0) #\/ (VP_P7 #= 0)) #=> (XI_P7 #= 0)),
+	(((MA_P8 #> 0) #\/ (MB_P8 #> 0) #\/ (VP_P8 #= 0)) #=> (XI_P8 #= 0)),
+	(((MA_P9 #> 0) #\/ (MB_P9 #> 0) #\/ (VP_P9 #= 0)) #=> (XI_P9 #= 0)).
+
 overApproximation1(VMax, MAs, MBs, VPs, VTs):-
 	initialMarking(MAs),
 	finalMarking(MBs),
 	stateEquation(VMax, MAs, MBs, VPs, VTs),
 	formula(VTs),
-	labeling([], VTs),
-	labeling([], VPs).
+	append([VTs, VPs], Vs),
+	labeling([leftmost, step, up], Vs).
 
 overApproximation2(VMax, MAs, MBs, VPs, VTs):-
 	initialMarking(MAs),
 	finalMarking(MBs),
 	stateEquation(VMax, MAs, MBs, VPs, VTs),
 	formula(VTs),
-	noSiphon(MAs, MBs, VPs, VTs),
-	labeling([], VTs),
-	labeling([], VPs).
+	noSiphon(MAs, MBs, VPs, VTs, XIs),
+	labeling([leftmost, step, up], VTs),
+	labeling([leftmost, step, up], VPs).
 
 overApproximation3_8(VMax, [MK_0, MK_1, MK_2, MK_3, MK_4, MK_5, MK_6, MK_7, MK_8], [VPK_1, VPK_2, VPK_3, VPK_4, VPK_5, VPK_6, VPK_7, VPK_8], [VTK_1, VTK_2, VTK_3, VTK_4, VTK_5, VTK_6, VTK_7, VTK_8]):-
 	initialMarking(MK_0),
@@ -144,66 +148,40 @@ overApproximation3_8(VMax, [MK_0, MK_1, MK_2, MK_3, MK_4, MK_5, MK_6, MK_7, MK_8
 	markedGraph(MK_7, VPK_8),
 	pairwiseSum([VTK_1, VTK_2, VTK_3, VTK_4, VTK_5, VTK_6, VTK_7, VTK_8], VTs),
 	formula(VTs),
-	labeling([], VTK_1),
-	labeling([], VTK_2),
-	labeling([], VTK_3),
-	labeling([], VTK_4),
-	labeling([], VTK_5),
-	labeling([], VTK_6),
-	labeling([], VTK_7),
-	labeling([], VTK_8),
-	labeling([], VPK_1),
-	labeling([], VPK_2),
-	labeling([], VPK_3),
-	labeling([], VPK_4),
-	labeling([], VPK_5),
-	labeling([], VPK_6),
-	labeling([], VPK_7),
-	labeling([], VPK_8).
+	append([[VTK_1, VTK_2, VTK_3, VTK_4, VTK_5, VTK_6, VTK_7, VTK_8], [VPK_1, VPK_2, VPK_3, VPK_4, VPK_5, VPK_6, VPK_7, VPK_8]], VKs),
+	append(VKs, Vs),
+	labeling([leftmost, step, up], Vs).
 
 underApproximation_8(VMax, [MK_0, MK_1, MK_2, MK_3, MK_4, MK_5, MK_6, MK_7, MK_8], [VPK_1, VPK_2, VPK_3, VPK_4, VPK_5, VPK_6, VPK_7, VPK_8], [VTK_1, VTK_2, VTK_3, VTK_4, VTK_5, VTK_6, VTK_7, VTK_8]):-
 	initialMarking(MK_0),
 	finalMarking(MK_8),
 	stateEquation(VMax, MK_0, MK_1, VPK_1, VTK_1),
 	markedGraph(MK_0, VPK_1),
-	noSiphon(MK_0, MK_1, VPK_1, VTK_1),
+	noSiphon(MK_0, MK_1, VPK_1, VTK_1, XIK_1),
 	stateEquation(VMax, MK_1, MK_2, VPK_2, VTK_2),
 	markedGraph(MK_1, VPK_2),
-	noSiphon(MK_1, MK_2, VPK_2, VTK_2),
+	noSiphon(MK_1, MK_2, VPK_2, VTK_2, XIK_2),
 	stateEquation(VMax, MK_2, MK_3, VPK_3, VTK_3),
 	markedGraph(MK_2, VPK_3),
-	noSiphon(MK_2, MK_3, VPK_3, VTK_3),
+	noSiphon(MK_2, MK_3, VPK_3, VTK_3, XIK_3),
 	stateEquation(VMax, MK_3, MK_4, VPK_4, VTK_4),
 	markedGraph(MK_3, VPK_4),
-	noSiphon(MK_3, MK_4, VPK_4, VTK_4),
+	noSiphon(MK_3, MK_4, VPK_4, VTK_4, XIK_4),
 	stateEquation(VMax, MK_4, MK_5, VPK_5, VTK_5),
 	markedGraph(MK_4, VPK_5),
-	noSiphon(MK_4, MK_5, VPK_5, VTK_5),
+	noSiphon(MK_4, MK_5, VPK_5, VTK_5, XIK_5),
 	stateEquation(VMax, MK_5, MK_6, VPK_6, VTK_6),
 	markedGraph(MK_5, VPK_6),
-	noSiphon(MK_5, MK_6, VPK_6, VTK_6),
+	noSiphon(MK_5, MK_6, VPK_6, VTK_6, XIK_6),
 	stateEquation(VMax, MK_6, MK_7, VPK_7, VTK_7),
 	markedGraph(MK_6, VPK_7),
-	noSiphon(MK_6, MK_7, VPK_7, VTK_7),
+	noSiphon(MK_6, MK_7, VPK_7, VTK_7, XIK_7),
 	stateEquation(VMax, MK_7, MK_8, VPK_8, VTK_8),
 	markedGraph(MK_7, VPK_8),
-	noSiphon(MK_7, MK_8, VPK_8, VTK_8),
+	noSiphon(MK_7, MK_8, VPK_8, VTK_8, XIK_8),
 	pairwiseSum([VTK_1, VTK_2, VTK_3, VTK_4, VTK_5, VTK_6, VTK_7, VTK_8], VTs),
 	formula(VTs),
-	labeling([], VTK_1),
-	labeling([], VTK_2),
-	labeling([], VTK_3),
-	labeling([], VTK_4),
-	labeling([], VTK_5),
-	labeling([], VTK_6),
-	labeling([], VTK_7),
-	labeling([], VTK_8),
-	labeling([], VPK_1),
-	labeling([], VPK_2),
-	labeling([], VPK_3),
-	labeling([], VPK_4),
-	labeling([], VPK_5),
-	labeling([], VPK_6),
-	labeling([], VPK_7),
-	labeling([], VPK_8).
+	append([VPK_1, VPK_2, VPK_3, VPK_4, VPK_5, VPK_6, VPK_7, VPK_8, VPK_9, VPK_10, VPK_11, VPK_12, VPK_13, VPK_14, VPK_15, VPK_16, VPK_17, VPK_18, VPK_19, VPK_20], VKs),
+	append(VKs, Vs),
+	labeling([leftmost, step, up], Vs).
 

@@ -45,6 +45,8 @@ public class SicstusImplementation extends AbstractImplementation {
     private PlList list_VTKs;
     private PlList list_XIKs;
     private PlPredicateDefinition pairwiseSum;
+    private PlList list_heuristics;
+    private PlTerm term_Vs;
 
     public SicstusImplementation(Workflow workflow, Specification specification, ParametersModel parametersModel) {
         super(workflow, specification, parametersModel);
@@ -58,6 +60,7 @@ public class SicstusImplementation extends AbstractImplementation {
         term_VPs = new PlTerm("VPs");
         term_VTs = new PlTerm("VTs");
         term_XIs = new PlTerm("XIs");
+        term_Vs = new PlTerm("Vs");
         masTerms = new LinkedHashMap<>();
         mbsTerms = new LinkedHashMap<>();
         vpsTerms = new LinkedHashMap<>();
@@ -127,6 +130,11 @@ public class SicstusImplementation extends AbstractImplementation {
         list_VPKs = new PlList(vpksTerms);
         list_VTKs = new PlList(vtksTerms);
         list_XIKs = new PlList(xiksTerms);
+        list_heuristics = new PlList(
+                new PlTerm(getParametersModel().getSicstusHeuristics().get(0)),
+                new PlTerm(getParametersModel().getSicstusHeuristics().get(1)),
+                new PlTerm(getParametersModel().getSicstusHeuristics().get(2))
+        );
     }
 
     @Override
@@ -138,8 +146,11 @@ public class SicstusImplementation extends AbstractImplementation {
     }
 
     @Override
-    public PlPredicateDefinition getHeader() {
-        return new PlUseModule(new PlLibrary("clpfd"));
+    public PlPredicateDefinition[] getHeader() {
+        return new PlPredicateDefinition[]{
+                new PlUseModule(new PlLibrary("clpfd")),
+                new PlUseModule(new PlLibrary("lists")),
+        };
     }
 
     @Override
@@ -342,6 +353,7 @@ public class SicstusImplementation extends AbstractImplementation {
         siphonCallParameters.addAll(noSiphonParameters);
         noSiphonBody.add(getSubnetInitialization().getCallWith(noSiphonParameters));
         noSiphonBody.add(new PlFDLabeling(
+                list_heuristics,
                 term_VTs
         ));
         noSiphonBody.add(new PlNegation(
@@ -500,11 +512,14 @@ public class SicstusImplementation extends AbstractImplementation {
         body.add(getFinalMarking().getCallWith(term_MBs));
         body.add(getStateEquation().getCallWith(term_VMax, term_MAs, term_MBs, term_VPs, term_VTs));
         body.add(getFormula().getCallWith(term_VTs));
-        body.add(new PlFDLabeling(
-                term_VTs
+        body.add(new PlPredicateCall(
+                "append",
+                new PlList(term_VTs, term_VPs),
+                new PlTerm("Vs")
         ));
         body.add(new PlFDLabeling(
-                term_VPs
+                list_heuristics,
+                term_Vs
         ));
         return new PlPredicateDefinition(
                 "overApproximation1",
@@ -533,9 +548,11 @@ public class SicstusImplementation extends AbstractImplementation {
         body.add(getFormula().getCallWith(term_VTs));
         body.add(getNoSiphon()[1].getCallWith(term_MAs, term_MBs, term_VPs, term_VTs, term_XIs));
         body.add(new PlFDLabeling(
+                list_heuristics,
                 term_VTs
         ));
         body.add(new PlFDLabeling(
+                list_heuristics,
                 term_VPs
         ));
         return new PlPredicateDefinition(
@@ -569,16 +586,27 @@ public class SicstusImplementation extends AbstractImplementation {
         }
         body.add(getPairwiseSum()[0].getCallWith(pairwiseSumParameters));
         body.add(getFormula().getCallWith(term_VTs));
-        for (int segment = 1; segment <= nbSegments; segment++) {
-            body.add(new PlFDLabeling(
-                    list_VTKs.getTerm(segment - 1)
-            ));
-        }
-        for (int segment = 1; segment <= nbSegments; segment++) {
-            body.add(new PlFDLabeling(
-                    list_VPKs.getTerm(segment - 1)
-            ));
-        }
+        body.add(new PlPredicateCall(
+                "append",
+                new PlList(
+                        new PlList(
+                                list_VTKs.getTerms().subList(0, nbSegments)
+                        ),
+                        new PlList(
+                                list_VPKs.getTerms().subList(0, nbSegments)
+                        )
+                ),
+                new PlTerm("VKs")
+        ));
+        body.add(new PlPredicateCall(
+                "append",
+                new PlTerm("VKs"),
+                term_Vs
+        ));
+        body.add(new PlFDLabeling(
+                list_heuristics,
+                term_Vs
+        ));
         return new PlPredicateDefinition(
                 "overApproximation3_" + nbSegments,
                 parameters,
@@ -611,16 +639,17 @@ public class SicstusImplementation extends AbstractImplementation {
         }
         body.add(getPairwiseSum()[0].getCallWith(pairwiseSumParameters));
         body.add(getFormula().getCallWith(term_VTs));
-        for (int segment = 1; segment <= nbSegments; segment++) {
-            body.add(new PlFDLabeling(
-                    list_VTKs.getTerm(segment - 1)
-            ));
-        }
-        for (int segment = 1; segment <= nbSegments; segment++) {
-            body.add(new PlFDLabeling(
-                    list_VPKs.getTerm(segment - 1)
-            ));
-        }
+        body.add(new PlPredicateCall(
+                "append",
+                new PlList(
+                        list_VPKs.getTerms().subList(0, nbSegments)
+                ),
+                term_Vs
+        ));
+        body.add(new PlFDLabeling(
+                list_heuristics,
+                term_Vs
+        ));
         return new PlPredicateDefinition(
                 "underApproximation_" + nbSegments,
                 parameters,

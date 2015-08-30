@@ -122,6 +122,18 @@ public class Controller {
         closeParametersViews();
     }
 
+    public void notifySicstusSelectionHeuristicChanged(String selectionHeuristic) {
+        parametersModel.setSicstusSelectionHeuristic(selectionHeuristic);
+    }
+
+    public void notifySicstusChoicesHeuristicChanged(String choicesHeuristic) {
+        parametersModel.setSicstusChoicesHeuristic(choicesHeuristic);
+    }
+
+    public void notifySicstusExplorationHeuristicChanged(String explorationHeuristic) {
+        parametersModel.setSicstusExplorationHeuristic(explorationHeuristic);
+    }
+
     public void notifySicstusVerificationRequired() {
         verificationModel.runSicstusVerification(parametersModel);
     }
