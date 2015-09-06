@@ -1,7 +1,7 @@
 package files;
 
-import petrinets.PIPEParser;
 import petrinets.model.Workflow;
+import petrinets.parsers.HadaraParser;
 
 import java.io.File;
 
@@ -12,7 +12,8 @@ public class WorkflowFile extends File {
     }
 
     public Workflow extractWorkflow() {
-        return PIPEParser.parse(this);
+        //return new PIPEParser().parse(this);
+        return new HadaraParser().parse(this);
     }
 
     public boolean isValid() {

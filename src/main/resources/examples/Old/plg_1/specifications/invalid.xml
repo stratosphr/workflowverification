@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE specification SYSTEM "../../specification.dtd">
+
+<specification type="may" name="invalid">
+    <conjunction>
+        <transition name="T12"/>
+        <negation>
+            <transition name="T26"/>
+        </negation>
+    </conjunction>
+</specification>

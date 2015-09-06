@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE specification SYSTEM "../../specification.dtd">
+
+<specification type="must" name="mail1">
+    <conjunction>
+        <transition name="split"/>
+        <transition name="pseudo"/>
+        <transition name="mdp"/>
+        <transition name="valider"/>
+        <negation>
+            <transition name="consulter"/>
+        </negation>
+        <transition name="deconnecter"/>
+    </conjunction>
+</specification>
