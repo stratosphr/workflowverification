@@ -375,7 +375,7 @@ public class Z3Implementation extends AbstractImplementation {
                         existsParameters,
                         getOverApproximation1().getCallWith(parameters)
                 )
-        ).toString() + new SMTCheckSat() + new SMTGetModel();
+        ).toString() + new SMTCheckSat(getParametersModel().getZ3Heuristics()) + new SMTGetModel();
     }
 
     @Override
@@ -423,7 +423,7 @@ public class Z3Implementation extends AbstractImplementation {
                         existsParameters,
                         getOverApproximation2().getCallWith(parameters)
                 )
-        ).toString() + new SMTCheckSat() + new SMTGetModel();
+        ).toString() + new SMTCheckSat(getParametersModel().getZ3Heuristics()) + new SMTGetModel();
     }
 
     @Override
@@ -495,7 +495,7 @@ public class Z3Implementation extends AbstractImplementation {
                         existsParameters,
                         getOverApproximation3(nbSegments).getCallWith(parameters)
                 )
-        ).toString() + new SMTCheckSat() + new SMTGetModel();
+        ).toString() + new SMTCheckSat(getParametersModel().getZ3Heuristics()) + new SMTGetModel();
     }
 
     @Override
@@ -573,7 +573,7 @@ public class Z3Implementation extends AbstractImplementation {
                         existsParameters,
                         getUnderApproximation(nbSegments).getCallWith(parameters)
                 )
-        ).toString() + new SMTCheckSat() + new SMTGetModel();
+        ).toString() + new SMTCheckSat(getParametersModel().getZ3Heuristics()) + new SMTGetModel();
     }
 
 }

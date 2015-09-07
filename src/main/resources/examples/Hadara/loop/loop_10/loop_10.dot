@@ -1,0 +1,54 @@
+digraph G {
+subgraph place
+ {
+graph [shape=circle,color=gray];
+node [shape=circle];
+i;
+o;
+p_0;
+p_1;
+p_2;
+p_3;
+p_4;
+}
+subgraph transitions
+ {
+node [shape=rect,height=0.2];
+t_1;
+t_10;
+t_12;
+t_13;
+t_14;
+t_15;
+t_2;
+t_3;
+t_6;
+t_7;
+t_8;
+t_9;
+}
+p_1->t_6[label="a_14"]
+t_7->p_1[label="a_15"]
+t_6->p_2[label="a_16"]
+p_2->t_7[label="a_17"]
+p_0->t_8[label="a_18"]
+t_8->p_0[label="a_19"]
+p_0->t_9[label="a_20"]
+t_9->p_0[label="a_21"]
+p_1->t_10[label="a_22"]
+t_10->p_1[label="a_23"]
+p_1->t_12[label="a_26"]
+t_13->p_1[label="a_27"]
+t_12->p_3[label="a_28"]
+p_3->t_13[label="a_29"]
+t_1->o[label="a_3"]
+p_0->t_14[label="a_30"]
+t_15->p_0[label="a_31"]
+t_14->p_4[label="a_32"]
+p_4->t_15[label="a_33"]
+p_0->t_1[label="a_5"]
+i->t_2[label="a_6"]
+t_3->p_0[label="a_7"]
+t_2->p_1[label="a_8"]
+p_1->t_3[label="a_9"]
+}

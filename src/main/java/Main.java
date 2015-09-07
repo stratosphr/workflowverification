@@ -11,7 +11,7 @@ public class Main {
         setDefaultLookAndFeel("Nimbus");
         Controller controller = new Controller(new VerificationModel(), new ParametersModel());
         String name = "parallel";
-        String folder = "Hadara/" + name + "/" + name + "_100";
+        String folder = "Hadara/" + name + "/" + name + "_200";
         controller.notifyVerificationFolderChanged(new VerificationFolder("/home/stratosphr/IdeaProjects/workflowverification/src/main/resources/examples/" + folder));
         controller.displayMainViews();
     }

@@ -1,8 +1,10 @@
 package mvc.models;
 
+import codegeneration.z3.SMTTerm;
 import mvc.events.IParametersEventListener;
 import mvc.events.events.ParametersChanged;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -116,6 +118,16 @@ public class ParametersModel extends AbstractModel {
         this.sicstusHeuristics[2] = sicstusExplorationHeuristic;
     }
 
+    public List<String> getSicstusHeuristics() {
+        return Arrays.asList(sicstusHeuristics);
+    }
+
+    public List<SMTTerm> getZ3Heuristics() {
+        ArrayList<SMTTerm> heuristics = new ArrayList<>();
+        heuristics.add(new SMTTerm("smt"));
+        return heuristics;
+    }
+
     /*****************************************************/
     /** FIRINGS ******************************************/
     /*****************************************************/
@@ -124,10 +136,6 @@ public class ParametersModel extends AbstractModel {
         for (IParametersEventListener parametersEventListener : eventListeners.getListeners(IParametersEventListener.class)) {
             parametersEventListener.parametersChanged(new ParametersChanged(this, maxNodeValuation, minNumberOfSegments, maxNumberOfSegments, checkOverApproximation1, checkOverApproximation2, checkOverApproximation3, checkUnderApproximation));
         }
-    }
-
-    public List<String> getSicstusHeuristics() {
-        return Arrays.asList(sicstusHeuristics);
     }
 
 }

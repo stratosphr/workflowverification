@@ -14,7 +14,7 @@ public class SMTPredicateCall extends SMTTerm {
         this(name, new ArrayList<>(Arrays.asList(parameters)));
     }
 
-    public SMTPredicateCall(String name, ArrayList<SMTTerm> parameters) {
+    public SMTPredicateCall(String name, List<SMTTerm> parameters) {
         super(name);
         this.parameters = parameters;
     }

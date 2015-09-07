@@ -1,0 +1,45 @@
+<CGraph Type="WorkFlow" Label="loop_10">
+    <CGraph Type="Place" Label="i"/>
+    <CGraph Type="Place" Label="o"/>
+    <CGraph Type="Place" Label="p_0"/>
+    <CGraph Type="Place" Label="p_1"/>
+    <CGraph Type="Place" Label="p_2"/>
+    <CGraph Type="Place" Label="p_3"/>
+    <CGraph Type="Place" Label="p_4"/>
+    <CGraph Type="Transition" Label="t_1"/>
+    <CGraph Type="Transition" Label="t_10"/>
+    <CGraph Type="Transition" Label="t_12"/>
+    <CGraph Type="Transition" Label="t_13"/>
+    <CGraph Type="Transition" Label="t_14"/>
+    <CGraph Type="Transition" Label="t_15"/>
+    <CGraph Type="Transition" Label="t_2"/>
+    <CGraph Type="Transition" Label="t_3"/>
+    <CGraph Type="Transition" Label="t_6"/>
+    <CGraph Type="Transition" Label="t_7"/>
+    <CGraph Type="Transition" Label="t_8"/>
+    <CGraph Type="Transition" Label="t_9"/>
+    <CArc Type="Arc" Label="a_14" Source="p_1" Target="t_6">1</CArc>
+    <CArc Type="Arc" Label="a_15" Source="t_7" Target="p_1">1</CArc>
+    <CArc Type="Arc" Label="a_16" Source="t_6" Target="p_2">1</CArc>
+    <CArc Type="Arc" Label="a_17" Source="p_2" Target="t_7">1</CArc>
+    <CArc Type="Arc" Label="a_18" Source="p_0" Target="t_8">1</CArc>
+    <CArc Type="Arc" Label="a_19" Source="t_8" Target="p_0">1</CArc>
+    <CArc Type="Arc" Label="a_20" Source="p_0" Target="t_9">1</CArc>
+    <CArc Type="Arc" Label="a_21" Source="t_9" Target="p_0">1</CArc>
+    <CArc Type="Arc" Label="a_22" Source="p_1" Target="t_10">1</CArc>
+    <CArc Type="Arc" Label="a_23" Source="t_10" Target="p_1">1</CArc>
+    <CArc Type="Arc" Label="a_26" Source="p_1" Target="t_12">1</CArc>
+    <CArc Type="Arc" Label="a_27" Source="t_13" Target="p_1">1</CArc>
+    <CArc Type="Arc" Label="a_28" Source="t_12" Target="p_3">1</CArc>
+    <CArc Type="Arc" Label="a_29" Source="p_3" Target="t_13">1</CArc>
+    <CArc Type="Arc" Label="a_3" Source="t_1" Target="o">1</CArc>
+    <CArc Type="Arc" Label="a_30" Source="p_0" Target="t_14">1</CArc>
+    <CArc Type="Arc" Label="a_31" Source="t_15" Target="p_0">1</CArc>
+    <CArc Type="Arc" Label="a_32" Source="t_14" Target="p_4">1</CArc>
+    <CArc Type="Arc" Label="a_33" Source="p_4" Target="t_15">1</CArc>
+    <CArc Type="Arc" Label="a_5" Source="p_0" Target="t_1">1</CArc>
+    <CArc Type="Arc" Label="a_6" Source="i" Target="t_2">1</CArc>
+    <CArc Type="Arc" Label="a_7" Source="t_3" Target="p_0">1</CArc>
+    <CArc Type="Arc" Label="a_8" Source="t_2" Target="p_1">1</CArc>
+    <CArc Type="Arc" Label="a_9" Source="p_1" Target="t_3">1</CArc>
+</CGraph>

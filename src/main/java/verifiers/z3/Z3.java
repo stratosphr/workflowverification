@@ -1,6 +1,7 @@
 package verifiers.z3;
 
 import codegeneration.z3.SMTTerm;
+import exceptions.InvalidSolutionException;
 import tools.CmdTools;
 
 import java.io.File;
@@ -37,9 +38,10 @@ public class Z3 {
         public HashMap<String, SMTTerm> getSolution() {
             try {
                 ArrayList<String> solution = CmdTools.executeCommand(query);
-                if ("unsat".equals(solution.get(0)) || "unknown".equals(solution.get(0))) {
+                if (solution.size() > 0 && ("unsat".equals(solution.get(0)) || "unknown".equals(solution.get(0)))) {
                     return new HashMap<>();
                 } else {
+                    System.err.println(solution);
                     return normalizeSolution(solution);
                 }
             } catch (Exception e) {
@@ -50,12 +52,20 @@ public class Z3 {
 
         private HashMap<String, SMTTerm> normalizeSolution(ArrayList<String> solution) {
             HashMap<String, SMTTerm> normalizedSolution = new HashMap<>();
-            solution.remove(0);
-            solution.remove(0);
-            for (int i = 0; i < solution.size() - 1; i += 2) {
-                String varName = solution.get(i).substring(solution.get(i).indexOf("(define-fun ") + 12).replaceAll("!.*", "");
-                int varValuation = Integer.parseInt(solution.get(i + 1).replaceAll("(\\s|\\))", ""));
-                normalizedSolution.put(varName, new SMTTerm(varValuation));
+            if(solution.size() > 2) {
+                solution.remove(0);
+                solution.remove(0);
+                for (int i = 0; i < solution.size() - 1; i += 2) {
+                    String varName = solution.get(i).substring(solution.get(i).indexOf("(define-fun ") + 12).replaceAll("!.*", "");
+                    int varValuation = Integer.parseInt(solution.get(i + 1).replaceAll("(\\s|\\))", ""));
+                    normalizedSolution.put(varName, new SMTTerm(varValuation));
+                }
+            }else{
+                try {
+                    throw new InvalidSolutionException(solution);
+                } catch (InvalidSolutionException e) {
+                    e.printStackTrace();
+                }
             }
             return normalizedSolution;
         }
